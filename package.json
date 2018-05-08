@@ -1,0 +1,16 @@
+{
+  "name": "metric-teacher",
+  "version": "0.1.0",
+  "description": "metric-teacher webapp base",
+  "repository": "git@github.com:TiE23/metric-teacher.git",
+  "author": "Kyle Geib <kyle.geib@gmail.com>",
+  "license": "None",
+  "private": true,
+  "dependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0"
+  }
+}
