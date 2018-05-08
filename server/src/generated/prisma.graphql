@@ -1,7 +1,43 @@
-# source: https://us1.prisma.sh/public-cordmaster-122/server/dev
-# timestamp: Mon May 07 2018 12:30:43 GMT-0700 (PDT)
+# source: http://self:4466/server/dev
+# timestamp: Tue May 08 2018 14:42:13 GMT-0700 (PDT)
 
-type AggregatePost {
+type AggregateClassroom {
+  count: Int!
+}
+
+type AggregateCourse {
+  count: Int!
+}
+
+type AggregateEnrollment {
+  count: Int!
+}
+
+type AggregateMastery {
+  count: Int!
+}
+
+type AggregateQuestion {
+  count: Int!
+}
+
+type AggregateScale {
+  count: Int!
+}
+
+type AggregateSubject {
+  count: Int!
+}
+
+type AggregateSubSubject {
+  count: Int!
+}
+
+type AggregateSurvey {
+  count: Int!
+}
+
+type AggregateUnit {
   count: Int!
 }
 
@@ -14,143 +50,101 @@ type BatchPayload {
   count: Long!
 }
 
-scalar DateTime
-
-"""
-The `Long` scalar type represents non-fractional signed whole numeric values.
-Long can represent values between -(2^63) and 2^63 - 1.
-"""
-scalar Long
-
-type Mutation {
-  createPost(data: PostCreateInput!): Post!
-  createUser(data: UserCreateInput!): User!
-  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  deletePost(where: PostWhereUniqueInput!): Post
-  deleteUser(where: UserWhereUniqueInput!): User
-  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  deleteManyPosts(where: PostWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-}
-
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
-
-"""An object with an ID"""
-interface Node {
-  """The id of the object."""
+type Classroom implements Node {
   id: ID!
-}
-
-"""Information about pagination in a connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: String
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: String
-}
-
-type Post implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  isPublished: Boolean!
-  title: String!
-  text: String!
-  author(where: UserWhereInput): User!
+  name: String!
+  description: String!
+  status: Int!
+  flags: Int!
+  notes: String!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 """A connection to a list of items."""
-type PostConnection {
+type ClassroomConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [PostEdge]!
-  aggregate: AggregatePost!
+  edges: [ClassroomEdge]!
+  aggregate: AggregateClassroom!
 }
 
-input PostCreateInput {
-  isPublished: Boolean
-  title: String!
-  text: String!
-  author: UserCreateOneWithoutPostsInput!
+input ClassroomCreateInput {
+  name: String!
+  description: String!
+  status: Int!
+  flags: Int!
+  notes: String!
+  users: UserCreateManyWithoutClassroomsInput
 }
 
-input PostCreateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
+input ClassroomCreateManyWithoutUsersInput {
+  create: [ClassroomCreateWithoutUsersInput!]
+  connect: [ClassroomWhereUniqueInput!]
 }
 
-input PostCreateWithoutAuthorInput {
-  isPublished: Boolean
-  title: String!
-  text: String!
+input ClassroomCreateWithoutUsersInput {
+  name: String!
+  description: String!
+  status: Int!
+  flags: Int!
+  notes: String!
 }
 
 """An edge in a connection."""
-type PostEdge {
+type ClassroomEdge {
   """The item at the end of the edge."""
-  node: Post!
+  node: Classroom!
 
   """A cursor for use in pagination."""
   cursor: String!
 }
 
-enum PostOrderByInput {
+enum ClassroomOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  status_ASC
+  status_DESC
+  flags_ASC
+  flags_DESC
+  notes_ASC
+  notes_DESC
   updatedAt_ASC
   updatedAt_DESC
-  isPublished_ASC
-  isPublished_DESC
-  title_ASC
-  title_DESC
-  text_ASC
-  text_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
-type PostPreviousValues {
+type ClassroomPreviousValues {
   id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  isPublished: Boolean!
-  title: String!
-  text: String!
+  name: String!
+  description: String!
+  status: Int!
+  flags: Int!
+  notes: String!
 }
 
-type PostSubscriptionPayload {
+type ClassroomSubscriptionPayload {
   mutation: MutationType!
-  node: Post
+  node: Classroom
   updatedFields: [String!]
-  previousValues: PostPreviousValues
+  previousValues: ClassroomPreviousValues
 }
 
-input PostSubscriptionWhereInput {
+input ClassroomSubscriptionWhereInput {
   """Logical AND on all given filters."""
-  AND: [PostSubscriptionWhereInput!]
+  AND: [ClassroomSubscriptionWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [PostSubscriptionWhereInput!]
+  OR: [ClassroomSubscriptionWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [PostSubscriptionWhereInput!]
+  NOT: [ClassroomSubscriptionWhereInput!]
 
   """
   The subscription event gets dispatched when it's listed in mutation_in
@@ -171,51 +165,55 @@ input PostSubscriptionWhereInput {
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
   updatedFields_contains_some: [String!]
-  node: PostWhereInput
+  node: ClassroomWhereInput
 }
 
-input PostUpdateInput {
-  isPublished: Boolean
-  title: String
-  text: String
-  author: UserUpdateOneWithoutPostsInput
+input ClassroomUpdateInput {
+  name: String
+  description: String
+  status: Int
+  flags: Int
+  notes: String
+  users: UserUpdateManyWithoutClassroomsInput
 }
 
-input PostUpdateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
-  disconnect: [PostWhereUniqueInput!]
-  delete: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
+input ClassroomUpdateManyWithoutUsersInput {
+  create: [ClassroomCreateWithoutUsersInput!]
+  connect: [ClassroomWhereUniqueInput!]
+  disconnect: [ClassroomWhereUniqueInput!]
+  delete: [ClassroomWhereUniqueInput!]
+  update: [ClassroomUpdateWithWhereUniqueWithoutUsersInput!]
+  upsert: [ClassroomUpsertWithWhereUniqueWithoutUsersInput!]
 }
 
-input PostUpdateWithoutAuthorDataInput {
-  isPublished: Boolean
-  title: String
-  text: String
+input ClassroomUpdateWithoutUsersDataInput {
+  name: String
+  description: String
+  status: Int
+  flags: Int
+  notes: String
 }
 
-input PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  data: PostUpdateWithoutAuthorDataInput!
+input ClassroomUpdateWithWhereUniqueWithoutUsersInput {
+  where: ClassroomWhereUniqueInput!
+  data: ClassroomUpdateWithoutUsersDataInput!
 }
 
-input PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  update: PostUpdateWithoutAuthorDataInput!
-  create: PostCreateWithoutAuthorInput!
+input ClassroomUpsertWithWhereUniqueWithoutUsersInput {
+  where: ClassroomWhereUniqueInput!
+  update: ClassroomUpdateWithoutUsersDataInput!
+  create: ClassroomCreateWithoutUsersInput!
 }
 
-input PostWhereInput {
+input ClassroomWhereInput {
   """Logical AND on all given filters."""
-  AND: [PostWhereInput!]
+  AND: [ClassroomWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [PostWhereInput!]
+  OR: [ClassroomWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [PostWhereInput!]
+  NOT: [ClassroomWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -256,148 +254,1100 @@ input PostWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  createdAt: DateTime
+  name: String
 
   """All values that are not equal to given value."""
-  createdAt_not: DateTime
+  name_not: String
 
   """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
+  name_in: [String!]
 
   """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
+  name_not_in: [String!]
 
   """All values less than the given value."""
-  createdAt_lt: DateTime
+  name_lt: String
 
   """All values less than or equal the given value."""
-  createdAt_lte: DateTime
+  name_lte: String
 
   """All values greater than the given value."""
-  createdAt_gt: DateTime
+  name_gt: String
 
   """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-
-  """All values that are not equal to given value."""
-  updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-  isPublished: Boolean
-
-  """All values that are not equal to given value."""
-  isPublished_not: Boolean
-  title: String
-
-  """All values that are not equal to given value."""
-  title_not: String
-
-  """All values that are contained in given list."""
-  title_in: [String!]
-
-  """All values that are not contained in given list."""
-  title_not_in: [String!]
-
-  """All values less than the given value."""
-  title_lt: String
-
-  """All values less than or equal the given value."""
-  title_lte: String
-
-  """All values greater than the given value."""
-  title_gt: String
-
-  """All values greater than or equal the given value."""
-  title_gte: String
+  name_gte: String
 
   """All values containing the given string."""
-  title_contains: String
+  name_contains: String
 
   """All values not containing the given string."""
-  title_not_contains: String
+  name_not_contains: String
 
   """All values starting with the given string."""
-  title_starts_with: String
+  name_starts_with: String
 
   """All values not starting with the given string."""
-  title_not_starts_with: String
+  name_not_starts_with: String
 
   """All values ending with the given string."""
-  title_ends_with: String
+  name_ends_with: String
 
   """All values not ending with the given string."""
-  title_not_ends_with: String
-  text: String
+  name_not_ends_with: String
+  description: String
 
   """All values that are not equal to given value."""
-  text_not: String
+  description_not: String
 
   """All values that are contained in given list."""
-  text_in: [String!]
+  description_in: [String!]
 
   """All values that are not contained in given list."""
-  text_not_in: [String!]
+  description_not_in: [String!]
 
   """All values less than the given value."""
-  text_lt: String
+  description_lt: String
 
   """All values less than or equal the given value."""
-  text_lte: String
+  description_lte: String
 
   """All values greater than the given value."""
-  text_gt: String
+  description_gt: String
 
   """All values greater than or equal the given value."""
-  text_gte: String
+  description_gte: String
 
   """All values containing the given string."""
-  text_contains: String
+  description_contains: String
 
   """All values not containing the given string."""
-  text_not_contains: String
+  description_not_contains: String
 
   """All values starting with the given string."""
-  text_starts_with: String
+  description_starts_with: String
 
   """All values not starting with the given string."""
-  text_not_starts_with: String
+  description_not_starts_with: String
 
   """All values ending with the given string."""
-  text_ends_with: String
+  description_ends_with: String
 
   """All values not ending with the given string."""
-  text_not_ends_with: String
-  author: UserWhereInput
+  description_not_ends_with: String
+  status: Int
+
+  """All values that are not equal to given value."""
+  status_not: Int
+
+  """All values that are contained in given list."""
+  status_in: [Int!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [Int!]
+
+  """All values less than the given value."""
+  status_lt: Int
+
+  """All values less than or equal the given value."""
+  status_lte: Int
+
+  """All values greater than the given value."""
+  status_gt: Int
+
+  """All values greater than or equal the given value."""
+  status_gte: Int
+  flags: Int
+
+  """All values that are not equal to given value."""
+  flags_not: Int
+
+  """All values that are contained in given list."""
+  flags_in: [Int!]
+
+  """All values that are not contained in given list."""
+  flags_not_in: [Int!]
+
+  """All values less than the given value."""
+  flags_lt: Int
+
+  """All values less than or equal the given value."""
+  flags_lte: Int
+
+  """All values greater than the given value."""
+  flags_gt: Int
+
+  """All values greater than or equal the given value."""
+  flags_gte: Int
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+  users_every: UserWhereInput
+  users_some: UserWhereInput
+  users_none: UserWhereInput
 }
 
-input PostWhereUniqueInput {
+input ClassroomWhereUniqueInput {
   id: ID
 }
 
+type Course implements Node {
+  id: ID!
+  status: Int!
+  flags: Int!
+  enrollment(where: EnrollmentWhereInput): Enrollment!
+  masteries(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery!]
+  subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject!]
+}
+
+"""A connection to a list of items."""
+type CourseConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CourseEdge]!
+  aggregate: AggregateCourse!
+}
+
+input CourseCreateInput {
+  status: Int!
+  flags: Int!
+  enrollment: EnrollmentCreateOneWithoutCoursesInput!
+  masteries: MasteryCreateManyWithoutCourseInput
+  subjects: SubjectCreateManyWithoutCourseInput
+}
+
+input CourseCreateManyWithoutEnrollmentInput {
+  create: [CourseCreateWithoutEnrollmentInput!]
+  connect: [CourseWhereUniqueInput!]
+}
+
+input CourseCreateManyWithoutSubjectsInput {
+  create: [CourseCreateWithoutSubjectsInput!]
+  connect: [CourseWhereUniqueInput!]
+}
+
+input CourseCreateOneInput {
+  create: CourseCreateInput
+  connect: CourseWhereUniqueInput
+}
+
+input CourseCreateOneWithoutMasteriesInput {
+  create: CourseCreateWithoutMasteriesInput
+  connect: CourseWhereUniqueInput
+}
+
+input CourseCreateWithoutEnrollmentInput {
+  status: Int!
+  flags: Int!
+  masteries: MasteryCreateManyWithoutCourseInput
+  subjects: SubjectCreateManyWithoutCourseInput
+}
+
+input CourseCreateWithoutMasteriesInput {
+  status: Int!
+  flags: Int!
+  enrollment: EnrollmentCreateOneWithoutCoursesInput!
+  subjects: SubjectCreateManyWithoutCourseInput
+}
+
+input CourseCreateWithoutSubjectsInput {
+  status: Int!
+  flags: Int!
+  enrollment: EnrollmentCreateOneWithoutCoursesInput!
+  masteries: MasteryCreateManyWithoutCourseInput
+}
+
+"""An edge in a connection."""
+type CourseEdge {
+  """The item at the end of the edge."""
+  node: Course!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CourseOrderByInput {
+  id_ASC
+  id_DESC
+  status_ASC
+  status_DESC
+  flags_ASC
+  flags_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CoursePreviousValues {
+  id: ID!
+  status: Int!
+  flags: Int!
+}
+
+type CourseSubscriptionPayload {
+  mutation: MutationType!
+  node: Course
+  updatedFields: [String!]
+  previousValues: CoursePreviousValues
+}
+
+input CourseSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CourseSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CourseSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CourseSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CourseWhereInput
+}
+
+input CourseUpdateDataInput {
+  status: Int
+  flags: Int
+  enrollment: EnrollmentUpdateOneWithoutCoursesInput
+  masteries: MasteryUpdateManyWithoutCourseInput
+  subjects: SubjectUpdateManyWithoutCourseInput
+}
+
+input CourseUpdateInput {
+  status: Int
+  flags: Int
+  enrollment: EnrollmentUpdateOneWithoutCoursesInput
+  masteries: MasteryUpdateManyWithoutCourseInput
+  subjects: SubjectUpdateManyWithoutCourseInput
+}
+
+input CourseUpdateManyWithoutEnrollmentInput {
+  create: [CourseCreateWithoutEnrollmentInput!]
+  connect: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutEnrollmentInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutEnrollmentInput!]
+}
+
+input CourseUpdateManyWithoutSubjectsInput {
+  create: [CourseCreateWithoutSubjectsInput!]
+  connect: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutSubjectsInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutSubjectsInput!]
+}
+
+input CourseUpdateOneInput {
+  create: CourseCreateInput
+  connect: CourseWhereUniqueInput
+  delete: Boolean
+  update: CourseUpdateDataInput
+  upsert: CourseUpsertNestedInput
+}
+
+input CourseUpdateOneWithoutMasteriesInput {
+  create: CourseCreateWithoutMasteriesInput
+  connect: CourseWhereUniqueInput
+  delete: Boolean
+  update: CourseUpdateWithoutMasteriesDataInput
+  upsert: CourseUpsertWithoutMasteriesInput
+}
+
+input CourseUpdateWithoutEnrollmentDataInput {
+  status: Int
+  flags: Int
+  masteries: MasteryUpdateManyWithoutCourseInput
+  subjects: SubjectUpdateManyWithoutCourseInput
+}
+
+input CourseUpdateWithoutMasteriesDataInput {
+  status: Int
+  flags: Int
+  enrollment: EnrollmentUpdateOneWithoutCoursesInput
+  subjects: SubjectUpdateManyWithoutCourseInput
+}
+
+input CourseUpdateWithoutSubjectsDataInput {
+  status: Int
+  flags: Int
+  enrollment: EnrollmentUpdateOneWithoutCoursesInput
+  masteries: MasteryUpdateManyWithoutCourseInput
+}
+
+input CourseUpdateWithWhereUniqueWithoutEnrollmentInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutEnrollmentDataInput!
+}
+
+input CourseUpdateWithWhereUniqueWithoutSubjectsInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutSubjectsDataInput!
+}
+
+input CourseUpsertNestedInput {
+  update: CourseUpdateDataInput!
+  create: CourseCreateInput!
+}
+
+input CourseUpsertWithoutMasteriesInput {
+  update: CourseUpdateWithoutMasteriesDataInput!
+  create: CourseCreateWithoutMasteriesInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutEnrollmentInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutEnrollmentDataInput!
+  create: CourseCreateWithoutEnrollmentInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutSubjectsInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutSubjectsDataInput!
+  create: CourseCreateWithoutSubjectsInput!
+}
+
+input CourseWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CourseWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CourseWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CourseWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  status: Int
+
+  """All values that are not equal to given value."""
+  status_not: Int
+
+  """All values that are contained in given list."""
+  status_in: [Int!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [Int!]
+
+  """All values less than the given value."""
+  status_lt: Int
+
+  """All values less than or equal the given value."""
+  status_lte: Int
+
+  """All values greater than the given value."""
+  status_gt: Int
+
+  """All values greater than or equal the given value."""
+  status_gte: Int
+  flags: Int
+
+  """All values that are not equal to given value."""
+  flags_not: Int
+
+  """All values that are contained in given list."""
+  flags_in: [Int!]
+
+  """All values that are not contained in given list."""
+  flags_not_in: [Int!]
+
+  """All values less than the given value."""
+  flags_lt: Int
+
+  """All values less than or equal the given value."""
+  flags_lte: Int
+
+  """All values greater than the given value."""
+  flags_gt: Int
+
+  """All values greater than or equal the given value."""
+  flags_gte: Int
+  enrollment: EnrollmentWhereInput
+  masteries_every: MasteryWhereInput
+  masteries_some: MasteryWhereInput
+  masteries_none: MasteryWhereInput
+  subjects_every: SubjectWhereInput
+  subjects_some: SubjectWhereInput
+  subjects_none: SubjectWhereInput
+}
+
+input CourseWhereUniqueInput {
+  id: ID
+}
+
+type Enrollment implements Node {
+  id: ID!
+  student(where: UserWhereInput): User!
+  courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+}
+
+"""A connection to a list of items."""
+type EnrollmentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [EnrollmentEdge]!
+  aggregate: AggregateEnrollment!
+}
+
+input EnrollmentCreateInput {
+  student: UserCreateOneWithoutEnrollmentInput!
+  courses: CourseCreateManyWithoutEnrollmentInput
+}
+
+input EnrollmentCreateOneWithoutCoursesInput {
+  create: EnrollmentCreateWithoutCoursesInput
+  connect: EnrollmentWhereUniqueInput
+}
+
+input EnrollmentCreateOneWithoutStudentInput {
+  create: EnrollmentCreateWithoutStudentInput
+  connect: EnrollmentWhereUniqueInput
+}
+
+input EnrollmentCreateWithoutCoursesInput {
+  student: UserCreateOneWithoutEnrollmentInput!
+}
+
+input EnrollmentCreateWithoutStudentInput {
+  courses: CourseCreateManyWithoutEnrollmentInput
+}
+
+"""An edge in a connection."""
+type EnrollmentEdge {
+  """The item at the end of the edge."""
+  node: Enrollment!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum EnrollmentOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type EnrollmentPreviousValues {
+  id: ID!
+}
+
+type EnrollmentSubscriptionPayload {
+  mutation: MutationType!
+  node: Enrollment
+  updatedFields: [String!]
+  previousValues: EnrollmentPreviousValues
+}
+
+input EnrollmentSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EnrollmentSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EnrollmentSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EnrollmentSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: EnrollmentWhereInput
+}
+
+input EnrollmentUpdateInput {
+  student: UserUpdateOneWithoutEnrollmentInput
+  courses: CourseUpdateManyWithoutEnrollmentInput
+}
+
+input EnrollmentUpdateOneWithoutCoursesInput {
+  create: EnrollmentCreateWithoutCoursesInput
+  connect: EnrollmentWhereUniqueInput
+  delete: Boolean
+  update: EnrollmentUpdateWithoutCoursesDataInput
+  upsert: EnrollmentUpsertWithoutCoursesInput
+}
+
+input EnrollmentUpdateOneWithoutStudentInput {
+  create: EnrollmentCreateWithoutStudentInput
+  connect: EnrollmentWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: EnrollmentUpdateWithoutStudentDataInput
+  upsert: EnrollmentUpsertWithoutStudentInput
+}
+
+input EnrollmentUpdateWithoutCoursesDataInput {
+  student: UserUpdateOneWithoutEnrollmentInput
+}
+
+input EnrollmentUpdateWithoutStudentDataInput {
+  courses: CourseUpdateManyWithoutEnrollmentInput
+}
+
+input EnrollmentUpsertWithoutCoursesInput {
+  update: EnrollmentUpdateWithoutCoursesDataInput!
+  create: EnrollmentCreateWithoutCoursesInput!
+}
+
+input EnrollmentUpsertWithoutStudentInput {
+  update: EnrollmentUpdateWithoutStudentDataInput!
+  create: EnrollmentCreateWithoutStudentInput!
+}
+
+input EnrollmentWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EnrollmentWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EnrollmentWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EnrollmentWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  student: UserWhereInput
+  courses_every: CourseWhereInput
+  courses_some: CourseWhereInput
+  courses_none: CourseWhereInput
+}
+
+input EnrollmentWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mastery implements Node {
+  id: ID!
+  course(where: CourseWhereInput): Course!
+  subSubject(where: SubSubjectWhereInput): SubSubject!
+  score: Int!
+}
+
+"""A connection to a list of items."""
+type MasteryConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MasteryEdge]!
+  aggregate: AggregateMastery!
+}
+
+input MasteryCreateInput {
+  score: Int!
+  course: CourseCreateOneWithoutMasteriesInput!
+  subSubject: SubSubjectCreateOneWithoutMasteryInput!
+}
+
+input MasteryCreateManyWithoutCourseInput {
+  create: [MasteryCreateWithoutCourseInput!]
+  connect: [MasteryWhereUniqueInput!]
+}
+
+input MasteryCreateManyWithoutSubSubjectInput {
+  create: [MasteryCreateWithoutSubSubjectInput!]
+  connect: [MasteryWhereUniqueInput!]
+}
+
+input MasteryCreateWithoutCourseInput {
+  score: Int!
+  subSubject: SubSubjectCreateOneWithoutMasteryInput!
+}
+
+input MasteryCreateWithoutSubSubjectInput {
+  score: Int!
+  course: CourseCreateOneWithoutMasteriesInput!
+}
+
+"""An edge in a connection."""
+type MasteryEdge {
+  """The item at the end of the edge."""
+  node: Mastery!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MasteryOrderByInput {
+  id_ASC
+  id_DESC
+  score_ASC
+  score_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type MasteryPreviousValues {
+  id: ID!
+  score: Int!
+}
+
+type MasterySubscriptionPayload {
+  mutation: MutationType!
+  node: Mastery
+  updatedFields: [String!]
+  previousValues: MasteryPreviousValues
+}
+
+input MasterySubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MasterySubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MasterySubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MasterySubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MasteryWhereInput
+}
+
+input MasteryUpdateInput {
+  score: Int
+  course: CourseUpdateOneWithoutMasteriesInput
+  subSubject: SubSubjectUpdateOneWithoutMasteryInput
+}
+
+input MasteryUpdateManyWithoutCourseInput {
+  create: [MasteryCreateWithoutCourseInput!]
+  connect: [MasteryWhereUniqueInput!]
+  disconnect: [MasteryWhereUniqueInput!]
+  delete: [MasteryWhereUniqueInput!]
+  update: [MasteryUpdateWithWhereUniqueWithoutCourseInput!]
+  upsert: [MasteryUpsertWithWhereUniqueWithoutCourseInput!]
+}
+
+input MasteryUpdateManyWithoutSubSubjectInput {
+  create: [MasteryCreateWithoutSubSubjectInput!]
+  connect: [MasteryWhereUniqueInput!]
+  disconnect: [MasteryWhereUniqueInput!]
+  delete: [MasteryWhereUniqueInput!]
+  update: [MasteryUpdateWithWhereUniqueWithoutSubSubjectInput!]
+  upsert: [MasteryUpsertWithWhereUniqueWithoutSubSubjectInput!]
+}
+
+input MasteryUpdateWithoutCourseDataInput {
+  score: Int
+  subSubject: SubSubjectUpdateOneWithoutMasteryInput
+}
+
+input MasteryUpdateWithoutSubSubjectDataInput {
+  score: Int
+  course: CourseUpdateOneWithoutMasteriesInput
+}
+
+input MasteryUpdateWithWhereUniqueWithoutCourseInput {
+  where: MasteryWhereUniqueInput!
+  data: MasteryUpdateWithoutCourseDataInput!
+}
+
+input MasteryUpdateWithWhereUniqueWithoutSubSubjectInput {
+  where: MasteryWhereUniqueInput!
+  data: MasteryUpdateWithoutSubSubjectDataInput!
+}
+
+input MasteryUpsertWithWhereUniqueWithoutCourseInput {
+  where: MasteryWhereUniqueInput!
+  update: MasteryUpdateWithoutCourseDataInput!
+  create: MasteryCreateWithoutCourseInput!
+}
+
+input MasteryUpsertWithWhereUniqueWithoutSubSubjectInput {
+  where: MasteryWhereUniqueInput!
+  update: MasteryUpdateWithoutSubSubjectDataInput!
+  create: MasteryCreateWithoutSubSubjectInput!
+}
+
+input MasteryWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MasteryWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MasteryWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MasteryWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  score: Int
+
+  """All values that are not equal to given value."""
+  score_not: Int
+
+  """All values that are contained in given list."""
+  score_in: [Int!]
+
+  """All values that are not contained in given list."""
+  score_not_in: [Int!]
+
+  """All values less than the given value."""
+  score_lt: Int
+
+  """All values less than or equal the given value."""
+  score_lte: Int
+
+  """All values greater than the given value."""
+  score_gt: Int
+
+  """All values greater than or equal the given value."""
+  score_gte: Int
+  course: CourseWhereInput
+  subSubject: SubSubjectWhereInput
+}
+
+input MasteryWhereUniqueInput {
+  id: ID
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  createClassroom(data: ClassroomCreateInput!): Classroom!
+  createEnrollment(data: EnrollmentCreateInput!): Enrollment!
+  createCourse(data: CourseCreateInput!): Course!
+  createMastery(data: MasteryCreateInput!): Mastery!
+  createSurvey(data: SurveyCreateInput!): Survey!
+  createSubject(data: SubjectCreateInput!): Subject!
+  createSubSubject(data: SubSubjectCreateInput!): SubSubject!
+  createQuestion(data: QuestionCreateInput!): Question!
+  createUnit(data: UnitCreateInput!): Unit!
+  createScale(data: ScaleCreateInput!): Scale!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateClassroom(data: ClassroomUpdateInput!, where: ClassroomWhereUniqueInput!): Classroom
+  updateEnrollment(data: EnrollmentUpdateInput!, where: EnrollmentWhereUniqueInput!): Enrollment
+  updateCourse(data: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course
+  updateMastery(data: MasteryUpdateInput!, where: MasteryWhereUniqueInput!): Mastery
+  updateSurvey(data: SurveyUpdateInput!, where: SurveyWhereUniqueInput!): Survey
+  updateSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
+  updateSubSubject(data: SubSubjectUpdateInput!, where: SubSubjectWhereUniqueInput!): SubSubject
+  updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
+  updateUnit(data: UnitUpdateInput!, where: UnitWhereUniqueInput!): Unit
+  updateScale(data: ScaleUpdateInput!, where: ScaleWhereUniqueInput!): Scale
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteClassroom(where: ClassroomWhereUniqueInput!): Classroom
+  deleteEnrollment(where: EnrollmentWhereUniqueInput!): Enrollment
+  deleteCourse(where: CourseWhereUniqueInput!): Course
+  deleteMastery(where: MasteryWhereUniqueInput!): Mastery
+  deleteSurvey(where: SurveyWhereUniqueInput!): Survey
+  deleteSubject(where: SubjectWhereUniqueInput!): Subject
+  deleteSubSubject(where: SubSubjectWhereUniqueInput!): SubSubject
+  deleteQuestion(where: QuestionWhereUniqueInput!): Question
+  deleteUnit(where: UnitWhereUniqueInput!): Unit
+  deleteScale(where: ScaleWhereUniqueInput!): Scale
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertClassroom(where: ClassroomWhereUniqueInput!, create: ClassroomCreateInput!, update: ClassroomUpdateInput!): Classroom!
+  upsertEnrollment(where: EnrollmentWhereUniqueInput!, create: EnrollmentCreateInput!, update: EnrollmentUpdateInput!): Enrollment!
+  upsertCourse(where: CourseWhereUniqueInput!, create: CourseCreateInput!, update: CourseUpdateInput!): Course!
+  upsertMastery(where: MasteryWhereUniqueInput!, create: MasteryCreateInput!, update: MasteryUpdateInput!): Mastery!
+  upsertSurvey(where: SurveyWhereUniqueInput!, create: SurveyCreateInput!, update: SurveyUpdateInput!): Survey!
+  upsertSubject(where: SubjectWhereUniqueInput!, create: SubjectCreateInput!, update: SubjectUpdateInput!): Subject!
+  upsertSubSubject(where: SubSubjectWhereUniqueInput!, create: SubSubjectCreateInput!, update: SubSubjectUpdateInput!): SubSubject!
+  upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
+  upsertUnit(where: UnitWhereUniqueInput!, create: UnitCreateInput!, update: UnitUpdateInput!): Unit!
+  upsertScale(where: ScaleWhereUniqueInput!, create: ScaleCreateInput!, update: ScaleUpdateInput!): Scale!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyClassrooms(data: ClassroomUpdateInput!, where: ClassroomWhereInput): BatchPayload!
+  updateManyEnrollments(data: EnrollmentUpdateInput!, where: EnrollmentWhereInput): BatchPayload!
+  updateManyCourses(data: CourseUpdateInput!, where: CourseWhereInput): BatchPayload!
+  updateManyMasteries(data: MasteryUpdateInput!, where: MasteryWhereInput): BatchPayload!
+  updateManySurveys(data: SurveyUpdateInput!, where: SurveyWhereInput): BatchPayload!
+  updateManySubjects(data: SubjectUpdateInput!, where: SubjectWhereInput): BatchPayload!
+  updateManySubSubjects(data: SubSubjectUpdateInput!, where: SubSubjectWhereInput): BatchPayload!
+  updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
+  updateManyUnits(data: UnitUpdateInput!, where: UnitWhereInput): BatchPayload!
+  updateManyScales(data: ScaleUpdateInput!, where: ScaleWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyClassrooms(where: ClassroomWhereInput): BatchPayload!
+  deleteManyEnrollments(where: EnrollmentWhereInput): BatchPayload!
+  deleteManyCourses(where: CourseWhereInput): BatchPayload!
+  deleteManyMasteries(where: MasteryWhereInput): BatchPayload!
+  deleteManySurveys(where: SurveyWhereInput): BatchPayload!
+  deleteManySubjects(where: SubjectWhereInput): BatchPayload!
+  deleteManySubSubjects(where: SubSubjectWhereInput): BatchPayload!
+  deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
+  deleteManyUnits(where: UnitWhereInput): BatchPayload!
+  deleteManyScales(where: ScaleWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
 type Query {
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  post(where: PostWhereUniqueInput!): Post
+  classrooms(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom]!
+  enrollments(where: EnrollmentWhereInput, orderBy: EnrollmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Enrollment]!
+  courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
+  masteries(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery]!
+  surveys(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey]!
+  subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
+  subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+  units(where: UnitWhereInput, orderBy: UnitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Unit]!
+  scales(where: ScaleWhereInput, orderBy: ScaleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Scale]!
   user(where: UserWhereUniqueInput!): User
-  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
+  classroom(where: ClassroomWhereUniqueInput!): Classroom
+  enrollment(where: EnrollmentWhereUniqueInput!): Enrollment
+  course(where: CourseWhereUniqueInput!): Course
+  mastery(where: MasteryWhereUniqueInput!): Mastery
+  survey(where: SurveyWhereUniqueInput!): Survey
+  subject(where: SubjectWhereUniqueInput!): Subject
+  subSubject(where: SubSubjectWhereUniqueInput!): SubSubject
+  question(where: QuestionWhereUniqueInput!): Question
+  unit(where: UnitWhereUniqueInput!): Unit
+  scale(where: ScaleWhereUniqueInput!): Scale
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  classroomsConnection(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClassroomConnection!
+  enrollmentsConnection(where: EnrollmentWhereInput, orderBy: EnrollmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EnrollmentConnection!
+  coursesConnection(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseConnection!
+  masteriesConnection(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MasteryConnection!
+  surveysConnection(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SurveyConnection!
+  subjectsConnection(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectConnection!
+  subSubjectsConnection(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubSubjectConnection!
+  questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
+  unitsConnection(where: UnitWhereInput, orderBy: UnitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UnitConnection!
+  scalesConnection(where: ScaleWhereInput, orderBy: ScaleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ScaleConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -406,17 +1356,1986 @@ type Query {
   ): Node
 }
 
+type Question implements Node {
+  id: ID!
+  type: Int!
+  status: Int!
+  flags: Int!
+  question: String!
+  answer: String!
+  subSubject(where: SubSubjectWhereInput): SubSubject!
+}
+
+"""A connection to a list of items."""
+type QuestionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [QuestionEdge]!
+  aggregate: AggregateQuestion!
+}
+
+input QuestionCreateInput {
+  type: Int!
+  status: Int!
+  flags: Int!
+  question: String!
+  answer: String!
+  subSubject: SubSubjectCreateOneWithoutQuestionsInput!
+}
+
+input QuestionCreateManyWithoutSubSubjectInput {
+  create: [QuestionCreateWithoutSubSubjectInput!]
+  connect: [QuestionWhereUniqueInput!]
+}
+
+input QuestionCreateWithoutSubSubjectInput {
+  type: Int!
+  status: Int!
+  flags: Int!
+  question: String!
+  answer: String!
+}
+
+"""An edge in a connection."""
+type QuestionEdge {
+  """The item at the end of the edge."""
+  node: Question!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum QuestionOrderByInput {
+  id_ASC
+  id_DESC
+  type_ASC
+  type_DESC
+  status_ASC
+  status_DESC
+  flags_ASC
+  flags_DESC
+  question_ASC
+  question_DESC
+  answer_ASC
+  answer_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type QuestionPreviousValues {
+  id: ID!
+  type: Int!
+  status: Int!
+  flags: Int!
+  question: String!
+  answer: String!
+}
+
+type QuestionSubscriptionPayload {
+  mutation: MutationType!
+  node: Question
+  updatedFields: [String!]
+  previousValues: QuestionPreviousValues
+}
+
+input QuestionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [QuestionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [QuestionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [QuestionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: QuestionWhereInput
+}
+
+input QuestionUpdateInput {
+  type: Int
+  status: Int
+  flags: Int
+  question: String
+  answer: String
+  subSubject: SubSubjectUpdateOneWithoutQuestionsInput
+}
+
+input QuestionUpdateManyWithoutSubSubjectInput {
+  create: [QuestionCreateWithoutSubSubjectInput!]
+  connect: [QuestionWhereUniqueInput!]
+  disconnect: [QuestionWhereUniqueInput!]
+  delete: [QuestionWhereUniqueInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutSubSubjectInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutSubSubjectInput!]
+}
+
+input QuestionUpdateWithoutSubSubjectDataInput {
+  type: Int
+  status: Int
+  flags: Int
+  question: String
+  answer: String
+}
+
+input QuestionUpdateWithWhereUniqueWithoutSubSubjectInput {
+  where: QuestionWhereUniqueInput!
+  data: QuestionUpdateWithoutSubSubjectDataInput!
+}
+
+input QuestionUpsertWithWhereUniqueWithoutSubSubjectInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateWithoutSubSubjectDataInput!
+  create: QuestionCreateWithoutSubSubjectInput!
+}
+
+input QuestionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [QuestionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [QuestionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [QuestionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  type: Int
+
+  """All values that are not equal to given value."""
+  type_not: Int
+
+  """All values that are contained in given list."""
+  type_in: [Int!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [Int!]
+
+  """All values less than the given value."""
+  type_lt: Int
+
+  """All values less than or equal the given value."""
+  type_lte: Int
+
+  """All values greater than the given value."""
+  type_gt: Int
+
+  """All values greater than or equal the given value."""
+  type_gte: Int
+  status: Int
+
+  """All values that are not equal to given value."""
+  status_not: Int
+
+  """All values that are contained in given list."""
+  status_in: [Int!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [Int!]
+
+  """All values less than the given value."""
+  status_lt: Int
+
+  """All values less than or equal the given value."""
+  status_lte: Int
+
+  """All values greater than the given value."""
+  status_gt: Int
+
+  """All values greater than or equal the given value."""
+  status_gte: Int
+  flags: Int
+
+  """All values that are not equal to given value."""
+  flags_not: Int
+
+  """All values that are contained in given list."""
+  flags_in: [Int!]
+
+  """All values that are not contained in given list."""
+  flags_not_in: [Int!]
+
+  """All values less than the given value."""
+  flags_lt: Int
+
+  """All values less than or equal the given value."""
+  flags_lte: Int
+
+  """All values greater than the given value."""
+  flags_gt: Int
+
+  """All values greater than or equal the given value."""
+  flags_gte: Int
+  question: String
+
+  """All values that are not equal to given value."""
+  question_not: String
+
+  """All values that are contained in given list."""
+  question_in: [String!]
+
+  """All values that are not contained in given list."""
+  question_not_in: [String!]
+
+  """All values less than the given value."""
+  question_lt: String
+
+  """All values less than or equal the given value."""
+  question_lte: String
+
+  """All values greater than the given value."""
+  question_gt: String
+
+  """All values greater than or equal the given value."""
+  question_gte: String
+
+  """All values containing the given string."""
+  question_contains: String
+
+  """All values not containing the given string."""
+  question_not_contains: String
+
+  """All values starting with the given string."""
+  question_starts_with: String
+
+  """All values not starting with the given string."""
+  question_not_starts_with: String
+
+  """All values ending with the given string."""
+  question_ends_with: String
+
+  """All values not ending with the given string."""
+  question_not_ends_with: String
+  answer: String
+
+  """All values that are not equal to given value."""
+  answer_not: String
+
+  """All values that are contained in given list."""
+  answer_in: [String!]
+
+  """All values that are not contained in given list."""
+  answer_not_in: [String!]
+
+  """All values less than the given value."""
+  answer_lt: String
+
+  """All values less than or equal the given value."""
+  answer_lte: String
+
+  """All values greater than the given value."""
+  answer_gt: String
+
+  """All values greater than or equal the given value."""
+  answer_gte: String
+
+  """All values containing the given string."""
+  answer_contains: String
+
+  """All values not containing the given string."""
+  answer_not_contains: String
+
+  """All values starting with the given string."""
+  answer_starts_with: String
+
+  """All values not starting with the given string."""
+  answer_not_starts_with: String
+
+  """All values ending with the given string."""
+  answer_ends_with: String
+
+  """All values not ending with the given string."""
+  answer_not_ends_with: String
+  subSubject: SubSubjectWhereInput
+}
+
+input QuestionWhereUniqueInput {
+  id: ID
+}
+
+type Scale implements Node {
+  id: ID!
+  name: String!
+  description: String!
+  subSubject(where: SubSubjectWhereInput): SubSubject!
+}
+
+"""A connection to a list of items."""
+type ScaleConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ScaleEdge]!
+  aggregate: AggregateScale!
+}
+
+input ScaleCreateInput {
+  name: String!
+  description: String!
+  subSubject: SubSubjectCreateOneWithoutScaleInput!
+}
+
+input ScaleCreateOneWithoutSubSubjectInput {
+  create: ScaleCreateWithoutSubSubjectInput
+  connect: ScaleWhereUniqueInput
+}
+
+input ScaleCreateWithoutSubSubjectInput {
+  name: String!
+  description: String!
+}
+
+"""An edge in a connection."""
+type ScaleEdge {
+  """The item at the end of the edge."""
+  node: Scale!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ScaleOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ScalePreviousValues {
+  id: ID!
+  name: String!
+  description: String!
+}
+
+type ScaleSubscriptionPayload {
+  mutation: MutationType!
+  node: Scale
+  updatedFields: [String!]
+  previousValues: ScalePreviousValues
+}
+
+input ScaleSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ScaleSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ScaleSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ScaleSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ScaleWhereInput
+}
+
+input ScaleUpdateInput {
+  name: String
+  description: String
+  subSubject: SubSubjectUpdateOneWithoutScaleInput
+}
+
+input ScaleUpdateOneWithoutSubSubjectInput {
+  create: ScaleCreateWithoutSubSubjectInput
+  connect: ScaleWhereUniqueInput
+  delete: Boolean
+  update: ScaleUpdateWithoutSubSubjectDataInput
+  upsert: ScaleUpsertWithoutSubSubjectInput
+}
+
+input ScaleUpdateWithoutSubSubjectDataInput {
+  name: String
+  description: String
+}
+
+input ScaleUpsertWithoutSubSubjectInput {
+  update: ScaleUpdateWithoutSubSubjectDataInput!
+  create: ScaleCreateWithoutSubSubjectInput!
+}
+
+input ScaleWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ScaleWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ScaleWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ScaleWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  subSubject: SubSubjectWhereInput
+}
+
+input ScaleWhereUniqueInput {
+  id: ID
+}
+
+type Subject implements Node {
+  id: ID!
+  name: String!
+  description: String!
+  course(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+  subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject!]
+}
+
+"""A connection to a list of items."""
+type SubjectConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [SubjectEdge]!
+  aggregate: AggregateSubject!
+}
+
+input SubjectCreateInput {
+  name: String!
+  description: String!
+  course: CourseCreateManyWithoutSubjectsInput
+  subSubjects: SubSubjectCreateManyWithoutParentInput
+}
+
+input SubjectCreateManyWithoutCourseInput {
+  create: [SubjectCreateWithoutCourseInput!]
+  connect: [SubjectWhereUniqueInput!]
+}
+
+input SubjectCreateOneWithoutSubSubjectsInput {
+  create: SubjectCreateWithoutSubSubjectsInput
+  connect: SubjectWhereUniqueInput
+}
+
+input SubjectCreateWithoutCourseInput {
+  name: String!
+  description: String!
+  subSubjects: SubSubjectCreateManyWithoutParentInput
+}
+
+input SubjectCreateWithoutSubSubjectsInput {
+  name: String!
+  description: String!
+  course: CourseCreateManyWithoutSubjectsInput
+}
+
+"""An edge in a connection."""
+type SubjectEdge {
+  """The item at the end of the edge."""
+  node: Subject!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum SubjectOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type SubjectPreviousValues {
+  id: ID!
+  name: String!
+  description: String!
+}
+
+type SubjectSubscriptionPayload {
+  mutation: MutationType!
+  node: Subject
+  updatedFields: [String!]
+  previousValues: SubjectPreviousValues
+}
+
+input SubjectSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SubjectSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SubjectSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SubjectSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: SubjectWhereInput
+}
+
+input SubjectUpdateInput {
+  name: String
+  description: String
+  course: CourseUpdateManyWithoutSubjectsInput
+  subSubjects: SubSubjectUpdateManyWithoutParentInput
+}
+
+input SubjectUpdateManyWithoutCourseInput {
+  create: [SubjectCreateWithoutCourseInput!]
+  connect: [SubjectWhereUniqueInput!]
+  disconnect: [SubjectWhereUniqueInput!]
+  delete: [SubjectWhereUniqueInput!]
+  update: [SubjectUpdateWithWhereUniqueWithoutCourseInput!]
+  upsert: [SubjectUpsertWithWhereUniqueWithoutCourseInput!]
+}
+
+input SubjectUpdateOneWithoutSubSubjectsInput {
+  create: SubjectCreateWithoutSubSubjectsInput
+  connect: SubjectWhereUniqueInput
+  delete: Boolean
+  update: SubjectUpdateWithoutSubSubjectsDataInput
+  upsert: SubjectUpsertWithoutSubSubjectsInput
+}
+
+input SubjectUpdateWithoutCourseDataInput {
+  name: String
+  description: String
+  subSubjects: SubSubjectUpdateManyWithoutParentInput
+}
+
+input SubjectUpdateWithoutSubSubjectsDataInput {
+  name: String
+  description: String
+  course: CourseUpdateManyWithoutSubjectsInput
+}
+
+input SubjectUpdateWithWhereUniqueWithoutCourseInput {
+  where: SubjectWhereUniqueInput!
+  data: SubjectUpdateWithoutCourseDataInput!
+}
+
+input SubjectUpsertWithoutSubSubjectsInput {
+  update: SubjectUpdateWithoutSubSubjectsDataInput!
+  create: SubjectCreateWithoutSubSubjectsInput!
+}
+
+input SubjectUpsertWithWhereUniqueWithoutCourseInput {
+  where: SubjectWhereUniqueInput!
+  update: SubjectUpdateWithoutCourseDataInput!
+  create: SubjectCreateWithoutCourseInput!
+}
+
+input SubjectWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SubjectWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SubjectWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SubjectWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  course_every: CourseWhereInput
+  course_some: CourseWhereInput
+  course_none: CourseWhereInput
+  subSubjects_every: SubSubjectWhereInput
+  subSubjects_some: SubSubjectWhereInput
+  subSubjects_none: SubSubjectWhereInput
+}
+
+input SubjectWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
-  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  classroom(where: ClassroomSubscriptionWhereInput): ClassroomSubscriptionPayload
+  enrollment(where: EnrollmentSubscriptionWhereInput): EnrollmentSubscriptionPayload
+  course(where: CourseSubscriptionWhereInput): CourseSubscriptionPayload
+  mastery(where: MasterySubscriptionWhereInput): MasterySubscriptionPayload
+  survey(where: SurveySubscriptionWhereInput): SurveySubscriptionPayload
+  subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
+  subSubject(where: SubSubjectSubscriptionWhereInput): SubSubjectSubscriptionPayload
+  question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
+  unit(where: UnitSubscriptionWhereInput): UnitSubscriptionPayload
+  scale(where: ScaleSubscriptionWhereInput): ScaleSubscriptionPayload
+}
+
+type SubSubject implements Node {
+  id: ID!
+  name: String!
+  unit(where: UnitWhereInput): Unit!
+  scale(where: ScaleWhereInput): Scale!
+  toMetric: Boolean!
+  parent(where: SubjectWhereInput): Subject!
+  mastery(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery!]
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
+}
+
+"""A connection to a list of items."""
+type SubSubjectConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [SubSubjectEdge]!
+  aggregate: AggregateSubSubject!
+}
+
+input SubSubjectCreateInput {
+  name: String!
+  toMetric: Boolean!
+  unit: UnitCreateOneWithoutSubSubjectInput!
+  scale: ScaleCreateOneWithoutSubSubjectInput!
+  parent: SubjectCreateOneWithoutSubSubjectsInput!
+  mastery: MasteryCreateManyWithoutSubSubjectInput
+  questions: QuestionCreateManyWithoutSubSubjectInput
+}
+
+input SubSubjectCreateManyWithoutParentInput {
+  create: [SubSubjectCreateWithoutParentInput!]
+  connect: [SubSubjectWhereUniqueInput!]
+}
+
+input SubSubjectCreateOneInput {
+  create: SubSubjectCreateInput
+  connect: SubSubjectWhereUniqueInput
+}
+
+input SubSubjectCreateOneWithoutMasteryInput {
+  create: SubSubjectCreateWithoutMasteryInput
+  connect: SubSubjectWhereUniqueInput
+}
+
+input SubSubjectCreateOneWithoutQuestionsInput {
+  create: SubSubjectCreateWithoutQuestionsInput
+  connect: SubSubjectWhereUniqueInput
+}
+
+input SubSubjectCreateOneWithoutScaleInput {
+  create: SubSubjectCreateWithoutScaleInput
+  connect: SubSubjectWhereUniqueInput
+}
+
+input SubSubjectCreateOneWithoutUnitInput {
+  create: SubSubjectCreateWithoutUnitInput
+  connect: SubSubjectWhereUniqueInput
+}
+
+input SubSubjectCreateWithoutMasteryInput {
+  name: String!
+  toMetric: Boolean!
+  unit: UnitCreateOneWithoutSubSubjectInput!
+  scale: ScaleCreateOneWithoutSubSubjectInput!
+  parent: SubjectCreateOneWithoutSubSubjectsInput!
+  questions: QuestionCreateManyWithoutSubSubjectInput
+}
+
+input SubSubjectCreateWithoutParentInput {
+  name: String!
+  toMetric: Boolean!
+  unit: UnitCreateOneWithoutSubSubjectInput!
+  scale: ScaleCreateOneWithoutSubSubjectInput!
+  mastery: MasteryCreateManyWithoutSubSubjectInput
+  questions: QuestionCreateManyWithoutSubSubjectInput
+}
+
+input SubSubjectCreateWithoutQuestionsInput {
+  name: String!
+  toMetric: Boolean!
+  unit: UnitCreateOneWithoutSubSubjectInput!
+  scale: ScaleCreateOneWithoutSubSubjectInput!
+  parent: SubjectCreateOneWithoutSubSubjectsInput!
+  mastery: MasteryCreateManyWithoutSubSubjectInput
+}
+
+input SubSubjectCreateWithoutScaleInput {
+  name: String!
+  toMetric: Boolean!
+  unit: UnitCreateOneWithoutSubSubjectInput!
+  parent: SubjectCreateOneWithoutSubSubjectsInput!
+  mastery: MasteryCreateManyWithoutSubSubjectInput
+  questions: QuestionCreateManyWithoutSubSubjectInput
+}
+
+input SubSubjectCreateWithoutUnitInput {
+  name: String!
+  toMetric: Boolean!
+  scale: ScaleCreateOneWithoutSubSubjectInput!
+  parent: SubjectCreateOneWithoutSubSubjectsInput!
+  mastery: MasteryCreateManyWithoutSubSubjectInput
+  questions: QuestionCreateManyWithoutSubSubjectInput
+}
+
+"""An edge in a connection."""
+type SubSubjectEdge {
+  """The item at the end of the edge."""
+  node: SubSubject!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum SubSubjectOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  toMetric_ASC
+  toMetric_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type SubSubjectPreviousValues {
+  id: ID!
+  name: String!
+  toMetric: Boolean!
+}
+
+type SubSubjectSubscriptionPayload {
+  mutation: MutationType!
+  node: SubSubject
+  updatedFields: [String!]
+  previousValues: SubSubjectPreviousValues
+}
+
+input SubSubjectSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SubSubjectSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SubSubjectSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SubSubjectSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: SubSubjectWhereInput
+}
+
+input SubSubjectUpdateDataInput {
+  name: String
+  toMetric: Boolean
+  unit: UnitUpdateOneWithoutSubSubjectInput
+  scale: ScaleUpdateOneWithoutSubSubjectInput
+  parent: SubjectUpdateOneWithoutSubSubjectsInput
+  mastery: MasteryUpdateManyWithoutSubSubjectInput
+  questions: QuestionUpdateManyWithoutSubSubjectInput
+}
+
+input SubSubjectUpdateInput {
+  name: String
+  toMetric: Boolean
+  unit: UnitUpdateOneWithoutSubSubjectInput
+  scale: ScaleUpdateOneWithoutSubSubjectInput
+  parent: SubjectUpdateOneWithoutSubSubjectsInput
+  mastery: MasteryUpdateManyWithoutSubSubjectInput
+  questions: QuestionUpdateManyWithoutSubSubjectInput
+}
+
+input SubSubjectUpdateManyWithoutParentInput {
+  create: [SubSubjectCreateWithoutParentInput!]
+  connect: [SubSubjectWhereUniqueInput!]
+  disconnect: [SubSubjectWhereUniqueInput!]
+  delete: [SubSubjectWhereUniqueInput!]
+  update: [SubSubjectUpdateWithWhereUniqueWithoutParentInput!]
+  upsert: [SubSubjectUpsertWithWhereUniqueWithoutParentInput!]
+}
+
+input SubSubjectUpdateOneInput {
+  create: SubSubjectCreateInput
+  connect: SubSubjectWhereUniqueInput
+  delete: Boolean
+  update: SubSubjectUpdateDataInput
+  upsert: SubSubjectUpsertNestedInput
+}
+
+input SubSubjectUpdateOneWithoutMasteryInput {
+  create: SubSubjectCreateWithoutMasteryInput
+  connect: SubSubjectWhereUniqueInput
+  delete: Boolean
+  update: SubSubjectUpdateWithoutMasteryDataInput
+  upsert: SubSubjectUpsertWithoutMasteryInput
+}
+
+input SubSubjectUpdateOneWithoutQuestionsInput {
+  create: SubSubjectCreateWithoutQuestionsInput
+  connect: SubSubjectWhereUniqueInput
+  delete: Boolean
+  update: SubSubjectUpdateWithoutQuestionsDataInput
+  upsert: SubSubjectUpsertWithoutQuestionsInput
+}
+
+input SubSubjectUpdateOneWithoutScaleInput {
+  create: SubSubjectCreateWithoutScaleInput
+  connect: SubSubjectWhereUniqueInput
+  delete: Boolean
+  update: SubSubjectUpdateWithoutScaleDataInput
+  upsert: SubSubjectUpsertWithoutScaleInput
+}
+
+input SubSubjectUpdateOneWithoutUnitInput {
+  create: SubSubjectCreateWithoutUnitInput
+  connect: SubSubjectWhereUniqueInput
+  delete: Boolean
+  update: SubSubjectUpdateWithoutUnitDataInput
+  upsert: SubSubjectUpsertWithoutUnitInput
+}
+
+input SubSubjectUpdateWithoutMasteryDataInput {
+  name: String
+  toMetric: Boolean
+  unit: UnitUpdateOneWithoutSubSubjectInput
+  scale: ScaleUpdateOneWithoutSubSubjectInput
+  parent: SubjectUpdateOneWithoutSubSubjectsInput
+  questions: QuestionUpdateManyWithoutSubSubjectInput
+}
+
+input SubSubjectUpdateWithoutParentDataInput {
+  name: String
+  toMetric: Boolean
+  unit: UnitUpdateOneWithoutSubSubjectInput
+  scale: ScaleUpdateOneWithoutSubSubjectInput
+  mastery: MasteryUpdateManyWithoutSubSubjectInput
+  questions: QuestionUpdateManyWithoutSubSubjectInput
+}
+
+input SubSubjectUpdateWithoutQuestionsDataInput {
+  name: String
+  toMetric: Boolean
+  unit: UnitUpdateOneWithoutSubSubjectInput
+  scale: ScaleUpdateOneWithoutSubSubjectInput
+  parent: SubjectUpdateOneWithoutSubSubjectsInput
+  mastery: MasteryUpdateManyWithoutSubSubjectInput
+}
+
+input SubSubjectUpdateWithoutScaleDataInput {
+  name: String
+  toMetric: Boolean
+  unit: UnitUpdateOneWithoutSubSubjectInput
+  parent: SubjectUpdateOneWithoutSubSubjectsInput
+  mastery: MasteryUpdateManyWithoutSubSubjectInput
+  questions: QuestionUpdateManyWithoutSubSubjectInput
+}
+
+input SubSubjectUpdateWithoutUnitDataInput {
+  name: String
+  toMetric: Boolean
+  scale: ScaleUpdateOneWithoutSubSubjectInput
+  parent: SubjectUpdateOneWithoutSubSubjectsInput
+  mastery: MasteryUpdateManyWithoutSubSubjectInput
+  questions: QuestionUpdateManyWithoutSubSubjectInput
+}
+
+input SubSubjectUpdateWithWhereUniqueWithoutParentInput {
+  where: SubSubjectWhereUniqueInput!
+  data: SubSubjectUpdateWithoutParentDataInput!
+}
+
+input SubSubjectUpsertNestedInput {
+  update: SubSubjectUpdateDataInput!
+  create: SubSubjectCreateInput!
+}
+
+input SubSubjectUpsertWithoutMasteryInput {
+  update: SubSubjectUpdateWithoutMasteryDataInput!
+  create: SubSubjectCreateWithoutMasteryInput!
+}
+
+input SubSubjectUpsertWithoutQuestionsInput {
+  update: SubSubjectUpdateWithoutQuestionsDataInput!
+  create: SubSubjectCreateWithoutQuestionsInput!
+}
+
+input SubSubjectUpsertWithoutScaleInput {
+  update: SubSubjectUpdateWithoutScaleDataInput!
+  create: SubSubjectCreateWithoutScaleInput!
+}
+
+input SubSubjectUpsertWithoutUnitInput {
+  update: SubSubjectUpdateWithoutUnitDataInput!
+  create: SubSubjectCreateWithoutUnitInput!
+}
+
+input SubSubjectUpsertWithWhereUniqueWithoutParentInput {
+  where: SubSubjectWhereUniqueInput!
+  update: SubSubjectUpdateWithoutParentDataInput!
+  create: SubSubjectCreateWithoutParentInput!
+}
+
+input SubSubjectWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SubSubjectWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SubSubjectWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SubSubjectWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  toMetric: Boolean
+
+  """All values that are not equal to given value."""
+  toMetric_not: Boolean
+  unit: UnitWhereInput
+  scale: ScaleWhereInput
+  parent: SubjectWhereInput
+  mastery_every: MasteryWhereInput
+  mastery_some: MasteryWhereInput
+  mastery_none: MasteryWhereInput
+  questions_every: QuestionWhereInput
+  questions_some: QuestionWhereInput
+  questions_none: QuestionWhereInput
+}
+
+input SubSubjectWhereUniqueInput {
+  id: ID
+}
+
+type Survey implements Node {
+  id: ID!
+  score: Int!
+  question: String!
+  answerRange: String!
+  answer: String!
+  course(where: CourseWhereInput): Course!
+  subSubject(where: SubSubjectWhereInput): SubSubject!
+}
+
+"""A connection to a list of items."""
+type SurveyConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [SurveyEdge]!
+  aggregate: AggregateSurvey!
+}
+
+input SurveyCreateInput {
+  score: Int!
+  question: String!
+  answerRange: String!
+  answer: String!
+  course: CourseCreateOneInput!
+  subSubject: SubSubjectCreateOneInput!
+}
+
+"""An edge in a connection."""
+type SurveyEdge {
+  """The item at the end of the edge."""
+  node: Survey!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum SurveyOrderByInput {
+  id_ASC
+  id_DESC
+  score_ASC
+  score_DESC
+  question_ASC
+  question_DESC
+  answerRange_ASC
+  answerRange_DESC
+  answer_ASC
+  answer_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type SurveyPreviousValues {
+  id: ID!
+  score: Int!
+  question: String!
+  answerRange: String!
+  answer: String!
+}
+
+type SurveySubscriptionPayload {
+  mutation: MutationType!
+  node: Survey
+  updatedFields: [String!]
+  previousValues: SurveyPreviousValues
+}
+
+input SurveySubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SurveySubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SurveySubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SurveySubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: SurveyWhereInput
+}
+
+input SurveyUpdateInput {
+  score: Int
+  question: String
+  answerRange: String
+  answer: String
+  course: CourseUpdateOneInput
+  subSubject: SubSubjectUpdateOneInput
+}
+
+input SurveyWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SurveyWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SurveyWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SurveyWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  score: Int
+
+  """All values that are not equal to given value."""
+  score_not: Int
+
+  """All values that are contained in given list."""
+  score_in: [Int!]
+
+  """All values that are not contained in given list."""
+  score_not_in: [Int!]
+
+  """All values less than the given value."""
+  score_lt: Int
+
+  """All values less than or equal the given value."""
+  score_lte: Int
+
+  """All values greater than the given value."""
+  score_gt: Int
+
+  """All values greater than or equal the given value."""
+  score_gte: Int
+  question: String
+
+  """All values that are not equal to given value."""
+  question_not: String
+
+  """All values that are contained in given list."""
+  question_in: [String!]
+
+  """All values that are not contained in given list."""
+  question_not_in: [String!]
+
+  """All values less than the given value."""
+  question_lt: String
+
+  """All values less than or equal the given value."""
+  question_lte: String
+
+  """All values greater than the given value."""
+  question_gt: String
+
+  """All values greater than or equal the given value."""
+  question_gte: String
+
+  """All values containing the given string."""
+  question_contains: String
+
+  """All values not containing the given string."""
+  question_not_contains: String
+
+  """All values starting with the given string."""
+  question_starts_with: String
+
+  """All values not starting with the given string."""
+  question_not_starts_with: String
+
+  """All values ending with the given string."""
+  question_ends_with: String
+
+  """All values not ending with the given string."""
+  question_not_ends_with: String
+  answerRange: String
+
+  """All values that are not equal to given value."""
+  answerRange_not: String
+
+  """All values that are contained in given list."""
+  answerRange_in: [String!]
+
+  """All values that are not contained in given list."""
+  answerRange_not_in: [String!]
+
+  """All values less than the given value."""
+  answerRange_lt: String
+
+  """All values less than or equal the given value."""
+  answerRange_lte: String
+
+  """All values greater than the given value."""
+  answerRange_gt: String
+
+  """All values greater than or equal the given value."""
+  answerRange_gte: String
+
+  """All values containing the given string."""
+  answerRange_contains: String
+
+  """All values not containing the given string."""
+  answerRange_not_contains: String
+
+  """All values starting with the given string."""
+  answerRange_starts_with: String
+
+  """All values not starting with the given string."""
+  answerRange_not_starts_with: String
+
+  """All values ending with the given string."""
+  answerRange_ends_with: String
+
+  """All values not ending with the given string."""
+  answerRange_not_ends_with: String
+  answer: String
+
+  """All values that are not equal to given value."""
+  answer_not: String
+
+  """All values that are contained in given list."""
+  answer_in: [String!]
+
+  """All values that are not contained in given list."""
+  answer_not_in: [String!]
+
+  """All values less than the given value."""
+  answer_lt: String
+
+  """All values less than or equal the given value."""
+  answer_lte: String
+
+  """All values greater than the given value."""
+  answer_gt: String
+
+  """All values greater than or equal the given value."""
+  answer_gte: String
+
+  """All values containing the given string."""
+  answer_contains: String
+
+  """All values not containing the given string."""
+  answer_not_contains: String
+
+  """All values starting with the given string."""
+  answer_starts_with: String
+
+  """All values not starting with the given string."""
+  answer_not_starts_with: String
+
+  """All values ending with the given string."""
+  answer_ends_with: String
+
+  """All values not ending with the given string."""
+  answer_not_ends_with: String
+  course: CourseWhereInput
+  subSubject: SubSubjectWhereInput
+}
+
+input SurveyWhereUniqueInput {
+  id: ID
+}
+
+type Unit implements Node {
+  id: ID!
+  type: Int!
+  name: String!
+  description: String!
+  subSubject(where: SubSubjectWhereInput): SubSubject!
+}
+
+"""A connection to a list of items."""
+type UnitConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UnitEdge]!
+  aggregate: AggregateUnit!
+}
+
+input UnitCreateInput {
+  type: Int!
+  name: String!
+  description: String!
+  subSubject: SubSubjectCreateOneWithoutUnitInput!
+}
+
+input UnitCreateOneWithoutSubSubjectInput {
+  create: UnitCreateWithoutSubSubjectInput
+  connect: UnitWhereUniqueInput
+}
+
+input UnitCreateWithoutSubSubjectInput {
+  type: Int!
+  name: String!
+  description: String!
+}
+
+"""An edge in a connection."""
+type UnitEdge {
+  """The item at the end of the edge."""
+  node: Unit!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UnitOrderByInput {
+  id_ASC
+  id_DESC
+  type_ASC
+  type_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UnitPreviousValues {
+  id: ID!
+  type: Int!
+  name: String!
+  description: String!
+}
+
+type UnitSubscriptionPayload {
+  mutation: MutationType!
+  node: Unit
+  updatedFields: [String!]
+  previousValues: UnitPreviousValues
+}
+
+input UnitSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UnitSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UnitSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UnitSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UnitWhereInput
+}
+
+input UnitUpdateInput {
+  type: Int
+  name: String
+  description: String
+  subSubject: SubSubjectUpdateOneWithoutUnitInput
+}
+
+input UnitUpdateOneWithoutSubSubjectInput {
+  create: UnitCreateWithoutSubSubjectInput
+  connect: UnitWhereUniqueInput
+  delete: Boolean
+  update: UnitUpdateWithoutSubSubjectDataInput
+  upsert: UnitUpsertWithoutSubSubjectInput
+}
+
+input UnitUpdateWithoutSubSubjectDataInput {
+  type: Int
+  name: String
+  description: String
+}
+
+input UnitUpsertWithoutSubSubjectInput {
+  update: UnitUpdateWithoutSubSubjectDataInput!
+  create: UnitCreateWithoutSubSubjectInput!
+}
+
+input UnitWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UnitWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UnitWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UnitWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  type: Int
+
+  """All values that are not equal to given value."""
+  type_not: Int
+
+  """All values that are contained in given list."""
+  type_in: [Int!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [Int!]
+
+  """All values less than the given value."""
+  type_lt: Int
+
+  """All values less than or equal the given value."""
+  type_lte: Int
+
+  """All values greater than the given value."""
+  type_gt: Int
+
+  """All values greater than or equal the given value."""
+  type_gte: Int
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  subSubject: SubSubjectWhereInput
+}
+
+input UnitWhereUniqueInput {
+  id: ID
 }
 
 type User implements Node {
   id: ID!
   email: String!
   password: String!
-  name: String!
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  classrooms(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom!]
+  enrollment(where: EnrollmentWhereInput): Enrollment
 }
 
 """A connection to a list of items."""
@@ -432,19 +3351,45 @@ type UserConnection {
 input UserCreateInput {
   email: String!
   password: String!
-  name: String!
-  posts: PostCreateManyWithoutAuthorInput
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  classrooms: ClassroomCreateManyWithoutUsersInput
+  enrollment: EnrollmentCreateOneWithoutStudentInput
 }
 
-input UserCreateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
+input UserCreateManyWithoutClassroomsInput {
+  create: [UserCreateWithoutClassroomsInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneWithoutEnrollmentInput {
+  create: UserCreateWithoutEnrollmentInput
   connect: UserWhereUniqueInput
 }
 
-input UserCreateWithoutPostsInput {
+input UserCreateWithoutClassroomsInput {
   email: String!
   password: String!
-  name: String!
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  enrollment: EnrollmentCreateOneWithoutStudentInput
+}
+
+input UserCreateWithoutEnrollmentInput {
+  email: String!
+  password: String!
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  classrooms: ClassroomCreateManyWithoutUsersInput
 }
 
 """An edge in a connection."""
@@ -463,8 +3408,16 @@ enum UserOrderByInput {
   email_DESC
   password_ASC
   password_DESC
-  name_ASC
-  name_DESC
+  fname_ASC
+  fname_DESC
+  lname_ASC
+  lname_DESC
+  type_ASC
+  type_DESC
+  status_ASC
+  status_DESC
+  flags_ASC
+  flags_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -475,7 +3428,11 @@ type UserPreviousValues {
   id: ID!
   email: String!
   password: String!
-  name: String!
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
 }
 
 type UserSubscriptionPayload {
@@ -520,27 +3477,68 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   email: String
   password: String
-  name: String
-  posts: PostUpdateManyWithoutAuthorInput
+  fname: String
+  lname: String
+  type: Int
+  status: Int
+  flags: Int
+  classrooms: ClassroomUpdateManyWithoutUsersInput
+  enrollment: EnrollmentUpdateOneWithoutStudentInput
 }
 
-input UserUpdateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
+input UserUpdateManyWithoutClassroomsInput {
+  create: [UserCreateWithoutClassroomsInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutClassroomsInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutClassroomsInput!]
+}
+
+input UserUpdateOneWithoutEnrollmentInput {
+  create: UserCreateWithoutEnrollmentInput
   connect: UserWhereUniqueInput
   delete: Boolean
-  update: UserUpdateWithoutPostsDataInput
-  upsert: UserUpsertWithoutPostsInput
+  update: UserUpdateWithoutEnrollmentDataInput
+  upsert: UserUpsertWithoutEnrollmentInput
 }
 
-input UserUpdateWithoutPostsDataInput {
+input UserUpdateWithoutClassroomsDataInput {
   email: String
   password: String
-  name: String
+  fname: String
+  lname: String
+  type: Int
+  status: Int
+  flags: Int
+  enrollment: EnrollmentUpdateOneWithoutStudentInput
 }
 
-input UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput!
-  create: UserCreateWithoutPostsInput!
+input UserUpdateWithoutEnrollmentDataInput {
+  email: String
+  password: String
+  fname: String
+  lname: String
+  type: Int
+  status: Int
+  flags: Int
+  classrooms: ClassroomUpdateManyWithoutUsersInput
+}
+
+input UserUpdateWithWhereUniqueWithoutClassroomsInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutClassroomsDataInput!
+}
+
+input UserUpsertWithoutEnrollmentInput {
+  update: UserUpdateWithoutEnrollmentDataInput!
+  create: UserCreateWithoutEnrollmentInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutClassroomsInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutClassroomsDataInput!
+  create: UserCreateWithoutClassroomsInput!
 }
 
 input UserWhereInput {
@@ -672,49 +3670,156 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   password_not_ends_with: String
-  name: String
+  fname: String
 
   """All values that are not equal to given value."""
-  name_not: String
+  fname_not: String
 
   """All values that are contained in given list."""
-  name_in: [String!]
+  fname_in: [String!]
 
   """All values that are not contained in given list."""
-  name_not_in: [String!]
+  fname_not_in: [String!]
 
   """All values less than the given value."""
-  name_lt: String
+  fname_lt: String
 
   """All values less than or equal the given value."""
-  name_lte: String
+  fname_lte: String
 
   """All values greater than the given value."""
-  name_gt: String
+  fname_gt: String
 
   """All values greater than or equal the given value."""
-  name_gte: String
+  fname_gte: String
 
   """All values containing the given string."""
-  name_contains: String
+  fname_contains: String
 
   """All values not containing the given string."""
-  name_not_contains: String
+  fname_not_contains: String
 
   """All values starting with the given string."""
-  name_starts_with: String
+  fname_starts_with: String
 
   """All values not starting with the given string."""
-  name_not_starts_with: String
+  fname_not_starts_with: String
 
   """All values ending with the given string."""
-  name_ends_with: String
+  fname_ends_with: String
 
   """All values not ending with the given string."""
-  name_not_ends_with: String
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
+  fname_not_ends_with: String
+  lname: String
+
+  """All values that are not equal to given value."""
+  lname_not: String
+
+  """All values that are contained in given list."""
+  lname_in: [String!]
+
+  """All values that are not contained in given list."""
+  lname_not_in: [String!]
+
+  """All values less than the given value."""
+  lname_lt: String
+
+  """All values less than or equal the given value."""
+  lname_lte: String
+
+  """All values greater than the given value."""
+  lname_gt: String
+
+  """All values greater than or equal the given value."""
+  lname_gte: String
+
+  """All values containing the given string."""
+  lname_contains: String
+
+  """All values not containing the given string."""
+  lname_not_contains: String
+
+  """All values starting with the given string."""
+  lname_starts_with: String
+
+  """All values not starting with the given string."""
+  lname_not_starts_with: String
+
+  """All values ending with the given string."""
+  lname_ends_with: String
+
+  """All values not ending with the given string."""
+  lname_not_ends_with: String
+  type: Int
+
+  """All values that are not equal to given value."""
+  type_not: Int
+
+  """All values that are contained in given list."""
+  type_in: [Int!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [Int!]
+
+  """All values less than the given value."""
+  type_lt: Int
+
+  """All values less than or equal the given value."""
+  type_lte: Int
+
+  """All values greater than the given value."""
+  type_gt: Int
+
+  """All values greater than or equal the given value."""
+  type_gte: Int
+  status: Int
+
+  """All values that are not equal to given value."""
+  status_not: Int
+
+  """All values that are contained in given list."""
+  status_in: [Int!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [Int!]
+
+  """All values less than the given value."""
+  status_lt: Int
+
+  """All values less than or equal the given value."""
+  status_lte: Int
+
+  """All values greater than the given value."""
+  status_gt: Int
+
+  """All values greater than or equal the given value."""
+  status_gte: Int
+  flags: Int
+
+  """All values that are not equal to given value."""
+  flags_not: Int
+
+  """All values that are contained in given list."""
+  flags_in: [Int!]
+
+  """All values that are not contained in given list."""
+  flags_not_in: [Int!]
+
+  """All values less than the given value."""
+  flags_lt: Int
+
+  """All values less than or equal the given value."""
+  flags_lte: Int
+
+  """All values greater than the given value."""
+  flags_gt: Int
+
+  """All values greater than or equal the given value."""
+  flags_gte: Int
+  classrooms_every: ClassroomWhereInput
+  classrooms_some: ClassroomWhereInput
+  classrooms_none: ClassroomWhereInput
+  enrollment: EnrollmentWhereInput
 }
 
 input UserWhereUniqueInput {

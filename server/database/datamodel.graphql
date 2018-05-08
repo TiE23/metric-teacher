@@ -8,7 +8,7 @@ type User {
   type: Int!
   status: Int!
   flags: Int!
-  classrooms: [Classroom]! @relation(name: "UserToClassroom")
+  classrooms: [Classroom!]! @relation(name: "UserToClassroom")
   enrollment: Enrollment @relation(name: "UserToEnrollment")
 }
 
@@ -21,14 +21,14 @@ type Classroom {
   status: Int!
   flags: Int!
   notes: String!
-  users: [User]! @relation(name: "UserToClassroom")
+  users: [User!]! @relation(name: "UserToClassroom")
 }
 
 # A student has a single enrollment row. An enrollment is their place in the school.
 type Enrollment {
   id: ID! @unique
-  student: User! @unique @relation(name: "UserToEnrollment")
-  courses: [Course]! @relation(name: "EnrollmentToCourse")
+  student: User! @relation(name: "UserToEnrollment")
+  courses: [Course!]! @relation(name: "EnrollmentToCourse")
 }
 
 # An enrolled student has courses. This form allows me to provide an opportunity for a student
@@ -41,8 +41,8 @@ type Course {
   status: Int!
   flags: Int!
   enrollment: Enrollment! @relation(name: "EnrollmentToCourse")
-  masteries: [Mastery]! @relation(name: "CourseToMastery")
-  subjects: [Subject]! @relation(name: "CourseToSubject")
+  masteries: [Mastery!]! @relation(name: "CourseToMastery")
+  subjects: [Subject!]! @relation(name: "CourseToSubject")
 }
 
 # This is the table that tracks the success of a student to a subject by relating to a course
@@ -76,8 +76,8 @@ type Subject {
   id: ID! @unique
   name: String!
   description: String!
-  course: [Course]! @relation(name: "CourseToSubject")
-  subSubjects: [SubSubject]! @relation(name: "SubjectToSubSubject")
+  course: [Course!]! @relation(name: "CourseToSubject")
+  subSubjects: [SubSubject!]! @relation(name: "SubjectToSubSubject")
 }
 
 # This is a subdivision of a subject that mastery, units, scales, and questions are connected to.
@@ -94,8 +94,8 @@ type SubSubject {
   scale: Scale! @relation(name: "SubSubjectToScale")
   toMetric: Boolean!
   parent: Subject! @relation(name: "SubjectToSubSubject")
-  mastery: [Mastery]! @relation(name: "MasteryToSubSubject")
-  questions: [Question]! @relation(name: "SubSubjectToQuestion")
+  mastery: [Mastery!]! @relation(name: "MasteryToSubSubject")
+  questions: [Question!]! @relation(name: "SubSubjectToQuestion")
 }
 
 # These are pre-defined questions.

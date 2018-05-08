@@ -1,22 +1,12 @@
-# import Post from "./generated/prisma.graphql"
+# import Classroom, Enrollment from "./generated/prisma.graphql"
 
 type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
   me: User
 }
 
 type Mutation {
-  signup(email: String!, password: String!, name: String!): AuthPayload!
+  signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  createDraft(title: String!, text: String!): Post!
-  publish(id: ID!): Post!
-  deletePost(id: ID!): Post!
-}
-
-type Subscription {
-  feedSubscription: PostSubscriptionPayload!
 }
 
 type AuthPayload {
@@ -27,6 +17,18 @@ type AuthPayload {
 type User {
   id: ID!
   email: String!
-  name: String!
-  posts: [Post!]!
+  fname: String!
+  lname: String!
 }
+
+#type PrivateUser {
+#  id: ID!
+#  email: String!
+#  fname: String!
+#  lname: String!
+#  type: Int!
+#  status: Int!
+#  flags: Int!
+#  classrooms: [Classroom!]!
+#  enrollment: Enrollment
+#}
