@@ -42,3 +42,26 @@ You *need to create this file* before things can run. You can even copy the exam
 This file is used by the module [`dotenv`](https://github.com/motdotla/dotenv).
 
 If you ever do remote hosting, you'll need to change the endpoint's url to the remote host's location, and change the `PRISMA_CLUSTER` value to whatever additional cluster you define in `~/.prisma/config.yml` (like the above example for `local`). You should do this by defining a second `.env` file with a name like `.env.remote` and then run, for example, `prisma deploy -e /.env.remote`.
+
+## Database Documentation
+### User
+
+### Classroom
+
+### Enrollment
+
+### Course
+
+### Mastery
+
+### Survey
+
+### Subject
+
+### SubSubject
+
+### Question
+
+### Unit
+
+### Scale
