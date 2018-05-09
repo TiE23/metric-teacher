@@ -1,17 +1,130 @@
-type Post {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  isPublished: Boolean! @default(value: "false")
-  title: String!
-  text: String!
-  author: User!
-}
-
+# Users can be students (normal account), teachers, moderators, or admins
 type User {
   id: ID! @unique
   email: String! @unique
   password: String!
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  classrooms: [Classroom]! @relation(name: "UserToClassroom")
+  enrollment: Enrollment @relation(name: "UserToEnrollment")
+}
+
+# This is a structure that will allow teacher(s) to connect to their students and students to
+# connect to each other.
+type Classroom {
+  id: ID! @unique
   name: String!
-  posts: [Post!]!
+  description: String!
+  status: Int!
+  flags: Int!
+  notes: String!
+  users: [User]! @relation(name: "UserToClassroom")
+}
+
+# A student has a single enrollment row. An enrollment is their place in the school.
+type Enrollment {
+  id: ID! @unique
+  student: User! @unique @relation(name: "UserToEnrollment")
+  courses: [Course]! @relation(name: "EnrollmentToCourse")
+}
+
+# An enrolled student has courses. This form allows me to provide an opportunity for a student
+# who has fallen behind to restart their progress on the website without deleting everything, or,
+# perhaps, to follow a different curriculum of sorts.
+# The typical student will have only one course to their enrollment, but it's future-proofing to
+# prepare for a future where a student may have multiple courses.
+type Course {
+  id: ID! @unique
+  status: Int!
+  flags: Int!
+  enrollment: Enrollment! @relation(name: "EnrollmentToCourse")
+  masteries: [Mastery]! @relation(name: "CourseToMastery")
+  subjects: [Subject]! @relation(name: "CourseToSubject")
+}
+
+# This is the table that tracks the success of a student to a subject by relating to a course
+# and a subject.
+type Mastery {
+  id: ID! @unique
+  course: Course! @relation(name: "CourseToMastery")
+  subSubject: SubSubject! @relation(name: "MasteryToSubSubject")
+  score: Int!
+}
+
+# A survey is a flexible question where the app asks a user to respond with their own guess. If the
+# guess is within a certain range it'll use that answer going forward and quiz them about it later.
+# Ex: "Starting at what height would you describe an adult man to be 'very tall'?"
+# A range could be "72-80 inches".
+# If the user answers 6ft3in (75 inches), great. Next time it'll ask the user to identify that same
+# imperial value again and then later ask to convert it to metric (in this example it would be 1.91m).
+# And finally ask the user to identify the metric value
+type Survey {
+  id: ID! @unique
+  score: Int!
+  question: String!
+  answerRange: String!
+  answer: String!
+  course: Course! @relation(name: "CourseToSurvey")
+  subSubject: SubSubject! @relation(name: "SurveyToSubSubject")
+}
+
+# This is a shared subject of questions, such as length, temperature, or speed.
+type Subject {
+  id: ID! @unique
+  name: String!
+  description: String!
+  course: [Course]! @relation(name: "CourseToSubject")
+  subSubjects: [SubSubject]! @relation(name: "SubjectToSubSubject")
+}
+
+# This is a subdivision of a subject that mastery, units, scales, and questions are connected to.
+# In my plan questions are divided in this way: You pick a subject (ex: length), you get a subsubject
+# that is unit and scale (ex: meters, hand-sized) and whether the student is converting TO or FROM
+# metric.
+# So, for example. The subject length might have the following subsubjects:
+# [meters, hand-sized, to metric], [meters, hand-sized, from metric],
+# [meters, room-sized, to metric], [meters, room-sized, from metric], etc
+type SubSubject {
+  id: ID! @unique
+  name: String!
+  unit: Unit! @relation(name: "SubSubjectToUnit")
+  scale: Scale! @relation(name: "SubSubjectToScale")
+  toMetric: Boolean!
+  parent: Subject! @relation(name: "SubjectToSubSubject")
+  mastery: [Mastery]! @relation(name: "MasteryToSubSubject")
+  questions: [Question]! @relation(name: "SubSubjectToQuestion")
+}
+
+# These are pre-defined questions.
+type Question {
+  id: ID! @unique
+  type: Int!
+  status: Int!
+  flags: Int!
+  question: String!
+  answer: String!
+  subSubject: SubSubject! @relation(name: "SubSubjectToQuestion")
+}
+
+# This is a table describing different units of measurement. These are standard units. So whether the
+# answer is 10mm or 10km, it will be represented with meters: 0.0010m and 10000m.
+# Only SI units have rows as this website is teaching the metric system. If this site was teaching
+# people imperial units then they would have rows, too.
+type Unit {
+  id: ID! @unique
+  type: Int!
+  name: String!
+  description: String!
+  subSubject: SubSubject! @relation(name: "SubSubjectToUnit")
+}
+
+# This is a table describing different DESCRIPTIVE scales of measurement.
+type Scale {
+  id: ID! @unique
+  name: String!
+  description: String!
+  subSubject: SubSubject! @relation(name: "SubSubjectToScale")
 }
