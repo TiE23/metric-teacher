@@ -1,0 +1,719 @@
+mutation {
+  ############## Unit
+  unit_001: createUnit(data: {
+    name: "meter"
+    description: "The base unit of measure in SI."
+  }) {
+    id
+  }
+  unit_002: createUnit(data: {
+    name: "kilogram"
+    description: "The base unit of mass in SI."
+  }) {
+    id
+  }
+  unit_003: createUnit(data: {
+    name: "liter"
+    description: "The base unit of volume in SI."
+  }) {
+    id
+  }
+  unit_004: createUnit(data: {
+    name: "celsius"
+    description: "The human-friendly adjustment of Kelvin, the base unit of temperature in SI. Based on a 100-degree difference between freezing and boiling water."
+  }) {
+    id
+  }
+  unit_005: createUnit(data: {
+    name: "kilometers-per-hour"
+    description: "The common unit of velocity in SI."
+  }) {
+    id
+  }
+  unit_006: createUnit(data: {
+    name: "square-meter"
+    description: "The base measurement of area in SI."
+  }) {
+    id
+  }
+
+  ############## Scale
+  ####### Generic
+  scale_hand: createScale(data: {
+    name: "hand"
+    description: "A scale concerned with objects that could be carried. Such as hand tools, electronics, food, small animals, boxes, etc."
+  }) {
+    id
+  }
+  scale_human: createScale(data: {
+    name: "human"
+    description: "A scale concerned primarily with aspects of human bodies. Such as masculine and feminine adults, children, babies, etc."
+  }) {
+    id
+  }
+  scale_room: createScale(data: {
+    name: "room"
+    description: "A scale concerned with objects that could fit into a room. Such as furniture, appliances, etc."
+  }) {
+    id
+  }
+  scale_street: createScale(data: {
+    name: "street"
+    description: "A scale concerned with objects that could roughly fit on a street. Such as cars, buses, semi-trucks, airplanes, etc."
+  }) {
+    id
+  }
+  scale_building: createScale(data: {
+    name: "building"
+    description: "A scale concerned with objects that could be compared to a city block. Such as houses, office buildings, stadiums, cruise-liners, sky-scrapers, etc."
+  }) {
+    id
+  }
+
+  ####### Distances
+  scale_local: createScale(data: {
+    name: "local"
+    description: "A scale concerned with distances that could fit within the bounds of a city. Such as distances between highway exits, the bounds of a neighborhood, the width of a local lake, etc."
+  }) {
+    id
+  }
+  scale_geographic: createScale(data: {
+    name: "geographic"
+    description: "A scale concerned with distances that would be traversed in a road-trip or flight. Such as distances between cities, states, countries, shores of oceans, etc."
+  }) {
+    id
+  }
+  scale_astronomical: createScale(data: {
+    name: "astronomical"
+    description: "A scale concerned with vast distances. Such as the diameter of planets, the distance between planets,  the distances between stars, etc."
+  }) {
+    id
+  }
+
+  ####### Temperature
+  scale_weather: createScale(data: {
+    name: "weather"
+    description: "A scale concerned temperatures that can be found in normally human-habitable nature. Such as from frosty blizzards to arid heat-waves, avoiding Antarctic lows and Death Valley highs."
+  }) {
+    id
+  }
+  scale_cooking: createScale(data: {
+    name: "cooking"
+    description: "A scale concerned temperatures that can be found in a pot or oven. Such as slow-cookers, ovens, barbecues, and hot-fired ovens."
+  }) {
+    id
+  }
+  scale_chemistry: createScale(data: {
+    name: "chemistry"
+    description: "A scale concerned temperatures that can be found in chemical or engineering settings. Such as ignition points of materials, melting points of metals, etc."
+  }) {
+    id
+  }
+
+  ####### Velocity
+  scale_pedestrian: createScale(data: {
+    name: "pedestrian"
+    description: "A scale concerned with velocities typical to those found when measuring human movement and sport. Such as walking, jogging, running, biking, etc."
+  }) {
+    id
+  }
+  scale_transit: createScale(data: {
+    name: "transit"
+    description: "A scale concerned with velocities typical to those found when measuring land-based travel. Such as road and highway speeds, etc."
+  }) {
+    id
+  }
+  scale_racing: createScale(data: {
+    name: "racing"
+    description: "A scale concerned with velocities typical to those found when measuring the fastest land-based vehicles. Such as race cars, bullet trains, etc."
+  }) {
+    id
+  }
+  scale_air: createScale(data: {
+    name: "air"
+    description: "A scale concerned with velocities typical to those found when measuring air vehicles. Such as airliners, fighter jets, etc."
+  }) {
+    id
+  }
+  scale_rocket: createScale(data: {
+    name: "rocket"
+    description: "A scale concerned with velocities typical to those found when measuring rockets. Such as bullets, missiles, satellites, etc."
+  }) {
+    id
+  }
+
+  ####### Area
+  scale_home: createScale(data: {
+    name: "home"
+    description: "A scale concerned with areas typical of homes. Such as rooms, apartments, houses, etc."
+  }) {
+    id
+  }
+  scale_commercial: createScale(data: {
+    name: "commercial"
+    description: "A scale concerned with areas typical of commercial real-estate. Such as offices, retail space, warehouses, etc."
+  }) {
+    id
+  }
+  scale_land: createScale(data: {
+    name: "land"
+    description: "A scale concerned with areas typical of land. Such as plots of land, farms, parks, etc."
+  }) {
+    id
+  }
+  scale_jurisdiction: createScale(data: {
+    name: "jurisdiction"
+    description: "A scale concerned with areas typical of those that are managed by government. Such as reserves, forests, large bodies of water, cities, smaller states and provinces, etc."
+  }) {
+    id
+  }
+  scale_territory: createScale(data: {
+    name: "territory"
+    description: "A scale concerned with areas typical of government territories and greater. Such as nations, continents, seas, oceans, etc."
+  }) {
+    id
+  }
+
+  ############## Subject
+  ####### Length
+  subject_length: createSubject(data: {
+    name: "Length"
+    description: "Practice measurements of length and distance."
+    subSubjects: {
+      create: [
+        {
+          name: "Length - Hand-scale - To Metric"
+          description: "Approximately 1 millimeter to 1 meter."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "hand" } }
+        },
+        {
+          name: "Length - Hand-scale - From Metric"
+          description: "Approximately 1/16 inch to 3 feet."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "hand" } }
+        },
+        {
+          name: "Length - Human-scale - To Metric"
+          description: "Approximately 1 to 3 meters."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "human" } }
+        },
+        {
+          name: "Length - Human-scale - From Metric"
+          description: "Approximately 3 to 9 feet."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "human" } }
+        },
+        {
+          name: "Length - Room-scale - To Metric"
+          description: "Approximately 1 to 5 meters."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "room" } }
+        },
+        {
+          name: "Length - Room-scale - From Metric"
+          description: "Approximately 3 to 16 feet."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "room" } }
+        },
+        {
+          name: "Length - Building-scale - To Metric"
+          description: "Approximately 3 to 500 meters."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "building" } }
+        },
+        {
+          name: "Length - Building-scale - From Metric"
+          description: "Approximately 10 to 1600 feet."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "building" } }
+        },
+        {
+          name: "Length - Local-scale - To Metric"
+          description: "Approximately 500 to 10,000 meters."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "local" } }
+        },
+        {
+          name: "Length - Local-scale - From Metric"
+          description: "Approximately 1/3 to 6 miles."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "local" } }
+        },
+        {
+          name: "Length - Geographic-scale - To Metric"
+          description: "Approximately 10 to 16,000 kilometers."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "geographic" } }
+        },
+        {
+          name: "Length - Geographic-scale - From Metric"
+          description: "Approximately 6 to 10,000 miles."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "geographic" } }
+        },
+        {
+          name: "Length - Astronomical-scale - To Metric"
+          description: "Greater than 16,000 kilometers."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "astronomical" } }
+        },
+        {
+          name: "Length - Astronomical-scale - From Metric"
+          description: "Greater than 10,000 miles."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "meter" } }
+          scale: { connect: { name: "astronomical" } }
+        }
+      ]
+    }
+  }) {
+    id
+  }
+
+  ####### Mass
+  subject_mass: createSubject(data: {
+    name: "Mass"
+    description: "Practice measurements of weight and mass."
+    subSubjects: {
+      create: [
+        {
+          name: "Mass - Hand-scale - To Metric"
+          description: "Approximately 1 to 5000 grams."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "kilogram" } }
+          scale: { connect: { name: "hand" } }
+        },
+        {
+          name: "Mass - Hand-scale - From Metric"
+          description: "Approximately the weight of a paper-clip to 12 pounds."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "kilogram" } }
+          scale: { connect: { name: "hand" } }
+        },
+        {
+          name: "Mass - Human-scale - To Metric"
+          description: "Approximately 5 to 150 kilograms."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "kilogram" } }
+          scale: { connect: { name: "human" } }
+        },
+        {
+          name: "Mass - Human-scale - From Metric"
+          description: "Approximately 12 to 330 pounds."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "kilogram" } }
+          scale: { connect: { name: "human" } }
+        },
+        {
+          name: "Mass - Street-scale - To Metric"
+          description: "Approximately 150 to 10,000 kilograms (10 tonnes)."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "kilogram" } }
+          scale: { connect: { name: "street" } }
+        },
+        {
+          name: "Mass - Street-scale - From Metric"
+          description: "Approximately 330 to 22,000 pounds (11 short-tons)."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "kilogram" } }
+          scale: { connect: { name: "street" } }
+        },
+        {
+          name: "Mass - Building-scale - To Metric"
+          description: "Greater than 10,000 kilograms (10 tonnes)."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "kilogram" } }
+          scale: { connect: { name: "building" } }
+        },
+        {
+          name: "Mass - Building-scale - From Metric"
+          description: "Greater than 22,000 pounds (11 short-tons)."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "kilogram" } }
+          scale: { connect: { name: "building" } }
+        }
+      ]
+    }
+  }) {
+    id
+  }
+
+  ####### Volume
+  subject_volume: createSubject(data: {
+    name: "Volume"
+    description: "Practice measurements of volume."
+    subSubjects: {
+      create: [
+        {
+          name: "Volume - Hand-scale - To Metric"
+          description: "Approximately 1 to 10,000 milliliters."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "hand" } }
+        },
+        {
+          name: "Volume - Hand-scale - From Metric"
+          description: "Approximately a few drops of liquid to 3 gallons."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "hand" } }
+        },
+        {
+          name: "Volume - Room-scale - To Metric"
+          description: "Approximately 10 to 1,000 liters."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "room" } }
+        },
+        {
+          name: "Volume - Room-scale - From Metric"
+          description: "Approximately 3 to 265 gallons."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "room" } }
+        },
+        {
+          name: "Volume - Street-scale - To Metric"
+          description: "Greater than 1,000 liters."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "room" } }
+        },
+        {
+          name: "Volume - Street-scale - From Metric"
+          description: "Greater than 265 gallons."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "room" } }
+        }
+      ]
+    }
+  }) {
+    id
+  }
+
+  ####### Temperature
+  subject_temperature: createSubject(data: {
+    name: "Temperature"
+    description: "Practice measurements of temperature."
+    subSubjects: {
+      create: [
+        {
+          name: "Temperature - Weather-scale - To Metric"
+          description: "Approximately -20 to 45 Celsius."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "weather" } }
+        },
+        {
+          name: "Temperature - Weather-scale - From Metric"
+          description: "Approximately -5 to 115 Fahrenheit."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "weather" } }
+        },
+        {
+          name: "Temperature - Cooking-scale - To Metric"
+          description: "Approximately 45 to 350 Celsius."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "cooking" } }
+        },
+        {
+          name: "Temperature - Cooking-scale - From Metric"
+          description: "Approximately 115 to 665 Fahrenheit."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "cooking" } }
+        },
+        {
+          name: "Temperature - Chemistry-scale - To Metric"
+          description: "Greater than 350 Celsius."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "chemistry" } }
+        },
+        {
+          name: "Temperature - Chemistry-scale - From Metric"
+          description: "Greater than 665 Fahrenheit."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "liter" } }
+          scale: { connect: { name: "chemistry" } }
+        }
+      ]
+    }
+  }) {
+    id
+  }
+
+  ####### Velocity
+  subject_velocity: createSubject(data: {
+    name: "Velocity"
+    description: "Practice measurements of velocity."
+    subSubjects: {
+      create: [
+        {
+          name: "Velocity - Pedestrian-scale - To Metric"
+          description: "Approximately 1 to 40 km/h."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "kilometers-per-hour" } }
+          scale: { connect: { name: "pedestrian" } }
+        },
+        {
+          name: "Velocity - Pedestrian-scale - From Metric"
+          description: "Approximately 1 to 25 mph."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "kilometers-per-hour" } }
+          scale: { connect: { name: "pedestrian" } }
+        },
+        {
+          name: "Velocity - Transit-scale - To Metric"
+          description: "Approximately 40 to 160 km/h."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "kilometers-per-hour" } }
+          scale: { connect: { name: "transit" } }
+        },
+        {
+          name: "Velocity - Transit-scale - From Metric"
+          description: "Approximately 25 to 100 mph."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "kilometers-per-hour" } }
+          scale: { connect: { name: "transit" } }
+        },
+        {
+          name: "Velocity - Racing-scale - To Metric"
+          description: "Approximately 160 to 350 km/h."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "kilometers-per-hour" } }
+          scale: { connect: { name: "racing" } }
+        },
+        {
+          name: "Velocity - Racing-scale - From Metric"
+          description: "Approximately 100 to 220 mph."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "kilometers-per-hour" } }
+          scale: { connect: { name: "racing" } }
+        },
+        {
+          name: "Velocity - Air-scale - To Metric"
+          description: "Approximately 350 to 900 km/h."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "kilometers-per-hour" } }
+          scale: { connect: { name: "air" } }
+        },
+        {
+          name: "Velocity - Air-scale - From Metric"
+          description: "Approximately 220 to 560 mph."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "kilometers-per-hour" } }
+          scale: { connect: { name: "air" } }
+        },
+        {
+          name: "Velocity - Rocket-scale - To Metric"
+          description: "Greater than 900 km/h."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "kilometers-per-hour" } }
+          scale: { connect: { name: "rocket" } }
+        },
+        {
+          name: "Velocity - Rocket-scale - From Metric"
+          description: "Greater than 560 mph."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "kilometers-per-hour" } }
+          scale: { connect: { name: "rocket" } }
+        }
+      ]
+    }
+  }) {
+    id
+  }
+
+  ####### Area
+  subject_area: createSubject(data: {
+    name: "Area"
+    description: "Practice measurements of area."
+    subSubjects: {
+      create: [
+        {
+          name: "Area - Home-scale - To Metric"
+          description: "Approximately 4 to 400 square-meters."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "square-meter" } }
+          scale: { connect: { name: "home" } }
+        },
+        {
+          name: "Area - Home-scale - From Metric"
+          description: "Approximately 40 to 4300 square-feet."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "square-meter" } }
+          scale: { connect: { name: "home" } }
+        },
+        {
+          name: "Area - Commercial-scale - To Metric"
+          description: "Approximately 400 to 20,000 square-meters."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "square-meter" } }
+          scale: { connect: { name: "commercial" } }
+        },
+        {
+          name: "Area - Commercial-scale - From Metric"
+          description: "Approximately 4300 to 215,000 square-feet."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "square-meter" } }
+          scale: { connect: { name: "commercial" } }
+        },
+        {
+          name: "Area - Land-scale - To Metric"
+          description: "Approximately 2 to 100 hectares."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "square-meter" } }
+          scale: { connect: { name: "land" } }
+        },
+        {
+          name: "Area - Land-scale - From Metric"
+          description: "Approximately 5 to 250 acres."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "square-meter" } }
+          scale: { connect: { name: "land" } }
+        },
+        {
+          name: "Area - Jurisdictional-scale - To Metric"
+          description: "Approximately 1 to 20,000 square kilometers."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "square-meter" } }
+          scale: { connect: { name: "jurisdiction" } }
+        },
+        {
+          name: "Area - Jurisdictional-scale - From Metric"
+          description: "Approximately 1/3 to 7700 square miles."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "square-meter" } }
+          scale: { connect: { name: "jurisdiction" } }
+        },
+        {
+          name: "Area - Territory-scale - To Metric"
+          description: "Greater than 20,000 square kilometers."
+          toMetric: true
+          rarity: 0
+          unit: { connect: { name: "square-meter" } }
+          scale: { connect: { name: "territory" } }
+        },
+        {
+          name: "Area - Territory-scale - From Metric"
+          description: "Greater than 7700 square miles."
+          toMetric: false
+          rarity: 0
+          unit: { connect: { name: "square-meter" } }
+          scale: { connect: { name: "territory" } }
+        }
+      ]
+    }
+  }) {
+    id
+  }
+
+  ############## User
+  user_student_001: createUser(data: {
+    email: "test@example.com"
+    password: "$2a$10$pp9xV2vdRjF9PghrbQmQn.uGosaeCvyLVhXs80E.WXANODxij4Omy" # "password"
+    fname: "Test"
+    lname: "McTesterson"
+    type: 0
+    status: 0
+    flags: 0
+    classrooms: null
+    enrollment: {
+      create: {
+        courses: {
+          create: {
+            status: 0
+            flags: 0
+            subjects: null
+            masteries: null
+          }
+        }
+      }
+    }
+  }) {
+    id
+    enrollment {
+      id
+      courses {
+        id
+        subjects {
+          id
+        }
+        masteries {
+          id
+        }
+      }
+    }
+  }
+}

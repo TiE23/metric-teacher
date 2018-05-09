@@ -45,6 +45,15 @@ If you ever do remote hosting, you'll need to change the endpoint's url to the r
 
 ## Database Documentation
 ### User
+Type:
+* `0` - Student (default)
+* `1` - Teacher
+* `2` - Moderator
+* `3` - Admin
+
+Status:
+* `0` - Normal
+* `1` - Closed
 
 ### Classroom
 
@@ -59,9 +68,83 @@ If you ever do remote hosting, you'll need to change the endpoint's url to the r
 ### Subject
 
 ### SubSubject
+Rarity (scale):
+* `0` or `1` - Common (default value, no chance of it being removed)
+* `50` - Appears half-as-often (1 out of 2 chance of it appearing as often as common questions)
+* `100` - Most rare (1 out of 100 chance of it appearing as often as common questions)
+
+A method of reducing the appearance of subsubjects' questions.
+
+This is a site-wide rarity setting that will *NOT* be adustable for different users.
+For simplicity rarity is determined by this algorithm:
+> Generate a random number between 1 and 100. If rarity value is greater than that value it is excluded.
 
 ### Question
+Type:
+* `0`: Written question. The question is a specific question with a specific answer.
+* `1`: Conversion.
+
+Difficulty
+Should offer an ability to have some flexibility to give more weight to correct answers for difficult questions and
+similarly forgive more for failing to answer them correctly.
+* `1`: Easy
+* `2`: Easy/Medium
+* `3`: Medium (_should be the default_)
+* `4`: Medium/Hard
+* `5`: Hard
+
+Status:
+* `0`: Enabled
+* `1`: Disabled
 
 ### Unit
 
 ### Scale
+
+## Logic Documentation
+### Question/Answer format
+Because questions and answers can be a little more nuanced than something simple like "What is freezing temperature in Celsius?" with the answer "0", I had to define a special string formatting language so I could express complex questions and answers into single strings.
+
+*Units*
+* Metric (regular)
+  * `m` - meter
+  * `kg` - kilogram
+  * `l` - liter
+  * `c` - Celsius
+  * `kmph` - kilometers per hour
+  * `sqm` - square meter
+* Metric (irregular)
+  * `ha` - hectare (area), 1 to 10,000 square meters
+  * `sqkm` - square kilometer (area), 1 to 100 hectares
+* Imperial (regular)
+  * `ft` - foot
+  * `lb` - pound
+  * `gal` - gallon
+  * `f` - Fahrenheit
+  * `mph` - miles per hour
+  * `sqft` - square foot
+* Imperial (irregular)
+  * `in` - inch, 12 per 1 foot
+  * `oz` - ounces (mass), 16 per 1 pound
+  * `floz` - ounces (volume), 128 per 1 gallon
+  * `acre` - acre (area), 1 to 43,560 square feet
+  * `sqmi` - square mile (area), 1 to 640 acres
+
+*Multiple Choice Syntax*
+TODO
+
+*Range Syntax*
+* Range Question (From):
+  * `[#-#UNIT]` (simple, with whole numbers)
+  * `[#-#UNIT(0.1)]` (with steps of 0.1)
+  * `[#-#UNIT(10)]` (with steps of 10)
+* Range Answer (To):
+  * `[UNIT]` (simple, with whole numbers)
+  * `[UNIT(0.5)]` (accept an answer within 0.5 units accuracy)
+  * `[UNIT(3)]` (accept an answer within 3 units accuracy)
+
+Examples:
+* Q: `[5-10m]` A: `[ft]`
+  * Would ask to convert a random whole number of meters between 5 and 10 (inclusive) and demand a conversion in feet accurate to within 1 foot.
+* Q: `[18-22c(0.5)]` A: `[f(2)]`
+  * Would ask to convert a random temperature between 18 and 22 Celsius in 0.5 increments and demand a conversion in Fahrenheit accurate to within 2 degrees.

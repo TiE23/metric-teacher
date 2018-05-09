@@ -49,9 +49,10 @@ type Course {
 # and a subject.
 type Mastery {
   id: ID! @unique
+  status: Int!
+  score: Int!
   course: Course! @relation(name: "CourseToMastery")
   subSubject: SubSubject! @relation(name: "MasteryToSubSubject")
-  score: Int!
 }
 
 # A survey is a flexible question where the app asks a user to respond with their own guess. If the
@@ -74,9 +75,8 @@ type Survey {
 # This is a shared subject of questions, such as length, temperature, or speed.
 type Subject {
   id: ID! @unique
-  name: String!
+  name: String! @unique
   description: String!
-  course: [Course!]! @relation(name: "CourseToSubject")
   subSubjects: [SubSubject!]! @relation(name: "SubjectToSubSubject")
 }
 
@@ -89,12 +89,13 @@ type Subject {
 # [meters, room-sized, to metric], [meters, room-sized, from metric], etc
 type SubSubject {
   id: ID! @unique
-  name: String!
+  name: String! @unique
+  description: String!
+  toMetric: Boolean!
+  rarity: Int!
   unit: Unit! @relation(name: "SubSubjectToUnit")
   scale: Scale! @relation(name: "SubSubjectToScale")
-  toMetric: Boolean!
   parent: Subject! @relation(name: "SubjectToSubSubject")
-  mastery: [Mastery!]! @relation(name: "MasteryToSubSubject")
   questions: [Question!]! @relation(name: "SubSubjectToQuestion")
 }
 
@@ -102,8 +103,10 @@ type SubSubject {
 type Question {
   id: ID! @unique
   type: Int!
+  difficulty: Int!
   status: Int!
   flags: Int!
+  media: String
   question: String!
   answer: String!
   subSubject: SubSubject! @relation(name: "SubSubjectToQuestion")
@@ -115,16 +118,15 @@ type Question {
 # people imperial units then they would have rows, too.
 type Unit {
   id: ID! @unique
-  type: Int!
-  name: String!
+  name: String! @unique
   description: String!
-  subSubject: SubSubject! @relation(name: "SubSubjectToUnit")
+  subSubjects: [SubSubject!]! @relation(name: "SubSubjectToUnit")
 }
 
 # This is a table describing different DESCRIPTIVE scales of measurement.
 type Scale {
   id: ID! @unique
-  name: String!
+  name: String! @unique
   description: String!
-  subSubject: SubSubject! @relation(name: "SubSubjectToScale")
+  subSubjects: [SubSubject!]! @relation(name: "SubSubjectToScale")
 }

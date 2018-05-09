@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Tue May 08 2018 14:42:13 GMT-0700 (PDT)
+# timestamp: Wed May 09 2018 13:17:12 GMT-0700 (PDT)
 
 type AggregateClassroom {
   count: Int!
@@ -451,16 +451,11 @@ input CourseCreateInput {
   flags: Int!
   enrollment: EnrollmentCreateOneWithoutCoursesInput!
   masteries: MasteryCreateManyWithoutCourseInput
-  subjects: SubjectCreateManyWithoutCourseInput
+  subjects: SubjectCreateManyInput
 }
 
 input CourseCreateManyWithoutEnrollmentInput {
   create: [CourseCreateWithoutEnrollmentInput!]
-  connect: [CourseWhereUniqueInput!]
-}
-
-input CourseCreateManyWithoutSubjectsInput {
-  create: [CourseCreateWithoutSubjectsInput!]
   connect: [CourseWhereUniqueInput!]
 }
 
@@ -478,21 +473,14 @@ input CourseCreateWithoutEnrollmentInput {
   status: Int!
   flags: Int!
   masteries: MasteryCreateManyWithoutCourseInput
-  subjects: SubjectCreateManyWithoutCourseInput
+  subjects: SubjectCreateManyInput
 }
 
 input CourseCreateWithoutMasteriesInput {
   status: Int!
   flags: Int!
   enrollment: EnrollmentCreateOneWithoutCoursesInput!
-  subjects: SubjectCreateManyWithoutCourseInput
-}
-
-input CourseCreateWithoutSubjectsInput {
-  status: Int!
-  flags: Int!
-  enrollment: EnrollmentCreateOneWithoutCoursesInput!
-  masteries: MasteryCreateManyWithoutCourseInput
+  subjects: SubjectCreateManyInput
 }
 
 """An edge in a connection."""
@@ -567,7 +555,7 @@ input CourseUpdateDataInput {
   flags: Int
   enrollment: EnrollmentUpdateOneWithoutCoursesInput
   masteries: MasteryUpdateManyWithoutCourseInput
-  subjects: SubjectUpdateManyWithoutCourseInput
+  subjects: SubjectUpdateManyInput
 }
 
 input CourseUpdateInput {
@@ -575,7 +563,7 @@ input CourseUpdateInput {
   flags: Int
   enrollment: EnrollmentUpdateOneWithoutCoursesInput
   masteries: MasteryUpdateManyWithoutCourseInput
-  subjects: SubjectUpdateManyWithoutCourseInput
+  subjects: SubjectUpdateManyInput
 }
 
 input CourseUpdateManyWithoutEnrollmentInput {
@@ -585,15 +573,6 @@ input CourseUpdateManyWithoutEnrollmentInput {
   delete: [CourseWhereUniqueInput!]
   update: [CourseUpdateWithWhereUniqueWithoutEnrollmentInput!]
   upsert: [CourseUpsertWithWhereUniqueWithoutEnrollmentInput!]
-}
-
-input CourseUpdateManyWithoutSubjectsInput {
-  create: [CourseCreateWithoutSubjectsInput!]
-  connect: [CourseWhereUniqueInput!]
-  disconnect: [CourseWhereUniqueInput!]
-  delete: [CourseWhereUniqueInput!]
-  update: [CourseUpdateWithWhereUniqueWithoutSubjectsInput!]
-  upsert: [CourseUpsertWithWhereUniqueWithoutSubjectsInput!]
 }
 
 input CourseUpdateOneInput {
@@ -616,31 +595,19 @@ input CourseUpdateWithoutEnrollmentDataInput {
   status: Int
   flags: Int
   masteries: MasteryUpdateManyWithoutCourseInput
-  subjects: SubjectUpdateManyWithoutCourseInput
+  subjects: SubjectUpdateManyInput
 }
 
 input CourseUpdateWithoutMasteriesDataInput {
   status: Int
   flags: Int
   enrollment: EnrollmentUpdateOneWithoutCoursesInput
-  subjects: SubjectUpdateManyWithoutCourseInput
-}
-
-input CourseUpdateWithoutSubjectsDataInput {
-  status: Int
-  flags: Int
-  enrollment: EnrollmentUpdateOneWithoutCoursesInput
-  masteries: MasteryUpdateManyWithoutCourseInput
+  subjects: SubjectUpdateManyInput
 }
 
 input CourseUpdateWithWhereUniqueWithoutEnrollmentInput {
   where: CourseWhereUniqueInput!
   data: CourseUpdateWithoutEnrollmentDataInput!
-}
-
-input CourseUpdateWithWhereUniqueWithoutSubjectsInput {
-  where: CourseWhereUniqueInput!
-  data: CourseUpdateWithoutSubjectsDataInput!
 }
 
 input CourseUpsertNestedInput {
@@ -657,12 +624,6 @@ input CourseUpsertWithWhereUniqueWithoutEnrollmentInput {
   where: CourseWhereUniqueInput!
   update: CourseUpdateWithoutEnrollmentDataInput!
   create: CourseCreateWithoutEnrollmentInput!
-}
-
-input CourseUpsertWithWhereUniqueWithoutSubjectsInput {
-  where: CourseWhereUniqueInput!
-  update: CourseUpdateWithoutSubjectsDataInput!
-  create: CourseCreateWithoutSubjectsInput!
 }
 
 input CourseWhereInput {
@@ -978,9 +939,10 @@ scalar Long
 
 type Mastery implements Node {
   id: ID!
+  status: Int!
+  score: Int!
   course(where: CourseWhereInput): Course!
   subSubject(where: SubSubjectWhereInput): SubSubject!
-  score: Int!
 }
 
 """A connection to a list of items."""
@@ -994,9 +956,10 @@ type MasteryConnection {
 }
 
 input MasteryCreateInput {
+  status: Int!
   score: Int!
   course: CourseCreateOneWithoutMasteriesInput!
-  subSubject: SubSubjectCreateOneWithoutMasteryInput!
+  subSubject: SubSubjectCreateOneInput!
 }
 
 input MasteryCreateManyWithoutCourseInput {
@@ -1004,19 +967,10 @@ input MasteryCreateManyWithoutCourseInput {
   connect: [MasteryWhereUniqueInput!]
 }
 
-input MasteryCreateManyWithoutSubSubjectInput {
-  create: [MasteryCreateWithoutSubSubjectInput!]
-  connect: [MasteryWhereUniqueInput!]
-}
-
 input MasteryCreateWithoutCourseInput {
+  status: Int!
   score: Int!
-  subSubject: SubSubjectCreateOneWithoutMasteryInput!
-}
-
-input MasteryCreateWithoutSubSubjectInput {
-  score: Int!
-  course: CourseCreateOneWithoutMasteriesInput!
+  subSubject: SubSubjectCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -1031,6 +985,8 @@ type MasteryEdge {
 enum MasteryOrderByInput {
   id_ASC
   id_DESC
+  status_ASC
+  status_DESC
   score_ASC
   score_DESC
   updatedAt_ASC
@@ -1041,6 +997,7 @@ enum MasteryOrderByInput {
 
 type MasteryPreviousValues {
   id: ID!
+  status: Int!
   score: Int!
 }
 
@@ -1084,9 +1041,10 @@ input MasterySubscriptionWhereInput {
 }
 
 input MasteryUpdateInput {
+  status: Int
   score: Int
   course: CourseUpdateOneWithoutMasteriesInput
-  subSubject: SubSubjectUpdateOneWithoutMasteryInput
+  subSubject: SubSubjectUpdateOneInput
 }
 
 input MasteryUpdateManyWithoutCourseInput {
@@ -1098,23 +1056,10 @@ input MasteryUpdateManyWithoutCourseInput {
   upsert: [MasteryUpsertWithWhereUniqueWithoutCourseInput!]
 }
 
-input MasteryUpdateManyWithoutSubSubjectInput {
-  create: [MasteryCreateWithoutSubSubjectInput!]
-  connect: [MasteryWhereUniqueInput!]
-  disconnect: [MasteryWhereUniqueInput!]
-  delete: [MasteryWhereUniqueInput!]
-  update: [MasteryUpdateWithWhereUniqueWithoutSubSubjectInput!]
-  upsert: [MasteryUpsertWithWhereUniqueWithoutSubSubjectInput!]
-}
-
 input MasteryUpdateWithoutCourseDataInput {
+  status: Int
   score: Int
-  subSubject: SubSubjectUpdateOneWithoutMasteryInput
-}
-
-input MasteryUpdateWithoutSubSubjectDataInput {
-  score: Int
-  course: CourseUpdateOneWithoutMasteriesInput
+  subSubject: SubSubjectUpdateOneInput
 }
 
 input MasteryUpdateWithWhereUniqueWithoutCourseInput {
@@ -1122,21 +1067,10 @@ input MasteryUpdateWithWhereUniqueWithoutCourseInput {
   data: MasteryUpdateWithoutCourseDataInput!
 }
 
-input MasteryUpdateWithWhereUniqueWithoutSubSubjectInput {
-  where: MasteryWhereUniqueInput!
-  data: MasteryUpdateWithoutSubSubjectDataInput!
-}
-
 input MasteryUpsertWithWhereUniqueWithoutCourseInput {
   where: MasteryWhereUniqueInput!
   update: MasteryUpdateWithoutCourseDataInput!
   create: MasteryCreateWithoutCourseInput!
-}
-
-input MasteryUpsertWithWhereUniqueWithoutSubSubjectInput {
-  where: MasteryWhereUniqueInput!
-  update: MasteryUpdateWithoutSubSubjectDataInput!
-  create: MasteryCreateWithoutSubSubjectInput!
 }
 
 input MasteryWhereInput {
@@ -1188,6 +1122,28 @@ input MasteryWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  status: Int
+
+  """All values that are not equal to given value."""
+  status_not: Int
+
+  """All values that are contained in given list."""
+  status_in: [Int!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [Int!]
+
+  """All values less than the given value."""
+  status_lt: Int
+
+  """All values less than or equal the given value."""
+  status_lte: Int
+
+  """All values greater than the given value."""
+  status_gt: Int
+
+  """All values greater than or equal the given value."""
+  status_gte: Int
   score: Int
 
   """All values that are not equal to given value."""
@@ -1359,8 +1315,10 @@ type Query {
 type Question implements Node {
   id: ID!
   type: Int!
+  difficulty: Int!
   status: Int!
   flags: Int!
+  media: String
   question: String!
   answer: String!
   subSubject(where: SubSubjectWhereInput): SubSubject!
@@ -1378,8 +1336,10 @@ type QuestionConnection {
 
 input QuestionCreateInput {
   type: Int!
+  difficulty: Int!
   status: Int!
   flags: Int!
+  media: String
   question: String!
   answer: String!
   subSubject: SubSubjectCreateOneWithoutQuestionsInput!
@@ -1392,8 +1352,10 @@ input QuestionCreateManyWithoutSubSubjectInput {
 
 input QuestionCreateWithoutSubSubjectInput {
   type: Int!
+  difficulty: Int!
   status: Int!
   flags: Int!
+  media: String
   question: String!
   answer: String!
 }
@@ -1412,10 +1374,14 @@ enum QuestionOrderByInput {
   id_DESC
   type_ASC
   type_DESC
+  difficulty_ASC
+  difficulty_DESC
   status_ASC
   status_DESC
   flags_ASC
   flags_DESC
+  media_ASC
+  media_DESC
   question_ASC
   question_DESC
   answer_ASC
@@ -1429,8 +1395,10 @@ enum QuestionOrderByInput {
 type QuestionPreviousValues {
   id: ID!
   type: Int!
+  difficulty: Int!
   status: Int!
   flags: Int!
+  media: String
   question: String!
   answer: String!
 }
@@ -1476,8 +1444,10 @@ input QuestionSubscriptionWhereInput {
 
 input QuestionUpdateInput {
   type: Int
+  difficulty: Int
   status: Int
   flags: Int
+  media: String
   question: String
   answer: String
   subSubject: SubSubjectUpdateOneWithoutQuestionsInput
@@ -1494,8 +1464,10 @@ input QuestionUpdateManyWithoutSubSubjectInput {
 
 input QuestionUpdateWithoutSubSubjectDataInput {
   type: Int
+  difficulty: Int
   status: Int
   flags: Int
+  media: String
   question: String
   answer: String
 }
@@ -1582,6 +1554,28 @@ input QuestionWhereInput {
 
   """All values greater than or equal the given value."""
   type_gte: Int
+  difficulty: Int
+
+  """All values that are not equal to given value."""
+  difficulty_not: Int
+
+  """All values that are contained in given list."""
+  difficulty_in: [Int!]
+
+  """All values that are not contained in given list."""
+  difficulty_not_in: [Int!]
+
+  """All values less than the given value."""
+  difficulty_lt: Int
+
+  """All values less than or equal the given value."""
+  difficulty_lte: Int
+
+  """All values greater than the given value."""
+  difficulty_gt: Int
+
+  """All values greater than or equal the given value."""
+  difficulty_gte: Int
   status: Int
 
   """All values that are not equal to given value."""
@@ -1626,6 +1620,46 @@ input QuestionWhereInput {
 
   """All values greater than or equal the given value."""
   flags_gte: Int
+  media: String
+
+  """All values that are not equal to given value."""
+  media_not: String
+
+  """All values that are contained in given list."""
+  media_in: [String!]
+
+  """All values that are not contained in given list."""
+  media_not_in: [String!]
+
+  """All values less than the given value."""
+  media_lt: String
+
+  """All values less than or equal the given value."""
+  media_lte: String
+
+  """All values greater than the given value."""
+  media_gt: String
+
+  """All values greater than or equal the given value."""
+  media_gte: String
+
+  """All values containing the given string."""
+  media_contains: String
+
+  """All values not containing the given string."""
+  media_not_contains: String
+
+  """All values starting with the given string."""
+  media_starts_with: String
+
+  """All values not starting with the given string."""
+  media_not_starts_with: String
+
+  """All values ending with the given string."""
+  media_ends_with: String
+
+  """All values not ending with the given string."""
+  media_not_ends_with: String
   question: String
 
   """All values that are not equal to given value."""
@@ -1717,7 +1751,7 @@ type Scale implements Node {
   id: ID!
   name: String!
   description: String!
-  subSubject(where: SubSubjectWhereInput): SubSubject!
+  subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject!]
 }
 
 """A connection to a list of items."""
@@ -1733,15 +1767,15 @@ type ScaleConnection {
 input ScaleCreateInput {
   name: String!
   description: String!
-  subSubject: SubSubjectCreateOneWithoutScaleInput!
+  subSubjects: SubSubjectCreateManyWithoutScaleInput
 }
 
-input ScaleCreateOneWithoutSubSubjectInput {
-  create: ScaleCreateWithoutSubSubjectInput
+input ScaleCreateOneWithoutSubSubjectsInput {
+  create: ScaleCreateWithoutSubSubjectsInput
   connect: ScaleWhereUniqueInput
 }
 
-input ScaleCreateWithoutSubSubjectInput {
+input ScaleCreateWithoutSubSubjectsInput {
   name: String!
   description: String!
 }
@@ -1816,25 +1850,25 @@ input ScaleSubscriptionWhereInput {
 input ScaleUpdateInput {
   name: String
   description: String
-  subSubject: SubSubjectUpdateOneWithoutScaleInput
+  subSubjects: SubSubjectUpdateManyWithoutScaleInput
 }
 
-input ScaleUpdateOneWithoutSubSubjectInput {
-  create: ScaleCreateWithoutSubSubjectInput
+input ScaleUpdateOneWithoutSubSubjectsInput {
+  create: ScaleCreateWithoutSubSubjectsInput
   connect: ScaleWhereUniqueInput
   delete: Boolean
-  update: ScaleUpdateWithoutSubSubjectDataInput
-  upsert: ScaleUpsertWithoutSubSubjectInput
+  update: ScaleUpdateWithoutSubSubjectsDataInput
+  upsert: ScaleUpsertWithoutSubSubjectsInput
 }
 
-input ScaleUpdateWithoutSubSubjectDataInput {
+input ScaleUpdateWithoutSubSubjectsDataInput {
   name: String
   description: String
 }
 
-input ScaleUpsertWithoutSubSubjectInput {
-  update: ScaleUpdateWithoutSubSubjectDataInput!
-  create: ScaleCreateWithoutSubSubjectInput!
+input ScaleUpsertWithoutSubSubjectsInput {
+  update: ScaleUpdateWithoutSubSubjectsDataInput!
+  create: ScaleCreateWithoutSubSubjectsInput!
 }
 
 input ScaleWhereInput {
@@ -1966,18 +2000,20 @@ input ScaleWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
-  subSubject: SubSubjectWhereInput
+  subSubjects_every: SubSubjectWhereInput
+  subSubjects_some: SubSubjectWhereInput
+  subSubjects_none: SubSubjectWhereInput
 }
 
 input ScaleWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Subject implements Node {
   id: ID!
   name: String!
   description: String!
-  course(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
   subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject!]
 }
 
@@ -1994,12 +2030,11 @@ type SubjectConnection {
 input SubjectCreateInput {
   name: String!
   description: String!
-  course: CourseCreateManyWithoutSubjectsInput
   subSubjects: SubSubjectCreateManyWithoutParentInput
 }
 
-input SubjectCreateManyWithoutCourseInput {
-  create: [SubjectCreateWithoutCourseInput!]
+input SubjectCreateManyInput {
+  create: [SubjectCreateInput!]
   connect: [SubjectWhereUniqueInput!]
 }
 
@@ -2008,16 +2043,9 @@ input SubjectCreateOneWithoutSubSubjectsInput {
   connect: SubjectWhereUniqueInput
 }
 
-input SubjectCreateWithoutCourseInput {
-  name: String!
-  description: String!
-  subSubjects: SubSubjectCreateManyWithoutParentInput
-}
-
 input SubjectCreateWithoutSubSubjectsInput {
   name: String!
   description: String!
-  course: CourseCreateManyWithoutSubjectsInput
 }
 
 """An edge in a connection."""
@@ -2087,20 +2115,25 @@ input SubjectSubscriptionWhereInput {
   node: SubjectWhereInput
 }
 
-input SubjectUpdateInput {
+input SubjectUpdateDataInput {
   name: String
   description: String
-  course: CourseUpdateManyWithoutSubjectsInput
   subSubjects: SubSubjectUpdateManyWithoutParentInput
 }
 
-input SubjectUpdateManyWithoutCourseInput {
-  create: [SubjectCreateWithoutCourseInput!]
+input SubjectUpdateInput {
+  name: String
+  description: String
+  subSubjects: SubSubjectUpdateManyWithoutParentInput
+}
+
+input SubjectUpdateManyInput {
+  create: [SubjectCreateInput!]
   connect: [SubjectWhereUniqueInput!]
   disconnect: [SubjectWhereUniqueInput!]
   delete: [SubjectWhereUniqueInput!]
-  update: [SubjectUpdateWithWhereUniqueWithoutCourseInput!]
-  upsert: [SubjectUpsertWithWhereUniqueWithoutCourseInput!]
+  update: [SubjectUpdateWithWhereUniqueNestedInput!]
+  upsert: [SubjectUpsertWithWhereUniqueNestedInput!]
 }
 
 input SubjectUpdateOneWithoutSubSubjectsInput {
@@ -2111,21 +2144,14 @@ input SubjectUpdateOneWithoutSubSubjectsInput {
   upsert: SubjectUpsertWithoutSubSubjectsInput
 }
 
-input SubjectUpdateWithoutCourseDataInput {
-  name: String
-  description: String
-  subSubjects: SubSubjectUpdateManyWithoutParentInput
-}
-
 input SubjectUpdateWithoutSubSubjectsDataInput {
   name: String
   description: String
-  course: CourseUpdateManyWithoutSubjectsInput
 }
 
-input SubjectUpdateWithWhereUniqueWithoutCourseInput {
+input SubjectUpdateWithWhereUniqueNestedInput {
   where: SubjectWhereUniqueInput!
-  data: SubjectUpdateWithoutCourseDataInput!
+  data: SubjectUpdateDataInput!
 }
 
 input SubjectUpsertWithoutSubSubjectsInput {
@@ -2133,10 +2159,10 @@ input SubjectUpsertWithoutSubSubjectsInput {
   create: SubjectCreateWithoutSubSubjectsInput!
 }
 
-input SubjectUpsertWithWhereUniqueWithoutCourseInput {
+input SubjectUpsertWithWhereUniqueNestedInput {
   where: SubjectWhereUniqueInput!
-  update: SubjectUpdateWithoutCourseDataInput!
-  create: SubjectCreateWithoutCourseInput!
+  update: SubjectUpdateDataInput!
+  create: SubjectCreateInput!
 }
 
 input SubjectWhereInput {
@@ -2268,9 +2294,6 @@ input SubjectWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
-  course_every: CourseWhereInput
-  course_some: CourseWhereInput
-  course_none: CourseWhereInput
   subSubjects_every: SubSubjectWhereInput
   subSubjects_some: SubSubjectWhereInput
   subSubjects_none: SubSubjectWhereInput
@@ -2278,6 +2301,7 @@ input SubjectWhereInput {
 
 input SubjectWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Subscription {
@@ -2297,11 +2321,12 @@ type Subscription {
 type SubSubject implements Node {
   id: ID!
   name: String!
+  description: String!
+  toMetric: Boolean!
+  rarity: Int!
   unit(where: UnitWhereInput): Unit!
   scale(where: ScaleWhereInput): Scale!
-  toMetric: Boolean!
   parent(where: SubjectWhereInput): Subject!
-  mastery(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery!]
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
 }
 
@@ -2317,11 +2342,12 @@ type SubSubjectConnection {
 
 input SubSubjectCreateInput {
   name: String!
+  description: String!
   toMetric: Boolean!
-  unit: UnitCreateOneWithoutSubSubjectInput!
-  scale: ScaleCreateOneWithoutSubSubjectInput!
+  rarity: Int!
+  unit: UnitCreateOneWithoutSubSubjectsInput!
+  scale: ScaleCreateOneWithoutSubSubjectsInput!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
-  mastery: MasteryCreateManyWithoutSubSubjectInput
   questions: QuestionCreateManyWithoutSubSubjectInput
 }
 
@@ -2330,13 +2356,18 @@ input SubSubjectCreateManyWithoutParentInput {
   connect: [SubSubjectWhereUniqueInput!]
 }
 
-input SubSubjectCreateOneInput {
-  create: SubSubjectCreateInput
-  connect: SubSubjectWhereUniqueInput
+input SubSubjectCreateManyWithoutScaleInput {
+  create: [SubSubjectCreateWithoutScaleInput!]
+  connect: [SubSubjectWhereUniqueInput!]
 }
 
-input SubSubjectCreateOneWithoutMasteryInput {
-  create: SubSubjectCreateWithoutMasteryInput
+input SubSubjectCreateManyWithoutUnitInput {
+  create: [SubSubjectCreateWithoutUnitInput!]
+  connect: [SubSubjectWhereUniqueInput!]
+}
+
+input SubSubjectCreateOneInput {
+  create: SubSubjectCreateInput
   connect: SubSubjectWhereUniqueInput
 }
 
@@ -2345,58 +2376,43 @@ input SubSubjectCreateOneWithoutQuestionsInput {
   connect: SubSubjectWhereUniqueInput
 }
 
-input SubSubjectCreateOneWithoutScaleInput {
-  create: SubSubjectCreateWithoutScaleInput
-  connect: SubSubjectWhereUniqueInput
-}
-
-input SubSubjectCreateOneWithoutUnitInput {
-  create: SubSubjectCreateWithoutUnitInput
-  connect: SubSubjectWhereUniqueInput
-}
-
-input SubSubjectCreateWithoutMasteryInput {
-  name: String!
-  toMetric: Boolean!
-  unit: UnitCreateOneWithoutSubSubjectInput!
-  scale: ScaleCreateOneWithoutSubSubjectInput!
-  parent: SubjectCreateOneWithoutSubSubjectsInput!
-  questions: QuestionCreateManyWithoutSubSubjectInput
-}
-
 input SubSubjectCreateWithoutParentInput {
   name: String!
+  description: String!
   toMetric: Boolean!
-  unit: UnitCreateOneWithoutSubSubjectInput!
-  scale: ScaleCreateOneWithoutSubSubjectInput!
-  mastery: MasteryCreateManyWithoutSubSubjectInput
+  rarity: Int!
+  unit: UnitCreateOneWithoutSubSubjectsInput!
+  scale: ScaleCreateOneWithoutSubSubjectsInput!
   questions: QuestionCreateManyWithoutSubSubjectInput
 }
 
 input SubSubjectCreateWithoutQuestionsInput {
   name: String!
+  description: String!
   toMetric: Boolean!
-  unit: UnitCreateOneWithoutSubSubjectInput!
-  scale: ScaleCreateOneWithoutSubSubjectInput!
+  rarity: Int!
+  unit: UnitCreateOneWithoutSubSubjectsInput!
+  scale: ScaleCreateOneWithoutSubSubjectsInput!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
-  mastery: MasteryCreateManyWithoutSubSubjectInput
 }
 
 input SubSubjectCreateWithoutScaleInput {
   name: String!
+  description: String!
   toMetric: Boolean!
-  unit: UnitCreateOneWithoutSubSubjectInput!
+  rarity: Int!
+  unit: UnitCreateOneWithoutSubSubjectsInput!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
-  mastery: MasteryCreateManyWithoutSubSubjectInput
   questions: QuestionCreateManyWithoutSubSubjectInput
 }
 
 input SubSubjectCreateWithoutUnitInput {
   name: String!
+  description: String!
   toMetric: Boolean!
-  scale: ScaleCreateOneWithoutSubSubjectInput!
+  rarity: Int!
+  scale: ScaleCreateOneWithoutSubSubjectsInput!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
-  mastery: MasteryCreateManyWithoutSubSubjectInput
   questions: QuestionCreateManyWithoutSubSubjectInput
 }
 
@@ -2414,8 +2430,12 @@ enum SubSubjectOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  description_ASC
+  description_DESC
   toMetric_ASC
   toMetric_DESC
+  rarity_ASC
+  rarity_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2425,7 +2445,9 @@ enum SubSubjectOrderByInput {
 type SubSubjectPreviousValues {
   id: ID!
   name: String!
+  description: String!
   toMetric: Boolean!
+  rarity: Int!
 }
 
 type SubSubjectSubscriptionPayload {
@@ -2469,21 +2491,23 @@ input SubSubjectSubscriptionWhereInput {
 
 input SubSubjectUpdateDataInput {
   name: String
+  description: String
   toMetric: Boolean
-  unit: UnitUpdateOneWithoutSubSubjectInput
-  scale: ScaleUpdateOneWithoutSubSubjectInput
+  rarity: Int
+  unit: UnitUpdateOneWithoutSubSubjectsInput
+  scale: ScaleUpdateOneWithoutSubSubjectsInput
   parent: SubjectUpdateOneWithoutSubSubjectsInput
-  mastery: MasteryUpdateManyWithoutSubSubjectInput
   questions: QuestionUpdateManyWithoutSubSubjectInput
 }
 
 input SubSubjectUpdateInput {
   name: String
+  description: String
   toMetric: Boolean
-  unit: UnitUpdateOneWithoutSubSubjectInput
-  scale: ScaleUpdateOneWithoutSubSubjectInput
+  rarity: Int
+  unit: UnitUpdateOneWithoutSubSubjectsInput
+  scale: ScaleUpdateOneWithoutSubSubjectsInput
   parent: SubjectUpdateOneWithoutSubSubjectsInput
-  mastery: MasteryUpdateManyWithoutSubSubjectInput
   questions: QuestionUpdateManyWithoutSubSubjectInput
 }
 
@@ -2496,20 +2520,30 @@ input SubSubjectUpdateManyWithoutParentInput {
   upsert: [SubSubjectUpsertWithWhereUniqueWithoutParentInput!]
 }
 
+input SubSubjectUpdateManyWithoutScaleInput {
+  create: [SubSubjectCreateWithoutScaleInput!]
+  connect: [SubSubjectWhereUniqueInput!]
+  disconnect: [SubSubjectWhereUniqueInput!]
+  delete: [SubSubjectWhereUniqueInput!]
+  update: [SubSubjectUpdateWithWhereUniqueWithoutScaleInput!]
+  upsert: [SubSubjectUpsertWithWhereUniqueWithoutScaleInput!]
+}
+
+input SubSubjectUpdateManyWithoutUnitInput {
+  create: [SubSubjectCreateWithoutUnitInput!]
+  connect: [SubSubjectWhereUniqueInput!]
+  disconnect: [SubSubjectWhereUniqueInput!]
+  delete: [SubSubjectWhereUniqueInput!]
+  update: [SubSubjectUpdateWithWhereUniqueWithoutUnitInput!]
+  upsert: [SubSubjectUpsertWithWhereUniqueWithoutUnitInput!]
+}
+
 input SubSubjectUpdateOneInput {
   create: SubSubjectCreateInput
   connect: SubSubjectWhereUniqueInput
   delete: Boolean
   update: SubSubjectUpdateDataInput
   upsert: SubSubjectUpsertNestedInput
-}
-
-input SubSubjectUpdateOneWithoutMasteryInput {
-  create: SubSubjectCreateWithoutMasteryInput
-  connect: SubSubjectWhereUniqueInput
-  delete: Boolean
-  update: SubSubjectUpdateWithoutMasteryDataInput
-  upsert: SubSubjectUpsertWithoutMasteryInput
 }
 
 input SubSubjectUpdateOneWithoutQuestionsInput {
@@ -2520,64 +2554,43 @@ input SubSubjectUpdateOneWithoutQuestionsInput {
   upsert: SubSubjectUpsertWithoutQuestionsInput
 }
 
-input SubSubjectUpdateOneWithoutScaleInput {
-  create: SubSubjectCreateWithoutScaleInput
-  connect: SubSubjectWhereUniqueInput
-  delete: Boolean
-  update: SubSubjectUpdateWithoutScaleDataInput
-  upsert: SubSubjectUpsertWithoutScaleInput
-}
-
-input SubSubjectUpdateOneWithoutUnitInput {
-  create: SubSubjectCreateWithoutUnitInput
-  connect: SubSubjectWhereUniqueInput
-  delete: Boolean
-  update: SubSubjectUpdateWithoutUnitDataInput
-  upsert: SubSubjectUpsertWithoutUnitInput
-}
-
-input SubSubjectUpdateWithoutMasteryDataInput {
-  name: String
-  toMetric: Boolean
-  unit: UnitUpdateOneWithoutSubSubjectInput
-  scale: ScaleUpdateOneWithoutSubSubjectInput
-  parent: SubjectUpdateOneWithoutSubSubjectsInput
-  questions: QuestionUpdateManyWithoutSubSubjectInput
-}
-
 input SubSubjectUpdateWithoutParentDataInput {
   name: String
+  description: String
   toMetric: Boolean
-  unit: UnitUpdateOneWithoutSubSubjectInput
-  scale: ScaleUpdateOneWithoutSubSubjectInput
-  mastery: MasteryUpdateManyWithoutSubSubjectInput
+  rarity: Int
+  unit: UnitUpdateOneWithoutSubSubjectsInput
+  scale: ScaleUpdateOneWithoutSubSubjectsInput
   questions: QuestionUpdateManyWithoutSubSubjectInput
 }
 
 input SubSubjectUpdateWithoutQuestionsDataInput {
   name: String
+  description: String
   toMetric: Boolean
-  unit: UnitUpdateOneWithoutSubSubjectInput
-  scale: ScaleUpdateOneWithoutSubSubjectInput
+  rarity: Int
+  unit: UnitUpdateOneWithoutSubSubjectsInput
+  scale: ScaleUpdateOneWithoutSubSubjectsInput
   parent: SubjectUpdateOneWithoutSubSubjectsInput
-  mastery: MasteryUpdateManyWithoutSubSubjectInput
 }
 
 input SubSubjectUpdateWithoutScaleDataInput {
   name: String
+  description: String
   toMetric: Boolean
-  unit: UnitUpdateOneWithoutSubSubjectInput
+  rarity: Int
+  unit: UnitUpdateOneWithoutSubSubjectsInput
   parent: SubjectUpdateOneWithoutSubSubjectsInput
-  mastery: MasteryUpdateManyWithoutSubSubjectInput
   questions: QuestionUpdateManyWithoutSubSubjectInput
 }
 
 input SubSubjectUpdateWithoutUnitDataInput {
   name: String
+  description: String
   toMetric: Boolean
-  scale: ScaleUpdateOneWithoutSubSubjectInput
+  rarity: Int
+  scale: ScaleUpdateOneWithoutSubSubjectsInput
   parent: SubjectUpdateOneWithoutSubSubjectsInput
-  mastery: MasteryUpdateManyWithoutSubSubjectInput
   questions: QuestionUpdateManyWithoutSubSubjectInput
 }
 
@@ -2586,14 +2599,19 @@ input SubSubjectUpdateWithWhereUniqueWithoutParentInput {
   data: SubSubjectUpdateWithoutParentDataInput!
 }
 
+input SubSubjectUpdateWithWhereUniqueWithoutScaleInput {
+  where: SubSubjectWhereUniqueInput!
+  data: SubSubjectUpdateWithoutScaleDataInput!
+}
+
+input SubSubjectUpdateWithWhereUniqueWithoutUnitInput {
+  where: SubSubjectWhereUniqueInput!
+  data: SubSubjectUpdateWithoutUnitDataInput!
+}
+
 input SubSubjectUpsertNestedInput {
   update: SubSubjectUpdateDataInput!
   create: SubSubjectCreateInput!
-}
-
-input SubSubjectUpsertWithoutMasteryInput {
-  update: SubSubjectUpdateWithoutMasteryDataInput!
-  create: SubSubjectCreateWithoutMasteryInput!
 }
 
 input SubSubjectUpsertWithoutQuestionsInput {
@@ -2601,20 +2619,22 @@ input SubSubjectUpsertWithoutQuestionsInput {
   create: SubSubjectCreateWithoutQuestionsInput!
 }
 
-input SubSubjectUpsertWithoutScaleInput {
-  update: SubSubjectUpdateWithoutScaleDataInput!
-  create: SubSubjectCreateWithoutScaleInput!
-}
-
-input SubSubjectUpsertWithoutUnitInput {
-  update: SubSubjectUpdateWithoutUnitDataInput!
-  create: SubSubjectCreateWithoutUnitInput!
-}
-
 input SubSubjectUpsertWithWhereUniqueWithoutParentInput {
   where: SubSubjectWhereUniqueInput!
   update: SubSubjectUpdateWithoutParentDataInput!
   create: SubSubjectCreateWithoutParentInput!
+}
+
+input SubSubjectUpsertWithWhereUniqueWithoutScaleInput {
+  where: SubSubjectWhereUniqueInput!
+  update: SubSubjectUpdateWithoutScaleDataInput!
+  create: SubSubjectCreateWithoutScaleInput!
+}
+
+input SubSubjectUpsertWithWhereUniqueWithoutUnitInput {
+  where: SubSubjectWhereUniqueInput!
+  update: SubSubjectUpdateWithoutUnitDataInput!
+  create: SubSubjectCreateWithoutUnitInput!
 }
 
 input SubSubjectWhereInput {
@@ -2706,16 +2726,75 @@ input SubSubjectWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
   toMetric: Boolean
 
   """All values that are not equal to given value."""
   toMetric_not: Boolean
+  rarity: Int
+
+  """All values that are not equal to given value."""
+  rarity_not: Int
+
+  """All values that are contained in given list."""
+  rarity_in: [Int!]
+
+  """All values that are not contained in given list."""
+  rarity_not_in: [Int!]
+
+  """All values less than the given value."""
+  rarity_lt: Int
+
+  """All values less than or equal the given value."""
+  rarity_lte: Int
+
+  """All values greater than the given value."""
+  rarity_gt: Int
+
+  """All values greater than or equal the given value."""
+  rarity_gte: Int
   unit: UnitWhereInput
   scale: ScaleWhereInput
   parent: SubjectWhereInput
-  mastery_every: MasteryWhereInput
-  mastery_some: MasteryWhereInput
-  mastery_none: MasteryWhereInput
   questions_every: QuestionWhereInput
   questions_some: QuestionWhereInput
   questions_none: QuestionWhereInput
@@ -2723,6 +2802,7 @@ input SubSubjectWhereInput {
 
 input SubSubjectWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Survey implements Node {
@@ -3037,10 +3117,9 @@ input SurveyWhereUniqueInput {
 
 type Unit implements Node {
   id: ID!
-  type: Int!
   name: String!
   description: String!
-  subSubject(where: SubSubjectWhereInput): SubSubject!
+  subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject!]
 }
 
 """A connection to a list of items."""
@@ -3054,19 +3133,17 @@ type UnitConnection {
 }
 
 input UnitCreateInput {
-  type: Int!
   name: String!
   description: String!
-  subSubject: SubSubjectCreateOneWithoutUnitInput!
+  subSubjects: SubSubjectCreateManyWithoutUnitInput
 }
 
-input UnitCreateOneWithoutSubSubjectInput {
-  create: UnitCreateWithoutSubSubjectInput
+input UnitCreateOneWithoutSubSubjectsInput {
+  create: UnitCreateWithoutSubSubjectsInput
   connect: UnitWhereUniqueInput
 }
 
-input UnitCreateWithoutSubSubjectInput {
-  type: Int!
+input UnitCreateWithoutSubSubjectsInput {
   name: String!
   description: String!
 }
@@ -3083,8 +3160,6 @@ type UnitEdge {
 enum UnitOrderByInput {
   id_ASC
   id_DESC
-  type_ASC
-  type_DESC
   name_ASC
   name_DESC
   description_ASC
@@ -3097,7 +3172,6 @@ enum UnitOrderByInput {
 
 type UnitPreviousValues {
   id: ID!
-  type: Int!
   name: String!
   description: String!
 }
@@ -3142,29 +3216,27 @@ input UnitSubscriptionWhereInput {
 }
 
 input UnitUpdateInput {
-  type: Int
   name: String
   description: String
-  subSubject: SubSubjectUpdateOneWithoutUnitInput
+  subSubjects: SubSubjectUpdateManyWithoutUnitInput
 }
 
-input UnitUpdateOneWithoutSubSubjectInput {
-  create: UnitCreateWithoutSubSubjectInput
+input UnitUpdateOneWithoutSubSubjectsInput {
+  create: UnitCreateWithoutSubSubjectsInput
   connect: UnitWhereUniqueInput
   delete: Boolean
-  update: UnitUpdateWithoutSubSubjectDataInput
-  upsert: UnitUpsertWithoutSubSubjectInput
+  update: UnitUpdateWithoutSubSubjectsDataInput
+  upsert: UnitUpsertWithoutSubSubjectsInput
 }
 
-input UnitUpdateWithoutSubSubjectDataInput {
-  type: Int
+input UnitUpdateWithoutSubSubjectsDataInput {
   name: String
   description: String
 }
 
-input UnitUpsertWithoutSubSubjectInput {
-  update: UnitUpdateWithoutSubSubjectDataInput!
-  create: UnitCreateWithoutSubSubjectInput!
+input UnitUpsertWithoutSubSubjectsInput {
+  update: UnitUpdateWithoutSubSubjectsDataInput!
+  create: UnitCreateWithoutSubSubjectsInput!
 }
 
 input UnitWhereInput {
@@ -3216,28 +3288,6 @@ input UnitWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  type: Int
-
-  """All values that are not equal to given value."""
-  type_not: Int
-
-  """All values that are contained in given list."""
-  type_in: [Int!]
-
-  """All values that are not contained in given list."""
-  type_not_in: [Int!]
-
-  """All values less than the given value."""
-  type_lt: Int
-
-  """All values less than or equal the given value."""
-  type_lte: Int
-
-  """All values greater than the given value."""
-  type_gt: Int
-
-  """All values greater than or equal the given value."""
-  type_gte: Int
   name: String
 
   """All values that are not equal to given value."""
@@ -3318,11 +3368,14 @@ input UnitWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
-  subSubject: SubSubjectWhereInput
+  subSubjects_every: SubSubjectWhereInput
+  subSubjects_some: SubSubjectWhereInput
+  subSubjects_none: SubSubjectWhereInput
 }
 
 input UnitWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type User implements Node {
