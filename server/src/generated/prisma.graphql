@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Wed May 09 2018 13:17:12 GMT-0700 (PDT)
+# timestamp: Wed May 09 2018 17:00:24 GMT-0700 (PDT)
 
 type AggregateClassroom {
   count: Int!
@@ -431,8 +431,9 @@ type Course implements Node {
   id: ID!
   status: Int!
   flags: Int!
-  enrollment(where: EnrollmentWhereInput): Enrollment!
+  parent(where: EnrollmentWhereInput): Enrollment!
   masteries(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery!]
+  surveys(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey!]
   subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject!]
 }
 
@@ -449,19 +450,15 @@ type CourseConnection {
 input CourseCreateInput {
   status: Int!
   flags: Int!
-  enrollment: EnrollmentCreateOneWithoutCoursesInput!
-  masteries: MasteryCreateManyWithoutCourseInput
+  parent: EnrollmentCreateOneWithoutCoursesInput!
+  masteries: MasteryCreateManyWithoutParentInput
+  surveys: SurveyCreateManyWithoutParentInput
   subjects: SubjectCreateManyInput
 }
 
-input CourseCreateManyWithoutEnrollmentInput {
-  create: [CourseCreateWithoutEnrollmentInput!]
+input CourseCreateManyWithoutParentInput {
+  create: [CourseCreateWithoutParentInput!]
   connect: [CourseWhereUniqueInput!]
-}
-
-input CourseCreateOneInput {
-  create: CourseCreateInput
-  connect: CourseWhereUniqueInput
 }
 
 input CourseCreateOneWithoutMasteriesInput {
@@ -469,17 +466,32 @@ input CourseCreateOneWithoutMasteriesInput {
   connect: CourseWhereUniqueInput
 }
 
-input CourseCreateWithoutEnrollmentInput {
-  status: Int!
-  flags: Int!
-  masteries: MasteryCreateManyWithoutCourseInput
-  subjects: SubjectCreateManyInput
+input CourseCreateOneWithoutSurveysInput {
+  create: CourseCreateWithoutSurveysInput
+  connect: CourseWhereUniqueInput
 }
 
 input CourseCreateWithoutMasteriesInput {
   status: Int!
   flags: Int!
-  enrollment: EnrollmentCreateOneWithoutCoursesInput!
+  parent: EnrollmentCreateOneWithoutCoursesInput!
+  surveys: SurveyCreateManyWithoutParentInput
+  subjects: SubjectCreateManyInput
+}
+
+input CourseCreateWithoutParentInput {
+  status: Int!
+  flags: Int!
+  masteries: MasteryCreateManyWithoutParentInput
+  surveys: SurveyCreateManyWithoutParentInput
+  subjects: SubjectCreateManyInput
+}
+
+input CourseCreateWithoutSurveysInput {
+  status: Int!
+  flags: Int!
+  parent: EnrollmentCreateOneWithoutCoursesInput!
+  masteries: MasteryCreateManyWithoutParentInput
   subjects: SubjectCreateManyInput
 }
 
@@ -550,37 +562,22 @@ input CourseSubscriptionWhereInput {
   node: CourseWhereInput
 }
 
-input CourseUpdateDataInput {
-  status: Int
-  flags: Int
-  enrollment: EnrollmentUpdateOneWithoutCoursesInput
-  masteries: MasteryUpdateManyWithoutCourseInput
-  subjects: SubjectUpdateManyInput
-}
-
 input CourseUpdateInput {
   status: Int
   flags: Int
-  enrollment: EnrollmentUpdateOneWithoutCoursesInput
-  masteries: MasteryUpdateManyWithoutCourseInput
+  parent: EnrollmentUpdateOneWithoutCoursesInput
+  masteries: MasteryUpdateManyWithoutParentInput
+  surveys: SurveyUpdateManyWithoutParentInput
   subjects: SubjectUpdateManyInput
 }
 
-input CourseUpdateManyWithoutEnrollmentInput {
-  create: [CourseCreateWithoutEnrollmentInput!]
+input CourseUpdateManyWithoutParentInput {
+  create: [CourseCreateWithoutParentInput!]
   connect: [CourseWhereUniqueInput!]
   disconnect: [CourseWhereUniqueInput!]
   delete: [CourseWhereUniqueInput!]
-  update: [CourseUpdateWithWhereUniqueWithoutEnrollmentInput!]
-  upsert: [CourseUpsertWithWhereUniqueWithoutEnrollmentInput!]
-}
-
-input CourseUpdateOneInput {
-  create: CourseCreateInput
-  connect: CourseWhereUniqueInput
-  delete: Boolean
-  update: CourseUpdateDataInput
-  upsert: CourseUpsertNestedInput
+  update: [CourseUpdateWithWhereUniqueWithoutParentInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutParentInput!]
 }
 
 input CourseUpdateOneWithoutMasteriesInput {
@@ -591,28 +588,41 @@ input CourseUpdateOneWithoutMasteriesInput {
   upsert: CourseUpsertWithoutMasteriesInput
 }
 
-input CourseUpdateWithoutEnrollmentDataInput {
-  status: Int
-  flags: Int
-  masteries: MasteryUpdateManyWithoutCourseInput
-  subjects: SubjectUpdateManyInput
+input CourseUpdateOneWithoutSurveysInput {
+  create: CourseCreateWithoutSurveysInput
+  connect: CourseWhereUniqueInput
+  delete: Boolean
+  update: CourseUpdateWithoutSurveysDataInput
+  upsert: CourseUpsertWithoutSurveysInput
 }
 
 input CourseUpdateWithoutMasteriesDataInput {
   status: Int
   flags: Int
-  enrollment: EnrollmentUpdateOneWithoutCoursesInput
+  parent: EnrollmentUpdateOneWithoutCoursesInput
+  surveys: SurveyUpdateManyWithoutParentInput
   subjects: SubjectUpdateManyInput
 }
 
-input CourseUpdateWithWhereUniqueWithoutEnrollmentInput {
-  where: CourseWhereUniqueInput!
-  data: CourseUpdateWithoutEnrollmentDataInput!
+input CourseUpdateWithoutParentDataInput {
+  status: Int
+  flags: Int
+  masteries: MasteryUpdateManyWithoutParentInput
+  surveys: SurveyUpdateManyWithoutParentInput
+  subjects: SubjectUpdateManyInput
 }
 
-input CourseUpsertNestedInput {
-  update: CourseUpdateDataInput!
-  create: CourseCreateInput!
+input CourseUpdateWithoutSurveysDataInput {
+  status: Int
+  flags: Int
+  parent: EnrollmentUpdateOneWithoutCoursesInput
+  masteries: MasteryUpdateManyWithoutParentInput
+  subjects: SubjectUpdateManyInput
+}
+
+input CourseUpdateWithWhereUniqueWithoutParentInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutParentDataInput!
 }
 
 input CourseUpsertWithoutMasteriesInput {
@@ -620,10 +630,15 @@ input CourseUpsertWithoutMasteriesInput {
   create: CourseCreateWithoutMasteriesInput!
 }
 
-input CourseUpsertWithWhereUniqueWithoutEnrollmentInput {
+input CourseUpsertWithoutSurveysInput {
+  update: CourseUpdateWithoutSurveysDataInput!
+  create: CourseCreateWithoutSurveysInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutParentInput {
   where: CourseWhereUniqueInput!
-  update: CourseUpdateWithoutEnrollmentDataInput!
-  create: CourseCreateWithoutEnrollmentInput!
+  update: CourseUpdateWithoutParentDataInput!
+  create: CourseCreateWithoutParentInput!
 }
 
 input CourseWhereInput {
@@ -719,10 +734,13 @@ input CourseWhereInput {
 
   """All values greater than or equal the given value."""
   flags_gte: Int
-  enrollment: EnrollmentWhereInput
+  parent: EnrollmentWhereInput
   masteries_every: MasteryWhereInput
   masteries_some: MasteryWhereInput
   masteries_none: MasteryWhereInput
+  surveys_every: SurveyWhereInput
+  surveys_some: SurveyWhereInput
+  surveys_none: SurveyWhereInput
   subjects_every: SubjectWhereInput
   subjects_some: SubjectWhereInput
   subjects_none: SubjectWhereInput
@@ -750,7 +768,7 @@ type EnrollmentConnection {
 
 input EnrollmentCreateInput {
   student: UserCreateOneWithoutEnrollmentInput!
-  courses: CourseCreateManyWithoutEnrollmentInput
+  courses: CourseCreateManyWithoutParentInput
 }
 
 input EnrollmentCreateOneWithoutCoursesInput {
@@ -768,7 +786,7 @@ input EnrollmentCreateWithoutCoursesInput {
 }
 
 input EnrollmentCreateWithoutStudentInput {
-  courses: CourseCreateManyWithoutEnrollmentInput
+  courses: CourseCreateManyWithoutParentInput
 }
 
 """An edge in a connection."""
@@ -834,7 +852,7 @@ input EnrollmentSubscriptionWhereInput {
 
 input EnrollmentUpdateInput {
   student: UserUpdateOneWithoutEnrollmentInput
-  courses: CourseUpdateManyWithoutEnrollmentInput
+  courses: CourseUpdateManyWithoutParentInput
 }
 
 input EnrollmentUpdateOneWithoutCoursesInput {
@@ -859,7 +877,7 @@ input EnrollmentUpdateWithoutCoursesDataInput {
 }
 
 input EnrollmentUpdateWithoutStudentDataInput {
-  courses: CourseUpdateManyWithoutEnrollmentInput
+  courses: CourseUpdateManyWithoutParentInput
 }
 
 input EnrollmentUpsertWithoutCoursesInput {
@@ -941,7 +959,7 @@ type Mastery implements Node {
   id: ID!
   status: Int!
   score: Int!
-  course(where: CourseWhereInput): Course!
+  parent(where: CourseWhereInput): Course!
   subSubject(where: SubSubjectWhereInput): SubSubject!
 }
 
@@ -958,16 +976,16 @@ type MasteryConnection {
 input MasteryCreateInput {
   status: Int!
   score: Int!
-  course: CourseCreateOneWithoutMasteriesInput!
+  parent: CourseCreateOneWithoutMasteriesInput!
   subSubject: SubSubjectCreateOneInput!
 }
 
-input MasteryCreateManyWithoutCourseInput {
-  create: [MasteryCreateWithoutCourseInput!]
+input MasteryCreateManyWithoutParentInput {
+  create: [MasteryCreateWithoutParentInput!]
   connect: [MasteryWhereUniqueInput!]
 }
 
-input MasteryCreateWithoutCourseInput {
+input MasteryCreateWithoutParentInput {
   status: Int!
   score: Int!
   subSubject: SubSubjectCreateOneInput!
@@ -1043,34 +1061,34 @@ input MasterySubscriptionWhereInput {
 input MasteryUpdateInput {
   status: Int
   score: Int
-  course: CourseUpdateOneWithoutMasteriesInput
+  parent: CourseUpdateOneWithoutMasteriesInput
   subSubject: SubSubjectUpdateOneInput
 }
 
-input MasteryUpdateManyWithoutCourseInput {
-  create: [MasteryCreateWithoutCourseInput!]
+input MasteryUpdateManyWithoutParentInput {
+  create: [MasteryCreateWithoutParentInput!]
   connect: [MasteryWhereUniqueInput!]
   disconnect: [MasteryWhereUniqueInput!]
   delete: [MasteryWhereUniqueInput!]
-  update: [MasteryUpdateWithWhereUniqueWithoutCourseInput!]
-  upsert: [MasteryUpsertWithWhereUniqueWithoutCourseInput!]
+  update: [MasteryUpdateWithWhereUniqueWithoutParentInput!]
+  upsert: [MasteryUpsertWithWhereUniqueWithoutParentInput!]
 }
 
-input MasteryUpdateWithoutCourseDataInput {
+input MasteryUpdateWithoutParentDataInput {
   status: Int
   score: Int
   subSubject: SubSubjectUpdateOneInput
 }
 
-input MasteryUpdateWithWhereUniqueWithoutCourseInput {
+input MasteryUpdateWithWhereUniqueWithoutParentInput {
   where: MasteryWhereUniqueInput!
-  data: MasteryUpdateWithoutCourseDataInput!
+  data: MasteryUpdateWithoutParentDataInput!
 }
 
-input MasteryUpsertWithWhereUniqueWithoutCourseInput {
+input MasteryUpsertWithWhereUniqueWithoutParentInput {
   where: MasteryWhereUniqueInput!
-  update: MasteryUpdateWithoutCourseDataInput!
-  create: MasteryCreateWithoutCourseInput!
+  update: MasteryUpdateWithoutParentDataInput!
+  create: MasteryCreateWithoutParentInput!
 }
 
 input MasteryWhereInput {
@@ -1166,7 +1184,7 @@ input MasteryWhereInput {
 
   """All values greater than or equal the given value."""
   score_gte: Int
-  course: CourseWhereInput
+  parent: CourseWhereInput
   subSubject: SubSubjectWhereInput
 }
 
@@ -1315,13 +1333,13 @@ type Query {
 type Question implements Node {
   id: ID!
   type: Int!
-  difficulty: Int!
   status: Int!
   flags: Int!
-  media: String
+  difficulty: Int!
   question: String!
   answer: String!
-  subSubject(where: SubSubjectWhereInput): SubSubject!
+  media: String
+  parent(where: SubSubjectWhereInput): SubSubject!
 }
 
 """A connection to a list of items."""
@@ -1336,28 +1354,33 @@ type QuestionConnection {
 
 input QuestionCreateInput {
   type: Int!
-  difficulty: Int!
   status: Int!
   flags: Int!
-  media: String
+  difficulty: Int!
   question: String!
   answer: String!
-  subSubject: SubSubjectCreateOneWithoutQuestionsInput!
+  media: String
+  parent: SubSubjectCreateOneWithoutQuestionsInput!
 }
 
-input QuestionCreateManyWithoutSubSubjectInput {
-  create: [QuestionCreateWithoutSubSubjectInput!]
+input QuestionCreateManyWithoutParentInput {
+  create: [QuestionCreateWithoutParentInput!]
   connect: [QuestionWhereUniqueInput!]
 }
 
-input QuestionCreateWithoutSubSubjectInput {
+input QuestionCreateOneInput {
+  create: QuestionCreateInput
+  connect: QuestionWhereUniqueInput
+}
+
+input QuestionCreateWithoutParentInput {
   type: Int!
-  difficulty: Int!
   status: Int!
   flags: Int!
-  media: String
+  difficulty: Int!
   question: String!
   answer: String!
+  media: String
 }
 
 """An edge in a connection."""
@@ -1374,18 +1397,18 @@ enum QuestionOrderByInput {
   id_DESC
   type_ASC
   type_DESC
-  difficulty_ASC
-  difficulty_DESC
   status_ASC
   status_DESC
   flags_ASC
   flags_DESC
-  media_ASC
-  media_DESC
+  difficulty_ASC
+  difficulty_DESC
   question_ASC
   question_DESC
   answer_ASC
   answer_DESC
+  media_ASC
+  media_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1395,12 +1418,12 @@ enum QuestionOrderByInput {
 type QuestionPreviousValues {
   id: ID!
   type: Int!
-  difficulty: Int!
   status: Int!
   flags: Int!
-  media: String
+  difficulty: Int!
   question: String!
   answer: String!
+  media: String
 }
 
 type QuestionSubscriptionPayload {
@@ -1442,45 +1465,69 @@ input QuestionSubscriptionWhereInput {
   node: QuestionWhereInput
 }
 
-input QuestionUpdateInput {
+input QuestionUpdateDataInput {
   type: Int
-  difficulty: Int
   status: Int
   flags: Int
-  media: String
+  difficulty: Int
   question: String
   answer: String
-  subSubject: SubSubjectUpdateOneWithoutQuestionsInput
+  media: String
+  parent: SubSubjectUpdateOneWithoutQuestionsInput
 }
 
-input QuestionUpdateManyWithoutSubSubjectInput {
-  create: [QuestionCreateWithoutSubSubjectInput!]
+input QuestionUpdateInput {
+  type: Int
+  status: Int
+  flags: Int
+  difficulty: Int
+  question: String
+  answer: String
+  media: String
+  parent: SubSubjectUpdateOneWithoutQuestionsInput
+}
+
+input QuestionUpdateManyWithoutParentInput {
+  create: [QuestionCreateWithoutParentInput!]
   connect: [QuestionWhereUniqueInput!]
   disconnect: [QuestionWhereUniqueInput!]
   delete: [QuestionWhereUniqueInput!]
-  update: [QuestionUpdateWithWhereUniqueWithoutSubSubjectInput!]
-  upsert: [QuestionUpsertWithWhereUniqueWithoutSubSubjectInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutParentInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutParentInput!]
 }
 
-input QuestionUpdateWithoutSubSubjectDataInput {
+input QuestionUpdateOneInput {
+  create: QuestionCreateInput
+  connect: QuestionWhereUniqueInput
+  delete: Boolean
+  update: QuestionUpdateDataInput
+  upsert: QuestionUpsertNestedInput
+}
+
+input QuestionUpdateWithoutParentDataInput {
   type: Int
-  difficulty: Int
   status: Int
   flags: Int
-  media: String
+  difficulty: Int
   question: String
   answer: String
+  media: String
 }
 
-input QuestionUpdateWithWhereUniqueWithoutSubSubjectInput {
+input QuestionUpdateWithWhereUniqueWithoutParentInput {
   where: QuestionWhereUniqueInput!
-  data: QuestionUpdateWithoutSubSubjectDataInput!
+  data: QuestionUpdateWithoutParentDataInput!
 }
 
-input QuestionUpsertWithWhereUniqueWithoutSubSubjectInput {
+input QuestionUpsertNestedInput {
+  update: QuestionUpdateDataInput!
+  create: QuestionCreateInput!
+}
+
+input QuestionUpsertWithWhereUniqueWithoutParentInput {
   where: QuestionWhereUniqueInput!
-  update: QuestionUpdateWithoutSubSubjectDataInput!
-  create: QuestionCreateWithoutSubSubjectInput!
+  update: QuestionUpdateWithoutParentDataInput!
+  create: QuestionCreateWithoutParentInput!
 }
 
 input QuestionWhereInput {
@@ -1554,28 +1601,6 @@ input QuestionWhereInput {
 
   """All values greater than or equal the given value."""
   type_gte: Int
-  difficulty: Int
-
-  """All values that are not equal to given value."""
-  difficulty_not: Int
-
-  """All values that are contained in given list."""
-  difficulty_in: [Int!]
-
-  """All values that are not contained in given list."""
-  difficulty_not_in: [Int!]
-
-  """All values less than the given value."""
-  difficulty_lt: Int
-
-  """All values less than or equal the given value."""
-  difficulty_lte: Int
-
-  """All values greater than the given value."""
-  difficulty_gt: Int
-
-  """All values greater than or equal the given value."""
-  difficulty_gte: Int
   status: Int
 
   """All values that are not equal to given value."""
@@ -1620,46 +1645,28 @@ input QuestionWhereInput {
 
   """All values greater than or equal the given value."""
   flags_gte: Int
-  media: String
+  difficulty: Int
 
   """All values that are not equal to given value."""
-  media_not: String
+  difficulty_not: Int
 
   """All values that are contained in given list."""
-  media_in: [String!]
+  difficulty_in: [Int!]
 
   """All values that are not contained in given list."""
-  media_not_in: [String!]
+  difficulty_not_in: [Int!]
 
   """All values less than the given value."""
-  media_lt: String
+  difficulty_lt: Int
 
   """All values less than or equal the given value."""
-  media_lte: String
+  difficulty_lte: Int
 
   """All values greater than the given value."""
-  media_gt: String
+  difficulty_gt: Int
 
   """All values greater than or equal the given value."""
-  media_gte: String
-
-  """All values containing the given string."""
-  media_contains: String
-
-  """All values not containing the given string."""
-  media_not_contains: String
-
-  """All values starting with the given string."""
-  media_starts_with: String
-
-  """All values not starting with the given string."""
-  media_not_starts_with: String
-
-  """All values ending with the given string."""
-  media_ends_with: String
-
-  """All values not ending with the given string."""
-  media_not_ends_with: String
+  difficulty_gte: Int
   question: String
 
   """All values that are not equal to given value."""
@@ -1740,7 +1747,47 @@ input QuestionWhereInput {
 
   """All values not ending with the given string."""
   answer_not_ends_with: String
-  subSubject: SubSubjectWhereInput
+  media: String
+
+  """All values that are not equal to given value."""
+  media_not: String
+
+  """All values that are contained in given list."""
+  media_in: [String!]
+
+  """All values that are not contained in given list."""
+  media_not_in: [String!]
+
+  """All values less than the given value."""
+  media_lt: String
+
+  """All values less than or equal the given value."""
+  media_lte: String
+
+  """All values greater than the given value."""
+  media_gt: String
+
+  """All values greater than or equal the given value."""
+  media_gte: String
+
+  """All values containing the given string."""
+  media_contains: String
+
+  """All values not containing the given string."""
+  media_not_contains: String
+
+  """All values starting with the given string."""
+  media_starts_with: String
+
+  """All values not starting with the given string."""
+  media_not_starts_with: String
+
+  """All values ending with the given string."""
+  media_ends_with: String
+
+  """All values not ending with the given string."""
+  media_not_ends_with: String
+  parent: SubSubjectWhereInput
 }
 
 input QuestionWhereUniqueInput {
@@ -2348,7 +2395,7 @@ input SubSubjectCreateInput {
   unit: UnitCreateOneWithoutSubSubjectsInput!
   scale: ScaleCreateOneWithoutSubSubjectsInput!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
-  questions: QuestionCreateManyWithoutSubSubjectInput
+  questions: QuestionCreateManyWithoutParentInput
 }
 
 input SubSubjectCreateManyWithoutParentInput {
@@ -2383,7 +2430,7 @@ input SubSubjectCreateWithoutParentInput {
   rarity: Int!
   unit: UnitCreateOneWithoutSubSubjectsInput!
   scale: ScaleCreateOneWithoutSubSubjectsInput!
-  questions: QuestionCreateManyWithoutSubSubjectInput
+  questions: QuestionCreateManyWithoutParentInput
 }
 
 input SubSubjectCreateWithoutQuestionsInput {
@@ -2403,7 +2450,7 @@ input SubSubjectCreateWithoutScaleInput {
   rarity: Int!
   unit: UnitCreateOneWithoutSubSubjectsInput!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
-  questions: QuestionCreateManyWithoutSubSubjectInput
+  questions: QuestionCreateManyWithoutParentInput
 }
 
 input SubSubjectCreateWithoutUnitInput {
@@ -2413,7 +2460,7 @@ input SubSubjectCreateWithoutUnitInput {
   rarity: Int!
   scale: ScaleCreateOneWithoutSubSubjectsInput!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
-  questions: QuestionCreateManyWithoutSubSubjectInput
+  questions: QuestionCreateManyWithoutParentInput
 }
 
 """An edge in a connection."""
@@ -2497,7 +2544,7 @@ input SubSubjectUpdateDataInput {
   unit: UnitUpdateOneWithoutSubSubjectsInput
   scale: ScaleUpdateOneWithoutSubSubjectsInput
   parent: SubjectUpdateOneWithoutSubSubjectsInput
-  questions: QuestionUpdateManyWithoutSubSubjectInput
+  questions: QuestionUpdateManyWithoutParentInput
 }
 
 input SubSubjectUpdateInput {
@@ -2508,7 +2555,7 @@ input SubSubjectUpdateInput {
   unit: UnitUpdateOneWithoutSubSubjectsInput
   scale: ScaleUpdateOneWithoutSubSubjectsInput
   parent: SubjectUpdateOneWithoutSubSubjectsInput
-  questions: QuestionUpdateManyWithoutSubSubjectInput
+  questions: QuestionUpdateManyWithoutParentInput
 }
 
 input SubSubjectUpdateManyWithoutParentInput {
@@ -2561,7 +2608,7 @@ input SubSubjectUpdateWithoutParentDataInput {
   rarity: Int
   unit: UnitUpdateOneWithoutSubSubjectsInput
   scale: ScaleUpdateOneWithoutSubSubjectsInput
-  questions: QuestionUpdateManyWithoutSubSubjectInput
+  questions: QuestionUpdateManyWithoutParentInput
 }
 
 input SubSubjectUpdateWithoutQuestionsDataInput {
@@ -2581,7 +2628,7 @@ input SubSubjectUpdateWithoutScaleDataInput {
   rarity: Int
   unit: UnitUpdateOneWithoutSubSubjectsInput
   parent: SubjectUpdateOneWithoutSubSubjectsInput
-  questions: QuestionUpdateManyWithoutSubSubjectInput
+  questions: QuestionUpdateManyWithoutParentInput
 }
 
 input SubSubjectUpdateWithoutUnitDataInput {
@@ -2591,7 +2638,7 @@ input SubSubjectUpdateWithoutUnitDataInput {
   rarity: Int
   scale: ScaleUpdateOneWithoutSubSubjectsInput
   parent: SubjectUpdateOneWithoutSubSubjectsInput
-  questions: QuestionUpdateManyWithoutSubSubjectInput
+  questions: QuestionUpdateManyWithoutParentInput
 }
 
 input SubSubjectUpdateWithWhereUniqueWithoutParentInput {
@@ -2808,11 +2855,9 @@ input SubSubjectWhereUniqueInput {
 type Survey implements Node {
   id: ID!
   score: Int!
-  question: String!
-  answerRange: String!
   answer: String!
-  course(where: CourseWhereInput): Course!
-  subSubject(where: SubSubjectWhereInput): SubSubject!
+  parent(where: CourseWhereInput): Course!
+  question(where: QuestionWhereInput): Question!
 }
 
 """A connection to a list of items."""
@@ -2827,11 +2872,20 @@ type SurveyConnection {
 
 input SurveyCreateInput {
   score: Int!
-  question: String!
-  answerRange: String!
   answer: String!
-  course: CourseCreateOneInput!
-  subSubject: SubSubjectCreateOneInput!
+  parent: CourseCreateOneWithoutSurveysInput!
+  question: QuestionCreateOneInput!
+}
+
+input SurveyCreateManyWithoutParentInput {
+  create: [SurveyCreateWithoutParentInput!]
+  connect: [SurveyWhereUniqueInput!]
+}
+
+input SurveyCreateWithoutParentInput {
+  score: Int!
+  answer: String!
+  question: QuestionCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -2848,10 +2902,6 @@ enum SurveyOrderByInput {
   id_DESC
   score_ASC
   score_DESC
-  question_ASC
-  question_DESC
-  answerRange_ASC
-  answerRange_DESC
   answer_ASC
   answer_DESC
   updatedAt_ASC
@@ -2863,8 +2913,6 @@ enum SurveyOrderByInput {
 type SurveyPreviousValues {
   id: ID!
   score: Int!
-  question: String!
-  answerRange: String!
   answer: String!
 }
 
@@ -2909,11 +2957,35 @@ input SurveySubscriptionWhereInput {
 
 input SurveyUpdateInput {
   score: Int
-  question: String
-  answerRange: String
   answer: String
-  course: CourseUpdateOneInput
-  subSubject: SubSubjectUpdateOneInput
+  parent: CourseUpdateOneWithoutSurveysInput
+  question: QuestionUpdateOneInput
+}
+
+input SurveyUpdateManyWithoutParentInput {
+  create: [SurveyCreateWithoutParentInput!]
+  connect: [SurveyWhereUniqueInput!]
+  disconnect: [SurveyWhereUniqueInput!]
+  delete: [SurveyWhereUniqueInput!]
+  update: [SurveyUpdateWithWhereUniqueWithoutParentInput!]
+  upsert: [SurveyUpsertWithWhereUniqueWithoutParentInput!]
+}
+
+input SurveyUpdateWithoutParentDataInput {
+  score: Int
+  answer: String
+  question: QuestionUpdateOneInput
+}
+
+input SurveyUpdateWithWhereUniqueWithoutParentInput {
+  where: SurveyWhereUniqueInput!
+  data: SurveyUpdateWithoutParentDataInput!
+}
+
+input SurveyUpsertWithWhereUniqueWithoutParentInput {
+  where: SurveyWhereUniqueInput!
+  update: SurveyUpdateWithoutParentDataInput!
+  create: SurveyCreateWithoutParentInput!
 }
 
 input SurveyWhereInput {
@@ -2987,86 +3059,6 @@ input SurveyWhereInput {
 
   """All values greater than or equal the given value."""
   score_gte: Int
-  question: String
-
-  """All values that are not equal to given value."""
-  question_not: String
-
-  """All values that are contained in given list."""
-  question_in: [String!]
-
-  """All values that are not contained in given list."""
-  question_not_in: [String!]
-
-  """All values less than the given value."""
-  question_lt: String
-
-  """All values less than or equal the given value."""
-  question_lte: String
-
-  """All values greater than the given value."""
-  question_gt: String
-
-  """All values greater than or equal the given value."""
-  question_gte: String
-
-  """All values containing the given string."""
-  question_contains: String
-
-  """All values not containing the given string."""
-  question_not_contains: String
-
-  """All values starting with the given string."""
-  question_starts_with: String
-
-  """All values not starting with the given string."""
-  question_not_starts_with: String
-
-  """All values ending with the given string."""
-  question_ends_with: String
-
-  """All values not ending with the given string."""
-  question_not_ends_with: String
-  answerRange: String
-
-  """All values that are not equal to given value."""
-  answerRange_not: String
-
-  """All values that are contained in given list."""
-  answerRange_in: [String!]
-
-  """All values that are not contained in given list."""
-  answerRange_not_in: [String!]
-
-  """All values less than the given value."""
-  answerRange_lt: String
-
-  """All values less than or equal the given value."""
-  answerRange_lte: String
-
-  """All values greater than the given value."""
-  answerRange_gt: String
-
-  """All values greater than or equal the given value."""
-  answerRange_gte: String
-
-  """All values containing the given string."""
-  answerRange_contains: String
-
-  """All values not containing the given string."""
-  answerRange_not_contains: String
-
-  """All values starting with the given string."""
-  answerRange_starts_with: String
-
-  """All values not starting with the given string."""
-  answerRange_not_starts_with: String
-
-  """All values ending with the given string."""
-  answerRange_ends_with: String
-
-  """All values not ending with the given string."""
-  answerRange_not_ends_with: String
   answer: String
 
   """All values that are not equal to given value."""
@@ -3107,8 +3099,8 @@ input SurveyWhereInput {
 
   """All values not ending with the given string."""
   answer_not_ends_with: String
-  course: CourseWhereInput
-  subSubject: SubSubjectWhereInput
+  parent: CourseWhereInput
+  question: QuestionWhereInput
 }
 
 input SurveyWhereUniqueInput {
