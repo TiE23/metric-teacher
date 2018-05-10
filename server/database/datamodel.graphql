@@ -40,18 +40,19 @@ type Course {
   id: ID! @unique
   status: Int!
   flags: Int!
-  enrollment: Enrollment! @relation(name: "EnrollmentToCourse")
+  parent: Enrollment! @relation(name: "EnrollmentToCourse")
   masteries: [Mastery!]! @relation(name: "CourseToMastery")
+  surveys: [Survey!]! @relation(name: "CourseToSurvey")
   subjects: [Subject!]! @relation(name: "CourseToSubject")
 }
 
-# This is the table that tracks the success of a student to a subject by relating to a course
-# and a subject.
+# This is the table that tracks the success of a student to a subsubject by relating to a course
+# and a subsubject.
 type Mastery {
   id: ID! @unique
   status: Int!
   score: Int!
-  course: Course! @relation(name: "CourseToMastery")
+  parent: Course! @relation(name: "CourseToMastery")
   subSubject: SubSubject! @relation(name: "MasteryToSubSubject")
 }
 
@@ -61,15 +62,13 @@ type Mastery {
 # A range could be "72-80 inches".
 # If the user answers 6ft3in (75 inches), great. Next time it'll ask the user to identify that same
 # imperial value again and then later ask to convert it to metric (in this example it would be 1.91m).
-# And finally ask the user to identify the metric value
+# And finally ask the user to identify the metric value.
 type Survey {
   id: ID! @unique
   score: Int!
-  question: String!
-  answerRange: String!
   answer: String!
-  course: Course! @relation(name: "CourseToSurvey")
-  subSubject: SubSubject! @relation(name: "SurveyToSubSubject")
+  parent: Course! @relation(name: "CourseToSurvey")
+  question: Question! @relation(name: "SurveyToQuestion")
 }
 
 # This is a shared subject of questions, such as length, temperature, or speed.
@@ -103,13 +102,13 @@ type SubSubject {
 type Question {
   id: ID! @unique
   type: Int!
-  difficulty: Int!
   status: Int!
   flags: Int!
-  media: String
+  difficulty: Int!
   question: String!
   answer: String!
-  subSubject: SubSubject! @relation(name: "SubSubjectToQuestion")
+  media: String
+  parent: SubSubject! @relation(name: "SubSubjectToQuestion")
 }
 
 # This is a table describing different units of measurement. These are standard units. So whether the
