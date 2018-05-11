@@ -2,11 +2,13 @@
 
 type Query {
   me: User
+  allSubjects: [Subject]!
 }
 
 type Mutation {
   signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
+  enrollStudent(studentid: ID!): ConnectionResult!
 }
 
 type AuthPayload {
@@ -14,9 +16,16 @@ type AuthPayload {
   user: User!
 }
 
+# Some mutations make connections that can only return IDs. For example, if a student is
+# enrolled you might expect that mutation to return the new Enrollment, but when you use
+# Prisma-style connect arguments not the entire object is ready, only the ID, so we must
+# limit the data returned to just the ID.
+type ConnectionResult {
+  id: ID!
+}
+
 type User {
   id: ID!
-  email: String!
   fname: String!
   lname: String!
 }

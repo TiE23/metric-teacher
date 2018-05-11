@@ -689,31 +689,9 @@ mutation {
     status: 0
     flags: 0
     classrooms: null
-    enrollment: {
-      create: {
-        courses: {
-          create: {
-            status: 0
-            flags: 0
-            subjects: null
-            masteries: null
-          }
-        }
-      }
-    }
+    enrollment: null
   }) {
     id
-    enrollment {
-      id
-      courses {
-        id
-        subjects {
-          id
-        }
-        masteries {
-          id
-        }
-      }
-    }
   }
+
 }
