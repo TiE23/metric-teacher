@@ -36,6 +36,7 @@ async function targetStudentDataHelper(ctx, targetId, fields) {
   return { callingUserData, targetUserData };
 }
 
+// TODO Move errors to own file
 class AuthError extends Error {
   constructor() {
     super("Not authorized");
@@ -51,6 +52,18 @@ class AuthErrorAction extends Error {
 class UserNotFound extends Error {
   constructor(userid) {
     super(`User ${userid} not found`);
+  }
+}
+
+class CourseNotFound extends Error {
+  constructor(courseid) {
+    super(`Course ${courseid} not found`);
+  }
+}
+
+class CourseNoSubSubjectsAdded extends Error {
+  constructor(courseid) {
+    super(`No new SubSubjects added to Course ${courseid}`);
   }
 }
 
@@ -73,6 +86,8 @@ module.exports = {
   AuthError,
   AuthErrorAction,
   UserNotFound,
+  CourseNotFound,
+  CourseNoSubSubjectsAdded,
   UserMustBe,
   UserAlreadyEnrolled,
 };

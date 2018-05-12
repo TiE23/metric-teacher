@@ -14,6 +14,11 @@ const constants = {
   // Course
   COURSE_STATUS_NORMAL: 0,
   COURSE_STATUS_CLOSED: 1,
+
+  // Mastery
+  MASTERY_DEFAULT_SCORE: 0,
+  MASTERY_STATUS_ENABLED: 0,
+  MASTERY_STATUS_DISABLED: 1,
 };
 
 module.exports = constants;
