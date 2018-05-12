@@ -22,6 +22,20 @@ async function getUserData(ctx, id, fields) {
   throw new UserNotFound(id);
 }
 
+// Grab fields from a user by their id. If the calling user is the target (they're performing an
+// action on their own account, typically) save a wasteful query.
+async function targetStudentDataHelper(ctx, targetId, fields) {
+  const callingUserId = getUserId(ctx); // User must be logged in.
+  const callingUserData = await getUserData(ctx, callingUserId, fields);
+
+  // If assigning self save a step; we already have the data.
+  const targetUserData = callingUserId === targetId ?
+    callingUserData :
+    await getUserData(ctx, targetId, fields);
+
+  return { callingUserData, targetUserData };
+}
+
 class AuthError extends Error {
   constructor() {
     super("Not authorized");
@@ -29,8 +43,8 @@ class AuthError extends Error {
 }
 
 class AuthErrorAction extends Error {
-  constructor() {
-    super("Action not authorized")
+  constructor(action) {
+    super(`Not authorized to ${action}`);
   }
 }
 
@@ -55,6 +69,7 @@ class UserAlreadyEnrolled extends Error {
 module.exports = {
   getUserId,
   getUserData,
+  targetStudentDataHelper,
   AuthError,
   AuthErrorAction,
   UserNotFound,

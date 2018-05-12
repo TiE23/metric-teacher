@@ -6,9 +6,15 @@ type Query {
 }
 
 type Mutation {
+  # User
   signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
+
+  # Student
+  ## Enrollment
   enrollStudent(studentid: ID!): ConnectionResult!
+  ## Course
+  assignStudentNewCourse(studentid: ID!): ConnectionResult!
 }
 
 type AuthPayload {
