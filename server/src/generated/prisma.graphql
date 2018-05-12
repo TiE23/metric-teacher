@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Wed May 09 2018 17:00:24 GMT-0700 (PDT)
+# timestamp: Fri May 11 2018 19:03:28 GMT-0700 (PDT)
 
 type AggregateClassroom {
   count: Int!
@@ -434,7 +434,6 @@ type Course implements Node {
   parent(where: EnrollmentWhereInput): Enrollment!
   masteries(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery!]
   surveys(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey!]
-  subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject!]
 }
 
 """A connection to a list of items."""
@@ -453,7 +452,6 @@ input CourseCreateInput {
   parent: EnrollmentCreateOneWithoutCoursesInput!
   masteries: MasteryCreateManyWithoutParentInput
   surveys: SurveyCreateManyWithoutParentInput
-  subjects: SubjectCreateManyInput
 }
 
 input CourseCreateManyWithoutParentInput {
@@ -476,7 +474,6 @@ input CourseCreateWithoutMasteriesInput {
   flags: Int!
   parent: EnrollmentCreateOneWithoutCoursesInput!
   surveys: SurveyCreateManyWithoutParentInput
-  subjects: SubjectCreateManyInput
 }
 
 input CourseCreateWithoutParentInput {
@@ -484,7 +481,6 @@ input CourseCreateWithoutParentInput {
   flags: Int!
   masteries: MasteryCreateManyWithoutParentInput
   surveys: SurveyCreateManyWithoutParentInput
-  subjects: SubjectCreateManyInput
 }
 
 input CourseCreateWithoutSurveysInput {
@@ -492,7 +488,6 @@ input CourseCreateWithoutSurveysInput {
   flags: Int!
   parent: EnrollmentCreateOneWithoutCoursesInput!
   masteries: MasteryCreateManyWithoutParentInput
-  subjects: SubjectCreateManyInput
 }
 
 """An edge in a connection."""
@@ -568,7 +563,6 @@ input CourseUpdateInput {
   parent: EnrollmentUpdateOneWithoutCoursesInput
   masteries: MasteryUpdateManyWithoutParentInput
   surveys: SurveyUpdateManyWithoutParentInput
-  subjects: SubjectUpdateManyInput
 }
 
 input CourseUpdateManyWithoutParentInput {
@@ -601,7 +595,6 @@ input CourseUpdateWithoutMasteriesDataInput {
   flags: Int
   parent: EnrollmentUpdateOneWithoutCoursesInput
   surveys: SurveyUpdateManyWithoutParentInput
-  subjects: SubjectUpdateManyInput
 }
 
 input CourseUpdateWithoutParentDataInput {
@@ -609,7 +602,6 @@ input CourseUpdateWithoutParentDataInput {
   flags: Int
   masteries: MasteryUpdateManyWithoutParentInput
   surveys: SurveyUpdateManyWithoutParentInput
-  subjects: SubjectUpdateManyInput
 }
 
 input CourseUpdateWithoutSurveysDataInput {
@@ -617,7 +609,6 @@ input CourseUpdateWithoutSurveysDataInput {
   flags: Int
   parent: EnrollmentUpdateOneWithoutCoursesInput
   masteries: MasteryUpdateManyWithoutParentInput
-  subjects: SubjectUpdateManyInput
 }
 
 input CourseUpdateWithWhereUniqueWithoutParentInput {
@@ -741,9 +732,6 @@ input CourseWhereInput {
   surveys_every: SurveyWhereInput
   surveys_some: SurveyWhereInput
   surveys_none: SurveyWhereInput
-  subjects_every: SubjectWhereInput
-  subjects_some: SubjectWhereInput
-  subjects_none: SubjectWhereInput
 }
 
 input CourseWhereUniqueInput {
@@ -2080,11 +2068,6 @@ input SubjectCreateInput {
   subSubjects: SubSubjectCreateManyWithoutParentInput
 }
 
-input SubjectCreateManyInput {
-  create: [SubjectCreateInput!]
-  connect: [SubjectWhereUniqueInput!]
-}
-
 input SubjectCreateOneWithoutSubSubjectsInput {
   create: SubjectCreateWithoutSubSubjectsInput
   connect: SubjectWhereUniqueInput
@@ -2162,25 +2145,10 @@ input SubjectSubscriptionWhereInput {
   node: SubjectWhereInput
 }
 
-input SubjectUpdateDataInput {
-  name: String
-  description: String
-  subSubjects: SubSubjectUpdateManyWithoutParentInput
-}
-
 input SubjectUpdateInput {
   name: String
   description: String
   subSubjects: SubSubjectUpdateManyWithoutParentInput
-}
-
-input SubjectUpdateManyInput {
-  create: [SubjectCreateInput!]
-  connect: [SubjectWhereUniqueInput!]
-  disconnect: [SubjectWhereUniqueInput!]
-  delete: [SubjectWhereUniqueInput!]
-  update: [SubjectUpdateWithWhereUniqueNestedInput!]
-  upsert: [SubjectUpsertWithWhereUniqueNestedInput!]
 }
 
 input SubjectUpdateOneWithoutSubSubjectsInput {
@@ -2196,20 +2164,9 @@ input SubjectUpdateWithoutSubSubjectsDataInput {
   description: String
 }
 
-input SubjectUpdateWithWhereUniqueNestedInput {
-  where: SubjectWhereUniqueInput!
-  data: SubjectUpdateDataInput!
-}
-
 input SubjectUpsertWithoutSubSubjectsInput {
   update: SubjectUpdateWithoutSubSubjectsDataInput!
   create: SubjectCreateWithoutSubSubjectsInput!
-}
-
-input SubjectUpsertWithWhereUniqueNestedInput {
-  where: SubjectWhereUniqueInput!
-  update: SubjectUpdateDataInput!
-  create: SubjectCreateInput!
 }
 
 input SubjectWhereInput {
