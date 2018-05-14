@@ -1,6 +1,8 @@
 const { Query } = require("./Query");
 const { auth } = require("./Mutation/auth");
 const { user } = require("./Mutation/user");
+const { student } = require("./Mutation/student");
+const { course } = require("./Mutation/course");
 const { AuthPayload } = require("./AuthPayload");
 
 module.exports = {
@@ -8,6 +10,8 @@ module.exports = {
   Mutation: {
     ...auth,
     ...user,
+    ...student,
+    ...course,
   },
   AuthPayload,
 };
