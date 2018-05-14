@@ -1,7 +1,7 @@
 # import Classroom, Enrollment from "./generated/prisma.graphql"
 
 type Query {
-  me: User
+  me: PrivateUser
   allSubjects: [Subject]!
 }
 
@@ -19,6 +19,14 @@ type Mutation {
   # Course Mutations
   ## SubSubjects
   assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): UpdateResult!
+
+  # Classroom Mutations
+  ## Make classroom
+  createClassroom(name: String!, description: String, teacherid: ID!): Classroom!
+  ## Add to Classroom
+  addUsersToClassroom(classroomid: ID!, userids: [ID!]!): UpdateResult!
+  ## Remove from Classroom
+  removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): UpdateResult!
 }
 
 type AuthPayload {
@@ -44,14 +52,14 @@ type User {
   lname: String!
 }
 
-#type PrivateUser {
-#  id: ID!
-#  email: String!
-#  fname: String!
-#  lname: String!
-#  type: Int!
-#  status: Int!
-#  flags: Int!
-#  classrooms: [Classroom!]!
-#  enrollment: Enrollment
-#}
+type PrivateUser {
+  id: ID!
+  email: String!
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  classrooms: [Classroom!]!
+  enrollment: Enrollment
+}

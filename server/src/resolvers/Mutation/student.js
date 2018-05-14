@@ -1,9 +1,11 @@
 const {
   targetStudentDataHelper,
+} = require("../../utils");
+const {
   AuthErrorAction,
   UserMustBe,
   UserAlreadyEnrolled,
-} = require("../../utils");
+} = require("../../errors");
 const {
   FLAGS_NONE,
   USER_TYPE_STUDENT,
@@ -38,7 +40,7 @@ const student = {
           },
         },
       },
-    });
+    }, info);
 
     return {
       id: enrollment.id,

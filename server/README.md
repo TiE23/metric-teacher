@@ -60,8 +60,16 @@ Status:
 ### Enrollment
 
 ### Course
+Status:
+* `0` - Active
+* `1` - Deactivated
 
 ### Mastery
+Status:
+* `0` - Active
+* `1` - Deactivated
+Score (scale from 0 to 1000):
+A scale between 0 and 1000. 0 is the SubSubject hasn't been practiced at all. Each time a question is answered correctly this value goes up. When the score hits 1000 (totally mastered) it should stay there. But before that point while it's going up there should be a mechanism that deteriorates the score if had been a long time between practices.
 
 ### Survey
 Score (scale from 0 to 100):

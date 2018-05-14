@@ -1,14 +1,16 @@
 const {
   getUserId,
   getUserData,
+} = require("../../utils");
+const {
   AuthErrorAction,
   CourseNotFound,
   CourseNoSubSubjectsAdded,
-} = require("../../utils");
+} = require("../../errors");
 const {
   USER_TYPE_MODERATOR,
   MASTERY_DEFAULT_SCORE,
-  MASTERY_STATUS_ENABLED,
+  MASTERY_STATUS_ACTIVE,
 } = require("../../constants");
 
 const course = {
@@ -54,10 +56,10 @@ const course = {
       throw new CourseNoSubSubjectsAdded(targetCourseData.id);
     }
 
-    // Construct create statements for each targeted SubSubject
+    // Construct connect statements for each targeted SubSubject
     const newMasteries = newSubSubjectIds.map(subSubjectId => (
       {
-        status: MASTERY_STATUS_ENABLED,
+        status: MASTERY_STATUS_ACTIVE,
         score: MASTERY_DEFAULT_SCORE,
         subSubject: {
           connect: {
@@ -68,7 +70,7 @@ const course = {
     ));
 
     const updateCourse = ctx.db.mutation.updateCourse({
-      where: { id: args.courseid },
+      where: { id: targetCourseData.id },
       data: {
         masteries: {
           create: newMasteries,
@@ -80,7 +82,6 @@ const course = {
       success: true,
     };
   },
-
 };
 
 

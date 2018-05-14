@@ -24,7 +24,25 @@ class CourseNotFound extends Error {
 
 class CourseNoSubSubjectsAdded extends Error {
   constructor(courseid) {
-    super(`No new SubSubjects added to Course ${courseid}`);
+    super(`No SubSubjects added to Course ${courseid}`);
+  }
+}
+
+class ClassroomNotFound extends Error {
+  constructor(classroomid) {
+    super(`Classroom ${classroomid} not found`);
+  }
+}
+
+class ClassroomNoUsersAdded extends Error {
+  constructor(classroomid) {
+    super(`No Users added to Classroom ${classroomid}`);
+  }
+}
+
+class ClassroomNoUsersRemoved extends Error {
+  constructor(classroomid) {
+    super(`No Users removed from Classroom ${classroomid}`);
   }
 }
 
@@ -46,6 +64,9 @@ module.exports = {
   UserNotFound,
   CourseNotFound,
   CourseNoSubSubjectsAdded,
+  ClassroomNotFound,
+  ClassroomNoUsersAdded,
+  ClassroomNoUsersRemoved,
   UserMustBe,
   UserAlreadyEnrolled,
 };
