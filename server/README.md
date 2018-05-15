@@ -45,72 +45,160 @@ If you ever do remote hosting, you'll need to change the endpoint's url to the r
 
 ## Database Documentation
 ### User
-Type:
-* `0` - Student (default)
-* `1` - Teacher
-* `2` - Moderator
-* `3` - Admin
-
-Status:
-* `0` - Normal
-* `1` - Closed
+* `id`
+* `email`
+* `honorific`
+    * Optional string for prefixes such as "Mr.", "Mrs.", "Ms.", "Prof.", etc.
+* `fname`
+    * User's first name.
+* `lname`
+    * User's last name.
+* `type`
+    * `0` - Student (default)
+    * `1` - Teacher
+    * `2` - Moderator
+    * `3` - Admin
+* `status`
+    * `0` - Normal
+    * `1` - Closed
+* `flags`
+    * No flags have been defined yet.
+* `classrooms`
+    * Relations to Classroom rows the User is a member of.
+* `enrollment`
+    * For `type` student users only. Relation to Enrollment row.
 
 ### Classroom
+* `id`
+* `name`
+* `description`
+* `status`
+    * `0` - Active
+    * `1` - Inactive
+* `flags`
+    * No flags have been defined yet.
+* `notes`
+    * Additional string whose use is TBD.
+* `users`
+    * Relations to User rows who are members of the Classroom.
 
 ### Enrollment
+* `id`
+* `student`
+    * For Students only. Relation to User row.
+* `courses`
+    * Relations to Course rows.
 
 ### Course
-Status:
-* `0` - Active
-* `1` - Deactivated
+* `id`
+* `status`
+    * `0` - Active
+    * `1` - Inactive
+* `flags`
+    * No flags have been defined yet.
+* `parent`
+    * Relation to Enrollment row.
+* `masteries`
+    * Relations to Mastery rows.
+* `surveys`
+    * Relations to Survey rows.
 
 ### Mastery
-Status:
-* `0` - Active
-* `1` - Deactivated
-Score (scale from 0 to 1000):
-A scale between 0 and 1000. 0 is the SubSubject hasn't been practiced at all. Each time a question is answered correctly this value goes up. When the score hits 1000 (totally mastered) it should stay there. But before that point while it's going up there should be a mechanism that deteriorates the score if had been a long time between practices.
+* `id`
+* `status`
+    * `0` - Active
+    * `1` - Inactive
+* `score`: Scale from 0 to 1000
+    * A scale between 0 and 1000. 0 is the SubSubject hasn't been practiced at all. Each time a question is answered correctly this value goes up. When the score hits 1000 (totally mastered) it should stay there. But before that point while it's going up there should be a mechanism that deteriorates the score if had been a long time between practices.
+* `parent`
+    * Relation to Course row.
+* `subSubject`
+    * Relation to SubSubject row.
 
 ### Survey
-Score (scale from 0 to 100):
-A scale between 0 and 100. 0 is the question hasn't been re-answered. Each time the question is answered correctly this value goes up. When the question has hit a certain point (a constant that can be defined, perhaps 50?) then it enters the conversion portion.
+* `id`
+* `score`: Scale from 0 to 100
+    * A scale between 0 and 100. 0 is the question hasn't been re-answered. Each time the question is answered correctly this value goes up. When the question has hit a certain point (a constant that can be defined, perhaps 50?) then it enters the conversion portion.
+* `answer`
+    * Answer string recorded from the user's response.
+* `parent`
+    * Relation to Course row.
+* `question`
+    * Relation to Question row.
 
 ### Subject
+* `id`
+* `name`
+    * Unique string name of the Subject.
+* `description`
+* `subSubjects`
+    * Relations to SubSubject rows.
 
 ### SubSubject
-Rarity (scale from 0 to 100):
-* `0` or `1` - Common (default value, no chance of it being removed)
-* `50` - Appears half-as-often (1 out of 2 chance of it appearing as often as common questions)
-* `100` - Most rare (1 out of 100 chance of it appearing as often as common questions)
-
-A method of reducing the appearance of subsubjects' questions.
-
-This is a site-wide rarity setting that will *NOT* be adustable for different users.
-For simplicity rarity is determined by this algorithm:
-> Generate a random number between 1 and 100. If rarity value is greater than that value it is excluded.
+* `id`
+* `name`
+    * Unique string name of the subSubject.
+* `description`
+* `toMetric`
+    * Boolean (read: Integer 0 or 1) value the indicates of the Questions in this SubSubject are concerned with converting to (true) or from (false) metric.
+* `rarity` Scale from 0 to 100
+    * A method of reducing the appearance of subsubjects' questions. It is a site-wide rarity setting that will *NOT* be adustable for different users.
+    For simplicity rarity is determined by this algorithm:
+        * _Generate a random number between 1 and 100. If rarity value is greater than that value it is excluded._
+    * Scale
+        * `0` or `1` - Common (default value, no chance of it being removed)
+        * `50` - Appears half-as-often (1 out of 2 chance of it appearing as often as common questions)
+        * `100` - Most rare (1 out of 100 chance of it appearing as often as common questions)
+    * `unit`
+    * Relation to Unit row.
+* `scale`
+    * Relation to Scale row.
+* `parent`
+    * Relation to Subject row.
+* `questions`
+    * Relations to Question rows.
 
 ### Question
-Type:
-* `0`: Written question. The question is a specific question with a specific answer.
-* `1`: Conversion.
-* `2`: Survey.
-
-Difficulty
-Should offer an ability to have some flexibility to give more weight to correct answers for difficult questions and
-similarly forgive more for failing to answer them correctly.
-* `1`: Easy
-* `2`: Easy/Medium
-* `3`: Medium (_should be the default_)
-* `4`: Medium/Hard
-* `5`: Hard
-
-Status:
-* `0`: Enabled
-* `1`: Disabled
+* `id`
+* `type`
+    * `0` - Written question. The question is a specific question with a specific answer.
+    * `1` - Conversion.
+    * `2` - Survey.
+* `status`
+    * `0` - Enabled
+    * `1` - Disabled
+* `flags`
+    * No flags have been defined yet.
+* `difficulty`
+    * Should offer an ability to have some flexibility to give more weight to correct answers for difficult questions and similarly forgive more for failing to answer them correctly.
+    * Values
+        * `1` - Easy
+        * `2` - Easy/Medium
+        * `3` - Medium (_default_)
+        * `4` - Medium/Hard
+        * `5` - Hard
+* `question`
+    * String of the question. Can be a specially formatted string (see logic documentation below)
+* `answer`
+    * String of the answer. Can be a specially formatted string (see logic documentation below)
+* `media`
+    * Optional string value of a particular media file.
+* `parent`
+    * Relation to SubSubject row.
 
 ### Unit
+* `id`
+* `name`
+* `description`
+* `subSubjects`
+    * Relations to SubSubject rows.
 
 ### Scale
+* `id`
+* `name`
+* `description`
+* `subSubjects`
+    * Relations to SubSubject rows.
 
 ## Logic Documentation
 ### Question/Answer format
@@ -118,53 +206,53 @@ Because questions and answers can be a little more nuanced than something simple
 
 *Units*
 * Metric (regular)
-  * `m` - meter
-  * `kg` - kilogram
-  * `l` - liter
-  * `c` - Celsius
-  * `kmph` - kilometers per hour
-  * `sqm` - square meter
+    * `m` - meter
+    * `kg` - kilogram
+    * `l` - liter
+    * `c` - Celsius
+    * `kmph` - kilometers per hour
+    * `sqm` - square meter
 * Metric (irregular)
-  * `ha` - hectare (area), 1 to 10,000 square meters
-  * `sqkm` - square kilometer (area), 1 to 100 hectares
+    * `ha` - hectare (area), 1 to 10,000 square meters
+    * `sqkm` - square kilometer (area), 1 to 100 hectares
 * Imperial (regular)
-  * `ft` - foot
-  * `lb` - pound
-  * `gal` - gallon
-  * `f` - Fahrenheit
-  * `mph` - miles per hour
-  * `sqft` - square foot
+    * `ft` - foot
+    * `lb` - pound
+    * `gal` - gallon
+    * `f` - Fahrenheit
+    * `mph` - miles per hour
+    * `sqft` - square foot
 * Imperial (irregular)
-  * `in` - inch, 12 per 1 foot
-  * `oz` - ounces (mass), 16 per 1 pound
-  * `floz` - ounces (volume), 128 per 1 gallon
-  * `acre` - acre (area), 1 to 43,560 square feet
-  * `sqmi` - square mile (area), 1 to 640 acres
+    * `in` - inch, 12 per 1 foot
+    * `oz` - ounces (mass), 16 per 1 pound
+    * `floz` - ounces (volume), 128 per 1 gallon
+    * `acre` - acre (area), 1 to 43,560 square feet
+    * `sqmi` - square mile (area), 1 to 640 acres
 
 *Multiple Choice Syntax*
 TODO
 
 *Range Syntax*
 * Range Question (Convert From) - Metric Units:
-  * `[#-#UNIT(1)s]` (simple, with whole numbers)
-  * `[#-#UNIT(0.1)s]` (with steps of 0.1)
-  * `[#-#UNIT(10)s]` (with steps of 10)
+    * `[#-#UNIT(1)s]` (simple, with whole numbers)
+    * `[#-#UNIT(0.1)s]` (with steps of 0.1)
+    * `[#-#UNIT(10)s]` (with steps of 10)
 * Range Answer (Convert To) - Metric Units:
-  * `[UNIT(1)a]` (simple, with whole numbers)
-  * `[UNIT(0.5)a]` (accept an answer within 0.5 units accuracy)
-  * `[UNIT(3)a]` (accept an answer within 3 units accuracy)
+    * `[UNIT(1)a]` (simple, with whole numbers)
+    * `[UNIT(0.5)a]` (accept an answer within 0.5 units accuracy)
+    * `[UNIT(3)a]` (accept an answer within 3 units accuracy)
 * Range Answer (Survey) - Imperial Units:
-  * `[#-#UNIT->METRIC_UNIT(1)r]` (simple, nearest whole number)
-  * `[#-#UNIT->METRIC_UNIT(0.5)r]` (convert to an answer rounded to 0.5 units)
+    * `[#-#UNIT->METRIC_UNIT(1)r]` (simple, nearest whole number)
+    * `[#-#UNIT->METRIC_UNIT(0.5)r]` (convert to an answer rounded to 0.5 units)
 
 Examples:
 * Q: `[5-10m(1)s]` A: `[ft(1)a]`
-  * Would ask to convert a random whole number of meters between 5 and 10 (inclusive) and demand a conversion in feet accurate to within 1 foot.
+    * Would ask to convert a random whole number of meters between 5 and 10 (inclusive) and demand a conversion in feet accurate to within 1 foot.
 * Q: `[18-22c(0.5)s]` A: `[f(2)a]`
-  * Would ask to convert a random temperature between 18 and 22 Celsius in 0.5 increments and demand a conversion in Fahrenheit accurate to within 2 degrees.
+    * Would ask to convert a random temperature between 18 and 22 Celsius in 0.5 increments and demand a conversion in Fahrenheit accurate to within 2 degrees.
 * Q: `"Starting at what height would you describe an adult man to be 'very tall'?"` A: `[72-79in->m(1)r]` User's Survey Answer: `75in`
-  * This question accepts a range between 72 to 79 inches (about 1.82 to 2.00m). A survey has four different phases:
-    1) It starts by asking the user's opinion (that's when it gets the 75 inch answer).
-    2) It asks the user to re-identify their answer from multiple choices. The wrong answers will be generated by randomly displaying +/- 1-4 times the rounding value `(#)r`. In this case, it might generate the following answers: 75in (correct), +1in (76in), -3in (72in), +3 (78in).
-    3) When the user has confirmed their estimate enough times (after hitting a certain threshold tracked through the survey's score field) the survey question will instead ask the person to answer the question in metric with their Imperial answer displayed. Multiple choices will be generated in the same manner as the second phase, simply converted to the Metric value
-    4) Finally the same exact case as phase 3 but without showing the user's Imperial answer. (May consider randomly showing or not showing the Imperial answer. Perhaps let the user click on a "your answer is hidden" span that'll show it with perhaps only a small score/mastery penalty).
+    * This question accepts a range between 72 to 79 inches (about 1.82 to 2.00m). A survey has four different phases:
+        1) It starts by asking the user's opinion (that's when it gets the 75 inch answer).
+        2) It asks the user to re-identify their answer from multiple choices. The wrong answers will be generated by randomly displaying +/- 1-4 times the rounding value `(#)r`. In this case, it might generate the following answers: 75in (correct), +1in (76in), -3in (72in), +3 (78in).
+        3) When the user has confirmed their estimate enough times (after hitting a certain threshold tracked through the survey's score field) the survey question will instead ask the person to answer the question in metric with their Imperial answer displayed. Multiple choices will be generated in the same manner as the second phase, simply converted to the Metric value
+        4) Finally the same exact case as phase 3 but without showing the user's Imperial answer. (May consider randomly showing or not showing the Imperial answer. Perhaps let the user click on a "your answer is hidden" span that'll show it with perhaps only a small score/mastery penalty).
