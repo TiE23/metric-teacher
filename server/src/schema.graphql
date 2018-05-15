@@ -42,15 +42,23 @@ type AuthPayload {
   user: User!
 }
 
+# For public use. It does not expose password or email.
 type User {
   id: ID!
   fname: String!
   lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  classrooms: [Classroom!]!
+  enrollment: Enrollment
 }
 
+# For private use. It does not expose password.
 type PrivateUser {
   id: ID!
   email: String!
+  honorific: String
   fname: String!
   lname: String!
   type: Int!

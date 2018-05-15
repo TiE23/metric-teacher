@@ -3,6 +3,7 @@ type User {
   id: ID! @unique
   email: String! @unique
   password: String!
+  honorific: String
   fname: String!
   lname: String!
   type: Int!

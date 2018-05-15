@@ -9,6 +9,7 @@ const {
 const {
   FLAGS_NONE,
   USER_TYPE_STUDENT,
+  USER_TYPE_TEACHER,
   USER_TYPE_MODERATOR,
   COURSE_STATUS_ACTIVE,
 } = require("../../constants");
@@ -47,15 +48,38 @@ const student = {
 
   async assignStudentNewCourse(parent, args, ctx, info) {
     const { callingUserData, targetUserData } =
-      await targetStudentDataHelper(ctx, args.studentid, "{ id, type, enrollment { id } }");
+      await targetStudentDataHelper(ctx, args.studentid, `
+        {
+          id
+          type
+          enrollment {
+            id
+          }
+          classrooms {
+            id
+            users {
+              id
+              type
+            }
+          }
+        }
+      `);
 
     // Only a student can be assigned a course.
     if (targetUserData.type !== USER_TYPE_STUDENT) {
       throw new UserMustBe(targetUserData.id, "STUDENT");
     }
-    // A student can assign themselves a Course and moderators or better can as well.
-    // TODO let teachers (who are in the SAME CLASSROOM) also assign Courses.
-    if (callingUserData.id !== targetUserData.id && callingUserData.type < USER_TYPE_MODERATOR) {
+
+    // We grab the target student's classrooms' teachers
+    const teachers = [];
+    targetUserData.classrooms.forEach((classroom) => {
+      teachers.push(...classroom.users.filter(user =>
+        user.type === USER_TYPE_TEACHER).map(user => user.id));
+    });
+    // A student can assign themselves a Course and their teacher, moderators, or better can as well
+    if (callingUserData.id !== targetUserData.id &&
+      !teachers.includes(callingUserData.id) &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
       throw new AuthErrorAction("assignStudentNewCourse");
     }
 
