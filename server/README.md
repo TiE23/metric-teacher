@@ -3,7 +3,7 @@
 There is a secret file that is not in this repo: `.env`
 (to be explicit, it's located at `./server/.env`)
 
-This file has a few things that need to be kept secret and a one thing that isn't secret:
+This file has a few things that need to be kept secret (hint, they're the ones with "secret" in the name):
 ```
 PRISMA_STAGE="dev"
 PRISMA_ENDPOINT="http://self:4466/server/dev"
