@@ -3,6 +3,7 @@ type User {
   id: ID! @unique
   email: String! @unique
   password: String!
+  honorific: String
   fname: String!
   lname: String!
   type: Int!
@@ -43,11 +44,10 @@ type Course {
   parent: Enrollment! @relation(name: "EnrollmentToCourse")
   masteries: [Mastery!]! @relation(name: "CourseToMastery")
   surveys: [Survey!]! @relation(name: "CourseToSurvey")
-  subjects: [Subject!]! @relation(name: "CourseToSubject")
 }
 
 # This is the table that tracks the success of a student to a subsubject by relating to a course
-# and a subsubject.
+# and a subsubject. This is also where a student could
 type Mastery {
   id: ID! @unique
   status: Int!

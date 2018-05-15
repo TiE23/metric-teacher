@@ -1,12 +1,40 @@
 # import Classroom, Enrollment from "./generated/prisma.graphql"
 
 type Query {
-  me: User
+  me: PrivateUser
+  allSubjects: [Subject]!
 }
 
 type Mutation {
+  # User Mutations
   signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
+
+  # Student Mutations
+  ## Enrollment
+  enrollStudent(studentid: ID!): Enrollment!
+  ## Course
+  assignStudentNewCourse(studentid: ID!): Course!
+
+  # Course Mutations
+  ## Activate/Deactivate
+  activateCourse(courseid: ID!): Course!
+  deactivateCourse(courseid: ID!): Course!
+  ## SubSubjects
+  assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
+
+  # Mastery Mutations
+  ## Activate/Deactivate
+  activateMastery(masteryid: ID!): Mastery!
+  deactivateMastery(masteryid: ID!): Mastery!
+
+  # Classroom Mutations
+  ## Make classroom
+  createClassroom(name: String!, description: String, teacherid: ID!): Classroom!
+  ## Add to Classroom
+  addUsersToClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
+  ## Remove from Classroom
+  removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
 }
 
 type AuthPayload {
@@ -14,21 +42,28 @@ type AuthPayload {
   user: User!
 }
 
+# For public use. It does not expose password or email.
 type User {
   id: ID!
-  email: String!
   fname: String!
   lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  classrooms: [Classroom!]!
+  enrollment: Enrollment
 }
 
-#type PrivateUser {
-#  id: ID!
-#  email: String!
-#  fname: String!
-#  lname: String!
-#  type: Int!
-#  status: Int!
-#  flags: Int!
-#  classrooms: [Classroom!]!
-#  enrollment: Enrollment
-#}
+# For private use. It does not expose password.
+type PrivateUser {
+  id: ID!
+  email: String!
+  honorific: String
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  classrooms: [Classroom!]!
+  enrollment: Enrollment
+}
