@@ -9,6 +9,8 @@ const {
 } = require("../../errors");
 const {
   USER_TYPE_MODERATOR,
+  COURSE_STATUS_ACTIVE,
+  COURSE_STATUS_INACTIVE,
   MASTERY_DEFAULT_SCORE,
   MASTERY_STATUS_ACTIVE,
 } = require("../../constants");
@@ -69,18 +71,86 @@ const course = {
       }
     ));
 
-    const updateCourse = ctx.db.mutation.updateCourse({
+    const updateCourse = await ctx.db.mutation.updateCourse({
       where: { id: targetCourseData.id },
       data: {
         masteries: {
           create: newMasteries,
         },
       },
-    });
+    }, info);
 
-    return {
-      success: true,
-    };
+    return updateCourse;
+  },
+
+  async activateCourse(parent, args, ctx, info) {
+    const callingUserId = await getUserId(ctx);
+    const callingUserData = await getUserData(ctx, callingUserId, "{ id, type }");
+    const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
+      {
+        id
+        status
+        parent {
+          student {
+            id
+          }
+        }
+      }
+    `);
+
+    // Check the Course exists.
+    if (targetCourseData === null) {
+      throw new CourseNotFound(args.courseid);
+    }
+
+    // A student can change the status of a Course and moderators or better can as well.
+    if (targetCourseData.parent.student.id !== callingUserData.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthErrorAction("activateCourse");
+    }
+
+    // Perform the update
+    return ctx.db.mutation.updateCourse({
+      where: { id: targetCourseData.id },
+      data: {
+        status: COURSE_STATUS_ACTIVE,
+      },
+    }, info);
+  },
+
+  async deactivateCourse(parent, args, ctx, info) {
+    const callingUserId = await getUserId(ctx);
+    const callingUserData = await getUserData(ctx, callingUserId, "{ id, type }");
+    const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
+      {
+        id
+        status
+        parent {
+          student {
+            id
+          }
+        }
+      }
+    `);
+
+    // Check the Course exists.
+    if (targetCourseData === null) {
+      throw new CourseNotFound(args.courseid);
+    }
+
+    // A student can change the status of a Course and moderators or better can as well.
+    if (targetCourseData.parent.student.id !== callingUserData.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthErrorAction("deactivateCourse");
+    }
+
+    // Perform the update
+    return ctx.db.mutation.updateCourse({
+      where: { id: targetCourseData.id },
+      data: {
+        status: COURSE_STATUS_INACTIVE,
+      },
+    }, info);
   },
 };
 

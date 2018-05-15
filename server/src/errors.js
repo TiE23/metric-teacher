@@ -46,6 +46,12 @@ class ClassroomNoUsersRemoved extends Error {
   }
 }
 
+class MasteryNotFound extends Error {
+  constructor(masteryid) {
+    super(`Mastery ${masteryid} not found`);
+  }
+}
+
 class UserMustBe extends Error {
   constructor(userid, neededType) {
     super(`User ${userid} must be type ${neededType}`);
@@ -67,6 +73,7 @@ module.exports = {
   ClassroomNotFound,
   ClassroomNoUsersAdded,
   ClassroomNoUsersRemoved,
+  MasteryNotFound,
   UserMustBe,
   UserAlreadyEnrolled,
 };

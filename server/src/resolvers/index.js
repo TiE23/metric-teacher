@@ -4,6 +4,7 @@ const { user } = require("./Mutation/user");
 const { student } = require("./Mutation/student");
 const { course } = require("./Mutation/course");
 const { classroom } = require("./Mutation/classroom");
+const { mastery } = require("./Mutation/mastery");
 const { AuthPayload } = require("./AuthPayload");
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
     ...student,
     ...course,
     ...classroom,
+    ...mastery,
   },
   AuthPayload,
 };

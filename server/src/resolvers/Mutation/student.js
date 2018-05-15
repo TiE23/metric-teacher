@@ -10,13 +10,13 @@ const {
   FLAGS_NONE,
   USER_TYPE_STUDENT,
   USER_TYPE_MODERATOR,
-  COURSE_STATUS_NORMAL,
+  COURSE_STATUS_ACTIVE,
 } = require("../../constants");
 
 const student = {
   async enrollStudent(parent, args, ctx, info) {
     const { callingUserData, targetUserData } =
-      targetStudentDataHelper(ctx, args.studentid, "{ id, type, enrollment { id } }");
+      await targetStudentDataHelper(ctx, args.studentid, "{ id, type, enrollment { id } }");
 
     // Only a student can be enrolled.
     if (targetUserData.type !== USER_TYPE_STUDENT) {
@@ -42,9 +42,7 @@ const student = {
       },
     }, info);
 
-    return {
-      id: enrollment.id,
-    };
+    return enrollment;
   },
 
   async assignStudentNewCourse(parent, args, ctx, info) {
@@ -65,18 +63,16 @@ const student = {
     const course = await ctx.db.mutation.createCourse({
       data: {
         status: FLAGS_NONE,
-        flags: COURSE_STATUS_NORMAL,
+        flags: COURSE_STATUS_ACTIVE,
         parent: {
           connect: {
             id: targetUserData.enrollment.id,
           },
         },
       },
-    });
+    }, info);
 
-    return {
-      id: course.id,
-    };
+    return course;
   },
 
 };

@@ -12,38 +12,34 @@ type Mutation {
 
   # Student Mutations
   ## Enrollment
-  enrollStudent(studentid: ID!): CreateResult!
+  enrollStudent(studentid: ID!): Enrollment!
   ## Course
-  assignStudentNewCourse(studentid: ID!): CreateResult!
+  assignStudentNewCourse(studentid: ID!): Course!
 
   # Course Mutations
+  ## Activate/Deactivate
+  activateCourse(courseid: ID!): Course!
+  deactivateCourse(courseid: ID!): Course!
   ## SubSubjects
-  assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): UpdateResult!
+  assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
+
+  # Mastery Mutations
+  ## Activate/Deactivate
+  activateMastery(masteryid: ID!): Mastery!
+  deactivateMastery(masteryid: ID!): Mastery!
 
   # Classroom Mutations
   ## Make classroom
   createClassroom(name: String!, description: String, teacherid: ID!): Classroom!
   ## Add to Classroom
-  addUsersToClassroom(classroomid: ID!, userids: [ID!]!): UpdateResult!
+  addUsersToClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
   ## Remove from Classroom
-  removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): UpdateResult!
+  removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
 }
 
 type AuthPayload {
   token: String!
   user: User!
-}
-
-# Some mutations create new rows that can only return IDs. For example, if a student is
-# enrolled you might expect that mutation to return the new Enrollment, but when you use
-# Prisma-style create+connect arguments not the entire object is ready, only the ID, so we must
-# limit the data returned to just the ID.
-type CreateResult {
-  id: ID!
-}
-
-type UpdateResult {
-  success: Boolean!
 }
 
 type User {

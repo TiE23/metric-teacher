@@ -67,7 +67,7 @@ const classroom = {
     const classroomStudents = targetClassroomData.users.filter(user =>
       user.type === USER_TYPE_STUDENT).map(user => user.id);
 
-    // A teacher of the classroom can add to a classroom and moderators or better can as well.
+    // A teacher of the classroom can add to a Classroom and moderators or better can as well.
     if (!classroomTeachers.includes(callingUserData.id) &&
       callingUserData.type < USER_TYPE_MODERATOR) {
       throw new AuthErrorAction("addUsersToClassroom");
@@ -91,18 +91,16 @@ const classroom = {
     ));
 
     // Perform the update
-    const updateClassroom = ctx.db.mutation.updateClassroom({
+    const updateClassroom = await ctx.db.mutation.updateClassroom({
       where: { id: targetClassroomData.id },
       data: {
         users: {
           connect: newClassroomUsers,
         },
       },
-    });
+    }, info);
 
-    return {
-      success: true,
-    };
+    return updateClassroom;
   },
 
   async removeUsersFromClassroom(parent, args, ctx, info) {
@@ -152,18 +150,16 @@ const classroom = {
     ));
 
     // Perform the update
-    const updateClassroom = ctx.db.mutation.updateClassroom({
+    const updateClassroom = await ctx.db.mutation.updateClassroom({
       where: { id: targetClassroomData.id },
       data: {
         users: {
           disconnect: removedClassroomUsers,
         },
       },
-    });
+    }, info);
 
-    return {
-      success: true,
-    };
+    return updateClassroom;
   },
 };
 
