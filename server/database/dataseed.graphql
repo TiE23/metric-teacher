@@ -681,10 +681,104 @@ mutation {
 
   ############## User
   user_student_001: createUser(data: {
-    email: "test@example.com"
+    email: "student001@example.com"
     password: "$2a$10$pp9xV2vdRjF9PghrbQmQn.uGosaeCvyLVhXs80E.WXANODxij4Omy" # "password"
-    fname: "Test"
-    lname: "McTesterson"
+    fname: "Student"
+    lname: "001"
+    type: 0
+    status: 0
+    flags: 0
+    classrooms: null
+    enrollment: null
+  }) {
+    id
+  }
+  user_student_002: createUser(data: {
+    email: "student002@example.com"
+    password: "$2a$10$pp9xV2vdRjF9PghrbQmQn.uGosaeCvyLVhXs80E.WXANODxij4Omy" # "password"
+    fname: "Student"
+    lname: "002"
+    type: 0
+    status: 0
+    flags: 0
+    classrooms: null
+    enrollment: null
+  }) {
+    id
+  }
+  user_student_003: createUser(data: {
+    email: "student003@example.com"
+    password: "$2a$10$pp9xV2vdRjF9PghrbQmQn.uGosaeCvyLVhXs80E.WXANODxij4Omy" # "password"
+    fname: "Student"
+    lname: "003"
+    type: 0
+    status: 0
+    flags: 0
+    classrooms: null
+    enrollment: null
+  }) {
+    id
+  }
+  user_teacher_001: createUser(data: {
+    email: "teacher001@example.com"
+    password: "$2a$10$pp9xV2vdRjF9PghrbQmQn.uGosaeCvyLVhXs80E.WXANODxij4Omy" # "password"
+    fname: "Teacher"
+    lname: "001"
+    honorific: "Mr."
+    type: 0
+    status: 0
+    flags: 0
+    classrooms: null
+    enrollment: null
+  }) {
+    id
+  }
+  user_teacher_002: createUser(data: {
+    email: "teacher002@example.com"
+    password: "$2a$10$pp9xV2vdRjF9PghrbQmQn.uGosaeCvyLVhXs80E.WXANODxij4Omy" # "password"
+    fname: "Teacher"
+    lname: "002"
+    honorific: "Ms."
+    type: 0
+    status: 0
+    flags: 0
+    classrooms: null
+    enrollment: null
+  }) {
+    id
+  }
+  user_teacher_003: createUser(data: {
+    email: "teacher003@example.com"
+    password: "$2a$10$pp9xV2vdRjF9PghrbQmQn.uGosaeCvyLVhXs80E.WXANODxij4Omy" # "password"
+    fname: "Teacher"
+    lname: "003"
+    honorific: "Prof."
+    type: 0
+    status: 0
+    flags: 0
+    classrooms: null
+    enrollment: null
+  }) {
+    id
+  }
+  user_moderator_001: createUser(data: {
+    email: "moderator001@example.com"
+    password: "$2a$10$pp9xV2vdRjF9PghrbQmQn.uGosaeCvyLVhXs80E.WXANODxij4Omy" # "password"
+    fname: "Moderator"
+    lname: "001"
+    type: 0
+    status: 0
+    flags: 0
+    classrooms: null
+    enrollment: null
+  }) {
+    id
+  }
+  user_admin_001: createUser(data: {
+    email: "admin001@example.com"
+    password: "$2a$10$pp9xV2vdRjF9PghrbQmQn.uGosaeCvyLVhXs80E.WXANODxij4Omy" # "password"
+    fname: "Admin"
+    lname: "001"
     type: 0
     status: 0
     flags: 0
