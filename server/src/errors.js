@@ -64,6 +64,18 @@ class UserAlreadyEnrolled extends Error {
   }
 }
 
+class QuestionSyntaxError extends Error {
+  constructor(question, reason) {
+    super(`Question "${question}" not valid. Reason: "${reason}".`);
+  }
+}
+
+class AnswerSyntaxError extends Error {
+  constructor(question, reason) {
+    super(`Question "${question}" not valid. Reason: "${reason}".`);
+  }
+}
+
 module.exports = {
   AuthError,
   AuthErrorAction,
@@ -76,4 +88,6 @@ module.exports = {
   MasteryNotFound,
   UserMustBe,
   UserAlreadyEnrolled,
+  QuestionSyntaxError,
+  AnswerSyntaxError,
 };
