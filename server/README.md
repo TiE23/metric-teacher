@@ -242,7 +242,7 @@ Auto generated range questions will always ask a question like the following:
 If you add some text, it will appear like so:
 "Convert 1.80 meters to feet (within 0.5 feet accuracy). This is a typical height of an adult man."
 
-* Text before special syntax
+* Text before range syntax
     * `This is a common room temperature. [#-#UNIT(#)s]` (simple, with a written sentence for syntax. Space optional.)
 * Range Question (Convert From)
     * `[#-#UNIT(1)s]` (simple, with whole numbers)

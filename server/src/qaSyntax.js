@@ -1,6 +1,7 @@
 const {
   QuestionSyntaxError,
   AnswerSyntaxError,
+  QuestionAnswerError,
 } = require("./errors");
 const {
   QUESTION_TYPE_WRITTEN,
@@ -12,8 +13,14 @@ const {
 } = require("./constants");
 
 function parseQAStrings(type, question, answer) {
-  const questionPayload = this.parseQuestionString(type, question);
-  const answerPayload = this.parseAnswerString(answer);
+  const questionPayload = parseQuestionString(type, question);
+  const answerPayload = parseAnswerString(answer);
+
+
+  // Check that the units make sense.
+  checkUnitCompatibility(questionPayload, answerPayload);
+
+  return { questionPayload, answerPayload };
 }
 
 function parseQuestionString(type, question) {
@@ -28,18 +35,24 @@ function parseQuestionString(type, question) {
     // Create the basic return payload now.
     const questionPayload = {
       type,
-      data: {},
+      data: {
+        syntax: "",
+        text: "",
+      },
     };
 
     // If there was text before the pattern make it the question's text.
-    if (baseResult.index !== 1) {
+    if (baseResult.index !== 0) {
       questionPayload.data.text = baseResult.input.slice(0, baseResult.index - 1).trim();
     }
+
+    // Add the question's syntax body to the payload.
+    questionPayload.data.syntax = baseResult[0];
 
     const rangeResult = baseResult[0].match(rangePattern);
 
     // Make sure we have the expected number of results for range minimum, range maximum, and unit.
-    if (!rangeResult[1] || !rangeResult[2] || !rangeResult[3]) {
+    if (rangeResult === null || !rangeResult[1] || !rangeResult[2] || !rangeResult[3]) {
       throw new QuestionSyntaxError(question, "Range syntax is invalid");
     }
 
@@ -100,11 +113,12 @@ function parseQuestionString(type, question) {
   }
 }
 
+
 function parseAnswerString(answer) {
   const basePattern = /\[([^\]]+)](\d{0,2})/;   // Finds "[m(0.5)a]"; Returns "m(0.5)a"
   const multipleChoiceDelimiter = "|";          // Splits on |
   const answerPattern = /([\d.]+)(\w+)/;        // Finds "2.5m"; Returns "2.5", "m"
-  const unitPattern = /%(\w+)/;                 // Finds "m"; Returns "m"
+  const unitPattern = /^(\w+)/;                 // Finds "m"; Returns "m"
   const unitAccuracyPattern = /\(([\d.]+)\)a/;  // Finds "(0.5)a"; Returns "0.5"
 
   // Create the basic return payload now.
@@ -120,6 +134,9 @@ function parseAnswerString(answer) {
     throw new AnswerSyntaxError(answer, "Invalid answer syntax");
   }
 
+  // Add the answer's syntax body to the payload.
+  answerPayload.data.syntax = baseResult[0];
+
   // Multiple choice answer...
   if (baseResult[1].indexOf(multipleChoiceDelimiter) !== -1) {
     // Split the choices
@@ -128,9 +145,16 @@ function parseAnswerString(answer) {
     // Parse the choices offered.
     const choicesOffered = baseResult[2] ?
       Number.parseInt(baseResult[2], 10) : multipleChoiceAnswers.length;
-    if (Number.isNaN(choicesOffered) || choicesOffered <= 0) {
+    if (Number.isNaN(choicesOffered)) {
       throw new AnswerSyntaxError(answer, "Invalid choice count defined");
     }
+    if (choicesOffered < 2) {
+      throw new AnswerSyntaxError(answer, "Must have at least two choices");
+    }
+    if (choicesOffered > multipleChoiceAnswers.length) {
+      throw new AnswerSyntaxError(answer, "Cannot offer more choices than actually defined");
+    }
+    answerPayload.data.choicesOffered = choicesOffered;
 
     // Parse the choices for values and units.
     const parsedMultipleChoiceAnswers = multipleChoiceAnswers.map((singleAnswer) => {
@@ -169,12 +193,14 @@ function parseAnswerString(answer) {
   } else {
     // Parse the unit.
     const unitResult = baseResult[1].match(unitPattern);
-    if (unitPattern !== null) {
+    if (unitResult !== null) {
       const unit = unitResult[1];
       if (UNITS[unit] === undefined) {
         throw new AnswerSyntaxError(answer, `Unit "${unit}" not recognized`);
       }
       answerPayload.data.unit = unit;
+    } else {
+      throw new AnswerSyntaxError(answer, "No unit declared");
     }
 
     // Parse the accuracy.
@@ -194,3 +220,53 @@ function parseAnswerString(answer) {
     return answerPayload;
   }
 }
+
+
+function checkUnitCompatibility(questionPayload, answerPayload) {
+  if (questionPayload.type === QUESTION_TYPE_CONVERSION ||
+    questionPayload.type === QUESTION_TYPE_SURVEY) {
+    const questionUnit = questionPayload.data.unit;
+    const questionUnitSubject = UNITS[questionUnit].subject;
+    const questionUnitFamily = UNITS[questionUnit].family;
+
+    // Multiple-choice answer.
+    if (answerPayload.type === ANSWER_TYPE_MULTIPLE_CHOICE) {
+      answerPayload.data.choices.forEach((choice) => {
+        if (UNITS[choice.unit].subject !== questionUnitSubject) {
+          throw new QuestionAnswerError(
+            questionPayload.data.syntax, answerPayload.data.syntax,
+            `Answer unit "${choice.unit}" incompatible with question unit "${questionUnit}"`,
+          );
+        }
+        if (UNITS[choice.unit].family === questionUnitFamily) {
+          throw new QuestionAnswerError(
+            questionPayload.data.syntax, answerPayload.data.syntax,
+            `Answer unit "${choice.unit}" is the same family (${questionUnitFamily}) as question unit "${questionUnit}"`,
+          );
+        }
+      });
+
+    // Conversion answer.
+    } else {
+      if (UNITS[answerPayload.data.unit].subject !== questionUnitSubject) {
+        throw new QuestionAnswerError(
+          questionPayload.data.syntax,
+          answerPayload.data.syntax,
+          `Answer unit "${answerPayload.data.unit}" incompatible with question unit "${questionUnit}"`,
+        );
+      }
+      if (UNITS[answerPayload.data.unit].family === questionUnitFamily) {
+        throw new QuestionAnswerError(
+          questionPayload.data.syntax,
+          answerPayload.data.syntax,
+          `Answer unit "${answerPayload.data.unit}" is the same family (${questionUnitFamily}) as question unit "${questionUnit}"`,
+        );
+      }
+    }
+  }
+}
+
+
+module.exports = {
+  parseQAStrings,
+};

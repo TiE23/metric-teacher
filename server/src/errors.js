@@ -76,6 +76,12 @@ class AnswerSyntaxError extends Error {
   }
 }
 
+class QuestionAnswerError extends Error {
+  constructor(question, answer, reason) {
+    super(`Question "${question}" and answer "${answer}" not valid together. Reason: "${reason}".`);
+  }
+}
+
 module.exports = {
   AuthError,
   AuthErrorAction,
@@ -90,4 +96,5 @@ module.exports = {
   UserAlreadyEnrolled,
   QuestionSyntaxError,
   AnswerSyntaxError,
+  QuestionAnswerError,
 };
