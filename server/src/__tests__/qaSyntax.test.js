@@ -12,7 +12,6 @@ const {
   QUESTION_TYPE_SURVEY,
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
-  UNITS,
 } = require("../constants");
 
 describe("qaSyntax", () => {

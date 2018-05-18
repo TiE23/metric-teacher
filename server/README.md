@@ -244,14 +244,12 @@ If you add some text, it will appear like so:
 
 * Text before range syntax
     * `This is a common room temperature. [#-#UNIT(#)s]` (simple, with a written sentence for syntax. Space optional.)
-* Range Question (Convert From)
+* Range Question (Conversion or Survey)
     * `[#-#UNIT(1)s]` (simple, with whole numbers)
     * `[#-#UNIT(0.1)s]` (with steps of 0.1)
     * `[#-#UNIT(10)s]` (with steps of 10)
     * `[#-#UNIT]` (no steps defined, defaults to 1)
-* Range Question (Survey)
-    * `[#-#UNIT]`
-* Range Answer (Convert To and Survey)
+* Range Answer (Conversion or Survey)
     * `[UNIT(1)a]` (simple, with whole numbers)
     * `[UNIT(0.5)a]` (accept an answer within 0.5 units accuracy)
     * `[UNIT(3)a]` (accept an answer within 3 units accuracy)

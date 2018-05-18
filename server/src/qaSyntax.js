@@ -12,10 +12,69 @@ const {
   UNITS,
 } = require("./constants");
 
+/**
+ * Returns two new objects for the question and the answer. The shape of the objects can vary, with
+ * two different variations for
+ *
+ * Question: Written ("What temperature does water boil at in Celsius?")
+ * {
+ *   type: QUESTION_TYPE_WRITTEN,
+ *   data: {
+ *     syntax: "",
+ *     text: "What temperature does water boil at in Celsius?",
+ *   },
+ * }
+ *
+ * Question: Range or Survey ("This is about room temperature. [22-25c(0.5)s]")
+ * {
+ *   type: QUESTION_TYPE_CONVERSION,             // Can also be QUESTION_TYPE_SURVEY
+ *   data: {
+ *     syntax: "[22-25c(0.5)s]",
+ *     text: "This is about room temperature.",  // Defaults to blank if not defined.
+ *     rangeBottom: 22,
+ *     rangeTop: 25,*
+ *     unit: "c",
+ *     step: 0.5,                                // Defaults to 1 if not defined.
+ *   },
+ * }
+ *
+ * Answer: Multiple choice ("[50cm|1m|1.5m]2")
+ * {
+ *   type: ANSWER_TYPE_MULTIPLE_CHOICE,
+ *   data: {
+ *     syntax: "[50cm|1m|1.5m]2",
+ *     choicesOffered: 2,          // This is always defined even if not written.
+ *     choices : [
+ *       {
+ *         value: 50, unit: "cm",
+ *       },
+ *       {
+ *         value: 1, unit: "m",
+ *       },
+ *       {
+ *         value: 1.5, unit: "m",
+ *       },
+ *     ],
+ *   },
+ * }
+ *
+ * Answer: Conversion or survey ("[ft(2)a]")
+ * {
+ *   type: ANSWER_TYPE_CONVERSION,
+ *   data: {
+ *     syntax: "[ft(2)a]"
+ *     unit: "ft",
+ *     accuracy: 2,               // Defaults to 1 if not defined.
+ *   },
+ * }
+ * @param type
+ * @param question
+ * @param answer
+ * @returns {{questionPayload, answerPayload}}
+ */
 function parseQAStrings(type, question, answer) {
   const questionPayload = parseQuestionString(type, question);
   const answerPayload = parseAnswerString(answer);
-
 
   // Check that the units make sense.
   checkUnitCompatibility(questionPayload, answerPayload);
