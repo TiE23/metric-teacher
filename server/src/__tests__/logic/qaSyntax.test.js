@@ -2,17 +2,17 @@ const {
   QuestionSyntaxError,
   AnswerSyntaxError,
   QuestionAnswerError,
-} = require("../errors");
+} = require("../../errors");
 const {
   parseQAStrings,
-} = require("../qaSyntax");
+} = require("../../logic/qaSyntax");
 const {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
-} = require("../constants");
+} = require("../../constants");
 
 describe("qaSyntax", () => {
   describe("Happy Path", () => {

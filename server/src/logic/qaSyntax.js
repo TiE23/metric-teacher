@@ -2,7 +2,7 @@ const {
   QuestionSyntaxError,
   AnswerSyntaxError,
   QuestionAnswerError,
-} = require("./errors");
+} = require("../errors");
 const {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
@@ -10,7 +10,7 @@ const {
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
   UNITS,
-} = require("./constants");
+} = require("../constants");
 
 /**
  * Returns two new objects for the question and the answer. The shape of the objects can vary, with
