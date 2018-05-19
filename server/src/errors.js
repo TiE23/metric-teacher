@@ -66,21 +66,40 @@ class UserAlreadyEnrolled extends Error {
 
 class QuestionSyntaxError extends Error {
   constructor(question, reason) {
-    super(`Question "${question}" not valid. Reason: "${reason}".`);
+    super(`Question "${question}" not valid. Reason: "${reason}"`);
   }
 }
 
 class AnswerSyntaxError extends Error {
-  constructor(question, reason) {
-    super(`Question "${question}" not valid. Reason: "${reason}".`);
+  constructor(answer, reason) {
+    super(`Answer "${answer}" not valid. Reason: "${reason}"`);
   }
 }
 
 class QuestionAnswerError extends Error {
   constructor(question, answer, reason) {
-    super(`Question "${question}" and answer "${answer}" not valid together. Reason: "${reason}".`);
+    super(`Question "${question}" and answer "${answer}" not valid together. Reason: "${reason}"`);
   }
 }
+
+class QuestionTypeInvalid extends Error {
+  constructor(questionType) {
+    super(`Question type "${questionType}" not valid`);
+  }
+}
+
+class AnswerUnitMissing extends Error {
+  constructor(questionId) {
+    super("Missing answer unit");
+  }
+}
+
+class QuestionSurveyAnswerMissing extends Error {
+  constructor(questionId) {
+    super(`Question "${questionId}" missing survey answer`);
+  }
+}
+
 
 module.exports = {
   AuthError,
@@ -97,4 +116,7 @@ module.exports = {
   QuestionSyntaxError,
   AnswerSyntaxError,
   QuestionAnswerError,
+  QuestionTypeInvalid,
+  AnswerUnitMissing,
+  QuestionSurveyAnswerMissing,
 };

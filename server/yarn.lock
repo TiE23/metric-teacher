@@ -120,6 +120,12 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
+abs-arbitrary-precision@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/abs-arbitrary-precision/-/abs-arbitrary-precision-1.0.1.tgz#bd8623acacd1464d8f596634282931439495c155"
+  dependencies:
+    unary-op-arbitrary-precision "^1.3.0"
+
 accepts@~1.3.5:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.5.tgz#eb777df6011723a3b14e8a72c0805c8e86746bd2"
@@ -319,6 +325,16 @@ aproba@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
 
+arbitrary-precision@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/arbitrary-precision/-/arbitrary-precision-1.4.0.tgz#fbf43e240004983539e254263dc9be43d7104ea1"
+  dependencies:
+    floating-adapter "^1.2.0"
+    linear-arbitrary-precision "^4.0.0"
+    lodash.flow "^3.2.1"
+    pow-arbitrary-precision "^2.0.2"
+    sqrt-arbitrary-precision "^1.0.0"
+
 archiver-utils@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/archiver-utils/-/archiver-utils-1.3.0.tgz#e50b4c09c70bf3d680e32ff1b7994e9f9d895174"
@@ -423,6 +439,10 @@ arrify@^1.0.0, arrify@^1.0.1:
 asn1@~0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.3.tgz#dac8787713c9966849fc8180777ebe9c1ddf3b86"
+
+assert-error@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/assert-error/-/assert-error-1.0.3.tgz#45e7ac259b5cee03953ad8479c478d9b4ccb341b"
 
 assert-plus@1.0.0, assert-plus@^1.0.0:
   version "1.0.0"
@@ -682,6 +702,14 @@ bcryptjs@2.4.3:
 binary-extensions@^1.0.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.11.0.tgz#46aa1751fb6a2f93ee5e689bb1087d4b14c6c205"
+
+binary-op-arbitrary-precision@^1.0.0, binary-op-arbitrary-precision@^1.1.4, binary-op-arbitrary-precision@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/binary-op-arbitrary-precision/-/binary-op-arbitrary-precision-1.4.0.tgz#8e4b56514f407f759a7999bbd686b054d03dc9d1"
+  dependencies:
+    lodash.identity "^3.0.0"
+    lodash.isundefined "^3.0.1"
+    unsupported "^1.1.0"
 
 bl@^1.0.0:
   version "1.2.2"
@@ -1214,6 +1242,13 @@ copy-paste@^1.3.0:
   optionalDependencies:
     sync-exec "~0.6.x"
 
+core-arbitrary-precision@^3.1.0:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/core-arbitrary-precision/-/core-arbitrary-precision-3.1.1.tgz#a72e6528fb9014f01b9d6323a8d413d275fab964"
+  dependencies:
+    assert-error "^1.0.3"
+    lodash.isstring "^4.0.1"
+
 core-js@^2.4.0, core-js@^2.5.0:
   version "2.5.6"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.6.tgz#0fe6d45bf3cac3ac364a9d72de7576f4eb221b9d"
@@ -1517,6 +1552,12 @@ disparity@^2.0.0:
     ansi-styles "^2.0.1"
     diff "^1.3.2"
 
+div-arbitrary-precision@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/div-arbitrary-precision/-/div-arbitrary-precision-1.1.0.tgz#77d96555ded8c7f0e4721a19996085da478b8e57"
+  dependencies:
+    binary-op-arbitrary-precision "^1.0.0"
+
 domexception@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/domexception/-/domexception-1.0.1.tgz#937442644ca6a31261ef36e3ec677fe805582c90"
@@ -1603,6 +1644,12 @@ end-of-stream@^1.0.0:
   resolved "https://registry.yarnpkg.com/end-of-stream/-/end-of-stream-1.4.1.tgz#ed29634d19baba463b6ce6b80a37213eab71ec43"
   dependencies:
     once "^1.4.0"
+
+equals-arbitrary-precision@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/equals-arbitrary-precision/-/equals-arbitrary-precision-1.1.0.tgz#3fc2ecba53a9b47197682ce1354e60861f26a3ca"
+  dependencies:
+    binary-op-arbitrary-precision "^1.4.0"
 
 errno@^0.1.1:
   version "0.1.7"
@@ -2015,6 +2062,16 @@ find@^0.2.7:
   resolved "https://registry.yarnpkg.com/find/-/find-0.2.9.tgz#4b73f1ff9e56ad91b76e716407fe5ffe6554bb8c"
   dependencies:
     traverse-chain "~0.1.0"
+
+floating-adapter@^1.2.0, floating-adapter@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/floating-adapter/-/floating-adapter-1.4.1.tgz#a3133ea6849c0ac7faec1be76586f7eb3833de88"
+  dependencies:
+    floating "^2.0.0"
+
+floating@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/floating/-/floating-2.0.0.tgz#1a7b73a0e9fc1c7e5bf2607b7cf9f6f4c37efb67"
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
@@ -2765,6 +2822,12 @@ import-local@^1.0.0:
 imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
+
+inequality-arbitrary-precision@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/inequality-arbitrary-precision/-/inequality-arbitrary-precision-1.0.1.tgz#ce7b872cc94975f89b4e262974bd32bbd8583457"
+  dependencies:
+    binary-op-arbitrary-precision "^1.4.0"
 
 inflight@^1.0.4:
   version "1.0.6"
@@ -3712,6 +3775,116 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+linear-arbitrary-precision@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/linear-arbitrary-precision/-/linear-arbitrary-precision-4.1.0.tgz#c7fa228ac354276169d57f51d89b0e4164614773"
+  dependencies:
+    abs-arbitrary-precision "^1.0.1"
+    core-arbitrary-precision "^3.1.0"
+    div-arbitrary-precision "^1.0.0"
+    equals-arbitrary-precision "^1.0.1"
+    inequality-arbitrary-precision "^1.0.1"
+    lodash.flow "^3.2.1"
+    minus-arbitrary-precision "^1.0.0"
+    mod-arbitrary-precision "^1.0.0"
+    plus-arbitrary-precision "^1.0.0"
+    times-arbitrary-precision "^1.0.0"
+
+linear-converter@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/linear-converter/-/linear-converter-7.3.0.tgz#5b0e3eece0ff1b469157aad94912f1421c60f67d"
+  dependencies:
+    linear-preset-to-decimal "^1.2.0"
+    linear-scale-to-decimal "^1.2.0"
+    rescale "^10.0.0"
+
+linear-preset-to-decimal@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/linear-preset-to-decimal/-/linear-preset-to-decimal-1.2.0.tgz#6284a400d33c3def21d713778f2439e3953bcc74"
+  dependencies:
+    linear-scale-to-decimal "^1.0.0"
+
+linear-presets-amount-of-substance@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/linear-presets-amount-of-substance/-/linear-presets-amount-of-substance-1.0.0.tgz#2721b4e7795db229c920dfe9ad17bdb3a1e40163"
+
+linear-presets-angle@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/linear-presets-angle/-/linear-presets-angle-1.0.1.tgz#c83699ce79dff3dd72a91cd49e520fd8ee7c6a10"
+
+linear-presets-area@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/linear-presets-area/-/linear-presets-area-2.0.1.tgz#50072925dc2555609d832066458c18e4f43f8668"
+
+linear-presets-digital-information@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/linear-presets-digital-information/-/linear-presets-digital-information-2.0.0.tgz#c138443379f10edb36a38c49eaaf750283c6d380"
+
+linear-presets-electric-current@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/linear-presets-electric-current/-/linear-presets-electric-current-1.0.0.tgz#7beb3026050dfe472250298740d53d2f934ef5ff"
+
+linear-presets-length@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/linear-presets-length/-/linear-presets-length-2.0.2.tgz#393e57f91d84170c45f59415100cf891f814d7b5"
+
+linear-presets-luminous-intensity@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/linear-presets-luminous-intensity/-/linear-presets-luminous-intensity-1.0.1.tgz#c9bc95a13b6adb2f20e415c7a0b5106e7f995635"
+
+linear-presets-mass@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/linear-presets-mass/-/linear-presets-mass-2.0.1.tgz#446a7060740935e70f3fa5d1eaad9e3e0776876f"
+
+linear-presets-metric-prefixes@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/linear-presets-metric-prefixes/-/linear-presets-metric-prefixes-2.0.1.tgz#bf7909dca27f839fead4513eca4aa4d9d5548ba7"
+
+linear-presets-temperature-difference@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/linear-presets-temperature-difference/-/linear-presets-temperature-difference-2.0.1.tgz#f05e38acf4de94f203355cd8e0748d32b3358cf4"
+
+linear-presets-temperature@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/linear-presets-temperature/-/linear-presets-temperature-2.0.3.tgz#f0fd4174b8cd0b361666c8daf693a15176dcdc2f"
+
+linear-presets-time@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/linear-presets-time/-/linear-presets-time-2.0.2.tgz#62327483cac86faf1e4f5b73712bd0349b4daf2c"
+
+linear-presets-velocity@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/linear-presets-velocity/-/linear-presets-velocity-1.0.1.tgz#c0a278ab109f77984c95217495f370e948fa48ec"
+
+linear-presets-volume@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/linear-presets-volume/-/linear-presets-volume-2.0.1.tgz#a54da2693d4dcd167836b5611cd6c648fd0cf57b"
+
+linear-presets@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/linear-presets/-/linear-presets-3.0.0.tgz#a6c07471c87d22effb76ec31b77119e302b4f4db"
+  dependencies:
+    linear-presets-amount-of-substance "1.0.0"
+    linear-presets-angle "1.0.1"
+    linear-presets-area "2.0.1"
+    linear-presets-digital-information "2.0.0"
+    linear-presets-electric-current "1.0.0"
+    linear-presets-length "2.0.2"
+    linear-presets-luminous-intensity "1.0.1"
+    linear-presets-mass "2.0.1"
+    linear-presets-metric-prefixes "2.0.1"
+    linear-presets-temperature "2.0.3"
+    linear-presets-temperature-difference "2.0.1"
+    linear-presets-time "2.0.2"
+    linear-presets-velocity "1.0.1"
+    linear-presets-volume "2.0.1"
+
+linear-scale-to-decimal@^1.0.0, linear-scale-to-decimal@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/linear-scale-to-decimal/-/linear-scale-to-decimal-1.2.0.tgz#2c86a750ef05f612379456749baf43fde0facece"
+  dependencies:
+    to-decimal-arbitrary-precision "^1.0.0"
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -3771,6 +3944,10 @@ lodash.flatten@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
 
+lodash.flow@^3.2.1:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.flow/-/lodash.flow-3.5.0.tgz#87bf40292b8cf83e4e8ce1a3ae4209e20071675a"
+
 lodash.get@^4.0.0, lodash.get@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
@@ -3818,6 +3995,10 @@ lodash.isplainobject@^4.0.6:
 lodash.isstring@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
+
+lodash.isundefined@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.isundefined/-/lodash.isundefined-3.0.1.tgz#23ef3d9535565203a66cefd5b830f848911afb48"
 
 lodash.keys@^4.2.0:
   version "4.2.0"
@@ -3867,7 +4048,7 @@ lodash@4.17.5, lodash@^4.0.0:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
-lodash@^4.13.1, lodash@^4.14.0, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.6.1, lodash@^4.8.0:
+lodash@^4.13.1, lodash@^4.14.0, lodash@^4.16.4, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.6.1, lodash@^4.8.0:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -4096,6 +4277,12 @@ minizlib@^1.1.0:
   dependencies:
     minipass "^2.2.1"
 
+minus-arbitrary-precision@^1.0.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/minus-arbitrary-precision/-/minus-arbitrary-precision-1.2.0.tgz#5e2d1225ef788a3f192fb1269fc1d733d283b1be"
+  dependencies:
+    binary-op-arbitrary-precision "^1.0.0"
+
 mixin-deep@^1.2.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.0.tgz#47a8732ba97799457c8c1eca28f95132d7e8150a"
@@ -4108,6 +4295,12 @@ mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+mod-arbitrary-precision@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/mod-arbitrary-precision/-/mod-arbitrary-precision-1.1.0.tgz#6cc13d24ad0f40a6b3920378e1f35e955270b715"
+  dependencies:
+    binary-op-arbitrary-precision "^1.1.4"
 
 ms@2.0.0:
   version "2.0.0"
@@ -4286,6 +4479,12 @@ nopt@~1.0.10:
   resolved "https://registry.yarnpkg.com/nopt/-/nopt-1.0.10.tgz#6ddd21bd2a31417b92727dd585f8a6f37608ebee"
   dependencies:
     abbrev "1"
+
+normalise@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/normalise/-/normalise-10.0.0.tgz#e9dbaccd7a677ff60a43d12e8fb791b68748e7b7"
+  dependencies:
+    to-decimal-arbitrary-precision "^1.0.2"
 
 normalize-package-data@^2.3.2:
   version "2.4.0"
@@ -4755,6 +4954,12 @@ pkg-dir@^2.0.0:
   dependencies:
     find-up "^2.1.0"
 
+plus-arbitrary-precision@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/plus-arbitrary-precision/-/plus-arbitrary-precision-1.1.0.tgz#401240e198ff3970bba4a42867ad6c76df32b2fd"
+  dependencies:
+    binary-op-arbitrary-precision "^1.0.0"
+
 pn@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
@@ -4788,6 +4993,12 @@ postgres-interval@^1.1.0:
   resolved "https://registry.yarnpkg.com/postgres-interval/-/postgres-interval-1.1.1.tgz#acdb0f897b4b1c6e496d9d4e0a853e1c428f06f0"
   dependencies:
     xtend "^4.0.0"
+
+pow-arbitrary-precision@^2.0.2:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/pow-arbitrary-precision/-/pow-arbitrary-precision-2.1.0.tgz#9df71a55a22ecf2b739fc943c5fd7c0426733c6c"
+  dependencies:
+    binary-op-arbitrary-precision "^1.0.0"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
@@ -5321,6 +5532,13 @@ require-main-filename@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-1.0.1.tgz#97f717b69d48784f5f526a6c5aa8ffdda055a4d1"
 
+rescale@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/rescale/-/rescale-10.0.0.tgz#0d00a4438ea2cae1641bc32cc2d8ef0bca004f92"
+  dependencies:
+    normalise "^10.0.0"
+    scale-normalised "^10.0.0"
+
 resolve-cwd@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/resolve-cwd/-/resolve-cwd-2.0.0.tgz#00a9f7387556e27038eae232caa372a6a59b665a"
@@ -5441,6 +5659,12 @@ sax@1.2.1:
 sax@>=0.6.0, sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
+
+scale-normalised@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/scale-normalised/-/scale-normalised-10.0.0.tgz#6353cf0f66d3fba30a3c9ecf922f02a593cc8049"
+  dependencies:
+    to-decimal-arbitrary-precision "^1.0.2"
 
 scuid@^1.0.2:
   version "1.1.0"
@@ -5739,6 +5963,12 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
+sqrt-arbitrary-precision@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/sqrt-arbitrary-precision/-/sqrt-arbitrary-precision-1.1.0.tgz#55abc5c6917fbdc3bdf9c1ef93252d18f0594ecd"
+  dependencies:
+    unary-op-arbitrary-precision "^1.0.0"
+
 sshpk@^1.7.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.14.1.tgz#130f5975eddad963f1d56f92b9ac6c51fa9f83eb"
@@ -6020,6 +6250,12 @@ timed-out@4.0.1, timed-out@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"
 
+times-arbitrary-precision@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/times-arbitrary-precision/-/times-arbitrary-precision-1.1.0.tgz#9dfe9abd5064d048b89eb396ef84a6125c827426"
+  dependencies:
+    binary-op-arbitrary-precision "^1.0.0"
+
 tmp@^0.0.33:
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
@@ -6033,6 +6269,10 @@ tmpl@1.0.x:
 to-buffer@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/to-buffer/-/to-buffer-1.1.1.tgz#493bd48f62d7c43fcded313a03dcadb2e1213a80"
+
+to-decimal-arbitrary-precision@^1.0.0, to-decimal-arbitrary-precision@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/to-decimal-arbitrary-precision/-/to-decimal-arbitrary-precision-1.0.2.tgz#c9f6849de3fc8feda815735315112d900fffae15"
 
 to-fast-properties@^1.0.3:
   version "1.0.3"
@@ -6144,6 +6384,13 @@ ultron@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"
 
+unary-op-arbitrary-precision@^1.0.0, unary-op-arbitrary-precision@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/unary-op-arbitrary-precision/-/unary-op-arbitrary-precision-1.3.0.tgz#3ccb7ddc99fc847333884793b50a3f69c31ef6b0"
+  dependencies:
+    lodash.isundefined "^3.0.1"
+    unsupported "^1.1.0"
+
 unbzip2-stream@^1.0.9:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/unbzip2-stream/-/unbzip2-stream-1.2.5.tgz#73a033a567bbbde59654b193c44d48a7e4f43c47"
@@ -6186,6 +6433,12 @@ unset-value@^1.0.0:
   dependencies:
     has-value "^0.3.1"
     isobject "^3.0.0"
+
+unsupported@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/unsupported/-/unsupported-1.1.0.tgz#c58789af28a0e3fb45ccb2734a30add149a7f4dc"
+  dependencies:
+    lodash.isundefined "^3.0.1"
 
 unzip-response@^2.0.1:
   version "2.0.1"
