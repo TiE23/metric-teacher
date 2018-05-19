@@ -14,6 +14,8 @@ const {
   ANSWER_TYPE_CONVERSION,
 } = require("../../constants");
 
+debugger;
+
 describe("qaSyntax", () => {
   describe("Happy Path", () => {
     it("Should parse a multiple choice question/answer", () => {
@@ -173,32 +175,42 @@ describe("qaSyntax", () => {
 
   describe("Error Checking", () => {
     describe("Question+Answer", () => {
-      it("Should reject a conversion question+answer with incompatible units", () => {
+      it("Should reject a question+answer with nothing", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "",
+            "",
+          );
+        }).toThrowError(QuestionSyntaxError); // Question gets parsed first.
+      });
+
+      it("Should reject a written question with a conversion answer", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[m(2)a]",
+          );
+        }).toThrowError(QuestionAnswerError);
+      });
+
+      it("Should reject a conversion question with a multiple-choice answer", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "[1-5m(1)s]",
+            "[3.3ft|6.6ft|9.8ft|13.1ft|16.4ft]",
+          );
+        }).toThrowError(QuestionAnswerError);
+      });
+
+      it("Should reject a conversion question+answer with an incompatible unit", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
             "[5-10m]",
             "[mph]",
-          );
-        }).toThrowError(QuestionAnswerError);
-      });
-
-      it("Should reject a multiple-choice question+answer with incompatible units", () => {
-        expect(() => {
-          parseQAStrings(
-            QUESTION_TYPE_CONVERSION,
-            "[5-10m]",
-            "[5mi|10mph]",
-          );
-        }).toThrowError(QuestionAnswerError);
-      });
-
-      it("Should reject a multiple-choice question+answer that doesn't convert families", () => {
-        expect(() => {
-          parseQAStrings(
-            QUESTION_TYPE_CONVERSION,
-            "[5-10m]",
-            "[km]",
           );
         }).toThrowError(QuestionAnswerError);
       });
@@ -216,12 +228,22 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
+      it("Should reject a written question with conversion syntax", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "[5-10m]",
+            "[ft]",
+          );
+        }).toThrowError(QuestionSyntaxError);
+      });
+
       it("Should reject a question with an unrecognized unit", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
             "[1-2foo]",
-            "[5m|6m]",
+            "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
       });
@@ -231,7 +253,7 @@ describe("qaSyntax", () => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
             "[5-10]",
-            "[5m|6m]",
+            "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
       });
@@ -241,7 +263,7 @@ describe("qaSyntax", () => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
             "[x-2m]",
-            "[5m|6m]",
+            "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
       });
@@ -251,7 +273,7 @@ describe("qaSyntax", () => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
             "[-2m]",
-            "[5m|6m]",
+            "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
       });
@@ -261,7 +283,7 @@ describe("qaSyntax", () => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
             "[1m]",
-            "[5m|6m]",
+            "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
       });
@@ -271,80 +293,164 @@ describe("qaSyntax", () => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
             "[10-1m]",
-            "[5m|6m]",
+            "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
       });
+
+      /*  // Won't Fix
+      it("Should reject a question with bad step", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "[1-10m(x)s]",
+            "[ft]",
+          );
+        }).toThrowError(QuestionSyntaxError);
+      });
+      */
     });
 
 
     describe("Answers", () => {
-      it("Should reject an answer with broken syntax", () => {
+      it("Should reject a multiple-choice answer with broken syntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
-            "Test",
+            "Blah",
             "5m|6m",
           );
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject an answer with nothing", () => {
+      it("Should reject a multiple-choice answer with nothing", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
-            "Test",
+            "Blah",
             "",
           );
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject an answer with empty brackets", () => {
+      it("Should reject a conversion answer with nothing", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "[1-5m]",
+            "",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer with empty brackets", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
-            "Test",
+            "Blah",
             "[]",
           );
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject an answer with invalid multiple choice options", () => {
+      it("Should reject a conversion answer with empty brackets", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "[1-5m]",
+            "[]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer with invalid options", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
-            "Test",
+            "Blah",
             "[5m|5]",
           );
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject an answer with too few multiple choice options defined", () => {
+      it("Should reject a multiple-choice answer with invalid unit", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
-            "Test",
-            "[5m]", // This is interpreted as a conversion answer in reality and fails parse
+            "Blah",
+            "[5m|5foo]",
           );
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject an answer with too few multiple choice options offered", () => {
+      it("Should reject a conversion answer with invalid unit", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "[1-5m]",
+            "[foo]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      /*  // Won't Fix
+      it("Should reject a conversion answer with bad accuracy", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "[1-5m]",
+            "[ft(x)a]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+      */
+
+      it("Should reject a multiple-choice answer with too few options defined", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
-            "Test",
+            "Blah",
+            "[5m]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer with too few choices offered", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
             "[5m|4m|3m|2m]1",
           );
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject an answer with too many choices offered", () => {
+      it("Should reject a multiple-choice answer with too many choices offered", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
-            "Test",
+            "Blah",
             "[5m|2m]3",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer with mixed family", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[10mi|16km]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer with mixed subjects", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[10gal|10mi]",
           );
         }).toThrowError(AnswerSyntaxError);
       });

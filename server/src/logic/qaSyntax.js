@@ -14,7 +14,15 @@ const {
 
 /**
  * Returns two new objects for the question and the answer. The shape of the objects can vary, with
- * two different variations for
+ * two different variations for each:
+ * Question can be:
+ *  Written (only compatible with multiple-choice answers)
+ *  Range (only compatible with conversion answers)
+ *  Survey (only compatible with conversion answers)
+ *
+ * Answer can be:
+ *  Multiple-choice (only compatible with written questions)
+ *  Conversion (only compatible with range or survey)
  *
  * Question: Written ("What temperature does water boil at in Celsius?")
  * {
@@ -75,6 +83,31 @@ const {
 function parseQAStrings(type, question, answer) {
   const questionPayload = parseQuestionString(type, question);
   const answerPayload = parseAnswerString(answer);
+
+  // Check that the question/answer types make sense.
+  switch (questionPayload.type) {
+  case QUESTION_TYPE_WRITTEN:
+    if (answerPayload.type !== ANSWER_TYPE_MULTIPLE_CHOICE) {
+      throw new QuestionAnswerError(
+        questionPayload.data.question || questionPayload.data.syntax,
+        answerPayload.data.syntax,
+        `Question type "${questionPayload.type}" incompatible with answer type "${answerPayload.type}"`,
+      );
+    }
+    break;
+  case QUESTION_TYPE_CONVERSION:
+  case QUESTION_TYPE_SURVEY:
+    if (answerPayload.type !== ANSWER_TYPE_CONVERSION) {
+      throw new QuestionAnswerError(
+        questionPayload.data.syntax,
+        answerPayload.data.syntax,
+        `Question type "${questionPayload.type}" incompatible with answer type "${answerPayload.type}"`,
+      );
+    }
+    break;
+  default:
+    break;
+  }
 
   // Check that the units make sense.
   checkUnitCompatibility(questionPayload, answerPayload);
@@ -168,13 +201,17 @@ function parseQuestionString(type, question) {
 
   // Detected syntax and reported type not as expected.
   } else {
-    throw new QuestionSyntaxError(question, `Question type "${type}" was not expected`);
+    throw new QuestionSyntaxError(
+      question,
+      `Question type "${type}" was not expected with question "${question}"`,
+    );
   }
 }
 
 
 function parseAnswerString(answer) {
-  const basePattern = /\[([^\]]+)](\d{0,2})/;   // Finds "[m(0.5)a]"; Returns "m(0.5)a"
+  // Finds "[1m|2m]2"; Returns "1m|2m", "2" // Finds "[m(0.5)a]"; Returns "m(0.5)a"
+  const basePattern = /\[([^\]]+)](\d{0,2})/;
   const multipleChoiceDelimiter = "|";          // Splits on |
   const answerPattern = /([\d.]+)(\w+)/;        // Finds "2.5m"; Returns "2.5", "m"
   const unitPattern = /^(\w+)/;                 // Finds "m"; Returns "m"
@@ -288,40 +325,52 @@ function checkUnitCompatibility(questionPayload, answerPayload) {
     const questionUnitSubject = UNITS[questionUnit].subject;
     const questionUnitFamily = UNITS[questionUnit].family;
 
-    // Multiple-choice answer.
-    if (answerPayload.type === ANSWER_TYPE_MULTIPLE_CHOICE) {
-      answerPayload.data.choices.forEach((choice) => {
-        if (UNITS[choice.unit].subject !== questionUnitSubject) {
-          throw new QuestionAnswerError(
-            questionPayload.data.syntax, answerPayload.data.syntax,
-            `Answer unit "${choice.unit}" incompatible with question unit "${questionUnit}"`,
-          );
-        }
-        if (UNITS[choice.unit].family === questionUnitFamily) {
-          throw new QuestionAnswerError(
-            questionPayload.data.syntax, answerPayload.data.syntax,
-            `Answer unit "${choice.unit}" is the same family (${questionUnitFamily}) as question unit "${questionUnit}"`,
-          );
-        }
-      });
-
     // Conversion answer.
-    } else {
-      if (UNITS[answerPayload.data.unit].subject !== questionUnitSubject) {
-        throw new QuestionAnswerError(
-          questionPayload.data.syntax,
-          answerPayload.data.syntax,
-          `Answer unit "${answerPayload.data.unit}" incompatible with question unit "${questionUnit}"`,
-        );
-      }
-      if (UNITS[answerPayload.data.unit].family === questionUnitFamily) {
-        throw new QuestionAnswerError(
-          questionPayload.data.syntax,
-          answerPayload.data.syntax,
-          `Answer unit "${answerPayload.data.unit}" is the same family (${questionUnitFamily}) as question unit "${questionUnit}"`,
-        );
-      }
+    // Reject answers that are of the wrong subject.
+    // Ex: Convert 10 meters to gallons.
+    if (UNITS[answerPayload.data.unit].subject !== questionUnitSubject) {
+      throw new QuestionAnswerError(
+        questionPayload.data.syntax,
+        answerPayload.data.syntax,
+        `Answer unit "${answerPayload.data.unit}" incompatible with question unit "${questionUnit}"`,
+      );
     }
+
+    // Reject answers that are of the same family.
+    // Ex: Convert 10 meters to kilometers.
+    if (UNITS[answerPayload.data.unit].family === questionUnitFamily) {
+      throw new QuestionAnswerError(
+        questionPayload.data.syntax,
+        answerPayload.data.syntax,
+        `Answer unit "${answerPayload.data.unit}" is the same family (${questionUnitFamily}) as question unit "${questionUnit}"`,
+      );
+    }
+  } else {
+    // Multiple-choice answer.
+    const firstChoiceUnit = answerPayload.data.choices[0].unit;
+    const firstChoiceSubject = UNITS[firstChoiceUnit].subject;
+    const firstChoiceFamily = UNITS[firstChoiceUnit].family;
+
+    // Need to check each answer for problems.
+    answerPayload.data.choices.forEach((choice) => {
+      // Reject multiple choice answers with mixed-up subjects.
+      // Ex: Choices 10km, 10gal.
+      if (UNITS[choice.unit].subject !== firstChoiceSubject) {
+        throw new AnswerSyntaxError(
+          answerPayload.data.syntax,
+          "Answer choices have mixed-up measurement subjects",
+        );
+      }
+
+      // Reject multiple choice answers with mixed-up families.
+      // Ex: Choices 10km, 10mi.
+      if (UNITS[choice.unit].family !== firstChoiceFamily) {
+        throw new AnswerSyntaxError(
+          answerPayload.data.syntax,
+          "Answer choices have mixed-up metric / imperial values",
+        );
+      }
+    });
   }
 }
 
