@@ -213,7 +213,6 @@ function parseAnswerString(answer) {
   // Finds "[1m|2m]2"; Returns "1m|2m", "2" // Finds "[m(0.5)a]"; Returns "m(0.5)a"
   const basePattern = /\[([^\]]+)](\d{0,2})/;
   const multipleChoiceDelimiter = "|";          // Splits on |
-  const answerPattern = /([\d.]+)(\w+)/;        // Finds "2.5m"; Returns "2.5", "m"
   const unitPattern = /^(\w+)/;                 // Finds "m"; Returns "m"
   const unitAccuracyPattern = /\(([\d.]+)\)a/;  // Finds "(0.5)a"; Returns "0.5"
 
@@ -254,30 +253,7 @@ function parseAnswerString(answer) {
 
     // Parse the choices for values and units.
     const parsedMultipleChoiceAnswers = multipleChoiceAnswers.map((singleAnswer) => {
-      const answerResult = singleAnswer.match(answerPattern);
-      if (answerResult === null) {
-        throw new AnswerSyntaxError(answer, `Answer choice "${singleAnswer}" not valid`);
-      }
-
-      // Parse the value.
-      const value = Number.parseFloat(answerResult[1]);
-      const unit = answerResult[2];
-
-      // Make sure the number was readable.
-      if (Number.isNaN(value)) {
-        throw new AnswerSyntaxError(answer,
-          `Answer choice "${singleAnswer}" contains invalid number`);
-      }
-
-      // Make sure the unit is recognized.
-      if (UNITS[unit] === undefined) {
-        throw new AnswerSyntaxError(answer, `Answer choice "${singleAnswer}" unit not recognized`);
-      }
-
-      return {
-        value,
-        unit,
-      };
+      return parseUnitValue(singleAnswer, answer);
     });
 
     answerPayload.type = ANSWER_TYPE_MULTIPLE_CHOICE;
@@ -318,16 +294,47 @@ function parseAnswerString(answer) {
 }
 
 
+function parseUnitValue(unitValue, parentAnswer = "") {
+  const unitValuePattern = /([\d.]+)(\w+)/;
+  const answer = parentAnswer || unitValue;
+
+  const unitValueResult = unitValue.match(unitValuePattern);
+  if (unitValueResult === null) {
+    throw new AnswerSyntaxError(answer, `Answer "${unitValue}" not valid`);
+  }
+
+  // Parse the value.
+  const value = Number.parseFloat(unitValueResult[1]);
+  const unit = unitValueResult[2];
+
+  // Make sure the number was readable.
+  if (Number.isNaN(value)) {
+    throw new AnswerSyntaxError(answer,
+      `Answer "${unitValue}" contains invalid number`);
+  }
+
+  // Make sure the unit is recognized.
+  if (UNITS[unit] === undefined) {
+    throw new AnswerSyntaxError(answer, `Answer "${unitValue}" unit not recognized`);
+  }
+
+  return {
+    value,
+    unit,
+  };
+}
+
+
 function checkUnitCompatibility(questionPayload, answerPayload) {
   if (questionPayload.type === QUESTION_TYPE_CONVERSION ||
     questionPayload.type === QUESTION_TYPE_SURVEY) {
+    // Conversion answer.
     const questionUnit = questionPayload.data.unit;
     const questionUnitSubject = UNITS[questionUnit].subject;
     const questionUnitFamily = UNITS[questionUnit].family;
 
-    // Conversion answer.
     // Reject answers that are of the wrong subject.
-    // Ex: Convert 10 meters to gallons.
+    // Ex: Convert 10m to l.
     if (UNITS[answerPayload.data.unit].subject !== questionUnitSubject) {
       throw new QuestionAnswerError(
         questionPayload.data.syntax,
@@ -337,7 +344,7 @@ function checkUnitCompatibility(questionPayload, answerPayload) {
     }
 
     // Reject answers that are of the same family.
-    // Ex: Convert 10 meters to kilometers.
+    // Ex: Convert 10m to km.
     if (UNITS[answerPayload.data.unit].family === questionUnitFamily) {
       throw new QuestionAnswerError(
         questionPayload.data.syntax,
@@ -354,7 +361,7 @@ function checkUnitCompatibility(questionPayload, answerPayload) {
     // Need to check each answer for problems.
     answerPayload.data.choices.forEach((choice) => {
       // Reject multiple choice answers with mixed-up subjects.
-      // Ex: Choices 10km, 10gal.
+      // Ex: Choices 10km, 10l.
       if (UNITS[choice.unit].subject !== firstChoiceSubject) {
         throw new AnswerSyntaxError(
           answerPayload.data.syntax,
@@ -377,4 +384,5 @@ function checkUnitCompatibility(questionPayload, answerPayload) {
 
 module.exports = {
   parseQAStrings,
+  parseUnitValue,
 };

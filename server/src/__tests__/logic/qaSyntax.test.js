@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const {
   QuestionSyntaxError,
   AnswerSyntaxError,
@@ -14,7 +15,7 @@ const {
   ANSWER_TYPE_CONVERSION,
 } = require("../../constants");
 
-debugger;
+debugger; // eslint-disable-line no-debugger
 
 describe("qaSyntax", () => {
   describe("Happy Path", () => {
