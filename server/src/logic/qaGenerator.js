@@ -27,12 +27,12 @@ function qaGenerate(questionData, surveyData = null) {
     questionId: questionData.id,
     subSubjectId: questionData.parent,
     difficulty: questionData.difficulty,
-    questionData: composeQuestionData(
+    question: composeQuestionData(
       questionPayload,
       (answerPayload.data && answerPayload.data.unit) || null,
       surveyData,
     ),
-    answerData: composeAnswerData(answerPayload),
+    answer: composeAnswerData(answerPayload),
   };
 }
 
@@ -42,7 +42,7 @@ function composeQuestionData(questionPayload, answerUnit = null, survey = null) 
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
     return {
       questionType: questionPayload.type,
-      question: questionPayload.data.text,
+      questionText: questionPayload.data.text,
       detail: null,
       questionData: null,
     };
@@ -59,7 +59,7 @@ function composeQuestionData(questionPayload, answerUnit = null, survey = null) 
       questionPayload.data.step,
     );
 
-    const question = generateConversionQuestion(
+    const questionText = generateConversionQuestion(
       value,
       questionPayload.data.unit,
       answerUnit,
@@ -67,7 +67,7 @@ function composeQuestionData(questionPayload, answerUnit = null, survey = null) 
 
     return {
       questionType: questionPayload.type,
-      question,
+      questionText,
       detail: questionPayload.data.text || "",
       questionData: {
         step: questionPayload.data.step,
@@ -94,7 +94,7 @@ function composeQuestionData(questionPayload, answerUnit = null, survey = null) 
 
     return {
       questionType: questionPayload.type,
-      question: questionPayload.data.text,
+      questionText: questionPayload.data.text,
       detail: surveyDetail,
       questionData: {
         step: questionPayload.data.step,
