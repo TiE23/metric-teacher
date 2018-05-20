@@ -100,6 +100,24 @@ class QuestionSurveyAnswerMissing extends Error {
   }
 }
 
+class UnitTypeUnrecognized extends Error {
+  constructor(unit) {
+    super(`Unit type "${unit}" not recognized`);
+  }
+}
+
+class ConversionIncompatible extends Error {
+  constructor(fromUnitSubject, fromUnitWord, toUnitSubject, toUnitWord) {
+    super(`Impossible to convert ${fromUnitSubject} unit "${fromUnitWord}" to ${toUnitSubject} unit "${toUnitWord}"`);
+  }
+}
+
+class ConversionNegativeValue extends Error {
+  constructor(value, fromUnitWord) {
+    super(`Cannot convert negative amount (${value}) of ${fromUnitWord}`);
+  }
+}
+
 
 module.exports = {
   AuthError,
@@ -119,4 +137,7 @@ module.exports = {
   QuestionTypeInvalid,
   AnswerUnitMissing,
   QuestionSurveyAnswerMissing,
+  UnitTypeUnrecognized,
+  ConversionIncompatible,
+  ConversionNegativeValue,
 };

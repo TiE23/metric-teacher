@@ -3798,6 +3798,10 @@ linear-converter@^7.3.0:
     linear-scale-to-decimal "^1.2.0"
     rescale "^10.0.0"
 
+linear-preset-factory@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/linear-preset-factory/-/linear-preset-factory-1.0.2.tgz#e74fe5cb4f81314a296653e3c3f4a79d0d1fbeb2"
+
 linear-preset-to-decimal@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/linear-preset-to-decimal/-/linear-preset-to-decimal-1.2.0.tgz#6284a400d33c3def21d713778f2439e3953bcc74"
