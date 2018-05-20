@@ -38,6 +38,45 @@ function floatSmoother(value) {
 }
 
 
+/**
+ * ToDo - this functionality might be needed in the client to round user's answers in the UI.
+ * Simple function rounds a value to the desired step.
+ * Ex: value = 20.1, step = 0.25: returns 20.0
+ * Ex: value = 20.2, step = 0.25: returns 20.25
+ * Ex: value = 51, step = 10: returns 50
+ * Ex: value = 57, step = 10: returns 60
+ * Keep in mind that on 0.5 and -0.5 the answer will ROUND UP. As in, they will
+ * return 1.0 and 0, respectively.
+ * A step of 0 will return the value unchanged.
+ * A step with a negative value will be flipped to positive.
+ * @param value
+ * @param step
+ * @returns {*}
+ */
+function stepSmoother(value, step) {
+  if (step === 0) {
+    return value;
+  }
+
+  if (step < 0) {
+    step = Math.abs(step);  // eslint-disable-line no-param-reassign
+  }
+
+  const steps = floatSmoother(value / step);
+  if (steps % 1 === 0) {
+    return value;
+  }
+
+  const smoothedValue = round(steps, 0) * step;
+
+  if (Object.is(-0, smoothedValue)) { // _.round can generate a -0, this checks for that.
+    return Math.abs(smoothedValue); // Switch -0 to 0
+  }
+  return smoothedValue;
+}
+
+
 module.exports = {
   floatSmoother,
+  stepSmoother,
 };

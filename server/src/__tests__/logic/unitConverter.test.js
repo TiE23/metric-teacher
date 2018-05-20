@@ -20,13 +20,28 @@ describe("unitConverter", () => {
   // That rounding does not cause data loss by rounding to zero very small values.
   // That rounding does not cause data corruption by inflating values too greatly.
   // * Temperature is special because it has negative values and its zeros are different.
-  // Also note that if the constant "CONVERSION_DECIMAL_ACCURACY" is changed it will break tests.
+
+  // Also note that if the constant "CONVERSION_DECIMAL_ACCURACY" is changed it will break tests,
+  // at the time of writing it is set to ten, allowing conversions to go as small as 1e-10 (that is
+  // 0.000,000,000,1) and no smaller. Anything smaller than that and "exact" values will return 0.
 
   describe("Happy Path", () => {
     it("Should convert 1 meter to 1 meter (same)", () => {
       const result = convertValue(1, "m", "m");
       expect(result.exactValue).toBe(1);
       expect(result.roundedValue).toBe(1);
+    });
+
+    it("Should convert 0.0001 millimeters to 1e-10 kilometers rounded", () => {
+      const result = convertValue(0.0001, "mm", "km");
+      expect(result.exactValue).toBe(1e-10);
+      expect(result.roundedValue).toBe(1e-10);
+    });
+
+    it("Should convert 0.00001 millimeters to 0 kilometers (expected data-loss)", () => {
+      const result = convertValue(0.00001, "mm", "km");
+      expect(result.exactValue).toBe(0);    // Data-loss due to floatSmoothing
+      expect(result.roundedValue).toBe(0);  // Data-loss
     });
 
     describe("Length", () => {
