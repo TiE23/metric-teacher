@@ -149,7 +149,7 @@ If you ever do remote hosting, you'll need to change the endpoint's url to the r
         * `0` or `1` - Common (default value, no chance of it being removed)
         * `50` - Appears half-as-often (1 out of 2 chance of it appearing as often as common questions)
         * `100` - Most rare (1 out of 100 chance of it appearing as often as common questions)
-    * `unit`
+* `unit`
     * Relation to Unit row.
 * `scale`
     * Relation to Scale row.

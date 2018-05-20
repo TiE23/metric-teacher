@@ -12,14 +12,16 @@ debugger; // eslint-disable-line no-debugger
 
 describe("unitConverter", () => {
   // These tests aren't 100% exhaustive but do cover some important paths:
-  // It makes sure that 0 = 0 in both directions.
+  // It makes sure that 0 = 0 in both directions.*
   // It makes sure that units can be converted from base unit.
   // It makes sure that units can be converted to base unit.
   // It makes sure that units that are not the base unit can be converted between each other.
   // That rounding works for conversions that don't result in whole numbers.
   // That rounding does not cause data loss by rounding to zero very small values.
-  // Temperature is special because it has negative values and its zeros are different.
-  // Also note that if constants "CONVERSION_DECIMAL_ACCURACY" is changed it might break tests.
+  // That rounding does not cause data corruption by inflating values too greatly.
+  // * Temperature is special because it has negative values and its zeros are different.
+  // Also note that if the constant "CONVERSION_DECIMAL_ACCURACY" is changed it will break tests.
+
   describe("Happy Path", () => {
     it("Should convert 1 meter to 1 meter (same)", () => {
       const result = convertValue(1, "m", "m");
@@ -42,21 +44,21 @@ describe("unitConverter", () => {
         expect(result.roundedValue).toBe(0);
       });
 
-      // other to base
+      // Other to base
       it("Should convert 100 cm to 1 base unit meter", () => {
         const result = convertValue(100, "cm", "m");
         expect(result.exactValue).toBe(1);
         expect(result.roundedValue).toBe(1);
       });
 
-      // base to other
+      // Base to other
       it("Should convert 1 base unit meter to 100 centimeters", () => {
         const result = convertValue(1, "m", "cm");
         expect(result.exactValue).toBe(100);
         expect(result.roundedValue).toBe(100);
       });
 
-      // other to other
+      // Other to other
       it("Should convert 12 inches to 1 foot", () => {
         const result = convertValue(12, "in", "ft");
         expect(result.exactValue).toBe(1);
@@ -95,21 +97,21 @@ describe("unitConverter", () => {
         expect(result.roundedValue).toBe(0);
       });
 
-      // other to base
+      // Other to base
       it("Should convert 1000 gram to 1 base unit kilogram", () => {
         const result = convertValue(1000, "g", "kg");
         expect(result.exactValue).toBe(1);
         expect(result.roundedValue).toBe(1);
       });
 
-      // base to other
+      // Base to other
       it("Should convert 1 base unit kilogram to 1000 grams", () => {
         const result = convertValue(1, "kg", "g");
         expect(result.exactValue).toBe(1000);
         expect(result.roundedValue).toBe(1000);
       });
 
-      // other to other
+      // Other to other
       it("Should convert 16 ounces to 1 pound", () => {
         const result = convertValue(16, "oz", "lb");
         expect(result.exactValue).toBe(1);
@@ -154,21 +156,21 @@ describe("unitConverter", () => {
         expect(result.roundedValue).toBe(0);
       });
 
-      // other to base
+      // Other to base
       it("Should convert 1000 liters to 1 base unit cubic meter", () => {
         const result = convertValue(1000, "l", "cum");
         expect(result.exactValue).toBe(1);
         expect(result.roundedValue).toBe(1);
       });
 
-      // base to other
+      // Base to other
       it("Should convert 1 base unit cubic meter to 1000 liters", () => {
         const result = convertValue(1, "cum", "l");
         expect(result.exactValue).toBe(1000);
         expect(result.roundedValue).toBe(1000);
       });
 
-      // other to other
+      // Other to other
       it("Should convert 1 floz to 0.125 cups", () => {
         const result = convertValue(1, "floz", "cup");
         expect(result.exactValue).toBe(0.125);
@@ -206,28 +208,28 @@ describe("unitConverter", () => {
         expect(result.roundedValue).toBe(212);
       });
 
-      // other to base
+      // Other to base
       it("Should convert 32 Fahrenheit to 0 base unit Celsius", () => {
         const result = convertValue(32, "f", "c");
         expect(result.exactValue).toBe(0);
         expect(result.roundedValue).toBe(0);
       });
 
-      // base to other
+      // Base to other
       it("Should convert 212 Fahrenheit to 100 base unit Celsius", () => {
         const result = convertValue(212, "f", "c");
         expect(result.exactValue).toBe(100);
         expect(result.roundedValue).toBe(100);
       });
 
-      // negative values
+      // Negative values
       it("Should convert -40 base unit Celsius to -40 Fahrenheit", () => {
         const result = convertValue(-40, "c", "f");
         expect(result.exactValue).toBe(-40);
         expect(result.roundedValue).toBe(-40);
       });
 
-      // Round
+      // Rounding
       it("Should convert 70.1 Fahrenheit to 21.2 base unit Celsius rounded", () => {
         const result = convertValue(70.1, "f", "c");
         expect(result.exactValue).toBe(21.1666666667);
@@ -258,21 +260,21 @@ describe("unitConverter", () => {
         expect(result.roundedValue).toBe(0);
       });
 
-      // other to base
+      // Other to base
       it("Should convert 0.0001 hectares to 1 base unit square meter", () => {
         const result = convertValue(0.0001, "ha", "sqm");
         expect(result.exactValue).toBe(1);
         expect(result.roundedValue).toBe(1);
       });
 
-      // base to other
+      // Base to other
       it("Should convert 100 base unit square meters to 0.01 hectares", () => {
         const result = convertValue(100, "sqm", "ha");
         expect(result.exactValue).toBe(0.01);
         expect(result.roundedValue).toBe(0.01);
       });
 
-      // other to other
+      // Other to other
       it("Should convert 43560 square feet to 1 acre", () => {
         const result = convertValue(43560, "sqft", "acre");
         expect(result.exactValue).toBe(1);
@@ -310,21 +312,21 @@ describe("unitConverter", () => {
         expect(result.roundedValue).toBe(0);
       });
 
-      // other to base
+      // Other to base
       it("Should convert 3.6 kilometers per hour to 1 base unit meters per second", () => {
         const result = convertValue(3.6, "kmph", "ms");
         expect(result.exactValue).toBe(1);
         expect(result.roundedValue).toBe(1);
       });
 
-      // base to other
+      // Base to other
       it("Should convert 1 base unit meters per second to 3.6 kilometers per hour", () => {
         const result = convertValue(1, "ms", "kmph");
         expect(result.exactValue).toBe(3.6);
         expect(result.roundedValue).toBe(3.6);
       });
 
-      // other to other
+      // Other to other
       it("Should convert 15 miles per hour to 22 feet per second", () => {
         const result = convertValue(15, "mph", "fps");
         expect(result.exactValue).toBe(22);
