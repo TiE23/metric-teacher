@@ -89,7 +89,7 @@ class QuestionTypeInvalid extends Error {
 }
 
 class AnswerUnitMissing extends Error {
-  constructor(questionId) {
+  constructor() {
     super("Missing answer unit");
   }
 }

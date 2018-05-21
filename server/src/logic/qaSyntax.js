@@ -9,6 +9,7 @@ const {
   QUESTION_TYPE_SURVEY,
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
+  ANSWER_TYPE_SURVEY,
   UNITS,
 } = require("../constants");
 
@@ -68,21 +69,21 @@ const {
  *
  * Answer: Conversion or survey ("[ft(2)a]")
  * {
- *   type: ANSWER_TYPE_CONVERSION,
+ *   type: ANSWER_TYPE_CONVERSION, // Or ANSWER_TYPE_SURVEY (they look the same)
  *   data: {
  *     syntax: "[ft(2)a]"
  *     unit: "ft",
  *     accuracy: 2,               // Defaults to 1 if not defined.
  *   },
  * }
- * @param type
+ * @param questionType
  * @param question
  * @param answer
  * @returns {{questionPayload, answerPayload}}
  */
-function parseQAStrings(type, question, answer) {
-  const questionPayload = parseQuestionString(type, question);
-  const answerPayload = parseAnswerString(answer);
+function parseQAStrings(questionType, question, answer) {
+  const questionPayload = parseQuestionString(questionType, question);
+  const answerPayload = parseAnswerString(questionType, answer);
 
   // Check that the question/answer types make sense.
   switch (questionPayload.type) {
@@ -91,17 +92,24 @@ function parseQAStrings(type, question, answer) {
       throw new QuestionAnswerError(
         questionPayload.data.question || questionPayload.data.syntax,
         answerPayload.data.syntax,
-        `Question type "${questionPayload.type}" incompatible with answer type "${answerPayload.type}"`,
+        "Written questions must have multiple-choice answers.",
       );
     }
     break;
   case QUESTION_TYPE_CONVERSION:
-  case QUESTION_TYPE_SURVEY:
     if (answerPayload.type !== ANSWER_TYPE_CONVERSION) {
       throw new QuestionAnswerError(
         questionPayload.data.syntax,
         answerPayload.data.syntax,
-        `Question type "${questionPayload.type}" incompatible with answer type "${answerPayload.type}"`,
+        "Conversion questions must have conversion answers.",
+      );
+    }
+  case QUESTION_TYPE_SURVEY:
+    if (answerPayload.type !== ANSWER_TYPE_SURVEY) {
+      throw new QuestionAnswerError(
+        questionPayload.data.syntax,
+        answerPayload.data.syntax,
+        "Survey questions must have survey answers.",
       );
     }
     break;
@@ -200,7 +208,7 @@ function parseQuestionString(type, question) {
     };
 
   // Detected syntax and reported type not as expected.
-  } else {
+  } else {  // eslint-disable-line no-else-return
     throw new QuestionSyntaxError(
       question,
       `Question type "${type}" was not expected with question "${question}"`,
@@ -209,7 +217,7 @@ function parseQuestionString(type, question) {
 }
 
 
-function parseAnswerString(answer) {
+function parseAnswerString(questionType, answer) {
   // Finds "[1m|2m]2"; Returns "1m|2m", "2" // Finds "[m(0.5)a]"; Returns "m(0.5)a"
   const basePattern = /\[([^\]]+)](\d{0,2})/;
   const multipleChoiceDelimiter = "|";          // Splits on |
@@ -261,8 +269,8 @@ function parseAnswerString(answer) {
 
     return answerPayload;
 
-  // Conversion answer...
-  } else {
+  // Conversion / Survey answer...
+  } else {  // eslint-disable-line no-else-return
     // Parse the unit.
     const unitResult = baseResult[1].match(unitPattern);
     if (unitResult !== null) {
@@ -287,7 +295,10 @@ function parseAnswerString(answer) {
       answerPayload.data.accuracy = 1.0;  // Defaults to 1.0
     }
 
-    answerPayload.type = ANSWER_TYPE_CONVERSION;
+    answerPayload.type =
+      questionType === QUESTION_TYPE_CONVERSION ?
+        ANSWER_TYPE_CONVERSION :
+        ANSWER_TYPE_SURVEY;
 
     return answerPayload;
   }

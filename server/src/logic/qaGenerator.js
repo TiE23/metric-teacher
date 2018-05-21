@@ -32,11 +32,31 @@ function qaGenerate(questionData, surveyData = null) {
     surveyData,
   );
 
-  const composedAnswerData = composeAnswerData(
-    questionPayload,
-    answerPayload,
-    composedQuestionData.questionData.
-  );
+  let composedAnswerData = null;
+
+  // Written question
+  if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
+    composedAnswerData = composeWrittenAnswerData(answerPayload);
+
+  // Conversion question
+  } else if (questionPayload.type === QUESTION_TYPE_CONVERSION) {
+    const composedConversionData =
+      (composedQuestionData.questionData &&
+        composedQuestionData.questionData.conversionData) || null;
+    composedAnswerData = null;
+
+  // Survey question
+  } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
+    const composedSurveyData =
+      (composedQuestionData.questionData &&
+        composedQuestionData.questionData.surveyData) || null;
+    composedAnswerData = null;
+
+  // Type not recognized!
+  } else {  // eslint-disable-line no-else-return
+    throw new QuestionTypeInvalid(questionPayload.type);
+  }
+
 
   return {
     questionId: questionData.id,
@@ -95,8 +115,13 @@ function composeQuestionData(questionPayload, answerPayload, surveyData = null) 
 
   // Survey question
   } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
+    if (answerUnit === null) {
+      throw new AnswerUnitMissing();
+    }
     // If the survey hasn't been taken, instruct the user.
-    const surveyDetail = surveyData ? "" : generateSurveyInstruction(UNITS[answerUnit].plural);
+    const surveyDetail = surveyData ?
+      "" :
+      generateSurveyInstruction(UNITS[answerUnit].plural, questionPayload.data.step);
 
     // If the survey has been taken put the answer's info in new surveyAnswer object. Else null.
     const surveyAnswer = surveyData ? parseUnitValue(surveyData.answer) : null;
@@ -136,7 +161,27 @@ function composeQuestionData(questionPayload, answerPayload, surveyData = null) 
 }
 
 
-function composeAnswerData(questionPayload, answerPayload, targetAnswerValue = null) {
+function composeWrittenAnswerData(answerPayload) {
+  const { choicesOffered, choices } = answerPayload.data;
+
+  return {
+    answerType: ANSWER_TYPE_MULTIPLE_CHOICE,
+    answerData: {
+      multipleChoiceData: {
+        choicesOffered,
+        choices,
+      },
+    },
+  };
+}
+
+
+function composeConversionAnswerData(answerPayload, questionPayload, composedConversionData) {
+  //
+}
+
+
+function composeSurveyAnswerData(answerPayload, questionPayload, composedSurveyData) {
   //
 }
 
@@ -164,11 +209,15 @@ function generateConversionQuestion(value, fromUnit, toUnit) {
 }
 
 
-function generateSurveyInstruction(unitWord) {
+function generateSurveyInstruction(unitWord, step) {
+  const stepDescription = step === 1 || step === 0 ?  // Handle 0 as a 1.
+    "rounded to the nearest whole number" :
+    `rounded to the nearest multiple of ${step}`;
+
   const instructionForms = [
-    `Write your answer in ${unitWord}.`,
-    `Please give your answer in ${unitWord}.`,
-    `Please answer in ${unitWord}.`,
+    `Write your answer in ${unitWord}, ${stepDescription}.`,
+    `Please give your answer in ${unitWord}, ${stepDescription}.`,
+    `Please answer in ${unitWord} ${stepDescription}.`,
   ];
 
   return instructionForms[random(instructionForms.length - 1)];
