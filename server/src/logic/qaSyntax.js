@@ -104,6 +104,7 @@ function parseQAStrings(questionType, question, answer) {
         "Conversion questions must have conversion answers.",
       );
     }
+    break;
   case QUESTION_TYPE_SURVEY:
     if (answerPayload.type !== ANSWER_TYPE_SURVEY) {
       throw new QuestionAnswerError(

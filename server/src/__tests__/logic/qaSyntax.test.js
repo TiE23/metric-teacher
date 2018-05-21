@@ -13,6 +13,7 @@ const {
   QUESTION_TYPE_SURVEY,
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
+  ANSWER_TYPE_SURVEY,
 } = require("../../constants");
 
 debugger; // eslint-disable-line no-debugger
@@ -128,7 +129,7 @@ describe("qaSyntax", () => {
       expect(questionPayload.data.unit).toBe("m");
       expect(questionPayload.data.step).toBe(1);
 
-      expect(answerPayload.type).toBe(ANSWER_TYPE_CONVERSION);
+      expect(answerPayload.type).toBe(ANSWER_TYPE_SURVEY);
       expect(answerPayload.data.unit).toBe("ft");
       expect(answerPayload.data.accuracy).toBe(1);
     });
