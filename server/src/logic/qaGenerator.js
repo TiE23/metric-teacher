@@ -8,6 +8,9 @@ const {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
+  ANSWER_TYPE_MULTIPLE_CHOICE,
+  ANSWER_TYPE_CONVERSION,
+  ANSWER_TYPE_SURVEY,
   UNITS,
 } = require("../constants");
 const {
@@ -23,27 +26,37 @@ function qaGenerate(questionData, surveyData = null) {
     questionData.answer,
   );
 
+  const composedQuestionData = composeQuestionData(
+    questionPayload,
+    answerPayload,
+    surveyData,
+  );
+
+  const composedAnswerData = composeAnswerData(
+    questionPayload,
+    answerPayload,
+    composedQuestionData.questionData.
+  );
+
   return {
     questionId: questionData.id,
     subSubjectId: questionData.parent,
     difficulty: questionData.difficulty,
-    question: composeQuestionData(
-      questionPayload,
-      (answerPayload.data && answerPayload.data.unit) || null,
-      surveyData,
-    ),
-    answer: composeAnswerData(answerPayload),
+    question: composedQuestionData,
+    answer: composedAnswerData,
   };
 }
 
 
-function composeQuestionData(questionPayload, answerUnit = null, survey = null) {
+function composeQuestionData(questionPayload, answerPayload, surveyData = null) {
+  const answerUnit = (answerPayload.data && answerPayload.data.unit) || null;
+
   // Written question
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
     return {
       questionType: questionPayload.type,
       questionText: questionPayload.data.text,
-      detail: null,
+      detail: "",
       questionData: null,
     };
 
@@ -70,10 +83,12 @@ function composeQuestionData(questionPayload, answerUnit = null, survey = null) 
       questionText,
       detail: questionPayload.data.text || "",
       questionData: {
-        step: questionPayload.data.step,
-        exact: {
-          value,
-          unit: questionPayload.data.unit,
+        conversionData: {
+          step: questionPayload.data.step,
+          exact: {
+            value,
+            unit: questionPayload.data.unit,
+          },
         },
       },
     };
@@ -81,15 +96,17 @@ function composeQuestionData(questionPayload, answerUnit = null, survey = null) 
   // Survey question
   } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
     // If the survey hasn't been taken, instruct the user.
-    const surveyDetail = survey ? "" : generateSurveyInstruction(UNITS[answerUnit].plural);
+    const surveyDetail = surveyData ? "" : generateSurveyInstruction(UNITS[answerUnit].plural);
 
     // If the survey has been taken put the answer's info in new surveyAnswer object. Else null.
-    const surveyAnswer = survey ? parseUnitValue(survey.answer) : null;
+    const surveyAnswer = surveyData ? parseUnitValue(surveyData.answer) : null;
 
     // For the UI we might want to provide a reminder to the user's answer, so add English word.
     if (surveyAnswer) {
-      surveyAnswer.unitWord = surveyAnswer.value === 1 ?
-        UNITS[surveyAnswer.unit].singular : UNITS[surveyAnswer.unit].plural;
+      surveyAnswer.unitWord =
+        surveyAnswer.value === 1 ?
+          UNITS[surveyAnswer.unit].singular :
+          UNITS[surveyAnswer.unit].plural;
     }
 
     return {
@@ -97,25 +114,29 @@ function composeQuestionData(questionPayload, answerUnit = null, survey = null) 
       questionText: questionPayload.data.text,
       detail: surveyDetail,
       questionData: {
-        step: questionPayload.data.step,
-        bottom: {
-          value: questionPayload.data.rangeBottom,
-          unit: questionPayload.data.unit,
+        surveyData: {
+          step: questionPayload.data.step,
+          surveyRange: {
+            rangeBottom: {
+              value: questionPayload.data.rangeBottom,
+              unit: questionPayload.data.unit,
+            },
+            rangeTop: {
+              value: questionPayload.data.rangeTop,
+              unit: questionPayload.data.unit,
+            },
+          },
+          surveyAnswer, // Null or { value: 2, unit: "m", unitWord: "meters" }
         },
-        top: {
-          value: questionPayload.data.rangeTop,
-          unit: questionPayload.data.unit,
-        },
-        surveyAnswer, // Null or { value: 2, unit: "m", unitWord: "meters" }
       },
     };
-  } else {
+  } else {  // eslint-disable-line no-else-return
     throw new QuestionTypeInvalid(questionPayload.type);
   }
 }
 
 
-function composeAnswerData(answerPayload, targetAnswerValue = null) {
+function composeAnswerData(questionPayload, answerPayload, targetAnswerValue = null) {
   //
 }
 

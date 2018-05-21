@@ -41,6 +41,7 @@ const constants = {
   // Answer (logic only)
   ANSWER_TYPE_MULTIPLE_CHOICE: 0,
   ANSWER_TYPE_CONVERSION: 1,
+  ANSWER_TYPE_SURVEY: 2,
 
   // Data constants
   // Decimal Accuracy

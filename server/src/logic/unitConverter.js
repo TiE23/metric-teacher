@@ -2,18 +2,12 @@ const round = require("lodash/round");
 const converter =
   require("linear-converter")(require("arbitrary-precision")(require("floating-adapter")));
 
-const length = require("linear-preset-factory")(
-  require("linear-presets").PRESETS.length);        // Based on meter
-const mass = require("linear-preset-factory")(
-  require("linear-presets").PRESETS.mass);          // Based on kilogram
-const volume = require("linear-preset-factory")(
-  require("linear-presets").PRESETS.volume);        // Based on cubic meter
-const temperature = require("linear-preset-factory")(
-  require("linear-presets").PRESETS.temperature);   // Based on Celsius
-const velocity = require("linear-preset-factory")(
-  require("linear-presets").PRESETS.velocity);      // Based on meters per second
-const area = require("linear-preset-factory")(
-  require("linear-presets").PRESETS.area);          // Based on square meter
+const length = require("linear-preset-factory")(require("linear-presets").PRESETS.length);
+const mass = require("linear-preset-factory")(require("linear-presets").PRESETS.mass);
+const volume = require("linear-preset-factory")(require("linear-presets").PRESETS.volume);
+const temperature = require("linear-preset-factory")(require("linear-presets").PRESETS.temperature);
+const velocity = require("linear-preset-factory")(require("linear-presets").PRESETS.velocity);
+const area = require("linear-preset-factory")(require("linear-presets").PRESETS.area);
 
 const presets = {
   length,
@@ -105,7 +99,7 @@ function convertValue(fromValue, fromUnit, toUnit) {
     ).valueOf();
 
     // Converting not base unit to not base unit (ex: inches (to meters) to feet)
-  } else {  // eslint-disable-line no-else-return
+  } else {
     exactValue = convert(
       composeConversions(
         invertConversion(presets[subject][`${baseUnit}_${fromUnitDetail.preset}`]),
