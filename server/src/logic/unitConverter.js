@@ -141,12 +141,24 @@ function convertValue(fromValue, fromUnit, toUnit) {
 
   // Methodically reduce rounding aggressiveness until a non-zero value is returned OR
   // a non-inflated value is returned. But give up after 10 decimal places have been tried.
+  // There is a special edge-case where converting -17.78 Celsius to Fahrenheit this whole system
+  // refuses to return 0, instead 0.004 because when round() rounds it to zero, it will decide
+  // this is wrong. In the case where toUnit is Fahrenheit, allow to round to zero. This is the ONLY
+  // unit where this is allowed. 0 C is easy to get with 32 F, so exact and rounding would be zero.
+  // Note: Would need this same exception for Kelvin and Rankine.
   let rounding = toUnitDetail.round;
-  if ((roundedValue === 0 && smoothedValue !== 0) || roundedValue > Math.ceil(smoothedValue)) {
+  if (((roundedValue === 0 && toUnit !== "f") && smoothedValue !== 0) ||
+    roundedValue > Math.ceil(smoothedValue)
+  ) {
     do {
       rounding += 1;
       roundedValue = round(smoothedValue, rounding);
     } while (rounding <= 10 && (roundedValue === 0 || roundedValue > Math.ceil(smoothedValue)));
+  }
+
+  // Edge case where rounding generates a -0 value.
+  if (roundedValue === 0) {
+    roundedValue = Math.abs(roundedValue);
   }
 
   return {

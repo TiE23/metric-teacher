@@ -265,6 +265,13 @@ describe("unitConverter", () => {
         expect(result.exactValue).toBe(0.0444444445);
         expect(result.roundedValue).toBe(0.04);
       });
+
+      // Anti-Anti-rounding (zero) Fahrenheit edge-case exception
+      it("Should convert -17.78 base unit Celsius to 0 Fahrenheit rounded", () => {
+        const result = convertValue(-17.78 , "c", "f");
+        expect(result.exactValue).toBe(-0.004);
+        expect(result.roundedValue).toBe(0);
+      });
     });
 
 
