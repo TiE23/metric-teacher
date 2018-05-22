@@ -51,16 +51,21 @@ const { convert, invertConversion, composeConversions } = converter;
  * @returns { exactValue, roundedValue }
  */
 function convertValue(fromValue, fromUnit, toUnit) {
+  // Grab unit details
+  const fromUnitDetail = UNITS[fromUnit];
+  const toUnitDetail = UNITS[toUnit];
+
+  // If the units are the same there is no need to convert.
   if (fromUnit === toUnit) {
     return {
       exactValue: fromValue,
       roundedValue: fromValue,
+      // For consistency we need to find decimal places. Sorry.
+      roundingLevel: Math.floor(fromValue) === fromValue ?
+        fromUnitDetail.round :
+        fromValue.toString().split(".")[1].length || 0,
     };
   }
-
-  // Grab unit details
-  const fromUnitDetail = UNITS[fromUnit];
-  const toUnitDetail = UNITS[toUnit];
 
   // Check for errors.
   if (fromUnitDetail === undefined) {
@@ -117,8 +122,8 @@ function convertValue(fromValue, fromUnit, toUnit) {
 
   // Methodically reduce rounding aggressiveness until a non-zero value is returned OR
   // a non-inflated value is returned. But give up after 10 decimal places have been tried.
+  let rounding = toUnitDetail.round;
   if ((roundedValue === 0 && smoothedValue !== 0) || roundedValue > Math.ceil(smoothedValue)) {
-    let rounding = toUnitDetail.round;
     do {
       rounding += 1;
       roundedValue = round(smoothedValue, rounding);
@@ -128,6 +133,7 @@ function convertValue(fromValue, fromUnit, toUnit) {
   return {
     exactValue: smoothedValue,
     roundedValue,
+    roundingLevel: rounding,
   };
 }
 

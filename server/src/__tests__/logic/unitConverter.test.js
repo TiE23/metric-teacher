@@ -8,8 +8,6 @@ const {
   convertValue,
 } = require("../../logic/unitConverter");
 
-debugger; // eslint-disable-line no-debugger
-
 describe("unitConverter", () => {
   // These tests aren't 100% exhaustive but do cover some important paths:
   // It makes sure that 0 = 0 in both directions.*
@@ -30,18 +28,28 @@ describe("unitConverter", () => {
       const result = convertValue(1, "m", "m");
       expect(result.exactValue).toBe(1);
       expect(result.roundedValue).toBe(1);
+      expect(result.roundingLevel).toBe(2); // Meter rounding
+    });
+
+    it("Should convert 0.0000000001 meter to 0.0000000001 meter (same)", () => {
+      const result = convertValue(0.0000000001, "m", "m");
+      expect(result.exactValue).toBe(0.0000000001);
+      expect(result.roundedValue).toBe(0.0000000001);
+      expect(result.roundingLevel).toBe(10); // Rounding level determined by decimal places
     });
 
     it("Should convert 0.0001 millimeters to 1e-10 kilometers rounded", () => {
       const result = convertValue(0.0001, "mm", "km");
       expect(result.exactValue).toBe(1e-10);
       expect(result.roundedValue).toBe(1e-10);
+      expect(result.roundingLevel).toBe(10);  // Ten decimal places
     });
 
     it("Should convert 0.00001 millimeters to 0 kilometers (expected data-loss)", () => {
       const result = convertValue(0.00001, "mm", "km");
       expect(result.exactValue).toBe(0);    // Data-loss due to floatSmoothing
       expect(result.roundedValue).toBe(0);  // Data-loss
+      expect(result.roundingLevel).toBe(3); // Kilometer rounding
     });
 
     describe("Length", () => {
