@@ -55,18 +55,6 @@ function convertValue(fromValue, fromUnit, toUnit) {
   const fromUnitDetail = UNITS[fromUnit];
   const toUnitDetail = UNITS[toUnit];
 
-  // If the units are the same there is no need to convert.
-  if (fromUnit === toUnit) {
-    return {
-      exactValue: fromValue,
-      roundedValue: fromValue,
-      // For consistency we need to find decimal places. Sorry.
-      roundingLevel: Math.floor(fromValue) === fromValue ?
-        fromUnitDetail.round :
-        fromValue.toString().split(".")[1].length || 0,
-    };
-  }
-
   // Check for errors.
   if (fromUnitDetail === undefined) {
     throw new UnitTypeUnrecognized(fromUnit);
@@ -82,6 +70,37 @@ function convertValue(fromValue, fromUnit, toUnit) {
   }
   if (fromValue < 0 && fromUnitDetail.subject !== "temperature") {
     throw new ConversionNegativeValue(fromValue, fromUnitDetail.plural);
+  }
+
+  // If the units are the same there is no need to convert.
+  if (fromUnit === toUnit) {
+    // For consistency we need to find the rounding level. This is quite annoying to discover.
+    // If the number is whole, just return the unit's configured rounding level.
+    // If the number is not whole, go to string and split on "." and count digits after the decimal.
+    // But if the number is so small that toString() returns scientific notation we split on "e".
+    let roundingLevel = null;
+    if (Math.floor(fromValue) === fromValue) {        // Whole number
+      roundingLevel = fromUnitDetail.round;
+    } else {
+      const stringValue = fromValue.toString();
+      const decimalNotation = stringValue.split("."); // 0.00001234 = 8
+      if (decimalNotation.length > 1) {
+        roundingLevel = decimalNotation[1].length;
+      } else {                                        // 1e-10 = 10
+        const scientificNotation = stringValue.split("e");
+        if (scientificNotation.length > 1) {
+          roundingLevel = Math.abs(Number.parseInt(scientificNotation[1], 10));
+        } else {                                      // No idea.
+          roundingLevel = 0;
+        }
+      }
+    }
+
+    return {
+      exactValue: fromValue,
+      roundedValue: fromValue,
+      roundingLevel,
+    };
   }
 
   // Get the subject of the conversion and the base unit used in the conversions

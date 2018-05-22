@@ -376,7 +376,19 @@ describe("unitConverter", () => {
   describe("Error Checking", () => {
     it("Should reject unknown unit", () => {
       expect(() => {
-        convertValue(0, "x", "f");
+        convertValue(0, "foo", "f");
+      }).toThrow(UnitTypeUnrecognized);
+    });
+
+    it("Should reject two unknown units", () => {
+      expect(() => {
+        convertValue(0, "foo", "bar");
+      }).toThrow(UnitTypeUnrecognized);
+    });
+
+    it("Should reject the same unknown unit", () => {
+      expect(() => {
+        convertValue(0, "foo", "foo");
       }).toThrow(UnitTypeUnrecognized);
     });
 
