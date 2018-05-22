@@ -125,9 +125,9 @@ function parseQAStrings(questionType, question, answer) {
 }
 
 function parseQuestionString(type, question) {
-  const basePattern = /\[([^\]]+)]/;              // Finds "[20.5-30c(0.5)s]"; Returns "20-30c(0.5)s"
-  const rangePattern = /([\d.]+)-([\d.]+)(\w+)/;  // Finds "20.5-30c"; Returns "20.5", "30", "c"
-  const stepPattern = /\(([\d.]+)\)s/;            // Finds "(0.5)s"; Returns "0.5"
+  const basePattern = /\[([^\]]+)]/;                  // Finds "[20.5,30c(0.5)s]"; Returns "20,30c(0.5)s"
+  const rangePattern = /(-?[\d.]+),(-?[\d.]+)(\w+)/;  // Finds "20.5,30c"; Returns "20.5", "30", "c"
+  const stepPattern = /\(([\d.]+)\)s/;                // Finds "(0.5)s"; Returns "0.5"
 
   const baseResult = question.match(basePattern);
 

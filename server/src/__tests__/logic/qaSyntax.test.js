@@ -16,8 +16,6 @@ const {
   ANSWER_TYPE_SURVEY,
 } = require("../../constants");
 
-debugger; // eslint-disable-line no-debugger
-
 describe("qaSyntax", () => {
   describe("Happy Path", () => {
     it("Should parse a multiple choice question/answer", () => {
@@ -41,7 +39,7 @@ describe("qaSyntax", () => {
       expect(answerPayload.data.syntax).toBe("[5.00m|200cm|3000mm]");
     });
 
-    it("Should parse a written question with extra whitespace", () => {
+    it("Should parse a Written question with extra whitespace", () => {
       const { questionPayload } = parseQAStrings(
         QUESTION_TYPE_WRITTEN,
         "    How long is 500 centimeters?    ",
@@ -61,10 +59,10 @@ describe("qaSyntax", () => {
       expect(answerPayload.data.choices.length).toBe(3);
     });
 
-    it("Should parse a conversion question", () => {
+    it("Should parse a Conversion question", () => {
       const { questionPayload, answerPayload } = parseQAStrings(
         QUESTION_TYPE_CONVERSION,
-        "[5-10m]",
+        "[5,10m]",
         "[ft]",
       );
       expect(questionPayload.type).toBe(QUESTION_TYPE_CONVERSION);
@@ -79,10 +77,10 @@ describe("qaSyntax", () => {
       expect(answerPayload.data.accuracy).toBe(1);
     });
 
-    it("Should parse a conversion question with extra whitespace", () => {
+    it("Should parse a Conversion question with extra whitespace", () => {
       const { questionPayload, answerPayload } = parseQAStrings(
         QUESTION_TYPE_CONVERSION,
-        "    [5-10m]    ",
+        "    [5,10m]    ",
         "[ft]",
       );
       expect(questionPayload.type).toBe(QUESTION_TYPE_CONVERSION);
@@ -97,10 +95,10 @@ describe("qaSyntax", () => {
       expect(answerPayload.data.accuracy).toBe(1);
     });
 
-    it("Should parse a conversion question with junk after it", () => {
+    it("Should parse a Conversion question with junk after it", () => {
       const { questionPayload, answerPayload } = parseQAStrings(
         QUESTION_TYPE_CONVERSION,
-        "[5-10m]    !@#$%foo",
+        "[5,10m]    !@#$%foo",
         "[ft]",
       );
       expect(questionPayload.type).toBe(QUESTION_TYPE_CONVERSION);
@@ -109,7 +107,7 @@ describe("qaSyntax", () => {
       expect(questionPayload.data.rangeTop).toBe(10);
       expect(questionPayload.data.unit).toBe("m");
       expect(questionPayload.data.step).toBe(1);
-      expect(questionPayload.data.syntax).toBe("[5-10m]");
+      expect(questionPayload.data.syntax).toBe("[5,10m]");
 
       expect(answerPayload.type).toBe(ANSWER_TYPE_CONVERSION);
       expect(answerPayload.data.unit).toBe("ft");
@@ -119,7 +117,7 @@ describe("qaSyntax", () => {
     it("Should parse a survey question", () => {
       const { questionPayload, answerPayload } = parseQAStrings(
         QUESTION_TYPE_SURVEY,
-        "[5-10m]",
+        "[5,10m]",
         "[ft]",
       );
       expect(questionPayload.type).toBe(QUESTION_TYPE_SURVEY);
@@ -134,19 +132,19 @@ describe("qaSyntax", () => {
       expect(answerPayload.data.accuracy).toBe(1);
     });
 
-    it("Should parse a conversion question with custom text", () => {
+    it("Should parse a Conversion question with custom text", () => {
       const { questionPayload } = parseQAStrings(
         QUESTION_TYPE_CONVERSION,
-        "This is a range typical of an adult man. [1.70-1.85m]",
+        "This is a range typical of an adult man. [1.70,1.85m]",
         "[in]",
       );
       expect(questionPayload.data.text).toBe("This is a range typical of an adult man.");
     });
 
-    it("Should parse a conversion question with steps defined", () => {
+    it("Should parse a Conversion question with steps defined", () => {
       const { questionPayload } = parseQAStrings(
         QUESTION_TYPE_CONVERSION,
-        "[5-10m(2.5)s]",
+        "[5,10m(2.5)s]",
         "[ft]",
       );
       expect(questionPayload.data.step).toBe(2.5);
@@ -155,7 +153,7 @@ describe("qaSyntax", () => {
     it("Should parse a conversion answer with accuracy defined", () => {
       const { answerPayload } = parseQAStrings(
         QUESTION_TYPE_CONVERSION,
-        "[5-10m]",
+        "[5,10m]",
         "[ft(2.5)a]",
       );
       expect(answerPayload.type).toBe(ANSWER_TYPE_CONVERSION);
@@ -165,12 +163,34 @@ describe("qaSyntax", () => {
     it("Should parse an answer with junk before and after it", () => {
       const { answerPayload } = parseQAStrings(
         QUESTION_TYPE_CONVERSION,
-        "[5-10m]",
+        "[5,10m]",
         "!@#$%foo    [ft]    !@#$%^foo",
       );
       expect(answerPayload.type).toBe(ANSWER_TYPE_CONVERSION);
       expect(answerPayload.data.unit).toBe("ft");
       expect(answerPayload.data.syntax).toBe("[ft]");
+    });
+
+    it("Should parse a Conversion question with all negative range values", () => {
+      const { questionPayload } = parseQAStrings(
+        QUESTION_TYPE_CONVERSION,
+        "[-10,-5c]",
+        "[f]",
+      );
+      expect(questionPayload.data.rangeBottom).toBe(-10);
+      expect(questionPayload.data.rangeTop).toBe(-5);
+      expect(questionPayload.data.unit).toBe("c");
+    });
+
+    it("Should parse a Conversion question with mixed negative and positive range values", () => {
+      const { questionPayload } = parseQAStrings(
+        QUESTION_TYPE_CONVERSION,
+        "[-10,10c]",
+        "[f]",
+      );
+      expect(questionPayload.data.rangeBottom).toBe(-10);
+      expect(questionPayload.data.rangeTop).toBe(10);
+      expect(questionPayload.data.unit).toBe("c");
     });
   });
 
@@ -187,7 +207,7 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError); // Question gets parsed first.
       });
 
-      it("Should reject a written question with a conversion answer", () => {
+      it("Should reject a Written question with a conversion answer", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -197,21 +217,21 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionAnswerError);
       });
 
-      it("Should reject a conversion question with a multiple-choice answer", () => {
+      it("Should reject a Conversion question with a multiple-choice answer", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[1-5m(1)s]",
+            "[1,5m(1)s]",
             "[3.3ft|6.6ft|9.8ft|13.1ft|16.4ft]",
           );
         }).toThrowError(QuestionAnswerError);
       });
 
-      it("Should reject a conversion question+answer with an incompatible unit", () => {
+      it("Should reject a Conversion question+answer with an incompatible unit", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[5-10m]",
+            "[5,10m]",
             "[mph]",
           );
         }).toThrowError(QuestionAnswerError);
@@ -230,11 +250,11 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      it("Should reject a written question with conversion syntax", () => {
+      it("Should reject a Written question with conversion syntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
-            "[5-10m]",
+            "[5,10m]",
             "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
@@ -244,7 +264,7 @@ describe("qaSyntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[1-2foo]",
+            "[1,2foo]",
             "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
@@ -254,7 +274,7 @@ describe("qaSyntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[5-10]",
+            "[5,10]",
             "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
@@ -264,7 +284,7 @@ describe("qaSyntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[x-2m]",
+            "[x,2m]",
             "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
@@ -274,7 +294,7 @@ describe("qaSyntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[-2m]",
+            "[,2m]",
             "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
@@ -294,8 +314,18 @@ describe("qaSyntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[10-1m]",
+            "[10,1m]",
             "[ft]",
+          );
+        }).toThrowError(QuestionSyntaxError);
+      });
+
+      it("Should reject a question with a backwards negative range", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "[-1,-10c]",
+            "[f]",
           );
         }).toThrowError(QuestionSyntaxError);
       });
@@ -305,7 +335,7 @@ describe("qaSyntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[1-10m(x)s]",
+            "[1,10m(x)s]",
             "[ft]",
           );
         }).toThrowError(QuestionSyntaxError);
@@ -339,7 +369,7 @@ describe("qaSyntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[1-5m]",
+            "[1,5m]",
             "",
           );
         }).toThrowError(AnswerSyntaxError);
@@ -359,7 +389,7 @@ describe("qaSyntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[1-5m]",
+            "[1,5m]",
             "[]",
           );
         }).toThrowError(AnswerSyntaxError);
@@ -389,7 +419,7 @@ describe("qaSyntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[1-5m]",
+            "[1,5m]",
             "[foo]",
           );
         }).toThrowError(AnswerSyntaxError);
@@ -400,7 +430,7 @@ describe("qaSyntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
-            "[1-5m]",
+            "[1,5m]",
             "[ft(x)a]",
           );
         }).toThrowError(AnswerSyntaxError);
