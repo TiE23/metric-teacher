@@ -44,6 +44,9 @@ const constants = {
   ANSWER_TYPE_SURVEY: 2,
 
   // Data constants
+  // Conversion multiple choice multipliers.
+  CONVERSION_CHOICE_OPTIONS_MULTIPLIERS: [0, -1, 1, -2, 2, -3, 3, -4, 4],
+
   // Decimal Accuracy
   CONVERSION_DECIMAL_ACCURACY: 10,
 

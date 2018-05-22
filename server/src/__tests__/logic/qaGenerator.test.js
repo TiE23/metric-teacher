@@ -1,13 +1,250 @@
 /* eslint-disable no-undef */
 const {
+  FLAGS_NONE,
+  QUESTION_STATUS_ACTIVE,
+  QUESTION_TYPE_WRITTEN,
+  QUESTION_TYPE_CONVERSION,
+  QUESTION_TYPE_SURVEY,
+  QUESTION_DIFFICULTY_MEDIUM,
+  ANSWER_TYPE_MULTIPLE_CHOICE,
+  ANSWER_TYPE_CONVERSION,
+  ANSWER_TYPE_SURVEY,
+} = require("../../constants");
+const {
   qaGenerate,
 } = require("../../logic/qaGenerator");
 
+debugger;
+
 describe("qaGenerator", () => {
   describe("Happy Path", () => {
-    it("Should blah", () => {
-      // const foo = qaGenerate();
-      expect(true).toBe(true);
+    describe("Written Questions", () => {
+      let baseWrittenQuestion = null;
+      beforeEach(() => {
+        baseWrittenQuestion = {
+          id: "question01",
+          type: QUESTION_TYPE_WRITTEN,
+          status: QUESTION_STATUS_ACTIVE,
+          flags: FLAGS_NONE,
+          difficulty: QUESTION_DIFFICULTY_MEDIUM,
+          question: "What temperature Celsius does water freeze at?",
+          answer: "[0c|32c|100c]",
+          media: null,
+          parent: "someSubSubject",
+        };
+      });
+
+      it("Should parse a Written question", () => {
+        const qaFormat = qaGenerate(baseWrittenQuestion);
+
+        // Basic Stuff
+        expect(qaFormat).toBeDefined();
+        expect(qaFormat.questionId).toBe("question01");
+        expect(qaFormat.subSubjectId).toBe("someSubSubject");
+        expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
+
+        // Question Stuff
+        expect(qaFormat.question.type).toBe(QUESTION_TYPE_WRITTEN);
+        expect(qaFormat.question.text).toBe("What temperature Celsius does water freeze at?");
+        expect(qaFormat.question.detail).toBe("");
+
+        // Answer Stuff
+        expect(qaFormat.answer.type).toBe(ANSWER_TYPE_MULTIPLE_CHOICE);
+        expect(qaFormat.answer.data.multipleChoiceData).toBeDefined();
+        expect(qaFormat.answer.data.multipleChoiceData.choicesOffered).toBe(3);
+        expect(qaFormat.answer.data.multipleChoiceData.choices).toBeDefined();
+        expect(qaFormat.answer.data.multipleChoiceData.choices).toHaveLength(3);
+      });
+
+      it("Should parse a Written question with a custom choicesOffered value in the answer", () => {
+        // Add a 2 to the end of the answer to change the choices offered.
+        baseWrittenQuestion.answer = "[0c|32c|100c]2";
+
+        const qaFormat = qaGenerate(baseWrittenQuestion);
+
+        expect(qaFormat.answer.data.multipleChoiceData.choicesOffered).toBe(2);
+        expect(qaFormat.answer.data.multipleChoiceData.choices).toHaveLength(3);
+      });
+    });
+
+
+    describe("Conversion questions", () => {
+      let baseConversionQuestion = null;
+      beforeEach(() => {
+        baseConversionQuestion = {
+          id: "question01",
+          type: QUESTION_TYPE_CONVERSION,
+          status: QUESTION_STATUS_ACTIVE,
+          flags: FLAGS_NONE,
+          difficulty: QUESTION_DIFFICULTY_MEDIUM,
+          question: "[100,100c]",
+          answer: "[f]",
+          media: null,
+          parent: "someSubSubject",
+        };
+      });
+
+      it("Should parse a Conversion question", () => {
+        const qaFormat = qaGenerate(baseConversionQuestion);
+
+        // Basic Stuff
+        expect(qaFormat).toBeDefined();
+        expect(qaFormat.questionId).toBe("question01");
+        expect(qaFormat.subSubjectId).toBe("someSubSubject");
+        expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
+
+        // Question Stuff
+        expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
+        expect(qaFormat.question.data).toBeTruthy();
+        expect(qaFormat.question.detail).toBe("");
+        expect(qaFormat.question.data.conversionData).toBeDefined();
+        expect(qaFormat.question.data.conversionData.step).toBe(1);
+        expect(qaFormat.question.data.conversionData.exact).toBeDefined();
+        expect(qaFormat.question.data.conversionData.exact.value).toBe(100);
+        expect(qaFormat.question.data.conversionData.exact.unit).toBe("c");
+
+        // Answer Stuff
+        expect(qaFormat.answer.type).toBe(ANSWER_TYPE_CONVERSION);
+        expect(qaFormat.answer.data.conversionData).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.exact).toBe(212);
+        expect(qaFormat.answer.data.conversionData.rounded).toBe(212);
+        expect(qaFormat.answer.data.conversionData.range).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.range.bottom).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.range.top).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.range.bottom.unit).toBe("f");
+        expect(qaFormat.answer.data.conversionData.range.top.unit).toBe("f");
+        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(211);
+        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(213);
+        expect(qaFormat.answer.data.conversionData.accuracy).toBe(1);
+        expect(qaFormat.answer.data.conversionData.choices).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.choices).toHaveLength(9);
+        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(212);
+        expect(qaFormat.answer.data.conversionData.choices[0].unit).toBe("f");
+        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(211);
+        expect(qaFormat.answer.data.conversionData.choices[1].unit).toBe("f");
+        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(213);
+        expect(qaFormat.answer.data.conversionData.choices[2].unit).toBe("f");
+        expect(qaFormat.answer.data.conversionData.choices[3].value).toBe(210);
+        expect(qaFormat.answer.data.conversionData.choices[3].unit).toBe("f");
+        expect(qaFormat.answer.data.conversionData.choices[4].value).toBe(214);
+        expect(qaFormat.answer.data.conversionData.choices[4].unit).toBe("f");
+        expect(qaFormat.answer.data.conversionData.choices[5].value).toBe(209);
+        expect(qaFormat.answer.data.conversionData.choices[5].unit).toBe("f");
+        expect(qaFormat.answer.data.conversionData.choices[6].value).toBe(215);
+        expect(qaFormat.answer.data.conversionData.choices[6].unit).toBe("f");
+        expect(qaFormat.answer.data.conversionData.choices[7].value).toBe(208);
+        expect(qaFormat.answer.data.conversionData.choices[7].unit).toBe("f");
+        expect(qaFormat.answer.data.conversionData.choices[8].value).toBe(216);
+        expect(qaFormat.answer.data.conversionData.choices[8].unit).toBe("f");
+      });
+
+      it("Should parse a Conversion question and prevent negative range and choices", () => {
+        baseConversionQuestion.question = "[0.25,0.25kg]";
+        baseConversionQuestion.answer = "[lb]";
+        const qaFormat = qaGenerate(baseConversionQuestion);
+
+        expect(qaFormat.answer.data.conversionData.exact).toBe(0.5511556555);
+        expect(qaFormat.answer.data.conversionData.rounded).toBe(0.551);
+        expect(qaFormat.answer.data.conversionData.range).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.range.bottom).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.range.top).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.range.bottom.unit).toBe("lb");
+        expect(qaFormat.answer.data.conversionData.range.top.unit).toBe("lb");
+        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(0);   // Not -0.551 lb
+        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(1.551);
+        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(0.551);
+        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(1.051); // Not -0.551 lb
+        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(1.551);
+        expect(qaFormat.answer.data.conversionData.choices[3].value).toBe(2.051); // Not -1.551 lb
+        expect(qaFormat.answer.data.conversionData.choices[4].value).toBe(2.551);
+        expect(qaFormat.answer.data.conversionData.choices[5].value).toBe(3.051); // Not -2.551 lb
+        expect(qaFormat.answer.data.conversionData.choices[6].value).toBe(3.551);
+        expect(qaFormat.answer.data.conversionData.choices[7].value).toBe(4.051); // Not -3.551 lb
+        expect(qaFormat.answer.data.conversionData.choices[8].value).toBe(4.551);
+      });
+
+      it("Should parse a Conversion question with a messy conversion", () => {
+        baseConversionQuestion.question = "[5.25,5.25c]";
+        const qaFormat = qaGenerate(baseConversionQuestion);
+
+        // Question Stuff
+        expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
+        expect(qaFormat.question.data).toBeTruthy();
+        expect(qaFormat.question.detail).toBe("");
+        expect(qaFormat.question.data.conversionData).toBeDefined();
+        expect(qaFormat.question.data.conversionData.step).toBe(1);
+        expect(qaFormat.question.data.conversionData.exact).toBeDefined();
+        expect(qaFormat.question.data.conversionData.exact.value).toBe(5.25);
+        expect(qaFormat.question.data.conversionData.exact.unit).toBe("c");
+
+        // Answer Stuff
+        expect(qaFormat.answer.type).toBe(ANSWER_TYPE_CONVERSION);
+        expect(qaFormat.answer.data.conversionData).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.exact).toBe(41.45);
+        expect(qaFormat.answer.data.conversionData.rounded).toBe(41.5);
+        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(40.5);
+        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(42.5);
+        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(41.5);
+        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(40.5);
+        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(42.5);
+      });
+
+      it("Should parse a Conversion question with a negative temperature degrees", () => {
+        baseConversionQuestion.question = "[-40,-40c]";
+        const qaFormat = qaGenerate(baseConversionQuestion);
+
+        // Question Stuff
+        expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
+        expect(qaFormat.question.data).toBeTruthy();
+        expect(qaFormat.question.detail).toBe("");
+        expect(qaFormat.question.data.conversionData).toBeDefined();
+        expect(qaFormat.question.data.conversionData.step).toBe(1);
+        expect(qaFormat.question.data.conversionData.exact).toBeDefined();
+        expect(qaFormat.question.data.conversionData.exact.value).toBe(-40);
+        expect(qaFormat.question.data.conversionData.exact.unit).toBe("c");
+
+        // Answer Stuff
+        expect(qaFormat.answer.type).toBe(ANSWER_TYPE_CONVERSION);
+        expect(qaFormat.answer.data.conversionData).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.exact).toBe(-40);
+        expect(qaFormat.answer.data.conversionData.rounded).toBe(-40);
+        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(-41);
+        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(-39);
+        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(-40);
+        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(-41); // Allows negative
+        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(-39);
+      });
+
+      it("Should parse a Conversion question with -17.78 C to 0 F temperature edge case", () => {
+        baseConversionQuestion.question = "[-17.78,-17.78c]";
+        const qaFormat = qaGenerate(baseConversionQuestion);
+
+        // Question Stuff
+        expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
+        expect(qaFormat.question.data).toBeTruthy();
+        expect(qaFormat.question.detail).toBe("");
+        expect(qaFormat.question.data.conversionData).toBeDefined();
+        expect(qaFormat.question.data.conversionData.step).toBe(1);
+        expect(qaFormat.question.data.conversionData.exact).toBeDefined();
+        expect(qaFormat.question.data.conversionData.exact.value).toBe(-17.78);
+        expect(qaFormat.question.data.conversionData.exact.unit).toBe("c");
+
+        // Answer Stuff
+        expect(qaFormat.answer.type).toBe(ANSWER_TYPE_CONVERSION);
+        expect(qaFormat.answer.data.conversionData).toBeDefined();
+        expect(qaFormat.answer.data.conversionData.exact).toBe(-0.004);
+        expect(qaFormat.answer.data.conversionData.rounded).toBe(0);
+        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(-1);
+        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(1);
+        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(0);
+        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(-1);  // Allows negative
+        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(1);
+      });
     });
   });
+
+
+  // describe("Error Checking", () => {
+  //
+  // });
 });

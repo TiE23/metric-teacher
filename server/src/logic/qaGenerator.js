@@ -1,5 +1,9 @@
 const random = require("lodash/random");
+const round = require("lodash/round");
 
+const {
+  convertValue,
+} = require("./unitConverter");
 const {
   QuestionTypeInvalid,
   AnswerUnitMissing,
@@ -11,6 +15,7 @@ const {
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
   ANSWER_TYPE_SURVEY,
+  CONVERSION_CHOICE_OPTIONS_MULTIPLIERS,
   UNITS,
 } = require("../constants");
 const {
@@ -26,31 +31,36 @@ function qaGenerate(questionData, surveyData = null) {
     questionData.answer,
   );
 
-  const composedQuestionData = composeQuestionData(
+  const composedQuestion = composeQuestionData(
     questionPayload,
     answerPayload,
     surveyData,
   );
 
-  let composedAnswerData = null;
+  const composedAnswer = {
+    type: answerPayload.type,
+    data: {},
+  };
 
-  // Written question
+  // Get multiple choice data
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
-    composedAnswerData = composeWrittenAnswerData(answerPayload);
+    composedAnswer.data.multipleChoiceData = composeWrittenAnswerData(answerPayload);
 
-  // Conversion question
-  } else if (questionPayload.type === QUESTION_TYPE_CONVERSION) {
-    const composedConversionData =
-      (composedQuestionData.questionData &&
-        composedQuestionData.questionData.conversionData) || null;
-    composedAnswerData = null;
+  // Get conversion data
+  } else if (questionPayload.type === QUESTION_TYPE_CONVERSION ||
+    questionPayload.type === QUESTION_TYPE_SURVEY) {
+    const composedConversionData = composedQuestion.data.conversionData;
+    composedAnswer.data.conversionData = composeConversionAnswerData(
+      answerPayload,
+      questionPayload,
+      composedConversionData,
+    );
 
   // Survey question
   } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
-    const composedSurveyData =
-      (composedQuestionData.questionData &&
-        composedQuestionData.questionData.surveyData) || null;
-    composedAnswerData = null;
+    const composedSurveyData = composedQuestion.data.surveyData;
+
+    composedAnswer.data.surveyData = null;
 
   // Type not recognized!
   } else {  // eslint-disable-line no-else-return
@@ -62,8 +72,8 @@ function qaGenerate(questionData, surveyData = null) {
     questionId: questionData.id,
     subSubjectId: questionData.parent,
     difficulty: questionData.difficulty,
-    question: composedQuestionData,
-    answer: composedAnswerData,
+    question: composedQuestion,
+    answer: composedAnswer,
   };
 }
 
@@ -74,10 +84,10 @@ function composeQuestionData(questionPayload, answerPayload, surveyData = null) 
   // Written question
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
     return {
-      questionType: questionPayload.type,
-      questionText: questionPayload.data.text,
+      type: questionPayload.type,
+      text: questionPayload.data.text,
       detail: "",
-      questionData: null,
+      data: null,
     };
 
   // Conversion question
@@ -99,10 +109,10 @@ function composeQuestionData(questionPayload, answerPayload, surveyData = null) 
     );
 
     return {
-      questionType: questionPayload.type,
-      questionText,
+      type: questionPayload.type,
+      text: questionText,
       detail: questionPayload.data.text || "",
-      questionData: {
+      data: {
         conversionData: {
           step: questionPayload.data.step,
           exact: {
@@ -135,18 +145,18 @@ function composeQuestionData(questionPayload, answerPayload, surveyData = null) 
     }
 
     return {
-      questionType: questionPayload.type,
-      questionText: questionPayload.data.text,
+      type: questionPayload.type,
+      text: questionPayload.data.text,
       detail: surveyDetail,
-      questionData: {
+      data: {
         surveyData: {
           step: questionPayload.data.step,
           surveyRange: {
-            rangeBottom: {
+            bottom: {
               value: questionPayload.data.rangeBottom,
               unit: questionPayload.data.unit,
             },
-            rangeTop: {
+            top: {
               value: questionPayload.data.rangeTop,
               unit: questionPayload.data.unit,
             },
@@ -162,22 +172,51 @@ function composeQuestionData(questionPayload, answerPayload, surveyData = null) 
 
 
 function composeWrittenAnswerData(answerPayload) {
-  const { choicesOffered, choices } = answerPayload.data;
-
   return {
-    answerType: ANSWER_TYPE_MULTIPLE_CHOICE,
-    answerData: {
-      multipleChoiceData: {
-        choicesOffered,
-        choices,
-      },
-    },
+    choicesOffered: answerPayload.data.choicesOffered,
+    choices: answerPayload.data.choices,
   };
 }
 
 
 function composeConversionAnswerData(answerPayload, questionPayload, composedConversionData) {
-  //
+  const answerUnit = answerPayload.data.unit;
+  const { value, unit } = composedConversionData.exact;
+  const { roundedValue, exactValue, roundingLevel } = convertValue(value, unit, answerUnit);
+  const { accuracy } = answerPayload.data;
+  const isTemperature = UNITS[answerUnit].subject === "temperature";
+
+  // Figure out the ranges.
+  let bottomValue = round(roundedValue - accuracy, roundingLevel);
+  if (!isTemperature) {
+    bottomValue = Math.max(bottomValue, 0); // When not temperature do not let bottom be negative.
+  }
+  const topValue = round(roundedValue + accuracy, roundingLevel);
+
+  // Generate the nine choices.
+  // If a generated choice is negative (and the units aren't temperature) it'll generate
+  // a half-step answer. If roundedValue = 1 and accuracy = 1, it will generate for temperature:
+  // [ 1, 0, 2,  -1, 3,  -2, 4,  -3, 5 ], else
+  // [ 1, 0, 2, 2.5, 3, 3.5, 4, 4.5, 5 ] for everything else that cannot go negative.
+  const choiceValues = CONVERSION_CHOICE_OPTIONS_MULTIPLIERS.map((multiplier) => {
+    let choiceValue = roundedValue + (accuracy * multiplier);
+    if (choiceValue < 0 && !isTemperature) {
+      choiceValue = roundedValue + (accuracy * (Math.abs(multiplier) - 0.5));
+    }
+    return round(choiceValue, roundingLevel);
+  });
+  const choices = choiceValues.map(choice => ({ value: choice, unit: answerUnit }));
+
+  return {
+    accuracy,
+    exact: exactValue,
+    rounded: roundedValue,
+    range: {
+      bottom: { value: bottomValue, unit: answerUnit },
+      top: { value: topValue, unit: answerUnit },
+    },
+    choices,
+  };
 }
 
 
