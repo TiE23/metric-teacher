@@ -193,19 +193,15 @@ function composeConversionAnswerData(answerPayload, questionPayload, composedCon
   }
   const topValue = round(roundedValue + accuracy, roundingLevel);
 
-  // Generate the nine choices.
-  // If a generated choice is negative (and the units aren't temperature) it'll generate
-  // a half-step answer. If roundedValue = 1 and accuracy = 1, it will generate for temperature:
-  // [ 1, 0, 2,  -1, 3,  -2, 4,  -3, 5 ], else
-  // [ 1, 0, 2, 2.5, 3, 3.5, 4, 4.5, 5 ] for everything else that cannot go negative.
-  const choiceValues = CONVERSION_CHOICE_OPTIONS_MULTIPLIERS.map((multiplier) => {
-    let choiceValue = roundedValue + (accuracy * multiplier);
-    if (choiceValue < 0 && !isTemperature) {
-      choiceValue = roundedValue + (accuracy * (Math.abs(multiplier) - 0.5));
-    }
-    return round(choiceValue, roundingLevel);
-  });
-  const choices = choiceValues.map(choice => ({ value: choice, unit: answerUnit }));
+  // roundedValue, accuracy, isTemperature
+  const choices = generateChoices(
+    roundedValue,
+    roundingLevel,
+    answerUnit,
+    accuracy,
+    isTemperature,
+  );
+
 
   return {
     accuracy,
@@ -222,6 +218,31 @@ function composeConversionAnswerData(answerPayload, questionPayload, composedCon
 
 function composeSurveyAnswerData(answerPayload, questionPayload, composedSurveyData) {
   //
+}
+
+/**
+ * Generate the nine choices.
+ * If a generated choice is negative (and the units aren't temperature) it'll generate
+ * a half-step answer. If roundedValue = 1 and accuracy = 1, it will generate for temperature:
+ * [ 1, 0, 2,  -1, 3,  -2, 4,  -3, 5 ], else
+ * [ 1, 0, 2, 2.5, 3, 3.5, 4, 4.5, 5 ] for everything else that cannot go negative.
+ * @param roundedValue
+ * @param roundingLevel
+ * @param answerUnit
+ * @param accuracy
+ * @param isTemperature
+ * @returns {*}
+ */
+function generateChoices(roundedValue, roundingLevel, answerUnit, accuracy, isTemperature) {
+  const choiceValues = CONVERSION_CHOICE_OPTIONS_MULTIPLIERS.map((multiplier) => {
+    let choiceValue = roundedValue + (accuracy * multiplier);
+    if (choiceValue < 0 && !isTemperature) {
+      choiceValue = roundedValue + (accuracy * (Math.abs(multiplier) - 0.5));
+    }
+    return round(choiceValue, roundingLevel);
+  });
+
+  return choiceValues.map(choice => ({ value: choice, unit: answerUnit }));
 }
 
 
