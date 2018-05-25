@@ -21,7 +21,7 @@ const {
 } = require("./qaSyntax");
 
 
-function qaGenerate(questionData, surveyData = null) {
+function qaGenerate(questionData, surveyResponseData = null) {
   const { questionPayload, answerPayload } = parseQAStrings(
     questionData.type,
     questionData.question,
@@ -31,7 +31,7 @@ function qaGenerate(questionData, surveyData = null) {
   const generatedQuestion = generateQuestionData(
     questionPayload,
     answerPayload,
-    surveyData,
+    surveyResponseData,
   );
 
   const generatedAnswer = generateAnswerData(
@@ -50,7 +50,7 @@ function qaGenerate(questionData, surveyData = null) {
 }
 
 
-function generateQuestionData(questionPayload, answerPayload, surveyData = null) {
+function generateQuestionData(questionPayload, answerPayload, surveyResponseData = null) {
   const answerUnit = (answerPayload.data && answerPayload.data.unit) || null;
   const questionUnit = questionPayload.data.unit;
 
@@ -102,17 +102,17 @@ function generateQuestionData(questionPayload, answerPayload, surveyData = null)
       throw new AnswerUnitMissing();
     }
     // If the survey hasn't been taken, instruct the user.
-    const surveyDetail = surveyData ?
+    const surveyDetail = surveyResponseData ?
       "" :
       makeSurveyInstruction(UNITS[questionUnit].plural, questionPayload.data.step);
 
-    // If the survey has been taken put the answer's info in new surveyAnswer object. Else null.
-    const surveyAnswer = surveyData ? parseUnitValue(surveyData.answer) : null;
+    // If the survey has been taken put the answer's info in new surveyResponse object. Else null.
+    const surveyResponse = surveyResponseData ? parseUnitValue(surveyResponseData.answer) : null;
 
     // For the UI we might want to provide a reminder to the user's answer, so add English word.
-    if (surveyAnswer) {
-      surveyAnswer.unitWord =
-        surveyAnswer.value === 1 ?
+    if (surveyResponse) {
+      surveyResponse.unitWord =
+        surveyResponse.value === 1 ?
           UNITS[questionUnit].singular :
           UNITS[questionUnit].plural;
     }
@@ -122,7 +122,7 @@ function generateQuestionData(questionPayload, answerPayload, surveyData = null)
       text: questionPayload.data.text,
       detail: surveyDetail,
       data: {
-        surveyData: {
+        surveyResponseData: {
           step: questionPayload.data.step,
           surveyRange: {
             bottom: {
@@ -134,7 +134,7 @@ function generateQuestionData(questionPayload, answerPayload, surveyData = null)
               unit: questionPayload.data.unit,
             },
           },
-          surveyAnswer, // Null or { value: 2, unit: "m", unitWord: "meters" }
+          surveyResponse, // Null or { value: 2, unit: "m", unitWord: "meters" }
         },
       },
     };
@@ -166,18 +166,20 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
     // Survey question
   } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
     // If the survey has been answered generate data.
-    const { surveyAnswer } = generatedQuestion.data.surveyData;
-    if (surveyAnswer) {
+    const { surveyResponse } = generatedQuestion.data.surveyResponseData;
+    if (surveyResponse) {
+      // Compose conversions
       generatedAnswer.data.conversionData = composeConversionAnswerData(
-        surveyAnswer.value,
-        surveyAnswer.unit,
+        surveyResponse.value,
+        surveyResponse.unit,
         answerPayload.data.unit,
         answerPayload.data.accuracy,
       );
 
+      // Compose survey data
       generatedAnswer.data.surveyData = composeSurveyAnswerData(
-        surveyAnswer.value,
-        surveyAnswer.unit,
+        surveyResponse.value,
+        surveyResponse.unit,
         questionPayload.data.step,
       );
     } else {
