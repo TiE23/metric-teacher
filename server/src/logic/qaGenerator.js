@@ -30,7 +30,7 @@ function qaGenerate(questionData, surveyResponseData = null) {
 
   const generatedQuestion = generateQuestionData(
     questionPayload,
-    answerPayload,
+    answerPayload.data.unit,
     surveyResponseData,
   );
 
@@ -50,10 +50,7 @@ function qaGenerate(questionData, surveyResponseData = null) {
 }
 
 
-function generateQuestionData(questionPayload, answerPayload, surveyResponseData = null) {
-  const answerUnit = (answerPayload.data && answerPayload.data.unit) || null;
-  const questionUnit = questionPayload.data.unit;
-
+function generateQuestionData(questionPayload, answerUnit = null, surveyResponseData = null) {
   // Written question
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
     return {
@@ -65,7 +62,7 @@ function generateQuestionData(questionPayload, answerPayload, surveyResponseData
 
   // Conversion question
   } else if (questionPayload.type === QUESTION_TYPE_CONVERSION) {
-    if (answerUnit === null) {
+    if (!answerUnit) {
       throw new AnswerUnitMissing();
     }
 
@@ -75,17 +72,15 @@ function generateQuestionData(questionPayload, answerPayload, surveyResponseData
       questionPayload.data.step,
     );
 
-    const questionText = makeConversionQuestion(
-      value,
-      questionPayload.data.unit,
-      answerUnit,
-    );
-
     return {
       type: questionPayload.type,
-      text: questionText,
+      text: "",
       detail: questionPayload.data.text || "",
       data: {
+        fromUnitWord: {
+          singular: UNITS[questionPayload.data.unit].singular,
+          plural: UNITS[questionPayload.data.unit].plural,
+        },
         conversionData: {
           step: questionPayload.data.step,
           exact: {
@@ -98,30 +93,25 @@ function generateQuestionData(questionPayload, answerPayload, surveyResponseData
 
   // Survey question
   } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
-    if (answerUnit === null) {
+    if (!answerUnit) {
       throw new AnswerUnitMissing();
     }
-    // If the survey hasn't been taken, instruct the user.
-    const surveyDetail = surveyResponseData ?
-      "" :
-      makeSurveyInstruction(UNITS[questionUnit].plural, questionPayload.data.step);
 
     // If the survey has been taken put the answer's info in new surveyResponse object. Else null.
     const surveyResponse = surveyResponseData ? parseUnitValue(surveyResponseData.answer) : null;
-
-    // For the UI we might want to provide a reminder to the user's answer, so add English word.
     if (surveyResponse) {
-      surveyResponse.unitWord =
-        surveyResponse.value === 1 ?
-          UNITS[questionUnit].singular :
-          UNITS[questionUnit].plural;
+      surveyResponse.score = surveyResponseData.score;
     }
 
     return {
       type: questionPayload.type,
       text: questionPayload.data.text,
-      detail: surveyDetail,
+      detail: "",
       data: {
+        fromUnitWord: {
+          singular: UNITS[questionPayload.data.unit].singular,
+          plural: UNITS[questionPayload.data.unit].plural,
+        },
         surveyResponseData: {
           step: questionPayload.data.step,
           surveyRange: {
@@ -134,7 +124,7 @@ function generateQuestionData(questionPayload, answerPayload, surveyResponseData
               unit: questionPayload.data.unit,
             },
           },
-          surveyResponse, // Null or { value: 2, unit: "m", unitWord: "meters" }
+          surveyResponse, // Null or { value: 2, unit: "m", score: 0 }
         },
       },
     };
@@ -163,6 +153,11 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
       answerPayload.data.accuracy,
     );
 
+    generatedAnswer.data.toUnitWord = {
+      singular: UNITS[answerPayload.data.unit].singular,
+      plural: UNITS[answerPayload.data.unit].plural,
+    };
+
     // Survey question
   } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
     // If the survey has been answered generate data.
@@ -182,6 +177,11 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
         surveyResponse.unit,
         questionPayload.data.step,
       );
+
+      generatedAnswer.data.toUnitWord = {
+        singular: UNITS[answerPayload.data.unit].singular,
+        plural: UNITS[answerPayload.data.unit].plural,
+      };
     } else {
       // Otherwise set to null
       generatedAnswer.data.surveyData = null;
@@ -279,34 +279,6 @@ function makeValueFromRange(bottom, top, step) {
   const possibleSteps = Math.max((top - bottom) / step, 1);
 
   return Math.min(bottom + (step * random(possibleSteps)), top);
-}
-
-
-function makeConversionQuestion(value, fromUnit, toUnit) {
-  const fromUnitWord = value === 1 ? UNITS[fromUnit].singular : UNITS[fromUnit].plural;
-  const toUnitWord = UNITS[toUnit].plural;
-
-  const questionForms = [
-    `Convert ${value} ${fromUnitWord} to ${toUnitWord}.`,
-    `What is ${value} ${fromUnitWord} in ${toUnitWord}?`,
-  ];
-
-  return questionForms[random(questionForms.length - 1)];
-}
-
-
-function makeSurveyInstruction(unitWord, step) {
-  const stepDescription = step === 1 || step === 0 ?  // Handle 0 as a 1.
-    "rounded to the nearest whole number" :
-    `rounded to the nearest multiple of ${step}`;
-
-  const instructionForms = [
-    `Write your answer in ${unitWord}, ${stepDescription}.`,
-    `Please give your answer in ${unitWord}, ${stepDescription}.`,
-    `Please answer in ${unitWord} ${stepDescription}.`,
-  ];
-
-  return instructionForms[random(instructionForms.length - 1)];
 }
 
 
