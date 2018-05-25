@@ -21,7 +21,7 @@ const {
 } = require("./qaSyntax");
 
 
-function qaGenerate(questionData, surveyResponseData = null) {
+function qaGenerate(questionData, surveyData = null) {
   const { questionPayload, answerPayload } = parseQAStrings(
     questionData.type,
     questionData.question,
@@ -31,7 +31,7 @@ function qaGenerate(questionData, surveyResponseData = null) {
   const generatedQuestion = generateQuestionData(
     questionPayload,
     answerPayload.data.unit,
-    surveyResponseData,
+    surveyData,
   );
 
   const generatedAnswer = generateAnswerData(
@@ -50,7 +50,7 @@ function qaGenerate(questionData, surveyResponseData = null) {
 }
 
 
-function generateQuestionData(questionPayload, answerUnit = null, surveyResponseData = null) {
+function generateQuestionData(questionPayload, answerUnit = null, surveyData = null) {
   // Written question
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
     return {
@@ -97,10 +97,11 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyResponse
       throw new AnswerUnitMissing();
     }
 
-    // If the survey has been taken put the answer's info in new surveyResponse object. Else null.
-    const surveyResponse = surveyResponseData ? parseUnitValue(surveyResponseData.answer) : null;
-    if (surveyResponse) {
-      surveyResponse.score = surveyResponseData.score;
+    // If the survey has been taken put the answer's info in new response object. Else null.
+    const response = surveyData ? parseUnitValue(surveyData.answer) : null;
+    if (response) {
+      response.score = surveyData.score;
+      response.id = surveyData.id;
     }
 
     return {
@@ -112,7 +113,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyResponse
           singular: UNITS[questionPayload.data.unit].singular,
           plural: UNITS[questionPayload.data.unit].plural,
         },
-        surveyResponseData: {
+        surveyData: {
           step: questionPayload.data.step,
           surveyRange: {
             bottom: {
@@ -124,7 +125,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyResponse
               unit: questionPayload.data.unit,
             },
           },
-          surveyResponse, // Null or { value: 2, unit: "m", score: 0 }
+          response, // Null or { value: 2, unit: "m", score: 0, id: "someSurveyId" }
         },
       },
     };
@@ -161,20 +162,20 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
     // Survey question
   } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
     // If the survey has been answered generate data.
-    const { surveyResponse } = generatedQuestion.data.surveyResponseData;
-    if (surveyResponse) {
+    const { response } = generatedQuestion.data.surveyData;
+    if (response) {
       // Compose conversions
       generatedAnswer.data.conversionData = composeConversionAnswerData(
-        surveyResponse.value,
-        surveyResponse.unit,
+        response.value,
+        response.unit,
         answerPayload.data.unit,
         answerPayload.data.accuracy,
       );
 
       // Compose survey data
       generatedAnswer.data.surveyData = composeSurveyAnswerData(
-        surveyResponse.value,
-        surveyResponse.unit,
+        response.value,
+        response.unit,
         questionPayload.data.step,
       );
 
@@ -276,8 +277,14 @@ function makeValueFromRange(bottom, top, step) {
   if (step <= 0 || bottom === top) {
     return bottom;
   }
+
+  // If the step is larger than the difference between top and bottom, still give 1 a chance.
   const possibleSteps = Math.max((top - bottom) / step, 1);
 
+  // If the random value is higher than top, return top.
+  // For example, a range of [0.5,1ft] with step of 1 can result in 0.5 or 1.5. This becomes
+  // 0.5 or 1.0, so that a range always has a chance of returning more than one value EXCEPT
+  // in the case where bottom and top are the SAME value.
   return Math.min(bottom + (step * random(possibleSteps)), top);
 }
 
