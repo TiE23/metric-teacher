@@ -117,18 +117,18 @@ describe("qaSyntax", () => {
     it("Should parse a survey question", () => {
       const { questionPayload, answerPayload } = parseQAStrings(
         QUESTION_TYPE_SURVEY,
-        "[5,10m]",
-        "[ft]",
+        "How tall are you? [40,96in]",
+        "[cm]",
       );
       expect(questionPayload.type).toBe(QUESTION_TYPE_SURVEY);
-      expect(questionPayload.data.text).toBe("");
-      expect(questionPayload.data.rangeBottom).toBe(5);
-      expect(questionPayload.data.rangeTop).toBe(10);
-      expect(questionPayload.data.unit).toBe("m");
+      expect(questionPayload.data.text).toBe("How tall are you?");
+      expect(questionPayload.data.rangeBottom).toBe(40);
+      expect(questionPayload.data.rangeTop).toBe(96);
+      expect(questionPayload.data.unit).toBe("in");
       expect(questionPayload.data.step).toBe(1);
 
       expect(answerPayload.type).toBe(ANSWER_TYPE_SURVEY);
-      expect(answerPayload.data.unit).toBe("ft");
+      expect(answerPayload.data.unit).toBe("cm");
       expect(answerPayload.data.accuracy).toBe(1);
     });
 
@@ -330,7 +330,17 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      /*  // Won't Fix
+      it("Should reject a survey question with no written context", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_SURVEY,
+            "[40-96in]",
+            "[cm]",
+          );
+        }).toThrowError(QuestionSyntaxError);
+      });
+
+      /*  // Won't Fix, it will default to 1
       it("Should reject a question with bad step", () => {
         expect(() => {
           parseQAStrings(
@@ -425,7 +435,17 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      /*  // Won't Fix
+      it("Should reject a survey answer with invalid unit", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_SURVEY,
+            "How tall are you? [40,96in]",
+            "[foo]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      /*  // Won't Fix, it will default to 1
       it("Should reject a conversion answer with bad accuracy", () => {
         expect(() => {
           parseQAStrings(

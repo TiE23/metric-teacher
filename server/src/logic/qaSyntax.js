@@ -147,6 +147,11 @@ function parseQuestionString(type, question) {
       questionPayload.data.text = baseResult.input.slice(0, baseResult.index - 1).trim();
     }
 
+    // If there was no text for a survey question reject it.
+    if (type === QUESTION_TYPE_SURVEY && !questionPayload.data.text) {
+      throw new QuestionSyntaxError(question, "Survey questions must have written context.");
+    }
+
     // Add the question's syntax body to the payload.
     questionPayload.data.syntax = baseResult[0];
 
