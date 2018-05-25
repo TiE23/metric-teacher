@@ -2,19 +2,28 @@ const {
   QuestionSyntaxError,
   AnswerSyntaxError,
   QuestionAnswerError,
-} = require("./errors");
+} = require("../errors");
 const {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
+  ANSWER_TYPE_SURVEY,
   UNITS,
-} = require("./constants");
+} = require("../constants");
 
 /**
  * Returns two new objects for the question and the answer. The shape of the objects can vary, with
- * two different variations for
+ * two different variations for each:
+ * Question can be:
+ *  Written (only compatible with multiple-choice answers)
+ *  Range (only compatible with conversion answers)
+ *  Survey (only compatible with conversion answers)
+ *
+ * Answer can be:
+ *  Multiple-choice (only compatible with written questions)
+ *  Conversion (only compatible with range or survey)
  *
  * Question: Written ("What temperature does water boil at in Celsius?")
  * {
@@ -60,21 +69,54 @@ const {
  *
  * Answer: Conversion or survey ("[ft(2)a]")
  * {
- *   type: ANSWER_TYPE_CONVERSION,
+ *   type: ANSWER_TYPE_CONVERSION, // Or ANSWER_TYPE_SURVEY (they look the same)
  *   data: {
  *     syntax: "[ft(2)a]"
  *     unit: "ft",
  *     accuracy: 2,               // Defaults to 1 if not defined.
  *   },
  * }
- * @param type
+ * @param questionType
  * @param question
  * @param answer
  * @returns {{questionPayload, answerPayload}}
  */
-function parseQAStrings(type, question, answer) {
-  const questionPayload = parseQuestionString(type, question);
-  const answerPayload = parseAnswerString(answer);
+function parseQAStrings(questionType, question, answer) {
+  const questionPayload = parseQuestionString(questionType, question);
+  const answerPayload = parseAnswerString(questionType, answer);
+
+  // Check that the question/answer types make sense.
+  switch (questionPayload.type) {
+  case QUESTION_TYPE_WRITTEN:
+    if (answerPayload.type !== ANSWER_TYPE_MULTIPLE_CHOICE) {
+      throw new QuestionAnswerError(
+        questionPayload.data.question || questionPayload.data.syntax,
+        answerPayload.data.syntax,
+        "Written questions must have multiple-choice answers.",
+      );
+    }
+    break;
+  case QUESTION_TYPE_CONVERSION:
+    if (answerPayload.type !== ANSWER_TYPE_CONVERSION) {
+      throw new QuestionAnswerError(
+        questionPayload.data.syntax,
+        answerPayload.data.syntax,
+        "Conversion questions must have conversion answers.",
+      );
+    }
+    break;
+  case QUESTION_TYPE_SURVEY:
+    if (answerPayload.type !== ANSWER_TYPE_SURVEY) {
+      throw new QuestionAnswerError(
+        questionPayload.data.syntax,
+        answerPayload.data.syntax,
+        "Survey questions must have survey answers.",
+      );
+    }
+    break;
+  default:
+    break;
+  }
 
   // Check that the units make sense.
   checkUnitCompatibility(questionPayload, answerPayload);
@@ -83,9 +125,9 @@ function parseQAStrings(type, question, answer) {
 }
 
 function parseQuestionString(type, question) {
-  const basePattern = /\[([^\]]+)]/;              // Finds "[20.5-30c(0.5)s]"; Returns "20-30c(0.5)s"
-  const rangePattern = /([\d.]+)-([\d.]+)(\w+)/;  // Finds "20.5-30c"; Returns "20.5", "30", "c"
-  const stepPattern = /\(([\d.]+)\)s/;            // Finds "(0.5)s"; Returns "0.5"
+  const basePattern = /\[([^\]]+)]/;                  // Finds "[20.5,30c(0.5)s]"; Returns "20,30c(0.5)s"
+  const rangePattern = /(-?[\d.]+),(-?[\d.]+)(\w+)/;  // Finds "20.5,30c"; Returns "20.5", "30", "c"
+  const stepPattern = /\(([\d.]+)\)s/;                // Finds "(0.5)s"; Returns "0.5"
 
   const baseResult = question.match(basePattern);
 
@@ -103,6 +145,11 @@ function parseQuestionString(type, question) {
     // If there was text before the pattern make it the question's text.
     if (baseResult.index !== 0) {
       questionPayload.data.text = baseResult.input.slice(0, baseResult.index - 1).trim();
+    }
+
+    // If there was no text for a survey question reject it.
+    if (type === QUESTION_TYPE_SURVEY && !questionPayload.data.text) {
+      throw new QuestionSyntaxError(question, "Survey questions must have written context.");
     }
 
     // Add the question's syntax body to the payload.
@@ -167,16 +214,19 @@ function parseQuestionString(type, question) {
     };
 
   // Detected syntax and reported type not as expected.
-  } else {
-    throw new QuestionSyntaxError(question, `Question type "${type}" was not expected`);
+  } else {  // eslint-disable-line no-else-return
+    throw new QuestionSyntaxError(
+      question,
+      `Question type "${type}" was not expected with question "${question}"`,
+    );
   }
 }
 
 
-function parseAnswerString(answer) {
-  const basePattern = /\[([^\]]+)](\d{0,2})/;   // Finds "[m(0.5)a]"; Returns "m(0.5)a"
+function parseAnswerString(questionType, answer) {
+  // Finds "[1m|2m]2"; Returns "1m|2m", "2" // Finds "[m(0.5)a]"; Returns "m(0.5)a"
+  const basePattern = /\[([^\]]+)](\d{0,2})/;
   const multipleChoiceDelimiter = "|";          // Splits on |
-  const answerPattern = /([\d.]+)(\w+)/;        // Finds "2.5m"; Returns "2.5", "m"
   const unitPattern = /^(\w+)/;                 // Finds "m"; Returns "m"
   const unitAccuracyPattern = /\(([\d.]+)\)a/;  // Finds "(0.5)a"; Returns "0.5"
 
@@ -217,30 +267,7 @@ function parseAnswerString(answer) {
 
     // Parse the choices for values and units.
     const parsedMultipleChoiceAnswers = multipleChoiceAnswers.map((singleAnswer) => {
-      const answerResult = singleAnswer.match(answerPattern);
-      if (answerResult === null) {
-        throw new AnswerSyntaxError(answer, `Answer choice "${singleAnswer}" not valid`);
-      }
-
-      // Parse the value.
-      const value = Number.parseFloat(answerResult[1]);
-      const unit = answerResult[2];
-
-      // Make sure the number was readable.
-      if (Number.isNaN(value)) {
-        throw new AnswerSyntaxError(answer,
-          `Answer choice "${singleAnswer}" contains invalid number`);
-      }
-
-      // Make sure the unit is recognized.
-      if (UNITS[unit] === undefined) {
-        throw new AnswerSyntaxError(answer, `Answer choice "${singleAnswer}" unit not recognized`);
-      }
-
-      return {
-        value,
-        unit,
-      };
+      return parseUnitValue(singleAnswer, answer);
     });
 
     answerPayload.type = ANSWER_TYPE_MULTIPLE_CHOICE;
@@ -248,8 +275,8 @@ function parseAnswerString(answer) {
 
     return answerPayload;
 
-  // Conversion answer...
-  } else {
+  // Conversion / Survey answer...
+  } else {  // eslint-disable-line no-else-return
     // Parse the unit.
     const unitResult = baseResult[1].match(unitPattern);
     if (unitResult !== null) {
@@ -274,58 +301,105 @@ function parseAnswerString(answer) {
       answerPayload.data.accuracy = 1.0;  // Defaults to 1.0
     }
 
-    answerPayload.type = ANSWER_TYPE_CONVERSION;
+    answerPayload.type =
+      questionType === QUESTION_TYPE_CONVERSION ?
+        ANSWER_TYPE_CONVERSION :
+        ANSWER_TYPE_SURVEY;
 
     return answerPayload;
   }
 }
 
 
+function parseUnitValue(unitValue, parentAnswer = "") {
+  const unitValuePattern = /([\d.]+)(\w+)/;
+  const answer = parentAnswer || unitValue;
+
+  const unitValueResult = unitValue.match(unitValuePattern);
+  if (unitValueResult === null) {
+    throw new AnswerSyntaxError(answer, `Answer "${unitValue}" not valid`);
+  }
+
+  // Parse the value.
+  const value = Number.parseFloat(unitValueResult[1]);
+  const unit = unitValueResult[2];
+
+  // Make sure the number was readable.
+  if (Number.isNaN(value)) {
+    throw new AnswerSyntaxError(answer,
+      `Answer "${unitValue}" contains invalid number`);
+  }
+
+  // Make sure the unit is recognized.
+  if (UNITS[unit] === undefined) {
+    throw new AnswerSyntaxError(answer, `Answer "${unitValue}" unit not recognized`);
+  }
+
+  return {
+    value,
+    unit,
+  };
+}
+
+
 function checkUnitCompatibility(questionPayload, answerPayload) {
   if (questionPayload.type === QUESTION_TYPE_CONVERSION ||
     questionPayload.type === QUESTION_TYPE_SURVEY) {
+    // Conversion answer.
     const questionUnit = questionPayload.data.unit;
     const questionUnitSubject = UNITS[questionUnit].subject;
     const questionUnitFamily = UNITS[questionUnit].family;
 
-    // Multiple-choice answer.
-    if (answerPayload.type === ANSWER_TYPE_MULTIPLE_CHOICE) {
-      answerPayload.data.choices.forEach((choice) => {
-        if (UNITS[choice.unit].subject !== questionUnitSubject) {
-          throw new QuestionAnswerError(
-            questionPayload.data.syntax, answerPayload.data.syntax,
-            `Answer unit "${choice.unit}" incompatible with question unit "${questionUnit}"`,
-          );
-        }
-        if (UNITS[choice.unit].family === questionUnitFamily) {
-          throw new QuestionAnswerError(
-            questionPayload.data.syntax, answerPayload.data.syntax,
-            `Answer unit "${choice.unit}" is the same family (${questionUnitFamily}) as question unit "${questionUnit}"`,
-          );
-        }
-      });
-
-    // Conversion answer.
-    } else {
-      if (UNITS[answerPayload.data.unit].subject !== questionUnitSubject) {
-        throw new QuestionAnswerError(
-          questionPayload.data.syntax,
-          answerPayload.data.syntax,
-          `Answer unit "${answerPayload.data.unit}" incompatible with question unit "${questionUnit}"`,
-        );
-      }
-      if (UNITS[answerPayload.data.unit].family === questionUnitFamily) {
-        throw new QuestionAnswerError(
-          questionPayload.data.syntax,
-          answerPayload.data.syntax,
-          `Answer unit "${answerPayload.data.unit}" is the same family (${questionUnitFamily}) as question unit "${questionUnit}"`,
-        );
-      }
+    // Reject answers that are of the wrong subject.
+    // Ex: Convert 10m to l.
+    if (UNITS[answerPayload.data.unit].subject !== questionUnitSubject) {
+      throw new QuestionAnswerError(
+        questionPayload.data.syntax,
+        answerPayload.data.syntax,
+        `Answer unit "${answerPayload.data.unit}" incompatible with question unit "${questionUnit}"`,
+      );
     }
+
+    // Reject answers that are of the same family.
+    // Ex: Convert 10m to km.
+    if (UNITS[answerPayload.data.unit].family === questionUnitFamily) {
+      throw new QuestionAnswerError(
+        questionPayload.data.syntax,
+        answerPayload.data.syntax,
+        `Answer unit "${answerPayload.data.unit}" is the same family (${questionUnitFamily}) as question unit "${questionUnit}"`,
+      );
+    }
+  } else {
+    // Multiple-choice answer.
+    const firstChoiceUnit = answerPayload.data.choices[0].unit;
+    const firstChoiceSubject = UNITS[firstChoiceUnit].subject;
+    const firstChoiceFamily = UNITS[firstChoiceUnit].family;
+
+    // Need to check each answer for problems.
+    answerPayload.data.choices.forEach((choice) => {
+      // Reject multiple choice answers with mixed-up subjects.
+      // Ex: Choices 10km, 10l.
+      if (UNITS[choice.unit].subject !== firstChoiceSubject) {
+        throw new AnswerSyntaxError(
+          answerPayload.data.syntax,
+          "Answer choices have mixed-up measurement subjects",
+        );
+      }
+
+      // Reject multiple choice answers with mixed-up families.
+      // Ex: Choices 10km, 10mi.
+      if (UNITS[choice.unit].family !== firstChoiceFamily) {
+        throw new AnswerSyntaxError(
+          answerPayload.data.syntax,
+          "Answer choices have mixed-up metric / imperial values",
+        );
+      }
+    });
   }
 }
 
 
 module.exports = {
   parseQAStrings,
+  parseUnitValue,
 };

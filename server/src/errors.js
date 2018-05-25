@@ -66,21 +66,58 @@ class UserAlreadyEnrolled extends Error {
 
 class QuestionSyntaxError extends Error {
   constructor(question, reason) {
-    super(`Question "${question}" not valid. Reason: "${reason}".`);
+    super(`Question "${question}" not valid. Reason: "${reason}"`);
   }
 }
 
 class AnswerSyntaxError extends Error {
-  constructor(question, reason) {
-    super(`Question "${question}" not valid. Reason: "${reason}".`);
+  constructor(answer, reason) {
+    super(`Answer "${answer}" not valid. Reason: "${reason}"`);
   }
 }
 
 class QuestionAnswerError extends Error {
   constructor(question, answer, reason) {
-    super(`Question "${question}" and answer "${answer}" not valid together. Reason: "${reason}".`);
+    super(`Question "${question}" and answer "${answer}" not valid together. Reason: "${reason}"`);
   }
 }
+
+class QuestionTypeInvalid extends Error {
+  constructor(questionType) {
+    super(`Question type "${questionType}" not valid`);
+  }
+}
+
+class AnswerUnitMissing extends Error {
+  constructor() {
+    super("Missing answer unit");
+  }
+}
+
+class QuestionSurveyAnswerMissing extends Error {
+  constructor(questionId) {
+    super(`Question "${questionId}" missing survey answer`);
+  }
+}
+
+class UnitTypeUnrecognized extends Error {
+  constructor(unit) {
+    super(`Unit type "${unit}" not recognized`);
+  }
+}
+
+class ConversionIncompatible extends Error {
+  constructor(fromUnitSubject, fromUnitWord, toUnitSubject, toUnitWord) {
+    super(`Impossible to convert ${fromUnitSubject} unit "${fromUnitWord}" to ${toUnitSubject} unit "${toUnitWord}"`);
+  }
+}
+
+class ConversionNegativeValue extends Error {
+  constructor(value, fromUnitWord) {
+    super(`Cannot convert negative amount (${value}) of ${fromUnitWord}`);
+  }
+}
+
 
 module.exports = {
   AuthError,
@@ -97,4 +134,10 @@ module.exports = {
   QuestionSyntaxError,
   AnswerSyntaxError,
   QuestionAnswerError,
+  QuestionTypeInvalid,
+  AnswerUnitMissing,
+  QuestionSurveyAnswerMissing,
+  UnitTypeUnrecognized,
+  ConversionIncompatible,
+  ConversionNegativeValue,
 };

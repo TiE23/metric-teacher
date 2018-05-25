@@ -1,38 +1,38 @@
 mutation {
   ############## Unit
   unit_001: createUnit(data: {
-    name: "meter"
-    description: "The base unit of measure in SI."
+    name: "length"
+    description: "The meter is the base unit of length in SI."
   }) {
     id
   }
   unit_002: createUnit(data: {
-    name: "kilogram"
-    description: "The base unit of mass in SI."
+    name: "mass"
+    description: "The kilogram is the base unit of mass in SI."
   }) {
     id
   }
   unit_003: createUnit(data: {
-    name: "liter"
-    description: "The base unit of volume in SI."
+    name: "volume"
+    description: "The cubic meter is the base unit of volume in SI."
   }) {
     id
   }
   unit_004: createUnit(data: {
-    name: "celsius"
-    description: "The human-friendly adjustment of Kelvin, the base unit of temperature in SI. Based on a 100-degree difference between freezing and boiling water."
+    name: "temperature"
+    description: "Celsius is a human-friendly re-scaling of Kelvin, the base unit of temperature in SI. The freezing temperture of water is the 0 point of Celsius and boiling temperature of water is the 100 point."
   }) {
     id
   }
   unit_005: createUnit(data: {
-    name: "kilometers-per-hour"
-    description: "The common unit of velocity in SI."
+    name: "area"
+    description: "The square meter is the base measurement of area in SI."
   }) {
     id
   }
   unit_006: createUnit(data: {
-    name: "square-meter"
-    description: "The base measurement of area in SI."
+    name: "velocity"
+    description: "Meters-per-second is the base unit of velocity in SI."
   }) {
     id
   }
@@ -186,7 +186,7 @@ mutation {
           description: "Approximately 1 millimeter to 1 meter."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "hand" } }
         },
         {
@@ -194,7 +194,7 @@ mutation {
           description: "Approximately 1/16 inch to 3 feet."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "hand" } }
         },
         {
@@ -202,7 +202,7 @@ mutation {
           description: "Approximately 1 to 3 meters."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "human" } }
         },
         {
@@ -210,7 +210,7 @@ mutation {
           description: "Approximately 3 to 9 feet."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "human" } }
         },
         {
@@ -218,7 +218,7 @@ mutation {
           description: "Approximately 1 to 5 meters."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "room" } }
         },
         {
@@ -226,7 +226,7 @@ mutation {
           description: "Approximately 3 to 16 feet."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "room" } }
         },
         {
@@ -234,7 +234,7 @@ mutation {
           description: "Approximately 3 to 500 meters."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "building" } }
         },
         {
@@ -242,7 +242,7 @@ mutation {
           description: "Approximately 10 to 1600 feet."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "building" } }
         },
         {
@@ -250,7 +250,7 @@ mutation {
           description: "Approximately 500 to 10,000 meters."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "local" } }
         },
         {
@@ -258,7 +258,7 @@ mutation {
           description: "Approximately 1/3 to 6 miles."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "local" } }
         },
         {
@@ -266,7 +266,7 @@ mutation {
           description: "Approximately 10 to 16,000 kilometers."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "geographic" } }
         },
         {
@@ -274,7 +274,7 @@ mutation {
           description: "Approximately 6 to 10,000 miles."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "geographic" } }
         },
         {
@@ -282,7 +282,7 @@ mutation {
           description: "Greater than 16,000 kilometers."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "astronomical" } }
         },
         {
@@ -290,7 +290,7 @@ mutation {
           description: "Greater than 10,000 miles."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "meter" } }
+          unit: { connect: { name: "length" } }
           scale: { connect: { name: "astronomical" } }
         }
       ]
@@ -310,7 +310,7 @@ mutation {
           description: "Approximately 1 to 5000 grams."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "kilogram" } }
+          unit: { connect: { name: "mass" } }
           scale: { connect: { name: "hand" } }
         },
         {
@@ -318,7 +318,7 @@ mutation {
           description: "Approximately the weight of a paper-clip to 12 pounds."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "kilogram" } }
+          unit: { connect: { name: "mass" } }
           scale: { connect: { name: "hand" } }
         },
         {
@@ -326,7 +326,7 @@ mutation {
           description: "Approximately 5 to 150 kilograms."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "kilogram" } }
+          unit: { connect: { name: "mass" } }
           scale: { connect: { name: "human" } }
         },
         {
@@ -334,7 +334,7 @@ mutation {
           description: "Approximately 12 to 330 pounds."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "kilogram" } }
+          unit: { connect: { name: "mass" } }
           scale: { connect: { name: "human" } }
         },
         {
@@ -342,7 +342,7 @@ mutation {
           description: "Approximately 150 to 10,000 kilograms (10 tonnes)."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "kilogram" } }
+          unit: { connect: { name: "mass" } }
           scale: { connect: { name: "street" } }
         },
         {
@@ -350,7 +350,7 @@ mutation {
           description: "Approximately 330 to 22,000 pounds (11 short-tons)."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "kilogram" } }
+          unit: { connect: { name: "mass" } }
           scale: { connect: { name: "street" } }
         },
         {
@@ -358,7 +358,7 @@ mutation {
           description: "Greater than 10,000 kilograms (10 tonnes)."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "kilogram" } }
+          unit: { connect: { name: "mass" } }
           scale: { connect: { name: "building" } }
         },
         {
@@ -366,7 +366,7 @@ mutation {
           description: "Greater than 22,000 pounds (11 short-tons)."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "kilogram" } }
+          unit: { connect: { name: "mass" } }
           scale: { connect: { name: "building" } }
         }
       ]
@@ -386,7 +386,7 @@ mutation {
           description: "Approximately 1 to 10,000 milliliters."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "volume" } }
           scale: { connect: { name: "hand" } }
         },
         {
@@ -394,7 +394,7 @@ mutation {
           description: "Approximately a few drops of liquid to 3 gallons."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "volume" } }
           scale: { connect: { name: "hand" } }
         },
         {
@@ -402,7 +402,7 @@ mutation {
           description: "Approximately 10 to 1,000 liters."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "volume" } }
           scale: { connect: { name: "room" } }
         },
         {
@@ -410,7 +410,7 @@ mutation {
           description: "Approximately 3 to 265 gallons."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "volume" } }
           scale: { connect: { name: "room" } }
         },
         {
@@ -418,7 +418,7 @@ mutation {
           description: "Greater than 1,000 liters."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "volume" } }
           scale: { connect: { name: "room" } }
         },
         {
@@ -426,7 +426,7 @@ mutation {
           description: "Greater than 265 gallons."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "volume" } }
           scale: { connect: { name: "room" } }
         }
       ]
@@ -446,7 +446,7 @@ mutation {
           description: "Approximately -20 to 45 Celsius."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "temperature" } }
           scale: { connect: { name: "weather" } }
         },
         {
@@ -454,7 +454,7 @@ mutation {
           description: "Approximately -5 to 115 Fahrenheit."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "temperature" } }
           scale: { connect: { name: "weather" } }
         },
         {
@@ -462,7 +462,7 @@ mutation {
           description: "Approximately 45 to 350 Celsius."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "temperature" } }
           scale: { connect: { name: "cooking" } }
         },
         {
@@ -470,7 +470,7 @@ mutation {
           description: "Approximately 115 to 665 Fahrenheit."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "temperature" } }
           scale: { connect: { name: "cooking" } }
         },
         {
@@ -478,7 +478,7 @@ mutation {
           description: "Greater than 350 Celsius."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "temperature" } }
           scale: { connect: { name: "chemistry" } }
         },
         {
@@ -486,7 +486,7 @@ mutation {
           description: "Greater than 665 Fahrenheit."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "liter" } }
+          unit: { connect: { name: "temperature" } }
           scale: { connect: { name: "chemistry" } }
         }
       ]
@@ -506,7 +506,7 @@ mutation {
           description: "Approximately 1 to 40 km/h."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "kilometers-per-hour" } }
+          unit: { connect: { name: "velocity" } }
           scale: { connect: { name: "pedestrian" } }
         },
         {
@@ -514,7 +514,7 @@ mutation {
           description: "Approximately 1 to 25 mph."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "kilometers-per-hour" } }
+          unit: { connect: { name: "velocity" } }
           scale: { connect: { name: "pedestrian" } }
         },
         {
@@ -522,7 +522,7 @@ mutation {
           description: "Approximately 40 to 160 km/h."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "kilometers-per-hour" } }
+          unit: { connect: { name: "velocity" } }
           scale: { connect: { name: "transit" } }
         },
         {
@@ -530,7 +530,7 @@ mutation {
           description: "Approximately 25 to 100 mph."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "kilometers-per-hour" } }
+          unit: { connect: { name: "velocity" } }
           scale: { connect: { name: "transit" } }
         },
         {
@@ -538,7 +538,7 @@ mutation {
           description: "Approximately 160 to 350 km/h."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "kilometers-per-hour" } }
+          unit: { connect: { name: "velocity" } }
           scale: { connect: { name: "racing" } }
         },
         {
@@ -546,7 +546,7 @@ mutation {
           description: "Approximately 100 to 220 mph."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "kilometers-per-hour" } }
+          unit: { connect: { name: "velocity" } }
           scale: { connect: { name: "racing" } }
         },
         {
@@ -554,7 +554,7 @@ mutation {
           description: "Approximately 350 to 900 km/h."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "kilometers-per-hour" } }
+          unit: { connect: { name: "velocity" } }
           scale: { connect: { name: "air" } }
         },
         {
@@ -562,7 +562,7 @@ mutation {
           description: "Approximately 220 to 560 mph."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "kilometers-per-hour" } }
+          unit: { connect: { name: "velocity" } }
           scale: { connect: { name: "air" } }
         },
         {
@@ -570,7 +570,7 @@ mutation {
           description: "Greater than 900 km/h."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "kilometers-per-hour" } }
+          unit: { connect: { name: "velocity" } }
           scale: { connect: { name: "rocket" } }
         },
         {
@@ -578,7 +578,7 @@ mutation {
           description: "Greater than 560 mph."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "kilometers-per-hour" } }
+          unit: { connect: { name: "velocity" } }
           scale: { connect: { name: "rocket" } }
         }
       ]
@@ -598,7 +598,7 @@ mutation {
           description: "Approximately 4 to 400 square-meters."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "square-meter" } }
+          unit: { connect: { name: "area" } }
           scale: { connect: { name: "home" } }
         },
         {
@@ -606,7 +606,7 @@ mutation {
           description: "Approximately 40 to 4300 square-feet."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "square-meter" } }
+          unit: { connect: { name: "area" } }
           scale: { connect: { name: "home" } }
         },
         {
@@ -614,7 +614,7 @@ mutation {
           description: "Approximately 400 to 20,000 square-meters."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "square-meter" } }
+          unit: { connect: { name: "area" } }
           scale: { connect: { name: "commercial" } }
         },
         {
@@ -622,7 +622,7 @@ mutation {
           description: "Approximately 4300 to 215,000 square-feet."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "square-meter" } }
+          unit: { connect: { name: "area" } }
           scale: { connect: { name: "commercial" } }
         },
         {
@@ -630,7 +630,7 @@ mutation {
           description: "Approximately 2 to 100 hectares."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "square-meter" } }
+          unit: { connect: { name: "area" } }
           scale: { connect: { name: "land" } }
         },
         {
@@ -638,7 +638,7 @@ mutation {
           description: "Approximately 5 to 250 acres."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "square-meter" } }
+          unit: { connect: { name: "area" } }
           scale: { connect: { name: "land" } }
         },
         {
@@ -646,7 +646,7 @@ mutation {
           description: "Approximately 1 to 20,000 square kilometers."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "square-meter" } }
+          unit: { connect: { name: "area" } }
           scale: { connect: { name: "jurisdiction" } }
         },
         {
@@ -654,7 +654,7 @@ mutation {
           description: "Approximately 1/3 to 7700 square miles."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "square-meter" } }
+          unit: { connect: { name: "area" } }
           scale: { connect: { name: "jurisdiction" } }
         },
         {
@@ -662,7 +662,7 @@ mutation {
           description: "Greater than 20,000 square kilometers."
           toMetric: true
           rarity: 0
-          unit: { connect: { name: "square-meter" } }
+          unit: { connect: { name: "area" } }
           scale: { connect: { name: "territory" } }
         },
         {
@@ -670,7 +670,7 @@ mutation {
           description: "Greater than 7700 square miles."
           toMetric: false
           rarity: 0
-          unit: { connect: { name: "square-meter" } }
+          unit: { connect: { name: "area" } }
           scale: { connect: { name: "territory" } }
         }
       ]
