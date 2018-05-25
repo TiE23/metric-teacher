@@ -12,9 +12,6 @@ const {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
-  ANSWER_TYPE_MULTIPLE_CHOICE,
-  ANSWER_TYPE_CONVERSION,
-  ANSWER_TYPE_SURVEY,
   CONVERSION_CHOICE_OPTIONS_MULTIPLIERS,
   UNITS,
 } = require("../constants");
@@ -31,55 +28,31 @@ function qaGenerate(questionData, surveyData = null) {
     questionData.answer,
   );
 
-  const composedQuestion = composeQuestionData(
+  const generatedQuestion = generateQuestionData(
     questionPayload,
     answerPayload,
     surveyData,
   );
 
-  const composedAnswer = {
-    type: answerPayload.type,
-    data: {},
-  };
-
-  // Get multiple choice data
-  if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
-    composedAnswer.data.multipleChoiceData = composeWrittenAnswerData(answerPayload);
-
-  // Get conversion data
-  } else if (questionPayload.type === QUESTION_TYPE_CONVERSION ||
-    questionPayload.type === QUESTION_TYPE_SURVEY) {
-    const composedConversionData = composedQuestion.data.conversionData;
-    composedAnswer.data.conversionData = composeConversionAnswerData(
-      answerPayload,
-      questionPayload,
-      composedConversionData,
-    );
-
-  // Survey question
-  } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
-    const composedSurveyData = composedQuestion.data.surveyData;
-
-    composedAnswer.data.surveyData = null;
-
-  // Type not recognized!
-  } else {  // eslint-disable-line no-else-return
-    throw new QuestionTypeInvalid(questionPayload.type);
-  }
-
+  const generatedAnswer = generateAnswerData(
+    questionPayload,
+    answerPayload,
+    generatedQuestion,
+  );
 
   return {
     questionId: questionData.id,
     subSubjectId: questionData.parent,
     difficulty: questionData.difficulty,
-    question: composedQuestion,
-    answer: composedAnswer,
+    question: generatedQuestion,
+    answer: generatedAnswer,
   };
 }
 
 
-function composeQuestionData(questionPayload, answerPayload, surveyData = null) {
+function generateQuestionData(questionPayload, answerPayload, surveyData = null) {
   const answerUnit = (answerPayload.data && answerPayload.data.unit) || null;
+  const questionUnit = questionPayload.data.unit;
 
   // Written question
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
@@ -96,13 +69,13 @@ function composeQuestionData(questionPayload, answerPayload, surveyData = null) 
       throw new AnswerUnitMissing();
     }
 
-    const value = generateValueFromRange(
+    const value = makeValueFromRange(
       questionPayload.data.rangeBottom,
       questionPayload.data.rangeTop,
       questionPayload.data.step,
     );
 
-    const questionText = generateConversionQuestion(
+    const questionText = makeConversionQuestion(
       value,
       questionPayload.data.unit,
       answerUnit,
@@ -131,7 +104,7 @@ function composeQuestionData(questionPayload, answerPayload, surveyData = null) 
     // If the survey hasn't been taken, instruct the user.
     const surveyDetail = surveyData ?
       "" :
-      generateSurveyInstruction(UNITS[answerUnit].plural, questionPayload.data.step);
+      makeSurveyInstruction(UNITS[questionUnit].plural, questionPayload.data.step);
 
     // If the survey has been taken put the answer's info in new surveyAnswer object. Else null.
     const surveyAnswer = surveyData ? parseUnitValue(surveyData.answer) : null;
@@ -140,8 +113,8 @@ function composeQuestionData(questionPayload, answerPayload, surveyData = null) 
     if (surveyAnswer) {
       surveyAnswer.unitWord =
         surveyAnswer.value === 1 ?
-          UNITS[surveyAnswer.unit].singular :
-          UNITS[surveyAnswer.unit].plural;
+          UNITS[questionUnit].singular :
+          UNITS[questionUnit].plural;
     }
 
     return {
@@ -171,6 +144,56 @@ function composeQuestionData(questionPayload, answerPayload, surveyData = null) 
 }
 
 
+function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
+  const generatedAnswer = {
+    type: answerPayload.type,
+    data: {},
+  };
+
+  // Get multiple choice data
+  if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
+    generatedAnswer.data.multipleChoiceData = composeWrittenAnswerData(answerPayload);
+
+    // Get conversion data
+  } else if (questionPayload.type === QUESTION_TYPE_CONVERSION) {
+    generatedAnswer.data.conversionData = composeConversionAnswerData(
+      generatedQuestion.data.conversionData.exact.value,
+      generatedQuestion.data.conversionData.exact.unit,
+      answerPayload.data.unit,
+      answerPayload.data.accuracy,
+    );
+
+    // Survey question
+  } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
+    // If the survey has been answered generate data.
+    const { surveyAnswer } = generatedQuestion.data.surveyData;
+    if (surveyAnswer) {
+      generatedAnswer.data.conversionData = composeConversionAnswerData(
+        surveyAnswer.value,
+        surveyAnswer.unit,
+        answerPayload.data.unit,
+        answerPayload.data.accuracy,
+      );
+
+      generatedAnswer.data.surveyData = composeSurveyAnswerData(
+        surveyAnswer.value,
+        surveyAnswer.unit,
+        questionPayload.data.step,
+      );
+    } else {
+      // Otherwise set to null
+      generatedAnswer.data.surveyData = null;
+    }
+
+    // Type not recognized!
+  } else {
+    throw new QuestionTypeInvalid(questionPayload.type);
+  }
+
+  return generatedAnswer;
+}
+
+
 function composeWrittenAnswerData(answerPayload) {
   return {
     choicesOffered: answerPayload.data.choicesOffered,
@@ -179,46 +202,47 @@ function composeWrittenAnswerData(answerPayload) {
 }
 
 
-function composeConversionAnswerData(answerPayload, questionPayload, composedConversionData) {
-  const answerUnit = answerPayload.data.unit;
-  const { value, unit } = composedConversionData.exact;
-  const { roundedValue, exactValue, roundingLevel } = convertValue(value, unit, answerUnit);
-  const { accuracy } = answerPayload.data;
-  const isTemperature = UNITS[answerUnit].subject === "temperature";
+function composeConversionAnswerData(fromValue, fromUnit, toUnit, toAccuracy) {
+  const { roundedValue, exactValue, roundingLevel } = convertValue(fromValue, fromUnit, toUnit);
+  const isTemperature = UNITS[toUnit].subject === "temperature";
 
   // Figure out the ranges.
-  let bottomValue = round(roundedValue - accuracy, roundingLevel);
+  let bottomValue = round(roundedValue - toAccuracy, roundingLevel);
   if (!isTemperature) {
     bottomValue = Math.max(bottomValue, 0); // When not temperature do not let bottom be negative.
   }
-  const topValue = round(roundedValue + accuracy, roundingLevel);
+  const topValue = round(roundedValue + toAccuracy, roundingLevel);
 
   // roundedValue, accuracy, isTemperature
-  const choices = generateChoices(
+  const choices = makeChoices(
     roundedValue,
     roundingLevel,
-    answerUnit,
-    accuracy,
+    toUnit,
+    toAccuracy,
     isTemperature,
   );
 
-
   return {
-    accuracy,
+    accuracy: toAccuracy,
     exact: exactValue,
     rounded: roundedValue,
     range: {
-      bottom: { value: bottomValue, unit: answerUnit },
-      top: { value: topValue, unit: answerUnit },
+      bottom: { value: bottomValue, unit: toUnit },
+      top: { value: topValue, unit: toUnit },
     },
     choices,
   };
 }
 
 
-function composeSurveyAnswerData(answerPayload, questionPayload, composedSurveyData) {
-  //
+function composeSurveyAnswerData(value, unit, step) {
+  const roundingLevel = UNITS[unit].round;
+  const isTemperature = UNITS[unit].subject === "temperature";
+  return {
+    choices: makeChoices(value, roundingLevel, unit, step, isTemperature),
+  };
 }
+
 
 /**
  * Generate the nine choices.
@@ -226,27 +250,27 @@ function composeSurveyAnswerData(answerPayload, questionPayload, composedSurveyD
  * a half-step answer. If roundedValue = 1 and accuracy = 1, it will generate for temperature:
  * [ 1, 0, 2,  -1, 3,  -2, 4,  -3, 5 ], else
  * [ 1, 0, 2, 2.5, 3, 3.5, 4, 4.5, 5 ] for everything else that cannot go negative.
- * @param roundedValue
+ * @param value
  * @param roundingLevel
- * @param answerUnit
- * @param accuracy
+ * @param unit
+ * @param step
  * @param isTemperature
  * @returns {*}
  */
-function generateChoices(roundedValue, roundingLevel, answerUnit, accuracy, isTemperature) {
+function makeChoices(value, roundingLevel, unit, step, isTemperature) {
   const choiceValues = CONVERSION_CHOICE_OPTIONS_MULTIPLIERS.map((multiplier) => {
-    let choiceValue = roundedValue + (accuracy * multiplier);
+    let choiceValue = value + (step * multiplier);
     if (choiceValue < 0 && !isTemperature) {
-      choiceValue = roundedValue + (accuracy * (Math.abs(multiplier) - 0.5));
+      choiceValue = value + (step * (Math.abs(multiplier) - 0.5));
     }
     return round(choiceValue, roundingLevel);
   });
 
-  return choiceValues.map(choice => ({ value: choice, unit: answerUnit }));
+  return choiceValues.map(choice => ({ value: choice, unit }));
 }
 
 
-function generateValueFromRange(bottom, top, step) {
+function makeValueFromRange(bottom, top, step) {
   if (step <= 0 || bottom === top) {
     return bottom;
   }
@@ -256,7 +280,7 @@ function generateValueFromRange(bottom, top, step) {
 }
 
 
-function generateConversionQuestion(value, fromUnit, toUnit) {
+function makeConversionQuestion(value, fromUnit, toUnit) {
   const fromUnitWord = value === 1 ? UNITS[fromUnit].singular : UNITS[fromUnit].plural;
   const toUnitWord = UNITS[toUnit].plural;
 
@@ -269,7 +293,7 @@ function generateConversionQuestion(value, fromUnit, toUnit) {
 }
 
 
-function generateSurveyInstruction(unitWord, step) {
+function makeSurveyInstruction(unitWord, step) {
   const stepDescription = step === 1 || step === 0 ?  // Handle 0 as a 1.
     "rounded to the nearest whole number" :
     `rounded to the nearest multiple of ${step}`;
