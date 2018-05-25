@@ -14,7 +14,6 @@ const {
   qaGenerate,
 } = require("../../logic/qaGenerator");
 
-debugger;
 
 describe("qaGenerator", () => {
   describe("Happy Path", () => {
