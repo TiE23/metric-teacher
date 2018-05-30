@@ -1654,4 +1654,1880 @@ mutation {
     id
   }
 
+
+  ####### Mass
+  ### Hand
+  ## To Metric
+  # Written
+  question_mass_hand_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_hand_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_mass_hand_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_hand_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Human
+  ## To Metric
+  # Written
+  question_mass_human_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_human_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_mass_human_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_human_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Street
+  ## To Metric
+  # Written
+  question_mass_street_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_street_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_mass_street_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_street_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Building
+  ## To Metric
+  # Written
+  question_mass_building_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_building_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_mass_building_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_building_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ####### Volume
+  ### Hand
+  ## To Metric
+  # Written
+  question_volume_hand_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_hand_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_volume_hand_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_hand_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Room
+  ## To Metric
+  # Written
+  question_volume_room_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_room_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_volume_room_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_room_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Street
+  ## To Metric
+  # Written
+  question_volume_hand_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_hand_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_volume_hand_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_hand_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ####### Temperature
+  ### Weather
+  ## To Metric
+  # Written
+  question_temperature_weather_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_weather_toMetric_006: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_007: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_008: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_009: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_010: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Survey
+  question_temperature_weather_toMetric_011: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_012: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_temperature_weather_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_weather_fromMetric_006: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_007: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_008: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_009: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_010: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Cooking
+  ## To Metric
+  # Written
+  question_temperature_cooking_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_cooking_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_temperature_cooking_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_cooking_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Chemistry
+  ## To Metric
+  # Written
+  question_temperature_chemistry_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_chemistry_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_temperature_chemistry_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_chemistry_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ####### Velocity
+  ### Pedestrian
+  ## To Metric
+  # Written
+  question_velocity_pedestrian_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_pedestrian_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_velocity_pedestrian_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_pedestrian_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Transit
+  ## To Metric
+  # Written
+  question_velocity_transit_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Transit-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_transit_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Transit-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_velocity_transit_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Transit-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_transit_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Transit-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Racing
+  ## To Metric
+  # Written
+  question_velocity_racing_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Racing-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_racing_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Racing-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_velocity_racing_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Racing-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_racing_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Racing-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Air
+  ## To Metric
+  # Written
+  question_velocity_air_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Air-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_air_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Air-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_velocity_air_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Air-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_air_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Air-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Rocket
+  ## To Metric
+  # Written
+  question_velocity_rocket_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Rocket-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_rocket_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Rocket-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_velocity_rocket_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Rocket-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_rocket_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Rocket-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ####### Area
+  ### Home
+  ## To Metric
+  # Written
+  question_area_home_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_home_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_home_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_home_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Commercial
+  ## To Metric
+  # Written
+  question_area_commercial_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_commercial_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_commercial_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_commercial_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Land
+  ## To Metric
+  # Written
+  question_area_land_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_land_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_land_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_land_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Jurisdictional
+  ## To Metric
+  # Written
+  question_area_jurisdictional_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_jurisdictional_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_jurisdictional_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_jurisdictional_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Territory
+  ## To Metric
+  # Written
+  question_area_territory_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_territory_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_territory_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_territory_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: ""
+    answer: ""
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
 }
