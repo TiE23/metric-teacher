@@ -169,6 +169,14 @@ describe("qaGenerator", () => {
         expect(qaFormat.answer.data.conversionData.choices[8].value).toBe(4.551);
       });
 
+      it("Should parse a Conversion question with context added", () => {
+        baseConversionQuestion.question = "This weight is typical of a 5 year old child. [35,45lb]";
+        baseConversionQuestion.answer = "[kg]";
+        const qaFormat = qaGenerate(baseConversionQuestion);
+
+        expect(qaFormat.question.detail).toBe("This weight is typical of a 5 year old child.");
+      });
+
       it("Should parse a Conversion question with a messy conversion", () => {
         baseConversionQuestion.question = "[5.25,5.25c]";
         const qaFormat = qaGenerate(baseConversionQuestion);

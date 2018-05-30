@@ -788,4 +788,870 @@ mutation {
     id
   }
 
+
+  ############## Questions
+  ####### Length
+  ### Hand
+  ## To Metric
+  # Written
+  question_length_hand_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "How many centimeters are in an inch?"
+    answer: "[2.54cm|2cm|3cm|2.45cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The average adult man's foot is about 11 inches. How many centimeters is that?"
+    answer: "[28cm|30cm|26cm|25cm|31cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_hand_toMetric_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[0.5,12in(0.5)s]"
+    answer: "[cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_hand_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "How long is a 30 centimeter ruler in inches?"
+    answer: "[11.8in|12in|11in|11.5in|12.54in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "School rulers in Metric countries are typically 30 centimeters in length. How long is that in inches?"
+    answer: "[11.8in|12in|12.4in|11.2in|11.5in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The standard size 5 football (soccer ball) is 22 centimeters in diameter. How many inches is that?"
+    answer: "[8.7in|9.9in|7.1in|11in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_hand_fromMetric_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[2,25cm(2)s]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Human
+  ## To Metric
+  # Written
+  question_length_human_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "Which is longer?"
+    answer: "[1m|1yd]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In the major league a baseball bat can be at most 42 inches long, approximately how long is that?"
+    answer: "[107cm|100cm|103cm|115cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Typically a height of 6 feet for a man is considered tall. How many centimeters is that?"
+    answer: "[183cm|180cm|177cm|200cm|191cm|188cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A doorway in an American home can be 7 feet tall. How many centimeters is that?"
+    answer: "[213cm|205cm|200cm|194cm|219cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In 2014 the averge height of an American woman was 5 foot, 3.5 inches. How many centimeters is that?"
+    answer: "[162cm|160cm|154cm|166cm|152cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_human_toMetric_006: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[3,9ft]"
+    answer: "[m(0.1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_007: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Typical height of an adult American man. [65,74in]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_008: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Typical height of an adult American woman. [60,70in]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_009: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Typical length of a broom handle. [48,60in(6)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_010: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Typical inseam length of a pair of pants. [28,36in(2)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Survey
+  question_length_human_toMetric_011: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "How tall are you? [40,90in]"
+    answer: "[cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_012: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Starting at what height would you describe an adult man to be 'very tall'? [72,80in]"
+    answer: "[cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_human_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A meter stick is a little longer than a yard stick (36 inches). But how many inches is it specifically?"
+    answer: "[39.4in|39.0in|36.4in|37.1in|38.5in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A queen size mattress in America is 152 centimeters wide. How many inches is that?"
+    answer: "[60in|70in|80in|90in|100in|50in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A queen size mattress in America is 203 centimeters long. How many inches is that?"
+    answer: "[80in|70in|60in|90in|100in|110in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "LeBron James is 2.03 meters tall. How tall is he in inches?"
+    answer: "[80in|78in|81in|79in|82in]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The Prime Minister of Canada, Justin Trudeau, is 1.88 meters tall. The President of the United States, Donald Trump, is 6 feet, 3 inches. Which is taller?"
+    answer: "[75in|1.88m]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_human_fromMetric_006: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,3m(0.25)s]"
+    answer: "[in(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_007: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a height typical of an adult American man. [1.70,1.85m(0.01)s]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_008: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a height typical of an adult American woman. [1.50,1.78m(0.01)s]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_009: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a height typical of a kitchen counter. [0.95,1.05m(0.01)s]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_010: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,3m(0.5)s]"
+    answer: "[ft(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Room
+  ## To Metric
+  # Written
+  question_length_room_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A mid-size car such as an Accord, Camry, Fusion, or Malibu is typically 16 feet long. How long is that in meters?"
+    answer: "[4.9m|3.9m|4m|5.5m|4.4m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_room_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[5,16ft]"
+    answer: "[m(0.2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_room_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "The ceiling in a room of a typical American home is about 2.4 meters. How high is that in feet?"
+    answer: "[8ft|9ft|10ft|10.5ft]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_room_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,5m(0.1)s]"
+    answer: "[ft(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Building
+  ## To Metric
+  # Written
+  question_length_building_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The standard utility/telephone pole in the United States is about 40 feet. How many meters is that?"
+    answer: "[12m|11m|10.5m|14m|15m|14.5m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_building_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[100,2000ft(100)s]"
+    answer: "[m(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_building_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The height of the Eiffel Tower is 324 meters. How many feet is that?"
+    answer: "[1063ft|1004ft|972ft|1199ft|1300ft|1101ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_building_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[50,500m(50)s]"
+    answer: "[ft(30)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Local
+  ## To Metric
+  # Written
+  question_length_local_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The Burj Khalifa skyscraper is 1918 feet tall. How tall is that in meters?"
+    answer: "[584.5m|630m|530.5m|719m|801.2m|900m|994m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_local_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[0.5,6mi(0.5)s]"
+    answer: "[km(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_local_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A \"10k\" run is how long in miles?"
+    answer: "[6.2mi|5.4mi|14mi|5mi|6.8mi|10.4mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_local_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[0.5km,10km(0.5)s]"
+    answer: "[mi(0.2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Geographic
+  ## To Metric
+  # Written
+  question_length_geographic_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The state of California is approximately 720 miles \"long\" from north to south. How far is that in kilometers?"
+    answer: "[1158km|1053km|1289km|1422km|998km|1440km]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_geographic_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[100,10000mi(100)s]"
+    answer: "[km(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_geographic_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Between England and France lies the Straight of Dover, the narrowest part of the English Channel. It is about 33 kilometers wide. How far is that distance in miles?"
+    answer: "[20.5mi|20mi|18.5mi|19mi|17mi|16mi|22mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_geographic_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[100,16000km(100)s]"
+    answer: "[mi(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Astronomical
+  ## To Metric
+  # Written
+  question_length_astronomical_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The Earth's circumference is 24,901 miles. What is that distance in kilometers?"
+    answer: "[40074km|39022km|37009km|41095km|42015km|43053km|44012km]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_astronomical_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[10000,1000000mi(10000)s]"
+    answer: "[km(20000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_astronomical_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The distance from the Earth to the Moon is 384,400 kilometers. How many miles is that?"
+    answer: "[238900mi|294200mi|206400mi|780215mi|190230mi|180600mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_astronomical_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[20000,1600000(10000)s]"
+    answer: "[mi(10000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
 }
