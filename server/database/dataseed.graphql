@@ -399,7 +399,7 @@ mutation {
         },
         {
           name: "Volume - Room-scale - To Metric"
-          description: "Approximately 10 to 1,000 liters."
+          description: "Approximately 10 to 2,000 liters."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "volume" } }
@@ -407,7 +407,7 @@ mutation {
         },
         {
           name: "Volume - Room-scale - From Metric"
-          description: "Approximately 3 to 265 gallons."
+          description: "Approximately 3 to 525 gallons."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "volume" } }
@@ -415,7 +415,7 @@ mutation {
         },
         {
           name: "Volume - Street-scale - To Metric"
-          description: "Greater than 1,000 liters."
+          description: "Greater than 2,000 liters."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "volume" } }
@@ -423,7 +423,7 @@ mutation {
         },
         {
           name: "Volume - Street-scale - From Metric"
-          description: "Greater than 265 gallons."
+          description: "Greater than 525 gallons."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "volume" } }
@@ -459,7 +459,7 @@ mutation {
         },
         {
           name: "Temperature - Cooking-scale - To Metric"
-          description: "Approximately 45 to 350 Celsius."
+          description: "Approximately 45 to 300 Celsius."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "temperature" } }
@@ -467,7 +467,7 @@ mutation {
         },
         {
           name: "Temperature - Cooking-scale - From Metric"
-          description: "Approximately 115 to 665 Fahrenheit."
+          description: "Approximately 115 to 572 Fahrenheit."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "temperature" } }
@@ -475,7 +475,7 @@ mutation {
         },
         {
           name: "Temperature - Chemistry-scale - To Metric"
-          description: "Greater than 350 Celsius."
+          description: "Greater than 300 Celsius."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "temperature" } }
@@ -483,7 +483,7 @@ mutation {
         },
         {
           name: "Temperature - Chemistry-scale - From Metric"
-          description: "Greater than 665 Fahrenheit."
+          description: "Greater than 572 Fahrenheit."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "temperature" } }
@@ -551,7 +551,7 @@ mutation {
         },
         {
           name: "Velocity - Air-scale - To Metric"
-          description: "Approximately 350 to 900 km/h."
+          description: "Approximately 350 to 1000 km/h."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "velocity" } }
@@ -559,7 +559,7 @@ mutation {
         },
         {
           name: "Velocity - Air-scale - From Metric"
-          description: "Approximately 220 to 560 mph."
+          description: "Approximately 220 to 620 mph."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "velocity" } }
@@ -567,7 +567,7 @@ mutation {
         },
         {
           name: "Velocity - Rocket-scale - To Metric"
-          description: "Greater than 900 km/h."
+          description: "Greater than 1000 km/h."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "velocity" } }
@@ -575,7 +575,7 @@ mutation {
         },
         {
           name: "Velocity - Rocket-scale - From Metric"
-          description: "Greater than 560 mph."
+          description: "Greater than 620 mph."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "velocity" } }
@@ -884,7 +884,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The standard size 5 football (soccer ball) is 22 centimeters in diameter. How many inches is that?"
+    question: "The standard size 5 soccer ball is 22 centimeters in diameter. How many inches is that?"
     answer: "[8.7in|9.9in|7.1in|11in]"
     media: ""
     parent: {
@@ -1642,7 +1642,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "[20000,1600000(10000)s]"
+    question: "[20000,1600000km(10000)s]"
     answer: "[mi(10000)a]"
     media: ""
     parent: {
@@ -1664,8 +1664,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The iPhone 8 weighs 5.2 ounces, a typical weight for a smart phone. How many grams is that?"
+    answer: "[147g|65g|122g|100g]"
     media: ""
     parent: {
       connect: {
@@ -1682,8 +1682,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[1,16oz]"
+    answer: "[g(15)a]"
     media: ""
     parent: {
       connect: {
@@ -1700,9 +1700,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "In countries that use the metric system it is common to report calorie counts per 100 grams of food. How many ounces is 100 grams?"
+    answer: "[3.5oz|3oz|2.5oz|2oz|1.5oz|1oz|4oz|4.5oz|5oz|5.5oz]4"
     media: ""
     parent: {
       connect: {
@@ -1719,8 +1719,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[500,5000g(500)s]"
+    answer: "[lb(0.25)a]"
     media: ""
     parent: {
       connect: {
@@ -1738,9 +1738,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 4
+    question: "The average adult American woman weighs 166 pounds. What is that in kilograms?"
+    answer: "[75kg|71kg|68kg|64kg|62kg|78kg|81kg|84kg|88kg]4"
     media: ""
     parent: {
       connect: {
@@ -1756,9 +1756,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 4
+    question: "[50,250lb(10)s]"
+    answer: "[kg]"
     media: ""
     parent: {
       connect: {
@@ -1775,9 +1775,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 1
+    question: "Imagine being told an athlete weighed 100 kilograms. Is that pretty big? Convert that weight to pounds."
+    answer: "[220.5kg|200kg|200.5kg|215kg|215.5kg|210kg|210.5kg|230kg|230.5kg]4"
     media: ""
     parent: {
       connect: {
@@ -1793,9 +1793,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "[25,125kg(5)s]"
+    answer: "[lb(2)a]"
     media: ""
     parent: {
       connect: {
@@ -1813,9 +1813,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "Road motorcycles can weigh 500 pounds or more. How many kilograms are equal to 500 pounds?"
+    answer: "[227kg|250kg|220kg|230kg|233kg|253kg|223kg|217kg]4"
     media: ""
     parent: {
       connect: {
@@ -1832,8 +1832,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[1000,22000lb(500)s]"
+    answer: "[kg(50)a]"
     media: ""
     parent: {
       connect: {
@@ -1850,9 +1850,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "A standard 40 foot shipping container used in international trade weighs 3,800 kilograms when empty. How heavy is that in pounds?"
+    answer: "[8380lb|8040lb|8560lb|8880lb|7800lb|6600lb|7620lb|8000lb]4"
     media: ""
     parent: {
       connect: {
@@ -1869,8 +1869,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[500,10000kg(250)s]"
+    answer: "[lb(100)a]"
     media: ""
     parent: {
       connect: {
@@ -1888,9 +1888,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "The Boeing 737-800 is considered an average sized airliner. Without fuel it weighs 45 short-tons. How heavy is that in metric tonnes?"
+    answer: "[40.8tonne|45tonne|45.2tonne|38.6tonne|44.4tonne|42tonne|4.5tonne|22.5tonne]4"
     media: ""
     parent: {
       connect: {
@@ -1906,9 +1906,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "This is a mass typical of an empty passenger airliner. [45,200ton(5)s]"
+    answer: "[tonne(2)a]"
     media: ""
     parent: {
       connect: {
@@ -1926,8 +1926,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "Olympic-class ferries found in Seattle can carry 1500 passengers and 144 vehicles. Its displacement (weight of the vessel itself) is 4450 metric tonnes. Convert that to US tons."
+    answer: "[4905ton|5005ton|5105ton|5205ton|4805ton|4705ton|4605ton|4505ton|4450ton]4"
     media: ""
     parent: {
       connect: {
@@ -1944,8 +1944,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This is a mass typical of a main battle tank. [25,65tonne(5)s]"
+    answer: "[ton(2)a]"
     media: ""
     parent: {
       connect: {
@@ -1957,25 +1957,6 @@ mutation {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ####### Volume
   ### Hand
   ## To Metric
@@ -1984,9 +1965,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "A 20 fluid ounce bottle is approximately how many milliliters?"
+    answer: "[590ml|520ml|640ml|490ml|500ml|700ml|600ml]4"
     media: ""
     parent: {
       connect: {
@@ -2002,9 +1983,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "[8,64floz(4)s]"
+    answer: "[ml(30)a]"
     media: ""
     parent: {
       connect: {
@@ -2021,9 +2002,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "An uncommon sign of the metric system making its way into US markets the oddly-sized 16.9 fluid ounce bottle is actually based off a milliliter amount. How many milliliters is it?"
+    answer: "[500ml|400ml|600ml|300ml|250ml|333ml|355ml|750ml|1000ml]4"
     media: ""
     parent: {
       connect: {
@@ -2040,8 +2021,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[250,2000ml(250)s]"
+    answer: "[floz(2)a]"
     media: ""
     parent: {
       connect: {
@@ -2059,9 +2040,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 4
+    question: "The average bathtub holds around 80 gallons of water. How many liters is that?"
+    answer: "[302l|210l|240l|248l|320l|284l|346l|360l|368l]4"
     media: ""
     parent: {
       connect: {
@@ -2078,8 +2059,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[10,250gal(10)s]"
+    answer: "[l(5)a]"
     media: ""
     parent: {
       connect: {
@@ -2097,8 +2078,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "A hot tub for six people can contain around 1300 liters of water. How many gallons is that?"
+    answer: "[343gal|306gal|288gal|409gal|320gal|440gal]4"
     media: ""
     parent: {
       connect: {
@@ -2115,8 +2096,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[50,1000l(50)s]"
+    answer: "[gal(15)a]"
     media: ""
     parent: {
       connect: {
@@ -2130,13 +2111,13 @@ mutation {
   ### Street
   ## To Metric
   # Written
-  question_volume_hand_toMetric_001: createQuestion(data: {
+  question_volume_street_toMetric_001: createQuestion(data: {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "Olympic-sized swimming pools are very large and contain at a minimum 660,000 gallons. How many liters is that?"
+    answer: "[2500000l|2250000l|2750000l|3000000l|3250000l|3500000l|3750000l]4"
     media: ""
     parent: {
       connect: {
@@ -2148,13 +2129,13 @@ mutation {
   }
 
   # Conversion
-  question_volume_hand_toMetric_002: createQuestion(data: {
+  question_volume_street_toMetric_002: createQuestion(data: {
     type: 1
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This is a volume you might find in a swimming pool. [25000,250000gal(25000)s]"
+    answer: "[l(9000)a]"
     media: ""
     parent: {
       connect: {
@@ -2167,13 +2148,13 @@ mutation {
 
   ## From Metric
   # Written
-  question_volume_hand_fromMetric_001: createQuestion(data: {
+  question_volume_street_fromMetric_001: createQuestion(data: {
     type: 0
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "In the US, a circular, above-ground pool that one could buy at a store is commonly 16 feet wide, 4.5 feet deep, and can hold around 25,000 liters of water. How many gallons is that?"
+    answer: "[6600gal|6000gal|5700gal|5400gal|5000gal|3900gal|2000gal]4"
     media: ""
     parent: {
       connect: {
@@ -2185,13 +2166,13 @@ mutation {
   }
 
   # Conversion
-  question_volume_hand_fromMetric_002: createQuestion(data: {
+  question_volume_street_fromMetric_002: createQuestion(data: {
     type: 1
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This is a volume you might find in a swimming pool. [100000,1000000l(100000)s]"
+    answer: "[gal(3000)a]"
     media: ""
     parent: {
       connect: {
@@ -2203,25 +2184,6 @@ mutation {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ####### Temperature
   ### Weather
   ## To Metric
@@ -2230,9 +2192,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "Room temperature is commonly considered to be 72 degrees Fahrenheit. What is it in Celsius?"
+    answer: "[22c|21c|20c|19c|18c|23c|24c|25c]4"
     media: ""
     parent: {
       connect: {
@@ -2247,8 +2209,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The average normal body temperature is generally accepted as 98.6 degrees Fahrenheit. What is it in Celsius?"
+    answer: "[37c|36c|35c|34c|33c|38c|39c|40c|41c]4"
     media: ""
     parent: {
       connect: {
@@ -2263,8 +2225,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The record highest temperature in the world was recorded in Death Valley in 1913 at 134.1 degrees Fahrenheit. What is it in Celsius?"
+    answer: "[56.7c|52.4c|58.9c|60c|51.1c|50.9]4"
     media: ""
     parent: {
       connect: {
@@ -2278,9 +2240,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "During the summer in Southern California the temperature of the Pacific Ocean can be around 68 degrees Fahrenheit. What is it in Celsius?"
+    answer: "[20c|21c|22c|23c|19c|18c|17.5c|17c]4"
     media: ""
     parent: {
       connect: {
@@ -2294,9 +2256,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "The daily mean temperature for Chicago in April is approximately 50 degrees Fahrenheit. What is the Celsius equivalent?"
+    answer: "[10c|11c|12c|13c|9c|8c|7c]4"
     media: ""
     parent: {
       connect: {
@@ -2313,8 +2275,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "If this was the temperature outside you might consider going swimming. [78,98f]"
+    answer: "[c]"
     media: ""
     parent: {
       connect: {
@@ -2329,8 +2291,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "If this was the temperature outside you might consider wearing a sweatshirt or hoodie. [55,70f]"
+    answer: "[c]"
     media: ""
     parent: {
       connect: {
@@ -2345,8 +2307,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "If this was the temperature outside you might consider wearing a warm cap or earmuffs. [32,44f]"
+    answer: "[c]"
     media: ""
     parent: {
       connect: {
@@ -2361,8 +2323,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "If this was the temperature outside you might consider watching for ice. [5,30f]"
+    answer: "[c]"
     media: ""
     parent: {
       connect: {
@@ -2377,8 +2339,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "If this was the temperature outside you should beware of dehydration. [85,105f]"
+    answer: "[c]"
     media: ""
     parent: {
       connect: {
@@ -2394,9 +2356,9 @@ mutation {
     type: 2
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "Personally, what temperature would you consider the perfect room temperature? [64,82f]"
+    answer: "[c]"
     media: ""
     parent: {
       connect: {
@@ -2410,9 +2372,9 @@ mutation {
     type: 2
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "Personally, starting at what temperature would you consider wearing shorts or a skirt? [50,100f]"
+    answer: "[c]"
     media: ""
     parent: {
       connect: {
@@ -2430,8 +2392,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "In Toronto, Canada the average low in January is -6.7 degrees Celsius. What is that in Fahrenheit?"
+    answer: "[19.9f|22.3f|25.3f|28f|30f|18.1f|17.7f|15.2f]4"
     media: ""
     parent: {
       connect: {
@@ -2446,8 +2408,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The daily year-round mean temperature in Lagos, Nigeria is approximately 27 degrees Celsius. What is that in Fahrenheit?"
+    answer: "[81f|79f|77f|75.6f|72.1f|83.3f|85.5f|87f]4"
     media: ""
     parent: {
       connect: {
@@ -2461,9 +2423,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 4
+    question: "The record lowest temperature in Moscow, Russia was -42 degrees Celsius. What is the equivalent in Fahrenheit?"
+    answer: "[-43.6f|-42f|-40.4f|-39.1f|-45f|-47.1f|-48.2f]4"
     media: ""
     parent: {
       connect: {
@@ -2477,9 +2439,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "In July the mean temperature in Johannesburg, South Africa is 10 degrees Celsius. How cool is that in Fahrenheit?"
+    answer: "[50f|49f|48f|47f|46.2f|51.5f|52f|53f|60f]4"
     media: ""
     parent: {
       connect: {
@@ -2493,9 +2455,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "In October the average high in Seoul, South Korea reaches about 20 degrees Celsius. What is that in Fahrenheit?"
+    answer: "[68f|69f|70f|72f|74f|66f|64f|62f|60f]4"
     media: ""
     parent: {
       connect: {
@@ -2512,8 +2474,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "If this was the temperature outside you might consider going swimming. [25,37c]"
+    answer: "[f]"
     media: ""
     parent: {
       connect: {
@@ -2528,8 +2490,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "If this was the temperature outside you might consider wearing a sweatshirt or hoodie. [13,21f]"
+    answer: "[f]"
     media: ""
     parent: {
       connect: {
@@ -2544,8 +2506,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "If this was the temperature outside you might consider wearing a warm cap or earmuffs. [0,7c]"
+    answer: "[f]"
     media: ""
     parent: {
       connect: {
@@ -2560,8 +2522,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "If this was the temperature outside you might consider watching for ice. [-15,-1c]"
+    answer: "[f]"
     media: ""
     parent: {
       connect: {
@@ -2576,8 +2538,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "If this was the temperature outside you should beware of dehydration. [30,40f]"
+    answer: "[f]"
     media: ""
     parent: {
       connect: {
@@ -2596,8 +2558,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The USDA recommends cooking chicken to a minimum of 165 degrees Fahrenheit. What is the equivalent in Celsius?"
+    answer: "[74c|79c|82.5c|85c|71c|68c|66.5c]4"
     media: ""
     parent: {
       connect: {
@@ -2614,8 +2576,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This is a common temperature you might set your oven to. [300,450f(25)s]"
+    answer: "[c(5)a]"
     media: ""
     parent: {
       connect: {
@@ -2633,8 +2595,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "Your imported European cookbook instructs you to preheat your oven to 175 degrees Celsius. What do you set your American oven to?"
+    answer: "[350f|375f|400f|450f|325f|300f|175f]4"
     media: ""
     parent: {
       connect: {
@@ -2651,8 +2613,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This is a common temperature you might set your oven to. [150,225c(25)s]"
+    answer: "[f(5)a]"
     media: ""
     parent: {
       connect: {
@@ -2670,9 +2632,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 4
+    question: "The melting point of lead is 621.4 degrees Fahrenheit. What is the melting point in Celsius?"
+    answer: "[327.5c|310.7c|299.9c|280c|398.8c|444.4c|532c]4"
     media: ""
     parent: {
       connect: {
@@ -2689,8 +2651,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[600,3000f(100)s]"
+    answer: "[c(25)a]"
     media: ""
     parent: {
       connect: {
@@ -2707,9 +2669,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 4
+    question: "Author Ray Bradbury's 1953 novel's title, \"Fahrenheit 451\", is a reference to the ignition temperature of paper. According to some sources, it's actually 451 degrees Celsius. What is the correct temperature in Fahrenheit?"
+    answer: "[844f|902f|870f|755f|1005f|641f|808f]4"
     media: ""
     parent: {
       connect: {
@@ -2726,8 +2688,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[300,1600c(50)s]"
+    answer: "[f(40)a]"
     media: ""
     parent: {
       connect: {
@@ -2739,25 +2701,6 @@ mutation {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ####### Velocity
   ### Pedestrian
   ## To Metric
@@ -2766,9 +2709,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "Jogging is generally considered to be around 5 miles per hour. What is that in kilometers per hour?"
+    answer: "[8kmph|9kmph|10kmph|11.2kmph|7.4kmph|7kmph|6kmph|5kmph|4kmph|3kmph|2kmph|1kmph]4"
     media: ""
     parent: {
       connect: {
@@ -2784,9 +2727,41 @@ mutation {
     type: 1
     status: 0
     flags: 0
+    difficulty: 2
+    question: "[5,25mph(5)s]"
+    answer: "[kmph(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_velocity_pedestrian_toMetric_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[3,24mph(3)s]"
+    answer: "[kmph(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_velocity_pedestrian_toMetric_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[3,24mph(3)s]"
+    answer: "[kmph(1)a]"
     media: ""
     parent: {
       connect: {
@@ -2803,9 +2778,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "Running is typically considered to be 10 kilometers per hour and faster. How fast is that in miles per hour?"
+    answer: "[6mph|7mph|8mph|9mph|5mph|4mph|3mph]4"
     media: ""
     parent: {
       connect: {
@@ -2821,9 +2796,41 @@ mutation {
     type: 1
     status: 0
     flags: 0
+    difficulty: 2
+    question: "[10,40kmph(5)s]"
+    answer: "[mph(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_velocity_pedestrian_fromMetric_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[19,39kmph(3)s]"
+    answer: "[mph(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_velocity_pedestrian_fromMetric_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[19,39kmph(3)s]"
+    answer: "[mph(1)a]"
     media: ""
     parent: {
       connect: {
@@ -2841,9 +2848,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "On a road a school zone typically restricts vehicle speeds to 25 miles per hour. What is that in kilometers per hour?"
+    answer: "[40kmph|42kmph|45kmph|50kmph|38kmph|36kmph|34kmph]4"
     media: ""
     parent: {
       connect: {
@@ -2860,8 +2867,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[25,100mph(5)s]"
+    answer: "[kmph(3)a]"
     media: ""
     parent: {
       connect: {
@@ -2878,9 +2885,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "100 kilometers per hour is pretty typical speed for highway travel. What is that in miles per hour?"
+    answer: "[62mph|60mph|59mph|55mph|66mph|69mph|70mph|75mph|80mph]4"
     media: ""
     parent: {
       connect: {
@@ -2897,8 +2904,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "[40,160kmph(10)s]"
+    answer: "[mph(3)a]"
     media: ""
     parent: {
       connect: {
@@ -2916,9 +2923,9 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "Top level stock cars like those in NASCAR can surpass 200 miles per hour. What is that in kilometers per hour?"
+    answer: "[322kmph|300kmph|302kmph|290kmph|334kmph|346kmph|351kmph]4"
     media: ""
     parent: {
       connect: {
@@ -2935,8 +2942,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This is a speed typical of race cars. [100,220mph(20)s]"
+    answer: "[kmph(5)a]"
     media: ""
     parent: {
       connect: {
@@ -2954,8 +2961,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The cars in Formula One can surpass 340 kilometers per hour. How fast is that in miles per hour?"
+    answer: "[211mph|222mph|230mph|244mph|202mph|194mph|188mph|185mph]4"
     media: ""
     parent: {
       connect: {
@@ -2972,8 +2979,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This is a speed typical of race cars. [160,340kmph(20)s]"
+    answer: "[mph(4)a]"
     media: ""
     parent: {
       connect: {
@@ -2992,8 +2999,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The high-subsonic cruising speed of a Boeing 747 is up to 570 miles per hour. What is that in kilometers per hour?"
+    answer: "[920kmph|900kmph|865kmph|840kmph|800kmph|950kmph|1000kmph|1040kmph|1140kmph]4"
     media: ""
     parent: {
       connect: {
@@ -3009,9 +3016,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 4
+    question: "This is a speed common with warplanes in WWII. [230,370mph(20)s]"
+    answer: "[kmph(10)a]"
     media: ""
     parent: {
       connect: {
@@ -3029,8 +3036,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The famous British WWII fighter plane, the Supermarine Spitfire, had a top speed of 584 kilometers per hour. What was its top speed in miles per hour?"
+    answer: "[363mph|341mph|320mph|303mph|277mph|399mph|419mph|444mph|462mph]4"
     media: ""
     parent: {
       connect: {
@@ -3046,9 +3053,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 4
+    question: "This is a speed common with warplanes in WWII. [370,690kmph(20)s]"
+    answer: "[mph(8)a]"
     media: ""
     parent: {
       connect: {
@@ -3067,8 +3074,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The Lockheed SR-71 \"Blackbird\" reconnaissance aircraft had a cruising speed of Mach 3.2, or 2450 miles per hour. What is it in kilometers per hour?"
+    answer: "[3940kmph|4000kmph|4120kmph|4400kmph|5050kmph|3810kmph|3700kmph|3556kmph]4"
     media: ""
     parent: {
       connect: {
@@ -3084,9 +3091,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "This is a speed that can be reached by space rockets in the first two minutes after take-off. [1000,5000mph(500)s]"
+    answer: "[kmph(80)a]"
     media: ""
     parent: {
       connect: {
@@ -3104,8 +3111,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "Rifle bullets fly at speeds exceeding 3000 kilometers per hour. How fast is that in miles per hour?"
+    answer: "[1864mph|1990mph|2022mph|2204mph|2300mph|1804mph|1750mph|1400mph|1210mph]4"
     media: ""
     parent: {
       connect: {
@@ -3121,9 +3128,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "This is a speed that can be reached by space rockets in the first two minutes after take-off. [1500,8000kmph(500)s]"
+    answer: "[mph(50)a]"
     media: ""
     parent: {
       connect: {
@@ -3135,25 +3142,6 @@ mutation {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ####### Area
   ### Home
   ## To Metric
@@ -3163,8 +3151,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "An apartment with two bedrooms and 1.5 baths advertizes it is 950 square feet. How many square meters is that?"
+    answer: "[88sqm|95sqm|100sqm|108sqm|112sqm|82sqm|80sqm|76sqm|72sqm]4"
     media: ""
     parent: {
       connect: {
@@ -3180,9 +3168,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "This is a square footage common of a single family home. [1400,2400sqft(100)s]"
+    answer: "[sqm(6)a]"
     media: ""
     parent: {
       connect: {
@@ -3200,8 +3188,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "A single family home with 4 beds and 2.5 baths advertizes it is 2100 square feet. How many square meters is that?"
+    answer: "[195sqm|200sqm|209sqm|215sqm|220sqm|188sqm|174sqm|170sqm]4"
     media: ""
     parent: {
       connect: {
@@ -3217,9 +3205,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "This is a square footage common of a single family home. [130,220sqm(10)s]"
+    answer: "[sqft(60)a]"
     media: ""
     parent: {
       connect: {
@@ -3238,8 +3226,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The average size of a Walmart store is 105,000 square feet. What is that in square meters?"
+    answer: "[9800sqm|10600sqm|11200sqm|12000sqm|12800sqm|13400sqm|15050sqm|9100sqm|7900sqm]4"
     media: ""
     parent: {
       connect: {
@@ -3256,8 +3244,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This is an amount of area commonly found in a chain grocery store. [25000,60000sqft(5000)s]"
+    answer: "[sqm(60)a]"
     media: ""
     parent: {
       connect: {
@@ -3275,8 +3263,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The area of a soccer field is 7140 square meters. Approximately what is that in square feet?"
+    answer: "[76800sqft|80200sqft|82000sqft|84600sqft|88100sqft|75100sqft|74000sqft|70500sqft]4"
     media: ""
     parent: {
       connect: {
@@ -3293,8 +3281,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This is an amount of area commonly found in a book store. [500,2500sqm(200)s]"
+    answer: "[sqft(500)a]"
     media: ""
     parent: {
       connect: {
@@ -3313,8 +3301,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The famous Lincoln Memorial Reflecting pool in Washington DC is 2029 feet by 167 feet, equaling approximately 7.75 acres. What is that area in hectares?"
+    answer: "[3.1ha|3.6ha|4ha|4.6ha|5.3ha|2.6ha|2ha|1.8ha|1.5ha]4"
     media: ""
     parent: {
       connect: {
@@ -3330,9 +3318,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "[50,250acre(50)s]"
+    answer: "[ha(2)a]"
     media: ""
     parent: {
       connect: {
@@ -3350,8 +3338,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "Beneath the Eiffel Tower is a large public park named the \"Champ de Mars\" (\"Field of Mars\"). It is approximately 24.5 hectares in size. What is that size in acres?"
+    answer: "[60.5acre|71acre|80acre|86.5acre|90.5acre|55.5acre|48acre|44.5acre]4"
     media: ""
     parent: {
       connect: {
@@ -3367,9 +3355,9 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    difficulty: 3
-    question: ""
-    answer: ""
+    difficulty: 2
+    question: "[20,100ha(20)s]"
+    answer: "[acre(5)a]"
     media: ""
     parent: {
       connect: {
@@ -3388,8 +3376,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "Manhattan is the most densely populated borough of New York City. What is it's area of 22.8 square miles in square kilometers?"
+    answer: "[59sqkm|68sqkm|76sqkm|80.5sqkm|99.9sqkm|53sqkm|49.5sqkm|44sqkm|40.5sqkm]4"
     media: ""
     parent: {
       connect: {
@@ -3406,8 +3394,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This is comparable to the size of a large American city with over one million people. [200,600sqmi(100)s]"
+    answer: "[sqkm(20)a]"
     media: ""
     parent: {
       connect: {
@@ -3425,8 +3413,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The small country of Liechtenstein is a very small 160 square kilometers. What is its size in square miles?"
+    answer: "[62sqmi|69sqmi|78sqmi|90sqmi|100sqmi|51sqmi|45sqmi]4"
     media: ""
     parent: {
       connect: {
@@ -3443,8 +3431,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This size is comparable to the size of a large European city with over one million people. [500,1500sqkm(250)s]"
+    answer: "[sqmi(40)a]"
     media: ""
     parent: {
       connect: {
@@ -3463,8 +3451,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The state of Colorado is approximately 104,000 square miles in area. What is that approximately in square kilometers?"
+    answer: "[270000sqkm|300000sqkm|324000sqkm|349000sqkm|250500sqkm|224000sqkm|215000sqkm]4"
     media: ""
     parent: {
       connect: {
@@ -3481,8 +3469,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This area is comparable to the middle 30 states (by area) of the United States. [10000,100000sqmi(10000)s]"
+    answer: "[sqkm(6000)a]"
     media: ""
     parent: {
       connect: {
@@ -3500,8 +3488,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "The island of Ireland is approximately 84,000 square kilometers. What is that approximately in square miles?"
+    answer: "[32000sqmi|35000sqmi|38000sqmi|41000sqmi|44500sqmi|29000sqmi|25500sqmi]4"
     media: ""
     parent: {
       connect: {
@@ -3518,8 +3506,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: ""
-    answer: ""
+    question: "This area is comparable to the size of the countries of the United Kingdom. [20000,130000sqkm(20000)s]"
+    answer: "[sqmi(4000)a]"
     media: ""
     parent: {
       connect: {
