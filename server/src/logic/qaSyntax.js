@@ -10,6 +10,7 @@ const {
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
   ANSWER_TYPE_SURVEY,
+  WRITTEN_ANSWER_UNIT,
   UNITS,
 } = require("../constants");
 
@@ -223,7 +224,7 @@ function parseQuestionString(type, question) {
 }
 
 
-function parseAnswerString(questionType, answer) {
+function parseAnswerString(questionType, answerSyntax) {
   // Finds "[1m|2m]2"; Returns "1m|2m", "2" // Finds "[m(0.5)a]"; Returns "m(0.5)a"
   const basePattern = /\[([^\]]+)](\d{0,2})/;
   const multipleChoiceDelimiter = "|";          // Splits on |
@@ -238,9 +239,9 @@ function parseAnswerString(questionType, answer) {
   };
 
   // Perform the base match.
-  const baseResult = answer.match(basePattern);
+  const baseResult = answerSyntax.match(basePattern);
   if (baseResult === null) {
-    throw new AnswerSyntaxError(answer, "Invalid answer syntax");
+    throw new AnswerSyntaxError(answerSyntax, "Invalid answer syntax");
   }
 
   // Add the answer's syntax body to the payload.
@@ -255,19 +256,19 @@ function parseAnswerString(questionType, answer) {
     const choicesOffered = baseResult[2] ?
       Number.parseInt(baseResult[2], 10) : multipleChoiceAnswers.length;
     if (Number.isNaN(choicesOffered)) {
-      throw new AnswerSyntaxError(answer, "Invalid choice count defined");
+      throw new AnswerSyntaxError(answerSyntax, "Invalid choice count defined");
     }
     if (choicesOffered < 2) {
-      throw new AnswerSyntaxError(answer, "Must have at least two choices");
+      throw new AnswerSyntaxError(answerSyntax, "Must have at least two choices");
     }
     if (choicesOffered > multipleChoiceAnswers.length) {
-      throw new AnswerSyntaxError(answer, "Cannot offer more choices than actually defined");
+      throw new AnswerSyntaxError(answerSyntax, "Cannot offer more choices than actually defined");
     }
     answerPayload.data.choicesOffered = choicesOffered;
 
     // Parse the choices for values and units.
     const parsedMultipleChoiceAnswers = multipleChoiceAnswers.map((singleAnswer) => {
-      return parseUnitValue(singleAnswer, answer);
+      return parseSingleAnswer(singleAnswer, answerSyntax);
     });
 
     answerPayload.type = ANSWER_TYPE_MULTIPLE_CHOICE;
@@ -282,11 +283,11 @@ function parseAnswerString(questionType, answer) {
     if (unitResult !== null) {
       const unit = unitResult[1];
       if (UNITS[unit] === undefined) {
-        throw new AnswerSyntaxError(answer, `Unit "${unit}" not recognized`);
+        throw new AnswerSyntaxError(answerSyntax, `Unit "${unit}" not recognized`);
       }
       answerPayload.data.unit = unit;
     } else {
-      throw new AnswerSyntaxError(answer, "No unit declared");
+      throw new AnswerSyntaxError(answerSyntax, "No unit declared");
     }
 
     // Parse the accuracy.
@@ -294,7 +295,7 @@ function parseAnswerString(questionType, answer) {
     if (accuracyResult !== null) {
       const accuracyValue = parseFloat(accuracyResult[1]);
       if (Number.isNaN(accuracyValue)) {
-        throw new AnswerSyntaxError(answer, "Accuracy value contains invalid number");
+        throw new AnswerSyntaxError(answerSyntax, "Accuracy value contains invalid number");
       }
       answerPayload.data.accuracy = accuracyValue;
     } else {
@@ -311,34 +312,46 @@ function parseAnswerString(questionType, answer) {
 }
 
 
-function parseUnitValue(unitValue, parentAnswer = "") {
-  const unitValuePattern = /([\d.]+)(\w+)/;
-  const answer = parentAnswer || unitValue;
+function parseSingleAnswer(singleAnswer, answerSyntax = "") {
+  const unitValuePattern = /^([\d.]+)([a-zA-Z]+)$/u;
+  const answerContext = answerSyntax || singleAnswer; // Simply for error reporting.
 
-  const unitValueResult = unitValue.match(unitValuePattern);
+  const unitValueResult = singleAnswer.match(unitValuePattern);
+
   if (unitValueResult === null) {
-    throw new AnswerSyntaxError(answer, `Answer "${unitValue}" not valid`);
+    // Written answer
+    if (!singleAnswer.trim()) {
+      // Reject empty answers
+      throw new AnswerSyntaxError(answerContext, "Answer cannot be blank");
+    }
+
+    // Written answer
+    return {
+      value: singleAnswer,
+      unit: WRITTEN_ANSWER_UNIT,
+    };
+
+  // eslint-disable-next-line no-else-return
+  } else {  // Unit answer (ex: 5.5m)
+    // Parse the value.
+    const value = Number.parseFloat(unitValueResult[1]);
+    const unit = unitValueResult[2];
+
+    // Make sure the number was readable.
+    if (Number.isNaN(value)) {
+      throw new AnswerSyntaxError(answerContext, `Answer "${singleAnswer}" contains invalid number`);
+    }
+
+    // Make sure the unit is recognized.
+    if (UNITS[unit] === undefined) {
+      throw new AnswerSyntaxError(answerContext, `Answer "${singleAnswer}" unit not recognized`);
+    }
+
+    return {
+      value,
+      unit,
+    };
   }
-
-  // Parse the value.
-  const value = Number.parseFloat(unitValueResult[1]);
-  const unit = unitValueResult[2];
-
-  // Make sure the number was readable.
-  if (Number.isNaN(value)) {
-    throw new AnswerSyntaxError(answer,
-      `Answer "${unitValue}" contains invalid number`);
-  }
-
-  // Make sure the unit is recognized.
-  if (UNITS[unit] === undefined) {
-    throw new AnswerSyntaxError(answer, `Answer "${unitValue}" unit not recognized`);
-  }
-
-  return {
-    value,
-    unit,
-  };
 }
 
 
@@ -372,26 +385,18 @@ function checkUnitCompatibility(questionPayload, answerPayload) {
   } else {
     // Multiple-choice answer.
     const firstChoiceUnit = answerPayload.data.choices[0].unit;
-    const firstChoiceSubject = UNITS[firstChoiceUnit].subject;
-    const firstChoiceFamily = UNITS[firstChoiceUnit].family;
 
     // Need to check each answer for problems.
-    answerPayload.data.choices.forEach((choice) => {
+    answerPayload.data.choices.forEach((currentChoice) => {
       // Reject multiple choice answers with mixed-up subjects.
       // Ex: Choices 10km, 10l.
-      if (UNITS[choice.unit].subject !== firstChoiceSubject) {
+      // UNLESS the first choice (correct choice) or current choice is a written choice.
+      if (firstChoiceUnit !== WRITTEN_ANSWER_UNIT &&
+        currentChoice.unit !== WRITTEN_ANSWER_UNIT &&
+        UNITS[currentChoice.unit].subject !== UNITS[firstChoiceUnit].subject) {
         throw new AnswerSyntaxError(
           answerPayload.data.syntax,
           "Answer choices have mixed-up measurement subjects",
-        );
-      }
-
-      // Reject multiple choice answers with mixed-up families.
-      // Ex: Choices 10km, 10mi.
-      if (UNITS[choice.unit].family !== firstChoiceFamily) {
-        throw new AnswerSyntaxError(
-          answerPayload.data.syntax,
-          "Answer choices have mixed-up metric / imperial values",
         );
       }
     });
@@ -401,5 +406,5 @@ function checkUnitCompatibility(questionPayload, answerPayload) {
 
 module.exports = {
   parseQAStrings,
-  parseUnitValue,
+  parseSingleAnswer,
 };
