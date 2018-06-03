@@ -210,19 +210,24 @@ function composeWrittenAnswerData(answerPayload) {
 
 
 function composeConversionAnswerData(fromValue, fromUnit, toUnit, toAccuracy) {
-  const { roundedValue, exactValue, roundingLevel } = convertValue(fromValue, fromUnit, toUnit);
+  const {
+    exactValue,
+    roundedValue,
+    roundingLevel,
+    friendlyValue,
+  } = convertValue(fromValue, fromUnit, toUnit);
+
   const isTemperature = UNITS[toUnit].subject === "temperature";
 
   // Figure out the ranges.
-  let bottomValue = round(roundedValue - toAccuracy, roundingLevel);
+  let bottomValue = round(friendlyValue - toAccuracy, roundingLevel);
   if (!isTemperature) {
     bottomValue = Math.max(bottomValue, 0); // When not temperature do not let bottom be negative.
   }
-  const topValue = round(roundedValue + toAccuracy, roundingLevel);
+  const topValue = round(friendlyValue + toAccuracy, roundingLevel);
 
-  // roundedValue, accuracy, isTemperature
   const choices = makeChoices(
-    roundedValue,
+    friendlyValue,
     roundingLevel,
     toUnit,
     toAccuracy,
@@ -233,6 +238,7 @@ function composeConversionAnswerData(fromValue, fromUnit, toUnit, toAccuracy) {
     accuracy: toAccuracy,
     exact: exactValue,
     rounded: roundedValue,
+    friendly: friendlyValue,
     range: {
       bottom: { value: bottomValue, unit: toUnit },
       top: { value: topValue, unit: toUnit },
