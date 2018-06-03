@@ -140,7 +140,9 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
 function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
   const generatedAnswer = {
     type: answerPayload.type,
-    data: {},
+    data: {
+      detail: answerPayload.data.detail,
+    },
   };
 
   // Get multiple choice data

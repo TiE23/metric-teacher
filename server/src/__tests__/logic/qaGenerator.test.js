@@ -9,6 +9,7 @@ const {
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
   ANSWER_TYPE_SURVEY,
+  WRITTEN_ANSWER_UNIT,
 } = require("../../constants");
 const {
   qaGenerate,
@@ -53,6 +54,27 @@ describe("qaGenerator", () => {
         expect(qaFormat.answer.data.multipleChoiceData.choicesOffered).toBe(3);
         expect(qaFormat.answer.data.multipleChoiceData.choices).toBeDefined();
         expect(qaFormat.answer.data.multipleChoiceData.choices).toHaveLength(3);
+      });
+
+      it("Should parse a Written question with answer details", () => {
+        baseWrittenQuestion.question = "If Jim is 6'1\" and Harry is 195cm, who is taller?";
+        baseWrittenQuestion.answer = "195cm is about 6'5\" and 6'1\" is about 185cm. [Harry is taller|Jim is taller|They are about the same height]";
+        const qaFormat = qaGenerate(baseWrittenQuestion);
+
+        // Answer Data
+        expect(qaFormat.answer.type).toBe(ANSWER_TYPE_MULTIPLE_CHOICE);
+        expect(qaFormat.answer.data.detail).toBeDefined();
+        expect(qaFormat.answer.data.detail).toBe("195cm is about 6'5\" and 6'1\" is about 185cm.");
+        expect(qaFormat.answer.data.multipleChoiceData).toBeDefined();
+        expect(qaFormat.answer.data.multipleChoiceData.choicesOffered).toBe(3);
+        expect(qaFormat.answer.data.multipleChoiceData.choices).toBeDefined();
+        expect(qaFormat.answer.data.multipleChoiceData.choices).toHaveLength(3);
+        expect(qaFormat.answer.data.multipleChoiceData.choices[0].value).toBe("Harry is taller");
+        expect(qaFormat.answer.data.multipleChoiceData.choices[0].unit).toBe(WRITTEN_ANSWER_UNIT);
+        expect(qaFormat.answer.data.multipleChoiceData.choices[1].value).toBe("Jim is taller");
+        expect(qaFormat.answer.data.multipleChoiceData.choices[1].unit).toBe(WRITTEN_ANSWER_UNIT);
+        expect(qaFormat.answer.data.multipleChoiceData.choices[2].value).toBe("They are about the same height");
+        expect(qaFormat.answer.data.multipleChoiceData.choices[2].unit).toBe(WRITTEN_ANSWER_UNIT);
       });
 
       it("Should parse a Written question with a custom choicesOffered value in the answer", () => {

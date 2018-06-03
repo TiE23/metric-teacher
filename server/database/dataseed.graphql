@@ -1185,8 +1185,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "The Prime Minister of Canada, Justin Trudeau, is 1.88 meters tall. The President of the United States, Donald Trump, is 6 feet, 3 inches. Which is taller?"
-    answer: "[75in|1.88m]"
+    question: "The Prime Minister of Canada, Justin Trudeau, is 1.88 meters tall. The President of the United States, Donald Trump, is 6 feet, 3 inches. Who is taller?"
+    answer: "1.88m is 6'2\". 6'3\" is 1.91m. [Donald Trump|Justin Trudeau|They are about the same height]"
     media: ""
     parent: {
       connect: {

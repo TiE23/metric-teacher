@@ -154,7 +154,7 @@ function parseQuestionString(type, question) {
     }
 
     // Add the question's syntax body to the payload.
-    questionPayload.data.syntax = baseResult[0];
+    questionPayload.data.syntax = baseResult[0];  // eslint-disable-line prefer-destructuring
 
     const rangeResult = baseResult[0].match(rangePattern);
 
@@ -235,6 +235,7 @@ function parseAnswerString(questionType, answerSyntax) {
   const answerPayload = {
     type: null,
     data: {
+      detail: "",
     },
   };
 
@@ -245,7 +246,12 @@ function parseAnswerString(questionType, answerSyntax) {
   }
 
   // Add the answer's syntax body to the payload.
-  answerPayload.data.syntax = baseResult[0];
+  answerPayload.data.syntax = baseResult[0];  // eslint-disable-line prefer-destructuring
+
+  // If there was text before the pattern make it the answer's detail.
+  if (baseResult.index !== 0) {
+    answerPayload.data.detail = baseResult.input.slice(0, baseResult.index - 1).trim();
+  }
 
   // Multiple choice answer...
   if (baseResult[1].indexOf(multipleChoiceDelimiter) !== -1) {
@@ -267,9 +273,8 @@ function parseAnswerString(questionType, answerSyntax) {
     answerPayload.data.choicesOffered = choicesOffered;
 
     // Parse the choices for values and units.
-    const parsedMultipleChoiceAnswers = multipleChoiceAnswers.map((singleAnswer) => {
-      return parseSingleAnswer(singleAnswer, answerSyntax);
-    });
+    const parsedMultipleChoiceAnswers = multipleChoiceAnswers.map(singleAnswer =>
+      parseSingleAnswer(singleAnswer, answerSyntax));
 
     answerPayload.type = ANSWER_TYPE_MULTIPLE_CHOICE;
     answerPayload.data.choices = parsedMultipleChoiceAnswers;

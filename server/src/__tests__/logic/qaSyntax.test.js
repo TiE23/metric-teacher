@@ -82,6 +82,27 @@ describe("qaSyntax", () => {
       expect(answerPayload.data.syntax).toBe("[1kg|A pound of feathers|1lb|16oz]");
     });
 
+    it("Should parse a multiple choice question/answer with answer details", () => {
+      const { questionPayload, answerPayload } = parseQAStrings(
+        QUESTION_TYPE_WRITTEN,
+        "If Jim is 6'1\" and Harry is 195cm, who is taller?",
+        "195cm is about 6'5\" and 6'1\" is about 185cm. [Harry is taller|Jim is taller|They are about the same height]",
+      );
+      expect(questionPayload.type).toBe(QUESTION_TYPE_WRITTEN);
+      expect(questionPayload.data.text).toBe("If Jim is 6'1\" and Harry is 195cm, who is taller?");
+
+      expect(answerPayload.type).toBe(ANSWER_TYPE_MULTIPLE_CHOICE);
+      expect(answerPayload.data.choicesOffered).toBe(3);
+      expect(answerPayload.data.choices.length).toBe(3);
+      expect(answerPayload.data.choices[0].value).toBe("Harry is taller");
+      expect(answerPayload.data.choices[0].unit).toBe(WRITTEN_ANSWER_UNIT);
+      expect(answerPayload.data.choices[1].value).toBe("Jim is taller");
+      expect(answerPayload.data.choices[1].unit).toBe(WRITTEN_ANSWER_UNIT);
+      expect(answerPayload.data.choices[2].value).toBe("They are about the same height");
+      expect(answerPayload.data.choices[2].unit).toBe(WRITTEN_ANSWER_UNIT);
+      expect(answerPayload.data.syntax).toBe("[Harry is taller|Jim is taller|They are about the same height]");
+    });
+
     it("Should parse a Written question with extra whitespace", () => {
       const { questionPayload } = parseQAStrings(
         QUESTION_TYPE_WRITTEN,
@@ -203,15 +224,28 @@ describe("qaSyntax", () => {
       expect(answerPayload.data.accuracy).toBe(2.5);
     });
 
-    it("Should parse an answer with junk before and after it", () => {
+    it("Should parse an answer with detail before it", () => {
       const { answerPayload } = parseQAStrings(
         QUESTION_TYPE_CONVERSION,
         "[5,10m]",
-        "!@#$%foo    [ft]    !@#$%^foo",
+        "Answer detail.    [ft]",
       );
       expect(answerPayload.type).toBe(ANSWER_TYPE_CONVERSION);
       expect(answerPayload.data.unit).toBe("ft");
       expect(answerPayload.data.syntax).toBe("[ft]");
+      expect(answerPayload.data.detail).toBe("Answer detail.");
+    });
+
+    it("Should parse an answer with detail before it and junk after it", () => {
+      const { answerPayload } = parseQAStrings(
+        QUESTION_TYPE_CONVERSION,
+        "[5,10m]",
+        "Answer detail.    [ft]    !@#$%^foo",
+      );
+      expect(answerPayload.type).toBe(ANSWER_TYPE_CONVERSION);
+      expect(answerPayload.data.unit).toBe("ft");
+      expect(answerPayload.data.syntax).toBe("[ft]");
+      expect(answerPayload.data.detail).toBe("Answer detail.");
     });
 
     it("Should parse a Conversion question with all negative range values", () => {
