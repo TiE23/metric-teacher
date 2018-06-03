@@ -399,7 +399,7 @@ mutation {
         },
         {
           name: "Volume - Room-scale - To Metric"
-          description: "Approximately 10 to 1,000 liters."
+          description: "Approximately 10 to 2,000 liters."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "volume" } }
@@ -407,7 +407,7 @@ mutation {
         },
         {
           name: "Volume - Room-scale - From Metric"
-          description: "Approximately 3 to 265 gallons."
+          description: "Approximately 3 to 525 gallons."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "volume" } }
@@ -415,7 +415,7 @@ mutation {
         },
         {
           name: "Volume - Street-scale - To Metric"
-          description: "Greater than 1,000 liters."
+          description: "Greater than 2,000 liters."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "volume" } }
@@ -423,7 +423,7 @@ mutation {
         },
         {
           name: "Volume - Street-scale - From Metric"
-          description: "Greater than 265 gallons."
+          description: "Greater than 525 gallons."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "volume" } }
@@ -459,7 +459,7 @@ mutation {
         },
         {
           name: "Temperature - Cooking-scale - To Metric"
-          description: "Approximately 45 to 350 Celsius."
+          description: "Approximately 45 to 300 Celsius."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "temperature" } }
@@ -467,7 +467,7 @@ mutation {
         },
         {
           name: "Temperature - Cooking-scale - From Metric"
-          description: "Approximately 115 to 665 Fahrenheit."
+          description: "Approximately 115 to 572 Fahrenheit."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "temperature" } }
@@ -475,7 +475,7 @@ mutation {
         },
         {
           name: "Temperature - Chemistry-scale - To Metric"
-          description: "Greater than 350 Celsius."
+          description: "Greater than 300 Celsius."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "temperature" } }
@@ -483,7 +483,7 @@ mutation {
         },
         {
           name: "Temperature - Chemistry-scale - From Metric"
-          description: "Greater than 665 Fahrenheit."
+          description: "Greater than 572 Fahrenheit."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "temperature" } }
@@ -551,7 +551,7 @@ mutation {
         },
         {
           name: "Velocity - Air-scale - To Metric"
-          description: "Approximately 350 to 900 km/h."
+          description: "Approximately 350 to 1000 km/h."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "velocity" } }
@@ -559,7 +559,7 @@ mutation {
         },
         {
           name: "Velocity - Air-scale - From Metric"
-          description: "Approximately 220 to 560 mph."
+          description: "Approximately 220 to 620 mph."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "velocity" } }
@@ -567,7 +567,7 @@ mutation {
         },
         {
           name: "Velocity - Rocket-scale - To Metric"
-          description: "Greater than 900 km/h."
+          description: "Greater than 1000 km/h."
           toMetric: true
           rarity: 0
           unit: { connect: { name: "velocity" } }
@@ -575,7 +575,7 @@ mutation {
         },
         {
           name: "Velocity - Rocket-scale - From Metric"
-          description: "Greater than 560 mph."
+          description: "Greater than 620 mph."
           toMetric: false
           rarity: 0
           unit: { connect: { name: "velocity" } }
@@ -784,6 +784,2736 @@ mutation {
     flags: 0
     classrooms: null
     enrollment: null
+  }) {
+    id
+  }
+
+
+  ############## Questions
+  ####### Length
+  ### Hand
+  ## To Metric
+  # Written
+  question_length_hand_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "How many centimeters are in an inch?"
+    answer: "[2.54cm|2cm|3cm|2.45cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The average adult man's foot is about 11 inches. How many centimeters is that?"
+    answer: "[28cm|30cm|26cm|25cm|31cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_hand_toMetric_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[0.5,12in(0.5)s]"
+    answer: "[cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_hand_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "How long is a 30 centimeter ruler in inches?"
+    answer: "[11.8in|12in|11in|11.5in|12.54in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "School rulers in Metric countries are typically 30 centimeters in length. How long is that in inches?"
+    answer: "[11.8in|12in|12.4in|11.2in|11.5in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The standard size 5 soccer ball is 22 centimeters in diameter. How many inches is that?"
+    answer: "[8.7in|9.9in|7.1in|11in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_hand_fromMetric_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[2,25cm(2)s]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Human
+  ## To Metric
+  # Written
+  question_length_human_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "Which is longer?"
+    answer: "[1m|1yd]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In the major league a baseball bat can be at most 42 inches long, approximately how long is that?"
+    answer: "[107cm|100cm|103cm|115cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Typically a height of 6 feet for a man is considered tall. How many centimeters is that?"
+    answer: "[183cm|180cm|177cm|200cm|191cm|188cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A doorway in an American home can be 7 feet tall. How many centimeters is that?"
+    answer: "[213cm|205cm|200cm|194cm|219cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In 2014 the averge height of an American woman was 5 foot, 3.5 inches. How many centimeters is that?"
+    answer: "[162cm|160cm|154cm|166cm|152cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_human_toMetric_006: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[3,9ft]"
+    answer: "[m(0.1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_007: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Typical height of an adult American man. [65,74in]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_008: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Typical height of an adult American woman. [60,70in]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_009: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Typical length of a broom handle. [48,60in(6)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_010: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Typical inseam length of a pair of pants. [28,36in(2)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Survey
+  question_length_human_toMetric_011: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "How tall are you? [40,90in]"
+    answer: "[cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_012: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Starting at what height would you describe an adult man to be 'very tall'? [72,80in]"
+    answer: "[cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_human_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A meter stick is a little longer than a yard stick (36 inches). But how many inches is it specifically?"
+    answer: "[39.4in|39.0in|36.4in|37.1in|38.5in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A queen size mattress in America is 152 centimeters wide. How many inches is that?"
+    answer: "[60in|70in|80in|90in|100in|50in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A queen size mattress in America is 203 centimeters long. How many inches is that?"
+    answer: "[80in|70in|60in|90in|100in|110in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "LeBron James is 2.03 meters tall. How tall is he in inches?"
+    answer: "[80in|78in|81in|79in|82in]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The Prime Minister of Canada, Justin Trudeau, is 1.88 meters tall. The President of the United States, Donald Trump, is 6 feet, 3 inches. Which is taller?"
+    answer: "[75in|1.88m]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_human_fromMetric_006: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,3m(0.25)s]"
+    answer: "[in(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_007: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a height typical of an adult American man. [1.70,1.85m(0.01)s]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_008: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a height typical of an adult American woman. [1.50,1.78m(0.01)s]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_009: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a height typical of a kitchen counter. [0.95,1.05m(0.01)s]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_010: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,3m(0.5)s]"
+    answer: "[ft(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Room
+  ## To Metric
+  # Written
+  question_length_room_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A mid-size car such as an Accord, Camry, Fusion, or Malibu is typically 16 feet long. How long is that in meters?"
+    answer: "[4.9m|3.9m|4m|5.5m|4.4m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_room_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[5,16ft]"
+    answer: "[m(0.2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_room_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "The ceiling in a room of a typical American home is about 2.4 meters. How high is that in feet?"
+    answer: "[8ft|9ft|10ft|10.5ft]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_room_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,5m(0.1)s]"
+    answer: "[ft(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Building
+  ## To Metric
+  # Written
+  question_length_building_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The standard utility/telephone pole in the United States is about 40 feet. How many meters is that?"
+    answer: "[12m|11m|10.5m|14m|15m|14.5m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_building_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[100,2000ft(100)s]"
+    answer: "[m(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_building_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The height of the Eiffel Tower is 324 meters. How many feet is that?"
+    answer: "[1063ft|1004ft|972ft|1199ft|1300ft|1101ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_building_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[50,500m(50)s]"
+    answer: "[ft(30)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Local
+  ## To Metric
+  # Written
+  question_length_local_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The Burj Khalifa skyscraper is 1918 feet tall. How tall is that in meters?"
+    answer: "[584.5m|630m|530.5m|719m|801.2m|900m|994m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_local_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[0.5,6mi(0.5)s]"
+    answer: "[km(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_local_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A \"10k\" run is how long in miles?"
+    answer: "[6.2mi|5.4mi|14mi|5mi|6.8mi|10.4mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_local_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[0.5km,10km(0.5)s]"
+    answer: "[mi(0.2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Geographic
+  ## To Metric
+  # Written
+  question_length_geographic_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The state of California is approximately 720 miles \"long\" from north to south. How far is that in kilometers?"
+    answer: "[1158km|1053km|1289km|1422km|998km|1440km]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_geographic_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[100,10000mi(100)s]"
+    answer: "[km(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_geographic_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Between England and France lies the Straight of Dover, the narrowest part of the English Channel. It is about 33 kilometers wide. How far is that distance in miles?"
+    answer: "[20.5mi|20mi|18.5mi|19mi|17mi|16mi|22mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_geographic_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[100,16000km(100)s]"
+    answer: "[mi(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Astronomical
+  ## To Metric
+  # Written
+  question_length_astronomical_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The Earth's circumference is 24,901 miles. What is that distance in kilometers?"
+    answer: "[40074km|39022km|37009km|41095km|42015km|43053km|44012km]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_astronomical_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[10000,1000000mi(10000)s]"
+    answer: "[km(20000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_length_astronomical_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The distance from the Earth to the Moon is 384,400 kilometers. How many miles is that?"
+    answer: "[238900mi|294200mi|206400mi|780215mi|190230mi|180600mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_length_astronomical_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[20000,1600000km(10000)s]"
+    answer: "[mi(10000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
+  ####### Mass
+  ### Hand
+  ## To Metric
+  # Written
+  question_mass_hand_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The iPhone 8 weighs 5.2 ounces, a typical weight for a smart phone. How many grams is that?"
+    answer: "[147g|65g|122g|100g]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_hand_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,16oz]"
+    answer: "[g(15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_mass_hand_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In countries that use the metric system it is common to report calorie counts per 100 grams of food. How many ounces is 100 grams?"
+    answer: "[3.5oz|3oz|2.5oz|2oz|1.5oz|1oz|4oz|4.5oz|5oz|5.5oz]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_hand_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[500,5000g(500)s]"
+    answer: "[lb(0.25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Human
+  ## To Metric
+  # Written
+  question_mass_human_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The average adult American woman weighs 166 pounds. What is that in kilograms?"
+    answer: "[75kg|71kg|68kg|64kg|62kg|78kg|81kg|84kg|88kg]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_human_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[50,250lb(10)s]"
+    answer: "[kg]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_mass_human_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "Imagine being told an athlete weighed 100 kilograms. Is that pretty big? Convert that weight to pounds."
+    answer: "[220.5kg|200kg|200.5kg|215kg|215.5kg|210kg|210.5kg|230kg|230.5kg]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_human_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[25,125kg(5)s]"
+    answer: "[lb(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Street
+  ## To Metric
+  # Written
+  question_mass_street_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Road motorcycles can weigh 500 pounds or more. How many kilograms are equal to 500 pounds?"
+    answer: "[227kg|250kg|220kg|230kg|233kg|253kg|223kg|217kg]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_street_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1000,22000lb(500)s]"
+    answer: "[kg(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_mass_street_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A standard 40 foot shipping container used in international trade weighs 3,800 kilograms when empty. How heavy is that in pounds?"
+    answer: "[8380lb|8040lb|8560lb|8880lb|7800lb|6600lb|7620lb|8000lb]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_street_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[500,10000kg(250)s]"
+    answer: "[lb(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Building
+  ## To Metric
+  # Written
+  question_mass_building_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The Boeing 737-800 is considered an average sized airliner. Without fuel it weighs 45 short-tons. How heavy is that in metric tonnes?"
+    answer: "[40.8tonne|45tonne|45.2tonne|38.6tonne|44.4tonne|42tonne|4.5tonne|22.5tonne]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_building_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "This is a mass typical of an empty passenger airliner. [45,200ton(5)s]"
+    answer: "[tonne(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_mass_building_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Olympic-class ferries found in Seattle can carry 1500 passengers and 144 vehicles. Its displacement (weight of the vessel itself) is 4450 metric tonnes. Convert that to US tons."
+    answer: "[4905ton|5005ton|5105ton|5205ton|4805ton|4705ton|4605ton|4505ton|4450ton]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_mass_building_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a mass typical of a main battle tank. [25,65tonne(5)s]"
+    answer: "[ton(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
+  ####### Volume
+  ### Hand
+  ## To Metric
+  # Written
+  question_volume_hand_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A 20 fluid ounce bottle is approximately how many milliliters?"
+    answer: "[590ml|520ml|640ml|490ml|500ml|700ml|600ml]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_hand_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[8,64floz(4)s]"
+    answer: "[ml(30)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_volume_hand_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "An uncommon sign of the metric system making its way into US markets the oddly-sized 16.9 fluid ounce bottle is actually based off a milliliter amount. How many milliliters is it?"
+    answer: "[500ml|400ml|600ml|300ml|250ml|333ml|355ml|750ml|1000ml]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_hand_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[250,2000ml(250)s]"
+    answer: "[floz(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Room
+  ## To Metric
+  # Written
+  question_volume_room_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The average bathtub holds around 80 gallons of water. How many liters is that?"
+    answer: "[302l|210l|240l|248l|320l|284l|346l|360l|368l]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_room_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[10,250gal(10)s]"
+    answer: "[l(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_volume_room_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A hot tub for six people can contain around 1300 liters of water. How many gallons is that?"
+    answer: "[343gal|306gal|288gal|409gal|320gal|440gal]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_room_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[50,1000l(50)s]"
+    answer: "[gal(15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Street
+  ## To Metric
+  # Written
+  question_volume_street_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Olympic-sized swimming pools are very large and contain at a minimum 660,000 gallons. How many liters is that?"
+    answer: "[2500000l|2250000l|2750000l|3000000l|3250000l|3500000l|3750000l]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_street_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a volume you might find in a swimming pool. [25000,250000gal(25000)s]"
+    answer: "[l(9000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_volume_street_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In the US, a circular, above-ground pool that one could buy at a store is commonly 16 feet wide, 4.5 feet deep, and can hold around 25,000 liters of water. How many gallons is that?"
+    answer: "[6600gal|6000gal|5700gal|5400gal|5000gal|3900gal|2000gal]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_volume_street_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a volume you might find in a swimming pool. [100000,1000000l(100000)s]"
+    answer: "[gal(3000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
+  ####### Temperature
+  ### Weather
+  ## To Metric
+  # Written
+  question_temperature_weather_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Room temperature is commonly considered to be 72 degrees Fahrenheit. What is it in Celsius?"
+    answer: "[22c|21c|20c|19c|18c|23c|24c|25c]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The average normal body temperature is generally accepted as 98.6 degrees Fahrenheit. What is it in Celsius?"
+    answer: "[37c|36c|35c|34c|33c|38c|39c|40c|41c]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The record highest temperature in the world was recorded in Death Valley in 1913 at 134.1 degrees Fahrenheit. What is it in Celsius?"
+    answer: "[56.7c|52.4c|58.9c|60c|51.1c|50.9]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "During the summer in Southern California the temperature of the Pacific Ocean can be around 68 degrees Fahrenheit. What is it in Celsius?"
+    answer: "[20c|21c|22c|23c|19c|18c|17.5c|17c]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The daily mean temperature for Chicago in April is approximately 50 degrees Fahrenheit. What is the Celsius equivalent?"
+    answer: "[10c|11c|12c|13c|9c|8c|7c]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_weather_toMetric_006: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "If this was the temperature outside you might consider going swimming. [78,98f]"
+    answer: "[c]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_007: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "If this was the temperature outside you might consider wearing a sweatshirt or hoodie. [55,70f]"
+    answer: "[c]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_008: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "If this was the temperature outside you might consider wearing a warm cap or earmuffs. [32,44f]"
+    answer: "[c]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_009: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "If this was the temperature outside you might consider watching for ice. [5,30f]"
+    answer: "[c]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_010: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "If this was the temperature outside you should beware of dehydration. [85,105f]"
+    answer: "[c]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Survey
+  question_temperature_weather_toMetric_011: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Personally, what temperature would you consider the perfect room temperature? [64,82f]"
+    answer: "[c]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_012: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Personally, starting at what temperature would you consider wearing shorts or a skirt? [50,100f]"
+    answer: "[c]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_temperature_weather_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In Toronto, Canada the average low in January is -6.7 degrees Celsius. What is that in Fahrenheit?"
+    answer: "[19.9f|22.3f|25.3f|28f|30f|18.1f|17.7f|15.2f]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The daily year-round mean temperature in Lagos, Nigeria is approximately 27 degrees Celsius. What is that in Fahrenheit?"
+    answer: "[81f|79f|77f|75.6f|72.1f|83.3f|85.5f|87f]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The record lowest temperature in Moscow, Russia was -42 degrees Celsius. What is the equivalent in Fahrenheit?"
+    answer: "[-43.6f|-42f|-40.4f|-39.1f|-45f|-47.1f|-48.2f]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In July the mean temperature in Johannesburg, South Africa is 10 degrees Celsius. How cool is that in Fahrenheit?"
+    answer: "[50f|49f|48f|47f|46.2f|51.5f|52f|53f|60f]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In October the average high in Seoul, South Korea reaches about 20 degrees Celsius. What is that in Fahrenheit?"
+    answer: "[68f|69f|70f|72f|74f|66f|64f|62f|60f]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_weather_fromMetric_006: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "If this was the temperature outside you might consider going swimming. [25,37c]"
+    answer: "[f]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_007: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "If this was the temperature outside you might consider wearing a sweatshirt or hoodie. [13,21f]"
+    answer: "[f]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_008: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "If this was the temperature outside you might consider wearing a warm cap or earmuffs. [0,7c]"
+    answer: "[f]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_009: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "If this was the temperature outside you might consider watching for ice. [-15,-1c]"
+    answer: "[f]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_010: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "If this was the temperature outside you should beware of dehydration. [30,40f]"
+    answer: "[f]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Cooking
+  ## To Metric
+  # Written
+  question_temperature_cooking_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The USDA recommends cooking chicken to a minimum of 165 degrees Fahrenheit. What is the equivalent in Celsius?"
+    answer: "[74c|79c|82.5c|85c|71c|68c|66.5c]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_cooking_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a common temperature you might set your oven to. [300,450f(25)s]"
+    answer: "[c(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_temperature_cooking_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Your imported European cookbook instructs you to preheat your oven to 175 degrees Celsius. What do you set your American oven to?"
+    answer: "[350f|375f|400f|450f|325f|300f|175f]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_cooking_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a common temperature you might set your oven to. [150,225c(25)s]"
+    answer: "[f(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Chemistry
+  ## To Metric
+  # Written
+  question_temperature_chemistry_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The melting point of lead is 621.4 degrees Fahrenheit. What is the melting point in Celsius?"
+    answer: "[327.5c|310.7c|299.9c|280c|398.8c|444.4c|532c]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_chemistry_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[600,3000f(100)s]"
+    answer: "[c(25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_temperature_chemistry_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "Author Ray Bradbury's 1953 novel's title, \"Fahrenheit 451\", is a reference to the ignition temperature of paper. According to some sources, it's actually 451 degrees Celsius. What is the correct temperature in Fahrenheit?"
+    answer: "[844f|902f|870f|755f|1005f|641f|808f]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_temperature_chemistry_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[300,1600c(50)s]"
+    answer: "[f(40)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
+  ####### Velocity
+  ### Pedestrian
+  ## To Metric
+  # Written
+  question_velocity_pedestrian_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Jogging is generally considered to be around 5 miles per hour. What is that in kilometers per hour?"
+    answer: "[8kmph|9kmph|10kmph|11.2kmph|7.4kmph|7kmph|6kmph|5kmph|4kmph|3kmph|2kmph|1kmph]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_pedestrian_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[5,25mph(5)s]"
+    answer: "[kmph(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_velocity_pedestrian_toMetric_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[3,24mph(3)s]"
+    answer: "[kmph(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_velocity_pedestrian_toMetric_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[3,24mph(3)s]"
+    answer: "[kmph(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_velocity_pedestrian_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Running is typically considered to be 10 kilometers per hour and faster. How fast is that in miles per hour?"
+    answer: "[6mph|7mph|8mph|9mph|5mph|4mph|3mph]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_pedestrian_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[10,40kmph(5)s]"
+    answer: "[mph(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_velocity_pedestrian_fromMetric_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[19,39kmph(3)s]"
+    answer: "[mph(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_velocity_pedestrian_fromMetric_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[19,39kmph(3)s]"
+    answer: "[mph(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Pedestrian-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Transit
+  ## To Metric
+  # Written
+  question_velocity_transit_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "On a road a school zone typically restricts vehicle speeds to 25 miles per hour. What is that in kilometers per hour?"
+    answer: "[40kmph|42kmph|45kmph|50kmph|38kmph|36kmph|34kmph]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Transit-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_transit_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[25,100mph(5)s]"
+    answer: "[kmph(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Transit-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_velocity_transit_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "100 kilometers per hour is pretty typical speed for highway travel. What is that in miles per hour?"
+    answer: "[62mph|60mph|59mph|55mph|66mph|69mph|70mph|75mph|80mph]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Transit-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_transit_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[40,160kmph(10)s]"
+    answer: "[mph(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Transit-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Racing
+  ## To Metric
+  # Written
+  question_velocity_racing_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Top level stock cars like those in NASCAR can surpass 200 miles per hour. What is that in kilometers per hour?"
+    answer: "[322kmph|300kmph|302kmph|290kmph|334kmph|346kmph|351kmph]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Racing-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_racing_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a speed typical of race cars. [100,220mph(20)s]"
+    answer: "[kmph(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Racing-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_velocity_racing_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The cars in Formula One can surpass 340 kilometers per hour. How fast is that in miles per hour?"
+    answer: "[211mph|222mph|230mph|244mph|202mph|194mph|188mph|185mph]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Racing-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_racing_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is a speed typical of race cars. [160,340kmph(20)s]"
+    answer: "[mph(4)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Racing-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Air
+  ## To Metric
+  # Written
+  question_velocity_air_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The high-subsonic cruising speed of a Boeing 747 is up to 570 miles per hour. What is that in kilometers per hour?"
+    answer: "[920kmph|900kmph|865kmph|840kmph|800kmph|950kmph|1000kmph|1040kmph|1140kmph]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Air-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_air_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "This is a speed common with warplanes in WWII. [230,370mph(20)s]"
+    answer: "[kmph(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Air-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_velocity_air_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The famous British WWII fighter plane, the Supermarine Spitfire, had a top speed of 584 kilometers per hour. What was its top speed in miles per hour?"
+    answer: "[363mph|341mph|320mph|303mph|277mph|399mph|419mph|444mph|462mph]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Air-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_air_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "This is a speed common with warplanes in WWII. [370,690kmph(20)s]"
+    answer: "[mph(8)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Air-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Rocket
+  ## To Metric
+  # Written
+  question_velocity_rocket_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The Lockheed SR-71 \"Blackbird\" reconnaissance aircraft had a cruising speed of Mach 3.2, or 2450 miles per hour. What is it in kilometers per hour?"
+    answer: "[3940kmph|4000kmph|4120kmph|4400kmph|5050kmph|3810kmph|3700kmph|3556kmph]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Rocket-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_rocket_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "This is a speed that can be reached by space rockets in the first two minutes after take-off. [1000,5000mph(500)s]"
+    answer: "[kmph(80)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Rocket-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_velocity_rocket_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Rifle bullets fly at speeds exceeding 3000 kilometers per hour. How fast is that in miles per hour?"
+    answer: "[1864mph|1990mph|2022mph|2204mph|2300mph|1804mph|1750mph|1400mph|1210mph]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Rocket-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_velocity_rocket_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "This is a speed that can be reached by space rockets in the first two minutes after take-off. [1500,8000kmph(500)s]"
+    answer: "[mph(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Velocity - Rocket-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
+  ####### Area
+  ### Home
+  ## To Metric
+  # Written
+  question_area_home_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "An apartment with two bedrooms and 1.5 baths advertizes it is 950 square feet. How many square meters is that?"
+    answer: "[88sqm|95sqm|100sqm|108sqm|112sqm|82sqm|80sqm|76sqm|72sqm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_home_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "This is a square footage common of a single family home. [1400,2400sqft(100)s]"
+    answer: "[sqm(6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_home_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A single family home with 4 beds and 2.5 baths advertizes it is 2100 square feet. How many square meters is that?"
+    answer: "[195sqm|200sqm|209sqm|215sqm|220sqm|188sqm|174sqm|170sqm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_home_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "This is a square footage common of a single family home. [130,220sqm(10)s]"
+    answer: "[sqft(60)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Commercial
+  ## To Metric
+  # Written
+  question_area_commercial_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The average size of a Walmart store is 105,000 square feet. What is that in square meters?"
+    answer: "[9800sqm|10600sqm|11200sqm|12000sqm|12800sqm|13400sqm|15050sqm|9100sqm|7900sqm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_commercial_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is an amount of area commonly found in a chain grocery store. [25000,60000sqft(5000)s]"
+    answer: "[sqm(60)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_commercial_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The area of a soccer field is 7140 square meters. Approximately what is that in square feet?"
+    answer: "[76800sqft|80200sqft|82000sqft|84600sqft|88100sqft|75100sqft|74000sqft|70500sqft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_commercial_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is an amount of area commonly found in a book store. [500,2500sqm(200)s]"
+    answer: "[sqft(500)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Land
+  ## To Metric
+  # Written
+  question_area_land_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The famous Lincoln Memorial Reflecting pool in Washington DC is 2029 feet by 167 feet, equaling approximately 7.75 acres. What is that area in hectares?"
+    answer: "[3.1ha|3.6ha|4ha|4.6ha|5.3ha|2.6ha|2ha|1.8ha|1.5ha]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_land_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[50,250acre(50)s]"
+    answer: "[ha(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_land_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Beneath the Eiffel Tower is a large public park named the \"Champ de Mars\" (\"Field of Mars\"). It is approximately 24.5 hectares in size. What is that size in acres?"
+    answer: "[60.5acre|71acre|80acre|86.5acre|90.5acre|55.5acre|48acre|44.5acre]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_land_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[20,100ha(20)s]"
+    answer: "[acre(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Jurisdictional
+  ## To Metric
+  # Written
+  question_area_jurisdictional_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Manhattan is the most densely populated borough of New York City. What is it's area of 22.8 square miles in square kilometers?"
+    answer: "[59sqkm|68sqkm|76sqkm|80.5sqkm|99.9sqkm|53sqkm|49.5sqkm|44sqkm|40.5sqkm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_jurisdictional_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is comparable to the size of a large American city with over one million people. [200,600sqmi(100)s]"
+    answer: "[sqkm(20)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_jurisdictional_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The small country of Liechtenstein is a very small 160 square kilometers. What is its size in square miles?"
+    answer: "[62sqmi|69sqmi|78sqmi|90sqmi|100sqmi|51sqmi|45sqmi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_jurisdictional_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This size is comparable to the size of a large European city with over one million people. [500,1500sqkm(250)s]"
+    answer: "[sqmi(40)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ### Territory
+  ## To Metric
+  # Written
+  question_area_territory_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The state of Colorado is approximately 104,000 square miles in area. What is that approximately in square kilometers?"
+    answer: "[270000sqkm|300000sqkm|324000sqkm|349000sqkm|250500sqkm|224000sqkm|215000sqkm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_territory_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This area is comparable to the middle 30 states (by area) of the United States. [10000,100000sqmi(10000)s]"
+    answer: "[sqkm(6000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_territory_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The island of Ireland is approximately 84,000 square kilometers. What is that approximately in square miles?"
+    answer: "[32000sqmi|35000sqmi|38000sqmi|41000sqmi|44500sqmi|29000sqmi|25500sqmi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_territory_fromMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This area is comparable to the size of the countries of the United Kingdom. [20000,130000sqkm(20000)s]"
+    answer: "[sqmi(4000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - From Metric"
+      }
+    }
   }) {
     id
   }
