@@ -14,11 +14,12 @@ const {
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
   ANSWER_TYPE_SURVEY,
+  WRITTEN_ANSWER_UNIT,
 } = require("../../constants");
 
 describe("qaSyntax", () => {
   describe("Happy Path", () => {
-    it("Should parse a multiple choice question/answer", () => {
+    it("Should parse a multiple choice question/answer with unit answers", () => {
       const { questionPayload, answerPayload } = parseQAStrings(
         QUESTION_TYPE_WRITTEN,
         "How long is 500 centimeters?",
@@ -37,6 +38,48 @@ describe("qaSyntax", () => {
       expect(answerPayload.data.choices[2].value).toBe(3000);
       expect(answerPayload.data.choices[2].unit).toBe("mm");
       expect(answerPayload.data.syntax).toBe("[5.00m|200cm|3000mm]");
+    });
+
+    it("Should parse a multiple choice question/answer with written answers", () => {
+      const { questionPayload, answerPayload } = parseQAStrings(
+        QUESTION_TYPE_WRITTEN,
+        "What is longer?",
+        "[A meter|A yard]",
+      );
+      expect(questionPayload.type).toBe(QUESTION_TYPE_WRITTEN);
+      expect(questionPayload.data.text).toBe("What is longer?");
+
+      expect(answerPayload.type).toBe(ANSWER_TYPE_MULTIPLE_CHOICE);
+      expect(answerPayload.data.choicesOffered).toBe(2);
+      expect(answerPayload.data.choices.length).toBe(2);
+      expect(answerPayload.data.choices[0].value).toBe("A meter");
+      expect(answerPayload.data.choices[0].unit).toBe(WRITTEN_ANSWER_UNIT);
+      expect(answerPayload.data.choices[1].value).toBe("A yard");
+      expect(answerPayload.data.choices[1].unit).toBe(WRITTEN_ANSWER_UNIT);
+      expect(answerPayload.data.syntax).toBe("[A meter|A yard]");
+    });
+
+    it("Should parse a multiple choice question/answer with mixed unit and written answers", () => {
+      const { questionPayload, answerPayload } = parseQAStrings(
+        QUESTION_TYPE_WRITTEN,
+        "Which is the heaviest?",
+        "[1kg|A pound of feathers|1lb|16oz]",
+      );
+      expect(questionPayload.type).toBe(QUESTION_TYPE_WRITTEN);
+      expect(questionPayload.data.text).toBe("Which is the heaviest?");
+
+      expect(answerPayload.type).toBe(ANSWER_TYPE_MULTIPLE_CHOICE);
+      expect(answerPayload.data.choicesOffered).toBe(4);
+      expect(answerPayload.data.choices.length).toBe(4);
+      expect(answerPayload.data.choices[0].value).toBe(1);
+      expect(answerPayload.data.choices[0].unit).toBe("kg");
+      expect(answerPayload.data.choices[1].value).toBe("A pound of feathers");
+      expect(answerPayload.data.choices[1].unit).toBe(WRITTEN_ANSWER_UNIT);
+      expect(answerPayload.data.choices[2].value).toBe(1);
+      expect(answerPayload.data.choices[2].unit).toBe("lb");
+      expect(answerPayload.data.choices[3].value).toBe(16);
+      expect(answerPayload.data.choices[3].unit).toBe("oz");
+      expect(answerPayload.data.syntax).toBe("[1kg|A pound of feathers|1lb|16oz]");
     });
 
     it("Should parse a Written question with extra whitespace", () => {
@@ -405,12 +448,52 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with invalid options", () => {
+      it("Should reject a multiple-choice answer with blank options", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
             "Blah",
-            "[5m|5]",
+            "[| | ]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer mixed with invalid option", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[5m|]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer mixed with invalid options", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[5m||]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer mixed with blank option", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[5m||]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer mixed with blank options", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[5m| | ]",
           );
         }).toThrowError(AnswerSyntaxError);
       });
@@ -483,16 +566,6 @@ describe("qaSyntax", () => {
             QUESTION_TYPE_WRITTEN,
             "Blah",
             "[5m|2m]3",
-          );
-        }).toThrowError(AnswerSyntaxError);
-      });
-
-      it("Should reject a multiple-choice answer with mixed family", () => {
-        expect(() => {
-          parseQAStrings(
-            QUESTION_TYPE_WRITTEN,
-            "Blah",
-            "[10mi|16km]",
           );
         }).toThrowError(AnswerSyntaxError);
       });

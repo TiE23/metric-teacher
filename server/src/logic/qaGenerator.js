@@ -17,7 +17,7 @@ const {
 } = require("../constants");
 const {
   parseQAStrings,
-  parseUnitValue,
+  parseSingleAnswer,
 } = require("./qaSyntax");
 
 
@@ -98,7 +98,9 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
     }
 
     // If the survey has been taken put the answer's info in new response object. Else null.
-    const response = surveyData ? parseUnitValue(surveyData.answer) : null;
+    // When using parseSingleAnswer must strip out square brackets.
+    const response = surveyData ?
+      parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer) : null;
     if (response) {
       response.score = surveyData.score;
       response.id = surveyData.id;
