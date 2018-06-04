@@ -58,6 +58,7 @@ function qaGenerate(questionData, surveyData = null) {
     questionId: questionData.id,
     subSubjectId: questionData.parent,
     difficulty: questionData.difficulty,
+    flags: questionData.flags,
     question: generatedQuestion,
     answer: generatedAnswer,
   };
@@ -102,7 +103,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
           singular: UNITS[questionPayload.data.unit].singular,
           plural: UNITS[questionPayload.data.unit].plural,
         },
-        conversionData: {
+        conversion: {
           step: questionPayload.data.step,
           exact: {
             value,
@@ -125,6 +126,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
     if (response) {
       response.score = surveyData.score;
       response.id = surveyData.id;
+      response.detail = surveyData.detail;
     }
 
     return {
@@ -136,7 +138,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
           singular: UNITS[questionPayload.data.unit].singular,
           plural: UNITS[questionPayload.data.unit].plural,
         },
-        surveyData: {
+        survey: {
           step: questionPayload.data.step,
           surveyRange: {
             bottom: {
@@ -148,7 +150,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
               unit: questionPayload.data.unit,
             },
           },
-          response, // Null or { value: 2, unit: "m", score: 0, id: "someSurveyId" }
+          response, // Null or { value: 2, unit: "m", score: 0, id: "someId", detail: "Foo" }
         },
       },
     };
@@ -171,20 +173,19 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
 function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
   const generatedAnswer = {
     type: answerPayload.type,
-    data: {
-      detail: answerPayload.data.detail,
-    },
+    detail: answerPayload.data.detail,
+    data: {},
   };
 
   // Get multiple choice data
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
-    generatedAnswer.data.multipleChoiceData = composeWrittenAnswerData(answerPayload);
+    generatedAnswer.data.multiple = composeWrittenAnswerData(answerPayload);
 
     // Get conversion data
   } else if (questionPayload.type === QUESTION_TYPE_CONVERSION) {
-    generatedAnswer.data.conversionData = composeConversionAnswerData(
-      generatedQuestion.data.conversionData.exact.value,
-      generatedQuestion.data.conversionData.exact.unit,
+    generatedAnswer.data.conversion = composeConversionAnswerData(
+      generatedQuestion.data.conversion.exact.value,
+      generatedQuestion.data.conversion.exact.unit,
       answerPayload.data.unit,
       answerPayload.data.accuracy,
     );
@@ -197,10 +198,10 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
     // Survey question
   } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
     // If the survey has been answered generate data.
-    const { response } = generatedQuestion.data.surveyData;
+    const { response } = generatedQuestion.data.survey;
     if (response) {
       // Compose conversions
-      generatedAnswer.data.conversionData = composeConversionAnswerData(
+      generatedAnswer.data.conversion = composeConversionAnswerData(
         response.value,
         response.unit,
         answerPayload.data.unit,
@@ -208,11 +209,15 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
       );
 
       // Compose survey data
-      generatedAnswer.data.surveyData = composeSurveyAnswerData(
-        response.value,
-        response.unit,
-        questionPayload.data.step,
-      );
+      generatedAnswer.data.survey = {
+        choices: makeChoices(
+          response.value,
+          UNITS[response.unit].round,
+          response.unit,
+          questionPayload.data.step,
+          UNITS[response.unit].subject === "temperature",
+        ),
+      };
 
       generatedAnswer.data.toUnitWord = {
         singular: UNITS[answerPayload.data.unit].singular,
@@ -220,7 +225,7 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
       };
     } else {
       // Otherwise set to null
-      generatedAnswer.data.surveyData = null;
+      generatedAnswer.data.survey = null;
     }
 
     // Type not recognized!
@@ -300,22 +305,6 @@ function composeConversionAnswerData(fromValue, fromUnit, toUnit, toAccuracy) {
       top: { value: topValue, unit: toUnit },
     },
     choices,
-  };
-}
-
-
-/**
- * Simple function that generates survey review choices.
- * @param value
- * @param unit
- * @param step
- * @returns {{choices: *}}
- */
-function composeSurveyAnswerData(value, unit, step) {
-  const roundingLevel = UNITS[unit].round;
-  const isTemperature = UNITS[unit].subject === "temperature";
-  return {
-    choices: makeChoices(value, roundingLevel, unit, step, isTemperature),
   };
 }
 

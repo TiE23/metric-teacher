@@ -67,6 +67,7 @@ type Survey {
   id: ID! @unique
   score: Int!
   answer: String!
+  detail: String
   parent: Course! @relation(name: "CourseToSurvey")
   question: Question! @relation(name: "SurveyToQuestion")
 }

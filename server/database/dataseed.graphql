@@ -1113,6 +1113,38 @@ mutation {
   }) {
     id
   }
+  question_length_human_toMetric_013: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 1
+    difficulty: 3
+    question: "How tall is the tallest person you personally know? Give your best guess if you don't know exactly. [70,96in]"
+    answer: "[cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_014: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 2
+    difficulty: 3
+    question: "How tall is the last friend you spoke to and what is their name? Give your best guess if you don't know exactly. [24,96in]"
+    answer: "[cm]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   ## From Metric
   # Written

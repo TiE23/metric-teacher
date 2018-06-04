@@ -37,6 +37,8 @@ const constants = {
   QUESTION_DIFFICULTY_MEDIUM: 3,
   QUESTION_DIFFICULTY_MEDIUM_HARD: 4,
   QUESTION_DIFFICULTY_HARD: 5,
+  QUESTION_FLAG_USER_DETAIL_OPTIONAL: 0x01, // Survey question requests user-added detail (optional)
+  QUESTION_FLAG_USER_DETAIL_REQUIRED: 0x02, // Survey question requests user-added detail (required)
 
   // Answer (logic only)
   ANSWER_TYPE_MULTIPLE_CHOICE: 0,
