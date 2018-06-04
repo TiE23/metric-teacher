@@ -1,3 +1,5 @@
+const uniqWith = require("lodash/uniqWith");
+const isEqual = require("lodash/isEqual");
 const {
   QuestionSyntaxError,
   AnswerSyntaxError,
@@ -292,8 +294,11 @@ function parseAnswerString(questionType, answerSyntax) {
     const parsedMultipleChoiceAnswers = multipleChoiceAnswers.map(singleAnswer =>
       parseSingleAnswer(singleAnswer, answerSyntax));
 
+    const dedupedParsedMultipleChoiceAnswers =
+      removeDuplicateAnswers(answerSyntax, parsedMultipleChoiceAnswers, choicesOffered);
+
     answerPayload.type = ANSWER_TYPE_MULTIPLE_CHOICE;
-    answerPayload.data.choices = parsedMultipleChoiceAnswers;
+    answerPayload.data.choices = dedupedParsedMultipleChoiceAnswers;
 
     return answerPayload;
 
@@ -438,6 +443,27 @@ function checkUnitCompatibility(questionPayload, answerPayload) {
       }
     });
   }
+}
+
+
+/**
+ * Basic function uses lodash convenience functions to smartly remove duplicated answers from
+ * multiple-choice answer strings. It does with quietly and will only thrown an error if the
+ * results are too few to satisfy the choicesOffered value.
+ * @param answerSyntax
+ * @param parsedMultipleChoiceAnswers
+ * @param choicesOffered
+ */
+function removeDuplicateAnswers(answerSyntax, parsedMultipleChoiceAnswers, choicesOffered) {
+  const dedupedAnswers = uniqWith(parsedMultipleChoiceAnswers, isEqual);
+  if (dedupedAnswers.length < choicesOffered) {
+    throw new AnswerSyntaxError(
+      answerSyntax,
+      `After de-duplication there remains only ${dedupedAnswers.length} answers. Needed at least ${choicesOffered}`,
+    );
+  }
+
+  return dedupedAnswers;
 }
 
 
