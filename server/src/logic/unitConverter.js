@@ -27,6 +27,7 @@ const {
   ConversionNegativeValue,
 } = require("../errors");
 const {
+  FRIENDLY_DIGIT_COUNT,
   UNITS,
   BASE_UNITS,
 } = require("../constants");
@@ -48,7 +49,7 @@ const { convert, invertConversion, composeConversions } = converter;
  * @param fromValue
  * @param fromUnit
  * @param toUnit
- * @returns { exactValue, roundedValue }
+ * @returns { exactValue, roundedValue, roundingLevel, friendlyValue }
  */
 function convertValue(fromValue, fromUnit, toUnit) {
   // Grab unit details
@@ -100,6 +101,7 @@ function convertValue(fromValue, fromUnit, toUnit) {
       exactValue: fromValue,
       roundedValue: fromValue,
       roundingLevel,
+      friendlyValue: fromValue,
     };
   }
 
@@ -161,10 +163,31 @@ function convertValue(fromValue, fromUnit, toUnit) {
     roundedValue = Math.abs(roundedValue);
   }
 
+  // Create the human friendly value
+  let friendlyValue = 0;
+  let power = 0;
+  for (; power <= 308; power += 1) {  // Limit to approximately Number.MAX_VALUE (1.798e+308)
+    if (Math.abs(roundedValue) < 10 ** power) {
+      break;
+    }
+  }
+
+  if (FRIENDLY_DIGIT_COUNT - power >= 0) {
+    // Do not friendly round any value less than number of digits.
+    friendlyValue = roundedValue;
+  } else {
+    // Because rounding acts differently with negative values, just use Math.abs().
+    friendlyValue = round(Math.abs(roundedValue), FRIENDLY_DIGIT_COUNT - power);
+    if (roundedValue < 0) {
+      friendlyValue *= -1;  // Flip back to negative if rounded is negative.
+    }
+  }
+
   return {
     exactValue: smoothedValue,
     roundedValue,
     roundingLevel: rounding,
+    friendlyValue,
   };
 }
 

@@ -14,6 +14,7 @@ const {
   UNITS,
 } = require("../constants");
 
+
 /**
  * Returns two new objects for the question and the answer. The shape of the objects can vary, with
  * two different variations for each:
@@ -125,6 +126,14 @@ function parseQAStrings(questionType, question, answer) {
   return { questionPayload, answerPayload };
 }
 
+
+/**
+ * Performs the actions necessary to generate question payload data simply from the contents of
+ * the question field string in the question database row.
+ * @param type
+ * @param question
+ * @returns {*}
+ */
 function parseQuestionString(type, question) {
   const basePattern = /\[([^\]]+)]/;                  // Finds "[20.5,30c(0.5)s]"; Returns "20,30c(0.5)s"
   const rangePattern = /(-?[\d.]+),(-?[\d.]+)(\w+)/;  // Finds "20.5,30c"; Returns "20.5", "30", "c"
@@ -224,6 +233,13 @@ function parseQuestionString(type, question) {
 }
 
 
+/**
+ * Performs the actions necessary to generate question payload data simply from the contents of
+ * the question field string in the question database row.
+ * @param questionType
+ * @param answerSyntax
+ * @returns {{type: null, data: {detail: string}}}
+ */
 function parseAnswerString(questionType, answerSyntax) {
   // Finds "[1m|2m]2"; Returns "1m|2m", "2" // Finds "[m(0.5)a]"; Returns "m(0.5)a"
   const basePattern = /\[([^\]]+)](\d{0,2})/;
@@ -317,6 +333,13 @@ function parseAnswerString(questionType, answerSyntax) {
 }
 
 
+/**
+ * Function takes a single item from an answer that is used in multiple-choice and survey
+ * responses. For example: "1.5m" or "John is taller"
+ * @param singleAnswer A single answer without square brackets.
+ * @param answerSyntax Optional answer syntax that can be used for context in error messages.
+ * @returns {*}
+ */
 function parseSingleAnswer(singleAnswer, answerSyntax = "") {
   const unitValuePattern = /^([\d.]+)([a-zA-Z]+)$/u;
   const answerContext = answerSyntax || singleAnswer; // Simply for error reporting.
@@ -360,6 +383,15 @@ function parseSingleAnswer(singleAnswer, answerSyntax = "") {
 }
 
 
+/**
+ * Helper function that, for conversion and survey questions compares question and answer payloads
+ * and makes sure that the combination exhibits the desired combination of the units being under
+ * the same subject (length, temperature, etc) and are of different families (Metric to Imperial
+ * and Imperial to Metric).
+ * For written questions it makes sure that any detected units are of the same subject
+ * @param questionPayload
+ * @param answerPayload
+ */
 function checkUnitCompatibility(questionPayload, answerPayload) {
   if (questionPayload.type === QUESTION_TYPE_CONVERSION ||
     questionPayload.type === QUESTION_TYPE_SURVEY) {

@@ -21,6 +21,20 @@ const {
 } = require("./qaSyntax");
 
 
+/**
+ * Main function takes in question data from the database and, optionally, a matching student
+ * survey row of data. Using smaller functions returns a large constructed object containing
+ * data that is intended for consumption by the client.
+ * @param questionData
+ * @param surveyData
+ * @returns {{
+ *  questionId: *,
+ *  subSubjectId: *,
+ *  difficulty: *
+ *  question: {type, text, detail, data},
+ *  answer: {type: *, data: {detail: *}}
+ * }}
+ */
 function qaGenerate(questionData, surveyData = null) {
   const { questionPayload, answerPayload } = parseQAStrings(
     questionData.type,
@@ -50,6 +64,13 @@ function qaGenerate(questionData, surveyData = null) {
 }
 
 
+/**
+ * This function takes care of generating the content of the question object inside the QA object.
+ * @param questionPayload
+ * @param answerUnit
+ * @param surveyData
+ * @returns {*}
+ */
 function generateQuestionData(questionPayload, answerUnit = null, surveyData = null) {
   // Written question
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
@@ -137,6 +158,16 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
 }
 
 
+/**
+ * This function takes care of generating the content of the answer object inside the QA object.
+ * It's mostly just organizing of other more important functions. If the question is a written
+ * question, a conversion question, or a survey question will determine how the returned data
+ * looks.
+ * @param questionPayload
+ * @param answerPayload
+ * @param generatedQuestion
+ * @returns {{type: *, data: {detail: *}}}
+ */
 function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
   const generatedAnswer = {
     type: answerPayload.type,
@@ -201,6 +232,12 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
 }
 
 
+/**
+ * Simple function essentially just returns the answerPayload. I just wanted to give it its own
+ * function to follow the pattern.
+ * @param answerPayload
+ * @returns {{choicesOffered: *, choices: *|*[]|string[]}}
+ */
 function composeWrittenAnswerData(answerPayload) {
   return {
     choicesOffered: answerPayload.data.choicesOffered,
@@ -209,20 +246,44 @@ function composeWrittenAnswerData(answerPayload) {
 }
 
 
+/**
+ * This function takes care of generating the extact, rounded, friendly conversions values to the
+ * question. Additionally, it calls makeChoices() to return the multiple choice answers as well.
+ * @param fromValue
+ * @param fromUnit
+ * @param toUnit
+ * @param toAccuracy
+ * @returns {{
+ *  accuracy: *,
+ *  exact: *,
+ *  rounded:   *,
+ *  friendly: *,
+ *  range: {
+ *    bottom: {value, unit: *},
+ *    top: {value, unit: *}
+ *  },
+ *  choices: *
+ * }}
+ */
 function composeConversionAnswerData(fromValue, fromUnit, toUnit, toAccuracy) {
-  const { roundedValue, exactValue, roundingLevel } = convertValue(fromValue, fromUnit, toUnit);
+  const {
+    exactValue,
+    roundedValue,
+    roundingLevel,
+    friendlyValue,
+  } = convertValue(fromValue, fromUnit, toUnit);
+
   const isTemperature = UNITS[toUnit].subject === "temperature";
 
   // Figure out the ranges.
-  let bottomValue = round(roundedValue - toAccuracy, roundingLevel);
+  let bottomValue = round(friendlyValue - toAccuracy, roundingLevel);
   if (!isTemperature) {
     bottomValue = Math.max(bottomValue, 0); // When not temperature do not let bottom be negative.
   }
-  const topValue = round(roundedValue + toAccuracy, roundingLevel);
+  const topValue = round(friendlyValue + toAccuracy, roundingLevel);
 
-  // roundedValue, accuracy, isTemperature
   const choices = makeChoices(
-    roundedValue,
+    friendlyValue,
     roundingLevel,
     toUnit,
     toAccuracy,
@@ -233,6 +294,7 @@ function composeConversionAnswerData(fromValue, fromUnit, toUnit, toAccuracy) {
     accuracy: toAccuracy,
     exact: exactValue,
     rounded: roundedValue,
+    friendly: friendlyValue,
     range: {
       bottom: { value: bottomValue, unit: toUnit },
       top: { value: topValue, unit: toUnit },
@@ -242,6 +304,13 @@ function composeConversionAnswerData(fromValue, fromUnit, toUnit, toAccuracy) {
 }
 
 
+/**
+ * Simple function that generates survey review choices.
+ * @param value
+ * @param unit
+ * @param step
+ * @returns {{choices: *}}
+ */
 function composeSurveyAnswerData(value, unit, step) {
   const roundingLevel = UNITS[unit].round;
   const isTemperature = UNITS[unit].subject === "temperature";
@@ -277,6 +346,13 @@ function makeChoices(value, roundingLevel, unit, step, isTemperature) {
 }
 
 
+/**
+ * Simple function randomly selects a value from a bottom value, a top value, and a step.
+ * @param bottom
+ * @param top
+ * @param step
+ * @returns {*}
+ */
 function makeValueFromRange(bottom, top, step) {
   if (step <= 0 || bottom === top) {
     return bottom;

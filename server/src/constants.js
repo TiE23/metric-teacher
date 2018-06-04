@@ -50,6 +50,9 @@ const constants = {
   // Decimal Accuracy
   CONVERSION_DECIMAL_ACCURACY: 10,
 
+  // Friendly Digit Count (ex: 3 will change any value over 999, ex: 57,591.234 to 57,600)
+  FRIENDLY_DIGIT_COUNT: 3,
+
   // Written answer unit
   WRITTEN_ANSWER_UNIT: "written",
 
