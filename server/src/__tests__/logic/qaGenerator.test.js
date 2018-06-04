@@ -6,6 +6,7 @@ const {
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
   QUESTION_DIFFICULTY_MEDIUM,
+  QUESTION_FLAG_USER_DETAIL_REQUIRED,
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
   ANSWER_TYPE_SURVEY,
@@ -42,6 +43,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.questionId).toBe("question01");
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
         expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
+        expect(qaFormat.flags).toBe(FLAGS_NONE);
 
         // Question Data
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_WRITTEN);
@@ -113,6 +115,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.questionId).toBe("question01");
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
         expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
+        expect(qaFormat.flags).toBe(FLAGS_NONE);
 
         // Question Data
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
@@ -418,6 +421,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
         expect(qaFormat.questionId).toBe("question01");
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
+        expect(qaFormat.flags).toBe(FLAGS_NONE);
 
         // Question Data
         expect(qaFormat.question).toBeDefined();
@@ -454,6 +458,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
         expect(qaFormat.questionId).toBe("question01");
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
+        expect(qaFormat.flags).toBe(FLAGS_NONE);
 
         // Question Data
         expect(qaFormat.question).toBeDefined();
@@ -519,6 +524,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
         expect(qaFormat.questionId).toBe("question01");
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
+        expect(qaFormat.flags).toBe(FLAGS_NONE);
 
         // Question Data
         expect(qaFormat.question).toBeDefined();
@@ -528,6 +534,26 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.survey.response.unit).toBe("in");
         expect(qaFormat.question.data.survey.response.value).toBe(80);
         expect(qaFormat.question.data.survey.response.detail).toBe("My neighbor Anthony");
+      });
+
+      it("Should parse a survey question with a request for user detail input and without a survey", () => {
+        baseSurveyQuestion.question = "How tall is the last friend you spoke to and what is their name? Give your best guess if you don't know exactly. [24,96in]";
+        baseSurveyQuestion.flags = QUESTION_FLAG_USER_DETAIL_REQUIRED;
+
+        const qaFormat = qaGenerate(baseSurveyQuestion);
+
+        // Basic Data
+        expect(qaFormat).toBeDefined();
+        expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
+        expect(qaFormat.questionId).toBe("question01");
+        expect(qaFormat.subSubjectId).toBe("someSubSubject");
+        expect(qaFormat.flags).toBe(QUESTION_FLAG_USER_DETAIL_REQUIRED);
+
+        // Question Data
+        expect(qaFormat.question).toBeDefined();
+        expect(qaFormat.question.detail).toBe("");
+        expect(qaFormat.question.text).toBe("How tall is the last friend you spoke to and what is their name? Give your best guess if you don't know exactly.");
+        expect(qaFormat.question.type).toBe(QUESTION_TYPE_SURVEY);
       });
     });
   });

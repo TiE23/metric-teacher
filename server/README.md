@@ -276,6 +276,7 @@ Examples:
   questionId: "question01",
   subSubjectId: "someSubSubject",
   difficulty: 3,
+  flags: 0,
 
   question: {
     data: null,
@@ -308,6 +309,7 @@ Examples:
   questionId: "question01",
   subSubjectId: "someSubSubject",
   difficulty: 3,
+  flags: 0,
 
   question: {
     detail: "This weight is typical of a 5 year old child.",
@@ -365,6 +367,7 @@ Examples:
   questionId: "question01",
   subSubjectId: "someSubSubject",
   difficulty: 3,
+  flags: 1,
 
   question: {
     detail: "",

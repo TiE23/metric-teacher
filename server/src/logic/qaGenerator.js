@@ -58,6 +58,7 @@ function qaGenerate(questionData, surveyData = null) {
     questionId: questionData.id,
     subSubjectId: questionData.parent,
     difficulty: questionData.difficulty,
+    flags: questionData.flags,
     question: generatedQuestion,
     answer: generatedAnswer,
   };
