@@ -168,7 +168,8 @@ If you ever do remote hosting, you'll need to change the endpoint's url to the r
     * `0` - Enabled
     * `1` - Disabled
 * `flags`
-    * No flags have been defined yet.
+    * `0x01` - User detail note requested (optional)
+    * `0x02` - User detail note requested (required)
 * `difficulty`
     * Should offer an ability to have some flexibility to give more weight to correct answers for difficult questions and similarly forgive more for failing to answer them correctly.
     * Values
