@@ -102,7 +102,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
           singular: UNITS[questionPayload.data.unit].singular,
           plural: UNITS[questionPayload.data.unit].plural,
         },
-        conversionData: {
+        conversion: {
           step: questionPayload.data.step,
           exact: {
             value,
@@ -137,7 +137,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
           singular: UNITS[questionPayload.data.unit].singular,
           plural: UNITS[questionPayload.data.unit].plural,
         },
-        surveyData: {
+        survey: {
           step: questionPayload.data.step,
           surveyRange: {
             bottom: {
@@ -178,13 +178,13 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
 
   // Get multiple choice data
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
-    generatedAnswer.data.multipleChoiceData = composeWrittenAnswerData(answerPayload);
+    generatedAnswer.data.multiple = composeWrittenAnswerData(answerPayload);
 
     // Get conversion data
   } else if (questionPayload.type === QUESTION_TYPE_CONVERSION) {
-    generatedAnswer.data.conversionData = composeConversionAnswerData(
-      generatedQuestion.data.conversionData.exact.value,
-      generatedQuestion.data.conversionData.exact.unit,
+    generatedAnswer.data.conversion = composeConversionAnswerData(
+      generatedQuestion.data.conversion.exact.value,
+      generatedQuestion.data.conversion.exact.unit,
       answerPayload.data.unit,
       answerPayload.data.accuracy,
     );
@@ -197,10 +197,10 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
     // Survey question
   } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
     // If the survey has been answered generate data.
-    const { response } = generatedQuestion.data.surveyData;
+    const { response } = generatedQuestion.data.survey;
     if (response) {
       // Compose conversions
-      generatedAnswer.data.conversionData = composeConversionAnswerData(
+      generatedAnswer.data.conversion = composeConversionAnswerData(
         response.value,
         response.unit,
         answerPayload.data.unit,
@@ -208,7 +208,7 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
       );
 
       // Compose survey data
-      generatedAnswer.data.surveyData = {
+      generatedAnswer.data.survey = {
         choices: makeChoices(
           response.value,
           UNITS[response.unit].round,
@@ -224,7 +224,7 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
       };
     } else {
       // Otherwise set to null
-      generatedAnswer.data.surveyData = null;
+      generatedAnswer.data.survey = null;
     }
 
     // Type not recognized!

@@ -50,10 +50,10 @@ describe("qaGenerator", () => {
 
         // Answer Data
         expect(qaFormat.answer.type).toBe(ANSWER_TYPE_MULTIPLE_CHOICE);
-        expect(qaFormat.answer.data.multipleChoiceData).toBeDefined();
-        expect(qaFormat.answer.data.multipleChoiceData.choicesOffered).toBe(3);
-        expect(qaFormat.answer.data.multipleChoiceData.choices).toBeDefined();
-        expect(qaFormat.answer.data.multipleChoiceData.choices).toHaveLength(3);
+        expect(qaFormat.answer.data.multiple).toBeDefined();
+        expect(qaFormat.answer.data.multiple.choicesOffered).toBe(3);
+        expect(qaFormat.answer.data.multiple.choices).toBeDefined();
+        expect(qaFormat.answer.data.multiple.choices).toHaveLength(3);
       });
 
       it("Should parse a Written question with answer details", () => {
@@ -65,16 +65,16 @@ describe("qaGenerator", () => {
         expect(qaFormat.answer.type).toBe(ANSWER_TYPE_MULTIPLE_CHOICE);
         expect(qaFormat.answer.detail).toBeDefined();
         expect(qaFormat.answer.detail).toBe("195cm is about 6'5\" and 6'1\" is about 185cm.");
-        expect(qaFormat.answer.data.multipleChoiceData).toBeDefined();
-        expect(qaFormat.answer.data.multipleChoiceData.choicesOffered).toBe(3);
-        expect(qaFormat.answer.data.multipleChoiceData.choices).toBeDefined();
-        expect(qaFormat.answer.data.multipleChoiceData.choices).toHaveLength(3);
-        expect(qaFormat.answer.data.multipleChoiceData.choices[0].value).toBe("Harry is taller");
-        expect(qaFormat.answer.data.multipleChoiceData.choices[0].unit).toBe(WRITTEN_ANSWER_UNIT);
-        expect(qaFormat.answer.data.multipleChoiceData.choices[1].value).toBe("Jim is taller");
-        expect(qaFormat.answer.data.multipleChoiceData.choices[1].unit).toBe(WRITTEN_ANSWER_UNIT);
-        expect(qaFormat.answer.data.multipleChoiceData.choices[2].value).toBe("They are about the same height");
-        expect(qaFormat.answer.data.multipleChoiceData.choices[2].unit).toBe(WRITTEN_ANSWER_UNIT);
+        expect(qaFormat.answer.data.multiple).toBeDefined();
+        expect(qaFormat.answer.data.multiple.choicesOffered).toBe(3);
+        expect(qaFormat.answer.data.multiple.choices).toBeDefined();
+        expect(qaFormat.answer.data.multiple.choices).toHaveLength(3);
+        expect(qaFormat.answer.data.multiple.choices[0].value).toBe("Harry is taller");
+        expect(qaFormat.answer.data.multiple.choices[0].unit).toBe(WRITTEN_ANSWER_UNIT);
+        expect(qaFormat.answer.data.multiple.choices[1].value).toBe("Jim is taller");
+        expect(qaFormat.answer.data.multiple.choices[1].unit).toBe(WRITTEN_ANSWER_UNIT);
+        expect(qaFormat.answer.data.multiple.choices[2].value).toBe("They are about the same height");
+        expect(qaFormat.answer.data.multiple.choices[2].unit).toBe(WRITTEN_ANSWER_UNIT);
       });
 
       it("Should parse a Written question with a custom choicesOffered value in the answer", () => {
@@ -83,8 +83,8 @@ describe("qaGenerator", () => {
 
         const qaFormat = qaGenerate(baseWrittenQuestion);
 
-        expect(qaFormat.answer.data.multipleChoiceData.choicesOffered).toBe(2);
-        expect(qaFormat.answer.data.multipleChoiceData.choices).toHaveLength(3);
+        expect(qaFormat.answer.data.multiple.choicesOffered).toBe(2);
+        expect(qaFormat.answer.data.multiple.choices).toHaveLength(3);
       });
     });
 
@@ -121,49 +121,49 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord).toBeDefined();
         expect(qaFormat.question.data.fromUnitWord.singular).toBe("Celsius");
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("Celsius");
-        expect(qaFormat.question.data.conversionData).toBeDefined();
-        expect(qaFormat.question.data.conversionData.step).toBe(1);
-        expect(qaFormat.question.data.conversionData.exact).toBeDefined();
-        expect(qaFormat.question.data.conversionData.exact.value).toBe(100);
-        expect(qaFormat.question.data.conversionData.exact.unit).toBe("c");
+        expect(qaFormat.question.data.conversion).toBeDefined();
+        expect(qaFormat.question.data.conversion.step).toBe(1);
+        expect(qaFormat.question.data.conversion.exact).toBeDefined();
+        expect(qaFormat.question.data.conversion.exact.value).toBe(100);
+        expect(qaFormat.question.data.conversion.exact.unit).toBe("c");
 
         // Answer Data
         expect(qaFormat.answer.type).toBe(ANSWER_TYPE_CONVERSION);
         expect(qaFormat.answer.data.toUnitWord).toBeDefined();
         expect(qaFormat.answer.data.toUnitWord.singular).toBe("Fahrenheit");
         expect(qaFormat.answer.data.toUnitWord.plural).toBe("Fahrenheit");
-        expect(qaFormat.answer.data.conversionData).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.exact).toBe(212);
-        expect(qaFormat.answer.data.conversionData.rounded).toBe(212);
-        expect(qaFormat.answer.data.conversionData.friendly).toBe(212);
-        expect(qaFormat.answer.data.conversionData.range).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.bottom).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.top).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.bottom.unit).toBe("f");
-        expect(qaFormat.answer.data.conversionData.range.top.unit).toBe("f");
-        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(211);
-        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(213);
-        expect(qaFormat.answer.data.conversionData.accuracy).toBe(1);
-        expect(qaFormat.answer.data.conversionData.choices).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.choices).toHaveLength(9);
-        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(212);
-        expect(qaFormat.answer.data.conversionData.choices[0].unit).toBe("f");
-        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(211);
-        expect(qaFormat.answer.data.conversionData.choices[1].unit).toBe("f");
-        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(213);
-        expect(qaFormat.answer.data.conversionData.choices[2].unit).toBe("f");
-        expect(qaFormat.answer.data.conversionData.choices[3].value).toBe(210);
-        expect(qaFormat.answer.data.conversionData.choices[3].unit).toBe("f");
-        expect(qaFormat.answer.data.conversionData.choices[4].value).toBe(214);
-        expect(qaFormat.answer.data.conversionData.choices[4].unit).toBe("f");
-        expect(qaFormat.answer.data.conversionData.choices[5].value).toBe(209);
-        expect(qaFormat.answer.data.conversionData.choices[5].unit).toBe("f");
-        expect(qaFormat.answer.data.conversionData.choices[6].value).toBe(215);
-        expect(qaFormat.answer.data.conversionData.choices[6].unit).toBe("f");
-        expect(qaFormat.answer.data.conversionData.choices[7].value).toBe(208);
-        expect(qaFormat.answer.data.conversionData.choices[7].unit).toBe("f");
-        expect(qaFormat.answer.data.conversionData.choices[8].value).toBe(216);
-        expect(qaFormat.answer.data.conversionData.choices[8].unit).toBe("f");
+        expect(qaFormat.answer.data.conversion).toBeDefined();
+        expect(qaFormat.answer.data.conversion.exact).toBe(212);
+        expect(qaFormat.answer.data.conversion.rounded).toBe(212);
+        expect(qaFormat.answer.data.conversion.friendly).toBe(212);
+        expect(qaFormat.answer.data.conversion.range).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.bottom).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.top).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.bottom.unit).toBe("f");
+        expect(qaFormat.answer.data.conversion.range.top.unit).toBe("f");
+        expect(qaFormat.answer.data.conversion.range.bottom.value).toBe(211);
+        expect(qaFormat.answer.data.conversion.range.top.value).toBe(213);
+        expect(qaFormat.answer.data.conversion.accuracy).toBe(1);
+        expect(qaFormat.answer.data.conversion.choices).toBeDefined();
+        expect(qaFormat.answer.data.conversion.choices).toHaveLength(9);
+        expect(qaFormat.answer.data.conversion.choices[0].value).toBe(212);
+        expect(qaFormat.answer.data.conversion.choices[0].unit).toBe("f");
+        expect(qaFormat.answer.data.conversion.choices[1].value).toBe(211);
+        expect(qaFormat.answer.data.conversion.choices[1].unit).toBe("f");
+        expect(qaFormat.answer.data.conversion.choices[2].value).toBe(213);
+        expect(qaFormat.answer.data.conversion.choices[2].unit).toBe("f");
+        expect(qaFormat.answer.data.conversion.choices[3].value).toBe(210);
+        expect(qaFormat.answer.data.conversion.choices[3].unit).toBe("f");
+        expect(qaFormat.answer.data.conversion.choices[4].value).toBe(214);
+        expect(qaFormat.answer.data.conversion.choices[4].unit).toBe("f");
+        expect(qaFormat.answer.data.conversion.choices[5].value).toBe(209);
+        expect(qaFormat.answer.data.conversion.choices[5].unit).toBe("f");
+        expect(qaFormat.answer.data.conversion.choices[6].value).toBe(215);
+        expect(qaFormat.answer.data.conversion.choices[6].unit).toBe("f");
+        expect(qaFormat.answer.data.conversion.choices[7].value).toBe(208);
+        expect(qaFormat.answer.data.conversion.choices[7].unit).toBe("f");
+        expect(qaFormat.answer.data.conversion.choices[8].value).toBe(216);
+        expect(qaFormat.answer.data.conversion.choices[8].unit).toBe("f");
       });
 
       it("Should parse a Conversion question and prevent negative range and choices", () => {
@@ -172,25 +172,25 @@ describe("qaGenerator", () => {
         const qaFormat = qaGenerate(baseConversionQuestion);
 
         // Answer Data
-        expect(qaFormat.answer.data.conversionData.exact).toBe(0.5511556555);
-        expect(qaFormat.answer.data.conversionData.rounded).toBe(0.551);
-        expect(qaFormat.answer.data.conversionData.friendly).toBe(0.551);
-        expect(qaFormat.answer.data.conversionData.range).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.bottom).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.top).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.bottom.unit).toBe("lb");
-        expect(qaFormat.answer.data.conversionData.range.top.unit).toBe("lb");
-        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(0);   // Not -0.551 lb
-        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(1.551);
-        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(0.551);
-        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(1.051); // Not -0.551 lb
-        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(1.551);
-        expect(qaFormat.answer.data.conversionData.choices[3].value).toBe(2.051); // Not -1.551 lb
-        expect(qaFormat.answer.data.conversionData.choices[4].value).toBe(2.551);
-        expect(qaFormat.answer.data.conversionData.choices[5].value).toBe(3.051); // Not -2.551 lb
-        expect(qaFormat.answer.data.conversionData.choices[6].value).toBe(3.551);
-        expect(qaFormat.answer.data.conversionData.choices[7].value).toBe(4.051); // Not -3.551 lb
-        expect(qaFormat.answer.data.conversionData.choices[8].value).toBe(4.551);
+        expect(qaFormat.answer.data.conversion.exact).toBe(0.5511556555);
+        expect(qaFormat.answer.data.conversion.rounded).toBe(0.551);
+        expect(qaFormat.answer.data.conversion.friendly).toBe(0.551);
+        expect(qaFormat.answer.data.conversion.range).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.bottom).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.top).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.bottom.unit).toBe("lb");
+        expect(qaFormat.answer.data.conversion.range.top.unit).toBe("lb");
+        expect(qaFormat.answer.data.conversion.range.bottom.value).toBe(0);   // Not -0.551 lb
+        expect(qaFormat.answer.data.conversion.range.top.value).toBe(1.551);
+        expect(qaFormat.answer.data.conversion.choices[0].value).toBe(0.551);
+        expect(qaFormat.answer.data.conversion.choices[1].value).toBe(1.051); // Not -0.551 lb
+        expect(qaFormat.answer.data.conversion.choices[2].value).toBe(1.551);
+        expect(qaFormat.answer.data.conversion.choices[3].value).toBe(2.051); // Not -1.551 lb
+        expect(qaFormat.answer.data.conversion.choices[4].value).toBe(2.551);
+        expect(qaFormat.answer.data.conversion.choices[5].value).toBe(3.051); // Not -2.551 lb
+        expect(qaFormat.answer.data.conversion.choices[6].value).toBe(3.551);
+        expect(qaFormat.answer.data.conversion.choices[7].value).toBe(4.051); // Not -3.551 lb
+        expect(qaFormat.answer.data.conversion.choices[8].value).toBe(4.551);
       });
 
       it("Should parse a Conversion question and generate friendly results", () => {
@@ -199,25 +199,25 @@ describe("qaGenerator", () => {
         const qaFormat = qaGenerate(baseConversionQuestion);
 
         // Answer Data
-        expect(qaFormat.answer.data.conversionData.exact).toBe(3937.0078740158);
-        expect(qaFormat.answer.data.conversionData.rounded).toBe(3937.008);
-        expect(qaFormat.answer.data.conversionData.friendly).toBe(3940);
-        expect(qaFormat.answer.data.conversionData.range).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.bottom).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.top).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.bottom.unit).toBe("in");
-        expect(qaFormat.answer.data.conversionData.range.top.unit).toBe("in");
-        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(3939);
-        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(3941);
-        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(3940);
-        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(3939);
-        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(3941);
-        expect(qaFormat.answer.data.conversionData.choices[3].value).toBe(3938);
-        expect(qaFormat.answer.data.conversionData.choices[4].value).toBe(3942);
-        expect(qaFormat.answer.data.conversionData.choices[5].value).toBe(3937);
-        expect(qaFormat.answer.data.conversionData.choices[6].value).toBe(3943);
-        expect(qaFormat.answer.data.conversionData.choices[7].value).toBe(3936);
-        expect(qaFormat.answer.data.conversionData.choices[8].value).toBe(3944);
+        expect(qaFormat.answer.data.conversion.exact).toBe(3937.0078740158);
+        expect(qaFormat.answer.data.conversion.rounded).toBe(3937.008);
+        expect(qaFormat.answer.data.conversion.friendly).toBe(3940);
+        expect(qaFormat.answer.data.conversion.range).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.bottom).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.top).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.bottom.unit).toBe("in");
+        expect(qaFormat.answer.data.conversion.range.top.unit).toBe("in");
+        expect(qaFormat.answer.data.conversion.range.bottom.value).toBe(3939);
+        expect(qaFormat.answer.data.conversion.range.top.value).toBe(3941);
+        expect(qaFormat.answer.data.conversion.choices[0].value).toBe(3940);
+        expect(qaFormat.answer.data.conversion.choices[1].value).toBe(3939);
+        expect(qaFormat.answer.data.conversion.choices[2].value).toBe(3941);
+        expect(qaFormat.answer.data.conversion.choices[3].value).toBe(3938);
+        expect(qaFormat.answer.data.conversion.choices[4].value).toBe(3942);
+        expect(qaFormat.answer.data.conversion.choices[5].value).toBe(3937);
+        expect(qaFormat.answer.data.conversion.choices[6].value).toBe(3943);
+        expect(qaFormat.answer.data.conversion.choices[7].value).toBe(3936);
+        expect(qaFormat.answer.data.conversion.choices[8].value).toBe(3944);
       });
 
       it("Should parse a Conversion question and generate custom accuracy choices", () => {
@@ -226,25 +226,25 @@ describe("qaGenerator", () => {
         const qaFormat = qaGenerate(baseConversionQuestion);
 
         // Answer Data
-        expect(qaFormat.answer.data.conversionData.exact).toBe(39.3700787402);
-        expect(qaFormat.answer.data.conversionData.rounded).toBe(39.37);
-        expect(qaFormat.answer.data.conversionData.friendly).toBe(39.37);
-        expect(qaFormat.answer.data.conversionData.range).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.bottom).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.top).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.bottom.unit).toBe("in");
-        expect(qaFormat.answer.data.conversionData.range.top.unit).toBe("in");
-        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(34.37);
-        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(44.37);
-        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(39.37);
-        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(34.37);
-        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(44.37);
-        expect(qaFormat.answer.data.conversionData.choices[3].value).toBe(29.37);
-        expect(qaFormat.answer.data.conversionData.choices[4].value).toBe(49.37);
-        expect(qaFormat.answer.data.conversionData.choices[5].value).toBe(24.37);
-        expect(qaFormat.answer.data.conversionData.choices[6].value).toBe(54.37);
-        expect(qaFormat.answer.data.conversionData.choices[7].value).toBe(19.37);
-        expect(qaFormat.answer.data.conversionData.choices[8].value).toBe(59.37);
+        expect(qaFormat.answer.data.conversion.exact).toBe(39.3700787402);
+        expect(qaFormat.answer.data.conversion.rounded).toBe(39.37);
+        expect(qaFormat.answer.data.conversion.friendly).toBe(39.37);
+        expect(qaFormat.answer.data.conversion.range).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.bottom).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.top).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.bottom.unit).toBe("in");
+        expect(qaFormat.answer.data.conversion.range.top.unit).toBe("in");
+        expect(qaFormat.answer.data.conversion.range.bottom.value).toBe(34.37);
+        expect(qaFormat.answer.data.conversion.range.top.value).toBe(44.37);
+        expect(qaFormat.answer.data.conversion.choices[0].value).toBe(39.37);
+        expect(qaFormat.answer.data.conversion.choices[1].value).toBe(34.37);
+        expect(qaFormat.answer.data.conversion.choices[2].value).toBe(44.37);
+        expect(qaFormat.answer.data.conversion.choices[3].value).toBe(29.37);
+        expect(qaFormat.answer.data.conversion.choices[4].value).toBe(49.37);
+        expect(qaFormat.answer.data.conversion.choices[5].value).toBe(24.37);
+        expect(qaFormat.answer.data.conversion.choices[6].value).toBe(54.37);
+        expect(qaFormat.answer.data.conversion.choices[7].value).toBe(19.37);
+        expect(qaFormat.answer.data.conversion.choices[8].value).toBe(59.37);
       });
 
       it("Should parse a Conversion question with context added", () => {
@@ -263,23 +263,23 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
         expect(qaFormat.question.data).toBeTruthy();
         expect(qaFormat.question.detail).toBe("");
-        expect(qaFormat.question.data.conversionData).toBeDefined();
-        expect(qaFormat.question.data.conversionData.step).toBe(1);
-        expect(qaFormat.question.data.conversionData.exact).toBeDefined();
-        expect(qaFormat.question.data.conversionData.exact.value).toBe(5.25);
-        expect(qaFormat.question.data.conversionData.exact.unit).toBe("c");
+        expect(qaFormat.question.data.conversion).toBeDefined();
+        expect(qaFormat.question.data.conversion.step).toBe(1);
+        expect(qaFormat.question.data.conversion.exact).toBeDefined();
+        expect(qaFormat.question.data.conversion.exact.value).toBe(5.25);
+        expect(qaFormat.question.data.conversion.exact.unit).toBe("c");
 
         // Answer Data
         expect(qaFormat.answer.type).toBe(ANSWER_TYPE_CONVERSION);
-        expect(qaFormat.answer.data.conversionData).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.exact).toBe(41.45);
-        expect(qaFormat.answer.data.conversionData.rounded).toBe(41.5);
-        expect(qaFormat.answer.data.conversionData.friendly).toBe(41.5);
-        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(40.5);
-        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(42.5);
-        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(41.5);
-        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(40.5);
-        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(42.5);
+        expect(qaFormat.answer.data.conversion).toBeDefined();
+        expect(qaFormat.answer.data.conversion.exact).toBe(41.45);
+        expect(qaFormat.answer.data.conversion.rounded).toBe(41.5);
+        expect(qaFormat.answer.data.conversion.friendly).toBe(41.5);
+        expect(qaFormat.answer.data.conversion.range.bottom.value).toBe(40.5);
+        expect(qaFormat.answer.data.conversion.range.top.value).toBe(42.5);
+        expect(qaFormat.answer.data.conversion.choices[0].value).toBe(41.5);
+        expect(qaFormat.answer.data.conversion.choices[1].value).toBe(40.5);
+        expect(qaFormat.answer.data.conversion.choices[2].value).toBe(42.5);
       });
 
       it("Should parse a Conversion question with a negative temperature degrees", () => {
@@ -290,23 +290,23 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
         expect(qaFormat.question.data).toBeTruthy();
         expect(qaFormat.question.detail).toBe("");
-        expect(qaFormat.question.data.conversionData).toBeDefined();
-        expect(qaFormat.question.data.conversionData.step).toBe(1);
-        expect(qaFormat.question.data.conversionData.exact).toBeDefined();
-        expect(qaFormat.question.data.conversionData.exact.value).toBe(-40);
-        expect(qaFormat.question.data.conversionData.exact.unit).toBe("c");
+        expect(qaFormat.question.data.conversion).toBeDefined();
+        expect(qaFormat.question.data.conversion.step).toBe(1);
+        expect(qaFormat.question.data.conversion.exact).toBeDefined();
+        expect(qaFormat.question.data.conversion.exact.value).toBe(-40);
+        expect(qaFormat.question.data.conversion.exact.unit).toBe("c");
 
         // Answer Data
         expect(qaFormat.answer.type).toBe(ANSWER_TYPE_CONVERSION);
-        expect(qaFormat.answer.data.conversionData).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.exact).toBe(-40);
-        expect(qaFormat.answer.data.conversionData.rounded).toBe(-40);
-        expect(qaFormat.answer.data.conversionData.friendly).toBe(-40);
-        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(-41);
-        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(-39);
-        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(-40);
-        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(-41); // Allows negative
-        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(-39);
+        expect(qaFormat.answer.data.conversion).toBeDefined();
+        expect(qaFormat.answer.data.conversion.exact).toBe(-40);
+        expect(qaFormat.answer.data.conversion.rounded).toBe(-40);
+        expect(qaFormat.answer.data.conversion.friendly).toBe(-40);
+        expect(qaFormat.answer.data.conversion.range.bottom.value).toBe(-41);
+        expect(qaFormat.answer.data.conversion.range.top.value).toBe(-39);
+        expect(qaFormat.answer.data.conversion.choices[0].value).toBe(-40);
+        expect(qaFormat.answer.data.conversion.choices[1].value).toBe(-41); // Allows negative
+        expect(qaFormat.answer.data.conversion.choices[2].value).toBe(-39);
       });
 
       it("Should parse a Conversion question with -17.78 C to 0 F temperature edge case", () => {
@@ -317,23 +317,23 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
         expect(qaFormat.question.data).toBeTruthy();
         expect(qaFormat.question.detail).toBe("");
-        expect(qaFormat.question.data.conversionData).toBeDefined();
-        expect(qaFormat.question.data.conversionData.step).toBe(1);
-        expect(qaFormat.question.data.conversionData.exact).toBeDefined();
-        expect(qaFormat.question.data.conversionData.exact.value).toBe(-17.78);
-        expect(qaFormat.question.data.conversionData.exact.unit).toBe("c");
+        expect(qaFormat.question.data.conversion).toBeDefined();
+        expect(qaFormat.question.data.conversion.step).toBe(1);
+        expect(qaFormat.question.data.conversion.exact).toBeDefined();
+        expect(qaFormat.question.data.conversion.exact.value).toBe(-17.78);
+        expect(qaFormat.question.data.conversion.exact.unit).toBe("c");
 
         // Answer Data
         expect(qaFormat.answer.type).toBe(ANSWER_TYPE_CONVERSION);
-        expect(qaFormat.answer.data.conversionData).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.exact).toBe(-0.004);
-        expect(qaFormat.answer.data.conversionData.rounded).toBe(0);
-        expect(qaFormat.answer.data.conversionData.friendly).toBe(0);
-        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(-1);
-        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(1);
-        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(0);
-        expect(qaFormat.answer.data.conversionData.choices[1].value).toBe(-1);  // Allows negative
-        expect(qaFormat.answer.data.conversionData.choices[2].value).toBe(1);
+        expect(qaFormat.answer.data.conversion).toBeDefined();
+        expect(qaFormat.answer.data.conversion.exact).toBe(-0.004);
+        expect(qaFormat.answer.data.conversion.rounded).toBe(0);
+        expect(qaFormat.answer.data.conversion.friendly).toBe(0);
+        expect(qaFormat.answer.data.conversion.range.bottom.value).toBe(-1);
+        expect(qaFormat.answer.data.conversion.range.top.value).toBe(1);
+        expect(qaFormat.answer.data.conversion.choices[0].value).toBe(0);
+        expect(qaFormat.answer.data.conversion.choices[1].value).toBe(-1);  // Allows negative
+        expect(qaFormat.answer.data.conversion.choices[2].value).toBe(1);
       });
 
       it("Should parse a Conversion question with simple range", () => {
@@ -341,9 +341,9 @@ describe("qaGenerator", () => {
         const qaFormat = qaGenerate(baseConversionQuestion);
 
         // Question Data
-        expect(qaFormat.question.data.conversionData.step).toBe(1);
-        expect(qaFormat.question.data.conversionData.exact.value).toBeGreaterThanOrEqual(5);
-        expect(qaFormat.question.data.conversionData.exact.value).toBeLessThanOrEqual(10);
+        expect(qaFormat.question.data.conversion.step).toBe(1);
+        expect(qaFormat.question.data.conversion.exact.value).toBeGreaterThanOrEqual(5);
+        expect(qaFormat.question.data.conversion.exact.value).toBeLessThanOrEqual(10);
       });
 
       it("Should parse a Conversion question with range smaller than step", () => {
@@ -352,9 +352,9 @@ describe("qaGenerator", () => {
         const qaFormat = qaGenerate(baseConversionQuestion);
 
         // Question Data
-        expect(qaFormat.question.data.conversionData.step).toBe(1);
-        expect(qaFormat.question.data.conversionData.exact.value).toBeGreaterThanOrEqual(5.1);
-        expect(qaFormat.question.data.conversionData.exact.value).toBeLessThanOrEqual(6);
+        expect(qaFormat.question.data.conversion.step).toBe(1);
+        expect(qaFormat.question.data.conversion.exact.value).toBeGreaterThanOrEqual(5.1);
+        expect(qaFormat.question.data.conversion.exact.value).toBeLessThanOrEqual(6);
       });
 
       it("Should parse a Conversion question with decimal range with decimal step and accuracy", () => {
@@ -363,9 +363,9 @@ describe("qaGenerator", () => {
         const qaFormat = qaGenerate(baseConversionQuestion);
 
         // Question Data
-        expect(qaFormat.question.data.conversionData.step).toBe(0.1);
-        expect(qaFormat.question.data.conversionData.exact.value).toBeGreaterThanOrEqual(5.1);
-        expect(qaFormat.question.data.conversionData.exact.value).toBeLessThanOrEqual(6);
+        expect(qaFormat.question.data.conversion.step).toBe(0.1);
+        expect(qaFormat.question.data.conversion.exact.value).toBeGreaterThanOrEqual(5.1);
+        expect(qaFormat.question.data.conversion.exact.value).toBeLessThanOrEqual(6);
       });
 
       it("Should parse a Conversion question with range with >1 step and accuracy", () => {
@@ -374,12 +374,12 @@ describe("qaGenerator", () => {
         const qaFormat = qaGenerate(baseConversionQuestion);
 
         // Question Data
-        expect(qaFormat.question.data.conversionData.step).toBe(2);
-        expect(qaFormat.question.data.conversionData.exact.value).toBeGreaterThanOrEqual(1);
-        expect(qaFormat.question.data.conversionData.exact.value).toBeLessThanOrEqual(6);
+        expect(qaFormat.question.data.conversion.step).toBe(2);
+        expect(qaFormat.question.data.conversion.exact.value).toBeGreaterThanOrEqual(1);
+        expect(qaFormat.question.data.conversion.exact.value).toBeLessThanOrEqual(6);
 
         // Answer Data
-        expect(qaFormat.answer.data.conversionData.accuracy).toBe(3);
+        expect(qaFormat.answer.data.conversion.accuracy).toBe(3);
       });
     });
 
@@ -428,22 +428,22 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord).toBeDefined();
         expect(qaFormat.question.data.fromUnitWord.singular).toBe("inch");
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("inches");
-        expect(qaFormat.question.data.surveyData).toBeDefined();
-        expect(qaFormat.question.data.surveyData.response).toBeNull();
-        expect(qaFormat.question.data.surveyData.step).toBe(1);
-        expect(qaFormat.question.data.surveyData.surveyRange).toBeDefined();
-        expect(qaFormat.question.data.surveyData.surveyRange.bottom).toBeDefined();
-        expect(qaFormat.question.data.surveyData.surveyRange.top).toBeDefined();
-        expect(qaFormat.question.data.surveyData.surveyRange.bottom.value).toBe(40);
-        expect(qaFormat.question.data.surveyData.surveyRange.bottom.unit).toBe("in");
-        expect(qaFormat.question.data.surveyData.surveyRange.top.value).toBe(96);
-        expect(qaFormat.question.data.surveyData.surveyRange.top.unit).toBe("in");
+        expect(qaFormat.question.data.survey).toBeDefined();
+        expect(qaFormat.question.data.survey.response).toBeNull();
+        expect(qaFormat.question.data.survey.step).toBe(1);
+        expect(qaFormat.question.data.survey.surveyRange).toBeDefined();
+        expect(qaFormat.question.data.survey.surveyRange.bottom).toBeDefined();
+        expect(qaFormat.question.data.survey.surveyRange.top).toBeDefined();
+        expect(qaFormat.question.data.survey.surveyRange.bottom.value).toBe(40);
+        expect(qaFormat.question.data.survey.surveyRange.bottom.unit).toBe("in");
+        expect(qaFormat.question.data.survey.surveyRange.top.value).toBe(96);
+        expect(qaFormat.question.data.survey.surveyRange.top.unit).toBe("in");
 
         // Answer Data
         expect(qaFormat.answer).toBeDefined();
         expect(qaFormat.answer.type).toBe(ANSWER_TYPE_SURVEY);
         expect(qaFormat.answer.data).toBeDefined();
-        expect(qaFormat.answer.data.surveyData).toBeNull();
+        expect(qaFormat.answer.data.survey).toBeNull();
       });
 
       it("Should parse a survey question with a survey", () => {
@@ -464,20 +464,20 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord).toBeDefined();
         expect(qaFormat.question.data.fromUnitWord.singular).toBe("inch");
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("inches");
-        expect(qaFormat.question.data.surveyData).toBeDefined();
-        expect(qaFormat.question.data.surveyData.response).toBeDefined();
-        expect(qaFormat.question.data.surveyData.response.id).toBe("survey01");
-        expect(qaFormat.question.data.surveyData.response.score).toBe(0);
-        expect(qaFormat.question.data.surveyData.response.unit).toBe("in");
-        expect(qaFormat.question.data.surveyData.response.value).toBe(70);
-        expect(qaFormat.question.data.surveyData.step).toBe(1);
-        expect(qaFormat.question.data.surveyData.surveyRange).toBeDefined();
-        expect(qaFormat.question.data.surveyData.surveyRange.bottom).toBeDefined();
-        expect(qaFormat.question.data.surveyData.surveyRange.top).toBeDefined();
-        expect(qaFormat.question.data.surveyData.surveyRange.bottom.value).toBe(40);
-        expect(qaFormat.question.data.surveyData.surveyRange.bottom.unit).toBe("in");
-        expect(qaFormat.question.data.surveyData.surveyRange.top.value).toBe(96);
-        expect(qaFormat.question.data.surveyData.surveyRange.top.unit).toBe("in");
+        expect(qaFormat.question.data.survey).toBeDefined();
+        expect(qaFormat.question.data.survey.response).toBeDefined();
+        expect(qaFormat.question.data.survey.response.id).toBe("survey01");
+        expect(qaFormat.question.data.survey.response.score).toBe(0);
+        expect(qaFormat.question.data.survey.response.unit).toBe("in");
+        expect(qaFormat.question.data.survey.response.value).toBe(70);
+        expect(qaFormat.question.data.survey.step).toBe(1);
+        expect(qaFormat.question.data.survey.surveyRange).toBeDefined();
+        expect(qaFormat.question.data.survey.surveyRange.bottom).toBeDefined();
+        expect(qaFormat.question.data.survey.surveyRange.top).toBeDefined();
+        expect(qaFormat.question.data.survey.surveyRange.bottom.value).toBe(40);
+        expect(qaFormat.question.data.survey.surveyRange.bottom.unit).toBe("in");
+        expect(qaFormat.question.data.survey.surveyRange.top.value).toBe(96);
+        expect(qaFormat.question.data.survey.surveyRange.top.unit).toBe("in");
 
         // Answer Data
         expect(qaFormat.answer).toBeDefined();
@@ -486,25 +486,25 @@ describe("qaGenerator", () => {
         expect(qaFormat.answer.data.toUnitWord).toBeDefined();
         expect(qaFormat.answer.data.toUnitWord.singular).toBe("centimeter");
         expect(qaFormat.answer.data.toUnitWord.plural).toBe("centimeters");
-        expect(qaFormat.answer.data.conversionData).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.accuracy).toBe(1);
-        expect(qaFormat.answer.data.conversionData.choices).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.choices).toHaveLength(9);
-        expect(qaFormat.answer.data.conversionData.choices[0].value).toBe(177.8);
-        expect(qaFormat.answer.data.conversionData.choices[0].unit).toBe("cm");
-        expect(qaFormat.answer.data.conversionData.exact).toBe(177.8);
-        expect(qaFormat.answer.data.conversionData.rounded).toBe(177.8);
-        expect(qaFormat.answer.data.conversionData.friendly).toBe(177.8);
-        expect(qaFormat.answer.data.conversionData.range).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.bottom).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.top).toBeDefined();
-        expect(qaFormat.answer.data.conversionData.range.bottom.value).toBe(176.8);
-        expect(qaFormat.answer.data.conversionData.range.bottom.unit).toBe("cm");
-        expect(qaFormat.answer.data.conversionData.range.top.value).toBe(178.8);
-        expect(qaFormat.answer.data.conversionData.range.top.unit).toBe("cm");
-        expect(qaFormat.answer.data.surveyData).toBeDefined();
-        expect(qaFormat.answer.data.surveyData.choices).toBeDefined();
-        expect(qaFormat.answer.data.surveyData.choices).toHaveLength(9);
+        expect(qaFormat.answer.data.conversion).toBeDefined();
+        expect(qaFormat.answer.data.conversion.accuracy).toBe(1);
+        expect(qaFormat.answer.data.conversion.choices).toBeDefined();
+        expect(qaFormat.answer.data.conversion.choices).toHaveLength(9);
+        expect(qaFormat.answer.data.conversion.choices[0].value).toBe(177.8);
+        expect(qaFormat.answer.data.conversion.choices[0].unit).toBe("cm");
+        expect(qaFormat.answer.data.conversion.exact).toBe(177.8);
+        expect(qaFormat.answer.data.conversion.rounded).toBe(177.8);
+        expect(qaFormat.answer.data.conversion.friendly).toBe(177.8);
+        expect(qaFormat.answer.data.conversion.range).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.bottom).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.top).toBeDefined();
+        expect(qaFormat.answer.data.conversion.range.bottom.value).toBe(176.8);
+        expect(qaFormat.answer.data.conversion.range.bottom.unit).toBe("cm");
+        expect(qaFormat.answer.data.conversion.range.top.value).toBe(178.8);
+        expect(qaFormat.answer.data.conversion.range.top.unit).toBe("cm");
+        expect(qaFormat.answer.data.survey).toBeDefined();
+        expect(qaFormat.answer.data.survey.choices).toBeDefined();
+        expect(qaFormat.answer.data.survey.choices).toHaveLength(9);
       });
 
       it("Should parse a survey question with a survey with detail", () => {
@@ -525,9 +525,9 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.detail).toBe("");
         expect(qaFormat.question.text).toBe("How tall is the tallest person you personally know? Give your best guess if you don't know exactly.");
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_SURVEY);
-        expect(qaFormat.question.data.surveyData.response.unit).toBe("in");
-        expect(qaFormat.question.data.surveyData.response.value).toBe(80);
-        expect(qaFormat.question.data.surveyData.response.detail).toBe("My neighbor Anthony");
+        expect(qaFormat.question.data.survey.response.unit).toBe("in");
+        expect(qaFormat.question.data.survey.response.value).toBe(80);
+        expect(qaFormat.question.data.survey.response.detail).toBe("My neighbor Anthony");
       });
     });
   });
