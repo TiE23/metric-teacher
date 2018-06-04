@@ -168,8 +168,8 @@ If you ever do remote hosting, you'll need to change the endpoint's url to the r
     * `0` - Enabled
     * `1` - Disabled
 * `flags`
-    * `0x01` - User detail note requested (optional)
-    * `0x02` - User detail note requested (required)
+    * `0x01` - "User detail note requested - optional"
+    * `0x02` - "User detail note requested - required"
 * `difficulty`
     * Should offer an ability to have some flexibility to give more weight to correct answers for difficult questions and similarly forgive more for failing to answer them correctly.
     * Values
@@ -271,6 +271,21 @@ Examples:
 
 ### Internal QA Object data Structure Examples
 #### Written QA with answer detail (answer.detail)
+**Question Row**
+```
+{
+  id: <<someID>>,
+  type: 0,
+  status: 0,
+  flags: 0,
+  difficulty: 3,
+  question: "If Jim is 6'1" and Harry is 195cm, who is taller?",
+  answer: "195cm is about 6'5\" and 6'1\" is about 185cm. [Harry is taller|Jim is taller|They are about the same height]",
+  media: null,
+  parent: <<someSubSubject>>,
+}
+```
+**QA Object**
 ```
 {
   questionId: "question01",
@@ -304,6 +319,21 @@ Examples:
 
 
 #### Conversion QA, with context detail (question.detail)
+**Question Row**
+```
+{
+  id: <<someID>>,
+  type: 1,
+  status: 0,
+  flags: 0,
+  difficulty: 3,
+  question: "This weight is typical of a 5 year old child. [35,45lb]",
+  answer: "[kg]",
+  media: null,
+  parent: <<someSubSubject>>,
+}
+```
+**QA Object**
 ```
 {
   questionId: "question01",
@@ -362,6 +392,32 @@ Examples:
 ```
 
 #### Survey QA with survey response (answer.data.survey) and with detail (question.data.survey.response.detail)
+**Question Row**
+```
+{
+  id: <<someID>>,
+  type: 2,
+  status: 0,
+  flags: 2,
+  difficulty: 3,
+  question: "How tall is the tallest person you personally know? Give your best guess if you don't know exactly. [70,96in]",
+  answer: "[cm]",
+  media: null,
+  parent: <<someSubSubject>>,
+}
+```
+**Survey Row**
+```
+{
+  id: <<someID>>,
+  score: 0,
+  answer: "[80in]",
+  detail: "My neighbor Anthony",
+  parent: <<someCourse>>,
+  question: <<someQuestion>>,
+}
+```
+**QA Object**
 ```
 {
   questionId: "question01",
