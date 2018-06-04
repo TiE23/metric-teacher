@@ -166,8 +166,8 @@ function convertValue(fromValue, fromUnit, toUnit) {
   // Create the human friendly value
   let friendlyValue = 0;
   let power = 0;
-  for (; power <= 13; power += 1) {  // Limit to catching one trillion (1,000,000,000,000)
-    if (roundedValue < 10 ** power) {
+  for (; power <= 308; power += 1) {  // Limit to approximately Number.MAX_VALUE (1.798e+308)
+    if (Math.abs(roundedValue) < 10 ** power) {
       break;
     }
   }
@@ -176,7 +176,11 @@ function convertValue(fromValue, fromUnit, toUnit) {
     // Do not friendly round any value less than number of digits.
     friendlyValue = roundedValue;
   } else {
-    friendlyValue = round(roundedValue, FRIENDLY_DIGIT_COUNT - power);
+    // Because rounding acts differently with negative values, just use Math.abs().
+    friendlyValue = round(Math.abs(roundedValue), FRIENDLY_DIGIT_COUNT - power);
+    if (roundedValue < 0) {
+      friendlyValue *= -1;  // Flip back to negative if rounded is negative.
+    }
   }
 
   return {

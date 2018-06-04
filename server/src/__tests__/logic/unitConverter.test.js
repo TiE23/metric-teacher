@@ -88,6 +88,14 @@ describe("unitConverter", () => {
       expect(result.friendlyValue).toBe(11000);
     });
 
+    it("Should convert -1000.1 c to friendly -1770 f", () => {
+      const result = convertValue(-1000.1, "c", "f");
+      expect(result.exactValue).toBe(-1768.18);
+      expect(result.roundedValue).toBe(-1768.2);
+      expect(result.roundingLevel).toBe(1);
+      expect(result.friendlyValue).toBe(-1770);
+    });
+
     describe("Length", () => {
       // 0 base to other
       it("Should convert 0 base unit meters to 0 feet", () => {
