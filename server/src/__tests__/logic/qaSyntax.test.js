@@ -82,6 +82,23 @@ describe("qaSyntax", () => {
       expect(answerPayload.data.syntax).toBe("[1kg|A pound of feathers|1lb|16oz]");
     });
 
+    it("Should parse a multiple choice question/answer with repeated choices and deduplicate them", () => {
+      const { answerPayload } = parseQAStrings(
+        QUESTION_TYPE_WRITTEN,
+        "Blah blah blah",
+        "[1kg|1lb|1lb|1kg|16oz]3",
+      );
+      expect(answerPayload.type).toBe(ANSWER_TYPE_MULTIPLE_CHOICE);
+      expect(answerPayload.data.choicesOffered).toBe(3);
+      expect(answerPayload.data.choices.length).toBe(3);    // Remove the duplicates
+      expect(answerPayload.data.choices[0].value).toBe(1);  // This stays the same
+      expect(answerPayload.data.choices[0].unit).toBe("kg");
+      expect(answerPayload.data.choices[1].value).toBe(1);
+      expect(answerPayload.data.choices[1].unit).toBe("lb");
+      expect(answerPayload.data.choices[2].value).toBe(16);
+      expect(answerPayload.data.choices[2].unit).toBe("oz");
+    });
+
     it("Should parse a multiple choice question/answer with answer details", () => {
       const { questionPayload, answerPayload } = parseQAStrings(
         QUESTION_TYPE_WRITTEN,
@@ -612,6 +629,46 @@ describe("qaSyntax", () => {
             "[10gal|10mi]",
           );
         }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer with too many repeated answers", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[10gal|10gal]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer with too many repeated written answers", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[Foo!|Foo!]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a multiple-choice answer with too many repeated answers", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[10gal|10l|10ml|10l]4",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should NOT reject a multiple-choice answer with acceptable number of repeated answers", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_WRITTEN,
+            "Blah",
+            "[10gal|10l|10ml|10l]3",
+          );
+        }).not.toThrowError(AnswerSyntaxError);
       });
     });
   });
