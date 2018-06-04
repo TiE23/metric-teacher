@@ -125,6 +125,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
     if (response) {
       response.score = surveyData.score;
       response.id = surveyData.id;
+      response.detail = surveyData.detail;
     }
 
     return {
@@ -148,7 +149,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
               unit: questionPayload.data.unit,
             },
           },
-          response, // Null or { value: 2, unit: "m", score: 0, id: "someSurveyId" }
+          response, // Null or { value: 2, unit: "m", score: 0, id: "someId", detail: "Foo" }
         },
       },
     };
@@ -171,9 +172,8 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
 function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
   const generatedAnswer = {
     type: answerPayload.type,
-    data: {
-      detail: answerPayload.data.detail,
-    },
+    detail: answerPayload.data.detail,
+    data: {},
   };
 
   // Get multiple choice data
@@ -208,11 +208,15 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
       );
 
       // Compose survey data
-      generatedAnswer.data.surveyData = composeSurveyAnswerData(
-        response.value,
-        response.unit,
-        questionPayload.data.step,
-      );
+      generatedAnswer.data.surveyData = {
+        choices: makeChoices(
+          response.value,
+          UNITS[response.unit].round,
+          response.unit,
+          questionPayload.data.step,
+          UNITS[response.unit].subject === "temperature",
+        ),
+      };
 
       generatedAnswer.data.toUnitWord = {
         singular: UNITS[answerPayload.data.unit].singular,
@@ -300,22 +304,6 @@ function composeConversionAnswerData(fromValue, fromUnit, toUnit, toAccuracy) {
       top: { value: topValue, unit: toUnit },
     },
     choices,
-  };
-}
-
-
-/**
- * Simple function that generates survey review choices.
- * @param value
- * @param unit
- * @param step
- * @returns {{choices: *}}
- */
-function composeSurveyAnswerData(value, unit, step) {
-  const roundingLevel = UNITS[unit].round;
-  const isTemperature = UNITS[unit].subject === "temperature";
-  return {
-    choices: makeChoices(value, roundingLevel, unit, step, isTemperature),
   };
 }
 

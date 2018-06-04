@@ -63,8 +63,8 @@ describe("qaGenerator", () => {
 
         // Answer Data
         expect(qaFormat.answer.type).toBe(ANSWER_TYPE_MULTIPLE_CHOICE);
-        expect(qaFormat.answer.data.detail).toBeDefined();
-        expect(qaFormat.answer.data.detail).toBe("195cm is about 6'5\" and 6'1\" is about 185cm.");
+        expect(qaFormat.answer.detail).toBeDefined();
+        expect(qaFormat.answer.detail).toBe("195cm is about 6'5\" and 6'1\" is about 185cm.");
         expect(qaFormat.answer.data.multipleChoiceData).toBeDefined();
         expect(qaFormat.answer.data.multipleChoiceData.choicesOffered).toBe(3);
         expect(qaFormat.answer.data.multipleChoiceData.choices).toBeDefined();
@@ -404,6 +404,7 @@ describe("qaGenerator", () => {
           id: "survey01",
           score: 0,
           answer: "[70in]",
+          detail: null,
           parent: "someCourse",
           question: "someQuestion",
         };
@@ -504,6 +505,29 @@ describe("qaGenerator", () => {
         expect(qaFormat.answer.data.surveyData).toBeDefined();
         expect(qaFormat.answer.data.surveyData.choices).toBeDefined();
         expect(qaFormat.answer.data.surveyData.choices).toHaveLength(9);
+      });
+
+      it("Should parse a survey question with a survey with detail", () => {
+        baseSurveyQuestion.question = "How tall is the tallest person you personally know? Give your best guess if you don't know exactly. [70,96in]";
+        baseSurveyResponse.detail = "My neighbor Anthony";
+        baseSurveyResponse.answer = "[80in]";
+
+        const qaFormat = qaGenerate(baseSurveyQuestion, baseSurveyResponse);
+
+        // Basic Data
+        expect(qaFormat).toBeDefined();
+        expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
+        expect(qaFormat.questionId).toBe("question01");
+        expect(qaFormat.subSubjectId).toBe("someSubSubject");
+
+        // Question Data
+        expect(qaFormat.question).toBeDefined();
+        expect(qaFormat.question.detail).toBe("");
+        expect(qaFormat.question.text).toBe("How tall is the tallest person you personally know? Give your best guess if you don't know exactly.");
+        expect(qaFormat.question.type).toBe(QUESTION_TYPE_SURVEY);
+        expect(qaFormat.question.data.surveyData.response.unit).toBe("in");
+        expect(qaFormat.question.data.surveyData.response.value).toBe(80);
+        expect(qaFormat.question.data.surveyData.response.detail).toBe("My neighbor Anthony");
       });
     });
   });

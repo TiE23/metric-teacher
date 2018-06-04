@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Mon May 14 2018 19:17:21 GMT-0700 (PDT)
+# timestamp: Mon Jun 04 2018 10:52:10 GMT-0700 (PDT)
 
 type AggregateClassroom {
   count: Int!
@@ -2813,6 +2813,7 @@ type Survey implements Node {
   id: ID!
   score: Int!
   answer: String!
+  detail: String
   parent(where: CourseWhereInput): Course!
   question(where: QuestionWhereInput): Question!
 }
@@ -2830,6 +2831,7 @@ type SurveyConnection {
 input SurveyCreateInput {
   score: Int!
   answer: String!
+  detail: String
   parent: CourseCreateOneWithoutSurveysInput!
   question: QuestionCreateOneInput!
 }
@@ -2842,6 +2844,7 @@ input SurveyCreateManyWithoutParentInput {
 input SurveyCreateWithoutParentInput {
   score: Int!
   answer: String!
+  detail: String
   question: QuestionCreateOneInput!
 }
 
@@ -2861,6 +2864,8 @@ enum SurveyOrderByInput {
   score_DESC
   answer_ASC
   answer_DESC
+  detail_ASC
+  detail_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2871,6 +2876,7 @@ type SurveyPreviousValues {
   id: ID!
   score: Int!
   answer: String!
+  detail: String
 }
 
 type SurveySubscriptionPayload {
@@ -2915,6 +2921,7 @@ input SurveySubscriptionWhereInput {
 input SurveyUpdateInput {
   score: Int
   answer: String
+  detail: String
   parent: CourseUpdateOneWithoutSurveysInput
   question: QuestionUpdateOneInput
 }
@@ -2931,6 +2938,7 @@ input SurveyUpdateManyWithoutParentInput {
 input SurveyUpdateWithoutParentDataInput {
   score: Int
   answer: String
+  detail: String
   question: QuestionUpdateOneInput
 }
 
@@ -3056,6 +3064,46 @@ input SurveyWhereInput {
 
   """All values not ending with the given string."""
   answer_not_ends_with: String
+  detail: String
+
+  """All values that are not equal to given value."""
+  detail_not: String
+
+  """All values that are contained in given list."""
+  detail_in: [String!]
+
+  """All values that are not contained in given list."""
+  detail_not_in: [String!]
+
+  """All values less than the given value."""
+  detail_lt: String
+
+  """All values less than or equal the given value."""
+  detail_lte: String
+
+  """All values greater than the given value."""
+  detail_gt: String
+
+  """All values greater than or equal the given value."""
+  detail_gte: String
+
+  """All values containing the given string."""
+  detail_contains: String
+
+  """All values not containing the given string."""
+  detail_not_contains: String
+
+  """All values starting with the given string."""
+  detail_starts_with: String
+
+  """All values not starting with the given string."""
+  detail_not_starts_with: String
+
+  """All values ending with the given string."""
+  detail_ends_with: String
+
+  """All values not ending with the given string."""
+  detail_not_ends_with: String
   parent: CourseWhereInput
   question: QuestionWhereInput
 }
