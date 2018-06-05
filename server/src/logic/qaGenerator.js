@@ -56,7 +56,7 @@ function qaGenerate(questionData, surveyData = null) {
 
   return {
     questionId: questionData.id,
-    subSubjectId: questionData.parent,
+    subSubjectId: questionData.parent.id,
     difficulty: questionData.difficulty,
     flags: questionData.flags,
     question: generatedQuestion,

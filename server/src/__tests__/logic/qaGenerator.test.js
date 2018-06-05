@@ -31,7 +31,9 @@ describe("qaGenerator", () => {
           question: "What temperature Celsius does water freeze at?",
           answer: "[0c|32c|100c]",
           media: null,
-          parent: "someSubSubject",
+          parent: {
+            id: "someSubSubject",
+          },
         };
       });
 
@@ -103,7 +105,9 @@ describe("qaGenerator", () => {
           question: "[100,100c]",
           answer: "[f]",
           media: null,
-          parent: "someSubSubject",
+          parent: {
+            id: "someSubSubject",
+          },
         };
       });
 
@@ -400,7 +404,9 @@ describe("qaGenerator", () => {
           question: "How tall are you? [40,96in]",
           answer: "[cm]",
           media: null,
-          parent: "someSubSubject",
+          parent: {
+            id: "someSubSubject",
+          },
         };
 
         baseSurveyResponse = {
@@ -408,8 +414,12 @@ describe("qaGenerator", () => {
           score: 0,
           answer: "[70in]",
           detail: null,
-          parent: "someCourse",
-          question: "someQuestion",
+          parent: {
+            id: "someCourse",
+          },
+          question: {
+            id: "someQuestion",
+          },
         };
       });
 
