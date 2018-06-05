@@ -1,10 +1,12 @@
 # import Classroom, Enrollment from "./generated/prisma.graphql"
 
+### Queries
 type Query {
   me: PrivateUser
   allSubjects: [Subject]!
 }
 
+### Mutations
 type Mutation {
   # User Mutations
   signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!
@@ -66,4 +68,97 @@ type PrivateUser {
   flags: Int!
   classrooms: [Classroom!]!
   enrollment: Enrollment
+}
+
+### QA Object data schema and its numerous children below
+## Parent Object
+type QaObject {
+  questionId: ID!             # TODO swap with or add "Question!"?
+  subSubjectId: ID!           # TODO swap with or add "SubSubject!"?
+  difficulty: Int!
+  flags: Int!
+  question: QuestionObject!
+  answer: AnswerObject!
+}
+
+## Child Objects
+type QaQuestionObject {
+  detail: String!
+  text: String!
+  type: Int!
+  data: QuestionData                    # Conversion + Survey Questions only
+}
+
+type QaAnswerObject {
+  detail: String!
+  type: Int!
+  data: AnswerData!
+}
+
+## Grand Child Objects
+type QaQuestionData {
+  fromUnitWord: QaUnitWordObject!
+  conversion: QaConversionQuestionObject  # Conversion Questions Only
+  survey: QaSurveyQuestionObject          # Survey Questions Only
+}
+
+type QaAnswerData {
+  toUnitWord: QaUnitWordObject!
+  multiple: QaMultipleChoiceObject        # Written Question Only
+  conversion: QaConversionObject          # Conversion and Survey Question Only
+  survey: QaSurveyAnswerObject            # Survey Question when survey completed Only
+}
+
+## Great Grand Child Question Objects
+type QaConversionQuestionObject {
+  exact: QaUnitObject!
+  step: Float!
+}
+
+type QaSurveyQuestionObject {
+  step: Float!
+  surveyRange: QaRangeObject!
+  response: QaSurveyResponseObject        # Only if survey was answered
+}
+
+## Great Grand Child Answer Objects
+type QaMultipleChoiceObject {
+  choicesOffered: Int!
+  choices: [QaUnitObject]!
+}
+
+type QaConversionObject {
+  accuracy: Float!
+  range: QaRangeObject!
+  exact: Float!
+  rounded: Float!
+  friendly: Float!
+  choices: [QaUnitObject]!
+}
+
+type QaSurveyAnswerObject {
+  choices: [QaUnitObject]!
+}
+
+type QaSurveyResponseObject {
+  id: ID!
+  score: Int!
+  answer: QaUnitObject!
+  detail: String
+}
+
+## Generic Objects
+type QaUnitWordObject {
+  plural: String!
+  singular: String!
+}
+
+type QaRangeObject {
+  bottom: QaUnitObject!
+  top: QaUnitObject!
+}
+
+type QaUnitObject {
+  unit: String!
+  value: Float! # Will have to figure this out with Ints and especially Strings...
 }
