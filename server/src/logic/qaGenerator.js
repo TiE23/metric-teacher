@@ -120,9 +120,13 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
     }
 
     // If the survey has been taken put the answer's info in new response object. Else null.
-    // When using parseSingleAnswer must strip out square brackets.
-    const response = surveyData ?
-      parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer) : null;
+    let response = null;
+    if (surveyData) {
+      response = {
+        // When using parseSingleAnswer we must strip out square brackets.
+        answer: parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer),
+      };
+    }
     if (response) {
       response.score = surveyData.score;
       response.id = surveyData.id;
@@ -202,8 +206,8 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
     if (response) {
       // Compose conversions
       generatedAnswer.data.conversion = composeConversionAnswerData(
-        response.value,
-        response.unit,
+        response.answer.value,
+        response.answer.unit,
         answerPayload.data.unit,
         answerPayload.data.accuracy,
       );
@@ -211,11 +215,11 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
       // Compose survey data
       generatedAnswer.data.survey = {
         choices: makeChoices(
-          response.value,
-          UNITS[response.unit].round,
-          response.unit,
+          response.answer.value,
+          UNITS[response.answer.unit].round,
+          response.answer.unit,
           questionPayload.data.step,
-          UNITS[response.unit].subject === "temperature",
+          UNITS[response.answer.unit].subject === "temperature",
         ),
       };
 

@@ -473,8 +473,8 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.survey.response).toBeDefined();
         expect(qaFormat.question.data.survey.response.id).toBe("survey01");
         expect(qaFormat.question.data.survey.response.score).toBe(0);
-        expect(qaFormat.question.data.survey.response.unit).toBe("in");
-        expect(qaFormat.question.data.survey.response.value).toBe(70);
+        expect(qaFormat.question.data.survey.response.answer.unit).toBe("in");
+        expect(qaFormat.question.data.survey.response.answer.value).toBe(70);
         expect(qaFormat.question.data.survey.step).toBe(1);
         expect(qaFormat.question.data.survey.surveyRange).toBeDefined();
         expect(qaFormat.question.data.survey.surveyRange.bottom).toBeDefined();
@@ -531,8 +531,8 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.detail).toBe("");
         expect(qaFormat.question.text).toBe("How tall is the tallest person you personally know? Give your best guess if you don't know exactly.");
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_SURVEY);
-        expect(qaFormat.question.data.survey.response.unit).toBe("in");
-        expect(qaFormat.question.data.survey.response.value).toBe(80);
+        expect(qaFormat.question.data.survey.response.answer.unit).toBe("in");
+        expect(qaFormat.question.data.survey.response.answer.value).toBe(80);
         expect(qaFormat.question.data.survey.response.detail).toBe("My neighbor Anthony");
       });
 
