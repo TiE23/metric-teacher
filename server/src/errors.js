@@ -1,6 +1,10 @@
 class AuthError extends Error {
-  constructor() {
-    super("Not authorized");
+  constructor(reason = null) {
+    if (reason) {
+      super(`Not authorized. Reason: ${reason}`);
+    } else {
+      super("Not authorized");
+    }
   }
 }
 

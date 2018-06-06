@@ -4,6 +4,7 @@
 type Query {
   me: PrivateUser
   allSubjects: [Subject]!
+  testGetQa(questionid: ID!): QaObject
 }
 
 ### Mutations
@@ -77,8 +78,8 @@ type QaObject {
   subSubjectId: ID!           # TODO swap with or add "SubSubject!"?
   difficulty: Int!
   flags: Int!
-  question: QuestionObject!
-  answer: AnswerObject!
+  question: QaQuestionObject!
+  answer: QaAnswerObject!
 }
 
 ## Child Objects
@@ -86,13 +87,13 @@ type QaQuestionObject {
   detail: String!
   text: String!
   type: Int!
-  data: QuestionData                    # Conversion + Survey Questions only
+  data: QaQuestionData                    # Conversion + Survey Questions only
 }
 
 type QaAnswerObject {
   detail: String!
   type: Int!
-  data: AnswerData!
+  data: QaAnswerData!
 }
 
 ## Grand Child Objects
@@ -103,10 +104,10 @@ type QaQuestionData {
 }
 
 type QaAnswerData {
-  toUnitWord: QaUnitWordObject!
-  multiple: QaMultipleChoiceObject        # Written Question Only
-  conversion: QaConversionObject          # Conversion and Survey Question Only
-  survey: QaSurveyAnswerObject            # Survey Question when survey completed Only
+  toUnitWord: QaUnitWordObject            # Conversion and Survey Questions Only
+  multiple: QaMultipleChoiceObject        # Written Questions Only
+  conversion: QaConversionObject          # Conversion and Survey Questions Only
+  survey: QaSurveyAnswerObject            # Survey Questions when survey completed Only
 }
 
 ## Great Grand Child Question Objects
