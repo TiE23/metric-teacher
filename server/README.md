@@ -288,8 +288,8 @@ Examples:
 **QA Object**
 ```
 {
-  questionId: "question01",
-  subSubjectId: "someSubSubject",
+  questionId: <<someQuestionId>>,
+  subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
   flags: 0,
 
@@ -306,9 +306,9 @@ Examples:
     data: {
       multiple: {
         choices: [
-          { unit: "written", value: "Harry is taller" },
-          { unit: "written", value: "Jim is taller" },
-          { unit: "written", value: "They are about the same height" },
+          { unit: "written", written: "Harry is taller" },
+          { unit: "written", written: "Jim is taller" },
+          { unit: "written", written: "They are about the same height" },
         ],
         choicesOffered: 3,
       },
@@ -336,8 +336,8 @@ Examples:
 **QA Object**
 ```
 {
-  questionId: "question01",
-  subSubjectId: "someSubSubject",
+  questionId: <<someQuestionId>>,
+  subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
   flags: 0,
 
@@ -367,6 +367,13 @@ Examples:
       },
       conversion: {
         accuracy: 1,
+        range: {
+          bottom: { unit: "kg", value: 18.05 },
+          top: { unit: "kg", value: 20.05 },
+        },
+        exact: 19.05087954,
+        rounded: 19.05,
+        friendly: 19.05,
         choices: [
           { unit: "kg", value: 19.05 },
           { unit: "kg", value: 18.05 },
@@ -378,13 +385,6 @@ Examples:
           { unit: "kg", value: 15.05 },
           { unit: "kg", value: 23.05 },
         ],
-        exact: 19.05087954,
-        friendly: 19.05,
-        range: {
-          bottom: { unit: "kg", value: 18.05 },
-          top: { unit: "kg", value: 20.05 },
-        },
-        rounded: 19.05,
       },
     },
   },
@@ -420,8 +420,8 @@ Examples:
 **QA Object**
 ```
 {
-  questionId: "question01",
-  subSubjectId: "someSubSubject",
+  questionId: <<someQuestionId>>,
+  subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
   flags: 1,
 
@@ -435,17 +435,16 @@ Examples:
         singular: "inch",
       },
       survey: {
-        response: {
-          detail: "My neighbor Anthony",
-          id: "survey01",
-          score: 0,
-          unit: "in",
-          value: 80,
-        },
         step: 1,
         surveyRange: {
           bottom: { unit: "in", value: 70 },
           top: { unit: "in", value: 96 },
+        },
+        response: {
+          detail: "My neighbor Anthony",
+          id: <<someSurveyId>>,
+          score: 0,
+          answer: { unit: "in", value: 80 },
         },
       },
     },
@@ -461,13 +460,13 @@ Examples:
       },
       conversion: {
         accuracy: 1,
-        exact: 203.2,
-        friendly: 203.2,
         range: {
           bottom: { unit: "cm", value: 202.2 },
           top: { unit: "cm", value: 204.2 },
         },
+        exact: 203.2,
         rounded: 203.2,
+        friendly: 203.2,
         choices: [
           { unit: "cm", value: 203.2 },
           { unit: "cm", value: 202.2 },

@@ -1,6 +1,14 @@
 class AuthError extends Error {
-  constructor() {
-    super("Not authorized");
+  constructor(reason = null, action = null) {
+    if (reason && !action) {
+      super(`Not authorized. Reason: ${reason}`);
+    } else if (!reason && action) {
+      super(`Not authorized to ${action}`);
+    } else if (reason && action) {
+      super(`Not authorized to ${action}. Reason: ${reason}`);
+    } else {
+      super("Not authorized");
+    }
   }
 }
 
@@ -52,6 +60,18 @@ class MasteryNotFound extends Error {
   }
 }
 
+class QuestionNotFound extends Error {
+  constructor(questionid) {
+    super(`Question ${questionid} not found`);
+  }
+}
+
+class QuestionNotActive extends Error {
+  constructor(questionid) {
+    super(`Question ${questionid} not active`);
+  }
+}
+
 class UserMustBe extends Error {
   constructor(userid, neededType) {
     super(`User ${userid} must be type ${neededType}`);
@@ -66,25 +86,25 @@ class UserAlreadyEnrolled extends Error {
 
 class QuestionSyntaxError extends Error {
   constructor(question, reason) {
-    super(`Question "${question}" not valid. Reason: "${reason}"`);
+    super(`Question '${question}' not valid. Reason: '${reason}'`);
   }
 }
 
 class AnswerSyntaxError extends Error {
   constructor(answer, reason) {
-    super(`Answer "${answer}" not valid. Reason: "${reason}"`);
+    super(`Answer '${answer}' not valid. Reason: '${reason}'`);
   }
 }
 
 class QuestionAnswerError extends Error {
   constructor(question, answer, reason) {
-    super(`Question "${question}" and answer "${answer}" not valid together. Reason: "${reason}"`);
+    super(`Question '${question}' and answer '${answer}' not valid together. Reason: '${reason}'`);
   }
 }
 
 class QuestionTypeInvalid extends Error {
   constructor(questionType) {
-    super(`Question type "${questionType}" not valid`);
+    super(`Question type '${questionType}' not valid`);
   }
 }
 
@@ -94,21 +114,15 @@ class AnswerUnitMissing extends Error {
   }
 }
 
-class QuestionSurveyAnswerMissing extends Error {
-  constructor(questionId) {
-    super(`Question "${questionId}" missing survey answer`);
-  }
-}
-
 class UnitTypeUnrecognized extends Error {
   constructor(unit) {
-    super(`Unit type "${unit}" not recognized`);
+    super(`Unit type '${unit}' not recognized`);
   }
 }
 
 class ConversionIncompatible extends Error {
   constructor(fromUnitSubject, fromUnitWord, toUnitSubject, toUnitWord) {
-    super(`Impossible to convert ${fromUnitSubject} unit "${fromUnitWord}" to ${toUnitSubject} unit "${toUnitWord}"`);
+    super(`Impossible to convert ${fromUnitSubject} unit '${fromUnitWord}' to ${toUnitSubject} unit '${toUnitWord}'`);
   }
 }
 
@@ -129,6 +143,8 @@ module.exports = {
   ClassroomNoUsersAdded,
   ClassroomNoUsersRemoved,
   MasteryNotFound,
+  QuestionNotFound,
+  QuestionNotActive,
   UserMustBe,
   UserAlreadyEnrolled,
   QuestionSyntaxError,
@@ -136,7 +152,6 @@ module.exports = {
   QuestionAnswerError,
   QuestionTypeInvalid,
   AnswerUnitMissing,
-  QuestionSurveyAnswerMissing,
   UnitTypeUnrecognized,
   ConversionIncompatible,
   ConversionNegativeValue,

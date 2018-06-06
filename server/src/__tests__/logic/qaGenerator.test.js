@@ -31,7 +31,9 @@ describe("qaGenerator", () => {
           question: "What temperature Celsius does water freeze at?",
           answer: "[0c|32c|100c]",
           media: null,
-          parent: "someSubSubject",
+          parent: {
+            id: "someSubSubject",
+          },
         };
       });
 
@@ -71,11 +73,11 @@ describe("qaGenerator", () => {
         expect(qaFormat.answer.data.multiple.choicesOffered).toBe(3);
         expect(qaFormat.answer.data.multiple.choices).toBeDefined();
         expect(qaFormat.answer.data.multiple.choices).toHaveLength(3);
-        expect(qaFormat.answer.data.multiple.choices[0].value).toBe("Harry is taller");
+        expect(qaFormat.answer.data.multiple.choices[0].written).toBe("Harry is taller");
         expect(qaFormat.answer.data.multiple.choices[0].unit).toBe(WRITTEN_ANSWER_UNIT);
-        expect(qaFormat.answer.data.multiple.choices[1].value).toBe("Jim is taller");
+        expect(qaFormat.answer.data.multiple.choices[1].written).toBe("Jim is taller");
         expect(qaFormat.answer.data.multiple.choices[1].unit).toBe(WRITTEN_ANSWER_UNIT);
-        expect(qaFormat.answer.data.multiple.choices[2].value).toBe("They are about the same height");
+        expect(qaFormat.answer.data.multiple.choices[2].written).toBe("They are about the same height");
         expect(qaFormat.answer.data.multiple.choices[2].unit).toBe(WRITTEN_ANSWER_UNIT);
       });
 
@@ -103,7 +105,9 @@ describe("qaGenerator", () => {
           question: "[100,100c]",
           answer: "[f]",
           media: null,
-          parent: "someSubSubject",
+          parent: {
+            id: "someSubSubject",
+          },
         };
       });
 
@@ -400,7 +404,9 @@ describe("qaGenerator", () => {
           question: "How tall are you? [40,96in]",
           answer: "[cm]",
           media: null,
-          parent: "someSubSubject",
+          parent: {
+            id: "someSubSubject",
+          },
         };
 
         baseSurveyResponse = {
@@ -408,8 +414,12 @@ describe("qaGenerator", () => {
           score: 0,
           answer: "[70in]",
           detail: null,
-          parent: "someCourse",
-          question: "someQuestion",
+          parent: {
+            id: "someCourse",
+          },
+          question: {
+            id: "someQuestion",
+          },
         };
       });
 
@@ -473,8 +483,8 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.survey.response).toBeDefined();
         expect(qaFormat.question.data.survey.response.id).toBe("survey01");
         expect(qaFormat.question.data.survey.response.score).toBe(0);
-        expect(qaFormat.question.data.survey.response.unit).toBe("in");
-        expect(qaFormat.question.data.survey.response.value).toBe(70);
+        expect(qaFormat.question.data.survey.response.answer.unit).toBe("in");
+        expect(qaFormat.question.data.survey.response.answer.value).toBe(70);
         expect(qaFormat.question.data.survey.step).toBe(1);
         expect(qaFormat.question.data.survey.surveyRange).toBeDefined();
         expect(qaFormat.question.data.survey.surveyRange.bottom).toBeDefined();
@@ -531,8 +541,8 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.detail).toBe("");
         expect(qaFormat.question.text).toBe("How tall is the tallest person you personally know? Give your best guess if you don't know exactly.");
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_SURVEY);
-        expect(qaFormat.question.data.survey.response.unit).toBe("in");
-        expect(qaFormat.question.data.survey.response.value).toBe(80);
+        expect(qaFormat.question.data.survey.response.answer.unit).toBe("in");
+        expect(qaFormat.question.data.survey.response.answer.value).toBe(80);
         expect(qaFormat.question.data.survey.response.detail).toBe("My neighbor Anthony");
       });
 

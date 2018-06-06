@@ -1,10 +1,13 @@
 # import Classroom, Enrollment from "./generated/prisma.graphql"
 
+### Queries
 type Query {
   me: PrivateUser
   allSubjects: [Subject]!
+  testGetQa(questionid: ID!): QaObject
 }
 
+### Mutations
 type Mutation {
   # User Mutations
   signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!
@@ -66,4 +69,105 @@ type PrivateUser {
   flags: Int!
   classrooms: [Classroom!]!
   enrollment: Enrollment
+}
+
+### QA Object data schema and its numerous children below
+## Parent Object
+type QaObject {
+  questionId: ID!             # TODO swap with or add "Question!"?
+  subSubjectId: ID!           # TODO swap with or add "SubSubject!"?
+  difficulty: Int!
+  flags: Int!
+  question: QaQuestionObject!
+  answer: QaAnswerObject!
+}
+
+## Child Objects
+type QaQuestionObject {
+  detail: String!
+  text: String!
+  type: Int!
+  data: QaQuestionData                    # Conversion + Survey Questions only
+}
+
+type QaAnswerObject {
+  detail: String!
+  type: Int!
+  data: QaAnswerData!
+}
+
+## Grand Child Objects
+type QaQuestionData {
+  fromUnitWord: QaUnitWordObject!
+  conversion: QaConversionQuestionObject  # Conversion Questions Only
+  survey: QaSurveyQuestionObject          # Survey Questions Only
+}
+
+type QaAnswerData {
+  toUnitWord: QaUnitWordObject            # Conversion and Survey Questions Only
+  multiple: QaMultipleChoiceObject        # Written Questions Only
+  conversion: QaConversionObject          # Conversion and Survey Questions Only
+  survey: QaSurveyAnswerObject            # Survey Questions when survey completed Only
+}
+
+## Great Grand Child Question Objects
+type QaConversionQuestionObject {
+  exact: QaUnitObject!
+  step: Float!
+}
+
+type QaSurveyQuestionObject {
+  step: Float!
+  surveyRange: QaRangeObject!
+  response: QaSurveyResponseObject        # Only if survey was answered
+}
+
+## Great Grand Child Answer Objects
+type QaMultipleChoiceObject {
+  choicesOffered: Int!
+  choices: [QaMixedUnitObject]!
+}
+
+type QaConversionObject {
+  accuracy: Float!
+  range: QaRangeObject!
+  exact: Float!
+  rounded: Float!
+  friendly: Float!
+  choices: [QaUnitObject]!
+}
+
+type QaSurveyAnswerObject {
+  choices: [QaUnitObject]!
+}
+
+type QaSurveyResponseObject {
+  id: ID!
+  score: Int!
+  answer: QaUnitObject!
+  detail: String
+}
+
+## Generic Objects
+type QaUnitWordObject {
+  plural: String!
+  singular: String!
+}
+
+type QaRangeObject {
+  bottom: QaUnitObject!
+  top: QaUnitObject!
+}
+
+# For Conversion and Survey questions where only number answers are possible
+type QaUnitObject {
+  value: Float!
+  unit: String!
+}
+
+# Only used for Written questions where number and string answers are possible
+type QaMixedUnitObject {
+  value: Float    # For number answers
+  written: String # For string answers
+  unit: String!   # Always defined
 }
