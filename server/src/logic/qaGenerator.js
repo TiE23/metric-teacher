@@ -36,6 +36,10 @@ const {
  * }}
  */
 function qaGenerate(questionData, surveyData = null) {
+  if (!questionData) {
+    return null;
+  }
+
   const { questionPayload, answerPayload } = parseQAStrings(
     questionData.type,
     questionData.question,

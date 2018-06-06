@@ -56,6 +56,18 @@ class MasteryNotFound extends Error {
   }
 }
 
+class QuestionNotFound extends Error {
+  constructor(questionid) {
+    super(`Question ${questionid} not found`);
+  }
+}
+
+class QuestionNotActive extends Error {
+  constructor(questionid) {
+    super(`Question ${questionid} not active`);
+  }
+}
+
 class UserMustBe extends Error {
   constructor(userid, neededType) {
     super(`User ${userid} must be type ${neededType}`);
@@ -133,6 +145,8 @@ module.exports = {
   ClassroomNoUsersAdded,
   ClassroomNoUsersRemoved,
   MasteryNotFound,
+  QuestionNotFound,
+  QuestionNotActive,
   UserMustBe,
   UserAlreadyEnrolled,
   QuestionSyntaxError,

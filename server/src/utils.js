@@ -5,7 +5,18 @@ const {
   AuthError,
   UserNotFound,
 } = require("./errors");
+const {
+  COURSE_STATUS_ACTIVE,
+} = require("./constants");
 
+
+/**
+ * Gets the calling user's ID by their Authorization JavaScript Web Token.
+ * Does not hit the database and costs almost nothing to perform.
+ * @param ctx
+ * @returns {*}
+ * @throws AuthError
+ */
 function getUserId(ctx) {
   const Authorization = ctx.request.get("Authorization");
   if (Authorization) {
@@ -17,19 +28,36 @@ function getUserId(ctx) {
   throw new AuthError();
 }
 
-// Get user details by UserId. This function can expose sensitive user information so call it
-// only in authorized situations. It does not check authorization.
-async function getUserData(ctx, id, fields) {
-  const user = await ctx.db.query.user({ where: { id } }, fields);
+
+/**
+ * Get user details by UserId. This function can expose sensitive user information so call it
+ * only in authorized situations.
+ * IT DOES NOT CHECK AUTHORIZATION.
+ * @param ctx
+ * @param userId
+ * @param fields
+ * @returns {*}
+ * @throws UserNotFound
+ */
+async function getUserData(ctx, userId, fields) {
+  const user = await ctx.db.query.user({ where: { userId } }, fields);
   if (user) {
     return user;
   }
 
-  throw new UserNotFound(id);
+  throw new UserNotFound(userId);
 }
 
-// Grab fields from a user by their id. If the calling user is the target (they're performing an
-// action on their own account, typically) save a wasteful query.
+
+/**
+ * Grab fields from a user by their id. If the calling user is the target (they're performing an
+ * action on their own account, typically) save a wasteful query.
+ * IT DOES NOT CHECK AUTHORIZATION.
+ * @param ctx
+ * @param targetId
+ * @param fields
+ * @returns {Promise<{callingUserData: *, targetUserData: *}>}
+ */
 async function targetStudentDataHelper(ctx, targetId, fields) {
   const callingUserId = getUserId(ctx); // User must be logged in.
   const callingUserData = await getUserData(ctx, callingUserId, fields);
@@ -44,7 +72,42 @@ async function targetStudentDataHelper(ctx, targetId, fields) {
 
 
 /**
- * Check the auth of a calling user's request with various options
+ * Convenience function that grabs the newest active course belonging to the student.
+ * If the student doesn't have an active course returns null. Else, returns the course ID.
+ * IT DOES NOT CHECK AUTHORIZATION.
+ * @param ctx
+ * @param studentId
+ * @returns String|Null
+ * @throws Exception
+ */
+async function getStudentActiveCourseId(ctx, studentId) {
+  const userData = await getUserData(
+    ctx,
+    studentId,
+    `{
+      enrollment {
+        courses( where: {
+          status: ${COURSE_STATUS_ACTIVE}
+        }, first: 1) {
+          id
+        }
+      }
+    }`,
+  );
+
+  try {
+    return userData.enrollment.courses[0].id;
+  } catch (e) {
+    if (e instanceof TypeError) {
+      return null;  // The user doesn't have an active course
+    }
+    throw e;
+  }
+}
+
+
+/**
+ * Check the auth of a calling user's request with various options.
  * @param ctx
  * @param typeCheck - Mixed, can be an int (MINIMUM user type allowed), an array of APPROVED
  *                  user types, or null, indicating that anonymous requests are welcome.
@@ -56,8 +119,9 @@ async function targetStudentDataHelper(ctx, targetId, fields) {
  *                  approved statuses. If null will allow any value
  * @param flagExcludeCheck - Int, pass bitwise flags that are NOT allowed. Leave null to ignore.
  * @param flagIncludeCheck - Int, include bitwise flags that are REQUIRED. Leave null to ignore.
- * @returns {Boolean} Returns true if things check out. Otherwise it'll throw an error.
- * @throws AuthError
+ * @returns {*}|Null Returns calling User ID, type, status, and flags if logged in.
+ *                   Null if logged out (when logged-out users are allowed).
+ * @throws AuthError If there is ever a problem this gets thrown.
  */
 async function checkAuth(
   ctx,
@@ -75,11 +139,11 @@ async function checkAuth(
     if (e instanceof AuthError) {
       // The typeCheck is explicitly null (indicating anonymous requests are welcome)
       if (typeCheck === null) {
-        return true;
+        return null;
       }
 
       // Throw a slightly more detailed error.
-      throw new AuthError("User not logged in.");
+      throw new AuthError("User must be logged in.");
     } else {
       throw e;  // Some other error
     }
@@ -122,7 +186,7 @@ async function checkAuth(
   if (flagExcludeCheck) {
     if (callingUserData.flags & flagExcludeCheck) {
       approval = false;
-      rejectionReasons.push("User flags contained disallowed flags.");
+      rejectionReasons.push("User marked with disallowed flags.");
     }
   }
 
@@ -130,7 +194,7 @@ async function checkAuth(
   if (flagIncludeCheck) {
     if ((callingUserData.flags & flagIncludeCheck) !== flagIncludeCheck) {
       approval = false;
-      rejectionReasons.push("User flags did not contain required flags.");
+      rejectionReasons.push("User not marked with required flags.");
     }
   }
 
@@ -139,12 +203,18 @@ async function checkAuth(
     throw new AuthError(rejectionReasons.join(" "));
   }
 
-  return true;
+  return {
+    id: callingUserId,
+    type: callingUserData.type,
+    status: callingUserData.status,
+    flags: callingUserData.flags,
+  };
 }
 
 module.exports = {
   getUserId,
   getUserData,
   targetStudentDataHelper,
+  getStudentActiveCourseId,
   checkAuth,
 };
