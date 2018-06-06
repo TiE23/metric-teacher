@@ -306,9 +306,9 @@ Examples:
     data: {
       multiple: {
         choices: [
-          { unit: "written", value: "Harry is taller" },
-          { unit: "written", value: "Jim is taller" },
-          { unit: "written", value: "They are about the same height" },
+          { unit: "written", written: "Harry is taller" },
+          { unit: "written", written: "Jim is taller" },
+          { unit: "written", written: "They are about the same height" },
         ],
         choicesOffered: 3,
       },
