@@ -125,7 +125,7 @@ type QaSurveyQuestionObject {
 ## Great Grand Child Answer Objects
 type QaMultipleChoiceObject {
   choicesOffered: Int!
-  choices: [QaUnitObject]!
+  choices: [QaMixedUnitObject]!
 }
 
 type QaConversionObject {
@@ -159,7 +159,15 @@ type QaRangeObject {
   top: QaUnitObject!
 }
 
+# For Conversion and Survey questions where only number answers are possible
 type QaUnitObject {
+  value: Float!
   unit: String!
-  value: Float! # Will have to figure this out with Ints and especially Strings...
+}
+
+# Only used for Written questions where number and string answers are possible
+type QaMixedUnitObject {
+  value: Float    # For number answers
+  written: String # For string answers
+  unit: String!   # Always defined
 }

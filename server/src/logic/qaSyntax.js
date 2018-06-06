@@ -360,7 +360,8 @@ function parseSingleAnswer(singleAnswer, answerSyntax = "") {
 
     // Written answer
     return {
-      value: singleAnswer,
+      value: null,  // Must still be included
+      written: singleAnswer,
       unit: WRITTEN_ANSWER_UNIT,
     };
 
@@ -382,6 +383,7 @@ function parseSingleAnswer(singleAnswer, answerSyntax = "") {
 
     return {
       value,
+      written: null,  // Must still be included
       unit,
     };
   }

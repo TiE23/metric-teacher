@@ -73,11 +73,11 @@ describe("qaGenerator", () => {
         expect(qaFormat.answer.data.multiple.choicesOffered).toBe(3);
         expect(qaFormat.answer.data.multiple.choices).toBeDefined();
         expect(qaFormat.answer.data.multiple.choices).toHaveLength(3);
-        expect(qaFormat.answer.data.multiple.choices[0].value).toBe("Harry is taller");
+        expect(qaFormat.answer.data.multiple.choices[0].written).toBe("Harry is taller");
         expect(qaFormat.answer.data.multiple.choices[0].unit).toBe(WRITTEN_ANSWER_UNIT);
-        expect(qaFormat.answer.data.multiple.choices[1].value).toBe("Jim is taller");
+        expect(qaFormat.answer.data.multiple.choices[1].written).toBe("Jim is taller");
         expect(qaFormat.answer.data.multiple.choices[1].unit).toBe(WRITTEN_ANSWER_UNIT);
-        expect(qaFormat.answer.data.multiple.choices[2].value).toBe("They are about the same height");
+        expect(qaFormat.answer.data.multiple.choices[2].written).toBe("They are about the same height");
         expect(qaFormat.answer.data.multiple.choices[2].unit).toBe(WRITTEN_ANSWER_UNIT);
       });
 

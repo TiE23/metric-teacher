@@ -922,8 +922,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 1
-    question: "Which is longer?"
-    answer: "[1m|1yd]"
+    question: "Which is the longest?"
+    answer: "[A meter|A yard|36in]"
     media: ""
     parent: {
       connect: {
