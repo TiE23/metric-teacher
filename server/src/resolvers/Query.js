@@ -21,7 +21,10 @@ const Query = {
   },
 
   async allSubjects(parent, args, ctx, info) {
-    await checkAuth(ctx, USER_TYPE_STUDENT);  // Must be logged in
+    await checkAuth(ctx, {
+      type: USER_TYPE_STUDENT,
+      action: "query allSubjects",
+    });  // Must be logged in
     const subjects = await ctx.db.query.subjects({}, info);
 
     return subjects;
@@ -29,7 +32,10 @@ const Query = {
 
   // TODO this is a proof-of-concept function and is intended to be removed.
   async testGetQa(parent, args, ctx, info) {
-    const callingUserData = await checkAuth(ctx, USER_TYPE_STUDENT); // Must be logged in
+    const callingUserData = await checkAuth(ctx, {
+      type: 2,
+      action: "query testGetQa",
+    }); // Must be logged in
     const questionObject = await ctx.db.query.question(
       { where: { id: args.questionid } },
       `{

@@ -40,7 +40,7 @@ function getUserId(ctx) {
  * @throws UserNotFound
  */
 async function getUserData(ctx, userId, fields) {
-  const user = await ctx.db.query.user({ where: { userId } }, fields);
+  const user = await ctx.db.query.user({ where: { id: userId } }, fields);
   if (user) {
     return user;
   }
@@ -109,26 +109,33 @@ async function getStudentActiveCourseId(ctx, studentId) {
 /**
  * Check the auth of a calling user's request with various options.
  * @param ctx
- * @param typeCheck - Mixed, can be an int (MINIMUM user type allowed), an array of APPROVED
+ * @param payload
+ * - type         Mixed, can be an int (MINIMUM user type allowed), an array of APPROVED
  *                  user types, or null, indicating that anonymous requests are welcome.
  *                  "Why support anonymous?" you ask, "Just don't have an auth check for requests
  *                  that are public!" I have this because running this function before each request
  *                  can still allow me to reject banned users just to be spiteful. >:)
  *                  If simply the user must be logged in just set to 0.
- * @param statusCheck - Mixed, can be an int (MAXIMUM status value allowed) or an array of
+ * - status       Mixed, can be an int (MAXIMUM status value allowed) or an array of
  *                  approved statuses. If null will allow any value
- * @param flagExcludeCheck - Int, pass bitwise flags that are NOT allowed. Leave null to ignore.
- * @param flagIncludeCheck - Int, include bitwise flags that are REQUIRED. Leave null to ignore.
- * @returns {*}|Null Returns calling User ID, type, status, and flags if logged in.
- *                   Null if logged out (when logged-out users are allowed).
+ * - flagExclude  Int, pass bitwise flags that are NOT allowed. Leave null to ignore.
+ * - flagRequire  Int, include bitwise flags that are REQUIRED. Leave null to ignore.
+ * - action       String, optional descriptive text that will display in the AuthError message.
+ *                  Example, if you pass "query teachersList" the error could say:
+ *                  "Not authorized to query teachersList. Reason: User type '0' insufficient."
+ * @returns {*}|Null Returns calling User ID, type, status, and flags if logged in inside an object.
+ *                   Returns null if logged out (when logged-out users are allowed).
  * @throws AuthError If there is ever a problem this gets thrown.
  */
 async function checkAuth(
   ctx,
-  typeCheck = null,
-  statusCheck = null,
-  flagExcludeCheck = null,
-  flagIncludeCheck = null,
+  payload = {
+    type: null,
+    status: null,
+    flagExclude: null,
+    flagRequire: null,
+    action: null,
+  },
 ) {
   let callingUserId = "";
 
@@ -137,13 +144,13 @@ async function checkAuth(
   } catch (e) {
     // If the user is not recognized an AuthError will have been thrown
     if (e instanceof AuthError) {
-      // The typeCheck is explicitly null (indicating anonymous requests are welcome)
-      if (typeCheck === null) {
+      // The type is explicitly null (indicating anonymous requests are welcome)
+      if (payload.type === null) {
         return null;
       }
 
       // Throw a slightly more detailed error.
-      throw new AuthError("User must be logged in.");
+      throw new AuthError("User must be logged in.", payload.action);
     } else {
       throw e;  // Some other error
     }
@@ -157,42 +164,42 @@ async function checkAuth(
   const rejectionReasons = [];
 
   // Check type. If null, do not check anything.
-  if (Array.isArray(typeCheck)) {
-    if (typeCheck.indexOf(callingUserData.type) === -1) {
+  if (Array.isArray(payload.type)) {
+    if (payload.type.indexOf(callingUserData.type) === -1) {
       approval = false;
-      rejectionReasons.push(`User type "${callingUserData.type}" disallowed.`);
+      rejectionReasons.push(`User type '${callingUserData.type}' disallowed.`);
     }
-  } else if (Number.isInteger(typeCheck)) {
-    if (callingUserData.type < typeCheck) {
+  } else if (Number.isInteger(payload.type)) {
+    if (callingUserData.type < payload.type) {
       approval = false;
-      rejectionReasons.push(`User type "${callingUserData.type}" insufficient.`);
+      rejectionReasons.push(`User type '${callingUserData.type}' insufficient.`);
     }
   }
 
   // Check status. If null, do not check anything.
-  if (Array.isArray(statusCheck)) {
-    if (statusCheck.indexOf(callingUserData.status) === -1) {
+  if (Array.isArray(payload.status)) {
+    if (payload.status.indexOf(callingUserData.status) === -1) {
       approval = false;
-      rejectionReasons.push(`User status "${callingUserData.status}" disallowed.`);
+      rejectionReasons.push(`User status '${callingUserData.status}' disallowed.`);
     }
-  } else if (Number.isInteger(statusCheck)) {
-    if (callingUserData.status < statusCheck) {
+  } else if (Number.isInteger(payload.status)) {
+    if (callingUserData.status < payload.status) {
       approval = false;
-      rejectionReasons.push(`User status "${callingUserData.status}" insufficient.`);
+      rejectionReasons.push(`User status '${callingUserData.status}' insufficient.`);
     }
   }
 
   // Check flags (excluded flags)
-  if (flagExcludeCheck) {
-    if (callingUserData.flags & flagExcludeCheck) {
+  if (payload.flagExclude) {
+    if (callingUserData.flags & payload.flagExclude) {
       approval = false;
       rejectionReasons.push("User marked with disallowed flags.");
     }
   }
 
   // Check flags (required flags)
-  if (flagIncludeCheck) {
-    if ((callingUserData.flags & flagIncludeCheck) !== flagIncludeCheck) {
+  if (payload.flagRequire) {
+    if ((callingUserData.flags & payload.flagRequire) !== payload.flagRequire) {
       approval = false;
       rejectionReasons.push("User not marked with required flags.");
     }
@@ -200,7 +207,7 @@ async function checkAuth(
 
   // If it user was rejected for any reason explain it.
   if (!approval) {
-    throw new AuthError(rejectionReasons.join(" "));
+    throw new AuthError(rejectionReasons.join(" "), payload.action);
   }
 
   return {
