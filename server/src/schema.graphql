@@ -2,9 +2,14 @@
 
 ### Queries
 type Query {
+  # User Queries
   me: PrivateUser
+
+  # Subject Queries
   allSubjects: [Subject]!
-  testGetQa(questionid: ID!): QaObject
+
+  # QA Queries
+  getQa(questionid: ID!): QaObject
 }
 
 ### Mutations
@@ -45,16 +50,15 @@ type AuthPayload {
   user: User!
 }
 
-# For public use. It does not expose password or email.
+# For public use. It does not expose password, email, enrollment, or classrooms.
 type User {
   id: ID!
+  honorific: String
   fname: String!
   lname: String!
   type: Int!
   status: Int!
   flags: Int!
-  classrooms: [Classroom!]!
-  enrollment: Enrollment
 }
 
 # For private use. It does not expose password.

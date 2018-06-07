@@ -14,8 +14,8 @@ const {
 } = require("../../constants");
 
 const qa = {
-  // TODO this is a proof-of-concept function and is intended to be removed.
-  async testGetQa(parent, args, ctx, info) {
+  // TODO this needs to be polished - Likely in ISSUE-020.
+  async getQa(parent, args, ctx) {
     const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
       action: "query testGetQa",
@@ -42,6 +42,7 @@ const qa = {
       throw new QuestionNotFound(args.questionid);
     }
 
+    // TODO Do I really want to prevent processing inactive questions?
     // Question isn't active
     if (questionObject.status !== QUESTION_STATUS_ACTIVE) {
       throw new QuestionNotActive(args.questionid);
