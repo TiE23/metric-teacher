@@ -33,7 +33,7 @@ const Query = {
   // TODO this is a proof-of-concept function and is intended to be removed.
   async testGetQa(parent, args, ctx, info) {
     const callingUserData = await checkAuth(ctx, {
-      type: 2,
+      type: USER_TYPE_STUDENT,
       action: "query testGetQa",
     }); // Must be logged in
     const questionObject = await ctx.db.query.question(
