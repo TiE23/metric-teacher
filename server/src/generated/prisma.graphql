@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Mon Jun 04 2018 10:52:10 GMT-0700 (PDT)
+# timestamp: Wed Jun 06 2018 18:49:58 GMT-0700 (PDT)
 
 type AggregateClassroom {
   count: Int!
@@ -21,10 +21,6 @@ type AggregateQuestion {
   count: Int!
 }
 
-type AggregateScale {
-  count: Int!
-}
-
 type AggregateSubject {
   count: Int!
 }
@@ -34,10 +30,6 @@ type AggregateSubSubject {
 }
 
 type AggregateSurvey {
-  count: Int!
-}
-
-type AggregateUnit {
   count: Int!
 }
 
@@ -1190,8 +1182,6 @@ type Mutation {
   createSubject(data: SubjectCreateInput!): Subject!
   createSubSubject(data: SubSubjectCreateInput!): SubSubject!
   createQuestion(data: QuestionCreateInput!): Question!
-  createUnit(data: UnitCreateInput!): Unit!
-  createScale(data: ScaleCreateInput!): Scale!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateClassroom(data: ClassroomUpdateInput!, where: ClassroomWhereUniqueInput!): Classroom
   updateEnrollment(data: EnrollmentUpdateInput!, where: EnrollmentWhereUniqueInput!): Enrollment
@@ -1201,8 +1191,6 @@ type Mutation {
   updateSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
   updateSubSubject(data: SubSubjectUpdateInput!, where: SubSubjectWhereUniqueInput!): SubSubject
   updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
-  updateUnit(data: UnitUpdateInput!, where: UnitWhereUniqueInput!): Unit
-  updateScale(data: ScaleUpdateInput!, where: ScaleWhereUniqueInput!): Scale
   deleteUser(where: UserWhereUniqueInput!): User
   deleteClassroom(where: ClassroomWhereUniqueInput!): Classroom
   deleteEnrollment(where: EnrollmentWhereUniqueInput!): Enrollment
@@ -1212,8 +1200,6 @@ type Mutation {
   deleteSubject(where: SubjectWhereUniqueInput!): Subject
   deleteSubSubject(where: SubSubjectWhereUniqueInput!): SubSubject
   deleteQuestion(where: QuestionWhereUniqueInput!): Question
-  deleteUnit(where: UnitWhereUniqueInput!): Unit
-  deleteScale(where: ScaleWhereUniqueInput!): Scale
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertClassroom(where: ClassroomWhereUniqueInput!, create: ClassroomCreateInput!, update: ClassroomUpdateInput!): Classroom!
   upsertEnrollment(where: EnrollmentWhereUniqueInput!, create: EnrollmentCreateInput!, update: EnrollmentUpdateInput!): Enrollment!
@@ -1223,8 +1209,6 @@ type Mutation {
   upsertSubject(where: SubjectWhereUniqueInput!, create: SubjectCreateInput!, update: SubjectUpdateInput!): Subject!
   upsertSubSubject(where: SubSubjectWhereUniqueInput!, create: SubSubjectCreateInput!, update: SubSubjectUpdateInput!): SubSubject!
   upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
-  upsertUnit(where: UnitWhereUniqueInput!, create: UnitCreateInput!, update: UnitUpdateInput!): Unit!
-  upsertScale(where: ScaleWhereUniqueInput!, create: ScaleCreateInput!, update: ScaleUpdateInput!): Scale!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyClassrooms(data: ClassroomUpdateInput!, where: ClassroomWhereInput): BatchPayload!
   updateManyEnrollments(data: EnrollmentUpdateInput!, where: EnrollmentWhereInput): BatchPayload!
@@ -1234,8 +1218,6 @@ type Mutation {
   updateManySubjects(data: SubjectUpdateInput!, where: SubjectWhereInput): BatchPayload!
   updateManySubSubjects(data: SubSubjectUpdateInput!, where: SubSubjectWhereInput): BatchPayload!
   updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
-  updateManyUnits(data: UnitUpdateInput!, where: UnitWhereInput): BatchPayload!
-  updateManyScales(data: ScaleUpdateInput!, where: ScaleWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyClassrooms(where: ClassroomWhereInput): BatchPayload!
   deleteManyEnrollments(where: EnrollmentWhereInput): BatchPayload!
@@ -1245,8 +1227,6 @@ type Mutation {
   deleteManySubjects(where: SubjectWhereInput): BatchPayload!
   deleteManySubSubjects(where: SubSubjectWhereInput): BatchPayload!
   deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
-  deleteManyUnits(where: UnitWhereInput): BatchPayload!
-  deleteManyScales(where: ScaleWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1286,8 +1266,6 @@ type Query {
   subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
   subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
-  units(where: UnitWhereInput, orderBy: UnitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Unit]!
-  scales(where: ScaleWhereInput, orderBy: ScaleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Scale]!
   user(where: UserWhereUniqueInput!): User
   classroom(where: ClassroomWhereUniqueInput!): Classroom
   enrollment(where: EnrollmentWhereUniqueInput!): Enrollment
@@ -1297,8 +1275,6 @@ type Query {
   subject(where: SubjectWhereUniqueInput!): Subject
   subSubject(where: SubSubjectWhereUniqueInput!): SubSubject
   question(where: QuestionWhereUniqueInput!): Question
-  unit(where: UnitWhereUniqueInput!): Unit
-  scale(where: ScaleWhereUniqueInput!): Scale
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   classroomsConnection(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClassroomConnection!
   enrollmentsConnection(where: EnrollmentWhereInput, orderBy: EnrollmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EnrollmentConnection!
@@ -1308,8 +1284,6 @@ type Query {
   subjectsConnection(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectConnection!
   subSubjectsConnection(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubSubjectConnection!
   questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
-  unitsConnection(where: UnitWhereInput, orderBy: UnitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UnitConnection!
-  scalesConnection(where: ScaleWhereInput, orderBy: ScaleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ScaleConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1782,273 +1756,11 @@ input QuestionWhereUniqueInput {
   id: ID
 }
 
-type Scale implements Node {
-  id: ID!
-  name: String!
-  description: String!
-  subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject!]
-}
-
-"""A connection to a list of items."""
-type ScaleConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [ScaleEdge]!
-  aggregate: AggregateScale!
-}
-
-input ScaleCreateInput {
-  name: String!
-  description: String!
-  subSubjects: SubSubjectCreateManyWithoutScaleInput
-}
-
-input ScaleCreateOneWithoutSubSubjectsInput {
-  create: ScaleCreateWithoutSubSubjectsInput
-  connect: ScaleWhereUniqueInput
-}
-
-input ScaleCreateWithoutSubSubjectsInput {
-  name: String!
-  description: String!
-}
-
-"""An edge in a connection."""
-type ScaleEdge {
-  """The item at the end of the edge."""
-  node: Scale!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum ScaleOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  description_ASC
-  description_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type ScalePreviousValues {
-  id: ID!
-  name: String!
-  description: String!
-}
-
-type ScaleSubscriptionPayload {
-  mutation: MutationType!
-  node: Scale
-  updatedFields: [String!]
-  previousValues: ScalePreviousValues
-}
-
-input ScaleSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ScaleSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ScaleSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ScaleSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: ScaleWhereInput
-}
-
-input ScaleUpdateInput {
-  name: String
-  description: String
-  subSubjects: SubSubjectUpdateManyWithoutScaleInput
-}
-
-input ScaleUpdateOneWithoutSubSubjectsInput {
-  create: ScaleCreateWithoutSubSubjectsInput
-  connect: ScaleWhereUniqueInput
-  delete: Boolean
-  update: ScaleUpdateWithoutSubSubjectsDataInput
-  upsert: ScaleUpsertWithoutSubSubjectsInput
-}
-
-input ScaleUpdateWithoutSubSubjectsDataInput {
-  name: String
-  description: String
-}
-
-input ScaleUpsertWithoutSubSubjectsInput {
-  update: ScaleUpdateWithoutSubSubjectsDataInput!
-  create: ScaleCreateWithoutSubSubjectsInput!
-}
-
-input ScaleWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ScaleWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ScaleWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ScaleWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-  description: String
-
-  """All values that are not equal to given value."""
-  description_not: String
-
-  """All values that are contained in given list."""
-  description_in: [String!]
-
-  """All values that are not contained in given list."""
-  description_not_in: [String!]
-
-  """All values less than the given value."""
-  description_lt: String
-
-  """All values less than or equal the given value."""
-  description_lte: String
-
-  """All values greater than the given value."""
-  description_gt: String
-
-  """All values greater than or equal the given value."""
-  description_gte: String
-
-  """All values containing the given string."""
-  description_contains: String
-
-  """All values not containing the given string."""
-  description_not_contains: String
-
-  """All values starting with the given string."""
-  description_starts_with: String
-
-  """All values not starting with the given string."""
-  description_not_starts_with: String
-
-  """All values ending with the given string."""
-  description_ends_with: String
-
-  """All values not ending with the given string."""
-  description_not_ends_with: String
-  subSubjects_every: SubSubjectWhereInput
-  subSubjects_some: SubSubjectWhereInput
-  subSubjects_none: SubSubjectWhereInput
-}
-
-input ScaleWhereUniqueInput {
-  id: ID
-  name: String
-}
-
 type Subject implements Node {
   id: ID!
   name: String!
   description: String!
+  measurementDescription: String!
   subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject!]
 }
 
@@ -2065,6 +1777,7 @@ type SubjectConnection {
 input SubjectCreateInput {
   name: String!
   description: String!
+  measurementDescription: String!
   subSubjects: SubSubjectCreateManyWithoutParentInput
 }
 
@@ -2076,6 +1789,7 @@ input SubjectCreateOneWithoutSubSubjectsInput {
 input SubjectCreateWithoutSubSubjectsInput {
   name: String!
   description: String!
+  measurementDescription: String!
 }
 
 """An edge in a connection."""
@@ -2094,6 +1808,8 @@ enum SubjectOrderByInput {
   name_DESC
   description_ASC
   description_DESC
+  measurementDescription_ASC
+  measurementDescription_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2104,6 +1820,7 @@ type SubjectPreviousValues {
   id: ID!
   name: String!
   description: String!
+  measurementDescription: String!
 }
 
 type SubjectSubscriptionPayload {
@@ -2148,6 +1865,7 @@ input SubjectSubscriptionWhereInput {
 input SubjectUpdateInput {
   name: String
   description: String
+  measurementDescription: String
   subSubjects: SubSubjectUpdateManyWithoutParentInput
 }
 
@@ -2162,6 +1880,7 @@ input SubjectUpdateOneWithoutSubSubjectsInput {
 input SubjectUpdateWithoutSubSubjectsDataInput {
   name: String
   description: String
+  measurementDescription: String
 }
 
 input SubjectUpsertWithoutSubSubjectsInput {
@@ -2298,6 +2017,46 @@ input SubjectWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  measurementDescription: String
+
+  """All values that are not equal to given value."""
+  measurementDescription_not: String
+
+  """All values that are contained in given list."""
+  measurementDescription_in: [String!]
+
+  """All values that are not contained in given list."""
+  measurementDescription_not_in: [String!]
+
+  """All values less than the given value."""
+  measurementDescription_lt: String
+
+  """All values less than or equal the given value."""
+  measurementDescription_lte: String
+
+  """All values greater than the given value."""
+  measurementDescription_gt: String
+
+  """All values greater than or equal the given value."""
+  measurementDescription_gte: String
+
+  """All values containing the given string."""
+  measurementDescription_contains: String
+
+  """All values not containing the given string."""
+  measurementDescription_not_contains: String
+
+  """All values starting with the given string."""
+  measurementDescription_starts_with: String
+
+  """All values not starting with the given string."""
+  measurementDescription_not_starts_with: String
+
+  """All values ending with the given string."""
+  measurementDescription_ends_with: String
+
+  """All values not ending with the given string."""
+  measurementDescription_not_ends_with: String
   subSubjects_every: SubSubjectWhereInput
   subSubjects_some: SubSubjectWhereInput
   subSubjects_none: SubSubjectWhereInput
@@ -2318,8 +2077,6 @@ type Subscription {
   subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
   subSubject(where: SubSubjectSubscriptionWhereInput): SubSubjectSubscriptionPayload
   question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
-  unit(where: UnitSubscriptionWhereInput): UnitSubscriptionPayload
-  scale(where: ScaleSubscriptionWhereInput): ScaleSubscriptionPayload
 }
 
 type SubSubject implements Node {
@@ -2328,8 +2085,7 @@ type SubSubject implements Node {
   description: String!
   toMetric: Boolean!
   rarity: Int!
-  unit(where: UnitWhereInput): Unit!
-  scale(where: ScaleWhereInput): Scale!
+  scale: String!
   parent(where: SubjectWhereInput): Subject!
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
 }
@@ -2349,24 +2105,13 @@ input SubSubjectCreateInput {
   description: String!
   toMetric: Boolean!
   rarity: Int!
-  unit: UnitCreateOneWithoutSubSubjectsInput!
-  scale: ScaleCreateOneWithoutSubSubjectsInput!
+  scale: String!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
   questions: QuestionCreateManyWithoutParentInput
 }
 
 input SubSubjectCreateManyWithoutParentInput {
   create: [SubSubjectCreateWithoutParentInput!]
-  connect: [SubSubjectWhereUniqueInput!]
-}
-
-input SubSubjectCreateManyWithoutScaleInput {
-  create: [SubSubjectCreateWithoutScaleInput!]
-  connect: [SubSubjectWhereUniqueInput!]
-}
-
-input SubSubjectCreateManyWithoutUnitInput {
-  create: [SubSubjectCreateWithoutUnitInput!]
   connect: [SubSubjectWhereUniqueInput!]
 }
 
@@ -2385,8 +2130,7 @@ input SubSubjectCreateWithoutParentInput {
   description: String!
   toMetric: Boolean!
   rarity: Int!
-  unit: UnitCreateOneWithoutSubSubjectsInput!
-  scale: ScaleCreateOneWithoutSubSubjectsInput!
+  scale: String!
   questions: QuestionCreateManyWithoutParentInput
 }
 
@@ -2395,29 +2139,8 @@ input SubSubjectCreateWithoutQuestionsInput {
   description: String!
   toMetric: Boolean!
   rarity: Int!
-  unit: UnitCreateOneWithoutSubSubjectsInput!
-  scale: ScaleCreateOneWithoutSubSubjectsInput!
+  scale: String!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
-}
-
-input SubSubjectCreateWithoutScaleInput {
-  name: String!
-  description: String!
-  toMetric: Boolean!
-  rarity: Int!
-  unit: UnitCreateOneWithoutSubSubjectsInput!
-  parent: SubjectCreateOneWithoutSubSubjectsInput!
-  questions: QuestionCreateManyWithoutParentInput
-}
-
-input SubSubjectCreateWithoutUnitInput {
-  name: String!
-  description: String!
-  toMetric: Boolean!
-  rarity: Int!
-  scale: ScaleCreateOneWithoutSubSubjectsInput!
-  parent: SubjectCreateOneWithoutSubSubjectsInput!
-  questions: QuestionCreateManyWithoutParentInput
 }
 
 """An edge in a connection."""
@@ -2440,6 +2163,8 @@ enum SubSubjectOrderByInput {
   toMetric_DESC
   rarity_ASC
   rarity_DESC
+  scale_ASC
+  scale_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2452,6 +2177,7 @@ type SubSubjectPreviousValues {
   description: String!
   toMetric: Boolean!
   rarity: Int!
+  scale: String!
 }
 
 type SubSubjectSubscriptionPayload {
@@ -2498,8 +2224,7 @@ input SubSubjectUpdateDataInput {
   description: String
   toMetric: Boolean
   rarity: Int
-  unit: UnitUpdateOneWithoutSubSubjectsInput
-  scale: ScaleUpdateOneWithoutSubSubjectsInput
+  scale: String
   parent: SubjectUpdateOneWithoutSubSubjectsInput
   questions: QuestionUpdateManyWithoutParentInput
 }
@@ -2509,8 +2234,7 @@ input SubSubjectUpdateInput {
   description: String
   toMetric: Boolean
   rarity: Int
-  unit: UnitUpdateOneWithoutSubSubjectsInput
-  scale: ScaleUpdateOneWithoutSubSubjectsInput
+  scale: String
   parent: SubjectUpdateOneWithoutSubSubjectsInput
   questions: QuestionUpdateManyWithoutParentInput
 }
@@ -2522,24 +2246,6 @@ input SubSubjectUpdateManyWithoutParentInput {
   delete: [SubSubjectWhereUniqueInput!]
   update: [SubSubjectUpdateWithWhereUniqueWithoutParentInput!]
   upsert: [SubSubjectUpsertWithWhereUniqueWithoutParentInput!]
-}
-
-input SubSubjectUpdateManyWithoutScaleInput {
-  create: [SubSubjectCreateWithoutScaleInput!]
-  connect: [SubSubjectWhereUniqueInput!]
-  disconnect: [SubSubjectWhereUniqueInput!]
-  delete: [SubSubjectWhereUniqueInput!]
-  update: [SubSubjectUpdateWithWhereUniqueWithoutScaleInput!]
-  upsert: [SubSubjectUpsertWithWhereUniqueWithoutScaleInput!]
-}
-
-input SubSubjectUpdateManyWithoutUnitInput {
-  create: [SubSubjectCreateWithoutUnitInput!]
-  connect: [SubSubjectWhereUniqueInput!]
-  disconnect: [SubSubjectWhereUniqueInput!]
-  delete: [SubSubjectWhereUniqueInput!]
-  update: [SubSubjectUpdateWithWhereUniqueWithoutUnitInput!]
-  upsert: [SubSubjectUpsertWithWhereUniqueWithoutUnitInput!]
 }
 
 input SubSubjectUpdateOneInput {
@@ -2563,8 +2269,7 @@ input SubSubjectUpdateWithoutParentDataInput {
   description: String
   toMetric: Boolean
   rarity: Int
-  unit: UnitUpdateOneWithoutSubSubjectsInput
-  scale: ScaleUpdateOneWithoutSubSubjectsInput
+  scale: String
   questions: QuestionUpdateManyWithoutParentInput
 }
 
@@ -2573,44 +2278,13 @@ input SubSubjectUpdateWithoutQuestionsDataInput {
   description: String
   toMetric: Boolean
   rarity: Int
-  unit: UnitUpdateOneWithoutSubSubjectsInput
-  scale: ScaleUpdateOneWithoutSubSubjectsInput
+  scale: String
   parent: SubjectUpdateOneWithoutSubSubjectsInput
-}
-
-input SubSubjectUpdateWithoutScaleDataInput {
-  name: String
-  description: String
-  toMetric: Boolean
-  rarity: Int
-  unit: UnitUpdateOneWithoutSubSubjectsInput
-  parent: SubjectUpdateOneWithoutSubSubjectsInput
-  questions: QuestionUpdateManyWithoutParentInput
-}
-
-input SubSubjectUpdateWithoutUnitDataInput {
-  name: String
-  description: String
-  toMetric: Boolean
-  rarity: Int
-  scale: ScaleUpdateOneWithoutSubSubjectsInput
-  parent: SubjectUpdateOneWithoutSubSubjectsInput
-  questions: QuestionUpdateManyWithoutParentInput
 }
 
 input SubSubjectUpdateWithWhereUniqueWithoutParentInput {
   where: SubSubjectWhereUniqueInput!
   data: SubSubjectUpdateWithoutParentDataInput!
-}
-
-input SubSubjectUpdateWithWhereUniqueWithoutScaleInput {
-  where: SubSubjectWhereUniqueInput!
-  data: SubSubjectUpdateWithoutScaleDataInput!
-}
-
-input SubSubjectUpdateWithWhereUniqueWithoutUnitInput {
-  where: SubSubjectWhereUniqueInput!
-  data: SubSubjectUpdateWithoutUnitDataInput!
 }
 
 input SubSubjectUpsertNestedInput {
@@ -2627,18 +2301,6 @@ input SubSubjectUpsertWithWhereUniqueWithoutParentInput {
   where: SubSubjectWhereUniqueInput!
   update: SubSubjectUpdateWithoutParentDataInput!
   create: SubSubjectCreateWithoutParentInput!
-}
-
-input SubSubjectUpsertWithWhereUniqueWithoutScaleInput {
-  where: SubSubjectWhereUniqueInput!
-  update: SubSubjectUpdateWithoutScaleDataInput!
-  create: SubSubjectCreateWithoutScaleInput!
-}
-
-input SubSubjectUpsertWithWhereUniqueWithoutUnitInput {
-  where: SubSubjectWhereUniqueInput!
-  update: SubSubjectUpdateWithoutUnitDataInput!
-  create: SubSubjectCreateWithoutUnitInput!
 }
 
 input SubSubjectWhereInput {
@@ -2796,8 +2458,46 @@ input SubSubjectWhereInput {
 
   """All values greater than or equal the given value."""
   rarity_gte: Int
-  unit: UnitWhereInput
-  scale: ScaleWhereInput
+  scale: String
+
+  """All values that are not equal to given value."""
+  scale_not: String
+
+  """All values that are contained in given list."""
+  scale_in: [String!]
+
+  """All values that are not contained in given list."""
+  scale_not_in: [String!]
+
+  """All values less than the given value."""
+  scale_lt: String
+
+  """All values less than or equal the given value."""
+  scale_lte: String
+
+  """All values greater than the given value."""
+  scale_gt: String
+
+  """All values greater than or equal the given value."""
+  scale_gte: String
+
+  """All values containing the given string."""
+  scale_contains: String
+
+  """All values not containing the given string."""
+  scale_not_contains: String
+
+  """All values starting with the given string."""
+  scale_starts_with: String
+
+  """All values not starting with the given string."""
+  scale_not_starts_with: String
+
+  """All values ending with the given string."""
+  scale_ends_with: String
+
+  """All values not ending with the given string."""
+  scale_not_ends_with: String
   parent: SubjectWhereInput
   questions_every: QuestionWhereInput
   questions_some: QuestionWhereInput
@@ -3110,269 +2810,6 @@ input SurveyWhereInput {
 
 input SurveyWhereUniqueInput {
   id: ID
-}
-
-type Unit implements Node {
-  id: ID!
-  name: String!
-  description: String!
-  subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject!]
-}
-
-"""A connection to a list of items."""
-type UnitConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [UnitEdge]!
-  aggregate: AggregateUnit!
-}
-
-input UnitCreateInput {
-  name: String!
-  description: String!
-  subSubjects: SubSubjectCreateManyWithoutUnitInput
-}
-
-input UnitCreateOneWithoutSubSubjectsInput {
-  create: UnitCreateWithoutSubSubjectsInput
-  connect: UnitWhereUniqueInput
-}
-
-input UnitCreateWithoutSubSubjectsInput {
-  name: String!
-  description: String!
-}
-
-"""An edge in a connection."""
-type UnitEdge {
-  """The item at the end of the edge."""
-  node: Unit!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum UnitOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  description_ASC
-  description_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type UnitPreviousValues {
-  id: ID!
-  name: String!
-  description: String!
-}
-
-type UnitSubscriptionPayload {
-  mutation: MutationType!
-  node: Unit
-  updatedFields: [String!]
-  previousValues: UnitPreviousValues
-}
-
-input UnitSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [UnitSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [UnitSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [UnitSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: UnitWhereInput
-}
-
-input UnitUpdateInput {
-  name: String
-  description: String
-  subSubjects: SubSubjectUpdateManyWithoutUnitInput
-}
-
-input UnitUpdateOneWithoutSubSubjectsInput {
-  create: UnitCreateWithoutSubSubjectsInput
-  connect: UnitWhereUniqueInput
-  delete: Boolean
-  update: UnitUpdateWithoutSubSubjectsDataInput
-  upsert: UnitUpsertWithoutSubSubjectsInput
-}
-
-input UnitUpdateWithoutSubSubjectsDataInput {
-  name: String
-  description: String
-}
-
-input UnitUpsertWithoutSubSubjectsInput {
-  update: UnitUpdateWithoutSubSubjectsDataInput!
-  create: UnitCreateWithoutSubSubjectsInput!
-}
-
-input UnitWhereInput {
-  """Logical AND on all given filters."""
-  AND: [UnitWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [UnitWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [UnitWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-  description: String
-
-  """All values that are not equal to given value."""
-  description_not: String
-
-  """All values that are contained in given list."""
-  description_in: [String!]
-
-  """All values that are not contained in given list."""
-  description_not_in: [String!]
-
-  """All values less than the given value."""
-  description_lt: String
-
-  """All values less than or equal the given value."""
-  description_lte: String
-
-  """All values greater than the given value."""
-  description_gt: String
-
-  """All values greater than or equal the given value."""
-  description_gte: String
-
-  """All values containing the given string."""
-  description_contains: String
-
-  """All values not containing the given string."""
-  description_not_contains: String
-
-  """All values starting with the given string."""
-  description_starts_with: String
-
-  """All values not starting with the given string."""
-  description_not_starts_with: String
-
-  """All values ending with the given string."""
-  description_ends_with: String
-
-  """All values not ending with the given string."""
-  description_not_ends_with: String
-  subSubjects_every: SubSubjectWhereInput
-  subSubjects_some: SubSubjectWhereInput
-  subSubjects_none: SubSubjectWhereInput
-}
-
-input UnitWhereUniqueInput {
-  id: ID
-  name: String
 }
 
 type User implements Node {

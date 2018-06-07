@@ -77,6 +77,7 @@ type Subject {
   id: ID! @unique
   name: String! @unique
   description: String!
+  measurementDescription: String!
   subSubjects: [SubSubject!]! @relation(name: "SubjectToSubSubject")
 }
 
@@ -85,16 +86,15 @@ type Subject {
 # that is unit and scale (ex: meters, hand-sized) and whether the student is converting TO or FROM
 # metric.
 # So, for example. The subject length might have the following subsubjects:
-# [meters, hand-sized, to metric], [meters, hand-sized, from metric],
-# [meters, room-sized, to metric], [meters, room-sized, from metric], etc
+# [length, hand-sized, to metric], [length, hand-sized, from metric],
+# [length, room-sized, to metric], [length, room-sized, from metric], etc
 type SubSubject {
   id: ID! @unique
   name: String! @unique
   description: String!
   toMetric: Boolean!
   rarity: Int!
-  unit: Unit! @relation(name: "SubSubjectToUnit")
-  scale: Scale! @relation(name: "SubSubjectToScale")
+  scale: String!
   parent: Subject! @relation(name: "SubjectToSubSubject")
   questions: [Question!]! @relation(name: "SubSubjectToQuestion")
 }
@@ -110,23 +110,4 @@ type Question {
   answer: String!
   media: String
   parent: SubSubject! @relation(name: "SubSubjectToQuestion")
-}
-
-# This is a table describing different units of measurement. These are standard units. So whether the
-# answer is 10mm or 10km, it will be represented with meters: 0.0010m and 10000m.
-# Only SI units have rows as this website is teaching the metric system. If this site was teaching
-# people imperial units then they would have rows, too.
-type Unit {
-  id: ID! @unique
-  name: String! @unique
-  description: String!
-  subSubjects: [SubSubject!]! @relation(name: "SubSubjectToUnit")
-}
-
-# This is a table describing different DESCRIPTIVE scales of measurement.
-type Scale {
-  id: ID! @unique
-  name: String! @unique
-  description: String!
-  subSubjects: [SubSubject!]! @relation(name: "SubSubjectToScale")
 }
