@@ -3,6 +3,7 @@
 const jwt = require("jsonwebtoken");
 const {
   AuthError,
+  GraphQlDumpWarning,
   UserNotFound,
 } = require("./errors");
 const {
@@ -133,6 +134,30 @@ async function getStudentActiveCourseId(ctx, studentId) {
 
 
 /**
+ * Set a status for a list of courses by their ID.
+ * @param ctx
+ * @param courseIds
+ * @param status
+ * @returns {Promise<*>}
+ */
+async function setStatusForCourses(ctx, courseIds, status) {
+  if (!Array.isArray(courseIds) || courseIds.length < 1) {
+    throw new GraphQlDumpWarning("mutation", "setStatusForCourses");
+  }
+  const mutationClause = {
+    where: {
+      OR: courseIds.map(courseId => ({ id: courseId })),
+    },
+    data: {
+      status,
+    },
+  };
+
+  return ctx.db.mutation.updateManyCourses(mutationClause, "{ count }");
+}
+
+
+/**
  * Check the auth of a calling user's request with various options.
  * @param ctx
  * @param payload
@@ -250,5 +275,6 @@ module.exports = {
   getUsersData,
   targetStudentDataHelper,
   getStudentActiveCourseId,
+  setStatusForCourses,
   checkAuth,
 };

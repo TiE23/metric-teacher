@@ -19,6 +19,13 @@ class AuthErrorAction extends Error {
   }
 }
 
+class GraphQlDumpWarning extends Error {
+  constructor(requestType, action) {
+    super(`Tried to run a ${requestType} with incomplete where statement while doing '${action}'. Stopped to prevent full return.`);
+  }
+}
+
+
 class UserNotFound extends Error {
   constructor(userid) {
     super(`User ${userid} not found`);
@@ -79,9 +86,15 @@ class UserMustBe extends Error {
   }
 }
 
-class UserAlreadyEnrolled extends Error {
+class StudentAlreadyEnrolled extends Error {
   constructor(userid) {
     super(`User ${userid} already enrolled`);
+  }
+}
+
+class StudentNotEnrolled extends Error {
+  constructor(userid, action) {
+    super(`User ${userid} not enrolled. Cannot perform '${action}'`);
   }
 }
 
@@ -137,6 +150,7 @@ class ConversionNegativeValue extends Error {
 module.exports = {
   AuthError,
   AuthErrorAction,
+  GraphQlDumpWarning,
   UserNotFound,
   CourseNotFound,
   CourseNoSubSubjectsAdded,
@@ -147,7 +161,8 @@ module.exports = {
   QuestionNotFound,
   QuestionNotActive,
   UserMustBe,
-  UserAlreadyEnrolled,
+  StudentAlreadyEnrolled,
+  StudentNotEnrolled,
   QuestionSyntaxError,
   AnswerSyntaxError,
   QuestionAnswerError,
