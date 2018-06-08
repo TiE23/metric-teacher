@@ -1,6 +1,6 @@
 const {
-  getUserId,
-  getUserData,
+  getUsersData,
+  checkAuth,
 } = require("../../utils");
 const {
   AuthErrorAction,
@@ -10,16 +10,19 @@ const {
 } = require("../../errors");
 const {
   FLAGS_NONE,
-  USER_TYPE_STUDENT,
   USER_TYPE_TEACHER,
   USER_TYPE_MODERATOR,
   CLASSROOM_STATUS_ACTIVE,
+  COURSE_STATUS_ACTIVE,
 } = require("../../constants");
+
 
 const classroom = {
   async createClassroom(parent, args, ctx, info) {
-    const callingUserId = await getUserId(ctx);
-    const callingUserData = await getUserData(ctx, callingUserId, "{ id, type }");
+    const callingUserData = await checkAuth(ctx, {
+      type: USER_TYPE_TEACHER,
+      action: "createClassroom",
+    });
 
     // A teacher can create new Classrooms and moderators or better can as well.
     if (callingUserData.id !== args.teacherid &&
@@ -27,141 +30,161 @@ const classroom = {
       throw new AuthErrorAction("createClassroom");
     }
 
-    // Define the data
-    const data = {
-      name: args.name,
-      description: args.description || "",
-      status: CLASSROOM_STATUS_ACTIVE,
-      flags: FLAGS_NONE,
-      notes: "",
-      users: {
-        connect: {
-          id: callingUserData.id,
+    return ctx.db.mutation.createClassroom({
+      data: {
+        name: args.name,
+        description: args.description || "",
+        status: CLASSROOM_STATUS_ACTIVE,
+        flags: FLAGS_NONE,
+        notes: "",
+        teachers: {
+          connect: {
+            id: callingUserData.id, // Warning: this will make the moderator or admin a teacher!
+          },
         },
       },
-    };
-
-    return ctx.db.mutation.createClassroom({ data }, info);
+    }, info);
   },
+
 
   async addUsersToClassroom(parent, args, ctx, info) {
-    const callingUserId = await getUserId(ctx);
-    const callingUserData = await getUserData(ctx, callingUserId, "{ id, type }");
-    const targetClassroomData = await ctx.db.query.classroom({ where: { id: args.classroomid } }, `
-      {
-        id
-        users {
-          id
-          type
-        }
-      }
-    `);
-
-    // Check the Classroom exists.
-    if (targetClassroomData === null) {
-      throw new ClassroomNotFound(args.classroomid);
-    }
-    // Grab the teachers and students.
-    const classroomTeachers = targetClassroomData.users.filter(user =>
-      user.type === USER_TYPE_TEACHER).map(user => user.id);
-    const classroomStudents = targetClassroomData.users.filter(user =>
-      user.type === USER_TYPE_STUDENT).map(user => user.id);
-
-    // A teacher of the classroom can add to a Classroom and moderators or better can as well.
-    if (!classroomTeachers.includes(callingUserData.id) &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("addUsersToClassroom");
-    }
-
-    // Don't attempt to add any teachers/students a second time.
-    const newUserIds = args.userids.filter(newUserId =>
-      !classroomTeachers.includes(newUserId) && !classroomStudents.includes(newUserId));
-
-    // If no Users are being added throw an error. Common situation might be where this
-    // mutation is run twice by accident.
-    if (newUserIds.length === 0) {
-      throw new ClassroomNoUsersAdded(targetClassroomData.id);
-    }
-
-    // Construct connect statements for each targeted User
-    const newClassroomUsers = newUserIds.map(newUserId => (
-      {
-        id: newUserId,
-      }
-    ));
-
-    // Perform the update
-    const updateClassroom = await ctx.db.mutation.updateClassroom({
-      where: { id: targetClassroomData.id },
-      data: {
-        users: {
-          connect: newClassroomUsers,
-        },
-      },
-    }, info);
-
-    return updateClassroom;
+    return changeClassroomMembers(parent, args, ctx, info, true);
   },
+
 
   async removeUsersFromClassroom(parent, args, ctx, info) {
-    const callingUserId = await getUserId(ctx);
-    const callingUserData = await getUserData(ctx, callingUserId, "{ id, type }");
-    const targetClassroomData = await ctx.db.query.classroom({ where: { id: args.classroomid } }, `
-      {
-        id
-        users {
-          id
-          type
-        }
-      }
-    `);
-
-    // Check the Classroom exists.
-    if (targetClassroomData === null) {
-      throw new ClassroomNotFound(args.classroomid);
-    }
-    // Grab the teachers and students.
-    const classroomTeachers = targetClassroomData.users.filter(user =>
-      user.type === USER_TYPE_TEACHER).map(user => user.id);
-    const classroomStudents = targetClassroomData.users.filter(user =>
-      user.type === USER_TYPE_STUDENT).map(user => user.id);
-
-    // A teacher of the classroom can remove from a classroom and moderators or better can as well.
-    if (!classroomTeachers.includes(callingUserData.id) &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("removeUsersFromClassroom");
-    }
-
-    // Don't attempt to remove any teachers/students not in the Classroom.
-    const removeUserIds = args.userids.filter(removeUserId =>
-      classroomTeachers.includes(removeUserId) || classroomStudents.includes(removeUserId));
-
-    // If no Users are being removed throw an error. Common situation might be where this
-    // mutation is run twice by accident.
-    if (removeUserIds.length === 0) {
-      throw new ClassroomNoUsersRemoved(targetClassroomData.id);
-    }
-
-    // Construct connect statements for each targeted User
-    const removedClassroomUsers = removeUserIds.map(removeUserId => (
-      {
-        id: removeUserId,
-      }
-    ));
-
-    // Perform the update
-    const updateClassroom = await ctx.db.mutation.updateClassroom({
-      where: { id: targetClassroomData.id },
-      data: {
-        users: {
-          disconnect: removedClassroomUsers,
-        },
-      },
-    }, info);
-
-    return updateClassroom;
+    return changeClassroomMembers(parent, args, ctx, info, false);
   },
 };
+
+/**
+ * Only teachers (or better) can add students to classrooms they are teachers of.
+ * Teachers cannot remove students from classrooms where the student's active course is not
+ * in that classroom.
+ * @param parent
+ * @param args
+ * @param ctx
+ * @param info
+ * @param addUsers
+ * @returns {Promise<*>}
+ */
+async function changeClassroomMembers(parent, args, ctx, info, addUsers) {
+  const callingUserData = await checkAuth(ctx, {
+    type: USER_TYPE_TEACHER,
+    action: addUsers ? "addUsersToClassroom" : "removeUsersFromClassroom",
+  });
+
+  // TODO add support for adding by email in addition to by ID
+  // Big note: Only grabs students where their course that connects to the classroom is active.
+  const targetClassroomData = await ctx.db.query.classroom(
+    { where: { id: args.classroomid } },
+    `{
+      id
+      studentCourses (where: {
+        status: ${COURSE_STATUS_ACTIVE}
+      }) {
+        id
+        parent {
+          student {
+            id 
+          }
+        }
+      }
+      teachers {
+        id
+      }
+    }`,
+  );
+
+  // Check the Classroom exists.
+  if (targetClassroomData === null) {
+    throw new ClassroomNotFound(args.classroomid);
+  }
+  // Grab the existing teachers and students.
+  const classroomTeachers = targetClassroomData.teachers.map(teacher => teacher.id);
+  const classroomStudents = targetClassroomData.studentCourses.map(course =>
+    course.parent.student.id);
+
+  // A teacher of the classroom can change a Classroom and moderators or better can as well.
+  if (!classroomTeachers.includes(callingUserData.id) &&
+    callingUserData.type < USER_TYPE_MODERATOR) {
+    if (addUsers) {
+      throw new AuthErrorAction("addUsersToClassroom");
+    } else {
+      throw new AuthErrorAction("removeUsersFromClassroom");
+    }
+  }
+
+  let targetUserIds = null;
+  if (addUsers) {
+    // Don't attempt to add any teachers/students a second time.
+    targetUserIds = args.userids.filter(userId =>
+      !classroomTeachers.includes(userId) && !classroomStudents.includes(userId));
+  } else {
+    // Don't attempt to remove any teachers/students not in the Classroom.
+    targetUserIds = args.userids.filter(userId =>
+      classroomTeachers.includes(userId) || classroomStudents.includes(userId));
+  }
+
+  // If no Users are being added/removed throw an error. Common situation might be where this
+  // mutation is run twice in a row by accident.
+  if (targetUserIds.length === 0) {
+    if (addUsers) {
+      throw new ClassroomNoUsersAdded(targetClassroomData.id);
+    } else {
+      throw new ClassroomNoUsersRemoved(targetClassroomData.id);
+    }
+  }
+
+  // Now we need to figure out which userIds are students and which are teachers.
+  const targetUsersData = await getUsersData(
+    ctx,
+    targetUserIds,
+    `{
+      id
+      type
+      enrollment {
+        courses (where: {
+          status: ${COURSE_STATUS_ACTIVE}
+        }, first: 1) {
+          id
+        }
+      } 
+    }`,
+  );
+
+  // Grab the course IDs
+  const targetCourses = targetUsersData.map(user =>
+    (user.enrollment && user.enrollment.courses &&
+      user.enrollment.courses.length && user.enrollment.courses[0].id)).filter(id => id !== false);
+
+  // Grab the teacher IDs
+  const targetTeachers = targetUsersData.filter(user =>
+    user.type === USER_TYPE_TEACHER).map(user => user.id);
+
+  // Construct connect statements for each targeted User
+  const targetCoursesIdList = targetCourses.map(id => ({ id }));
+  const targetTeachersIdList = targetTeachers.map(id => ({ id }));
+
+  let courseList = null;
+  let teacherList = null;
+  if (addUsers) {
+    courseList = { connect: targetCoursesIdList };
+    teacherList = { connect: targetTeachersIdList };
+  } else {
+    courseList = { disconnect: targetCoursesIdList };
+    teacherList = { disconnect: targetTeachersIdList };
+  }
+
+  // Perform the update
+  return ctx.db.mutation.updateClassroom({
+    where: { id: targetClassroomData.id },
+    data: {
+      studentCourses: courseList,
+      teachers: teacherList,
+    },
+  }, info);
+}
 
 
 module.exports = { classroom };

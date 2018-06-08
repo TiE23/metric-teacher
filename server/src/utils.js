@@ -50,6 +50,32 @@ async function getUserData(ctx, userId, fields) {
 
 
 /**
+ * Get user details by an array of UserIds. This function can expose sensitive user information
+ * so call it only in authorized situations.
+ * IT DOES NOT CHECK AUTHORIZATION.
+ * @param ctx
+ * @param userIds
+ * @param fields
+ * @returns {Promise<void>}
+ */
+async function getUsersData(ctx, userIds, fields) {
+  const whereClause = {
+    where: {
+      OR: [],
+    },
+  };
+  whereClause.where.OR = userIds.map(userId => ({ id: userId }));
+
+  const users = await ctx.db.query.users(whereClause, fields);
+  if (users) {
+    return users;
+  }
+
+  throw new UserNotFound();
+}
+
+
+/**
  * Grab fields from a user by their id. If the calling user is the target (they're performing an
  * action on their own account, typically) save a wasteful query.
  * IT DOES NOT CHECK AUTHORIZATION.
@@ -221,6 +247,7 @@ async function checkAuth(
 module.exports = {
   getUserId,
   getUserData,
+  getUsersData,
   targetStudentDataHelper,
   getStudentActiveCourseId,
   checkAuth,

@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Wed Jun 06 2018 18:49:58 GMT-0700 (PDT)
+# timestamp: Thu Jun 07 2018 15:37:47 GMT-0700 (PDT)
 
 type AggregateClassroom {
   count: Int!
@@ -49,7 +49,8 @@ type Classroom implements Node {
   status: Int!
   flags: Int!
   notes: String!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  studentCourses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+  teachers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 """A connection to a list of items."""
@@ -68,20 +69,36 @@ input ClassroomCreateInput {
   status: Int!
   flags: Int!
   notes: String!
-  users: UserCreateManyWithoutClassroomsInput
+  studentCourses: CourseCreateManyWithoutClassroomsInput
+  teachers: UserCreateManyWithoutClassroomsTeachingInput
 }
 
-input ClassroomCreateManyWithoutUsersInput {
-  create: [ClassroomCreateWithoutUsersInput!]
+input ClassroomCreateManyWithoutStudentCoursesInput {
+  create: [ClassroomCreateWithoutStudentCoursesInput!]
   connect: [ClassroomWhereUniqueInput!]
 }
 
-input ClassroomCreateWithoutUsersInput {
+input ClassroomCreateManyWithoutTeachersInput {
+  create: [ClassroomCreateWithoutTeachersInput!]
+  connect: [ClassroomWhereUniqueInput!]
+}
+
+input ClassroomCreateWithoutStudentCoursesInput {
   name: String!
   description: String!
   status: Int!
   flags: Int!
   notes: String!
+  teachers: UserCreateManyWithoutClassroomsTeachingInput
+}
+
+input ClassroomCreateWithoutTeachersInput {
+  name: String!
+  description: String!
+  status: Int!
+  flags: Int!
+  notes: String!
+  studentCourses: CourseCreateManyWithoutClassroomsInput
 }
 
 """An edge in a connection."""
@@ -166,35 +183,66 @@ input ClassroomUpdateInput {
   status: Int
   flags: Int
   notes: String
-  users: UserUpdateManyWithoutClassroomsInput
+  studentCourses: CourseUpdateManyWithoutClassroomsInput
+  teachers: UserUpdateManyWithoutClassroomsTeachingInput
 }
 
-input ClassroomUpdateManyWithoutUsersInput {
-  create: [ClassroomCreateWithoutUsersInput!]
+input ClassroomUpdateManyWithoutStudentCoursesInput {
+  create: [ClassroomCreateWithoutStudentCoursesInput!]
   connect: [ClassroomWhereUniqueInput!]
   disconnect: [ClassroomWhereUniqueInput!]
   delete: [ClassroomWhereUniqueInput!]
-  update: [ClassroomUpdateWithWhereUniqueWithoutUsersInput!]
-  upsert: [ClassroomUpsertWithWhereUniqueWithoutUsersInput!]
+  update: [ClassroomUpdateWithWhereUniqueWithoutStudentCoursesInput!]
+  upsert: [ClassroomUpsertWithWhereUniqueWithoutStudentCoursesInput!]
 }
 
-input ClassroomUpdateWithoutUsersDataInput {
+input ClassroomUpdateManyWithoutTeachersInput {
+  create: [ClassroomCreateWithoutTeachersInput!]
+  connect: [ClassroomWhereUniqueInput!]
+  disconnect: [ClassroomWhereUniqueInput!]
+  delete: [ClassroomWhereUniqueInput!]
+  update: [ClassroomUpdateWithWhereUniqueWithoutTeachersInput!]
+  upsert: [ClassroomUpsertWithWhereUniqueWithoutTeachersInput!]
+}
+
+input ClassroomUpdateWithoutStudentCoursesDataInput {
   name: String
   description: String
   status: Int
   flags: Int
   notes: String
+  teachers: UserUpdateManyWithoutClassroomsTeachingInput
 }
 
-input ClassroomUpdateWithWhereUniqueWithoutUsersInput {
-  where: ClassroomWhereUniqueInput!
-  data: ClassroomUpdateWithoutUsersDataInput!
+input ClassroomUpdateWithoutTeachersDataInput {
+  name: String
+  description: String
+  status: Int
+  flags: Int
+  notes: String
+  studentCourses: CourseUpdateManyWithoutClassroomsInput
 }
 
-input ClassroomUpsertWithWhereUniqueWithoutUsersInput {
+input ClassroomUpdateWithWhereUniqueWithoutStudentCoursesInput {
   where: ClassroomWhereUniqueInput!
-  update: ClassroomUpdateWithoutUsersDataInput!
-  create: ClassroomCreateWithoutUsersInput!
+  data: ClassroomUpdateWithoutStudentCoursesDataInput!
+}
+
+input ClassroomUpdateWithWhereUniqueWithoutTeachersInput {
+  where: ClassroomWhereUniqueInput!
+  data: ClassroomUpdateWithoutTeachersDataInput!
+}
+
+input ClassroomUpsertWithWhereUniqueWithoutStudentCoursesInput {
+  where: ClassroomWhereUniqueInput!
+  update: ClassroomUpdateWithoutStudentCoursesDataInput!
+  create: ClassroomCreateWithoutStudentCoursesInput!
+}
+
+input ClassroomUpsertWithWhereUniqueWithoutTeachersInput {
+  where: ClassroomWhereUniqueInput!
+  update: ClassroomUpdateWithoutTeachersDataInput!
+  create: ClassroomCreateWithoutTeachersInput!
 }
 
 input ClassroomWhereInput {
@@ -410,9 +458,12 @@ input ClassroomWhereInput {
 
   """All values not ending with the given string."""
   notes_not_ends_with: String
-  users_every: UserWhereInput
-  users_some: UserWhereInput
-  users_none: UserWhereInput
+  studentCourses_every: CourseWhereInput
+  studentCourses_some: CourseWhereInput
+  studentCourses_none: CourseWhereInput
+  teachers_every: UserWhereInput
+  teachers_some: UserWhereInput
+  teachers_none: UserWhereInput
 }
 
 input ClassroomWhereUniqueInput {
@@ -424,6 +475,7 @@ type Course implements Node {
   status: Int!
   flags: Int!
   parent(where: EnrollmentWhereInput): Enrollment!
+  classrooms(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom!]
   masteries(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery!]
   surveys(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey!]
 }
@@ -442,8 +494,14 @@ input CourseCreateInput {
   status: Int!
   flags: Int!
   parent: EnrollmentCreateOneWithoutCoursesInput!
+  classrooms: ClassroomCreateManyWithoutStudentCoursesInput
   masteries: MasteryCreateManyWithoutParentInput
   surveys: SurveyCreateManyWithoutParentInput
+}
+
+input CourseCreateManyWithoutClassroomsInput {
+  create: [CourseCreateWithoutClassroomsInput!]
+  connect: [CourseWhereUniqueInput!]
 }
 
 input CourseCreateManyWithoutParentInput {
@@ -461,16 +519,26 @@ input CourseCreateOneWithoutSurveysInput {
   connect: CourseWhereUniqueInput
 }
 
+input CourseCreateWithoutClassroomsInput {
+  status: Int!
+  flags: Int!
+  parent: EnrollmentCreateOneWithoutCoursesInput!
+  masteries: MasteryCreateManyWithoutParentInput
+  surveys: SurveyCreateManyWithoutParentInput
+}
+
 input CourseCreateWithoutMasteriesInput {
   status: Int!
   flags: Int!
   parent: EnrollmentCreateOneWithoutCoursesInput!
+  classrooms: ClassroomCreateManyWithoutStudentCoursesInput
   surveys: SurveyCreateManyWithoutParentInput
 }
 
 input CourseCreateWithoutParentInput {
   status: Int!
   flags: Int!
+  classrooms: ClassroomCreateManyWithoutStudentCoursesInput
   masteries: MasteryCreateManyWithoutParentInput
   surveys: SurveyCreateManyWithoutParentInput
 }
@@ -479,6 +547,7 @@ input CourseCreateWithoutSurveysInput {
   status: Int!
   flags: Int!
   parent: EnrollmentCreateOneWithoutCoursesInput!
+  classrooms: ClassroomCreateManyWithoutStudentCoursesInput
   masteries: MasteryCreateManyWithoutParentInput
 }
 
@@ -553,8 +622,18 @@ input CourseUpdateInput {
   status: Int
   flags: Int
   parent: EnrollmentUpdateOneWithoutCoursesInput
+  classrooms: ClassroomUpdateManyWithoutStudentCoursesInput
   masteries: MasteryUpdateManyWithoutParentInput
   surveys: SurveyUpdateManyWithoutParentInput
+}
+
+input CourseUpdateManyWithoutClassroomsInput {
+  create: [CourseCreateWithoutClassroomsInput!]
+  connect: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutClassroomsInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutClassroomsInput!]
 }
 
 input CourseUpdateManyWithoutParentInput {
@@ -582,16 +661,26 @@ input CourseUpdateOneWithoutSurveysInput {
   upsert: CourseUpsertWithoutSurveysInput
 }
 
+input CourseUpdateWithoutClassroomsDataInput {
+  status: Int
+  flags: Int
+  parent: EnrollmentUpdateOneWithoutCoursesInput
+  masteries: MasteryUpdateManyWithoutParentInput
+  surveys: SurveyUpdateManyWithoutParentInput
+}
+
 input CourseUpdateWithoutMasteriesDataInput {
   status: Int
   flags: Int
   parent: EnrollmentUpdateOneWithoutCoursesInput
+  classrooms: ClassroomUpdateManyWithoutStudentCoursesInput
   surveys: SurveyUpdateManyWithoutParentInput
 }
 
 input CourseUpdateWithoutParentDataInput {
   status: Int
   flags: Int
+  classrooms: ClassroomUpdateManyWithoutStudentCoursesInput
   masteries: MasteryUpdateManyWithoutParentInput
   surveys: SurveyUpdateManyWithoutParentInput
 }
@@ -600,7 +689,13 @@ input CourseUpdateWithoutSurveysDataInput {
   status: Int
   flags: Int
   parent: EnrollmentUpdateOneWithoutCoursesInput
+  classrooms: ClassroomUpdateManyWithoutStudentCoursesInput
   masteries: MasteryUpdateManyWithoutParentInput
+}
+
+input CourseUpdateWithWhereUniqueWithoutClassroomsInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutClassroomsDataInput!
 }
 
 input CourseUpdateWithWhereUniqueWithoutParentInput {
@@ -616,6 +711,12 @@ input CourseUpsertWithoutMasteriesInput {
 input CourseUpsertWithoutSurveysInput {
   update: CourseUpdateWithoutSurveysDataInput!
   create: CourseCreateWithoutSurveysInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutClassroomsInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutClassroomsDataInput!
+  create: CourseCreateWithoutClassroomsInput!
 }
 
 input CourseUpsertWithWhereUniqueWithoutParentInput {
@@ -718,6 +819,9 @@ input CourseWhereInput {
   """All values greater than or equal the given value."""
   flags_gte: Int
   parent: EnrollmentWhereInput
+  classrooms_every: ClassroomWhereInput
+  classrooms_some: ClassroomWhereInput
+  classrooms_none: ClassroomWhereInput
   masteries_every: MasteryWhereInput
   masteries_some: MasteryWhereInput
   masteries_none: MasteryWhereInput
@@ -2822,8 +2926,8 @@ type User implements Node {
   type: Int!
   status: Int!
   flags: Int!
-  classrooms(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom!]
   enrollment(where: EnrollmentWhereInput): Enrollment
+  classroomsTeaching(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom!]
 }
 
 """A connection to a list of items."""
@@ -2845,12 +2949,12 @@ input UserCreateInput {
   type: Int!
   status: Int!
   flags: Int!
-  classrooms: ClassroomCreateManyWithoutUsersInput
   enrollment: EnrollmentCreateOneWithoutStudentInput
+  classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
 }
 
-input UserCreateManyWithoutClassroomsInput {
-  create: [UserCreateWithoutClassroomsInput!]
+input UserCreateManyWithoutClassroomsTeachingInput {
+  create: [UserCreateWithoutClassroomsTeachingInput!]
   connect: [UserWhereUniqueInput!]
 }
 
@@ -2859,7 +2963,7 @@ input UserCreateOneWithoutEnrollmentInput {
   connect: UserWhereUniqueInput
 }
 
-input UserCreateWithoutClassroomsInput {
+input UserCreateWithoutClassroomsTeachingInput {
   email: String!
   password: String!
   honorific: String
@@ -2880,7 +2984,7 @@ input UserCreateWithoutEnrollmentInput {
   type: Int!
   status: Int!
   flags: Int!
-  classrooms: ClassroomCreateManyWithoutUsersInput
+  classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
 }
 
 """An edge in a connection."""
@@ -2977,17 +3081,17 @@ input UserUpdateInput {
   type: Int
   status: Int
   flags: Int
-  classrooms: ClassroomUpdateManyWithoutUsersInput
   enrollment: EnrollmentUpdateOneWithoutStudentInput
+  classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
 }
 
-input UserUpdateManyWithoutClassroomsInput {
-  create: [UserCreateWithoutClassroomsInput!]
+input UserUpdateManyWithoutClassroomsTeachingInput {
+  create: [UserCreateWithoutClassroomsTeachingInput!]
   connect: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
-  update: [UserUpdateWithWhereUniqueWithoutClassroomsInput!]
-  upsert: [UserUpsertWithWhereUniqueWithoutClassroomsInput!]
+  update: [UserUpdateWithWhereUniqueWithoutClassroomsTeachingInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutClassroomsTeachingInput!]
 }
 
 input UserUpdateOneWithoutEnrollmentInput {
@@ -2998,7 +3102,7 @@ input UserUpdateOneWithoutEnrollmentInput {
   upsert: UserUpsertWithoutEnrollmentInput
 }
 
-input UserUpdateWithoutClassroomsDataInput {
+input UserUpdateWithoutClassroomsTeachingDataInput {
   email: String
   password: String
   honorific: String
@@ -3019,12 +3123,12 @@ input UserUpdateWithoutEnrollmentDataInput {
   type: Int
   status: Int
   flags: Int
-  classrooms: ClassroomUpdateManyWithoutUsersInput
+  classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
 }
 
-input UserUpdateWithWhereUniqueWithoutClassroomsInput {
+input UserUpdateWithWhereUniqueWithoutClassroomsTeachingInput {
   where: UserWhereUniqueInput!
-  data: UserUpdateWithoutClassroomsDataInput!
+  data: UserUpdateWithoutClassroomsTeachingDataInput!
 }
 
 input UserUpsertWithoutEnrollmentInput {
@@ -3032,10 +3136,10 @@ input UserUpsertWithoutEnrollmentInput {
   create: UserCreateWithoutEnrollmentInput!
 }
 
-input UserUpsertWithWhereUniqueWithoutClassroomsInput {
+input UserUpsertWithWhereUniqueWithoutClassroomsTeachingInput {
   where: UserWhereUniqueInput!
-  update: UserUpdateWithoutClassroomsDataInput!
-  create: UserCreateWithoutClassroomsInput!
+  update: UserUpdateWithoutClassroomsTeachingDataInput!
+  create: UserCreateWithoutClassroomsTeachingInput!
 }
 
 input UserWhereInput {
@@ -3353,10 +3457,10 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   flags_gte: Int
-  classrooms_every: ClassroomWhereInput
-  classrooms_some: ClassroomWhereInput
-  classrooms_none: ClassroomWhereInput
   enrollment: EnrollmentWhereInput
+  classroomsTeaching_every: ClassroomWhereInput
+  classroomsTeaching_some: ClassroomWhereInput
+  classroomsTeaching_none: ClassroomWhereInput
 }
 
 input UserWhereUniqueInput {
