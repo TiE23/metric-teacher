@@ -50,7 +50,8 @@ type AuthPayload {
   user: User!
 }
 
-# For public use. It does not expose password, email, enrollment, or classrooms.
+# For public-ish use. It does not expose password, email, enrollment, or classroomsTeaching.
+# It does, however, expose first and last names. So take note about ever making this truly public.
 type User {
   id: ID!
   honorific: String
@@ -71,8 +72,8 @@ type PrivateUser {
   type: Int!
   status: Int!
   flags: Int!
-  classrooms: [Classroom!]!
   enrollment: Enrollment
+  classroomsTeaching: [Classroom!]!
 }
 
 ### QA Object data schema and its numerous children below

@@ -465,7 +465,7 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    classrooms: null
+    classroomsTeaching: null
     enrollment: null
   }) {
     id
@@ -478,7 +478,7 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    classrooms: null
+    classroomsTeaching: null
     enrollment: null
   }) {
     id
@@ -491,7 +491,7 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    classrooms: null
+    classroomsTeaching: null
     enrollment: null
   }) {
     id
@@ -505,7 +505,7 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    classrooms: null
+    classroomsTeaching: null
     enrollment: null
   }) {
     id
@@ -519,7 +519,7 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    classrooms: null
+    classroomsTeaching: null
     enrollment: null
   }) {
     id
@@ -533,7 +533,7 @@ mutation {
     type: 1
     status: 0
     flags: 0
-    classrooms: null
+    classroomsTeaching: null
     enrollment: null
   }) {
     id
@@ -546,7 +546,7 @@ mutation {
     type: 2
     status: 0
     flags: 0
-    classrooms: null
+    classroomsTeaching: null
     enrollment: null
   }) {
     id
@@ -559,7 +559,7 @@ mutation {
     type: 3
     status: 0
     flags: 0
-    classrooms: null
+    classroomsTeaching: null
     enrollment: null
   }) {
     id

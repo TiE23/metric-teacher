@@ -11,8 +11,11 @@ const {
   USER_TYPE_STUDENT,
   USER_TYPE_TEACHER,
   USER_TYPE_MODERATOR,
+  CLASSROOM_STATUS_ACTIVE,
   COURSE_STATUS_ACTIVE,
+  COURSE_STATUS_INACTIVE,
 } = require("../../constants");
+
 
 const student = {
   async enrollStudent(parent, args, ctx, info) {
@@ -33,7 +36,7 @@ const student = {
     }
 
     // Create new Enrollment, connecting to targeted user.
-    const enrollment = await ctx.db.mutation.createEnrollment({
+    return ctx.db.mutation.createEnrollment({
       data: {
         student: {
           connect: {
@@ -42,9 +45,8 @@ const student = {
         },
       },
     }, info);
-
-    return enrollment;
   },
+
 
   async assignStudentNewCourse(parent, args, ctx, info) {
     const { callingUserData, targetUserData } =
@@ -54,12 +56,18 @@ const student = {
           type
           enrollment {
             id
-          }
-          classrooms {
-            id
-            users {
+            courses (where: {
+              status: ${COURSE_STATUS_ACTIVE}
+            }) {
               id
-              type
+              classrooms (where: {
+                status: ${CLASSROOM_STATUS_ACTIVE}
+              }) {
+                id
+                teachers {
+                  id
+                }
+              }
             }
           }
         }
@@ -70,12 +78,20 @@ const student = {
       throw new UserMustBe(targetUserData.id, "STUDENT");
     }
 
-    // We grab the target student's classrooms' teachers
+    // Grab existing active courses (there should only be one, but we can't be too careful!)
+    const activeCourses = targetUserData.enrollment.courses.map(course => course.id);
+
+    // We grab the target student's classrooms' teachers (ACTIVE COURSES AND ACTIVE CLASSROOMS ONLY)
+    // if the calling user isn't the student (hopefully their teacher)
     const teachers = [];
-    targetUserData.classrooms.forEach((classroom) => {
-      teachers.push(...classroom.users.filter(user =>
-        user.type === USER_TYPE_TEACHER).map(user => user.id));
-    });
+    if (callingUserData.type === USER_TYPE_TEACHER &&
+      callingUserData.id !== targetUserData.id &&
+      targetUserData.enrollment && targetUserData.enrollment.courses[0]
+    ) {
+      targetUserData.enrollment.courses[0].classrooms.forEach((classroom) => {
+        teachers.push(...classroom.teachers.map(teacher => teacher.id));
+      });
+    }
     // A student can assign themselves a Course and their teacher, moderators, or better can as well
     if (callingUserData.id !== targetUserData.id &&
       !teachers.includes(callingUserData.id) &&
@@ -96,9 +112,24 @@ const student = {
       },
     }, info);
 
+    // Deactivate all other previously active courses, leave only the new one active
+    if (activeCourses.length) {
+      const mutationClause = {
+        where: {
+          OR: [],
+        },
+        data: {
+          status: COURSE_STATUS_INACTIVE,
+        },
+      };
+      mutationClause.where.OR = activeCourses.map(courseId => ({ id: courseId }));
+      ctx.db.mutation.updateManyCourses(mutationClause, "{ count }"); // Do not await, just fire and forget
+    }
+
     return course;
   },
 
+  // TODO Write a "set active course" mutation that will deactivate all other courses
 };
 
 

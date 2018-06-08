@@ -9,8 +9,8 @@ type User {
   type: Int!
   status: Int!
   flags: Int!
-  classrooms: [Classroom!]! @relation(name: "UserToClassroom")
   enrollment: Enrollment @relation(name: "UserToEnrollment")
+  classroomsTeaching: [Classroom!]! @relation(name: "UserToClassroom")
 }
 
 # This is a structure that will allow teacher(s) to connect to their students and students to
@@ -22,7 +22,8 @@ type Classroom {
   status: Int!
   flags: Int!
   notes: String!
-  users: [User!]! @relation(name: "UserToClassroom")
+  studentCourses: [Course!]! @relation(name: "CourseToClassroom")
+  teachers: [User!]! @relation(name: "UserToClassroom")
 }
 
 # A student has a single enrollment row. An enrollment is their place in the school.
@@ -42,6 +43,7 @@ type Course {
   status: Int!
   flags: Int!
   parent: Enrollment! @relation(name: "EnrollmentToCourse")
+  classrooms: [Classroom!]! @relation(name: "CourseToClassroom")
   masteries: [Mastery!]! @relation(name: "CourseToMastery")
   surveys: [Survey!]! @relation(name: "CourseToSurvey")
 }
