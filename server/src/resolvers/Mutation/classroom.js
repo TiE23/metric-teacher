@@ -1,13 +1,17 @@
 const {
+  getUserData,
   getUsersData,
   checkAuth,
 } = require("../../utils");
+
 const {
   AuthErrorAction,
+  UserMustBe,
   ClassroomNotFound,
   ClassroomNoUsersAdded,
   ClassroomNoUsersRemoved,
 } = require("../../errors");
+
 const {
   FLAGS_NONE,
   USER_TYPE_TEACHER,
@@ -18,6 +22,17 @@ const {
 
 
 const classroom = {
+  /**
+   * Create a classroom for a teacher. This is typically expected behavior for Teachers
+   * @param parent
+   * @param args
+   *        name: String!
+   *        description: String!
+   *        teacherid: ID!
+   * @param ctx
+   * @param info
+   * @returns Classroom!
+   */
   async createClassroom(parent, args, ctx, info) {
     const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_TEACHER,
@@ -25,9 +40,16 @@ const classroom = {
     });
 
     // A teacher can create new Classrooms and moderators or better can as well.
-    if (callingUserData.id !== args.teacherid &&
+    if (args.teacherid !== callingUserData.id &&
       callingUserData.type < USER_TYPE_MODERATOR) {
       throw new AuthErrorAction("createClassroom");
+    }
+
+    // Only teachers can be teachers of a classroom, so make sure the teacherid
+    // does indeed belong to a teacher.
+    const teacherData = await getUserData(ctx, args.teacherid, "{ type }");
+    if (teacherData.type !== USER_TYPE_TEACHER) {
+      throw new UserMustBe(args.teacherid, "TEACHER");
     }
 
     return ctx.db.mutation.createClassroom({
@@ -39,7 +61,7 @@ const classroom = {
         notes: "",
         teachers: {
           connect: {
-            id: callingUserData.id, // Warning: this will make the moderator or admin a teacher!
+            id: args.teacherid,
           },
         },
       },
@@ -47,13 +69,35 @@ const classroom = {
   },
 
 
+  /**
+   * Add users (students or teachers) to a classroom.
+   * Uses helper function changeClassroomMembers.
+   * @param parent
+   * @param args
+   *        classroomid: ID!
+   *        userids: [ID!]!
+   * @param ctx
+   * @param info
+   * @returns Classroom!
+   */
   async addUsersToClassroom(parent, args, ctx, info) {
-    return changeClassroomMembers(parent, args, ctx, info, true);
+    return changeClassroomMembers(parent, args, ctx, info, true, "addUsersToClassroom");
   },
 
 
+  /**
+   * Remove users (students or teachers) from a classroom.
+   * Uses helper function changeClassroomMembers.
+   * @param parent
+   * @param args
+   *        classroomid: ID!
+   *        userids: [ID!]!
+   * @param ctx
+   * @param info
+   * @returns Classroom!
+   */
   async removeUsersFromClassroom(parent, args, ctx, info) {
-    return changeClassroomMembers(parent, args, ctx, info, false);
+    return changeClassroomMembers(parent, args, ctx, info, false, "removeUsersFromClassroom");
   },
 };
 
@@ -63,15 +107,17 @@ const classroom = {
  * in that classroom.
  * @param parent
  * @param args
+ *        classroomid: ID!
+ *        userids: [ID!]!
  * @param ctx
  * @param info
  * @param addUsers
- * @returns {Promise<*>}
+ * @returns Classroom!
  */
-async function changeClassroomMembers(parent, args, ctx, info, addUsers) {
+async function changeClassroomMembers(parent, args, ctx, info, addUsers, actionName) {
   const callingUserData = await checkAuth(ctx, {
     type: USER_TYPE_TEACHER,
-    action: addUsers ? "addUsersToClassroom" : "removeUsersFromClassroom",
+    action: actionName,
   });
 
   // TODO add support for adding by email in addition to by ID
