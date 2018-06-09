@@ -25,7 +25,6 @@ class GraphQlDumpWarning extends Error {
   }
 }
 
-
 class UserNotFound extends Error {
   constructor(userid) {
     super(`User ${userid} not found`);

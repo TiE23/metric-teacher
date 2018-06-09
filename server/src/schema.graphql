@@ -4,6 +4,8 @@
 type Query {
   # User Queries
   me: PrivateUser
+  user(userid: ID!): PrivateUser!
+  users(userids: [ID!]!): [PrivateUser]!
 
   # Subject Queries
   allSubjects: [Subject]!
