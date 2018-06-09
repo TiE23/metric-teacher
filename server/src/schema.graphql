@@ -34,8 +34,8 @@ type Mutation {
 
   # Mastery Mutations
   ## Activate/Deactivate
-  activateMastery(masteryid: ID!): Mastery!
-  deactivateMastery(masteryid: ID!): Mastery!
+  activateMastery(masteryid: ID!, studentid: ID!): Mastery!
+  deactivateMastery(masteryid: ID!, studentid: ID!): Mastery!
 
   # Classroom Mutations
   ## Make classroom
