@@ -23,11 +23,11 @@ type Mutation {
   enrollStudent(studentid: ID!): Enrollment!
   ## Course
   assignStudentNewCourse(studentid: ID!): Course!
+  setActiveCourse(studentid: ID!, courseid: ID!): Course!
 
   # Course Mutations
-  ## Activate/Deactivate
-  activateCourse(courseid: ID!): Course!
-  deactivateCourse(courseid: ID!): Course!
+  ## Deactivate
+  deactivateCourse(studentid: ID!, courseid: ID!): Course!
   ## SubSubjects
   assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
 
