@@ -2,6 +2,12 @@ const round = require("lodash/round");
 const converter =
   require("linear-converter")(require("arbitrary-precision")(require("floating-adapter")));
 
+const {
+  convert,
+  invertConversion,
+  composeConversions,
+} = converter;
+
 const length = require("linear-preset-factory")(require("linear-presets").PRESETS.length);
 const mass = require("linear-preset-factory")(require("linear-presets").PRESETS.mass);
 const volume = require("linear-preset-factory")(require("linear-presets").PRESETS.volume);
@@ -21,18 +27,19 @@ const presets = {
 const {
   floatSmoother,
 } = require("./utils");
+
 const {
   UnitTypeUnrecognized,
   ConversionIncompatible,
   ConversionNegativeValue,
 } = require("../errors");
+
 const {
   FRIENDLY_DIGIT_COUNT,
   UNITS,
   BASE_UNITS,
 } = require("../constants");
 
-const { convert, invertConversion, composeConversions } = converter;
 
 /**
  * Convert a value of one unit to another. Returns an exact value and a rounded value, the rounding

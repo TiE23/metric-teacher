@@ -1,5 +1,4 @@
 const constants = {
-
   // Database Constants
   // Generic
   FLAGS_NONE: 0,

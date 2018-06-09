@@ -1,17 +1,23 @@
 const {
   checkAuth,
 } = require("../../utils");
-const { qaGenerate } = require("../../logic/qaGenerator");
+
 const {
   QuestionNotFound,
   QuestionNotActive,
 } = require("../../errors");
+
 const {
   USER_TYPE_STUDENT,
   COURSE_STATUS_ACTIVE,
   QUESTION_STATUS_ACTIVE,
   QUESTION_TYPE_SURVEY,
 } = require("../../constants");
+
+const {
+  qaGenerate,
+} = require("../../logic/qaGenerator");
+
 
 const qa = {
   // TODO this needs to be polished - Likely in ISSUE-020.

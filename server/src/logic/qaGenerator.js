@@ -4,10 +4,12 @@ const round = require("lodash/round");
 const {
   convertValue,
 } = require("./unitConverter");
+
 const {
   QuestionTypeInvalid,
   AnswerUnitMissing,
 } = require("../errors");
+
 const {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
@@ -15,6 +17,7 @@ const {
   CONVERSION_CHOICE_OPTIONS_MULTIPLIERS,
   UNITS,
 } = require("../constants");
+
 const {
   parseQAStrings,
   parseSingleAnswer,

@@ -1,11 +1,13 @@
 const {
   checkAuth,
 } = require("../../utils");
+
 const {
   AuthErrorAction,
   CourseNotFound,
   CourseNoSubSubjectsAdded,
 } = require("../../errors");
+
 const {
   USER_STATUS_NORMAL,
   USER_TYPE_STUDENT,
@@ -16,13 +18,14 @@ const {
   MASTERY_STATUS_ACTIVE,
 } = require("../../constants");
 
+
 const course = {
   /**
    * Assigns subSubjects to an existing course.
    * TODO let teachers (connected via active course + active classroom) also assign SubSubjects.
    * @param parent
    * @param args
-   *        studentid: ID!
+   *        courseid: ID!
    *        subsubjects: [ID!]!
    * @param ctx
    * @param info
@@ -68,7 +71,7 @@ const course = {
       throw new AuthErrorAction("assignCourseNewSubSubjects");
     }
 
-    // Only act on SubSubjects that are not already listed in masteries
+    // Only act on SubSubjects that are not already listed in Masteries
     const existingSubSubjectIds =
       targetCourseData.masteries.map(mastery => mastery.subSubject.id);
     const newSubSubjectIds =

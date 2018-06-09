@@ -1,10 +1,12 @@
 const uniqWith = require("lodash/uniqWith");
 const isEqual = require("lodash/isEqual");
+
 const {
   QuestionSyntaxError,
   AnswerSyntaxError,
   QuestionAnswerError,
 } = require("../errors");
+
 const {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,

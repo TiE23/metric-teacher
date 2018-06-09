@@ -1,21 +1,21 @@
 /* eslint-disable no-bitwise */
-
 const jwt = require("jsonwebtoken");
+
 const {
   AuthError,
   GraphQlDumpWarning,
   UserNotFound,
 } = require("./errors");
+
 const {
   COURSE_STATUS_ACTIVE,
 } = require("./constants");
-
 
 /**
  * Gets the calling user's ID by their Authorization JavaScript Web Token.
  * Does not hit the database and costs almost nothing to perform.
  * @param ctx
- * @returns {*}
+ * @returns ID
  * @throws AuthError
  */
 function getUserId(ctx) {
@@ -37,7 +37,7 @@ function getUserId(ctx) {
  * @param ctx
  * @param userId
  * @param fields
- * @returns {*}
+ * @returns User
  * @throws UserNotFound
  */
 async function getUserData(ctx, userId, fields) {

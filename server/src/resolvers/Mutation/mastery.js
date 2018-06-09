@@ -1,6 +1,4 @@
 const {
-  getUserId,
-  getUserData,
   checkAuth,
 } = require("../../utils");
 

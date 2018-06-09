@@ -3,6 +3,7 @@ const {
   setStatusForCourses,
   checkAuth,
 } = require("../../utils");
+
 const {
   AuthErrorAction,
   CourseNotFound,
@@ -10,6 +11,7 @@ const {
   StudentAlreadyEnrolled,
   StudentNotEnrolled,
 } = require("../../errors");
+
 const {
   FLAGS_NONE,
   USER_STATUS_NORMAL,
