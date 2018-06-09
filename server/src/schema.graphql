@@ -27,7 +27,7 @@ type Mutation {
 
   # Course Mutations
   ## Deactivate
-  deactivateCourse(courseid: ID!): Course!
+  deactivateCourse(studentid: ID!, courseid: ID!): Course!
   ## SubSubjects
   assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
 
