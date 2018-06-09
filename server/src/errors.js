@@ -3,9 +3,9 @@ class AuthError extends Error {
     if (reason && !action) {
       super(`Not authorized. Reason: ${reason}`);
     } else if (!reason && action) {
-      super(`Not authorized to ${action}`);
+      super(`Not authorized: '${action}'`);
     } else if (reason && action) {
-      super(`Not authorized to ${action}. Reason: ${reason}`);
+      super(`Not authorized: '${action}'. Reason: ${reason}`);
     } else {
       super("Not authorized");
     }
@@ -21,7 +21,7 @@ class AuthErrorAction extends Error {
 
 class GraphQlDumpWarning extends Error {
   constructor(requestType, action) {
-    super(`Tried to run a ${requestType} with incomplete where statement while doing '${action}'. Stopped to prevent full return.`);
+    super(`Tried to run a ${requestType} with incomplete where statement while performing '${action}'`);
   }
 }
 

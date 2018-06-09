@@ -7,6 +7,7 @@ type Query {
 
   # Subject Queries
   allSubjects: [Subject]!
+  subjects(subjectids: [ID!]!): [Subject]!
 
   # QA Queries
   getQa(questionid: ID!): QaObject
