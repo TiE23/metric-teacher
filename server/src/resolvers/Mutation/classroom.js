@@ -40,7 +40,7 @@ const classroom = {
     });
 
     // A teacher can create new Classrooms and moderators or better can as well.
-    if (args.teacherid !== callingUserData.id &&
+    if (callingUserData.id !== args.teacherid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
       throw new AuthErrorAction("createClassroom");
     }

@@ -6,7 +6,6 @@ const {
 const {
   GraphQlDumpWarning,
   AuthErrorAction,
-  StudentNotEnrolled,
   UserNotFound,
 } = require("../../errors");
 

@@ -24,14 +24,11 @@ const classroom = {
    */
   async classroom(parent, args, ctx, info) {
     // Must be moderator or better and normal.
-    await checkAuth(
-      ctx,
-      {
-        type: USER_TYPE_MODERATOR,
-        status: USER_STATUS_NORMAL,
-        action: "classroom",
-      },
-    );
+    await checkAuth(ctx, {
+      type: USER_TYPE_MODERATOR,
+      status: USER_STATUS_NORMAL,
+      action: "classroom",
+    });
 
     if (!args.classroomid) {
       throw new GraphQlDumpWarning("query", "classroom");
@@ -53,14 +50,11 @@ const classroom = {
    */
   async classrooms(parent, args, ctx, info) {
     // Must be moderator or better and normal.
-    await checkAuth(
-      ctx,
-      {
-        type: USER_TYPE_MODERATOR,
-        status: USER_STATUS_NORMAL,
-        action: "classrooms",
-      },
-    );
+    await checkAuth(ctx, {
+      type: USER_TYPE_MODERATOR,
+      status: USER_STATUS_NORMAL,
+      action: "classrooms",
+    });
 
     if (!Array.isArray(args.classroomids) || args.classroomids.length < 1) {
       throw new GraphQlDumpWarning("query", "classrooms");
@@ -77,7 +71,8 @@ const classroom = {
 
 
   /**
-   * Get a list of Classrooms by Prisma query search parameters. For Moderators or better only.
+   * Get a list of Classrooms by Prisma query search parameters.
+   * For Moderators or better only because of potentially sensitive data.
    * Students and Teachers can get them through me().
    * @param parent
    * @param args
@@ -87,16 +82,13 @@ const classroom = {
    */
   async classroomSearch(parent, args, ctx, info) {
     // Must be moderator or better and normal.
-    await checkAuth(
-      ctx,
-      {
-        type: USER_TYPE_MODERATOR,
-        status: USER_STATUS_NORMAL,
-        action: "classroomSearch",
-      },
-    );
+    await checkAuth(ctx, {
+      type: USER_TYPE_MODERATOR,
+      status: USER_STATUS_NORMAL,
+      action: "classroomSearch",
+    });
 
-    return ctx.db.query.subjects(args, info);
+    return ctx.db.query.classrooms(args, info);
   },
 };
 

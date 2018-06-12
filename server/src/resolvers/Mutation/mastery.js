@@ -76,18 +76,12 @@ const mastery = {
  * @returns Mastery!
  */
 async function changeMasteryStatus(parent, args, ctx, info, changeStatus, actionName) {
-  const callingUserData = await checkAuth(
-    ctx,
-    {
-      type: [
-        USER_TYPE_STUDENT,
-        USER_TYPE_MODERATOR,
-        USER_TYPE_ADMIN,
-      ],
-      status: USER_STATUS_NORMAL,
-      action: actionName,
-    },
-  );
+  const callingUserData = await checkAuth(ctx, {
+    type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+    status: USER_STATUS_NORMAL,
+    action: actionName,
+  });
+
   const targetMasteryData = await ctx.db.query.mastery({ where: { id: args.masteryid } }, `
       {
         id
@@ -113,7 +107,7 @@ async function changeMasteryStatus(parent, args, ctx, info, changeStatus, action
   }
 
   // A student can change the status of a Mastery and moderators or better can as well.
-  if (args.studentid !== callingUserData.id &&
+  if (callingUserData.id !== args.studentid &&
     callingUserData.type < USER_TYPE_MODERATOR) {
     throw new AuthErrorAction(actionName);
   }

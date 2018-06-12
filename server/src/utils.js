@@ -99,41 +99,6 @@ async function targetStudentDataHelper(ctx, targetId, fields) {
 
 
 /**
- * Convenience function that grabs the newest active course belonging to the student.
- * If the student doesn't have an active course returns null. Else, returns the course ID.
- * IT DOES NOT CHECK AUTHORIZATION.
- * @param ctx
- * @param studentId
- * @returns String|Null
- * @throws Exception
- */
-async function getStudentActiveCourseId(ctx, studentId) {
-  const userData = await getUserData(
-    ctx,
-    studentId,
-    `{
-      enrollment {
-        courses( where: {
-          status: ${COURSE_STATUS_ACTIVE}
-        }, first: 1) {
-          id
-        }
-      }
-    }`,
-  );
-
-  try {
-    return userData.enrollment.courses[0].id;
-  } catch (e) {
-    if (e instanceof TypeError) {
-      return null;  // The user doesn't have an active course
-    }
-    throw e;
-  }
-}
-
-
-/**
  * Set a status for a list of courses by their ID.
  * @param ctx
  * @param courseIds
@@ -274,7 +239,6 @@ module.exports = {
   getUserData,
   getUsersData,
   targetStudentDataHelper,
-  getStudentActiveCourseId,
   setStatusForCourses,
   checkAuth,
 };

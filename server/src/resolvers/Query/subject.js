@@ -34,7 +34,7 @@ const subject = {
 
 
   /**
-   * Get a subject by a single subjectid. For logged in and normal.
+   * Get a Subject by a single ID. For logged in and normal.
    * @param parent
    * @param args
    *        subjectid: ID!
@@ -54,7 +54,7 @@ const subject = {
       throw new GraphQlDumpWarning("query", "subject");
     }
 
-    return ctx.db.query.user({ where: { id: args.subjectid } }, info);
+    return ctx.db.query.subject({ where: { id: args.subjectid } }, info);
   },
 
 
@@ -106,14 +106,11 @@ const subject = {
    */
   async subjectSearch(parent, args, ctx, info) {
     // Must be logged in and normal
-    await checkAuth(
-      ctx,
-      {
-        type: USER_TYPE_STUDENT,
-        status: USER_STATUS_NORMAL,
-        action: "subjectSearch",
-      },
-    );
+    await checkAuth(ctx, {
+      type: USER_TYPE_STUDENT,
+      status: USER_STATUS_NORMAL,
+      action: "subjectSearch",
+    });
 
     return ctx.db.query.subjects(args, info);
   },

@@ -32,18 +32,11 @@ const course = {
    * @returns {Promise<*>}
    */
   async assignCourseNewSubSubjects(parent, args, ctx, info) {
-    const callingUserData = await checkAuth(
-      ctx,
-      {
-        type: [
-          USER_TYPE_STUDENT,
-          USER_TYPE_MODERATOR,
-          USER_TYPE_ADMIN,
-        ],
-        status: USER_STATUS_NORMAL,
-        action: "assignCourseNewSubSubjects",
-      },
-    );
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "assignCourseNewSubSubjects",
+    });
 
     const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
       {
@@ -119,18 +112,11 @@ const course = {
    * @returns {Promise<*>}
    */
   async deactivateCourse(parent, args, ctx, info) {
-    const callingUserData = await checkAuth(
-      ctx,
-      {
-        type: [
-          USER_TYPE_STUDENT,
-          USER_TYPE_MODERATOR,
-          USER_TYPE_ADMIN,
-        ],
-        status: USER_STATUS_NORMAL,
-        action: "deactivateCourse",
-      },
-    );
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "deactivateCourse",
+    });
 
     const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
       {
@@ -155,7 +141,7 @@ const course = {
     }
 
     // A student can change the status of a Course and moderators or better can as well.
-    if (args.studentid !== callingUserData.id &&
+    if (callingUserData.id !== args.studentid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
       throw new AuthErrorAction("deactivateCourse");
     }

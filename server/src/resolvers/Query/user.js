@@ -39,14 +39,11 @@ const user = {
    */
   async user(parent, args, ctx, info) {
     // Must be logged in moderator or better and normal
-    await checkAuth(
-      ctx,
-      {
-        type: USER_TYPE_MODERATOR,
-        status: USER_STATUS_NORMAL,
-        action: "user",
-      },
-    );
+    await checkAuth(ctx, {
+      type: USER_TYPE_MODERATOR,
+      status: USER_STATUS_NORMAL,
+      action: "user",
+    });
 
     if (!args.userid) {
       throw new GraphQlDumpWarning("query", "user");
@@ -69,14 +66,11 @@ const user = {
    */
   async users(parent, args, ctx, info) {
     // Must be logged in moderator or better and normal
-    await checkAuth(
-      ctx,
-      {
-        type: USER_TYPE_MODERATOR,
-        status: USER_STATUS_NORMAL,
-        action: "users",
-      },
-    );
+    await checkAuth(ctx, {
+      type: USER_TYPE_MODERATOR,
+      status: USER_STATUS_NORMAL,
+      action: "users",
+    });
 
     if (!Array.isArray(args.userids) || args.userids.length < 1) {
       throw new GraphQlDumpWarning("query", "users");
@@ -112,14 +106,11 @@ const user = {
    */
   async userSearch(parent, args, ctx, info) {
     // Must be logged in moderator or better and normal
-    await checkAuth(
-      ctx,
-      {
-        type: USER_TYPE_MODERATOR,
-        status: USER_STATUS_NORMAL,
-        action: "userSearch",
-      },
-    );
+    await checkAuth(ctx, {
+      type: USER_TYPE_MODERATOR,
+      status: USER_STATUS_NORMAL,
+      action: "userSearch",
+    });
 
     return ctx.db.query.users(args, info);
   },
