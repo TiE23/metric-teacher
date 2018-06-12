@@ -13,6 +13,12 @@ type Query {
   classrooms(classroomids: [ID!]!): [Classroom]!
   classroomSearch(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom]!
 
+  # Course Queries
+  activeCourse(studentid: ID!): Course
+  course(studentid: ID!, courseid: ID!): Course
+  courses(studentid: ID!, courseids: [ID!]!): [Course]!
+  courseSearch(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
+
   # Subject Queries
   allSubjects: [Subject]!
   subject(subjectid: ID!): Subject
