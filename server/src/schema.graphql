@@ -8,6 +8,11 @@ type Query {
   users(userids: [ID!]!): [PrivateUser]!
   userSearch(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PrivateUser]!
 
+  # Classroom Queries
+  classroom(classroomid: ID!): Classroom
+  classrooms(classroomids: [ID!]!): [Classroom]!
+  classroomSearch(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom]!
+
   # Subject Queries
   allSubjects: [Subject]!
   subject(subjectid: ID!): Subject
