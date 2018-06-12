@@ -28,7 +28,33 @@ const subject = {
       status: USER_STATUS_NORMAL,
       action: "allSubjects",
     });
+
     return ctx.db.query.subjects({}, info);
+  },
+
+
+  /**
+   * Get a subject by a single subjectid. For logged in and normal.
+   * @param parent
+   * @param args
+   *        subjectid: ID!
+   * @param ctx
+   * @param info
+   * @returns Subject
+   */
+  async subject(parent, args, ctx, info) {
+    // Must be logged in and normal
+    await checkAuth(ctx, {
+      type: USER_TYPE_STUDENT,
+      status: USER_STATUS_NORMAL,
+      action: "subject",
+    });
+
+    if (!args.subjectid) {
+      throw new GraphQlDumpWarning("query", "subject");
+    }
+
+    return ctx.db.query.user({ where: { id: args.subjectid } }, info);
   },
 
 
@@ -46,7 +72,7 @@ const subject = {
     await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
       status: USER_STATUS_NORMAL,
-      action: "allSubjects",
+      action: "subjects",
     });
 
     if (!Array.isArray(args.subjectids) || args.subjectids.length < 1) {
@@ -60,6 +86,36 @@ const subject = {
     };
 
     return ctx.db.query.subjects(queryClause, info);
+  },
+
+
+  /**
+   * Get a list of Subjects by Prisma query search parameters. For logged-in only.
+   * @param parent
+   * @param args
+   *        where: SubjectWhereInput
+   *        orderBy: SubjectOrderByInput
+   *        skip: Int
+   *        after: String
+   *        before: String
+   *        first: Int
+   *        last: Int
+   * @param ctx
+   * @param info
+   * @returns [Subject]!
+   */
+  async subjectSearch(parent, args, ctx, info) {
+    // Must be logged in and normal
+    await checkAuth(
+      ctx,
+      {
+        type: USER_TYPE_STUDENT,
+        status: USER_STATUS_NORMAL,
+        action: "subjectSearch",
+      },
+    );
+
+    return ctx.db.query.subjects(args, info);
   },
 };
 

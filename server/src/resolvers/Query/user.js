@@ -9,9 +9,7 @@ const {
 
 const {
   USER_STATUS_NORMAL,
-  USER_TYPE_STUDENT,
   USER_TYPE_MODERATOR,
-  USER_TYPE_ADMIN,
 } = require("../../constants");
 
 const user = {
@@ -37,7 +35,7 @@ const user = {
    *        userid: ID!
    * @param ctx
    * @param info
-   * @return PrivateUser!
+   * @return PrivateUser
    */
   async user(parent, args, ctx, info) {
     // Must be logged in moderator or better and normal
@@ -54,12 +52,14 @@ const user = {
       throw new GraphQlDumpWarning("query", "user");
     }
 
+    // TODO teacher support
+
     return ctx.db.query.user({ where: { id: args.userid } }, info);
   },
 
 
   /**
-   * Get the PrivateUser data of multiple user accounts. For moderators and better only.
+   * Get the PrivateUser data of multiple user accounts by their ID. For moderators and better only.
    * @param parent
    * @param args
    *        userids: [ID!]!
@@ -82,6 +82,8 @@ const user = {
       throw new GraphQlDumpWarning("query", "users");
     }
 
+    // TODO teacher support
+
     const queryClause = {
       where: {
         OR: args.userids.map(userId => ({ id: userId })),
@@ -89,6 +91,37 @@ const user = {
     };
 
     return ctx.db.query.users(queryClause, info);
+  },
+
+
+  /**
+   * Get the PrivateUser data of multiple user accounts. For moderators and better only.
+   * Exposes Prisma Query parameters.
+   * @param parent
+   * @param args
+   *        where: UserWhereInput
+   *        orderBy: UserOrderByInput
+   *        skip: Int
+   *        after: String
+   *        before: String
+   *        first: Int
+   *        last: Int
+   * @param ctx
+   * @param info
+   * @returns [PrivateUser]!
+   */
+  async userSearch(parent, args, ctx, info) {
+    // Must be logged in moderator or better and normal
+    await checkAuth(
+      ctx,
+      {
+        type: USER_TYPE_MODERATOR,
+        status: USER_STATUS_NORMAL,
+        action: "userSearch",
+      },
+    );
+
+    return ctx.db.query.users(args, info);
   },
 };
 

@@ -4,12 +4,15 @@
 type Query {
   # User Queries
   me: PrivateUser
-  user(userid: ID!): PrivateUser!
+  user(userid: ID!): PrivateUser
   users(userids: [ID!]!): [PrivateUser]!
+  userSearch(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PrivateUser]!
 
   # Subject Queries
   allSubjects: [Subject]!
+  subject(subjectid: ID!): Subject
   subjects(subjectids: [ID!]!): [Subject]!
+  subjectSearch(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
 
   # QA Queries
   getQa(questionid: ID!): QaObject
@@ -82,8 +85,8 @@ type PrivateUser {
 ### QA Object data schema and its numerous children below
 ## Parent Object
 type QaObject {
-  questionId: ID!             # TODO swap with or add "Question!"?
-  subSubjectId: ID!           # TODO swap with or add "SubSubject!"?
+  questionId: ID!
+  subSubjectId: ID!
   difficulty: Int!
   flags: Int!
   question: QaQuestionObject!
