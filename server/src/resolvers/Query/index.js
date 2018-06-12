@@ -3,6 +3,7 @@ const { qa } = require("./qa");
 const { subject } = require("./subject");
 const { classroom } = require("./classroom");
 const { course } = require("./course");
+const { mastery } = require("./mastery");
 
 module.exports = {
   Query: {
@@ -11,5 +12,6 @@ module.exports = {
     ...subject,
     ...classroom,
     ...course,
+    ...mastery,
   },
 };

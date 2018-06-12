@@ -19,6 +19,12 @@ type Query {
   courses(studentid: ID!, courseids: [ID!]!): [Course]!
   courseSearch(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
 
+  # Mastery Queries
+  activeMasteries(studentid: ID!): [Mastery]!
+  mastery(studentid: ID!, masteryid: ID!): Mastery
+  masteries(studentid: ID!, masteryids: [ID!]!): [Mastery]!
+  masterySearch(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery]!
+
   # Subject Queries
   allSubjects: [Subject]!
   subject(subjectid: ID!): Subject
