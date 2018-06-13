@@ -7,10 +7,6 @@ const {
   UserNotFound,
 } = require("./errors");
 
-const {
-  COURSE_STATUS_ACTIVE,
-} = require("./constants");
-
 /**
  * Gets the calling user's ID by their Authorization JavaScript Web Token.
  * Does not hit the database and costs almost nothing to perform.

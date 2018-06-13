@@ -12,13 +12,6 @@ class AuthError extends Error {
   }
 }
 
-// TODO Either remove this and replace uses with AuthError, or move AuthError stuff into it.
-class AuthErrorAction extends Error {
-  constructor(action) {
-    super(`Not authorized to ${action}`);
-  }
-}
-
 class GraphQlDumpWarning extends Error {
   constructor(requestType, action) {
     super(`Tried to run a ${requestType} with incomplete where statement while performing '${action}'`);
@@ -160,7 +153,6 @@ class ConversionNegativeValue extends Error {
 
 module.exports = {
   AuthError,
-  AuthErrorAction,
   GraphQlDumpWarning,
   UserNotFound,
   UserMustBe,

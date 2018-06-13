@@ -4,10 +4,9 @@ const {
 } = require("../../utils");
 
 const {
+  AuthError,
   GraphQlDumpWarning,
-  AuthErrorAction,
   UserNotFound,
-  UserMustBe,
   StudentNotOwner,
   CourseNotFound,
 } = require("../../errors");
@@ -42,7 +41,7 @@ const course = {
     // A student can get their active course and moderators or better can as well.
     if (callingUserData.id !== args.studentid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("activeCourse");
+      throw new AuthError(null, "activeCourse");
     }
 
     const studentData = await getUserData(
@@ -97,7 +96,7 @@ const course = {
     // A student can get their active course and moderators or better can as well.
     if (callingUserData.id !== args.studentid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("course");
+      throw new AuthError(null, "course");
     }
 
     if (!args.courseid) {
@@ -148,7 +147,7 @@ const course = {
     // A student can get their active course and moderators or better can as well.
     if (callingUserData.id !== args.studentid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("courses");
+      throw new AuthError(null, "courses");
     }
 
     if (!Array.isArray(args.courseids) || args.courseids.length < 1) {

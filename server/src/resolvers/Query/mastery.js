@@ -4,8 +4,8 @@ const {
 } = require("../../utils");
 
 const {
+  AuthError,
   GraphQlDumpWarning,
-  AuthErrorAction,
   UserNotFound,
   StudentNotOwner,
   MasteryNotFound,
@@ -43,7 +43,7 @@ const mastery = {
     // A student can get their active Course and moderators or better can as well.
     if (callingUserData.id !== args.studentid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("activeMasteries");
+      throw new AuthError(null, "activeMasteries");
     }
 
     // Need to get the active Masteries
@@ -114,7 +114,7 @@ const mastery = {
     // A student can get their active course and moderators or better can as well.
     if (callingUserData.id !== args.studentid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("mastery");
+      throw new AuthError(null, "mastery");
     }
 
     if (!args.masteryid) {
@@ -168,7 +168,7 @@ const mastery = {
     // A student can get their active course and moderators or better can as well.
     if (callingUserData.id !== args.studentid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("masteries");
+      throw new AuthError(null, "masteries");
     }
 
     if (!Array.isArray(args.masteryids) || args.masteryids.length < 1) {

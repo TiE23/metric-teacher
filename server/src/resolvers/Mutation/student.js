@@ -5,7 +5,7 @@ const {
 } = require("../../utils");
 
 const {
-  AuthErrorAction,
+  AuthError,
   CourseNotFound,
   UserMustBe,
   StudentAlreadyEnrolled,
@@ -55,7 +55,7 @@ const student = {
     }
     // A student can enroll themselves and moderators or better can can as well.
     if (callingUserData.id !== targetUserData.id && callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("enrollStudent");
+      throw new AuthError(null, "enrollStudent");
     }
 
     // Create new Enrollment, connecting to targeted user.
@@ -123,7 +123,7 @@ const student = {
     // A student can assign themselves a Course and moderators or better can as well
     if (callingUserData.id !== targetUserData.id &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("assignStudentNewCourse");
+      throw new AuthError(null, "assignStudentNewCourse");
     }
 
     // Create new Course, connecting to targeted Enrollment.
@@ -199,7 +199,7 @@ const student = {
     // A student can change their Courses and moderators or better can as well
     if (callingUserData.id !== targetUserData.id &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("setActiveCourse");
+      throw new AuthError(null, "setActiveCourse");
     }
 
     // Course we're trying to activate isn't found
