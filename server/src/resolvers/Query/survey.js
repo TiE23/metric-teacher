@@ -7,6 +7,8 @@ const {
   GraphQlDumpWarning,
   AuthErrorAction,
   UserNotFound,
+  StudentNotOwner,
+  SurveyNotFound,
 } = require("../../errors");
 
 const {
@@ -82,7 +84,7 @@ const survey = {
       },
     };
 
-    return ctx.db.query.masteries(queryClause, info);
+    return ctx.db.query.surveys(queryClause, info);
   },
 
 
@@ -111,8 +113,29 @@ const survey = {
       throw new AuthErrorAction("survey");
     }
 
-    if (!args.masteryid) {
+    if (!args.surveyid) {
       throw new GraphQlDumpWarning("query", "survey");
+    }
+
+    // Check to make sure that the Survey belongs to the student.
+    const surveyData = await ctx.db.query.survey(
+      { where: { id: args.surveyid } },
+      `{
+        parent {
+          parent {
+            student {
+              id
+            }
+          }
+        }
+      }`,
+    );
+
+    if (!surveyData) {
+      throw new SurveyNotFound(args.surveyid);
+    }
+    if (args.studentid !== surveyData.parent.parent.student.id) {
+      throw new StudentNotOwner(args.studentid, args.surveyid, "Survey");
     }
 
     return ctx.db.query.survey({ where: { id: args.surveyid } }, info);
@@ -153,6 +176,37 @@ const survey = {
         OR: args.surveyids.map(surveyId => ({ id: surveyId })),
       },
     };
+
+    // Check to make sure that the Surveys belong to the student.
+    const surveysData = await ctx.db.query.surveys(
+      queryClause,
+      `{
+        id
+        parent {
+          parent {
+            student {
+              id
+            }
+          }
+        }
+      }`,
+    );
+
+    // Notify if some Surveys were owned by others.
+    const wrongOwnerSurveys = surveysData.filter(surveyObject =>
+      surveyObject.parent.parent.student.id !== args.studentid).map(wrongSurveyObject =>
+      wrongSurveyObject.id);
+    if (wrongOwnerSurveys.length > 0) {
+      throw new StudentNotOwner(args.studentid, wrongOwnerSurveys.join(", "), "Survey");
+    }
+
+    // Notify if some Surveys didn't exist.
+    const foundSurveys = surveysData.map(surveyObject => surveyObject.id);
+    const missingSurveys = args.surveyids.filter(surveyId =>
+      !foundSurveys.includes(surveyId));
+    if (missingSurveys.length > 0) {
+      throw new SurveyNotFound(missingSurveys.join(", "));
+    }
 
     return ctx.db.query.surveys(queryClause, info);
   },

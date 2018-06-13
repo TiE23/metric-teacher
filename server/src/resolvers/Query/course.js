@@ -7,6 +7,9 @@ const {
   GraphQlDumpWarning,
   AuthErrorAction,
   UserNotFound,
+  UserMustBe,
+  StudentNotOwner,
+  CourseNotFound,
 } = require("../../errors");
 
 const {
@@ -101,6 +104,25 @@ const course = {
       throw new GraphQlDumpWarning("query", "course");
     }
 
+    // Check to make sure that the Course belongs to the student.
+    const courseData = await ctx.db.query.course(
+      { where: { id: args.courseid } },
+      `{
+        parent {
+          student {
+            id
+          }
+        }
+      }`,
+    );
+
+    if (!courseData) {
+      throw new CourseNotFound(args.courseid);
+    }
+    if (args.studentid !== courseData.parent.student.id) {
+      throw new StudentNotOwner(args.studentid, args.courseid, "Course");
+    }
+
     return ctx.db.query.course({ where: { id: args.courseid } }, info);
   },
 
@@ -138,6 +160,35 @@ const course = {
         OR: args.courseids.map(courseId => ({ id: courseId })),
       },
     };
+
+    // Check to make sure that the Courses belong to the student.
+    const coursesData = await ctx.db.query.courses(
+      queryClause,
+      `{
+        id
+        parent {
+          student {
+            id
+          }
+        }
+      }`,
+    );
+
+    // Notify if some Courses were owned by others.
+    const wrongOwnerCourses = coursesData.filter(courseObject =>
+      courseObject.parent.student.id !== args.studentid).map(wrongSurveyObject =>
+      wrongSurveyObject.id);
+    if (wrongOwnerCourses.length > 0) {
+      throw new StudentNotOwner(args.studentid, wrongOwnerCourses.join(", "), "Survey");
+    }
+
+    // Notify if some Courses didn't exist.
+    const foundCourses = coursesData.map(courseObject => courseObject.id);
+    const missingCourses = args.courseids.filter(courseId =>
+      !foundCourses.includes(courseId));
+    if (missingCourses.length > 0) {
+      throw new CourseNotFound(missingCourses.join(", "));
+    }
 
     return ctx.db.query.courses(queryClause, info);
   },

@@ -31,6 +31,12 @@ class UserNotFound extends Error {
   }
 }
 
+class UserMustBe extends Error {
+  constructor(userid, neededType) {
+    super(`User ${userid} must be type ${neededType}`);
+  }
+}
+
 class CourseNotFound extends Error {
   constructor(courseid) {
     super(`Course ${courseid} not found`);
@@ -79,12 +85,6 @@ class QuestionNotActive extends Error {
   }
 }
 
-class UserMustBe extends Error {
-  constructor(userid, neededType) {
-    super(`User ${userid} must be type ${neededType}`);
-  }
-}
-
 class StudentAlreadyEnrolled extends Error {
   constructor(userid) {
     super(`User ${userid} already enrolled`);
@@ -97,15 +97,21 @@ class StudentNotEnrolled extends Error {
   }
 }
 
-class QuestionSyntaxError extends Error {
-  constructor(question, reason) {
-    super(`Question '${question}' not valid. Reason: '${reason}'`);
+class StudentNotOwner extends Error {
+  constructor(studentid, objectid, objectname) {
+    super(`Student ${studentid} not owner of ${objectname} ${objectid}`);
   }
 }
 
-class AnswerSyntaxError extends Error {
-  constructor(answer, reason) {
-    super(`Answer '${answer}' not valid. Reason: '${reason}'`);
+class SurveyNotFound extends Error {
+  constructor(surveyid) {
+    super(`Survey ${surveyid} not found`);
+  }
+}
+
+class QuestionSyntaxError extends Error {
+  constructor(question, reason) {
+    super(`Question '${question}' not valid. Reason: '${reason}'`);
   }
 }
 
@@ -118,6 +124,12 @@ class QuestionAnswerError extends Error {
 class QuestionTypeInvalid extends Error {
   constructor(questionType) {
     super(`Question type '${questionType}' not valid`);
+  }
+}
+
+class AnswerSyntaxError extends Error {
+  constructor(answer, reason) {
+    super(`Answer '${answer}' not valid. Reason: '${reason}'`);
   }
 }
 
@@ -151,6 +163,7 @@ module.exports = {
   AuthErrorAction,
   GraphQlDumpWarning,
   UserNotFound,
+  UserMustBe,
   CourseNotFound,
   CourseNoSubSubjectsAdded,
   ClassroomNotFound,
@@ -159,13 +172,14 @@ module.exports = {
   MasteryNotFound,
   QuestionNotFound,
   QuestionNotActive,
-  UserMustBe,
   StudentAlreadyEnrolled,
   StudentNotEnrolled,
+  StudentNotOwner,
+  SurveyNotFound,
   QuestionSyntaxError,
-  AnswerSyntaxError,
   QuestionAnswerError,
   QuestionTypeInvalid,
+  AnswerSyntaxError,
   AnswerUnitMissing,
   UnitTypeUnrecognized,
   ConversionIncompatible,

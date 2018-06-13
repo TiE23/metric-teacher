@@ -7,6 +7,8 @@ const {
   GraphQlDumpWarning,
   AuthErrorAction,
   UserNotFound,
+  StudentNotOwner,
+  MasteryNotFound,
 } = require("../../errors");
 
 const {
@@ -119,6 +121,27 @@ const mastery = {
       throw new GraphQlDumpWarning("query", "mastery");
     }
 
+    // Check to make sure that the Mastery belongs to the student.
+    const masteryData = await ctx.db.query.mastery(
+      { where: { id: args.masteryid } },
+      `{
+        parent {
+          parent {
+            student {
+              id
+            }
+          }
+        }
+      }`,
+    );
+
+    if (!masteryData) {
+      throw new MasteryNotFound(args.masteryid);
+    }
+    if (args.studentid !== masteryData.parent.parent.student.id) {
+      throw new StudentNotOwner(args.studentid, args.masteryid, "Mastery");
+    }
+
     return ctx.db.query.mastery({ where: { id: args.masteryid } }, info);
   },
 
@@ -157,6 +180,37 @@ const mastery = {
         OR: args.masteryids.map(masteryId => ({ id: masteryId })),
       },
     };
+
+    // Check to make sure that the Masteries belong to the student.
+    const masteriesData = await ctx.db.query.masteries(
+      queryClause,
+      `{
+        id
+        parent {
+          parent {
+            student {
+              id
+            }
+          }
+        }
+      }`,
+    );
+
+    // Notify if some Masteries were owned by others.
+    const wrongOwnerMasteries = masteriesData.filter(masteryObject =>
+      masteryObject.parent.parent.student.id !== args.studentid).map(wrongMasteryObject =>
+      wrongMasteryObject.id);
+    if (wrongOwnerMasteries.length > 0) {
+      throw new StudentNotOwner(args.studentid, wrongOwnerMasteries.join(", "), "Mastery");
+    }
+
+    // Notify if some Masteries didn't exist.
+    const foundMasteries = masteriesData.map(masteryObject => masteryObject.id);
+    const missingMasteries = args.masteryids.filter(masteryId =>
+      !foundMasteries.includes(masteryId));
+    if (missingMasteries.length > 0) {
+      throw new MasteryNotFound(missingMasteries.join(", "));
+    }
 
     return ctx.db.query.masteries(queryClause, info);
   },
