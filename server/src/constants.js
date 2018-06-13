@@ -19,6 +19,7 @@ const constants = {
   // Course
   COURSE_STATUS_ACTIVE: 0,
   COURSE_STATUS_INACTIVE: 1,
+  COURSE_FLAG_PREFER_METRIC: 0x01,
 
   // Mastery
   MASTERY_DEFAULT_SCORE: 0,

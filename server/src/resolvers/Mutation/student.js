@@ -20,6 +20,7 @@ const {
   USER_TYPE_ADMIN,
   COURSE_STATUS_ACTIVE,
   COURSE_STATUS_INACTIVE,
+  COURSE_FLAG_PREFER_METRIC,
 } = require("../../constants");
 
 
@@ -75,6 +76,7 @@ const student = {
    * @param parent
    * @param args
    *        studentid: ID!
+   *        prefermetric: Boolean
    * @param ctx
    * @param info
    * @returns Course!
@@ -88,8 +90,10 @@ const student = {
     });
 
     const { callingUserData, targetUserData } =
-      await targetStudentDataHelper(ctx, args.studentid, `
-        {
+      await targetStudentDataHelper(
+        ctx,
+        args.studentid,
+        `{
           id
           type
           enrollment {
@@ -100,8 +104,8 @@ const student = {
               id
             }
           }
-        }
-      `);
+        }`,
+      );
 
     // Only a student can be assigned a course.
     if (targetUserData.type !== USER_TYPE_STUDENT) {
@@ -125,8 +129,8 @@ const student = {
     // Create new Course, connecting to targeted Enrollment.
     const course = await ctx.db.mutation.createCourse({
       data: {
-        status: FLAGS_NONE,
-        flags: COURSE_STATUS_ACTIVE,
+        status: COURSE_STATUS_ACTIVE,
+        flags: args.prefermetric ? COURSE_FLAG_PREFER_METRIC : FLAGS_NONE,
         parent: {
           connect: {
             id: targetUserData.enrollment.id,
