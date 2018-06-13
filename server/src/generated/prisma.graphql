@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Thu Jun 07 2018 15:37:47 GMT-0700 (PDT)
+# timestamp: Tue Jun 12 2018 21:49:19 GMT-0700 (PDT)
 
 type AggregateClassroom {
   count: Int!
@@ -2615,6 +2615,7 @@ input SubSubjectWhereUniqueInput {
 
 type Survey implements Node {
   id: ID!
+  status: Int!
   score: Int!
   answer: String!
   detail: String
@@ -2633,6 +2634,7 @@ type SurveyConnection {
 }
 
 input SurveyCreateInput {
+  status: Int!
   score: Int!
   answer: String!
   detail: String
@@ -2646,6 +2648,7 @@ input SurveyCreateManyWithoutParentInput {
 }
 
 input SurveyCreateWithoutParentInput {
+  status: Int!
   score: Int!
   answer: String!
   detail: String
@@ -2664,6 +2667,8 @@ type SurveyEdge {
 enum SurveyOrderByInput {
   id_ASC
   id_DESC
+  status_ASC
+  status_DESC
   score_ASC
   score_DESC
   answer_ASC
@@ -2678,6 +2683,7 @@ enum SurveyOrderByInput {
 
 type SurveyPreviousValues {
   id: ID!
+  status: Int!
   score: Int!
   answer: String!
   detail: String
@@ -2723,6 +2729,7 @@ input SurveySubscriptionWhereInput {
 }
 
 input SurveyUpdateInput {
+  status: Int
   score: Int
   answer: String
   detail: String
@@ -2740,6 +2747,7 @@ input SurveyUpdateManyWithoutParentInput {
 }
 
 input SurveyUpdateWithoutParentDataInput {
+  status: Int
   score: Int
   answer: String
   detail: String
@@ -2806,6 +2814,28 @@ input SurveyWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  status: Int
+
+  """All values that are not equal to given value."""
+  status_not: Int
+
+  """All values that are contained in given list."""
+  status_in: [Int!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [Int!]
+
+  """All values less than the given value."""
+  status_lt: Int
+
+  """All values less than or equal the given value."""
+  status_lte: Int
+
+  """All values greater than the given value."""
+  status_gt: Int
+
+  """All values greater than or equal the given value."""
+  status_gte: Int
   score: Int
 
   """All values that are not equal to given value."""

@@ -67,6 +67,7 @@ type Mastery {
 # And finally ask the user to identify the metric value.
 type Survey {
   id: ID! @unique
+  status: Int!
   score: Int!
   answer: String!
   detail: String

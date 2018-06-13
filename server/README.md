@@ -117,10 +117,14 @@ If you ever do remote hosting, you'll need to change the endpoint's url to the r
 
 ### Survey
 * `id`
+* `status`
+    * Used to mark when a Survey question was skipped or not.
 * `score`: Scale from 0 to 100
     * A scale between 0 and 100. 0 is the question hasn't been re-answered. Each time the question is answered correctly this value goes up. When the question has hit a certain point (a constant that can be defined, perhaps 50?) then it enters the conversion portion.
 * `answer`
     * Answer string recorded from the user's response.
+* `detail`
+    * Optional extra detail string recorded from a user's response.
 * `parent`
     * Relation to Course row.
 * `question`
