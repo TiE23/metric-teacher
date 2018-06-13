@@ -62,7 +62,7 @@ type Mutation {
   ## Enrollment
   enrollStudent(studentid: ID!): Enrollment!
   ## Course
-  assignStudentNewCourse(studentid: ID!): Course!
+  assignStudentNewCourse(studentid: ID!, prefermetric: Boolean): Course!
   setActiveCourse(studentid: ID!, courseid: ID!): Course!
 
   # Course Mutations
