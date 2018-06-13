@@ -3,7 +3,7 @@ const {
 } = require("../../utils");
 
 const {
-  AuthErrorAction,
+  AuthError,
   CourseNotFound,
   CourseNoSubSubjectsAdded,
 } = require("../../errors");
@@ -17,7 +17,6 @@ const {
   MASTERY_DEFAULT_SCORE,
   MASTERY_STATUS_ACTIVE,
 } = require("../../constants");
-
 
 const course = {
   /**
@@ -61,7 +60,7 @@ const course = {
     // A student can assign new SubSubjects and moderators or better can as well.
     if (callingUserData.id !== targetCourseData.parent.student.id &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("assignCourseNewSubSubjects");
+      throw new AuthError(null, "assignCourseNewSubSubjects");
     }
 
     // Only act on SubSubjects that are not already listed in Masteries
@@ -143,7 +142,7 @@ const course = {
     // A student can change the status of a Course and moderators or better can as well.
     if (callingUserData.id !== args.studentid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("deactivateCourse");
+      throw new AuthError(null, "deactivateCourse");
     }
 
     // Perform the update
@@ -155,6 +154,5 @@ const course = {
     }, info);
   },
 };
-
 
 module.exports = { course };

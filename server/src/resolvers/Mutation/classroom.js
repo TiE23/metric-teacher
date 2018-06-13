@@ -5,7 +5,7 @@ const {
 } = require("../../utils");
 
 const {
-  AuthErrorAction,
+  AuthError,
   UserMustBe,
   ClassroomNotFound,
   ClassroomNoUsersAdded,
@@ -42,7 +42,7 @@ const classroom = {
     // A teacher can create new Classrooms and moderators or better can as well.
     if (callingUserData.id !== args.teacherid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthErrorAction("createClassroom");
+      throw new AuthError(null, "createClassroom");
     }
 
     // Only teachers can be teachers of a classroom, so make sure the teacherid
@@ -112,6 +112,7 @@ const classroom = {
  * @param ctx
  * @param info
  * @param addUsers
+ * @param actionName
  * @returns Classroom!
  */
 async function changeClassroomMembers(parent, args, ctx, info, addUsers, actionName) {
@@ -154,11 +155,7 @@ async function changeClassroomMembers(parent, args, ctx, info, addUsers, actionN
   // A teacher of the classroom can change a Classroom and moderators or better can as well.
   if (!classroomTeachers.includes(callingUserData.id) &&
     callingUserData.type < USER_TYPE_MODERATOR) {
-    if (addUsers) {
-      throw new AuthErrorAction("addUsersToClassroom");
-    } else {
-      throw new AuthErrorAction("removeUsersFromClassroom");
-    }
+    throw new AuthError(null, actionName);
   }
 
   let targetUserIds = null;

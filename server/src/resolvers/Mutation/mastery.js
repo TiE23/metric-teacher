@@ -3,7 +3,7 @@ const {
 } = require("../../utils");
 
 const {
-  AuthErrorAction,
+  AuthError,
   MasteryNotFound,
 } = require("../../errors");
 
@@ -109,7 +109,7 @@ async function changeMasteryStatus(parent, args, ctx, info, changeStatus, action
   // A student can change the status of a Mastery and moderators or better can as well.
   if (callingUserData.id !== args.studentid &&
     callingUserData.type < USER_TYPE_MODERATOR) {
-    throw new AuthErrorAction(actionName);
+    throw new AuthError(null, actionName);
   }
 
   // Perform the update.
