@@ -43,6 +43,11 @@ type Query {
   surveys(studentid: ID!, surveyids: [ID!]!): [Survey]!
   surveySearch(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey]!
 
+  # Question Queries
+  question(questionid: ID!): Question
+  questions(questionids: [ID!]!): [Question]!
+  questionSearch(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+
   # QA Queries
   getQa(questionid: ID!): QaObject
 }
