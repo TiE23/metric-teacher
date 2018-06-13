@@ -4,6 +4,7 @@ const {
   CONVERSION_DECIMAL_ACCURACY,
 } = require("../constants");
 
+
 /**
  * In the comments for this function we assume CONVERSION_DECIMAL_ACCURACY is set to 10. This could
  * be changed.

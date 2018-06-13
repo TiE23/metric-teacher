@@ -2,9 +2,54 @@
 
 ### Queries
 type Query {
+  # User Queries
   me: PrivateUser
+  user(userid: ID!): PrivateUser
+  users(userids: [ID!]!): [PrivateUser]!
+  userSearch(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PrivateUser]!
+
+  # Classroom Queries
+  classroom(classroomid: ID!): Classroom
+  classrooms(classroomids: [ID!]!): [Classroom]!
+  classroomSearch(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom]!
+
+  # Course Queries
+  activeCourse(studentid: ID!): Course
+  course(studentid: ID!, courseid: ID!): Course
+  courses(studentid: ID!, courseids: [ID!]!): [Course]!
+  courseSearch(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
+
+  # Mastery Queries
+  activeMasteries(studentid: ID!): [Mastery]!
+  mastery(studentid: ID!, masteryid: ID!): Mastery
+  masteries(studentid: ID!, masteryids: [ID!]!): [Mastery]!
+  masterySearch(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery]!
+
+  # Subject Queries
   allSubjects: [Subject]!
-  testGetQa(questionid: ID!): QaObject
+  subject(subjectid: ID!): Subject
+  subjects(subjectids: [ID!]!): [Subject]!
+  subjectSearch(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
+
+  # SubSubject Queries
+  allSubSubjects: [SubSubject]!
+  subSubject(subsubjectid: ID!): SubSubject
+  subSubjects(subsubjectids: [ID!]!): [SubSubject]!
+  subSubjectSearch(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!
+
+  # Survey Queries
+  activeSurveys(studentid: ID!): [Survey]!
+  survey(studentid: ID!, surveyid: ID!): Survey
+  surveys(studentid: ID!, surveyids: [ID!]!): [Survey]!
+  surveySearch(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey]!
+
+  # Question Queries
+  question(questionid: ID!): Question
+  questions(questionids: [ID!]!): [Question]!
+  questionSearch(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+
+  # QA Queries
+  getQa(questionid: ID!): QaObject
 }
 
 ### Mutations
@@ -18,18 +63,18 @@ type Mutation {
   enrollStudent(studentid: ID!): Enrollment!
   ## Course
   assignStudentNewCourse(studentid: ID!): Course!
+  setActiveCourse(studentid: ID!, courseid: ID!): Course!
 
   # Course Mutations
-  ## Activate/Deactivate
-  activateCourse(courseid: ID!): Course!
-  deactivateCourse(courseid: ID!): Course!
+  ## Deactivate
+  deactivateCourse(studentid: ID!, courseid: ID!): Course!
   ## SubSubjects
   assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
 
   # Mastery Mutations
   ## Activate/Deactivate
-  activateMastery(masteryid: ID!): Mastery!
-  deactivateMastery(masteryid: ID!): Mastery!
+  activateMastery(masteryid: ID!, studentid: ID!): Mastery!
+  deactivateMastery(masteryid: ID!, studentid: ID!): Mastery!
 
   # Classroom Mutations
   ## Make classroom
@@ -45,16 +90,16 @@ type AuthPayload {
   user: User!
 }
 
-# For public use. It does not expose password or email.
+# For public-ish use. It does not expose password, email, enrollment, or classroomsTeaching.
+# It does, however, expose first and last names. So take note about ever making this truly public.
 type User {
   id: ID!
+  honorific: String
   fname: String!
   lname: String!
   type: Int!
   status: Int!
   flags: Int!
-  classrooms: [Classroom!]!
-  enrollment: Enrollment
 }
 
 # For private use. It does not expose password.
@@ -67,15 +112,15 @@ type PrivateUser {
   type: Int!
   status: Int!
   flags: Int!
-  classrooms: [Classroom!]!
   enrollment: Enrollment
+  classroomsTeaching: [Classroom!]!
 }
 
 ### QA Object data schema and its numerous children below
 ## Parent Object
 type QaObject {
-  questionId: ID!             # TODO swap with or add "Question!"?
-  subSubjectId: ID!           # TODO swap with or add "SubSubject!"?
+  questionId: ID!
+  subSubjectId: ID!
   difficulty: Int!
   flags: Int!
   question: QaQuestionObject!

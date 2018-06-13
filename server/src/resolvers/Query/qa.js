@@ -1,37 +1,27 @@
 const {
-  getUserId,
   checkAuth,
-} = require("../utils");
-const { qaGenerate } = require("../logic/qaGenerator");
+} = require("../../utils");
+
 const {
   QuestionNotFound,
   QuestionNotActive,
-} = require("../errors");
+} = require("../../errors");
+
 const {
   USER_TYPE_STUDENT,
   COURSE_STATUS_ACTIVE,
   QUESTION_STATUS_ACTIVE,
   QUESTION_TYPE_SURVEY,
-} = require("../constants");
+} = require("../../constants");
 
-const Query = {
-  me(parent, args, ctx, info) {
-    const id = getUserId(ctx);
-    return ctx.db.query.user({ where: { id } }, info);
-  },
+const {
+  qaGenerate,
+} = require("../../logic/qaGenerator");
 
-  async allSubjects(parent, args, ctx, info) {
-    await checkAuth(ctx, {
-      type: USER_TYPE_STUDENT,
-      action: "query allSubjects",
-    });  // Must be logged in
-    const subjects = await ctx.db.query.subjects({}, info);
 
-    return subjects;
-  },
-
-  // TODO this is a proof-of-concept function and is intended to be removed.
-  async testGetQa(parent, args, ctx, info) {
+const qa = {
+  // TODO this needs to be polished - Likely in ISSUE-020.
+  async getQa(parent, args, ctx) {
     const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
       action: "query testGetQa",
@@ -58,6 +48,7 @@ const Query = {
       throw new QuestionNotFound(args.questionid);
     }
 
+    // TODO Do I really want to prevent processing inactive questions?
     // Question isn't active
     if (questionObject.status !== QUESTION_STATUS_ACTIVE) {
       throw new QuestionNotActive(args.questionid);
@@ -65,7 +56,7 @@ const Query = {
 
     // Check if the student has answered the survey. Don't bother for non-students.
     if (callingUserData.type === USER_TYPE_STUDENT &&
-        questionObject.type === QUESTION_TYPE_SURVEY) {
+      questionObject.type === QUESTION_TYPE_SURVEY) {
       const userSurveyObject = await ctx.db.query.user(
         { where: { id: callingUserData.id } },
         `{
@@ -113,4 +104,4 @@ const Query = {
   },
 };
 
-module.exports = { Query };
+module.exports = { qa };

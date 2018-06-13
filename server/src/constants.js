@@ -1,5 +1,4 @@
 const constants = {
-
   // Database Constants
   // Generic
   FLAGS_NONE: 0,
@@ -25,6 +24,11 @@ const constants = {
   MASTERY_DEFAULT_SCORE: 0,
   MASTERY_STATUS_ACTIVE: 0,
   MASTERY_STATUS_INACTIVE: 1,
+
+  // Survey
+  SURVEY_DEFAULT_SCORE: 0,
+  SURVEY_STATUS_NORMAL: 0,
+  SURVEY_STATUS_SKIPPED: 1,
 
   // Question
   QUESTION_TYPE_WRITTEN: 0,

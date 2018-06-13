@@ -3,24 +3,37 @@ class AuthError extends Error {
     if (reason && !action) {
       super(`Not authorized. Reason: ${reason}`);
     } else if (!reason && action) {
-      super(`Not authorized to ${action}`);
+      super(`Not authorized: '${action}'`);
     } else if (reason && action) {
-      super(`Not authorized to ${action}. Reason: ${reason}`);
+      super(`Not authorized: '${action}'. Reason: ${reason}`);
     } else {
       super("Not authorized");
     }
   }
 }
 
+// TODO Either remove this and replace uses with AuthError, or move AuthError stuff into it.
 class AuthErrorAction extends Error {
   constructor(action) {
     super(`Not authorized to ${action}`);
   }
 }
 
+class GraphQlDumpWarning extends Error {
+  constructor(requestType, action) {
+    super(`Tried to run a ${requestType} with incomplete where statement while performing '${action}'`);
+  }
+}
+
 class UserNotFound extends Error {
   constructor(userid) {
     super(`User ${userid} not found`);
+  }
+}
+
+class UserMustBe extends Error {
+  constructor(userid, neededType) {
+    super(`User ${userid} must be type ${neededType}`);
   }
 }
 
@@ -72,27 +85,33 @@ class QuestionNotActive extends Error {
   }
 }
 
-class UserMustBe extends Error {
-  constructor(userid, neededType) {
-    super(`User ${userid} must be type ${neededType}`);
+class StudentAlreadyEnrolled extends Error {
+  constructor(userid) {
+    super(`User ${userid} already enrolled`);
   }
 }
 
-class UserAlreadyEnrolled extends Error {
-  constructor(userid) {
-    super(`User ${userid} already enrolled`);
+class StudentNotEnrolled extends Error {
+  constructor(userid, action) {
+    super(`User ${userid} not enrolled. Cannot perform '${action}'`);
+  }
+}
+
+class StudentNotOwner extends Error {
+  constructor(studentid, objectid, objectname) {
+    super(`Student ${studentid} not owner of ${objectname} ${objectid}`);
+  }
+}
+
+class SurveyNotFound extends Error {
+  constructor(surveyid) {
+    super(`Survey ${surveyid} not found`);
   }
 }
 
 class QuestionSyntaxError extends Error {
   constructor(question, reason) {
     super(`Question '${question}' not valid. Reason: '${reason}'`);
-  }
-}
-
-class AnswerSyntaxError extends Error {
-  constructor(answer, reason) {
-    super(`Answer '${answer}' not valid. Reason: '${reason}'`);
   }
 }
 
@@ -105,6 +124,12 @@ class QuestionAnswerError extends Error {
 class QuestionTypeInvalid extends Error {
   constructor(questionType) {
     super(`Question type '${questionType}' not valid`);
+  }
+}
+
+class AnswerSyntaxError extends Error {
+  constructor(answer, reason) {
+    super(`Answer '${answer}' not valid. Reason: '${reason}'`);
   }
 }
 
@@ -136,7 +161,9 @@ class ConversionNegativeValue extends Error {
 module.exports = {
   AuthError,
   AuthErrorAction,
+  GraphQlDumpWarning,
   UserNotFound,
+  UserMustBe,
   CourseNotFound,
   CourseNoSubSubjectsAdded,
   ClassroomNotFound,
@@ -145,12 +172,14 @@ module.exports = {
   MasteryNotFound,
   QuestionNotFound,
   QuestionNotActive,
-  UserMustBe,
-  UserAlreadyEnrolled,
+  StudentAlreadyEnrolled,
+  StudentNotEnrolled,
+  StudentNotOwner,
+  SurveyNotFound,
   QuestionSyntaxError,
-  AnswerSyntaxError,
   QuestionAnswerError,
   QuestionTypeInvalid,
+  AnswerSyntaxError,
   AnswerUnitMissing,
   UnitTypeUnrecognized,
   ConversionIncompatible,

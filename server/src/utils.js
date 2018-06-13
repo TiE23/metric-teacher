@@ -1,20 +1,21 @@
 /* eslint-disable no-bitwise */
-
 const jwt = require("jsonwebtoken");
+
 const {
   AuthError,
+  GraphQlDumpWarning,
   UserNotFound,
 } = require("./errors");
+
 const {
   COURSE_STATUS_ACTIVE,
 } = require("./constants");
-
 
 /**
  * Gets the calling user's ID by their Authorization JavaScript Web Token.
  * Does not hit the database and costs almost nothing to perform.
  * @param ctx
- * @returns {*}
+ * @returns ID
  * @throws AuthError
  */
 function getUserId(ctx) {
@@ -36,7 +37,7 @@ function getUserId(ctx) {
  * @param ctx
  * @param userId
  * @param fields
- * @returns {*}
+ * @returns User
  * @throws UserNotFound
  */
 async function getUserData(ctx, userId, fields) {
@@ -46,6 +47,32 @@ async function getUserData(ctx, userId, fields) {
   }
 
   throw new UserNotFound(userId);
+}
+
+
+/**
+ * Get user details by an array of UserIds. This function can expose sensitive user information
+ * so call it only in authorized situations.
+ * IT DOES NOT CHECK AUTHORIZATION.
+ * @param ctx
+ * @param userIds
+ * @param fields
+ * @returns {Promise<void>}
+ */
+async function getUsersData(ctx, userIds, fields) {
+  const whereClause = {
+    where: {
+      OR: [],
+    },
+  };
+  whereClause.where.OR = userIds.map(userId => ({ id: userId }));
+
+  const users = await ctx.db.query.users(whereClause, fields);
+  if (users) {
+    return users;
+  }
+
+  throw new UserNotFound();
 }
 
 
@@ -72,37 +99,26 @@ async function targetStudentDataHelper(ctx, targetId, fields) {
 
 
 /**
- * Convenience function that grabs the newest active course belonging to the student.
- * If the student doesn't have an active course returns null. Else, returns the course ID.
- * IT DOES NOT CHECK AUTHORIZATION.
+ * Set a status for a list of courses by their ID.
  * @param ctx
- * @param studentId
- * @returns String|Null
- * @throws Exception
+ * @param courseIds
+ * @param status
+ * @returns {Promise<*>}
  */
-async function getStudentActiveCourseId(ctx, studentId) {
-  const userData = await getUserData(
-    ctx,
-    studentId,
-    `{
-      enrollment {
-        courses( where: {
-          status: ${COURSE_STATUS_ACTIVE}
-        }, first: 1) {
-          id
-        }
-      }
-    }`,
-  );
-
-  try {
-    return userData.enrollment.courses[0].id;
-  } catch (e) {
-    if (e instanceof TypeError) {
-      return null;  // The user doesn't have an active course
-    }
-    throw e;
+async function setStatusForCourses(ctx, courseIds, status) {
+  if (!Array.isArray(courseIds) || courseIds.length < 1) {
+    throw new GraphQlDumpWarning("mutation", "setStatusForCourses");
   }
+  const mutationClause = {
+    where: {
+      OR: courseIds.map(courseId => ({ id: courseId })),
+    },
+    data: {
+      status,
+    },
+  };
+
+  return ctx.db.mutation.updateManyCourses(mutationClause, "{ count }");
 }
 
 
@@ -221,7 +237,8 @@ async function checkAuth(
 module.exports = {
   getUserId,
   getUserData,
+  getUsersData,
   targetStudentDataHelper,
-  getStudentActiveCourseId,
+  setStatusForCourses,
   checkAuth,
 };
