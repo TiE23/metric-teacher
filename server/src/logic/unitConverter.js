@@ -160,7 +160,7 @@ function convertValue(fromValue, fromUnit, toUnit) {
     roundedValue > Math.ceil(smoothedValue)
   ) {
     do {
-      rounding += 1;
+      ++rounding;
       roundedValue = round(smoothedValue, rounding);
     } while (rounding <= 10 && (roundedValue === 0 || roundedValue > Math.ceil(smoothedValue)));
   }
@@ -173,7 +173,7 @@ function convertValue(fromValue, fromUnit, toUnit) {
   // Create the human friendly value
   let friendlyValue = 0;
   let power = 0;
-  for (; power <= 308; power += 1) {  // Limit to approximately Number.MAX_VALUE (1.798e+308)
+  for (; power <= 308; ++power) {  // Limit to approximately Number.MAX_VALUE (1.798e+308)
     if (Math.abs(roundedValue) < 10 ** power) {
       break;
     }
