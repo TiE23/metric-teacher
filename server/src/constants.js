@@ -23,6 +23,7 @@ const constants = {
 
   // Mastery
   MASTERY_DEFAULT_SCORE: 0,
+  MASTERY_MAX_SCORE: 1000,
   MASTERY_STATUS_ACTIVE: 0,
   MASTERY_STATUS_INACTIVE: 1,
 
@@ -37,6 +38,7 @@ const constants = {
   QUESTION_TYPE_SURVEY: 2,
   QUESTION_STATUS_ACTIVE: 0,
   QUESTION_STATUS_INACTIVE: 1,
+  QUESTION_DIFFICULTY_NONE: 0,  // Non-standard. Question will appear at any time.
   QUESTION_DIFFICULTY_EASY: 1,
   QUESTION_DIFFICULTY_EASY_MEDIUM: 2,
   QUESTION_DIFFICULTY_MEDIUM: 3,
@@ -44,6 +46,26 @@ const constants = {
   QUESTION_DIFFICULTY_HARD: 5,
   QUESTION_FLAG_USER_DETAIL_OPTIONAL: 0x01, // Survey question requests user-added detail (optional)
   QUESTION_FLAG_USER_DETAIL_REQUIRED: 0x02, // Survey question requests user-added detail (required)
+  /*                            [Mastery Level]
+                    000    200     400     600     800   1000
+                    |050    |250    |450    |650    |850    |
+                    | |100  | |300  | |500  | |700  | |900  |
+                    | | |150| | |350| | |550| | |750| | |950|
+     [Difficulty]   ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼ ┼
+           Easy (1) |===+=====|         |         |         |
+    Easy-Medium (2)     |=====+=========|         |         |
+         Medium (3)           |=========+=========+=====|   |
+    Medium-Hard (4)                     |=========+=========|
+           Hard (5)                               |=========|
+  */
+  QUESTION_DIFFICULTY_RANGES: [
+    [0, 1000],    // 0 None (Fall-back)
+    [0, 250],     // 1 Easy
+    [100, 500],   // 2 Easy-Medium
+    [250, 900],   // 3 Medium
+    [500, 1000],  // 4 Medium-Hard
+    [750, 1000],  // 5 Hard
+  ],
 
   // Answer (logic only)
   ANSWER_TYPE_MULTIPLE_CHOICE: 0,

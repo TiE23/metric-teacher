@@ -102,6 +102,11 @@ const qa = {
 
     return qaGenerate(questionObject);
   },
+
+
+  async generateChallenge(parent, args, ctx, info) {
+    return [];
+  },
 };
 
 module.exports = { qa };
