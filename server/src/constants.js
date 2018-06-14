@@ -85,6 +85,9 @@ const constants = {
   // Written answer unit
   WRITTEN_ANSWER_UNIT: "written",
 
+  // Chances amount
+  CHANCES_COUNT: 100,
+
   // Units to English
   // Preset is the name of the unit in https://github.com/javiercejudo/linear-presets
   // Round is the decimal places the unit will be rounded to in any returned value.
