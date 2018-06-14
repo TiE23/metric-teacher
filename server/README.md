@@ -285,7 +285,7 @@ Examples:
   difficulty: 3,
   question: "If Jim is 6'1" and Harry is 195cm, who is taller?",
   answer: "195cm is about 6'5\" and 6'1\" is about 185cm. [Harry is taller|Jim is taller|They are about the same height]",
-  media: null,
+  media: "someMedia",
   parent: <<someSubSubject>>,
 }
 ```
@@ -296,6 +296,7 @@ Examples:
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
   flags: 0,
+  media: "someMedia",
 
   question: {
     data: null,
@@ -333,7 +334,7 @@ Examples:
   difficulty: 3,
   question: "This weight is typical of a 5 year old child. [35,45lb]",
   answer: "[kg]",
-  media: null,
+  media: "someMedia",
   parent: <<someSubSubject>>,
 }
 ```
@@ -344,6 +345,7 @@ Examples:
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
   flags: 0,
+  media: "someMedia",
 
   question: {
     detail: "This weight is typical of a 5 year old child.",
@@ -406,7 +408,7 @@ Examples:
   difficulty: 3,
   question: "How tall is the tallest person you personally know? Give your best guess if you don't know exactly. [70,96in]",
   answer: "[cm]",
-  media: null,
+  media: "someMedia",
   parent: <<someSubSubject>>,
 }
 ```
@@ -427,7 +429,8 @@ Examples:
   questionId: <<someQuestionId>>,
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
-  flags: 1,
+  flags: 2,
+  media: "someMedia",
 
   question: {
     detail: "",

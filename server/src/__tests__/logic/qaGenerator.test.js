@@ -30,7 +30,7 @@ describe("qaGenerator", () => {
           difficulty: QUESTION_DIFFICULTY_MEDIUM,
           question: "What temperature Celsius does water freeze at?",
           answer: "[0c|32c|100c]",
-          media: null,
+          media: "someMedia",
           parent: {
             id: "someSubSubject",
           },
@@ -46,6 +46,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
         expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
         expect(qaFormat.flags).toBe(FLAGS_NONE);
+        expect(qaFormat.media).toBe("someMedia");
 
         // Question Data
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_WRITTEN);
@@ -104,7 +105,7 @@ describe("qaGenerator", () => {
           difficulty: QUESTION_DIFFICULTY_MEDIUM,
           question: "[100,100c]",
           answer: "[f]",
-          media: null,
+          media: "someMedia",
           parent: {
             id: "someSubSubject",
           },
@@ -120,6 +121,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
         expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
         expect(qaFormat.flags).toBe(FLAGS_NONE);
+        expect(qaFormat.media).toBe("someMedia");
 
         // Question Data
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
@@ -403,7 +405,7 @@ describe("qaGenerator", () => {
           difficulty: QUESTION_DIFFICULTY_MEDIUM,
           question: "How tall are you? [40,96in]",
           answer: "[cm]",
-          media: null,
+          media: "someMedia",
           parent: {
             id: "someSubSubject",
           },
@@ -432,6 +434,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.questionId).toBe("question01");
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
         expect(qaFormat.flags).toBe(FLAGS_NONE);
+        expect(qaFormat.media).toBe("someMedia");
 
         // Question Data
         expect(qaFormat.question).toBeDefined();
@@ -469,6 +472,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.questionId).toBe("question01");
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
         expect(qaFormat.flags).toBe(FLAGS_NONE);
+        expect(qaFormat.media).toBe("someMedia");
 
         // Question Data
         expect(qaFormat.question).toBeDefined();
@@ -535,6 +539,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.questionId).toBe("question01");
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
         expect(qaFormat.flags).toBe(FLAGS_NONE);
+        expect(qaFormat.media).toBe("someMedia");
 
         // Question Data
         expect(qaFormat.question).toBeDefined();
