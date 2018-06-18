@@ -59,7 +59,6 @@ const constants = {
            Hard (5)                               |=========|
   */
   QUESTION_DIFFICULTY_RANGES: [
-    [0, 1000],    // 0 None (Fall-back)
     [0, 250],     // 1 Easy
     [100, 500],   // 2 Easy-Medium
     [250, 900],   // 3 Medium

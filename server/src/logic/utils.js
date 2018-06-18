@@ -2,6 +2,7 @@ const round = require("lodash/round");
 
 const {
   CONVERSION_DECIMAL_ACCURACY,
+  QUESTION_DIFFICULTY_RANGES,
 } = require("../constants");
 
 
@@ -76,8 +77,20 @@ function stepSmoother(value, step) {
   return smoothedValue;
 }
 
+function difficultyFinder(score) {
+  const difficultyScores = [];
+  for (let x = 0; x < QUESTION_DIFFICULTY_RANGES.length, ++x) {
+    if (score >= QUESTION_DIFFICULTY_RANGES[x][0] &&
+    score <= QUESTION_DIFFICULTY_RANGES[x][1]) {
+      difficultyScores.push(x+1);
+    }
+  }
+  return difficultyScores;
+}
+
 
 module.exports = {
   floatSmoother,
   stepSmoother,
+  difficultyFinder,
 };

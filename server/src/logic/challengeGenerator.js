@@ -1,5 +1,10 @@
 const random = require("lodash/random");
 const cloneDeep = require("lodash/cloneDeep");
+const difference = require("lodash/difference");
+
+const {
+  difficultyFinder,
+} = require("./utils");
 
 const {
   qaGenerate,
@@ -14,7 +19,9 @@ const {
 
 const {
   GraphQlDumpWarning,
-  SubSubjectHasNoQuestions,
+  MasteryNotFoundForSubSubject,
+  ChallengeHasNoTargetedSubSubjects,
+  ChallangeCouldNotFindSubSubjects,
 } = require("../errors");
 
 const PREFERENCE_NONE = 0;
@@ -28,9 +35,85 @@ class ChallengeGenerator {
 
   async challengeGenerate(courseId, subjectIds, subSubjectIds, size, ignoreRarity,
     ignoreDifficulty, ignorePreference) {
-    //
+    // Need to have Subject or SubSubject IDs defined.
+    if (subjectIds.length === 0 && subSubjectIds.length === 0) {
+      throw new ChallengeHasNoTargetedSubSubjects();
+    }
+
+    // First, need to get all subSubjectIds
+    const allSubSubjectIds = [];
+    if (subjectIds.length) {
+      allSubSubjectIds.push(...this.getSubSubjectsForSubjects(subjectIds));
+    }
+    if (subSubjectIds.length) {
+      allSubSubjectIds.push(...subSubjectIds);
+    }
+    if (allSubSubjectIds.length === 0) {
+      // There were no subSubjects at all. That shouldn't occur.
+      throw new ChallangeCouldNotFindSubSubjects(subjectIds.join(", "));
+    }
+
+    // Get all Mastery information for each SubSubject.
+    const subSubjectMasteryData = this.getMasteriesForSubSubjects(courseId, allSubSubjectIds);
+
+    // Make sure that every SubSubject has a Mastery.
+    const missingSubSubjects = difference(allSubSubjectIds, Object.keys(subSubjectMasteryData));
+    if (missingSubSubjects.length) {
+      // TODO Add a check that confirms that inputted SubSubject IDs are all valid.
+      throw new MasteryNotFoundForSubSubject(courseId, missingSubSubjects.join(", "));
+    }
+
+    // Get desired difficulties (if they're not ignored) for each SubSubject.
+    const subSubjectDifficulties = {};
+    if (!ignoreDifficulty) {
+      allSubSubjectIds.forEach((subSubjectId) => {
+        subSubjectDifficulties[subSubjectId] =
+          difficultyFinder(subSubjectMasteryData[subSubjectId].score);
+      });
+    }
+
+    // Get the Question IDs for each SubSubject.
+    const subSubjectQuestions =
+      this.getAllQuestionsForSubSubjects(allSubSubjectIds, subSubjectDifficulties);
+
+    // TODO get preference and call buildQuestionList()
   }
 
+
+  /**
+   * Using the Course ID this gets the connected Masteries of each targeted SubSubject ID.
+   * @param courseId
+   * @param subSubjectIds
+   * @returns {{ subSubjectId: { masteryId, masteryStatus, masteryScore } }}
+   */
+  async getMasteriesForSubSubjects(courseId, subSubjectIds) {
+    if (!courseId || subSubjectIds.length === 0) {
+      throw new GraphQlDumpWarning("query", "getMasteriesForSubSubjects");
+    }
+
+    const masteryData = await this.ctx.db.query.masteries(
+      {
+        where: {
+          AND: [
+            { parent: { id: courseId } },
+            { OR: subSubjectIds.map(subSubjectId => ({ subSubject: { id: subSubjectId } })) },
+          ],
+        },
+      },
+      "{ id, status, score, subSubject { id } }",
+    );
+
+    const subSubjectMasteryData = {};
+    masteryData.forEach((mastery) => {
+      subSubjectMasteryData[mastery.subSubject.id] = {
+        id: mastery.id,
+        status: mastery.status,
+        score: mastery.score,
+      };
+    });
+
+    return subSubjectMasteryData;
+  }
 
   /**
    * Retrieve all SubSubect IDs for a given list of Subjects IDs.
@@ -38,7 +121,11 @@ class ChallengeGenerator {
    * @returns [SubSubjectID]
    */
   async getSubSubjectsForSubjects(subjectIds) {
-    const subjectsData = this.ctx.db.query.subjects(
+    if (!Array.isArray(subjectIds) && subjectIds.length === 0) {
+      throw new GraphQlDumpWarning("query", "getSubSubjectsForSubjects");
+    }
+
+    const subjectsData = await this.ctx.db.query.subjects(
       {
         where: {
           OR: subjectIds.map(subjectId => ({ id: subjectId })),
@@ -64,50 +151,89 @@ class ChallengeGenerator {
   /**
    * Query all the Questions belonging to each SubSubject.
    * @param subSubjectIds
-   * @param difficulties Optional array of difficulties. ex: [1, 2]. If empty/null, will return all.
-   * @returns [{
+   * @param difficulties Object of difficulties where each key is a subSubjectId and contains an
+   *                      array of Ints, each representing a desired difficulty value. If empty
+   *                      it will not apply difficulty filtering.
+   * @returns {[{
    *            subSubjectid,
    *            rarity,
    *            toMetric,
    *            questions: [{ questionId, toMetric, type, difficulty }]
-   *          }]
+   *          }]}
    */
-  async getAllQuestionsForSubSubjects(subSubjectIds, difficulties = []) {
+  async getAllQuestionsForSubSubjects(subSubjectIds, difficulties = {}) {
     if (subSubjectIds.length === 0) {
       throw new GraphQlDumpWarning("query", "getAllQuestionsForSubSubjects");
     }
 
-    const difficultyClause = difficulties.length ?
-      `, { difficulty_in: [${difficulties.join(", ")}] }` : "";
+    // Construct the filtering criteria for the Questions.
+    const orClauses = {};
+    if (Object.keys(difficulties).length) {
+      // Find questions by their difficulty AND their parent SubSubject ID.
+      // Note: If the user's Mastery score was out of bounds, difficulty will be [], returning
+      // no questions.
+      orClauses.OR = subSubjectIds.map(subSubjectId =>
+        ({
+          AND: [
+            { difficulty_in: difficulties[subSubjectId] },
+            { parent: { id: subSubjectId } },
+          ],
+        }));
+    } else {
+      // We're not doing difficulty filtering. Find only by parent SubSubject ID.
+      orClauses.OR = subSubjectIds.map(subSubjectId =>
+        ({ parent: { id: subSubjectId } }));
+    }
 
-    const subSubjects = await this.ctx.db.query.subSubjects(
+    const questionData = await this.ctx.db.query.questions(
       {
         where: {
-          OR: subSubjectIds.map(subSubjectId => ({ id: subSubjectId })),
+          AND: [
+            { status: QUESTION_STATUS_ACTIVE },
+            orClauses,
+          ],
         },
       },
       `{
-        toMetric
-        rarity
-        questions( where: {
-          AND: [
-            { status: ${QUESTION_STATUS_ACTIVE} } ${difficultyClause}
-          ]
-        }) {
+        id
+        type
+        difficulty
+        status
+        parent {
           id
-          type
-          difficulty
+          toMetric
+          rarity
         }
       }`,
     );
 
-    // Add "toMetric" to every question, this will be used for surveys later
-    for (let x = 0; x < subSubjects.length; ++x) {
-      for (let y = 0; y < subSubjects[x].question.length; ++y) {
-        subSubjects[x].questions[y].toMetric = subSubjects[x].toMetric;
+    // Flip the structure around so we're organized by SubSubject.
+    const subSubjectQuestions = {};
+    subSubjectIds.forEach((subSubjectId) => {
+      subSubjectQuestions[subSubjectId] = {};
+    });
+
+    // Loop through all Questions and sort them by their parent SubSubject ID.
+    questionData.forEach((question) => {
+      // Using Object reference to save some character space.
+      const subSubjectRef = subSubjectQuestions[question.parent.id];
+      if (subSubjectRef.id === undefined) {
+        subSubjectRef.id = question.parent.id;
+        subSubjectRef.toMetric = question.parent.toMetric;
+        subSubjectRef.rarity = question.parent.rarity;
+        subSubjectRef.questions = [];
       }
-    }
-    return subSubjects;
+      subSubjectRef.questions.push({
+        id: question.id,
+        type: question.type,
+        difficulty: question.difficulty,
+        status: question.status,
+        // Add "toMetric" to every question, this will be used for surveys later.
+        toMetric: question.parent.toMetric,
+      });
+    });
+
+    return subSubjectQuestions;
   }
 }
 

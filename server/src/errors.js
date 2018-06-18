@@ -66,6 +66,12 @@ class MasteryNotFound extends Error {
   }
 }
 
+class MasteryNotFoundForSubSubject extends Error {
+  constructor(courseId, subSubjectId) {
+    super(`Course ${courseId} did not have a Mastery for SubSubject '${subSubjectId}'. It IS POSSIBLE the SubSubject does not exist`);
+  }
+}
+
 class QuestionNotFound extends Error {
   constructor(questionid) {
     super(`Question ${questionid} not found`);
@@ -150,6 +156,18 @@ class ConversionNegativeValue extends Error {
   }
 }
 
+class ChallengeHasNoTargetedSubSubjects extends Error {
+  constructor() {
+    super("Cannot generate a challenge when no Subjects or SubSubjects are requested");
+  }
+}
+
+class ChallangeCouldNotFindSubSubjects extends Error {
+  constructor(targetedSubjectIds) {
+    super(`Cannot generate a challenge with no SubSubjects. Could not find any in Subjects '${targetedSubjectIds}'`);
+  }
+}
+
 
 module.exports = {
   AuthError,
@@ -162,6 +180,7 @@ module.exports = {
   ClassroomNoUsersAdded,
   ClassroomNoUsersRemoved,
   MasteryNotFound,
+  MasteryNotFoundForSubSubject,
   QuestionNotFound,
   QuestionNotActive,
   StudentAlreadyEnrolled,
@@ -176,4 +195,6 @@ module.exports = {
   UnitTypeUnrecognized,
   ConversionIncompatible,
   ConversionNegativeValue,
+  ChallengeHasNoTargetedSubSubjects,
+  ChallangeCouldNotFindSubSubjects,
 };
