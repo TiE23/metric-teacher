@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 const jwt = require("jsonwebtoken");
 
 const {
@@ -53,7 +52,7 @@ async function getUserData(ctx, userId, fields) {
  * @param ctx
  * @param userIds
  * @param fields
- * @returns {Promise<void>}
+ * @returns [User]!
  */
 async function getUsersData(ctx, userIds, fields) {
   const whereClause = {
@@ -68,7 +67,7 @@ async function getUsersData(ctx, userIds, fields) {
     return users;
   }
 
-  throw new UserNotFound();
+  throw new UserNotFound(`(all of this list: ${userIds.join(", ")})`);
 }
 
 

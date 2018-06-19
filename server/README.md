@@ -147,10 +147,10 @@ If you ever do remote hosting, you'll need to change the endpoint's url to the r
     * Boolean (read: Integer 0 or 1) value the indicates of the Questions in this SubSubject are concerned with converting to (true) or from (false) metric.
 * `rarity` Scale from 0 to 100
     * A method of reducing the appearance of subsubjects' questions. It is a site-wide rarity setting that will *NOT* be adustable for different users.
-    For simplicity rarity is determined by this algorithm:
-        * _Generate a random number between 1 and 100. If rarity value is greater than that value it is excluded._
+    Rarity is determined by this algorithm:
+        * _Every subSubject gets 100 chances to be picked in for the next question. The rarity number reduces those chances. All the chances of all possible subSubjects for a challenge are added together and a random number between 1 and that cumulative value is picked. If the number picked falls on one of those "chances" the subSubject is picked._
     * Scale
-        * `0` or `1` - Common (default value, no chance of it being removed)
+        * `0` - Common (default value, no chance of it being removed)
         * `50` - Appears half-as-often (1 out of 2 chance of it appearing as often as common questions)
         * `100` - Most rare (1 out of 100 chance of it appearing as often as common questions)
 * `unit`
@@ -285,7 +285,7 @@ Examples:
   difficulty: 3,
   question: "If Jim is 6'1" and Harry is 195cm, who is taller?",
   answer: "195cm is about 6'5\" and 6'1\" is about 185cm. [Harry is taller|Jim is taller|They are about the same height]",
-  media: null,
+  media: "someMedia",
   parent: <<someSubSubject>>,
 }
 ```
@@ -296,6 +296,7 @@ Examples:
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
   flags: 0,
+  media: "someMedia",
 
   question: {
     data: null,
@@ -333,7 +334,7 @@ Examples:
   difficulty: 3,
   question: "This weight is typical of a 5 year old child. [35,45lb]",
   answer: "[kg]",
-  media: null,
+  media: "someMedia",
   parent: <<someSubSubject>>,
 }
 ```
@@ -344,6 +345,7 @@ Examples:
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
   flags: 0,
+  media: "someMedia",
 
   question: {
     detail: "This weight is typical of a 5 year old child.",
@@ -406,7 +408,7 @@ Examples:
   difficulty: 3,
   question: "How tall is the tallest person you personally know? Give your best guess if you don't know exactly. [70,96in]",
   answer: "[cm]",
-  media: null,
+  media: "someMedia",
   parent: <<someSubSubject>>,
 }
 ```
@@ -427,7 +429,8 @@ Examples:
   questionId: <<someQuestionId>>,
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
-  flags: 1,
+  flags: 2,
+  media: "someMedia",
 
   question: {
     detail: "",

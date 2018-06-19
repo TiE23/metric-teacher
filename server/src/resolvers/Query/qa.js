@@ -3,12 +3,16 @@ const {
 } = require("../../utils");
 
 const {
+  AuthError,
+  CourseNotFound,
+  CourseInactive,
   QuestionNotFound,
   QuestionNotActive,
 } = require("../../errors");
 
 const {
   USER_TYPE_STUDENT,
+  USER_STATUS_NORMAL,
   COURSE_STATUS_ACTIVE,
   QUESTION_STATUS_ACTIVE,
   QUESTION_TYPE_SURVEY,
@@ -18,13 +22,17 @@ const {
   qaGenerate,
 } = require("../../logic/qaGenerator");
 
+const {
+  ChallengeGenerator,
+} = require("../../logic/challengeGenerator");
+
 
 const qa = {
   // TODO this needs to be polished - Likely in ISSUE-020.
   async getQa(parent, args, ctx) {
     const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
-      action: "query testGetQa",
+      action: "testGetQa",
     }); // Must be logged in
     const questionObject = await ctx.db.query.question(
       { where: { id: args.questionid } },
@@ -101,6 +109,73 @@ const qa = {
     }
 
     return qaGenerate(questionObject);
+  },
+
+
+  /**
+   *
+   * @param parent
+   * @param args
+   *        courseid: ID!
+   *        subjectids: [ID]
+   *        subsubjectids: [ID]
+   *        listSize: Int!
+   *        ignorerarity: Boolean
+   *        ignoredifficulty: Boolean
+   *        ignorepreference: Boolean
+   * @param ctx
+   * @returns [QaObject]!
+   */
+  async generateChallenge(parent, args, ctx) {
+    // Must be normal status.
+    const callingUserData = await checkAuth(ctx, {
+      type: USER_TYPE_STUDENT,
+      status: USER_STATUS_NORMAL,
+      action: "generateChallenge",
+    });
+
+    const courseData = await ctx.db.query.course(
+      {
+        where: { id: args.courseid },
+      },
+      `{
+        status
+        parent {
+          student {
+            id
+          }
+        }
+      }`,
+    );
+
+    // If the Course cannot be found, stop here.
+    if (!courseData) {
+      throw new CourseNotFound(args.courseid);
+    }
+
+    // If calling user is a Student check that the Course belongs to the student.
+    if (callingUserData.type === USER_TYPE_STUDENT &&
+      callingUserData.id !== courseData.parent.student.id) {
+      throw new AuthError(
+        `Student ${callingUserData.id} cannot generate a Challenge for a Course (${args.courseid}) that doesn't belong to them`,
+        "generateChallenge",
+      );
+    }
+
+    if (courseData.status !== COURSE_STATUS_ACTIVE) {
+      throw new CourseInactive(args.courseid);
+    }
+
+    const ChallengeGen = new ChallengeGenerator(ctx);
+    return ChallengeGen.generateChallenge(
+      args.courseid,
+      args.subjectids || [],
+      args.subsubjectids || [],
+      args.listSize,
+      args.ignorerarity || false,
+      args.ignoredifficulty || false,
+      args.ignorepreference || false,
+    );
   },
 };
 

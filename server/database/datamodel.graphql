@@ -1,6 +1,8 @@
 # Users can be students (normal account), teachers, moderators, or admins
 type User {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   email: String! @unique
   password: String!
   honorific: String
@@ -17,6 +19,8 @@ type User {
 # connect to each other.
 type Classroom {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   description: String!
   status: Int!
@@ -29,6 +33,8 @@ type Classroom {
 # A student has a single enrollment row. An enrollment is their place in the school.
 type Enrollment {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   student: User! @relation(name: "UserToEnrollment")
   courses: [Course!]! @relation(name: "EnrollmentToCourse")
 }
@@ -40,6 +46,8 @@ type Enrollment {
 # prepare for a future where a student may have multiple courses.
 type Course {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   status: Int!
   flags: Int!
   parent: Enrollment! @relation(name: "EnrollmentToCourse")
@@ -52,6 +60,8 @@ type Course {
 # and a subsubject. This is also where a student could
 type Mastery {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   status: Int!
   score: Int!
   parent: Course! @relation(name: "CourseToMastery")
@@ -67,6 +77,8 @@ type Mastery {
 # And finally ask the user to identify the metric value.
 type Survey {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   status: Int!
   score: Int!
   answer: String!
@@ -78,6 +90,8 @@ type Survey {
 # This is a shared subject of questions, such as length, temperature, or speed.
 type Subject {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String! @unique
   description: String!
   measurementDescription: String!
@@ -93,6 +107,8 @@ type Subject {
 # [length, room-sized, to metric], [length, room-sized, from metric], etc
 type SubSubject {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String! @unique
   description: String!
   toMetric: Boolean!
@@ -105,6 +121,8 @@ type SubSubject {
 # These are pre-defined questions.
 type Question {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   type: Int!
   status: Int!
   flags: Int!

@@ -19,86 +19,98 @@ class GraphQlDumpWarning extends Error {
 }
 
 class UserNotFound extends Error {
-  constructor(userid) {
-    super(`User ${userid} not found`);
+  constructor(userId) {
+    super(`User ${userId} not found`);
   }
 }
 
 class UserMustBe extends Error {
-  constructor(userid, neededType) {
-    super(`User ${userid} must be type ${neededType}`);
+  constructor(userId, neededType) {
+    super(`User ${userId} must be type ${neededType}`);
   }
 }
 
 class CourseNotFound extends Error {
-  constructor(courseid) {
-    super(`Course ${courseid} not found`);
+  constructor(courseId) {
+    super(`Course ${courseId} not found`);
+  }
+}
+
+class CourseInactive extends Error {
+  constructor(courseId) {
+    super(`Course ${courseId} is inactive`);
   }
 }
 
 class CourseNoSubSubjectsAdded extends Error {
-  constructor(courseid) {
-    super(`No SubSubjects added to Course ${courseid}`);
+  constructor(courseId) {
+    super(`No SubSubjects added to Course ${courseId}`);
   }
 }
 
 class ClassroomNotFound extends Error {
-  constructor(classroomid) {
-    super(`Classroom ${classroomid} not found`);
+  constructor(classroomId) {
+    super(`Classroom ${classroomId} not found`);
   }
 }
 
 class ClassroomNoUsersAdded extends Error {
-  constructor(classroomid) {
-    super(`No Users added to Classroom ${classroomid}`);
+  constructor(classroomId) {
+    super(`No Users added to Classroom ${classroomId}`);
   }
 }
 
 class ClassroomNoUsersRemoved extends Error {
-  constructor(classroomid) {
-    super(`No Users removed from Classroom ${classroomid}`);
+  constructor(classroomId) {
+    super(`No Users removed from Classroom ${classroomId}`);
   }
 }
 
 class MasteryNotFound extends Error {
-  constructor(masteryid) {
-    super(`Mastery ${masteryid} not found`);
+  constructor(masteryId) {
+    super(`Mastery ${masteryId} not found`);
+  }
+}
+
+class MasteryNotFoundForSubSubject extends Error {
+  constructor(courseId, subSubjectId) {
+    super(`Course ${courseId} did not have a Mastery for SubSubject '${subSubjectId}'. It IS POSSIBLE the SubSubject does not exist`);
   }
 }
 
 class QuestionNotFound extends Error {
-  constructor(questionid) {
-    super(`Question ${questionid} not found`);
+  constructor(questionId) {
+    super(`Question ${questionId} not found`);
   }
 }
 
 class QuestionNotActive extends Error {
-  constructor(questionid) {
-    super(`Question ${questionid} not active`);
+  constructor(questionId) {
+    super(`Question ${questionId} not active`);
   }
 }
 
 class StudentAlreadyEnrolled extends Error {
-  constructor(userid) {
-    super(`User ${userid} already enrolled`);
+  constructor(userId) {
+    super(`User ${userId} already enrolled`);
   }
 }
 
 class StudentNotEnrolled extends Error {
-  constructor(userid, action) {
-    super(`User ${userid} not enrolled. Cannot perform '${action}'`);
+  constructor(userId, action) {
+    super(`User ${userId} not enrolled. Cannot perform '${action}'`);
   }
 }
 
 class StudentNotOwner extends Error {
-  constructor(studentid, objectid, objectname) {
-    super(`Student ${studentid} not owner of ${objectname} ${objectid}`);
+  constructor(studentId, objectId, objectName) {
+    super(`Student ${studentId} not owner of ${objectName} ${objectId}`);
   }
 }
 
 class SurveyNotFound extends Error {
-  constructor(surveyid) {
-    super(`Survey ${surveyid} not found`);
+  constructor(surveyId) {
+    super(`Survey ${surveyId} not found`);
   }
 }
 
@@ -150,6 +162,17 @@ class ConversionNegativeValue extends Error {
   }
 }
 
+class ChallengeHasNoTargetedSubSubjects extends Error {
+  constructor() {
+    super("Cannot generate a challenge when no Subjects or SubSubjects are requested");
+  }
+}
+
+class ChallengeCouldNotFindSubSubjects extends Error {
+  constructor(targetedSubjectIds) {
+    super(`Cannot generate a challenge with no SubSubjects. Could not find any in Subjects '${targetedSubjectIds}'`);
+  }
+}
 
 module.exports = {
   AuthError,
@@ -157,11 +180,13 @@ module.exports = {
   UserNotFound,
   UserMustBe,
   CourseNotFound,
+  CourseInactive,
   CourseNoSubSubjectsAdded,
   ClassroomNotFound,
   ClassroomNoUsersAdded,
   ClassroomNoUsersRemoved,
   MasteryNotFound,
+  MasteryNotFoundForSubSubject,
   QuestionNotFound,
   QuestionNotActive,
   StudentAlreadyEnrolled,
@@ -176,4 +201,6 @@ module.exports = {
   UnitTypeUnrecognized,
   ConversionIncompatible,
   ConversionNegativeValue,
+  ChallengeHasNoTargetedSubSubjects,
+  ChallengeCouldNotFindSubSubjects,
 };

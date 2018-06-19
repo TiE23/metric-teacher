@@ -93,14 +93,14 @@ mutation {
         },
         {
           name: "Length - Astronomical-scale - To Metric"
-          description: "Greater than 16,000 kilometers. A scale concerned with vast distances. Such as the diameter of planets, the distance between planets,  the distances between stars, etc."
+          description: "Greater than 16,000 kilometers. A scale concerned with vast distances. Such as the diameter of planets, the distance between planets, the distances between stars, etc."
           toMetric: true
           rarity: 0
           scale: "astronomical"
         },
         {
           name: "Length - Astronomical-scale - From Metric"
-          description: "Greater than 10,000 miles. A scale concerned with vast distances. Such as the diameter of planets, the distance between planets,  the distances between stars, etc."
+          description: "Greater than 10,000 miles. A scale concerned with vast distances. Such as the diameter of planets, the distance between planets, the distances between stars, etc."
           toMetric: false
           rarity: 0
           scale: "astronomical"
@@ -675,7 +675,7 @@ mutation {
 
   # Conversion
   question_length_hand_fromMetric_004: createQuestion(data: {
-    type: 0
+    type: 1
     status: 0
     flags: 0
     difficulty: 4
@@ -1088,6 +1088,72 @@ mutation {
     id
   }
 
+  # Survey
+  question_length_human_fromMetric_011: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "How tall are you? [100,230cm]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_012: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Starting at what height would you describe an adult man to be 'very tall'? [180,305cm]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_013: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 1
+    difficulty: 3
+    question: "How tall is the tallest person you personally know? Give your best guess if you don't know exactly. [178,240cm]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_014: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 2
+    difficulty: 3
+    question: "How tall is the last friend you spoke to and what is their name? Give your best guess if you don't know exactly. [60,240cm]"
+    answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
   ### Room
   ## To Metric
   # Written
@@ -1301,7 +1367,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "[0.5km,10km(0.5)s]"
+    question: "[0.5,10km(0.5)s]"
     answer: "[mi(0.2)a]"
     media: ""
     parent: {
@@ -2348,6 +2414,40 @@ mutation {
     flags: 0
     difficulty: 3
     question: "If this was the temperature outside you should beware of dehydration. [30,40f]"
+    answer: "[f]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Survey
+  question_temperature_weather_fromMetric_011: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Personally, what temperature would you consider the perfect room temperature? [18,28c]"
+    answer: "[f]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_012: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Personally, starting at what temperature would you consider wearing shorts or a skirt? [10,38c]"
     answer: "[f]"
     media: ""
     parent: {
