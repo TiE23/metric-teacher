@@ -12,6 +12,7 @@ const {
 
 const {
   CHANCES_COUNT,
+  COURSE_FLAG_PREFER_METRIC,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
   QUESTION_STATUS_ACTIVE,
@@ -21,19 +22,32 @@ const {
   GraphQlDumpWarning,
   MasteryNotFoundForSubSubject,
   ChallengeHasNoTargetedSubSubjects,
-  ChallangeCouldNotFindSubSubjects,
+  ChallengeCouldNotFindSubSubjects,
 } = require("../errors");
 
-const PREFERENCE_NONE = 0;
-const PREFERENCE_IMPERIAL = 1;
-const PREFERENCE_METRIC = 2;
+const PREFERENCE_NONE = "none";
+const PREFERENCE_IMPERIAL = "imperial";
+const PREFERENCE_METRIC = "metric";
 
 class ChallengeGenerator {
   constructor(ctx) {
     this.ctx = ctx;
   }
 
-  async challengeGenerate(courseId, subjectIds, subSubjectIds, size, ignoreRarity,
+
+  /**
+   * Function that coordinates all the needed behaviors to build a challenge into one point of
+   * access.
+   * @param courseId
+   * @param subjectIds
+   * @param subSubjectIds
+   * @param listSize
+   * @param ignoreRarity
+   * @param ignoreDifficulty
+   * @param ignorePreference
+   * @returns [QAObjects]
+   */
+  async generateChallenge(courseId, subjectIds, subSubjectIds, listSize, ignoreRarity,
     ignoreDifficulty, ignorePreference) {
     // Need to have Subject or SubSubject IDs defined.
     if (subjectIds.length === 0 && subSubjectIds.length === 0) {
@@ -50,7 +64,7 @@ class ChallengeGenerator {
     }
     if (allSubSubjectIds.length === 0) {
       // There were no subSubjects at all. That shouldn't occur.
-      throw new ChallangeCouldNotFindSubSubjects(subjectIds.join(", "));
+      throw new ChallengeCouldNotFindSubSubjects(subjectIds.join(", "));
     }
 
     // Get all Mastery information for each SubSubject.
@@ -76,7 +90,115 @@ class ChallengeGenerator {
     const subSubjectQuestions =
       this.getAllQuestionsForSubSubjects(allSubSubjectIds, subSubjectDifficulties);
 
-    // TODO get preference and call buildQuestionList()
+    // Get course preference and build the final list of questions.
+    const preference = ignorePreference ? PREFERENCE_NONE : this.getCoursePreference(courseId);
+    const questionIds = buildQuestionList(
+      subSubjectQuestions,
+      listSize,
+      preference,
+      ignoreRarity,
+    );
+
+    // Get the content of the selected questions and get any Survey data the Course may have.
+    const questionData = this.getQuestionData(questionIds);
+    const surveyData = this.getCourseSurveys(courseId, questionIds);
+
+    // Finally, parse the Question and (if present) Survey data to generate an array of QA objects.
+    return questionData.map((question) => {
+      if (surveyData[question.id]) {
+        return qaGenerate(question, surveyData[question.id]);
+      }
+      return qaGenerate(question);
+    });
+  }
+
+
+  /**
+   * Simple function gets all the necessary Question data necessary for QA generation from a list of
+   * Question IDs.
+   * @param questionIds
+   * @returns [Question]!
+   */
+  async getQuestionData(questionIds) {
+    return this.ctx.db.query.questions(
+      {
+        where: {
+          OR: questionIds.map(questionId => ({ id: questionId })),
+        },
+      },
+      `{
+        id
+        type
+        status
+        flags
+        difficulty
+        question
+        answer
+        media
+        parent {
+          id
+        }
+      }`,
+    );
+  }
+
+
+  /**
+   * Simple function gets Surveys that belong to the course and are associated with particular
+   * Questions as determined by their IDs.
+   * @param courseId
+   * @param questionIds
+   * @returns [Survey]!
+   */
+  async getCourseSurveys(courseId, questionIds) {
+    const surveyData = await this.ctx.db.query.surveys(
+      {
+        where: {
+          AND: [
+            { parent: { id: courseId } },
+            { OR: questionIds.map(questionId => ({ question: { id: questionId } })) },
+          ],
+        },
+      },
+      `{
+        id
+        score
+        answer
+        detail
+        parent {
+          id
+        }
+        question {
+          id
+        }
+      }`,
+    );
+
+    // To make the data format convenient organize each Survey by Question Id.
+    const surveys = {};
+    surveyData.forEach((survey) => {
+      surveys[survey.question.id] = survey;
+    });
+
+    return surveys;
+  }
+
+
+  /**
+   * Simple function queries the server for a course's flags to see if the flag indicating a
+   * preference for Metric measurements is present and returns one of two constants.
+   * @param courseId
+   * @returns {String}
+   */
+  async getCoursePreference(courseId) {
+    const courseData = await this.ctx.db.query.course(
+      { where: { id: courseId } },
+      "{ flags }",
+    );
+    if (courseData.flags & COURSE_FLAG_PREFER_METRIC) {
+      return PREFERENCE_METRIC;
+    }
+    return PREFERENCE_IMPERIAL;
   }
 
 
@@ -114,6 +236,7 @@ class ChallengeGenerator {
 
     return subSubjectMasteryData;
   }
+
 
   /**
    * Retrieve all SubSubect IDs for a given list of Subjects IDs.
@@ -245,15 +368,15 @@ class ChallengeGenerator {
  * @param listSize    Desired question payload size. This is not guaranteed but will attempt to get
  *                    as close as possible.
  * @param preference
- * @param useRarity
+ * @param ignoreRarity
  * @returns [QuestionID]
  */
-function buildQuestionList(subSubjectQuestions, listSize, preference, useRarity) {
+function buildQuestionList(subSubjectQuestions, listSize, preference, ignoreRarity) {
   // We're going to be performing slices on these arrays, so let's deep clone it be be sanitary.
   const ssqClone = cloneDeep(subSubjectQuestions);
 
   // Build a lottery
-  const { lotteryRanges, lotteryTotal } = lotteryBuilder(ssqClone, useRarity);
+  const { lotteryRanges, lotteryTotal } = lotteryBuilder(ssqClone, ignoreRarity);
 
   const questionIds = [];
   const maxAttempts = listSize * 3;  // Will attempt up to 3 times the requested size.
@@ -282,8 +405,8 @@ function buildQuestionList(subSubjectQuestions, listSize, preference, useRarity)
     // Users with metric preference will not get "toMetric" Survey questions.
     // Users with imperial preference will not get !"toMetric" (i.e. "toImperial") Survey questions.
     if ((winnerQuestion.type === QUESTION_TYPE_SURVEY) &&
-      ((preference === "metric" && winnerQuestion.toMetric) ||
-        (preference === "imperial" && !winnerQuestion.toMetric))
+      ((preference === PREFERENCE_METRIC && winnerQuestion.toMetric) ||
+        (preference === PREFERENCE_IMPERIAL && !winnerQuestion.toMetric))
     ) {
       continue; // eslint-disable-line no-continue
     }
@@ -310,21 +433,22 @@ function buildQuestionList(subSubjectQuestions, listSize, preference, useRarity)
  * (basically 10% as likely).
  * This lottery system works because similarly-rare SubSubjects will have equal chance.
  * @param subSubjectQuestions
- * @param useRarity
+ * @param ignoreRarity
  * @returns {{lotteryRanges: Array, lotteryTotal: number}}
  */
-function lotteryBuilder(subSubjectQuestions, useRarity) {
+function lotteryBuilder(subSubjectQuestions, ignoreRarity) {
   const lotteryRanges = [];
   let lotteryTotal = 0;
   subSubjectQuestions.forEach((subSubjectObject) => {
-    // If using rarity, determine the chances.
+    // If ignoring rarity, give every SubSubject the same number of chances.
+    // Else, if using rarity, determine the chances.
     // Use min() and max() to prevent 0-chance and increased chances.
-    const chances = useRarity ?
+    const chances = ignoreRarity ?
+      1 :
       Math.min(
         CHANCES_COUNT,
         Math.max(1, CHANCES_COUNT - subSubjectObject.rarity),
-      ) :
-      CHANCES_COUNT;
+      );
 
     // Define the range. Ex: if you had 0 rarity, 50 rarity, and 99 rarity SubSubjects the range
     // would be: [[1, 100], [101, 150], [151, 151]]

@@ -79,7 +79,7 @@ function stepSmoother(value, step) {
 
 function difficultyFinder(score) {
   const difficultyScores = [];
-  for (let x = 0; x < QUESTION_DIFFICULTY_RANGES.length, ++x) {
+  for (let x = 0; x < QUESTION_DIFFICULTY_RANGES.length; ++x) {
     if (score >= QUESTION_DIFFICULTY_RANGES[x][0] &&
     score <= QUESTION_DIFFICULTY_RANGES[x][1]) {
       difficultyScores.push(x+1);

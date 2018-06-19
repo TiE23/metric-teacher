@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 const jwt = require("jsonwebtoken");
 
 const {
