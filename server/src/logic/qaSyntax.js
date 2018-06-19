@@ -191,7 +191,7 @@ function parseQuestionString(type, question) {
 
     // Make sure the unit is recognized.
     if (UNITS[unit] === undefined) {
-      throw new QuestionSyntaxError(question, `Unit "${unit}" not recognized`);
+      throw new QuestionSyntaxError(question, `Unit '${unit}' not recognized`);
     }
 
     questionPayload.data.rangeBottom = valueA;
@@ -231,7 +231,7 @@ function parseQuestionString(type, question) {
   } else {  // eslint-disable-line no-else-return
     throw new QuestionSyntaxError(
       question,
-      `Question type "${type}" was not expected with question "${question}"`,
+      `Question type '${type}' was not expected with question '${question}'`,
     );
   }
 }

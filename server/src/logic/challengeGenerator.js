@@ -57,7 +57,7 @@ class ChallengeGenerator {
     // First, need to get all subSubjectIds
     const allSubSubjectIds = [];
     if (subjectIds.length) {
-      allSubSubjectIds.push(...this.getSubSubjectsForSubjects(subjectIds));
+      allSubSubjectIds.push(...await this.getSubSubjectsForSubjects(subjectIds));
     }
     if (subSubjectIds.length) {
       allSubSubjectIds.push(...subSubjectIds);
@@ -68,7 +68,7 @@ class ChallengeGenerator {
     }
 
     // Get all Mastery information for each SubSubject.
-    const subSubjectMasteryData = this.getMasteriesForSubSubjects(courseId, allSubSubjectIds);
+    const subSubjectMasteryData = await this.getMasteriesForSubSubjects(courseId, allSubSubjectIds);
 
     // Make sure that every SubSubject has a Mastery.
     const missingSubSubjects = difference(allSubSubjectIds, Object.keys(subSubjectMasteryData));
@@ -88,10 +88,11 @@ class ChallengeGenerator {
 
     // Get the Question IDs for each SubSubject.
     const subSubjectQuestions =
-      this.getAllQuestionsForSubSubjects(allSubSubjectIds, subSubjectDifficulties);
+      await this.getQuestionsForSubSubjects(allSubSubjectIds, subSubjectDifficulties);
 
     // Get course preference and build the final list of questions.
-    const preference = ignorePreference ? PREFERENCE_NONE : this.getCoursePreference(courseId);
+    const preference = ignorePreference ?
+      PREFERENCE_NONE : await this.getCoursePreference(courseId);
     const questionIds = buildQuestionList(
       subSubjectQuestions,
       listSize,
@@ -100,16 +101,23 @@ class ChallengeGenerator {
     );
 
     // Get the content of the selected questions and get any Survey data the Course may have.
-    const questionData = this.getQuestionData(questionIds);
-    const surveyData = this.getCourseSurveys(courseId, questionIds);
+    const questionData = await this.getQuestionData(questionIds);
+    const surveyData = await this.getCourseSurveys(courseId, questionIds);
 
     // Finally, parse the Question and (if present) Survey data to generate an array of QA objects.
-    return questionData.map((question) => {
-      if (surveyData[question.id]) {
-        return qaGenerate(question, surveyData[question.id]);
+    const qaList = [];
+    const questionKeys = Object.keys(questionData);
+    for (let x = 0; x < questionKeys.length; ++x) {
+      if (surveyData[questionData[questionKeys[x]].id]) {
+        qaList.push(qaGenerate(
+          questionData[questionKeys[x]],
+          surveyData[questionData[questionKeys[x]].id],
+        ));
       }
-      return qaGenerate(question);
-    });
+      qaList.push(qaGenerate(questionData[questionKeys[x]]));
+    }
+
+    return qaList;
   }
 
 
@@ -120,6 +128,10 @@ class ChallengeGenerator {
    * @returns [Question]!
    */
   async getQuestionData(questionIds) {
+    if (!Array.isArray(questionIds) || questionIds.length < 1) {
+      throw new GraphQlDumpWarning("query", "getQuestionData");
+    }
+
     return this.ctx.db.query.questions(
       {
         where: {
@@ -272,7 +284,7 @@ class ChallengeGenerator {
 
 
   /**
-   * Query all the Questions belonging to each SubSubject.
+   * Query the active Questions belonging to each SubSubject filtered by requested difficulties.
    * @param subSubjectIds
    * @param difficulties Object of difficulties where each key is a subSubjectId and contains an
    *                      array of Ints, each representing a desired difficulty value. If empty
@@ -284,9 +296,9 @@ class ChallengeGenerator {
    *            questions: [{ questionId, toMetric, type, difficulty }]
    *          }]}
    */
-  async getAllQuestionsForSubSubjects(subSubjectIds, difficulties = {}) {
+  async getQuestionsForSubSubjects(subSubjectIds, difficulties = {}) {
     if (subSubjectIds.length === 0) {
-      throw new GraphQlDumpWarning("query", "getAllQuestionsForSubSubjects");
+      throw new GraphQlDumpWarning("query", "getQuestionsForSubSubjects");
     }
 
     // Construct the filtering criteria for the Questions.
@@ -332,15 +344,14 @@ class ChallengeGenerator {
 
     // Flip the structure around so we're organized by SubSubject.
     const subSubjectQuestions = {};
-    subSubjectIds.forEach((subSubjectId) => {
-      subSubjectQuestions[subSubjectId] = {};
-    });
 
     // Loop through all Questions and sort them by their parent SubSubject ID.
     questionData.forEach((question) => {
       // Using Object reference to save some character space.
-      const subSubjectRef = subSubjectQuestions[question.parent.id];
-      if (subSubjectRef.id === undefined) {
+      let subSubjectRef = subSubjectQuestions[question.parent.id];
+      if (subSubjectRef === undefined) {
+        subSubjectQuestions[question.parent.id] = {};
+        subSubjectRef = subSubjectQuestions[question.parent.id];
         subSubjectRef.id = question.parent.id;
         subSubjectRef.toMetric = question.parent.toMetric;
         subSubjectRef.rarity = question.parent.rarity;
@@ -374,6 +385,7 @@ class ChallengeGenerator {
 function buildQuestionList(subSubjectQuestions, listSize, preference, ignoreRarity) {
   // We're going to be performing slices on these arrays, so let's deep clone it be be sanitary.
   const ssqClone = cloneDeep(subSubjectQuestions);
+  const subSubjectKeys = Object.keys(subSubjectQuestions);
 
   // Build a lottery
   const { lotteryRanges, lotteryTotal } = lotteryBuilder(ssqClone, ignoreRarity);
@@ -391,15 +403,17 @@ function buildQuestionList(subSubjectQuestions, listSize, preference, ignoreRari
     if (winnerSubSubjectPos === -1) {
       throw new Error(`Could not pick lottery. Ranges: ${lotteryRanges}, Total: ${lotteryTotal}`);
     }
+    const winnerSubSubjectId = subSubjectKeys[winnerSubSubjectPos];
 
     // This subSubject had no valid questions available.
-    if (ssqClone[winnerSubSubjectPos].question.length < 1) {
+    if (ssqClone[winnerSubSubjectId] === undefined ||
+      ssqClone[winnerSubSubjectId].questions.length === 0) {
       continue; // eslint-disable-line no-continue
     }
 
     // Pick a random question
-    const winnerQuestionPos = random(0, ssqClone[winnerSubSubjectPos].questions.length);
-    const winnerQuestion = ssqClone[winnerSubSubjectPos].questions[winnerQuestionPos];
+    const winnerQuestionPos = random(0, ssqClone[winnerSubSubjectId].questions.length - 1);
+    const winnerQuestion = ssqClone[winnerSubSubjectId].questions[winnerQuestionPos];
 
     // Check preference option for Survey type questions.
     // Users with metric preference will not get "toMetric" Survey questions.
@@ -416,8 +430,8 @@ function buildQuestionList(subSubjectQuestions, listSize, preference, ignoreRari
 
     // Conversion questions can be repeated. Written and Surveys will not be repeated.
     if (winnerQuestion.type !== QUESTION_TYPE_CONVERSION) {
-      ssqClone[winnerSubSubjectPos].questions =
-        ssqClone[winnerSubSubjectPos].questions.slice(winnerQuestionPos, 1);
+      ssqClone[winnerSubSubjectId].questions =
+        ssqClone[winnerSubSubjectId].questions.slice(winnerQuestionPos, 1);
     }
   }
 
@@ -439,7 +453,8 @@ function buildQuestionList(subSubjectQuestions, listSize, preference, ignoreRari
 function lotteryBuilder(subSubjectQuestions, ignoreRarity) {
   const lotteryRanges = [];
   let lotteryTotal = 0;
-  subSubjectQuestions.forEach((subSubjectObject) => {
+  const subSubjectKeys = Object.keys(subSubjectQuestions);
+  for (let x = 0; x < subSubjectKeys.length; ++x) {
     // If ignoring rarity, give every SubSubject the same number of chances.
     // Else, if using rarity, determine the chances.
     // Use min() and max() to prevent 0-chance and increased chances.
@@ -447,14 +462,14 @@ function lotteryBuilder(subSubjectQuestions, ignoreRarity) {
       1 :
       Math.min(
         CHANCES_COUNT,
-        Math.max(1, CHANCES_COUNT - subSubjectObject.rarity),
+        Math.max(1, CHANCES_COUNT - subSubjectQuestions[subSubjectKeys[x]].rarity),
       );
 
     // Define the range. Ex: if you had 0 rarity, 50 rarity, and 99 rarity SubSubjects the range
     // would be: [[1, 100], [101, 150], [151, 151]]
     lotteryRanges.push([lotteryTotal + 1, lotteryTotal + chances]);
     lotteryTotal += chances;
-  });
+  }
 
   return { lotteryRanges, lotteryTotal };
 }

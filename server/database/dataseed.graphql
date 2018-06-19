@@ -675,7 +675,7 @@ mutation {
 
   # Conversion
   question_length_hand_fromMetric_004: createQuestion(data: {
-    type: 0
+    type: 1
     status: 0
     flags: 0
     difficulty: 4

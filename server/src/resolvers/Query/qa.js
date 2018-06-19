@@ -134,7 +134,7 @@ const qa = {
       action: "generateChallenge",
     });
 
-    const courseData = ctx.db.query.course(
+    const courseData = await ctx.db.query.course(
       {
         where: { id: args.courseid },
       },
