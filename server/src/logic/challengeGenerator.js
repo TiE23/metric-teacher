@@ -111,17 +111,19 @@ class ChallengeGenerator {
 
     // Finally, parse the Question and (if present) Survey data to generate an array of QA objects.
     const qaList = [];
+
+    // Because questionData has only unique Questions (i.e. no repeats) we need to loop off the
+    // questionIds array instead for the full listSize of questions. That way repeated questions
+    // (randomly generate conversion questions) can be repeated in the final QA list.
     for (let x = 0; x < questionIds.length; ++x) {
-      // Because questionData has only unique Questions (i.e. no repeats) we need to loop off the
-      // questionIds array instead for the full listSize of questions. That way repeated questions
-      // (randomly generate conversion questions) can be repeated in the final QA list.
       if (surveyData[questionIds[x]]) {
         qaList.push(qaGenerate(
           questionData[questionIds[x]],
           surveyData[questionIds[x]],
         ));
+      } else {
+        qaList.push(qaGenerate(questionData[questionIds[x]]));
       }
-      qaList.push(qaGenerate(questionData[questionIds[x]]));
     }
 
     return qaList;
@@ -450,8 +452,8 @@ function buildQuestionList(subSubjectQuestions, listSize, preference, ignoreRari
 
     // Conversion questions can be repeated. Written and Surveys will not be repeated.
     if (winnerQuestion.type !== QUESTION_TYPE_CONVERSION) {
-      ssqClone[winnerSubSubjectId].questions =
-        ssqClone[winnerSubSubjectId].questions.slice(winnerQuestionPos, 1);
+      // Remove the Question from the list of options.
+      ssqClone[winnerSubSubjectId].questions.splice(winnerQuestionPos, 1);
     }
   }
 
