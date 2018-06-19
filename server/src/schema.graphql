@@ -95,6 +95,8 @@ type AuthPayload {
 # It does, however, expose first and last names. So take note about ever making this truly public.
 type User {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   honorific: String
   fname: String!
   lname: String!
@@ -106,6 +108,8 @@ type User {
 # For private use. It does not expose password.
 type PrivateUser {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   email: String!
   honorific: String
   fname: String!
