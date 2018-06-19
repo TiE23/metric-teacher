@@ -1,6 +1,7 @@
 const random = require("lodash/random");
 const cloneDeep = require("lodash/cloneDeep");
 const difference = require("lodash/difference");
+const uniq = require("lodash/uniq");
 
 const {
   difficultyFinder,
@@ -55,13 +56,17 @@ class ChallengeGenerator {
     }
 
     // First, need to get all subSubjectIds
-    const allSubSubjectIds = [];
+    let allSubSubjectIds = [];
     if (subjectIds.length) {
       allSubSubjectIds.push(...await this.getSubSubjectsForSubjects(subjectIds));
     }
     if (subSubjectIds.length) {
       allSubSubjectIds.push(...subSubjectIds);
     }
+
+    // Remove any subSubject ID duplicates.
+    allSubSubjectIds = uniq(allSubSubjectIds);
+
     if (allSubSubjectIds.length === 0) {
       // There were no subSubjects at all. That shouldn't occur.
       throw new ChallengeCouldNotFindSubSubjects(subjectIds.join(", "));
@@ -106,15 +111,17 @@ class ChallengeGenerator {
 
     // Finally, parse the Question and (if present) Survey data to generate an array of QA objects.
     const qaList = [];
-    const questionKeys = Object.keys(questionData);
-    for (let x = 0; x < questionKeys.length; ++x) {
-      if (surveyData[questionData[questionKeys[x]].id]) {
+    for (let x = 0; x < questionIds.length; ++x) {
+      // Because questionData has only unique Questions (i.e. no repeats) we need to loop off the
+      // questionIds array instead for the full listSize of questions. That way repeated questions
+      // (randomly generate conversion questions) can be repeated in the final QA list.
+      if (surveyData[questionIds[x]]) {
         qaList.push(qaGenerate(
-          questionData[questionKeys[x]],
-          surveyData[questionData[questionKeys[x]].id],
+          questionData[questionIds[x]],
+          surveyData[questionIds[x]],
         ));
       }
-      qaList.push(qaGenerate(questionData[questionKeys[x]]));
+      qaList.push(qaGenerate(questionData[questionIds[x]]));
     }
 
     return qaList;
@@ -125,14 +132,19 @@ class ChallengeGenerator {
    * Simple function gets all the necessary Question data necessary for QA generation from a list of
    * Question IDs.
    * @param questionIds
-   * @returns [Question]!
+   * @returns {{ questionId: {
+   *               id, type, status, flags, difficulty, question, answer, media, parent: {
+   *                id
+   *               }
+   *             }
+   *          }}
    */
   async getQuestionData(questionIds) {
     if (!Array.isArray(questionIds) || questionIds.length < 1) {
       throw new GraphQlDumpWarning("query", "getQuestionData");
     }
 
-    return this.ctx.db.query.questions(
+    const questionData = await this.ctx.db.query.questions(
       {
         where: {
           OR: questionIds.map(questionId => ({ id: questionId })),
@@ -152,6 +164,14 @@ class ChallengeGenerator {
         }
       }`,
     );
+
+    // Format returned data into a key-value object so each question can be retrieved by its ID.
+    const questionDataObject = {};
+    questionData.forEach((question) => {
+      questionDataObject[question.id] = question;
+    });
+
+    return questionDataObject;
   }
 
 
