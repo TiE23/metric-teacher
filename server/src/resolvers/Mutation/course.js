@@ -24,11 +24,12 @@ const course = {
    * TODO let teachers (connected via active course + active classroom) also assign SubSubjects.
    * @param parent
    * @param args
+   *        studentid: ID!
    *        courseid: ID!
    *        subsubjects: [ID!]!
    * @param ctx
    * @param info
-   * @returns {Promise<*>}
+   * @returns Course!
    */
   async assignCourseNewSubSubjects(parent, args, ctx, info) {
     const callingUserData = await checkAuth(ctx, {
@@ -57,6 +58,12 @@ const course = {
     if (targetCourseData === null) {
       throw new CourseNotFound(args.courseid);
     }
+
+    // Course must belong to the targeted student.
+    if (args.studentid !== targetCourseData.parent.student.id) {
+      throw new CourseNotFound(`${args.courseid} for student ${args.studentid}`);
+    }
+
     // A student can assign new SubSubjects and moderators or better can as well.
     if (callingUserData.id !== targetCourseData.parent.student.id &&
       callingUserData.type < USER_TYPE_MODERATOR) {
@@ -108,7 +115,7 @@ const course = {
    *        courseid: ID!
    * @param ctx
    * @param info
-   * @returns {Promise<*>}
+   * @returns Course!
    */
   async deactivateCourse(parent, args, ctx, info) {
     const callingUserData = await checkAuth(ctx, {

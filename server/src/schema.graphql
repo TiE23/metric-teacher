@@ -70,12 +70,12 @@ type Mutation {
   ## Deactivate
   deactivateCourse(studentid: ID!, courseid: ID!): Course!
   ## SubSubjects
-  assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
+  assignCourseNewSubSubjects(studentid: ID!, courseid: ID!, subsubjects: [ID!]!): Course!
 
   # Mastery Mutations
   ## Activate/Deactivate
-  activateMastery(masteryid: ID!, studentid: ID!): Mastery!
-  deactivateMastery(masteryid: ID!, studentid: ID!): Mastery!
+  activateMastery(studentid: ID!, masteryid: ID!): Mastery!
+  deactivateMastery(studentid: ID!, masteryid: ID!): Mastery!
 
   # Classroom Mutations
   ## Make classroom
