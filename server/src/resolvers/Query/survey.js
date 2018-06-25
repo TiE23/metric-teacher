@@ -22,7 +22,7 @@ const {
 const survey = {
   /**
    * Give access to the active Surveys of a student. Will return [] if there are no active Surveys.
-   * For students checking themselves and mods or better only.
+   * Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
    *        studentid: ID!
@@ -89,11 +89,9 @@ const survey = {
 
 
   /**
-   * Get a Survey by a student ID and a Survey ID. For students checking themselves and mods or
-   * better only.
+   * Get a Survey by a Survey ID. Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
-   *        studentid: ID!
    *        surveyid: ID!
    * @param ctx
    * @param info
@@ -107,35 +105,33 @@ const survey = {
       action: "survey",
     });
 
-    // A student can get their active course and moderators or better can as well.
-    if (callingUserData.id !== args.studentid &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "survey");
-    }
-
     if (!args.surveyid) {
       throw new GraphQlDumpWarning("query", "survey");
     }
 
-    // Check to make sure that the Survey belongs to the student.
-    const surveyData = await ctx.db.query.survey(
-      { where: { id: args.surveyid } },
-      `{
-        parent {
+    // Check to make sure that the Survey belongs to the student. Mods and better can access freely.
+    if (callingUserData.type < USER_TYPE_MODERATOR) {
+      const surveyData = await ctx.db.query.survey(
+        { where: { id: args.surveyid } },
+        `{
           parent {
-            student {
-              id
+            parent {
+              student {
+                id
+              }
             }
           }
-        }
-      }`,
-    );
+        }`,
+      );
 
-    if (!surveyData) {
-      throw new SurveyNotFound(args.surveyid);
-    }
-    if (args.studentid !== surveyData.parent.parent.student.id) {
-      throw new StudentNotOwner(args.studentid, args.surveyid, "Survey");
+      if (!surveyData) {
+        throw new SurveyNotFound(args.surveyid);
+      }
+
+      // A student can get their active course and moderators or better can as well.
+      if (callingUserData.id !== surveyData.parent.parent.student.id) {
+        throw new AuthError(null, "survey");
+      }
     }
 
     return ctx.db.query.survey({ where: { id: args.surveyid } }, info);
@@ -143,11 +139,10 @@ const survey = {
 
 
   /**
-   * Get a list of Surveys by a student ID and a list of Survey IDs. For students checking
-   * themselves and mods or better only.
+   * Get a list of Surveys by a list of Survey IDs. Only the owning student (or moderators or
+   * better) can do this.
    * @param parent
    * @param args
-   *        studentid: ID!
    *        surveyids: [ID!]!
    * @param ctx
    * @param info
@@ -161,12 +156,6 @@ const survey = {
       action: "surveys",
     });
 
-    // A student can get their active course and moderators or better can as well.
-    if (callingUserData.id !== args.studentid &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "surveys");
-    }
-
     if (!Array.isArray(args.surveyids) || args.surveyids.length < 1) {
       throw new GraphQlDumpWarning("query", "surveys");
     }
@@ -177,35 +166,31 @@ const survey = {
       },
     };
 
-    // Check to make sure that the Surveys belong to the student.
-    const surveysData = await ctx.db.query.surveys(
-      queryClause,
-      `{
-        id
-        parent {
+    // Check to make sure that the Surveys belong to the student. Mods and better can access freely
+    // whatever Surveys they want.
+    if (callingUserData.type < USER_TYPE_MODERATOR) {
+      const surveysData = await ctx.db.query.surveys(
+        queryClause,
+        `{
+          id
           parent {
-            student {
-              id
+            parent {
+              student {
+                id
+              }
             }
           }
-        }
-      }`,
-    );
+        }`,
+      );
 
-    // Notify if some Surveys were owned by others.
-    const wrongOwnerSurveys = surveysData.filter(surveyObject =>
-      surveyObject.parent.parent.student.id !== args.studentid).map(wrongSurveyObject =>
-      wrongSurveyObject.id);
-    if (wrongOwnerSurveys.length > 0) {
-      throw new StudentNotOwner(args.studentid, wrongOwnerSurveys.join(", "), "Survey");
-    }
-
-    // Notify if some Surveys didn't exist.
-    const foundSurveys = surveysData.map(surveyObject => surveyObject.id);
-    const missingSurveys = args.surveyids.filter(surveyId =>
-      !foundSurveys.includes(surveyId));
-    if (missingSurveys.length > 0) {
-      throw new SurveyNotFound(missingSurveys.join(", "));
+      // A student can get their active course and moderators or better can as well.
+      // We'll need to check every Survey to be sure that each one is owned by the calling student.
+      const wrongOwnerSurveys = surveysData.filter(surveyObject =>
+        surveyObject.parent.parent.student.id !== callingUserData.id).map(wrongSurveyObject =>
+        wrongSurveyObject.id);
+      if (wrongOwnerSurveys.length > 0) {
+        throw new StudentNotOwner(callingUserData.id, wrongOwnerSurveys.join(", "), "Survey");
+      }
     }
 
     return ctx.db.query.surveys(queryClause, info);
