@@ -81,7 +81,11 @@ const constants = {
   // Decimal Accuracy
   CONVERSION_DECIMAL_ACCURACY: 10,
 
-  // Friendly Digit Count (ex: 3 will change any value over 999, ex: 57,591.234 to 57,600)
+  // Friendly Digit Count
+  // If a value is greater than 10 ^ FRIEND_DIGIT_COUNT the friendly value will have only that many
+  // significant digits. If set to 3, that's 10 ^ 3, which is 1000.
+  // 1952.5 will become 1950. 57,591.234 will become 57,600.
+  // 655.25 will stay 655.25
   FRIENDLY_DIGIT_COUNT: 3,
 
   // Written answer unit
