@@ -26,10 +26,10 @@ const {
 
 const survey = {
   /**
-   * Answer or re-answer a Survey question.
+   * Answer or re-answer a Survey question. Only the owning student (or moderators or better) can
+   * do this.
    * @param parent
    * @param args
-   *        studentid: ID!
    *        courseid: ID!
    *        questionid: ID!
    *        skip: Boolean
@@ -67,11 +67,6 @@ const survey = {
     // Check the course exists.
     if (targetCourseData === null) {
       throw new CourseNotFound(args.courseid);
-    }
-
-    // Survey must belong to the targeted student.
-    if (args.studentid !== targetCourseData.parent.student.id) {
-      throw new CourseNotFound(`${args.courseid} for student ${args.studentid}`);
     }
 
     // A student can answer/re-answer Surveys and moderators or better can as well.
@@ -128,12 +123,12 @@ const survey = {
 
 
   /**
-   * Add a score value to a Survey's score field. The value can be negative to remove points.
+   * Add a score value to a Survey's score field. Only the owning student (or moderators or better)
+   * can do this. The value can be negative to remove points.
    * It will not be possible to make the score below the minimum (0) nor above the max (1000).
    * If you want to set a score to 0, send -1000. If you want to set the score to 1000, send 1000.
    * @param parent
    * @param args
-   *        studentid: ID!
    *        surveyid: ID!
    *        score: Int!
    * @param ctx
@@ -164,11 +159,6 @@ const survey = {
     // Check the course exists.
     if (targetSurveyData === null) {
       throw new SurveyNotFound(args.surveyid);
-    }
-
-    // Survey must belong to the targeted student.
-    if (args.studentid !== targetSurveyData.parent.parent.student.id) {
-      throw new SurveyNotFound(`${args.surveyid} for student ${args.studentid}`);
     }
 
     // A student can modify Surveys and moderators or better can as well.

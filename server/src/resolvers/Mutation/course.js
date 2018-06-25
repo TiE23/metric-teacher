@@ -20,11 +20,11 @@ const {
 
 const course = {
   /**
-   * Assigns subSubjects to an existing course.
+   * Assigns subSubjects to an existing course. Only the owning student (or moderators or better)
+   * can do this.
    * TODO let teachers (connected via active course + active classroom) also assign SubSubjects.
    * @param parent
    * @param args
-   *        studentid: ID!
    *        courseid: ID!
    *        subsubjects: [ID!]!
    * @param ctx
@@ -57,11 +57,6 @@ const course = {
     // Check the course exists.
     if (targetCourseData === null) {
       throw new CourseNotFound(args.courseid);
-    }
-
-    // Course must belong to the targeted student.
-    if (args.studentid !== targetCourseData.parent.student.id) {
-      throw new CourseNotFound(`${args.courseid} for student ${args.studentid}`);
     }
 
     // A student can assign new SubSubjects and moderators or better can as well.
@@ -107,11 +102,9 @@ const course = {
 
 
   /**
-   * Deactivates a course. Doesn't need a studentid to do it, but does check to make sure that a
-   * student cannot somehow affect a course that doesn't belong to them.
+   * Deactivates a course. Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
-   *        studentid: ID!
    *        courseid: ID!
    * @param ctx
    * @param info
@@ -140,14 +133,8 @@ const course = {
     if (targetCourseData === null) {
       throw new CourseNotFound(args.courseid);
     }
-
-    // Course must belong to the targeted student.
-    if (args.studentid !== targetCourseData.parent.student.id) {
-      throw new CourseNotFound(`${args.courseid} for student ${args.studentid}`);
-    }
-
     // A student can change the status of a Course and moderators or better can as well.
-    if (callingUserData.id !== args.studentid &&
+    if (callingUserData.id !== targetCourseData.parent.student.id &&
       callingUserData.type < USER_TYPE_MODERATOR) {
       throw new AuthError(null, "deactivateCourse");
     }

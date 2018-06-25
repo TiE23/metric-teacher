@@ -15,14 +15,14 @@ type Query {
 
   # Course Queries
   activeCourse(studentid: ID!): Course
-  course(studentid: ID!, courseid: ID!): Course
-  courses(studentid: ID!, courseids: [ID!]!): [Course]!
+  course(courseid: ID!): Course
+  courses(courseids: [ID!]!): [Course]!
   courseSearch(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
 
   # Mastery Queries
   activeMasteries(studentid: ID!): [Mastery]!
-  mastery(studentid: ID!, masteryid: ID!): Mastery
-  masteries(studentid: ID!, masteryids: [ID!]!): [Mastery]!
+  mastery(masteryid: ID!): Mastery
+  masteries(masteryids: [ID!]!): [Mastery]!
   masterySearch(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery]!
 
   # Subject Queries
@@ -39,8 +39,8 @@ type Query {
 
   # Survey Queries
   activeSurveys(studentid: ID!): [Survey]!
-  survey(studentid: ID!, surveyid: ID!): Survey
-  surveys(studentid: ID!, surveyids: [ID!]!): [Survey]!
+  survey(surveyid: ID!): Survey
+  surveys(surveyids: [ID!]!): [Survey]!
   surveySearch(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey]!
 
   # Question Queries
@@ -67,12 +67,12 @@ type Mutation {
   setActiveCourse(studentid: ID!, courseid: ID!): Course!
 
   # Course Mutations
-  deactivateCourse(studentid: ID!, courseid: ID!): Course!
-  assignCourseNewSubSubjects(studentid: ID!, courseid: ID!, subsubjects: [ID!]!): Course!
+  deactivateCourse(courseid: ID!): Course!
+  assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
 
   # Mastery Mutations
-  activateMastery(studentid: ID!, masteryid: ID!): Mastery!
-  deactivateMastery(studentid: ID!, masteryid: ID!): Mastery!
+  activateMastery(masteryid: ID!): Mastery!
+  deactivateMastery(masteryid: ID!): Mastery!
 
   # Classroom Mutations
   createClassroom(name: String!, description: String, teacherid: ID!): Classroom!
@@ -80,9 +80,8 @@ type Mutation {
   removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
 
   # Survey Mutations
-  answerSurvey(studentid: ID!, courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
-  addSurveyScore(studentid: ID!, surveyid: ID!, score: Int!): Survey!
-
+  answerSurvey(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
+  addSurveyScore(surveyid: ID!, score: Int!): Survey!
 }
 
 type AuthPayload {

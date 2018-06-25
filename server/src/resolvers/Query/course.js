@@ -76,10 +76,9 @@ const course = {
 
 
   /**
-   * Get a Course by its ID. For students checking themselves and mods or better only.
+   * Get a Course by its ID. Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
-   *        studentid: ID!
    *        courseid: ID!
    * @param ctx
    * @param info
@@ -103,23 +102,28 @@ const course = {
       throw new GraphQlDumpWarning("query", "course");
     }
 
-    // Check to make sure that the Course belongs to the student.
-    const courseData = await ctx.db.query.course(
-      { where: { id: args.courseid } },
-      `{
+    // Check to make sure that the Course belongs to the student. Mods and better can access freely.
+    if (callingUserData.type < USER_TYPE_MODERATOR) {
+      const courseData = await ctx.db.query.course(
+        { where: { id: args.courseid } },
+        `{
         parent {
           student {
             id
           }
         }
       }`,
-    );
+      );
 
-    if (!courseData) {
-      throw new CourseNotFound(args.courseid);
-    }
-    if (args.studentid !== courseData.parent.student.id) {
-      throw new StudentNotOwner(args.studentid, args.courseid, "Course");
+      if (!courseData) {
+        throw new CourseNotFound(args.courseid);
+      }
+
+      // A student can get their active course and moderators or better can as well.
+      if (callingUserData.id !== courseData.parent.parent.student.id &&
+        callingUserData.type < USER_TYPE_MODERATOR) {
+        throw new AuthError(null, "survey");
+      }
     }
 
     return ctx.db.query.course({ where: { id: args.courseid } }, info);
@@ -127,10 +131,10 @@ const course = {
 
 
   /**
-   * Get a list of Courses by their IDs. For students checking themselves and mods or better only.
+   * Get a list of Courses by their IDs. Only the owning student (or moderators or better) can
+   * do this.
    * @param parent
    * @param args
-   *        studentid: ID!
    *        courseids: [ID!]!
    * @param ctx
    * @param info
@@ -144,12 +148,6 @@ const course = {
       action: "courses",
     });
 
-    // A student can get their active course and moderators or better can as well.
-    if (callingUserData.id !== args.studentid &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "courses");
-    }
-
     if (!Array.isArray(args.courseids) || args.courseids.length < 1) {
       throw new GraphQlDumpWarning("query", "courses");
     }
@@ -160,33 +158,28 @@ const course = {
       },
     };
 
-    // Check to make sure that the Courses belong to the student.
-    const coursesData = await ctx.db.query.courses(
-      queryClause,
-      `{
-        id
-        parent {
-          student {
-            id
+    // Check to make sure that the Courses belong to the student. Mods and better can access freely
+    // whatever Courses they want.
+    if (callingUserData.type < USER_TYPE_MODERATOR) {
+      const coursesData = await ctx.db.query.courses(
+        queryClause,
+        `{
+          id
+          parent {
+            student {
+              id
+            }
           }
-        }
-      }`,
-    );
+        }`,
+      );
 
-    // Notify if some Courses were owned by others.
-    const wrongOwnerCourses = coursesData.filter(courseObject =>
-      courseObject.parent.student.id !== args.studentid).map(wrongSurveyObject =>
-      wrongSurveyObject.id);
-    if (wrongOwnerCourses.length > 0) {
-      throw new StudentNotOwner(args.studentid, wrongOwnerCourses.join(", "), "Survey");
-    }
-
-    // Notify if some Courses didn't exist.
-    const foundCourses = coursesData.map(courseObject => courseObject.id);
-    const missingCourses = args.courseids.filter(courseId =>
-      !foundCourses.includes(courseId));
-    if (missingCourses.length > 0) {
-      throw new CourseNotFound(missingCourses.join(", "));
+      // Notify if some Courses were owned by others.
+      const wrongOwnerCourses = coursesData.filter(courseObject =>
+        courseObject.parent.student.id !== callingUserData.id).map(wrongSurveyObject =>
+        wrongSurveyObject.id);
+      if (wrongOwnerCourses.length > 0) {
+        throw new StudentNotOwner(callingUserData.id, wrongOwnerCourses.join(", "), "Course");
+      }
     }
 
     return ctx.db.query.courses(queryClause, info);

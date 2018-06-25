@@ -49,13 +49,14 @@ const student = {
     if (targetUserData.type !== USER_TYPE_STUDENT) {
       throw new UserMustBe(targetUserData.id, "STUDENT");
     }
+    // A student can enroll themselves and moderators or better can can as well.
+    if (callingUserData.id !== targetUserData.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "enrollStudent");
+    }
     // They cannot already be enrolled.
     if (targetUserData.enrollment !== null) {
       throw new StudentAlreadyEnrolled(targetUserData.id);
-    }
-    // A student can enroll themselves and moderators or better can can as well.
-    if (callingUserData.id !== targetUserData.id && callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "enrollStudent");
     }
 
     // Create new Enrollment, connecting to targeted user.

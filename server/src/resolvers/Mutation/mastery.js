@@ -18,10 +18,9 @@ const {
 
 const mastery = {
   /**
-   * Activate a mastery. Only the student (or moderators or better) can do this.
+   * Activate a mastery. Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
-   *        studentid: ID!
    *        masteryid: ID!
    * @param ctx
    * @param info
@@ -40,10 +39,9 @@ const mastery = {
 
 
   /**
-   * Deactivate a mastery. Only the student (or moderators or better) can do this.
+   * Deactivate a mastery. Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
-   *        studentid: ID!
    *        masteryid: ID!
    * @param ctx
    * @param info
@@ -63,11 +61,9 @@ const mastery = {
 
 
 /**
- * Change the status of a Mastery. Only the student (or moderators or better) can do this.
- * The studentid and masteryid both need to be defined to work.
+ * Change the status of a Mastery. Only the owning student (or moderators or better) can do this.
  * @param parent
  * @param args
- *        studentid: ID!
  *        masteryid: ID!
  * @param ctx
  * @param info
@@ -101,13 +97,8 @@ async function changeMasteryStatus(parent, args, ctx, info, changeStatus, action
     throw new MasteryNotFound(args.masteryid);
   }
 
-  // The Mastery's parent Course must belong to the targeted student.
-  if (args.studentid !== targetMasteryData.parent.parent.student.id) {
-    throw new MasteryNotFound(`${args.masteryid} for student ${args.studentid}`);
-  }
-
   // A student can change the status of a Mastery and moderators or better can as well.
-  if (callingUserData.id !== args.studentid &&
+  if (callingUserData.id !== targetMasteryData.parent.parent.student.id &&
     callingUserData.type < USER_TYPE_MODERATOR) {
     throw new AuthError(null, actionName);
   }
