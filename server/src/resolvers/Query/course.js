@@ -92,12 +92,6 @@ const course = {
       action: "course",
     });
 
-    // A student can get their active course and moderators or better can as well.
-    if (callingUserData.id !== args.studentid &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "course");
-    }
-
     if (!args.courseid) {
       throw new GraphQlDumpWarning("query", "course");
     }
@@ -122,7 +116,7 @@ const course = {
       // A student can get their active course and moderators or better can as well.
       if (callingUserData.id !== courseData.parent.parent.student.id &&
         callingUserData.type < USER_TYPE_MODERATOR) {
-        throw new AuthError(null, "survey");
+        throw new AuthError(null, "course");
       }
     }
 
