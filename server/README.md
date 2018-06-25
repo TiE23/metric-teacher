@@ -416,6 +416,7 @@ Examples:
 ```
 {
   id: <<someID>>,
+  status: 0,
   score: 0,
   answer: "[80in]",
   detail: "My neighbor Anthony",
@@ -442,6 +443,7 @@ Examples:
         singular: "inch",
       },
       survey: {
+        status: 0,
         step: 1,
         surveyRange: {
           bottom: { unit: "in", value: 70 },

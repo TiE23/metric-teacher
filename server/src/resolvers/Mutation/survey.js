@@ -99,7 +99,7 @@ const survey = {
       status: args.skip === true ? SURVEY_STATUS_SKIPPED : SURVEY_STATUS_NORMAL,
       score: SURVEY_DEFAULT_SCORE,
       answer: args.skip === true ? "" : surveyAnswerFormatter(args.value, args.unit),
-      detail: args.detail,
+      detail: args.skip === true ? null : args.detail,
     };
 
     // If Survey has been filled already, let's update it.

@@ -14,6 +14,7 @@ const {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
+  SURVEY_STATUS_NORMAL,
   CONVERSION_CHOICE_OPTIONS_MULTIPLIERS,
   UNITS,
 } = require("../constants");
@@ -129,16 +130,18 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
 
     // If the survey has been taken put the answer's info in new response object. Else null.
     let response = null;
+    let surveyStatus = null;
     if (surveyData) {
       response = {
         // When using parseSingleAnswer we must strip out square brackets.
-        answer: parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer),
+        answer: surveyData.status === SURVEY_STATUS_NORMAL ?
+          parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer) :
+          null,
+        score: surveyData.score,
+        id: surveyData.id,
+        detail: surveyData.detail,
       };
-    }
-    if (response) {
-      response.score = surveyData.score;
-      response.id = surveyData.id;
-      response.detail = surveyData.detail;
+      surveyStatus = surveyData.status;
     }
 
     return {
@@ -151,6 +154,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
           plural: UNITS[questionPayload.data.unit].plural,
         },
         survey: {
+          status: surveyStatus,
           step: questionPayload.data.step,
           surveyRange: {
             bottom: {
@@ -211,7 +215,7 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
   } else if (questionPayload.type === QUESTION_TYPE_SURVEY) {
     // If the survey has been answered generate data.
     const { response } = generatedQuestion.data.survey;
-    if (response) {
+    if (response && response.answer !== null) {
       // Compose conversions
       generatedAnswer.data.conversion = composeConversionAnswerData(
         response.answer.value,
