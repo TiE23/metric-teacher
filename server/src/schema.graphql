@@ -84,6 +84,10 @@ type Mutation {
   addUsersToClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
   ## Remove from Classroom
   removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
+
+  # Survey Mutations
+  ## answerSurvey
+  answerSurvey(studentid: ID!, courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
 }
 
 type AuthPayload {

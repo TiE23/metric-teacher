@@ -29,6 +29,7 @@ const constants = {
 
   // Survey
   SURVEY_DEFAULT_SCORE: 0,
+  SURVEY_MAX_SCORE: 1000,
   SURVEY_STATUS_NORMAL: 0,
   SURVEY_STATUS_SKIPPED: 1,
 
