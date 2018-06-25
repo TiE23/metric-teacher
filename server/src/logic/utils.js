@@ -14,7 +14,7 @@ const {
  * it's likely float inaccuracy. Ex: 89.99999999999999 (14 decimals) will be made 90.
  * If a float number is repeating 9s beyond the 10th decimal place.
  * @param value
- * @returns { float }
+ * @returns {Number}
  */
 function floatSmoother(value) {
   if (value % 1 === 0) {
@@ -53,7 +53,7 @@ function floatSmoother(value) {
  * A step with a negative value will be flipped to positive.
  * @param value
  * @param step
- * @returns {*}
+ * @returns {Number}
  */
 function stepSmoother(value, step) {
   if (step === 0) {
@@ -77,12 +77,19 @@ function stepSmoother(value, step) {
   return smoothedValue;
 }
 
+
+/**
+ * Basic function takes a Mastery score for a SubSubject in and returns the desired difficulty
+ * levels (an array of ints) according to the defined difficulty ranges.
+ * @param score
+ * @returns {Array}
+ */
 function difficultyFinder(score) {
   const difficultyScores = [];
   for (let x = 0; x < QUESTION_DIFFICULTY_RANGES.length; ++x) {
     if (score >= QUESTION_DIFFICULTY_RANGES[x][0] &&
     score <= QUESTION_DIFFICULTY_RANGES[x][1]) {
-      difficultyScores.push(x+1);
+      difficultyScores.push(x + 1);
     }
   }
   return difficultyScores;

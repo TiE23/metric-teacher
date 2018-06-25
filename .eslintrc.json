@@ -45,6 +45,9 @@
       }
     ],
     "no-plusplus": "off",
-    "no-bitwise": "off"
+    "no-bitwise": "off",
+    "no-else-return": [
+      "off"
+    ]
   }
 }

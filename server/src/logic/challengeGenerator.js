@@ -115,6 +115,7 @@ class ChallengeGenerator {
     // Because questionData has only unique Questions (i.e. no repeats) we need to loop off the
     // questionIds array instead for the full listSize of questions. That way repeated questions
     // (randomly generate conversion questions) can be repeated in the final QA list.
+    // TODO think of some way to handle question loss through skipped Survey questions.
     for (let x = 0; x < questionIds.length; ++x) {
       if (surveyData[questionIds[x]]) {
         qaList.push(qaGenerate(
@@ -199,6 +200,7 @@ class ChallengeGenerator {
         score
         answer
         detail
+        status
         parent {
           id
         }

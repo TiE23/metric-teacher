@@ -114,6 +114,24 @@ class SurveyNotFound extends Error {
   }
 }
 
+class SurveyAnswerValueInvalid extends Error {
+  constructor(value) {
+    super(`The inputted value '${value}' is not a number`);
+  }
+}
+
+class SurveyAnswerUnitInvalid extends Error {
+  constructor(unit) {
+    super(`The inputted unit '${unit}' is not valid`);
+  }
+}
+
+class SurveyIncomplete extends Error {
+  constructor(courseid, questionid) {
+    super(`Survey for Question ${questionid} and Course ${courseid} incomplete`);
+  }
+}
+
 class QuestionSyntaxError extends Error {
   constructor(question, reason) {
     super(`Question '${question}' not valid. Reason: '${reason}'`);
@@ -193,6 +211,9 @@ module.exports = {
   StudentNotEnrolled,
   StudentNotOwner,
   SurveyNotFound,
+  SurveyIncomplete,
+  SurveyAnswerValueInvalid,
+  SurveyAnswerUnitInvalid,
   QuestionSyntaxError,
   QuestionAnswerError,
   QuestionTypeInvalid,

@@ -67,23 +67,22 @@ type Mutation {
   setActiveCourse(studentid: ID!, courseid: ID!): Course!
 
   # Course Mutations
-  ## Deactivate
   deactivateCourse(studentid: ID!, courseid: ID!): Course!
-  ## SubSubjects
-  assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
+  assignCourseNewSubSubjects(studentid: ID!, courseid: ID!, subsubjects: [ID!]!): Course!
 
   # Mastery Mutations
-  ## Activate/Deactivate
-  activateMastery(masteryid: ID!, studentid: ID!): Mastery!
-  deactivateMastery(masteryid: ID!, studentid: ID!): Mastery!
+  activateMastery(studentid: ID!, masteryid: ID!): Mastery!
+  deactivateMastery(studentid: ID!, masteryid: ID!): Mastery!
 
   # Classroom Mutations
-  ## Make classroom
   createClassroom(name: String!, description: String, teacherid: ID!): Classroom!
-  ## Add to Classroom
   addUsersToClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
-  ## Remove from Classroom
   removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
+
+  # Survey Mutations
+  answerSurvey(studentid: ID!, courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
+  addSurveyScore(studentid: ID!, surveyid: ID!, score: Int!): Survey!
+
 }
 
 type AuthPayload {
@@ -171,6 +170,7 @@ type QaSurveyQuestionObject {
   step: Float!
   surveyRange: QaRangeObject!
   response: QaSurveyResponseObject        # Only if survey was answered
+  status: Int                             # Only if survey was answered
 }
 
 ## Great Grand Child Answer Objects

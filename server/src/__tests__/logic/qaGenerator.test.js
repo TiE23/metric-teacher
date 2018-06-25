@@ -7,6 +7,8 @@ const {
   QUESTION_TYPE_SURVEY,
   QUESTION_DIFFICULTY_MEDIUM,
   QUESTION_FLAG_USER_DETAIL_REQUIRED,
+  SURVEY_STATUS_NORMAL,
+  SURVEY_STATUS_SKIPPED,
   ANSWER_TYPE_MULTIPLE_CHOICE,
   ANSWER_TYPE_CONVERSION,
   ANSWER_TYPE_SURVEY,
@@ -416,6 +418,7 @@ describe("qaGenerator", () => {
           score: 0,
           answer: "[70in]",
           detail: null,
+          status: SURVEY_STATUS_NORMAL,
           parent: {
             id: "someCourse",
           },
@@ -446,6 +449,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord.singular).toBe("inch");
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("inches");
         expect(qaFormat.question.data.survey).toBeDefined();
+        expect(qaFormat.question.data.survey.status).toBeNull();
         expect(qaFormat.question.data.survey.response).toBeNull();
         expect(qaFormat.question.data.survey.step).toBe(1);
         expect(qaFormat.question.data.survey.surveyRange).toBeDefined();
@@ -484,6 +488,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord.singular).toBe("inch");
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("inches");
         expect(qaFormat.question.data.survey).toBeDefined();
+        expect(qaFormat.question.data.survey.status).toBe(SURVEY_STATUS_NORMAL);
         expect(qaFormat.question.data.survey.response).toBeDefined();
         expect(qaFormat.question.data.survey.response.id).toBe("survey01");
         expect(qaFormat.question.data.survey.response.score).toBe(0);
@@ -524,6 +529,49 @@ describe("qaGenerator", () => {
         expect(qaFormat.answer.data.survey).toBeDefined();
         expect(qaFormat.answer.data.survey.choices).toBeDefined();
         expect(qaFormat.answer.data.survey.choices).toHaveLength(9);
+      });
+
+      it("Should parse a survey question with a survey that was skipped", () => {
+        baseSurveyResponse.answer = "";
+        baseSurveyResponse.status = SURVEY_STATUS_SKIPPED;
+        const qaFormat = qaGenerate(baseSurveyQuestion, baseSurveyResponse);
+
+        // Basic Data
+        expect(qaFormat).toBeDefined();
+        expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
+        expect(qaFormat.questionId).toBe("question01");
+        expect(qaFormat.subSubjectId).toBe("someSubSubject");
+        expect(qaFormat.flags).toBe(FLAGS_NONE);
+        expect(qaFormat.media).toBe("someMedia");
+
+        // Question Data
+        expect(qaFormat.question).toBeDefined();
+        expect(qaFormat.question.detail).toBe("");
+        expect(qaFormat.question.text).toBe("How tall are you?");
+        expect(qaFormat.question.type).toBe(QUESTION_TYPE_SURVEY);
+        expect(qaFormat.question.data).toBeDefined();
+        expect(qaFormat.question.data.fromUnitWord).toBeDefined();
+        expect(qaFormat.question.data.fromUnitWord.singular).toBe("inch");
+        expect(qaFormat.question.data.fromUnitWord.plural).toBe("inches");
+        expect(qaFormat.question.data.survey).toBeDefined();
+        expect(qaFormat.question.data.survey.status).toBe(SURVEY_STATUS_SKIPPED);
+        expect(qaFormat.question.data.survey.response).toBeDefined();
+        expect(qaFormat.question.data.survey.response.id).toBe("survey01");
+        expect(qaFormat.question.data.survey.response.score).toBe(0);
+        expect(qaFormat.question.data.survey.step).toBe(1);
+        expect(qaFormat.question.data.survey.surveyRange).toBeDefined();
+        expect(qaFormat.question.data.survey.surveyRange.bottom).toBeDefined();
+        expect(qaFormat.question.data.survey.surveyRange.top).toBeDefined();
+        expect(qaFormat.question.data.survey.surveyRange.bottom.value).toBe(40);
+        expect(qaFormat.question.data.survey.surveyRange.bottom.unit).toBe("in");
+        expect(qaFormat.question.data.survey.surveyRange.top.value).toBe(96);
+        expect(qaFormat.question.data.survey.surveyRange.top.unit).toBe("in");
+
+        // Answer Data
+        expect(qaFormat.answer).toBeDefined();
+        expect(qaFormat.answer.type).toBe(ANSWER_TYPE_SURVEY);
+        expect(qaFormat.answer.data).toBeDefined();
+        expect(qaFormat.answer.data.survey).toBeNull();
       });
 
       it("Should parse a survey question with a survey with detail", () => {
