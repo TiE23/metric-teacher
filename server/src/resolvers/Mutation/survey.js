@@ -6,6 +6,7 @@ const {
   AuthError,
   CourseNotFound,
   SurveyIncomplete,
+  SurveyNotFound,
   SurveyAnswerUnitInvalid,
   SurveyAnswerValueInvalid,
 } = require("../../errors");
@@ -16,6 +17,8 @@ const {
   USER_TYPE_ADMIN,
   USER_STATUS_NORMAL,
   SURVEY_DEFAULT_SCORE,
+  SURVEY_MIN_SCORE,
+  SURVEY_MAX_SCORE,
   SURVEY_STATUS_NORMAL,
   SURVEY_STATUS_SKIPPED,
   UNITS,
@@ -66,12 +69,12 @@ const survey = {
       throw new CourseNotFound(args.courseid);
     }
 
-    // Course must belong to the targeted student.
+    // Survey must belong to the targeted student.
     if (args.studentid !== targetCourseData.parent.student.id) {
       throw new CourseNotFound(`${args.courseid} for student ${args.studentid}`);
     }
 
-    // A student can assign new SubSubjects and moderators or better can as well.
+    // A student can answer/re-answer Surveys and moderators or better can as well.
     if (callingUserData.id !== targetCourseData.parent.student.id &&
       callingUserData.type < USER_TYPE_MODERATOR) {
       throw new AuthError(null, "answerSurvey");
@@ -121,6 +124,69 @@ const survey = {
 
       return ctx.db.mutation.createSurvey({ data: surveyData }, info);
     }
+  },
+
+
+  /**
+   * Add a score value to a Survey's score field. The value can be negative to remove points.
+   * It will not be possible to make the score below the minimum (0) nor above the max (1000).
+   * If you want to set a score to 0, send -1000. If you want to set the score to 1000, send 1000.
+   * @param parent
+   * @param args
+   *        studentid: ID!
+   *        surveyid: ID!
+   *        score: Int!
+   * @param ctx
+   * @param info
+   * @returns Survey!
+   */
+  async addSurveyScore(parent, args, ctx, info) {
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "answerSurvey",
+    });
+
+    const targetSurveyData = await ctx.db.query.survey({ where: { id: args.surveyid } }, `
+      {
+        id
+        score
+        parent {
+          parent {
+            student {
+              id
+            }
+          }
+        }
+      }
+    `);
+
+    // Check the course exists.
+    if (targetSurveyData === null) {
+      throw new SurveyNotFound(args.surveyid);
+    }
+
+    // Survey must belong to the targeted student.
+    if (args.studentid !== targetSurveyData.parent.parent.student.id) {
+      throw new SurveyNotFound(`${args.surveyid} for student ${args.studentid}`);
+    }
+
+    // A student can modify Surveys and moderators or better can as well.
+    if (callingUserData.id !== targetSurveyData.parent.parent.student.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "addSurveyScore");
+    }
+
+    // Use parseInt to smooth any floats that could've been sent.
+    const newScore = Math.max(
+      SURVEY_MIN_SCORE,
+      Math.min(SURVEY_MAX_SCORE, targetSurveyData.score + Number.parseInt(args.score, 10)),
+    );
+
+    return ctx.db.mutation.updateSurvey({
+      where: { id: args.surveyid },
+      data: { score: newScore },
+    }, info);
   },
 };
 
