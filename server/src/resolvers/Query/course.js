@@ -113,9 +113,8 @@ const course = {
         throw new CourseNotFound(args.courseid);
       }
 
-      // A student can get their active course and moderators or better can as well.
-      if (callingUserData.id !== courseData.parent.parent.student.id &&
-        callingUserData.type < USER_TYPE_MODERATOR) {
+      // A student can get their active Course and moderators or better can as well.
+      if (callingUserData.id !== courseData.parent.student.id) {
         throw new AuthError(null, "course");
       }
     }
