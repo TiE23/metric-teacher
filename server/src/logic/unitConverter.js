@@ -171,23 +171,11 @@ function convertValue(fromValue, fromUnit, toUnit) {
   }
 
   // Create the human friendly value
-  let friendlyValue = 0;
-  let power = 0;
-  for (; power <= 308; ++power) {  // Limit to approximately Number.MAX_VALUE (1.798e+308)
-    if (Math.abs(roundedValue) < 10 ** power) {
-      break;
-    }
-  }
-
-  if (FRIENDLY_DIGIT_COUNT - power >= 0) {
-    // Do not friendly round any value less than number of digits.
-    friendlyValue = roundedValue;
+  let friendlyValue = null;
+  if (Math.abs(roundedValue) > 10 ** FRIENDLY_DIGIT_COUNT) {
+    friendlyValue = Number.parseFloat(roundedValue.toPrecision(FRIENDLY_DIGIT_COUNT));
   } else {
-    // Because rounding acts differently with negative values, just use Math.abs().
-    friendlyValue = round(Math.abs(roundedValue), FRIENDLY_DIGIT_COUNT - power);
-    if (roundedValue < 0) {
-      friendlyValue *= -1;  // Flip back to negative if rounded is negative.
-    }
+    friendlyValue = roundedValue;
   }
 
   return {
