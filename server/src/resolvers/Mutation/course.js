@@ -7,6 +7,7 @@ const {
   GraphQlDumpWarning,
   CourseNotFound,
   CourseNoSubSubjectsAdded,
+  StudentNotOwner,
 } = require("../../errors");
 
 const {
@@ -19,6 +20,8 @@ const {
   MASTERY_MIN_SCORE,
   MASTERY_MAX_SCORE,
   MASTERY_STATUS_ACTIVE,
+  SURVEY_MIN_SCORE,
+  SURVEY_MAX_SCORE,
 } = require("../../constants");
 
 const course = {
@@ -106,8 +109,9 @@ const course = {
 
   /**
    * Give a courseid and a list of combination SubSubject IDs and scores (positive or negative) and
-   * those values will be added to each valid Mastery belonging to that Course. Only the owning
-   * student (or moderators or better) can do this.
+   * those values will be added to each valid Mastery belonging to that Course.
+   * It automatically gathers the Mastery IDs so you don't need to!
+   * Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
    *        courseid: ID!
@@ -115,7 +119,7 @@ const course = {
    *          MasteryScoreInput: {
    *            subsubjectid: ID!
    *            score: Int!
-   *          }
+   *          }!
    *        ]!
    * @param ctx
    * @param info
@@ -148,7 +152,7 @@ const course = {
             id
           }
         }
-        masteries(where:{
+        masteries(where: {
           OR: [
             ${subSubjectClauseStrings.join(",")}
           ]
@@ -174,7 +178,7 @@ const course = {
 
     // Flatten the scoreinput into an object where keys are the subsubjectid and value is score.
     // If the student doesn't have a Mastery for the SubSubject it will be silently handled by
-    // simply not updating any Mastery that matches.
+    // simply not updating any Mastery for that input.
     const scoreAdditions = {};
     args.scoreinput.forEach((scoreInputRow) => {
       scoreAdditions[scoreInputRow.subsubjectid] = scoreInputRow.score;
@@ -202,6 +206,105 @@ const course = {
       data: {
         masteries: {
           update: masteriesUpdateClause,
+        },
+      },
+    }, info);
+  },
+
+
+  /**
+   * Give a courseid and a list of combination Survey IDs and scores (positive or negative) and
+   * those values will be added to each valid Survey belonging to that Course.
+   * Only the owning student (or moderators or better) can do this.
+   * @param parent
+   * @param args
+   *        courseid: ID!
+   *        scoreinput: [
+   *          SurveyScoreInput: {
+   *            surveyid: ID!
+   *            score: Int!
+   *          }!
+   *        ]!
+   * @param ctx
+   * @param info
+   * @returns Course!
+   */
+  async addSurveyScores(parent, args, ctx, info) {
+    // Exclude teachers. Students are only allowed to check themselves. Must be normal status.
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "addSurveyScores",
+    });
+
+    if (!args.courseid) {
+      throw new GraphQlDumpWarning("mutation", "addSurveyScores");
+    }
+
+    // Create the surveyIds clause string.
+    const surveyClauseStrings = [];
+    args.scoreinput.forEach(scoreInputRow =>
+      surveyClauseStrings.push(`{ id: "${scoreInputRow.surveyid}" }`));
+
+    // Note: Does not check if the Survey is skipped or not, so it could affect skipped Surveys.
+    const targetCourseData = await ctx.db.query.course(
+      { where: { id: args.courseid } },
+      `{
+        id
+        parent {
+          student {
+            id
+          }
+        }
+        surveys(where: {
+          OR: ${surveyClauseStrings.join(",")}
+        }){
+          id
+          score
+        }
+      }`,
+    );
+
+    if (!targetCourseData) {
+      throw new CourseNotFound(args.courseid);
+    }
+
+    // Check to make sure that the Course belongs to the student. Mods and better can access freely.
+    if (callingUserData.id !== targetCourseData.parent.student.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "addSurveyScores");
+    }
+
+    // Flatten the scoreinput into an object where keys are the surveyid and value is score.
+    // If the student doesn't have a Survey that was targeted it will be silently handled by
+    // simply not updating any Survey for that input.
+    const scoreAdditions = {};
+    args.scoreinput.forEach((scoreInputRow) => {
+      scoreAdditions[scoreInputRow.surveyid] = scoreInputRow.score;
+    });
+
+    // Now make the Survey update clause for the updateCourse mutation.
+    const surveysUpdateClause = [];
+    targetCourseData.surveys.forEach((survey) => {
+      const newScore = Math.max(
+        SURVEY_MIN_SCORE,
+        Math.min(
+          SURVEY_MAX_SCORE,
+          survey.score + scoreAdditions[survey.id],
+        ),
+      );
+      surveysUpdateClause.push({
+        where: { id: survey.id },
+        data: { score: newScore },
+      });
+    });
+
+    // Perform the mutation.
+    return ctx.db.mutation.updateCourse({
+      where: { id: args.courseid },
+      data: {
+        surveys: {
+          update: surveysUpdateClause,
         },
       },
     }, info);

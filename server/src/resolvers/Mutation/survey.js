@@ -139,7 +139,7 @@ const survey = {
     const callingUserData = await checkAuth(ctx, {
       type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
       status: USER_STATUS_NORMAL,
-      action: "answerSurvey",
+      action: "addSurveyScore",
     });
 
     const targetSurveyData = await ctx.db.query.survey({ where: { id: args.surveyid } }, `
@@ -182,13 +182,15 @@ const survey = {
 
 
 /**
- * Very simple function returns the format used by Survey answers. Ex: [1.65m]
+ * Very simple function returns the format used by Survey answers.
+ * Ex: 1.65, and "m" returns "[1.65m]"
  * @param value
- * @param unit  Needs to be lower case, it will not.
+ * @param unit  Needs to be lower case.
  * @returns {string}
  */
 function surveyAnswerFormatter(value, unit) {
-  if (Number.isNaN(value)) {
+  // eslint-disable-next-line no-restricted-globals
+  if (isNaN(value)) {
     throw new SurveyAnswerValueInvalid(value);
   }
   if (UNITS[unit] === undefined) {
