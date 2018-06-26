@@ -69,6 +69,7 @@ type Mutation {
   # Course Mutations
   deactivateCourse(courseid: ID!): Course!
   assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
+  addMasteryScores(courseid: ID!, scoreinput: [MasteryScoreInput]!): Course!
 
   # Mastery Mutations
   activateMastery(masteryid: ID!): Mastery!
@@ -82,6 +83,11 @@ type Mutation {
   # Survey Mutations
   answerSurvey(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
   addSurveyScore(surveyid: ID!, score: Int!): Survey!
+}
+
+input MasteryScoreInput {
+  subsubjectid: ID!
+  score: Int!
 }
 
 type AuthPayload {
