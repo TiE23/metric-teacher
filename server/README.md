@@ -67,6 +67,8 @@ If you ever do remote hosting, you'll need to change the endpoint's url to the r
     * Relations to Classroom rows the User is a member of.
 * `enrollment`
     * For `type` student users only. Relation to Enrollment row.
+* `feedback`
+    * Relation to Feedack row.
 
 ### Classroom
 * `id`
@@ -190,20 +192,28 @@ If you ever do remote hosting, you'll need to change the endpoint's url to the r
     * Optional string value of a particular media file.
 * `parent`
     * Relation to SubSubject row.
+* `feedback`
+    * Relation to Feedack row.
 
-### Unit
+### Feedback
 * `id`
-* `name`
-* `description`
-* `subSubjects`
-    * Relations to SubSubject rows.
-
-### Scale
-* `id`
-* `name`
-* `description`
-* `subSubjects`
-    * Relations to SubSubject rows.
+* `type`
+    * Values
+        * `0` - General
+        * `1` - Incorrect
+        * `2` - Confusing
+        * `3` - Typo
+* `status`
+    * Values
+        * `0` - Unreviewed
+        * `1` - Reviewed - Approved (Fix was made)
+        * `2` - Reviewed - Rejected (Won't fix)
+* `text`
+    * Optional string of detail.
+* `question`
+    * Relation to Question row.
+* `author`
+    * Relation to User row.
 
 ## Logic Documentation
 ### Question/Answer format
