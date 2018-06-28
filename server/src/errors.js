@@ -126,9 +126,9 @@ class SurveyAnswerUnitInvalid extends Error {
   }
 }
 
-class SurveyIncomplete extends Error {
+class SurveyAnswerIncomplete extends Error {
   constructor(courseid, questionid) {
-    super(`Survey for Question ${questionid} and Course ${courseid} incomplete`);
+    super(`Survey answer for Question ${questionid} and Course ${courseid} incomplete`);
   }
 }
 
@@ -211,7 +211,7 @@ module.exports = {
   StudentNotEnrolled,
   StudentNotOwner,
   SurveyNotFound,
-  SurveyIncomplete,
+  SurveyAnswerIncomplete,
   SurveyAnswerValueInvalid,
   SurveyAnswerUnitInvalid,
   QuestionSyntaxError,

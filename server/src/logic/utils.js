@@ -1,8 +1,14 @@
 const round = require("lodash/round");
 
 const {
+  SurveyAnswerUnitInvalid,
+  SurveyAnswerValueInvalid,
+} = require("../errors");
+
+const {
   CONVERSION_DECIMAL_ACCURACY,
   QUESTION_DIFFICULTY_RANGES,
+  UNITS,
 } = require("../constants");
 
 
@@ -96,8 +102,29 @@ function difficultyFinder(score) {
 }
 
 
+/**
+ * Very simple function returns the format used by Survey answers.
+ * Ex: 1.65, and "m" returns "[1.65m]"
+ * @param value
+ * @param unit  Needs to be lower case.
+ * @returns {string}
+ */
+function surveyAnswerFormatter(value, unit) {
+  // eslint-disable-next-line no-restricted-globals
+  if (isNaN(value)) {
+    throw new SurveyAnswerValueInvalid(value);
+  }
+  if (UNITS[unit] === undefined) {
+    throw new SurveyAnswerUnitInvalid(unit);
+  }
+
+  return `[${value}${unit}]`;
+}
+
+
 module.exports = {
   floatSmoother,
   stepSmoother,
   difficultyFinder,
+  surveyAnswerFormatter,
 };
