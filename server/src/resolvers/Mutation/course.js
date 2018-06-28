@@ -177,29 +177,9 @@ const course = {
       throw new AuthError(null, "addMasteryScores");
     }
 
-    // Flatten the scoreinput into an object where keys are the subsubjectid and value is score.
-    // If the student doesn't have a Mastery for the SubSubject it will be silently handled by
-    // simply not updating any Mastery for that input.
-    const scoreAdditions = {};
-    args.scoreinput.forEach((scoreInputRow) => {
-      scoreAdditions[scoreInputRow.subsubjectid] = scoreInputRow.score;
-    });
-
-    // Now make the Mastery update clause for the updateCourse mutation.
-    const masteriesUpdateClause = [];
-    targetCourseData.masteries.forEach((mastery) => {
-      const newScore = Math.max(
-        MASTERY_MIN_SCORE,
-        Math.min(
-          MASTERY_MAX_SCORE,
-          mastery.score + scoreAdditions[mastery.subSubject.id],
-        ),
-      );
-      masteriesUpdateClause.push({
-        where: { id: mastery.id },
-        data: { score: newScore },
-      });
-    });
+    // Generate the mutation's Masteries update payload.
+    const masteriesUpdateClause =
+      masteriesScoreUpdateClauseGenerator(targetCourseData, args.scoreinput);
 
     // Perform the mutation.
     return ctx.db.mutation.updateCourse({
@@ -271,29 +251,9 @@ const course = {
       throw new AuthError(null, "addSurveyScores");
     }
 
-    // Flatten the scoreinput into an object where keys are the surveyid and value is score.
-    // If the student doesn't have a Survey that was targeted it will be silently handled by
-    // simply not updating any Survey for that input.
-    const scoreAdditions = {};
-    args.scoreinput.forEach((scoreInputRow) => {
-      scoreAdditions[scoreInputRow.surveyid] = scoreInputRow.score;
-    });
-
-    // Now make the Survey update clause for the updateCourse mutation.
-    const surveysUpdateClause = [];
-    targetCourseData.surveys.forEach((survey) => {
-      const newScore = Math.max(
-        SURVEY_MIN_SCORE,
-        Math.min(
-          SURVEY_MAX_SCORE,
-          survey.score + scoreAdditions[survey.id],
-        ),
-      );
-      surveysUpdateClause.push({
-        where: { id: survey.id },
-        data: { score: newScore },
-      });
-    });
+    // Generate the mutation's Surveys update payload.
+    const surveysUpdateClause =
+      surveysScoreUpdateClauseGenerator(targetCourseData, args.scoreinput);
 
     // Perform the mutation.
     return ctx.db.mutation.updateCourse({
@@ -371,61 +331,9 @@ const course = {
       throw new AuthError(null, "addSurveyAnswers");
     }
 
-    // Check all answer inputs to confirm they are complete
-    args.answerinput.forEach((answerInput) => {
-      if (!((answerInput.value && answerInput.unit) || answerInput.skip === true)) {
-        throw new SurveyAnswerIncomplete(args.courseid, answerInput.questionid);
-      }
-    });
-
-    // Get existing Survey answer ids and connected question ids
-    const existingSurveyQuestionAnswers =
-      targetCourseData.surveys.map(survey => ({
-        surveyid: survey.id,
-        questionid: survey.question.id,
-      }));
-
-    // Construct update/create data payloads
-    const surveysPayload = {};
-
-    // Loop through the answers input.
-    args.answerinput.forEach((answerInput) => {
-      // Construct data payload
-      const surveyData = {
-        status: answerInput.skip === true ? SURVEY_STATUS_SKIPPED : SURVEY_STATUS_NORMAL,
-        score: SURVEY_DEFAULT_SCORE,
-        answer: answerInput.skip === true ?
-          "" : surveyAnswerFormatter(answerInput.value, answerInput.unit),
-        detail: answerInput.skip === true ? null : answerInput.detail,
-      };
-
-      // Find if there is an existing survey for this question...
-      const existingSurveyQuestionAnswer = existingSurveyQuestionAnswers.find(existingObject =>
-        existingObject.questionid === answerInput.questionid);
-
-      // Was it found?
-      if (existingSurveyQuestionAnswer) {
-        // Update!
-        if (surveysPayload.update === undefined) {
-          surveysPayload.update = [];
-        }
-        surveysPayload.update.push({
-          where: { id: existingSurveyQuestionAnswer.surveyid },
-          data: surveyData,
-        });
-      } else {
-        // Create!
-        if (surveysPayload.create === undefined) {
-          surveysPayload.create = [];
-        }
-        surveyData.question = {
-          connect: {
-            id: answerInput.questionid,
-          },
-        };
-        surveysPayload.create.push(surveyData);
-      }
-    });
+    // Generate the mutation's Surveys update payload.
+    const surveysPayload =
+      surveysAnswerUpdateClauseGenerator(targetCourseData, args.answerinput, args.courseid);
 
     // Fire off the mutation!
     return ctx.db.mutation.updateCourse({
@@ -484,5 +392,146 @@ const course = {
     }, info);
   },
 };
+
+
+/**
+ * Helper function performs steps that generates a mutation's Masteries score update payload.
+ * @param targetCourseData
+ * @param scoreInput
+ * @returns {Array}
+ */
+function masteriesScoreUpdateClauseGenerator(targetCourseData, scoreInput) {
+  // Flatten the scoreinput into an object where keys are the subsubjectid and value is score.
+  // If the student doesn't have a Mastery for the SubSubject it will be silently handled by
+  // simply not updating any Mastery for that input.
+  const scoreAdditions = {};
+  scoreInput.forEach((scoreInputRow) => {
+    scoreAdditions[scoreInputRow.subsubjectid] = scoreInputRow.score;
+  });
+
+  // Now make the Mastery update clause for the updateCourse mutation.
+  const masteriesUpdateClause = [];
+  targetCourseData.masteries.forEach((mastery) => {
+    const newScore = Math.max(
+      MASTERY_MIN_SCORE,
+      Math.min(
+        MASTERY_MAX_SCORE,
+        mastery.score + scoreAdditions[mastery.subSubject.id],
+      ),
+    );
+    masteriesUpdateClause.push({
+      where: { id: mastery.id },
+      data: { score: newScore },
+    });
+  });
+
+  return masteriesUpdateClause;
+}
+
+
+/**
+ * Helper function performs steps that generates a mutation's Surveys score update payload.
+ * @param targetCourseData
+ * @param scoreInput
+ * @returns {Array}
+ */
+function surveysScoreUpdateClauseGenerator(targetCourseData, scoreInput) {
+  // Flatten the scoreinput into an object where keys are the surveyid and value is score.
+  // If the student doesn't have a Survey that was targeted it will be silently handled by
+  // simply not updating any Survey for that input.
+  const scoreAdditions = {};
+  scoreInput.forEach((scoreInputRow) => {
+    scoreAdditions[scoreInputRow.surveyid] = scoreInputRow.score;
+  });
+
+  // Now make the Survey update clause for the updateCourse mutation.
+  const surveysUpdateClause = [];
+  targetCourseData.surveys.forEach((survey) => {
+    const newScore = Math.max(
+      SURVEY_MIN_SCORE,
+      Math.min(
+        SURVEY_MAX_SCORE,
+        survey.score + scoreAdditions[survey.id],
+      ),
+    );
+    surveysUpdateClause.push({
+      where: { id: survey.id },
+      data: { score: newScore },
+    });
+  });
+
+  return surveysUpdateClause;
+}
+
+
+/**
+ * Helper function performs steps that generates a mutation's Surveys answer update payload.
+ * @param targetCourseData
+ * @param answerInput
+ * @param courseId
+ * @returns {{
+ *            create: [{createClause}]
+ *            update: [{updateClause}]
+ *          }}
+ */
+function surveysAnswerUpdateClauseGenerator(targetCourseData, answerInput, courseId) {
+  // Check all answer inputs to confirm they are complete
+  answerInput.forEach((answerInputRow) => {
+    if (!((answerInputRow.value && answerInputRow.unit) || answerInputRow.skip === true)) {
+      throw new SurveyAnswerIncomplete(courseId, answerInputRow.questionid);
+    }
+  });
+
+  // Get existing Survey answer ids and connected question ids
+  const existingSurveyQuestionAnswers =
+    targetCourseData.surveys.map(survey => ({
+      surveyid: survey.id,
+      questionid: survey.question.id,
+    }));
+
+  // Construct update/create data payloads
+  const surveysPayload = {};
+
+  // Loop through the answers input.
+  answerInput.forEach((answerInputRow) => {
+    // Construct data payload
+    const surveyData = {
+      status: answerInputRow.skip === true ? SURVEY_STATUS_SKIPPED : SURVEY_STATUS_NORMAL,
+      score: SURVEY_DEFAULT_SCORE,
+      answer: answerInputRow.skip === true ?
+        "" : surveyAnswerFormatter(answerInputRow.value, answerInputRow.unit),
+      detail: answerInputRow.skip === true ? null : answerInputRow.detail,
+    };
+
+    // Find if there is an existing survey for this question...
+    const existingSurveyQuestionAnswer = existingSurveyQuestionAnswers.find(existingObject =>
+      existingObject.questionid === answerInputRow.questionid);
+
+    // Was it found?
+    if (existingSurveyQuestionAnswer) {
+      // Update!
+      if (surveysPayload.update === undefined) {
+        surveysPayload.update = [];
+      }
+      surveysPayload.update.push({
+        where: { id: existingSurveyQuestionAnswer.surveyid },
+        data: surveyData,
+      });
+    } else {
+      // Create!
+      if (surveysPayload.create === undefined) {
+        surveysPayload.create = [];
+      }
+      surveyData.question = {
+        connect: {
+          id: answerInputRow.questionid,
+        },
+      };
+      surveysPayload.create.push(surveyData);
+    }
+  });
+
+  return surveysPayload;
+}
 
 module.exports = { course };
