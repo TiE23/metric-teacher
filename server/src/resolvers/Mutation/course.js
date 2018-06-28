@@ -8,7 +8,6 @@ const {
 
 const {
   AuthError,
-  GraphQlDumpWarning,
   CourseNotFound,
   CourseNoSubSubjectsAdded,
   SurveyAnswerIncomplete,
@@ -140,11 +139,6 @@ const course = {
       action: "addMasteryScores",
     });
 
-    // Create the subSubjectIds clause string.
-    const subSubjectClauseStrings = [];
-    args.scoreinput.forEach(scoreInputRow =>
-      subSubjectClauseStrings.push(`{ subSubject: { id: "${scoreInputRow.subsubjectid}" } }`));
-
     // Note: Does not check if the Mastery is active or not, so it could affect inactive Masteries.
     const targetCourseData = await ctx.db.query.course(
       { where: { id: args.courseid } },
@@ -155,11 +149,15 @@ const course = {
             id
           }
         }
-        masteries(where: {
-          OR: [
-            ${subSubjectClauseStrings.join(",")}
-          ]
-        }){
+        masteries(
+          where: {
+            subSubject: {
+              id_in: [
+                ${args.scoreinput.map(scoreInput => `"${scoreInput.subsubjectid}"`).join(",")}
+              ]
+            }
+          }
+        ){
           subSubject {
             id
           }
@@ -240,15 +238,6 @@ const course = {
       action: "addSurveyScores",
     });
 
-    if (!args.courseid) {
-      throw new GraphQlDumpWarning("mutation", "addSurveyScores");
-    }
-
-    // Create the surveyIds clause string.
-    const surveyClauseStrings = [];
-    args.scoreinput.forEach(scoreInputRow =>
-      surveyClauseStrings.push(`{ id: "${scoreInputRow.surveyid}" }`));
-
     // Note: Does not check if the Survey is skipped or not, so it could affect skipped Surveys.
     const targetCourseData = await ctx.db.query.course(
       { where: { id: args.courseid } },
@@ -259,9 +248,13 @@ const course = {
             id
           }
         }
-        surveys(where: {
-          OR: ${surveyClauseStrings.join(",")}
-        }){
+        surveys(
+          where: {
+            id_in: [
+              ${args.scoreinput.map(scoreInput => `"${scoreInput.surveyid}"`).join(",")}
+            ]
+          }
+        ){
           id
           score
         }
@@ -340,6 +333,7 @@ const course = {
       action: "addSurveyAnswers",
     });
 
+    // Note: Does not check if the Survey is skipped or not, so it could affect skipped Surveys.
     const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
     {
       id
@@ -348,7 +342,15 @@ const course = {
           id
         }
       }
-      surveys {
+      surveys(
+        where: {
+          question: {
+            id_in: [
+              ${args.answerinput.map(answerInput => `"${answerInput.questionid}"`).join(",")}
+            ]
+          }
+        }
+      ) {
         id
         status
         question {
