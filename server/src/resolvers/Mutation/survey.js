@@ -3,12 +3,14 @@ const {
 } = require("../../utils");
 
 const {
+  surveyAnswerFormatter,
+} = require("../../logic/utils");
+
+const {
   AuthError,
   CourseNotFound,
-  SurveyIncomplete,
+  SurveyAnswerIncomplete,
   SurveyNotFound,
-  SurveyAnswerUnitInvalid,
-  SurveyAnswerValueInvalid,
 } = require("../../errors");
 
 const {
@@ -21,7 +23,6 @@ const {
   SURVEY_MAX_SCORE,
   SURVEY_STATUS_NORMAL,
   SURVEY_STATUS_SKIPPED,
-  UNITS,
 } = require("../../constants");
 
 const survey = {
@@ -77,7 +78,7 @@ const survey = {
 
     // Reject an answer if missing value or unit arguments (and it's not being skipped)
     if (!((args.value && args.unit) || args.skip === true)) {
-      throw new SurveyIncomplete(args.courseid, args.questionid);
+      throw new SurveyAnswerIncomplete(args.courseid, args.questionid);
     }
 
     // Check if the survey has been taken before. If so, grab the Survey's ID.
@@ -179,25 +180,5 @@ const survey = {
     }, info);
   },
 };
-
-
-/**
- * Very simple function returns the format used by Survey answers.
- * Ex: 1.65, and "m" returns "[1.65m]"
- * @param value
- * @param unit  Needs to be lower case.
- * @returns {string}
- */
-function surveyAnswerFormatter(value, unit) {
-  // eslint-disable-next-line no-restricted-globals
-  if (isNaN(value)) {
-    throw new SurveyAnswerValueInvalid(value);
-  }
-  if (UNITS[unit] === undefined) {
-    throw new SurveyAnswerUnitInvalid(unit);
-  }
-
-  return `[${value}${unit}]`;
-}
 
 module.exports = { survey };

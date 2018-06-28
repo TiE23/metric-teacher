@@ -3,11 +3,15 @@ const {
 } = require("../../utils");
 
 const {
+  surveyAnswerFormatter,
+} = require("../../logic/utils");
+
+const {
   AuthError,
   GraphQlDumpWarning,
   CourseNotFound,
   CourseNoSubSubjectsAdded,
-  StudentNotOwner,
+  SurveyAnswerIncomplete,
 } = require("../../errors");
 
 const {
@@ -20,8 +24,11 @@ const {
   MASTERY_MIN_SCORE,
   MASTERY_MAX_SCORE,
   MASTERY_STATUS_ACTIVE,
+  SURVEY_DEFAULT_SCORE,
   SURVEY_MIN_SCORE,
   SURVEY_MAX_SCORE,
+  SURVEY_STATUS_NORMAL,
+  SURVEY_STATUS_SKIPPED,
 } = require("../../constants");
 
 const course = {
@@ -132,10 +139,6 @@ const course = {
       status: USER_STATUS_NORMAL,
       action: "addMasteryScores",
     });
-
-    if (!args.courseid) {
-      throw new GraphQlDumpWarning("mutation", "addMasteryScores");
-    }
 
     // Create the subSubjectIds clause string.
     const subSubjectClauseStrings = [];
@@ -306,6 +309,127 @@ const course = {
         surveys: {
           update: surveysUpdateClause,
         },
+      },
+    }, info);
+  },
+
+
+  /**
+   * Answer or re-answer a series of Survey questions. Only the owning student (or moderators or
+   * better) can do this.
+   * @param parent
+   * @param args
+   *        courseid: ID!
+   *        answerinput: [
+   *          SurveyAnswerInput: {
+   *            questionid: ID!
+   *            skip: Boolean
+   *            value: Float
+   *            unit: String
+   *            detail: String
+   *          }!
+   *        ]!
+   * @param ctx
+   * @param info
+   * @returns Course!
+   */
+  async addSurveyAnswers(parent, args, ctx, info) {
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "addSurveyAnswers",
+    });
+
+    const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
+    {
+      id
+      parent {
+        student {
+          id
+        }
+      }
+      surveys {
+        id
+        status
+        question {
+          id
+        }
+      }
+    }
+    `);
+
+    // Check the course exists.
+    if (targetCourseData === null) {
+      throw new CourseNotFound(args.courseid);
+    }
+
+    // A student can answer/re-answer Surveys and moderators or better can as well.
+    if (callingUserData.id !== targetCourseData.parent.student.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "addSurveyAnswers");
+    }
+
+    // Check all answer inputs to confirm they are complete
+    args.answerinput.forEach((answerInput) => {
+      if (!((answerInput.value && answerInput.unit) || answerInput.skip === true)) {
+        throw new SurveyAnswerIncomplete(args.courseid, answerInput.questionid);
+      }
+    });
+
+    // Get existing Survey answer ids and connected question ids
+    const existingSurveyQuestionAnswers =
+      targetCourseData.surveys.map(survey => ({
+        surveyid: survey.id,
+        questionid: survey.question.id,
+      }));
+
+    // Construct update/create data payloads
+    const surveysPayload = {};
+
+    // Loop through the answers input.
+    args.answerinput.forEach((answerInput) => {
+      // Construct data payload
+      const surveyData = {
+        status: answerInput.skip === true ? SURVEY_STATUS_SKIPPED : SURVEY_STATUS_NORMAL,
+        score: SURVEY_DEFAULT_SCORE,
+        answer: answerInput.skip === true ?
+          "" : surveyAnswerFormatter(answerInput.value, answerInput.unit),
+        detail: answerInput.skip === true ? null : answerInput.detail,
+      };
+
+      // Find if there is an existing survey for this question...
+      const existingSurveyQuestionAnswer = existingSurveyQuestionAnswers.find(existingObject =>
+        existingObject.questionid === answerInput.questionid);
+
+      // Was it found?
+      if (existingSurveyQuestionAnswer) {
+        // Update!
+        if (surveysPayload.update === undefined) {
+          surveysPayload.update = [];
+        }
+        surveysPayload.update.push({
+          where: { id: existingSurveyQuestionAnswer.surveyid },
+          data: surveyData,
+        });
+      } else {
+        // Create!
+        if (surveysPayload.create === undefined) {
+          surveysPayload.create = [];
+        }
+        surveyData.question = {
+          connect: {
+            id: answerInput.questionid,
+          },
+        };
+        surveysPayload.create.push(surveyData);
+      }
+    });
+
+    // Fire off the mutation!
+    return ctx.db.mutation.updateCourse({
+      where: { id: args.courseid },
+      data: {
+        surveys: surveysPayload,
       },
     }, info);
   },

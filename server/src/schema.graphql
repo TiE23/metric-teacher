@@ -71,6 +71,7 @@ type Mutation {
   assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
   addMasteryScores(courseid: ID!, scoreinput: [MasteryScoreInput!]!): Course!
   addSurveyScores(courseid: ID!, scoreinput: [SurveyScoreInput!]!): Course!
+  addSurveyAnswers(courseid: ID!, answerinput: [SurveyAnswerInput!]!): Course!
 
   # Mastery Mutations
   activateMastery(masteryid: ID!): Mastery!
@@ -94,6 +95,14 @@ input MasteryScoreInput {
 input SurveyScoreInput {
   surveyid: ID!
   score: Int!
+}
+
+input SurveyAnswerInput {
+  questionid: ID!
+  skip: Boolean
+  value: Float
+  unit: String
+  detail: String
 }
 
 type AuthPayload {
