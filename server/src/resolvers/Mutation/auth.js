@@ -11,7 +11,7 @@ const auth = {
     const password = await bcrypt.hash(args.password, 10);
     const user = await ctx.db.mutation.createUser({
       data: { ...defaultArgs, ...args, password },
-    }, info);
+    });
 
     return {
       token: jwt.sign({ userId: user.id }, process.env.APP_SECRET),

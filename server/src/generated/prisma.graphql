@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Tue Jun 19 2018 14:33:24 GMT-0700 (PDT)
+# timestamp: Thu Jun 28 2018 14:21:03 GMT-0700 (PDT)
 
 type AggregateClassroom {
   count: Int!
@@ -10,6 +10,10 @@ type AggregateCourse {
 }
 
 type AggregateEnrollment {
+  count: Int!
+}
+
+type AggregateFeedback {
   count: Int!
 }
 
@@ -1179,6 +1183,378 @@ input EnrollmentWhereUniqueInput {
   id: ID
 }
 
+type Feedback implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  type: Int!
+  status: Int!
+  text: String
+  question(where: QuestionWhereInput): Question!
+  author(where: UserWhereInput): User!
+}
+
+"""A connection to a list of items."""
+type FeedbackConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FeedbackEdge]!
+  aggregate: AggregateFeedback!
+}
+
+input FeedbackCreateInput {
+  type: Int!
+  status: Int!
+  text: String
+  question: QuestionCreateOneWithoutFeedbackInput!
+  author: UserCreateOneWithoutFeedbackInput!
+}
+
+input FeedbackCreateManyWithoutAuthorInput {
+  create: [FeedbackCreateWithoutAuthorInput!]
+  connect: [FeedbackWhereUniqueInput!]
+}
+
+input FeedbackCreateManyWithoutQuestionInput {
+  create: [FeedbackCreateWithoutQuestionInput!]
+  connect: [FeedbackWhereUniqueInput!]
+}
+
+input FeedbackCreateWithoutAuthorInput {
+  type: Int!
+  status: Int!
+  text: String
+  question: QuestionCreateOneWithoutFeedbackInput!
+}
+
+input FeedbackCreateWithoutQuestionInput {
+  type: Int!
+  status: Int!
+  text: String
+  author: UserCreateOneWithoutFeedbackInput!
+}
+
+"""An edge in a connection."""
+type FeedbackEdge {
+  """The item at the end of the edge."""
+  node: Feedback!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FeedbackOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  type_ASC
+  type_DESC
+  status_ASC
+  status_DESC
+  text_ASC
+  text_DESC
+}
+
+type FeedbackPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  type: Int!
+  status: Int!
+  text: String
+}
+
+type FeedbackSubscriptionPayload {
+  mutation: MutationType!
+  node: Feedback
+  updatedFields: [String!]
+  previousValues: FeedbackPreviousValues
+}
+
+input FeedbackSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FeedbackSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FeedbackSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FeedbackSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FeedbackWhereInput
+}
+
+input FeedbackUpdateInput {
+  type: Int
+  status: Int
+  text: String
+  question: QuestionUpdateOneWithoutFeedbackInput
+  author: UserUpdateOneWithoutFeedbackInput
+}
+
+input FeedbackUpdateManyWithoutAuthorInput {
+  create: [FeedbackCreateWithoutAuthorInput!]
+  connect: [FeedbackWhereUniqueInput!]
+  disconnect: [FeedbackWhereUniqueInput!]
+  delete: [FeedbackWhereUniqueInput!]
+  update: [FeedbackUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [FeedbackUpsertWithWhereUniqueWithoutAuthorInput!]
+}
+
+input FeedbackUpdateManyWithoutQuestionInput {
+  create: [FeedbackCreateWithoutQuestionInput!]
+  connect: [FeedbackWhereUniqueInput!]
+  disconnect: [FeedbackWhereUniqueInput!]
+  delete: [FeedbackWhereUniqueInput!]
+  update: [FeedbackUpdateWithWhereUniqueWithoutQuestionInput!]
+  upsert: [FeedbackUpsertWithWhereUniqueWithoutQuestionInput!]
+}
+
+input FeedbackUpdateWithoutAuthorDataInput {
+  type: Int
+  status: Int
+  text: String
+  question: QuestionUpdateOneWithoutFeedbackInput
+}
+
+input FeedbackUpdateWithoutQuestionDataInput {
+  type: Int
+  status: Int
+  text: String
+  author: UserUpdateOneWithoutFeedbackInput
+}
+
+input FeedbackUpdateWithWhereUniqueWithoutAuthorInput {
+  where: FeedbackWhereUniqueInput!
+  data: FeedbackUpdateWithoutAuthorDataInput!
+}
+
+input FeedbackUpdateWithWhereUniqueWithoutQuestionInput {
+  where: FeedbackWhereUniqueInput!
+  data: FeedbackUpdateWithoutQuestionDataInput!
+}
+
+input FeedbackUpsertWithWhereUniqueWithoutAuthorInput {
+  where: FeedbackWhereUniqueInput!
+  update: FeedbackUpdateWithoutAuthorDataInput!
+  create: FeedbackCreateWithoutAuthorInput!
+}
+
+input FeedbackUpsertWithWhereUniqueWithoutQuestionInput {
+  where: FeedbackWhereUniqueInput!
+  update: FeedbackUpdateWithoutQuestionDataInput!
+  create: FeedbackCreateWithoutQuestionInput!
+}
+
+input FeedbackWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FeedbackWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FeedbackWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FeedbackWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  type: Int
+
+  """All values that are not equal to given value."""
+  type_not: Int
+
+  """All values that are contained in given list."""
+  type_in: [Int!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [Int!]
+
+  """All values less than the given value."""
+  type_lt: Int
+
+  """All values less than or equal the given value."""
+  type_lte: Int
+
+  """All values greater than the given value."""
+  type_gt: Int
+
+  """All values greater than or equal the given value."""
+  type_gte: Int
+  status: Int
+
+  """All values that are not equal to given value."""
+  status_not: Int
+
+  """All values that are contained in given list."""
+  status_in: [Int!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [Int!]
+
+  """All values less than the given value."""
+  status_lt: Int
+
+  """All values less than or equal the given value."""
+  status_lte: Int
+
+  """All values greater than the given value."""
+  status_gt: Int
+
+  """All values greater than or equal the given value."""
+  status_gte: Int
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
+  question: QuestionWhereInput
+  author: UserWhereInput
+}
+
+input FeedbackWhereUniqueInput {
+  id: ID
+}
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -1478,8 +1854,9 @@ type Mutation {
   createMastery(data: MasteryCreateInput!): Mastery!
   createSurvey(data: SurveyCreateInput!): Survey!
   createSubject(data: SubjectCreateInput!): Subject!
-  createSubSubject(data: SubSubjectCreateInput!): SubSubject!
+  createFeedback(data: FeedbackCreateInput!): Feedback!
   createQuestion(data: QuestionCreateInput!): Question!
+  createSubSubject(data: SubSubjectCreateInput!): SubSubject!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateClassroom(data: ClassroomUpdateInput!, where: ClassroomWhereUniqueInput!): Classroom
   updateEnrollment(data: EnrollmentUpdateInput!, where: EnrollmentWhereUniqueInput!): Enrollment
@@ -1487,8 +1864,9 @@ type Mutation {
   updateMastery(data: MasteryUpdateInput!, where: MasteryWhereUniqueInput!): Mastery
   updateSurvey(data: SurveyUpdateInput!, where: SurveyWhereUniqueInput!): Survey
   updateSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
-  updateSubSubject(data: SubSubjectUpdateInput!, where: SubSubjectWhereUniqueInput!): SubSubject
+  updateFeedback(data: FeedbackUpdateInput!, where: FeedbackWhereUniqueInput!): Feedback
   updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
+  updateSubSubject(data: SubSubjectUpdateInput!, where: SubSubjectWhereUniqueInput!): SubSubject
   deleteUser(where: UserWhereUniqueInput!): User
   deleteClassroom(where: ClassroomWhereUniqueInput!): Classroom
   deleteEnrollment(where: EnrollmentWhereUniqueInput!): Enrollment
@@ -1496,8 +1874,9 @@ type Mutation {
   deleteMastery(where: MasteryWhereUniqueInput!): Mastery
   deleteSurvey(where: SurveyWhereUniqueInput!): Survey
   deleteSubject(where: SubjectWhereUniqueInput!): Subject
-  deleteSubSubject(where: SubSubjectWhereUniqueInput!): SubSubject
+  deleteFeedback(where: FeedbackWhereUniqueInput!): Feedback
   deleteQuestion(where: QuestionWhereUniqueInput!): Question
+  deleteSubSubject(where: SubSubjectWhereUniqueInput!): SubSubject
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertClassroom(where: ClassroomWhereUniqueInput!, create: ClassroomCreateInput!, update: ClassroomUpdateInput!): Classroom!
   upsertEnrollment(where: EnrollmentWhereUniqueInput!, create: EnrollmentCreateInput!, update: EnrollmentUpdateInput!): Enrollment!
@@ -1505,8 +1884,9 @@ type Mutation {
   upsertMastery(where: MasteryWhereUniqueInput!, create: MasteryCreateInput!, update: MasteryUpdateInput!): Mastery!
   upsertSurvey(where: SurveyWhereUniqueInput!, create: SurveyCreateInput!, update: SurveyUpdateInput!): Survey!
   upsertSubject(where: SubjectWhereUniqueInput!, create: SubjectCreateInput!, update: SubjectUpdateInput!): Subject!
-  upsertSubSubject(where: SubSubjectWhereUniqueInput!, create: SubSubjectCreateInput!, update: SubSubjectUpdateInput!): SubSubject!
+  upsertFeedback(where: FeedbackWhereUniqueInput!, create: FeedbackCreateInput!, update: FeedbackUpdateInput!): Feedback!
   upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
+  upsertSubSubject(where: SubSubjectWhereUniqueInput!, create: SubSubjectCreateInput!, update: SubSubjectUpdateInput!): SubSubject!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyClassrooms(data: ClassroomUpdateInput!, where: ClassroomWhereInput): BatchPayload!
   updateManyEnrollments(data: EnrollmentUpdateInput!, where: EnrollmentWhereInput): BatchPayload!
@@ -1514,8 +1894,9 @@ type Mutation {
   updateManyMasteries(data: MasteryUpdateInput!, where: MasteryWhereInput): BatchPayload!
   updateManySurveys(data: SurveyUpdateInput!, where: SurveyWhereInput): BatchPayload!
   updateManySubjects(data: SubjectUpdateInput!, where: SubjectWhereInput): BatchPayload!
-  updateManySubSubjects(data: SubSubjectUpdateInput!, where: SubSubjectWhereInput): BatchPayload!
+  updateManyFeedbacks(data: FeedbackUpdateInput!, where: FeedbackWhereInput): BatchPayload!
   updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
+  updateManySubSubjects(data: SubSubjectUpdateInput!, where: SubSubjectWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyClassrooms(where: ClassroomWhereInput): BatchPayload!
   deleteManyEnrollments(where: EnrollmentWhereInput): BatchPayload!
@@ -1523,8 +1904,9 @@ type Mutation {
   deleteManyMasteries(where: MasteryWhereInput): BatchPayload!
   deleteManySurveys(where: SurveyWhereInput): BatchPayload!
   deleteManySubjects(where: SubjectWhereInput): BatchPayload!
-  deleteManySubSubjects(where: SubSubjectWhereInput): BatchPayload!
+  deleteManyFeedbacks(where: FeedbackWhereInput): BatchPayload!
   deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
+  deleteManySubSubjects(where: SubSubjectWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1562,8 +1944,9 @@ type Query {
   masteries(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery]!
   surveys(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey]!
   subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
-  subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!
+  feedbacks(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback]!
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+  subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!
   user(where: UserWhereUniqueInput!): User
   classroom(where: ClassroomWhereUniqueInput!): Classroom
   enrollment(where: EnrollmentWhereUniqueInput!): Enrollment
@@ -1571,8 +1954,9 @@ type Query {
   mastery(where: MasteryWhereUniqueInput!): Mastery
   survey(where: SurveyWhereUniqueInput!): Survey
   subject(where: SubjectWhereUniqueInput!): Subject
-  subSubject(where: SubSubjectWhereUniqueInput!): SubSubject
+  feedback(where: FeedbackWhereUniqueInput!): Feedback
   question(where: QuestionWhereUniqueInput!): Question
+  subSubject(where: SubSubjectWhereUniqueInput!): SubSubject
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   classroomsConnection(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClassroomConnection!
   enrollmentsConnection(where: EnrollmentWhereInput, orderBy: EnrollmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EnrollmentConnection!
@@ -1580,8 +1964,9 @@ type Query {
   masteriesConnection(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MasteryConnection!
   surveysConnection(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SurveyConnection!
   subjectsConnection(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectConnection!
-  subSubjectsConnection(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubSubjectConnection!
+  feedbacksConnection(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FeedbackConnection!
   questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
+  subSubjectsConnection(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubSubjectConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1602,6 +1987,7 @@ type Question implements Node {
   answer: String!
   media: String
   parent(where: SubSubjectWhereInput): SubSubject!
+  feedback(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback!]
 }
 
 """A connection to a list of items."""
@@ -1623,6 +2009,7 @@ input QuestionCreateInput {
   answer: String!
   media: String
   parent: SubSubjectCreateOneWithoutQuestionsInput!
+  feedback: FeedbackCreateManyWithoutQuestionInput
 }
 
 input QuestionCreateManyWithoutParentInput {
@@ -1635,6 +2022,22 @@ input QuestionCreateOneInput {
   connect: QuestionWhereUniqueInput
 }
 
+input QuestionCreateOneWithoutFeedbackInput {
+  create: QuestionCreateWithoutFeedbackInput
+  connect: QuestionWhereUniqueInput
+}
+
+input QuestionCreateWithoutFeedbackInput {
+  type: Int!
+  status: Int!
+  flags: Int!
+  difficulty: Int!
+  question: String!
+  answer: String!
+  media: String
+  parent: SubSubjectCreateOneWithoutQuestionsInput!
+}
+
 input QuestionCreateWithoutParentInput {
   type: Int!
   status: Int!
@@ -1643,6 +2046,7 @@ input QuestionCreateWithoutParentInput {
   question: String!
   answer: String!
   media: String
+  feedback: FeedbackCreateManyWithoutQuestionInput
 }
 
 """An edge in a connection."""
@@ -1738,6 +2142,7 @@ input QuestionUpdateDataInput {
   answer: String
   media: String
   parent: SubSubjectUpdateOneWithoutQuestionsInput
+  feedback: FeedbackUpdateManyWithoutQuestionInput
 }
 
 input QuestionUpdateInput {
@@ -1749,6 +2154,7 @@ input QuestionUpdateInput {
   answer: String
   media: String
   parent: SubSubjectUpdateOneWithoutQuestionsInput
+  feedback: FeedbackUpdateManyWithoutQuestionInput
 }
 
 input QuestionUpdateManyWithoutParentInput {
@@ -1768,6 +2174,25 @@ input QuestionUpdateOneInput {
   upsert: QuestionUpsertNestedInput
 }
 
+input QuestionUpdateOneWithoutFeedbackInput {
+  create: QuestionCreateWithoutFeedbackInput
+  connect: QuestionWhereUniqueInput
+  delete: Boolean
+  update: QuestionUpdateWithoutFeedbackDataInput
+  upsert: QuestionUpsertWithoutFeedbackInput
+}
+
+input QuestionUpdateWithoutFeedbackDataInput {
+  type: Int
+  status: Int
+  flags: Int
+  difficulty: Int
+  question: String
+  answer: String
+  media: String
+  parent: SubSubjectUpdateOneWithoutQuestionsInput
+}
+
 input QuestionUpdateWithoutParentDataInput {
   type: Int
   status: Int
@@ -1776,6 +2201,7 @@ input QuestionUpdateWithoutParentDataInput {
   question: String
   answer: String
   media: String
+  feedback: FeedbackUpdateManyWithoutQuestionInput
 }
 
 input QuestionUpdateWithWhereUniqueWithoutParentInput {
@@ -1786,6 +2212,11 @@ input QuestionUpdateWithWhereUniqueWithoutParentInput {
 input QuestionUpsertNestedInput {
   update: QuestionUpdateDataInput!
   create: QuestionCreateInput!
+}
+
+input QuestionUpsertWithoutFeedbackInput {
+  update: QuestionUpdateWithoutFeedbackDataInput!
+  create: QuestionCreateWithoutFeedbackInput!
 }
 
 input QuestionUpsertWithWhereUniqueWithoutParentInput {
@@ -2096,6 +2527,12 @@ input QuestionWhereInput {
   """All values not ending with the given string."""
   media_not_ends_with: String
   parent: SubSubjectWhereInput
+  feedback_every: FeedbackWhereInput
+  feedback_some: FeedbackWhereInput
+  feedback_none: FeedbackWhereInput
+  _MagicalBackRelation_SurveyToQuestion_every: SurveyWhereInput
+  _MagicalBackRelation_SurveyToQuestion_some: SurveyWhereInput
+  _MagicalBackRelation_SurveyToQuestion_none: SurveyWhereInput
 }
 
 input QuestionWhereUniqueInput {
@@ -2469,8 +2906,9 @@ type Subscription {
   mastery(where: MasterySubscriptionWhereInput): MasterySubscriptionPayload
   survey(where: SurveySubscriptionWhereInput): SurveySubscriptionPayload
   subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
-  subSubject(where: SubSubjectSubscriptionWhereInput): SubSubjectSubscriptionPayload
+  feedback(where: FeedbackSubscriptionWhereInput): FeedbackSubscriptionPayload
   question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
+  subSubject(where: SubSubjectSubscriptionWhereInput): SubSubjectSubscriptionPayload
 }
 
 type SubSubject implements Node {
@@ -2944,6 +3382,9 @@ input SubSubjectWhereInput {
   questions_every: QuestionWhereInput
   questions_some: QuestionWhereInput
   questions_none: QuestionWhereInput
+  _MagicalBackRelation_MasteryToSubSubject_every: MasteryWhereInput
+  _MagicalBackRelation_MasteryToSubSubject_some: MasteryWhereInput
+  _MagicalBackRelation_MasteryToSubSubject_none: MasteryWhereInput
 }
 
 input SubSubjectWhereUniqueInput {
@@ -3346,6 +3787,7 @@ type User implements Node {
   flags: Int!
   enrollment(where: EnrollmentWhereInput): Enrollment
   classroomsTeaching(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom!]
+  feedback(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback!]
 }
 
 """A connection to a list of items."""
@@ -3369,6 +3811,7 @@ input UserCreateInput {
   flags: Int!
   enrollment: EnrollmentCreateOneWithoutStudentInput
   classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
+  feedback: FeedbackCreateManyWithoutAuthorInput
 }
 
 input UserCreateManyWithoutClassroomsTeachingInput {
@@ -3378,6 +3821,11 @@ input UserCreateManyWithoutClassroomsTeachingInput {
 
 input UserCreateOneWithoutEnrollmentInput {
   create: UserCreateWithoutEnrollmentInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutFeedbackInput {
+  create: UserCreateWithoutFeedbackInput
   connect: UserWhereUniqueInput
 }
 
@@ -3391,6 +3839,7 @@ input UserCreateWithoutClassroomsTeachingInput {
   status: Int!
   flags: Int!
   enrollment: EnrollmentCreateOneWithoutStudentInput
+  feedback: FeedbackCreateManyWithoutAuthorInput
 }
 
 input UserCreateWithoutEnrollmentInput {
@@ -3402,6 +3851,20 @@ input UserCreateWithoutEnrollmentInput {
   type: Int!
   status: Int!
   flags: Int!
+  classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
+  feedback: FeedbackCreateManyWithoutAuthorInput
+}
+
+input UserCreateWithoutFeedbackInput {
+  email: String!
+  password: String!
+  honorific: String
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  enrollment: EnrollmentCreateOneWithoutStudentInput
   classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
 }
 
@@ -3503,6 +3966,7 @@ input UserUpdateInput {
   flags: Int
   enrollment: EnrollmentUpdateOneWithoutStudentInput
   classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
+  feedback: FeedbackUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateManyWithoutClassroomsTeachingInput {
@@ -3522,6 +3986,14 @@ input UserUpdateOneWithoutEnrollmentInput {
   upsert: UserUpsertWithoutEnrollmentInput
 }
 
+input UserUpdateOneWithoutFeedbackInput {
+  create: UserCreateWithoutFeedbackInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutFeedbackDataInput
+  upsert: UserUpsertWithoutFeedbackInput
+}
+
 input UserUpdateWithoutClassroomsTeachingDataInput {
   email: String
   password: String
@@ -3532,6 +4004,7 @@ input UserUpdateWithoutClassroomsTeachingDataInput {
   status: Int
   flags: Int
   enrollment: EnrollmentUpdateOneWithoutStudentInput
+  feedback: FeedbackUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateWithoutEnrollmentDataInput {
@@ -3544,6 +4017,20 @@ input UserUpdateWithoutEnrollmentDataInput {
   status: Int
   flags: Int
   classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
+  feedback: FeedbackUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateWithoutFeedbackDataInput {
+  email: String
+  password: String
+  honorific: String
+  fname: String
+  lname: String
+  type: Int
+  status: Int
+  flags: Int
+  enrollment: EnrollmentUpdateOneWithoutStudentInput
+  classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
 }
 
 input UserUpdateWithWhereUniqueWithoutClassroomsTeachingInput {
@@ -3554,6 +4041,11 @@ input UserUpdateWithWhereUniqueWithoutClassroomsTeachingInput {
 input UserUpsertWithoutEnrollmentInput {
   update: UserUpdateWithoutEnrollmentDataInput!
   create: UserCreateWithoutEnrollmentInput!
+}
+
+input UserUpsertWithoutFeedbackInput {
+  update: UserUpdateWithoutFeedbackDataInput!
+  create: UserCreateWithoutFeedbackInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutClassroomsTeachingInput {
@@ -3925,6 +4417,9 @@ input UserWhereInput {
   classroomsTeaching_every: ClassroomWhereInput
   classroomsTeaching_some: ClassroomWhereInput
   classroomsTeaching_none: ClassroomWhereInput
+  feedback_every: FeedbackWhereInput
+  feedback_some: FeedbackWhereInput
+  feedback_none: FeedbackWhereInput
 }
 
 input UserWhereUniqueInput {
