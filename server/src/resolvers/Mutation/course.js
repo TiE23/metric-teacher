@@ -114,6 +114,54 @@ const course = {
 
 
   /**
+   * Deactivates a course. Only the owning student (or moderators or better) can do this.
+   * @param parent
+   * @param args
+   *        courseid: ID!
+   * @param ctx
+   * @param info
+   * @returns Course!
+   */
+  async deactivateCourse(parent, args, ctx, info) {
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "deactivateCourse",
+    });
+
+    const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
+      {
+        id
+        status
+        parent {
+          student {
+            id
+          }
+        }
+      }
+    `);
+
+    // Check the Course exists.
+    if (targetCourseData === null) {
+      throw new CourseNotFound(args.courseid);
+    }
+    // A student can change the status of a Course and moderators or better can as well.
+    if (callingUserData.id !== targetCourseData.parent.student.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "deactivateCourse");
+    }
+
+    // Perform the update
+    return ctx.db.mutation.updateCourse({
+      where: { id: args.courseid },
+      data: {
+        status: COURSE_STATUS_INACTIVE,
+      },
+    }, info);
+  },
+
+
+  /**
    * Give a courseid and a list of combination SubSubject IDs and scores (positive or negative) and
    * those values will be added to each valid Mastery belonging to that Course.
    * It automatically gathers the Mastery IDs so you don't need to!
@@ -340,54 +388,6 @@ const course = {
       where: { id: args.courseid },
       data: {
         surveys: surveysPayload,
-      },
-    }, info);
-  },
-
-
-  /**
-   * Deactivates a course. Only the owning student (or moderators or better) can do this.
-   * @param parent
-   * @param args
-   *        courseid: ID!
-   * @param ctx
-   * @param info
-   * @returns Course!
-   */
-  async deactivateCourse(parent, args, ctx, info) {
-    const callingUserData = await checkAuth(ctx, {
-      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
-      status: USER_STATUS_NORMAL,
-      action: "deactivateCourse",
-    });
-
-    const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
-      {
-        id
-        status
-        parent {
-          student {
-            id
-          }
-        }
-      }
-    `);
-
-    // Check the Course exists.
-    if (targetCourseData === null) {
-      throw new CourseNotFound(args.courseid);
-    }
-    // A student can change the status of a Course and moderators or better can as well.
-    if (callingUserData.id !== targetCourseData.parent.student.id &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "deactivateCourse");
-    }
-
-    // Perform the update
-    return ctx.db.mutation.updateCourse({
-      where: { id: args.courseid },
-      data: {
-        status: COURSE_STATUS_INACTIVE,
       },
     }, info);
   },
