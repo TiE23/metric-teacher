@@ -5,6 +5,7 @@ const { course } = require("./course");
 const { classroom } = require("./classroom");
 const { mastery } = require("./mastery");
 const { survey } = require("./survey");
+const { feedback } = require("./feedback");
 
 module.exports = {
   Mutation: {
@@ -15,5 +16,6 @@ module.exports = {
     ...classroom,
     ...mastery,
     ...survey,
+    ...feedback,
   },
 };

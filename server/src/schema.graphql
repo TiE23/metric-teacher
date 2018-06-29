@@ -48,6 +48,9 @@ type Query {
   questions(questionids: [ID!]!): [Question]!
   questionSearch(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
 
+  # Feedback Queries
+  feedbackSearch(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback]!
+
   # QA Queries
   generateChallenge(courseid: ID!, subjectids: [ID], subsubjectids: [ID], listSize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!
   getQa(questionid: ID!): QaObject
@@ -86,6 +89,10 @@ type Mutation {
   # Survey Mutations
   answerSurvey(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
   addSurveyScore(surveyid: ID!, score: Int!): Survey!
+
+  # Feedback Mutations
+  submitFeedback(questionid: ID!, type: Int!, text: String): Feedback!
+  updateFeedbackStatus(feedbackid: ID!, status: Int!): Feedback!
 }
 
 input MasteryScoreInput {
@@ -139,6 +146,8 @@ type PrivateUser {
   flags: Int!
   enrollment: Enrollment
   classroomsTeaching: [Classroom!]!
+  feedbackGiven: [Feedback!]!
+  feedbackReviewed: [Feedback!]!
 }
 
 ### QA Object data schema and its numerous children below

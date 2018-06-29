@@ -7,6 +7,7 @@ const { course } = require("./course");
 const { mastery } = require("./mastery");
 const { survey } = require("./survey");
 const { question } = require("./question");
+const { feedback } = require("./feedback");
 
 module.exports = {
   Query: {
@@ -19,5 +20,6 @@ module.exports = {
     ...mastery,
     ...survey,
     ...question,
+    ...feedback,
   },
 };
