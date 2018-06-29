@@ -141,7 +141,7 @@ function parseQAStrings(questionType, question, answer) {
 function parseQuestionString(type, question) {
   const basePattern = /\[([^\]]+)]/;                  // Finds "[20.5,30c(0.5)s]"; Returns "20,30c(0.5)s"
   const rangePattern = /(-?[\d.]+),(-?[\d.]+)(\w+)/;  // Finds "20.5,30c"; Returns "20.5", "30", "c"
-  const stepPattern = /\(([\d.]+)\)s/;                // Finds "(0.5)s"; Returns "0.5"
+  const stepPattern = /\(([-\d.]+)\)s/;               // Finds "(0.5)s"; Returns "0.5"
 
   const baseResult = question.match(basePattern);
 
@@ -205,6 +205,12 @@ function parseQuestionString(type, question) {
       if (Number.isNaN(stepValue)) {
         throw new QuestionSyntaxError(question, "Step value contains invalid number");
       }
+      if (stepValue === 0) {
+        throw new QuestionSyntaxError(question, "Step value cannot be zero");
+      }
+      if (stepValue < 0) {
+        throw new QuestionSyntaxError(question, "Step value cannot be negative");
+      }
       questionPayload.data.step = stepValue;
     } else {
       questionPayload.data.step = 1.0;  // Defaults to 1.0
@@ -249,7 +255,7 @@ function parseAnswerString(questionType, answerSyntax) {
   const basePattern = /\[([^\]]+)](\d{0,2})/;
   const multipleChoiceDelimiter = "|";          // Splits on |
   const unitPattern = /^(\w+)/;                 // Finds "m"; Returns "m"
-  const unitAccuracyPattern = /\(([\d.]+)\)a/;  // Finds "(0.5)a"; Returns "0.5"
+  const unitAccuracyPattern = /\(([-\d.]+)\)a/; // Finds "(0.5)a"; Returns "0.5"
 
   // Create the basic return payload now.
   const answerPayload = {
@@ -324,6 +330,9 @@ function parseAnswerString(questionType, answerSyntax) {
       const accuracyValue = parseFloat(accuracyResult[1]);
       if (Number.isNaN(accuracyValue)) {
         throw new AnswerSyntaxError(answerSyntax, "Accuracy value contains invalid number");
+      }
+      if (accuracyValue < 0) {
+        throw new AnswerSyntaxError(answerSyntax, "Accuracy value cannot be negative");
       }
       answerPayload.data.accuracy = accuracyValue;
     } else {
