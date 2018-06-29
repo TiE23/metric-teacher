@@ -146,8 +146,10 @@ type PrivateUser {
   flags: Int!
   enrollment: Enrollment
   classroomsTeaching: [Classroom!]!
-  feedbackGiven: [Feedback!]!
+  feedbackWritten: [Feedback!]!
   feedbackReviewed: [Feedback!]!
+  questionsWritten: [Question!]!
+  questionsReviewed: [Question!]!
 }
 
 ### QA Object data schema and its numerous children below

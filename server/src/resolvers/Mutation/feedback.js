@@ -6,7 +6,6 @@ const {
   USER_STATUS_NORMAL,
   USER_TYPE_STUDENT,
   USER_TYPE_MODERATOR,
-
   FEEDBACK_STATUS_UNREVIEWED,
 } = require("../../constants");
 
