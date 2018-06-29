@@ -13,8 +13,10 @@ type User {
   flags: Int!
   enrollment: Enrollment @relation(name: "UserToEnrollment")
   classroomsTeaching: [Classroom!]! @relation(name: "UserToClassroom")
-  feedbackGiven: [Feedback!]! @relation(name: "UserToFeedback")
+  feedbackWritten: [Feedback!]! @relation(name: "UserToFeedback")
   feedbackReviewed: [Feedback!]! @relation(name: "ReviewerToFeedback")
+  questionsWritten: [Question!]! @relation(name: "UserToQuestion")
+  questionsReviewed: [Question!]! @relation(name: "ReviewerToQuestion")
 }
 
 # This is a structure that will allow teacher(s) to connect to their students and students to
@@ -134,6 +136,8 @@ type Question {
   media: String
   parent: SubSubject! @relation(name: "SubSubjectToQuestion")
   feedback: [Feedback!]! @relation(name: "QuestionToFeedback")
+  author: User @relation(name: "UserToQuestion")
+  reviewer: User @relation(name: "ReviewerToQuestion")
 }
 
 # So that users can provide feedback on questions they have problems with.

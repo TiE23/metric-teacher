@@ -47,6 +47,7 @@ type Query {
   question(questionid: ID!): Question
   questions(questionids: [ID!]!): [Question]!
   questionSearch(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+  checkSubmitQuestion(type: Int!, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Boolean!
 
   # Feedback Queries
   feedbackSearch(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback]!
@@ -80,6 +81,7 @@ type Mutation {
   # Mastery Mutations
   activateMastery(masteryid: ID!): Mastery!
   deactivateMastery(masteryid: ID!): Mastery!
+  addMasteryScore(masteryid: ID!, score: Int!): Mastery!
 
   # Classroom Mutations
   createClassroom(name: String!, description: String, teacherid: ID!): Classroom!
@@ -87,14 +89,18 @@ type Mutation {
   removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
 
   # Survey Mutations
-  answerSurvey(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
+  addSurveyAnswer(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
   addSurveyScore(surveyid: ID!, score: Int!): Survey!
+
+  # Question Mutations
+  submitQuestion(subsubjectid: ID!, type: Int!, flags: Int!, difficulty: Int!, media: String, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Question!
 
   # Feedback Mutations
   submitFeedback(questionid: ID!, type: Int!, text: String): Feedback!
   updateFeedbackStatus(feedbackid: ID!, status: Int!): Feedback!
 }
 
+### Inputs
 input MasteryScoreInput {
   subsubjectid: ID!
   score: Int!
@@ -113,6 +119,49 @@ input SurveyAnswerInput {
   detail: String
 }
 
+input QuestionQuestionInput {
+  text: String
+  conversioninput: ConversionQuestionInput
+  surveyrangeinput: RangeQuestionInput
+}
+
+input ConversionQuestionInput {
+  lower: Float!
+  upper: Float!
+  unit: String!
+  step: Float
+}
+
+input RangeQuestionInput {
+  lower: Float!
+  upper: Float!
+  unit: String!
+  step: Float
+}
+
+input QuestionAnswerInput {
+  text: String
+  multiplechoiceinput: MultipleChoiceInput
+  conversioninput: ConversionAnswerInput
+}
+
+input MultipleChoiceInput {
+  choices: [MultipleChoiceInputRow!]!
+  choicesoffered: Int
+}
+
+input MultipleChoiceInputRow {
+  value: Float
+  written: String
+  unit: String!
+}
+
+input ConversionAnswerInput {
+  unit: String!
+  accuracy: Float
+}
+
+### Types
 type AuthPayload {
   token: String!
   user: User!
@@ -146,8 +195,10 @@ type PrivateUser {
   flags: Int!
   enrollment: Enrollment
   classroomsTeaching: [Classroom!]!
-  feedbackGiven: [Feedback!]!
+  feedbackWritten: [Feedback!]!
   feedbackReviewed: [Feedback!]!
+  questionsWritten: [Question!]!
+  questionsReviewed: [Question!]!
 }
 
 ### QA Object data schema and its numerous children below

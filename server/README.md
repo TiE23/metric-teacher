@@ -1,5 +1,29 @@
-## dotenv
+# 📐🗄🗂🗳📏 metric-teacher Server 📏🗳🗂🗄📐
+This is the documentation for the server side of the metric-teacher project, a Node.js GraphQL API software project.
 
+It is written with...
+* Prisma - [github.com/prismagraphql/prisma](https://github.com/prismagraphql/prisma)
+* Prisma's GraphQL-Yoga️ - [github.com/prismagraphql/graphql-yoga](https://github.com/prismagraphql/graphql-yoga)
+* Prisma's Prisma-Binding - [github.com/prismagraphql/prisma-binding](https://github.com/prismagraphql/prisma-binding)
+* dcodeIO's bcrypt.js - [github.com/dcodeIO/bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
+* auth0's node-jsonwebtoken - [github.com/auth0/node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
+* Facebook's Jest - [jestjs.io](http://jestjs.io/)
+* Javier Cejudo's linear-converter - [github.com/javiercejudo/linear-converter](https://github.com/javiercejudo/linear-converter)
+* Lodash - [lodash.com](https://lodash.com/)
+
+It uses [**MySQL**](https://www.mysql.com/) for its Database, [**Prisma**](https://www.prisma.io/) for its GraphQL Database, and [**Docker**](https://www.docker.com/) + [**Docker-Compose**](https://docs.docker.com/compose/overview/) to build and run the virtual machines for these programs.
+
+It is written against **Node.js v10**, though it does not use any bleeding-edge JavaScript.
+
+I wrote it using the following tools:
+* JetBrain's WebStorm IDE - [jetbrains.com/webstorm](https://www.jetbrains.com/webstorm/)
+* Prisma's GraphQL Playground IDE - [github.com/prismagraphql/graphql-playground](https://github.com/prismagraphql/graphql-playground)
+* Sublime HQ's Sublime Text 3 Text Editor - [sublimetext.com/3](https://www.sublimetext.com/3)
+* syntevo's Smart Git Git Client - [syntevo.com/smartgit](https://www.syntevo.com/smartgit/)
+
+*First commit made on 2018-05-07 but an idea in my head since mid-2015.*
+
+## dotenv
 There is a secret file that is not in this repo: `.env`
 (to be explicit, it's located at `./server/.env`)
 

@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Thu Jun 28 2018 17:37:20 GMT-0700 (PDT)
+# timestamp: Thu Jun 28 2018 18:27:34 GMT-0700 (PDT)
 
 type AggregateClassroom {
   count: Int!
@@ -1210,7 +1210,7 @@ input FeedbackCreateInput {
   status: Int!
   text: String
   question: QuestionCreateOneWithoutFeedbackInput!
-  author: UserCreateOneWithoutFeedbackGivenInput!
+  author: UserCreateOneWithoutFeedbackWrittenInput!
   reviewer: UserCreateOneWithoutFeedbackReviewedInput
 }
 
@@ -1241,7 +1241,7 @@ input FeedbackCreateWithoutQuestionInput {
   type: Int!
   status: Int!
   text: String
-  author: UserCreateOneWithoutFeedbackGivenInput!
+  author: UserCreateOneWithoutFeedbackWrittenInput!
   reviewer: UserCreateOneWithoutFeedbackReviewedInput
 }
 
@@ -1250,7 +1250,7 @@ input FeedbackCreateWithoutReviewerInput {
   status: Int!
   text: String
   question: QuestionCreateOneWithoutFeedbackInput!
-  author: UserCreateOneWithoutFeedbackGivenInput!
+  author: UserCreateOneWithoutFeedbackWrittenInput!
 }
 
 """An edge in a connection."""
@@ -1330,7 +1330,7 @@ input FeedbackUpdateInput {
   status: Int
   text: String
   question: QuestionUpdateOneWithoutFeedbackInput
-  author: UserUpdateOneWithoutFeedbackGivenInput
+  author: UserUpdateOneWithoutFeedbackWrittenInput
   reviewer: UserUpdateOneWithoutFeedbackReviewedInput
 }
 
@@ -1373,7 +1373,7 @@ input FeedbackUpdateWithoutQuestionDataInput {
   type: Int
   status: Int
   text: String
-  author: UserUpdateOneWithoutFeedbackGivenInput
+  author: UserUpdateOneWithoutFeedbackWrittenInput
   reviewer: UserUpdateOneWithoutFeedbackReviewedInput
 }
 
@@ -1382,7 +1382,7 @@ input FeedbackUpdateWithoutReviewerDataInput {
   status: Int
   text: String
   question: QuestionUpdateOneWithoutFeedbackInput
-  author: UserUpdateOneWithoutFeedbackGivenInput
+  author: UserUpdateOneWithoutFeedbackWrittenInput
 }
 
 input FeedbackUpdateWithWhereUniqueWithoutAuthorInput {
@@ -2037,6 +2037,8 @@ type Question implements Node {
   media: String
   parent(where: SubSubjectWhereInput): SubSubject!
   feedback(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback!]
+  author(where: UserWhereInput): User
+  reviewer(where: UserWhereInput): User
 }
 
 """A connection to a list of items."""
@@ -2059,10 +2061,22 @@ input QuestionCreateInput {
   media: String
   parent: SubSubjectCreateOneWithoutQuestionsInput!
   feedback: FeedbackCreateManyWithoutQuestionInput
+  author: UserCreateOneWithoutQuestionsWrittenInput
+  reviewer: UserCreateOneWithoutQuestionsReviewedInput
+}
+
+input QuestionCreateManyWithoutAuthorInput {
+  create: [QuestionCreateWithoutAuthorInput!]
+  connect: [QuestionWhereUniqueInput!]
 }
 
 input QuestionCreateManyWithoutParentInput {
   create: [QuestionCreateWithoutParentInput!]
+  connect: [QuestionWhereUniqueInput!]
+}
+
+input QuestionCreateManyWithoutReviewerInput {
+  create: [QuestionCreateWithoutReviewerInput!]
   connect: [QuestionWhereUniqueInput!]
 }
 
@@ -2076,6 +2090,19 @@ input QuestionCreateOneWithoutFeedbackInput {
   connect: QuestionWhereUniqueInput
 }
 
+input QuestionCreateWithoutAuthorInput {
+  type: Int!
+  status: Int!
+  flags: Int!
+  difficulty: Int!
+  question: String!
+  answer: String!
+  media: String
+  parent: SubSubjectCreateOneWithoutQuestionsInput!
+  feedback: FeedbackCreateManyWithoutQuestionInput
+  reviewer: UserCreateOneWithoutQuestionsReviewedInput
+}
+
 input QuestionCreateWithoutFeedbackInput {
   type: Int!
   status: Int!
@@ -2085,6 +2112,8 @@ input QuestionCreateWithoutFeedbackInput {
   answer: String!
   media: String
   parent: SubSubjectCreateOneWithoutQuestionsInput!
+  author: UserCreateOneWithoutQuestionsWrittenInput
+  reviewer: UserCreateOneWithoutQuestionsReviewedInput
 }
 
 input QuestionCreateWithoutParentInput {
@@ -2096,6 +2125,21 @@ input QuestionCreateWithoutParentInput {
   answer: String!
   media: String
   feedback: FeedbackCreateManyWithoutQuestionInput
+  author: UserCreateOneWithoutQuestionsWrittenInput
+  reviewer: UserCreateOneWithoutQuestionsReviewedInput
+}
+
+input QuestionCreateWithoutReviewerInput {
+  type: Int!
+  status: Int!
+  flags: Int!
+  difficulty: Int!
+  question: String!
+  answer: String!
+  media: String
+  parent: SubSubjectCreateOneWithoutQuestionsInput!
+  feedback: FeedbackCreateManyWithoutQuestionInput
+  author: UserCreateOneWithoutQuestionsWrittenInput
 }
 
 """An edge in a connection."""
@@ -2192,6 +2236,8 @@ input QuestionUpdateDataInput {
   media: String
   parent: SubSubjectUpdateOneWithoutQuestionsInput
   feedback: FeedbackUpdateManyWithoutQuestionInput
+  author: UserUpdateOneWithoutQuestionsWrittenInput
+  reviewer: UserUpdateOneWithoutQuestionsReviewedInput
 }
 
 input QuestionUpdateInput {
@@ -2204,6 +2250,17 @@ input QuestionUpdateInput {
   media: String
   parent: SubSubjectUpdateOneWithoutQuestionsInput
   feedback: FeedbackUpdateManyWithoutQuestionInput
+  author: UserUpdateOneWithoutQuestionsWrittenInput
+  reviewer: UserUpdateOneWithoutQuestionsReviewedInput
+}
+
+input QuestionUpdateManyWithoutAuthorInput {
+  create: [QuestionCreateWithoutAuthorInput!]
+  connect: [QuestionWhereUniqueInput!]
+  disconnect: [QuestionWhereUniqueInput!]
+  delete: [QuestionWhereUniqueInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutAuthorInput!]
 }
 
 input QuestionUpdateManyWithoutParentInput {
@@ -2213,6 +2270,15 @@ input QuestionUpdateManyWithoutParentInput {
   delete: [QuestionWhereUniqueInput!]
   update: [QuestionUpdateWithWhereUniqueWithoutParentInput!]
   upsert: [QuestionUpsertWithWhereUniqueWithoutParentInput!]
+}
+
+input QuestionUpdateManyWithoutReviewerInput {
+  create: [QuestionCreateWithoutReviewerInput!]
+  connect: [QuestionWhereUniqueInput!]
+  disconnect: [QuestionWhereUniqueInput!]
+  delete: [QuestionWhereUniqueInput!]
+  update: [QuestionUpdateWithWhereUniqueWithoutReviewerInput!]
+  upsert: [QuestionUpsertWithWhereUniqueWithoutReviewerInput!]
 }
 
 input QuestionUpdateOneInput {
@@ -2231,6 +2297,19 @@ input QuestionUpdateOneWithoutFeedbackInput {
   upsert: QuestionUpsertWithoutFeedbackInput
 }
 
+input QuestionUpdateWithoutAuthorDataInput {
+  type: Int
+  status: Int
+  flags: Int
+  difficulty: Int
+  question: String
+  answer: String
+  media: String
+  parent: SubSubjectUpdateOneWithoutQuestionsInput
+  feedback: FeedbackUpdateManyWithoutQuestionInput
+  reviewer: UserUpdateOneWithoutQuestionsReviewedInput
+}
+
 input QuestionUpdateWithoutFeedbackDataInput {
   type: Int
   status: Int
@@ -2240,6 +2319,8 @@ input QuestionUpdateWithoutFeedbackDataInput {
   answer: String
   media: String
   parent: SubSubjectUpdateOneWithoutQuestionsInput
+  author: UserUpdateOneWithoutQuestionsWrittenInput
+  reviewer: UserUpdateOneWithoutQuestionsReviewedInput
 }
 
 input QuestionUpdateWithoutParentDataInput {
@@ -2251,11 +2332,36 @@ input QuestionUpdateWithoutParentDataInput {
   answer: String
   media: String
   feedback: FeedbackUpdateManyWithoutQuestionInput
+  author: UserUpdateOneWithoutQuestionsWrittenInput
+  reviewer: UserUpdateOneWithoutQuestionsReviewedInput
+}
+
+input QuestionUpdateWithoutReviewerDataInput {
+  type: Int
+  status: Int
+  flags: Int
+  difficulty: Int
+  question: String
+  answer: String
+  media: String
+  parent: SubSubjectUpdateOneWithoutQuestionsInput
+  feedback: FeedbackUpdateManyWithoutQuestionInput
+  author: UserUpdateOneWithoutQuestionsWrittenInput
+}
+
+input QuestionUpdateWithWhereUniqueWithoutAuthorInput {
+  where: QuestionWhereUniqueInput!
+  data: QuestionUpdateWithoutAuthorDataInput!
 }
 
 input QuestionUpdateWithWhereUniqueWithoutParentInput {
   where: QuestionWhereUniqueInput!
   data: QuestionUpdateWithoutParentDataInput!
+}
+
+input QuestionUpdateWithWhereUniqueWithoutReviewerInput {
+  where: QuestionWhereUniqueInput!
+  data: QuestionUpdateWithoutReviewerDataInput!
 }
 
 input QuestionUpsertNestedInput {
@@ -2268,10 +2374,22 @@ input QuestionUpsertWithoutFeedbackInput {
   create: QuestionCreateWithoutFeedbackInput!
 }
 
+input QuestionUpsertWithWhereUniqueWithoutAuthorInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateWithoutAuthorDataInput!
+  create: QuestionCreateWithoutAuthorInput!
+}
+
 input QuestionUpsertWithWhereUniqueWithoutParentInput {
   where: QuestionWhereUniqueInput!
   update: QuestionUpdateWithoutParentDataInput!
   create: QuestionCreateWithoutParentInput!
+}
+
+input QuestionUpsertWithWhereUniqueWithoutReviewerInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateWithoutReviewerDataInput!
+  create: QuestionCreateWithoutReviewerInput!
 }
 
 input QuestionWhereInput {
@@ -2579,6 +2697,8 @@ input QuestionWhereInput {
   feedback_every: FeedbackWhereInput
   feedback_some: FeedbackWhereInput
   feedback_none: FeedbackWhereInput
+  author: UserWhereInput
+  reviewer: UserWhereInput
   _MagicalBackRelation_SurveyToQuestion_every: SurveyWhereInput
   _MagicalBackRelation_SurveyToQuestion_some: SurveyWhereInput
   _MagicalBackRelation_SurveyToQuestion_none: SurveyWhereInput
@@ -3836,8 +3956,10 @@ type User implements Node {
   flags: Int!
   enrollment(where: EnrollmentWhereInput): Enrollment
   classroomsTeaching(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom!]
-  feedbackGiven(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback!]
+  feedbackWritten(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback!]
   feedbackReviewed(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback!]
+  questionsWritten(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
+  questionsReviewed(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
 }
 
 """A connection to a list of items."""
@@ -3861,8 +3983,10 @@ input UserCreateInput {
   flags: Int!
   enrollment: EnrollmentCreateOneWithoutStudentInput
   classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
-  feedbackGiven: FeedbackCreateManyWithoutAuthorInput
+  feedbackWritten: FeedbackCreateManyWithoutAuthorInput
   feedbackReviewed: FeedbackCreateManyWithoutReviewerInput
+  questionsWritten: QuestionCreateManyWithoutAuthorInput
+  questionsReviewed: QuestionCreateManyWithoutReviewerInput
 }
 
 input UserCreateManyWithoutClassroomsTeachingInput {
@@ -3875,13 +3999,23 @@ input UserCreateOneWithoutEnrollmentInput {
   connect: UserWhereUniqueInput
 }
 
-input UserCreateOneWithoutFeedbackGivenInput {
-  create: UserCreateWithoutFeedbackGivenInput
+input UserCreateOneWithoutFeedbackReviewedInput {
+  create: UserCreateWithoutFeedbackReviewedInput
   connect: UserWhereUniqueInput
 }
 
-input UserCreateOneWithoutFeedbackReviewedInput {
-  create: UserCreateWithoutFeedbackReviewedInput
+input UserCreateOneWithoutFeedbackWrittenInput {
+  create: UserCreateWithoutFeedbackWrittenInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutQuestionsReviewedInput {
+  create: UserCreateWithoutQuestionsReviewedInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutQuestionsWrittenInput {
+  create: UserCreateWithoutQuestionsWrittenInput
   connect: UserWhereUniqueInput
 }
 
@@ -3895,8 +4029,10 @@ input UserCreateWithoutClassroomsTeachingInput {
   status: Int!
   flags: Int!
   enrollment: EnrollmentCreateOneWithoutStudentInput
-  feedbackGiven: FeedbackCreateManyWithoutAuthorInput
+  feedbackWritten: FeedbackCreateManyWithoutAuthorInput
   feedbackReviewed: FeedbackCreateManyWithoutReviewerInput
+  questionsWritten: QuestionCreateManyWithoutAuthorInput
+  questionsReviewed: QuestionCreateManyWithoutReviewerInput
 }
 
 input UserCreateWithoutEnrollmentInput {
@@ -3909,22 +4045,10 @@ input UserCreateWithoutEnrollmentInput {
   status: Int!
   flags: Int!
   classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
-  feedbackGiven: FeedbackCreateManyWithoutAuthorInput
+  feedbackWritten: FeedbackCreateManyWithoutAuthorInput
   feedbackReviewed: FeedbackCreateManyWithoutReviewerInput
-}
-
-input UserCreateWithoutFeedbackGivenInput {
-  email: String!
-  password: String!
-  honorific: String
-  fname: String!
-  lname: String!
-  type: Int!
-  status: Int!
-  flags: Int!
-  enrollment: EnrollmentCreateOneWithoutStudentInput
-  classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
-  feedbackReviewed: FeedbackCreateManyWithoutReviewerInput
+  questionsWritten: QuestionCreateManyWithoutAuthorInput
+  questionsReviewed: QuestionCreateManyWithoutReviewerInput
 }
 
 input UserCreateWithoutFeedbackReviewedInput {
@@ -3938,7 +4062,57 @@ input UserCreateWithoutFeedbackReviewedInput {
   flags: Int!
   enrollment: EnrollmentCreateOneWithoutStudentInput
   classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
-  feedbackGiven: FeedbackCreateManyWithoutAuthorInput
+  feedbackWritten: FeedbackCreateManyWithoutAuthorInput
+  questionsWritten: QuestionCreateManyWithoutAuthorInput
+  questionsReviewed: QuestionCreateManyWithoutReviewerInput
+}
+
+input UserCreateWithoutFeedbackWrittenInput {
+  email: String!
+  password: String!
+  honorific: String
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  enrollment: EnrollmentCreateOneWithoutStudentInput
+  classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
+  feedbackReviewed: FeedbackCreateManyWithoutReviewerInput
+  questionsWritten: QuestionCreateManyWithoutAuthorInput
+  questionsReviewed: QuestionCreateManyWithoutReviewerInput
+}
+
+input UserCreateWithoutQuestionsReviewedInput {
+  email: String!
+  password: String!
+  honorific: String
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  enrollment: EnrollmentCreateOneWithoutStudentInput
+  classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
+  feedbackWritten: FeedbackCreateManyWithoutAuthorInput
+  feedbackReviewed: FeedbackCreateManyWithoutReviewerInput
+  questionsWritten: QuestionCreateManyWithoutAuthorInput
+}
+
+input UserCreateWithoutQuestionsWrittenInput {
+  email: String!
+  password: String!
+  honorific: String
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  enrollment: EnrollmentCreateOneWithoutStudentInput
+  classroomsTeaching: ClassroomCreateManyWithoutTeachersInput
+  feedbackWritten: FeedbackCreateManyWithoutAuthorInput
+  feedbackReviewed: FeedbackCreateManyWithoutReviewerInput
+  questionsReviewed: QuestionCreateManyWithoutReviewerInput
 }
 
 """An edge in a connection."""
@@ -4039,8 +4213,10 @@ input UserUpdateInput {
   flags: Int
   enrollment: EnrollmentUpdateOneWithoutStudentInput
   classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
-  feedbackGiven: FeedbackUpdateManyWithoutAuthorInput
+  feedbackWritten: FeedbackUpdateManyWithoutAuthorInput
   feedbackReviewed: FeedbackUpdateManyWithoutReviewerInput
+  questionsWritten: QuestionUpdateManyWithoutAuthorInput
+  questionsReviewed: QuestionUpdateManyWithoutReviewerInput
 }
 
 input UserUpdateManyWithoutClassroomsTeachingInput {
@@ -4060,14 +4236,6 @@ input UserUpdateOneWithoutEnrollmentInput {
   upsert: UserUpsertWithoutEnrollmentInput
 }
 
-input UserUpdateOneWithoutFeedbackGivenInput {
-  create: UserCreateWithoutFeedbackGivenInput
-  connect: UserWhereUniqueInput
-  delete: Boolean
-  update: UserUpdateWithoutFeedbackGivenDataInput
-  upsert: UserUpsertWithoutFeedbackGivenInput
-}
-
 input UserUpdateOneWithoutFeedbackReviewedInput {
   create: UserCreateWithoutFeedbackReviewedInput
   connect: UserWhereUniqueInput
@@ -4075,6 +4243,32 @@ input UserUpdateOneWithoutFeedbackReviewedInput {
   delete: Boolean
   update: UserUpdateWithoutFeedbackReviewedDataInput
   upsert: UserUpsertWithoutFeedbackReviewedInput
+}
+
+input UserUpdateOneWithoutFeedbackWrittenInput {
+  create: UserCreateWithoutFeedbackWrittenInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutFeedbackWrittenDataInput
+  upsert: UserUpsertWithoutFeedbackWrittenInput
+}
+
+input UserUpdateOneWithoutQuestionsReviewedInput {
+  create: UserCreateWithoutQuestionsReviewedInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutQuestionsReviewedDataInput
+  upsert: UserUpsertWithoutQuestionsReviewedInput
+}
+
+input UserUpdateOneWithoutQuestionsWrittenInput {
+  create: UserCreateWithoutQuestionsWrittenInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutQuestionsWrittenDataInput
+  upsert: UserUpsertWithoutQuestionsWrittenInput
 }
 
 input UserUpdateWithoutClassroomsTeachingDataInput {
@@ -4087,8 +4281,10 @@ input UserUpdateWithoutClassroomsTeachingDataInput {
   status: Int
   flags: Int
   enrollment: EnrollmentUpdateOneWithoutStudentInput
-  feedbackGiven: FeedbackUpdateManyWithoutAuthorInput
+  feedbackWritten: FeedbackUpdateManyWithoutAuthorInput
   feedbackReviewed: FeedbackUpdateManyWithoutReviewerInput
+  questionsWritten: QuestionUpdateManyWithoutAuthorInput
+  questionsReviewed: QuestionUpdateManyWithoutReviewerInput
 }
 
 input UserUpdateWithoutEnrollmentDataInput {
@@ -4101,22 +4297,10 @@ input UserUpdateWithoutEnrollmentDataInput {
   status: Int
   flags: Int
   classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
-  feedbackGiven: FeedbackUpdateManyWithoutAuthorInput
+  feedbackWritten: FeedbackUpdateManyWithoutAuthorInput
   feedbackReviewed: FeedbackUpdateManyWithoutReviewerInput
-}
-
-input UserUpdateWithoutFeedbackGivenDataInput {
-  email: String
-  password: String
-  honorific: String
-  fname: String
-  lname: String
-  type: Int
-  status: Int
-  flags: Int
-  enrollment: EnrollmentUpdateOneWithoutStudentInput
-  classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
-  feedbackReviewed: FeedbackUpdateManyWithoutReviewerInput
+  questionsWritten: QuestionUpdateManyWithoutAuthorInput
+  questionsReviewed: QuestionUpdateManyWithoutReviewerInput
 }
 
 input UserUpdateWithoutFeedbackReviewedDataInput {
@@ -4130,7 +4314,57 @@ input UserUpdateWithoutFeedbackReviewedDataInput {
   flags: Int
   enrollment: EnrollmentUpdateOneWithoutStudentInput
   classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
-  feedbackGiven: FeedbackUpdateManyWithoutAuthorInput
+  feedbackWritten: FeedbackUpdateManyWithoutAuthorInput
+  questionsWritten: QuestionUpdateManyWithoutAuthorInput
+  questionsReviewed: QuestionUpdateManyWithoutReviewerInput
+}
+
+input UserUpdateWithoutFeedbackWrittenDataInput {
+  email: String
+  password: String
+  honorific: String
+  fname: String
+  lname: String
+  type: Int
+  status: Int
+  flags: Int
+  enrollment: EnrollmentUpdateOneWithoutStudentInput
+  classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
+  feedbackReviewed: FeedbackUpdateManyWithoutReviewerInput
+  questionsWritten: QuestionUpdateManyWithoutAuthorInput
+  questionsReviewed: QuestionUpdateManyWithoutReviewerInput
+}
+
+input UserUpdateWithoutQuestionsReviewedDataInput {
+  email: String
+  password: String
+  honorific: String
+  fname: String
+  lname: String
+  type: Int
+  status: Int
+  flags: Int
+  enrollment: EnrollmentUpdateOneWithoutStudentInput
+  classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
+  feedbackWritten: FeedbackUpdateManyWithoutAuthorInput
+  feedbackReviewed: FeedbackUpdateManyWithoutReviewerInput
+  questionsWritten: QuestionUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateWithoutQuestionsWrittenDataInput {
+  email: String
+  password: String
+  honorific: String
+  fname: String
+  lname: String
+  type: Int
+  status: Int
+  flags: Int
+  enrollment: EnrollmentUpdateOneWithoutStudentInput
+  classroomsTeaching: ClassroomUpdateManyWithoutTeachersInput
+  feedbackWritten: FeedbackUpdateManyWithoutAuthorInput
+  feedbackReviewed: FeedbackUpdateManyWithoutReviewerInput
+  questionsReviewed: QuestionUpdateManyWithoutReviewerInput
 }
 
 input UserUpdateWithWhereUniqueWithoutClassroomsTeachingInput {
@@ -4143,14 +4377,24 @@ input UserUpsertWithoutEnrollmentInput {
   create: UserCreateWithoutEnrollmentInput!
 }
 
-input UserUpsertWithoutFeedbackGivenInput {
-  update: UserUpdateWithoutFeedbackGivenDataInput!
-  create: UserCreateWithoutFeedbackGivenInput!
-}
-
 input UserUpsertWithoutFeedbackReviewedInput {
   update: UserUpdateWithoutFeedbackReviewedDataInput!
   create: UserCreateWithoutFeedbackReviewedInput!
+}
+
+input UserUpsertWithoutFeedbackWrittenInput {
+  update: UserUpdateWithoutFeedbackWrittenDataInput!
+  create: UserCreateWithoutFeedbackWrittenInput!
+}
+
+input UserUpsertWithoutQuestionsReviewedInput {
+  update: UserUpdateWithoutQuestionsReviewedDataInput!
+  create: UserCreateWithoutQuestionsReviewedInput!
+}
+
+input UserUpsertWithoutQuestionsWrittenInput {
+  update: UserUpdateWithoutQuestionsWrittenDataInput!
+  create: UserCreateWithoutQuestionsWrittenInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutClassroomsTeachingInput {
@@ -4522,12 +4766,18 @@ input UserWhereInput {
   classroomsTeaching_every: ClassroomWhereInput
   classroomsTeaching_some: ClassroomWhereInput
   classroomsTeaching_none: ClassroomWhereInput
-  feedbackGiven_every: FeedbackWhereInput
-  feedbackGiven_some: FeedbackWhereInput
-  feedbackGiven_none: FeedbackWhereInput
+  feedbackWritten_every: FeedbackWhereInput
+  feedbackWritten_some: FeedbackWhereInput
+  feedbackWritten_none: FeedbackWhereInput
   feedbackReviewed_every: FeedbackWhereInput
   feedbackReviewed_some: FeedbackWhereInput
   feedbackReviewed_none: FeedbackWhereInput
+  questionsWritten_every: QuestionWhereInput
+  questionsWritten_some: QuestionWhereInput
+  questionsWritten_none: QuestionWhereInput
+  questionsReviewed_every: QuestionWhereInput
+  questionsReviewed_some: QuestionWhereInput
+  questionsReviewed_none: QuestionWhereInput
 }
 
 input UserWhereUniqueInput {

@@ -4,9 +4,11 @@ const {
   AnswerSyntaxError,
   QuestionAnswerError,
 } = require("../../errors");
+
 const {
   parseQAStrings,
 } = require("../../logic/qaSyntax");
+
 const {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
@@ -201,7 +203,7 @@ describe("qaSyntax", () => {
       expect(answerPayload.data.accuracy).toBe(1);
     });
 
-    it("Should parse a survey question", () => {
+    it("Should parse a Survey question", () => {
       const { questionPayload, answerPayload } = parseQAStrings(
         QUESTION_TYPE_SURVEY,
         "How tall are you? [40,96in]",
@@ -237,7 +239,7 @@ describe("qaSyntax", () => {
       expect(questionPayload.data.step).toBe(2.5);
     });
 
-    it("Should parse a conversion answer with accuracy defined", () => {
+    it("Should parse a Conversion answer with accuracy defined", () => {
       const { answerPayload } = parseQAStrings(
         QUESTION_TYPE_CONVERSION,
         "[5,10m]",
@@ -307,7 +309,7 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError); // Question gets parsed first.
       });
 
-      it("Should reject a Written question with a conversion answer", () => {
+      it("Should reject a Written question with a Conversion answer", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -317,7 +319,7 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionAnswerError);
       });
 
-      it("Should reject a Conversion question with a multiple-choice answer", () => {
+      it("Should reject a Conversion question with a Multiple-choice answer", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -350,7 +352,7 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      it("Should reject a Written question with conversion syntax", () => {
+      it("Should reject a Written question with Conversion syntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -360,7 +362,17 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      it("Should reject a question with an unrecognized unit", () => {
+      it("Should reject a Conversion question with Written syntax", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "Blah blah blah?",
+            "[ft]",
+          );
+        }).toThrowError(QuestionSyntaxError);
+      });
+
+      it("Should reject a Conversion question with an unrecognized unit", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -370,7 +382,7 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      it("Should reject a question with bad number range (no unit)", () => {
+      it("Should reject a Conversion question with bad number range (no unit)", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -380,7 +392,7 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      it("Should reject a question with bad number range (letter)", () => {
+      it("Should reject a Conversion question with bad number range (letter)", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -390,7 +402,7 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      it("Should reject a question with bad number range (nothing)", () => {
+      it("Should reject a Conversion question with bad number range (nothing)", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -400,7 +412,7 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      it("Should reject a question with an invalid range", () => {
+      it("Should reject a Conversion question with an invalid range", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -410,7 +422,7 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      it("Should reject a question with a backwards range", () => {
+      it("Should reject a Conversion question with a backwards range", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -420,7 +432,7 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      it("Should reject a question with a backwards negative range", () => {
+      it("Should reject a Conversion question with a backwards negative range", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -430,7 +442,17 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
-      it("Should reject a survey question with no written context", () => {
+      it("Should reject a Conversion question with a negative step", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "[10,20c(-5)s]",
+            "[f]",
+          );
+        }).toThrowError(QuestionSyntaxError);
+      });
+
+      it("Should reject a Survey question with no written context", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_SURVEY,
@@ -455,7 +477,7 @@ describe("qaSyntax", () => {
 
 
     describe("Answers", () => {
-      it("Should reject a multiple-choice answer with broken syntax", () => {
+      it("Should reject a Multiple-choice answer with broken syntax", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -465,7 +487,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with nothing", () => {
+      it("Should reject a Multiple-choice answer with nothing", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -475,7 +497,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a conversion answer with nothing", () => {
+      it("Should reject a Conversion answer with nothing", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -485,7 +507,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with empty brackets", () => {
+      it("Should reject a Multiple-choice answer with empty brackets", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -495,7 +517,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a conversion answer with empty brackets", () => {
+      it("Should reject a Conversion answer with empty brackets", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -505,7 +527,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with blank options", () => {
+      it("Should reject a Multiple-choice answer with blank options", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -515,7 +537,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer mixed with invalid option", () => {
+      it("Should reject a Multiple-choice answer mixed with invalid option", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -525,7 +547,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer mixed with invalid options", () => {
+      it("Should reject a Multiple-choice answer mixed with invalid options", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -535,7 +557,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer mixed with blank option", () => {
+      it("Should reject a Multiple-choice answer mixed with blank option", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -545,7 +567,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer mixed with blank options", () => {
+      it("Should reject a Multiple-choice answer mixed with blank options", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -555,7 +577,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with invalid unit", () => {
+      it("Should reject a Multiple-choice answer with invalid unit", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -565,7 +587,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a conversion answer with invalid unit", () => {
+      it("Should reject a Conversion answer with invalid unit", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -575,7 +597,17 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a survey answer with invalid unit", () => {
+      it("Should reject a Conversion answer with negative accuracy", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "[1,5m]",
+            "[ft(-1)a]",
+          );
+        }).toThrowError(AnswerSyntaxError);
+      });
+
+      it("Should reject a Survey answer with invalid unit", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_SURVEY,
@@ -586,7 +618,7 @@ describe("qaSyntax", () => {
       });
 
       /*  // Won't Fix, it will default to 1
-      it("Should reject a conversion answer with bad accuracy", () => {
+      it("Should reject a Conversion answer with bad accuracy", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_CONVERSION,
@@ -597,7 +629,7 @@ describe("qaSyntax", () => {
       });
       */
 
-      it("Should reject a multiple-choice answer with too few options defined", () => {
+      it("Should reject a Multiple-choice answer with too few options defined", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -607,7 +639,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with too few choices offered", () => {
+      it("Should reject a Multiple-choice answer with too few choices offered", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -617,7 +649,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with too many choices offered", () => {
+      it("Should reject a Multiple-choice answer with too many choices offered", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -627,7 +659,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with mixed subjects", () => {
+      it("Should reject a Multiple-choice answer with mixed subjects", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -637,7 +669,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with too many repeated answers", () => {
+      it("Should reject a Multiple-choice answer with too many repeated answers", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -647,7 +679,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with too many repeated written answers", () => {
+      it("Should reject a Multiple-choice answer with too many repeated written answers", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -657,7 +689,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should reject a multiple-choice answer with too many repeated answers", () => {
+      it("Should reject a Multiple-choice answer with too many repeated answers", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,
@@ -667,7 +699,7 @@ describe("qaSyntax", () => {
         }).toThrowError(AnswerSyntaxError);
       });
 
-      it("Should NOT reject a multiple-choice answer with acceptable number of repeated answers", () => {
+      it("Should NOT reject a Multiple-choice answer with acceptable number of repeated answers", () => {
         expect(() => {
           parseQAStrings(
             QUESTION_TYPE_WRITTEN,

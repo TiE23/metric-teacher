@@ -4,6 +4,7 @@ const difference = require("lodash/difference");
 const uniq = require("lodash/uniq");
 
 const {
+  minMax,
   difficultyFinder,
 } = require("./utils");
 
@@ -481,12 +482,13 @@ function lotteryBuilder(subSubjectQuestions, ignoreRarity) {
   for (let x = 0; x < subSubjectKeys.length; ++x) {
     // If ignoring rarity, give every SubSubject the same number of chances.
     // Else, if using rarity, determine the chances.
-    // Use min() and max() to prevent 0-chance and increased chances.
+    // Use minMax() to prevent 0-chance and over 100% inflated chances.
     const chances = ignoreRarity ?
       1 :
-      Math.min(
+      minMax(
+        1,
+        CHANCES_COUNT - subSubjectQuestions[subSubjectKeys[x]].rarity,
         CHANCES_COUNT,
-        Math.max(1, CHANCES_COUNT - subSubjectQuestions[subSubjectKeys[x]].rarity),
       );
 
     // Define the range. Ex: if you had 0 rarity, 50 rarity, and 99 rarity SubSubjects the range

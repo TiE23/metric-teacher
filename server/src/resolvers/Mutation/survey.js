@@ -3,6 +3,7 @@ const {
 } = require("../../utils");
 
 const {
+  minMax,
   surveyAnswerFormatter,
 } = require("../../logic/utils");
 
@@ -41,11 +42,11 @@ const survey = {
    * @param info
    * @returns Survey!
    */
-  async answerSurvey(parent, args, ctx, info) {
+  async addSurveyAnswer(parent, args, ctx, info) {
     const callingUserData = await checkAuth(ctx, {
       type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
       status: USER_STATUS_NORMAL,
-      action: "answerSurvey",
+      action: "addSurveyAnswer",
     });
 
     const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
@@ -169,9 +170,10 @@ const survey = {
     }
 
     // Use parseInt to smooth any floats that could've been sent.
-    const newScore = Math.max(
+    const newScore = minMax(
       SURVEY_MIN_SCORE,
-      Math.min(SURVEY_MAX_SCORE, targetSurveyData.score + Number.parseInt(args.score, 10)),
+      targetSurveyData.score + Number.parseInt(args.score, 10),
+      SURVEY_MAX_SCORE,
     );
 
     return ctx.db.mutation.updateSurvey({

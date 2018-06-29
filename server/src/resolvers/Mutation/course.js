@@ -3,6 +3,7 @@ const {
 } = require("../../utils");
 
 const {
+  minMax,
   surveyAnswerFormatter,
 } = require("../../logic/utils");
 
@@ -162,7 +163,7 @@ const course = {
 
 
   /**
-   * Give a courseid and a list of combination SubSubject IDs and scores (positive or negative) and
+   * Give a Course ID and a list of combination SubSubject IDs and scores (positive or negative) and
    * those values will be added to each valid Mastery belonging to that Course.
    * It automatically gathers the Mastery IDs so you don't need to!
    * Only the owning student (or moderators or better) can do this.
@@ -180,7 +181,6 @@ const course = {
    * @returns Course!
    */
   async addMasteryScores(parent, args, ctx, info) {
-    // Exclude teachers. Students are only allowed to check themselves. Must be normal status.
     const callingUserData = await checkAuth(ctx, {
       type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
       status: USER_STATUS_NORMAL,
@@ -573,12 +573,10 @@ function masteriesScoreUpdateClauseGenerator(targetCourseData, scoreInput) {
   // Now make the Mastery update clause for the updateCourse mutation.
   const masteriesUpdateClause = [];
   targetCourseData.masteries.forEach((mastery) => {
-    const newScore = Math.max(
+    const newScore = minMax(
       MASTERY_MIN_SCORE,
-      Math.min(
-        MASTERY_MAX_SCORE,
-        mastery.score + scoreAdditions[mastery.subSubject.id],
-      ),
+      mastery.score + scoreAdditions[mastery.subSubject.id],
+      MASTERY_MAX_SCORE,
     );
     masteriesUpdateClause.push({
       where: { id: mastery.id },
@@ -610,12 +608,10 @@ function surveysScoreUpdateClauseGenerator(targetCourseData, scoreInput) {
   targetCourseData.surveys.forEach((survey) => {
     // Need to make sure the score is defined due to Survey mixing in addChallengeResults.
     if (Object.keys(scoreAdditions).includes(survey.id)) {
-      const newScore = Math.max(
+      const newScore = minMax(
         SURVEY_MIN_SCORE,
-        Math.min(
-          SURVEY_MAX_SCORE,
-          survey.score + scoreAdditions[survey.id],
-        ),
+        survey.score + scoreAdditions[survey.id],
+        SURVEY_MAX_SCORE,
       );
       surveysUpdateClause.push({
         where: { id: survey.id },
