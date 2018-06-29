@@ -90,11 +90,15 @@ type Mutation {
   answerSurvey(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
   addSurveyScore(surveyid: ID!, score: Int!): Survey!
 
+  # Question Mutations
+  submitQuestion(subsubjectid: ID!, type: Int!, flags: Int!, difficulty: Int!, media: String, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Question!
+
   # Feedback Mutations
   submitFeedback(questionid: ID!, type: Int!, text: String): Feedback!
   updateFeedbackStatus(feedbackid: ID!, status: Int!): Feedback!
 }
 
+### Inputs
 input MasteryScoreInput {
   subsubjectid: ID!
   score: Int!
@@ -113,6 +117,49 @@ input SurveyAnswerInput {
   detail: String
 }
 
+input QuestionQuestionInput {
+  text: String
+  conversioninput: ConversionQuestionInput
+  surveyrangeinput: RangeQuestionInput
+}
+
+input ConversionQuestionInput {
+  lower: Float!
+  upper: Float!
+  unit: String!
+  step: Float
+}
+
+input RangeQuestionInput {
+  lower: Float!
+  upper: Float!
+  unit: String!
+  step: Float
+}
+
+input QuestionAnswerInput {
+  text: String
+  multiplechoiceinput: MultipleChoiceInput
+  conversioninput: ConversionAnswerInput
+}
+
+input MultipleChoiceInput {
+  choices: [MultipleChoiceInputRow!]!
+  choicesoffered: Int
+}
+
+input MultipleChoiceInputRow {
+  value: Float
+  written: String
+  unit: String!
+}
+
+input ConversionAnswerInput {
+  unit: String!
+  accuracy: Float
+}
+
+### Types
 type AuthPayload {
   token: String!
   user: User!

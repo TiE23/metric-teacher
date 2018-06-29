@@ -138,6 +138,24 @@ class QuestionSyntaxError extends Error {
   }
 }
 
+class QuestionGenericError extends Error {
+  constructor(reason) {
+    super(`Question not valid. Reason: '${reason}`);
+  }
+}
+
+class QuestionTextSyntaxError extends Error {
+  constructor(questionText, reason) {
+    super(`Question text '${questionText}' not valid. Reason: '${reason}`);
+  }
+}
+
+class QuestionConversionSyntaxError extends Error {
+  constructor(reason) {
+    super(`Question conversion input not valid. Reason: '${reason}`);
+  }
+}
+
 class QuestionAnswerError extends Error {
   constructor(question, answer, reason) {
     super(`Question '${question}' and answer '${answer}' not valid together. Reason: '${reason}'`);
@@ -153,6 +171,30 @@ class QuestionTypeInvalid extends Error {
 class AnswerSyntaxError extends Error {
   constructor(answer, reason) {
     super(`Answer '${answer}' not valid. Reason: '${reason}'`);
+  }
+}
+
+class AnswerGenericError extends Error {
+  constructor(reason) {
+    super(`Answer not valid. Reason: '${reason}`);
+  }
+}
+
+class AnswerTextSyntaxError extends Error {
+  constructor(answerText, reason) {
+    super(`Answer text '${answerText}' not valid. Reason: '${reason}`);
+  }
+}
+
+class AnswerMultipleChoiceSyntaxError extends Error {
+  constructor(reason) {
+    super(`Answer multiple-choice input not valid. Reason: '${reason}`);
+  }
+}
+
+class AnswerConversionSyntaxError extends Error {
+  constructor(reason) {
+    super(`Answer conversion input not valid. Reason: '${reason}`);
   }
 }
 
@@ -211,13 +253,20 @@ module.exports = {
   StudentNotEnrolled,
   StudentNotOwner,
   SurveyNotFound,
-  SurveyAnswerIncomplete,
   SurveyAnswerValueInvalid,
   SurveyAnswerUnitInvalid,
+  SurveyAnswerIncomplete,
   QuestionSyntaxError,
+  QuestionGenericError,
+  QuestionTextSyntaxError,
+  QuestionConversionSyntaxError,
   QuestionAnswerError,
   QuestionTypeInvalid,
   AnswerSyntaxError,
+  AnswerGenericError,
+  AnswerTextSyntaxError,
+  AnswerMultipleChoiceSyntaxError,
+  AnswerConversionSyntaxError,
   AnswerUnitMissing,
   UnitTypeUnrecognized,
   ConversionIncompatible,
