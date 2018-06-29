@@ -93,6 +93,7 @@ type Mutation {
 
   # Question Mutations
   submitQuestion(subsubjectid: ID!, type: Int!, flags: Int!, difficulty: Int!, media: String, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Question!
+  checkSubmitQuestion(type: Int!, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Boolean!
 
   # Feedback Mutations
   submitFeedback(questionid: ID!, type: Int!, text: String): Feedback!
