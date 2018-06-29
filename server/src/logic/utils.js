@@ -187,7 +187,7 @@ function questionSyntaxFormatter(text = null, rangeInput = null) {
       throw new QuestionConversionSyntaxError(conversionInputErrors.join(" "));
     }
 
-    const stepSyntax = rangeInput.step ? `(${rangeInput.step})a` : "";
+    const stepSyntax = rangeInput.step ? `(${rangeInput.step})s` : "";
     const spacer = questionSyntax.length ? " " : "";
     questionSyntax +=
       `${spacer}[${rangeInput.lower},${rangeInput.upper}${rangeInput.unit}${stepSyntax}]`;
