@@ -41,11 +41,11 @@ const survey = {
    * @param info
    * @returns Survey!
    */
-  async answerSurvey(parent, args, ctx, info) {
+  async addSurveyAnswer(parent, args, ctx, info) {
     const callingUserData = await checkAuth(ctx, {
       type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
       status: USER_STATUS_NORMAL,
-      action: "answerSurvey",
+      action: "addSurveyAnswer",
     });
 
     const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `

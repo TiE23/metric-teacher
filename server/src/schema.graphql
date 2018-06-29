@@ -80,6 +80,7 @@ type Mutation {
   # Mastery Mutations
   activateMastery(masteryid: ID!): Mastery!
   deactivateMastery(masteryid: ID!): Mastery!
+  addMasteryScore(masteryid: ID!, score: Int!): Mastery!
 
   # Classroom Mutations
   createClassroom(name: String!, description: String, teacherid: ID!): Classroom!
@@ -87,7 +88,7 @@ type Mutation {
   removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
 
   # Survey Mutations
-  answerSurvey(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
+  addSurveyAnswer(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
   addSurveyScore(surveyid: ID!, score: Int!): Survey!
 
   # Question Mutations
