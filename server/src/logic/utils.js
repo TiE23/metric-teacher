@@ -21,6 +21,28 @@ const {
 
 
 /**
+ * Basic helper function returns a the value gated between a minimum and maxiumum. Very simple.
+ * For example, if your min is 0 and your max is 1000...
+ * Example A: 501 returns 501   (no change)
+ * Example B: 2501 returns 1000 (maxxed out)
+ * Example C: -15 returns 0     (minned in)
+ * @param min
+ * @param value
+ * @param max
+ * @returns {number}
+ */
+function minMax(min, value, max) {
+  return Math.max(
+    min,
+    Math.min(
+      value,
+      max,
+    ),
+  );
+}
+
+
+/**
  * In the comments for this function we assume CONVERSION_DECIMAL_ACCURACY is set to 10. This could
  * be changed.
  * This performs two smoothing actions on floats: Finds whole numbers and deals with repeating 9s.
@@ -254,8 +276,8 @@ function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput
   return answerSyntax;
 }
 
-
 module.exports = {
+  minMax,
   floatSmoother,
   stepSmoother,
   difficultyFinder,

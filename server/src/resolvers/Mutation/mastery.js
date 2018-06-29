@@ -3,6 +3,10 @@ const {
 } = require("../../utils");
 
 const {
+  minMax,
+} = require("../../logic/utils");
+
+const {
   AuthError,
   MasteryNotFound,
 } = require("../../errors");
@@ -103,12 +107,10 @@ const mastery = {
     }
 
     // Calculate the new score.
-    const newScore = Math.max(
+    const newScore = minMax(
       MASTERY_MIN_SCORE,
-      Math.min(
-        MASTERY_MAX_SCORE,
-        targetMasteryData.score + args.score
-      ),
+      targetMasteryData.score + args.score,
+      MASTERY_MAX_SCORE,
     );
 
     // Fire the mutation!

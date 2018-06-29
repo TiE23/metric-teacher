@@ -3,6 +3,7 @@ const {
 } = require("../../utils");
 
 const {
+  minMax,
   surveyAnswerFormatter,
 } = require("../../logic/utils");
 
@@ -169,9 +170,10 @@ const survey = {
     }
 
     // Use parseInt to smooth any floats that could've been sent.
-    const newScore = Math.max(
+    const newScore = minMax(
       SURVEY_MIN_SCORE,
-      Math.min(SURVEY_MAX_SCORE, targetSurveyData.score + Number.parseInt(args.score, 10)),
+      targetSurveyData.score + Number.parseInt(args.score, 10),
+      SURVEY_MAX_SCORE,
     );
 
     return ctx.db.mutation.updateSurvey({
