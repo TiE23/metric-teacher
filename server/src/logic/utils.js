@@ -1,9 +1,14 @@
 const round = require("lodash/round");
 
 const {
+  parseQAStrings,
+} = require("./qaSyntax");
+
+const {
   SurveyAnswerUnitInvalid,
   SurveyAnswerValueInvalid,
   QuestionSyntaxError,
+  QuestionGenericError,
   QuestionTextSyntaxError,
   QuestionConversionSyntaxError,
   AnswerGenericError,
@@ -276,6 +281,48 @@ function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput
   return answerSyntax;
 }
 
+
+/**
+ * Helper function takes in the question's type, questioninput, and answerinput from the mutation
+ * inputs and does a ton of formatting and finally QA parse checking for acceptance.
+ * @param type
+ * @param questionInput
+ * @param answerInput
+ * @returns {{questionSyntaxString: string, answerSyntaxString: string}}
+ */
+function checkAndParseQuestionAnswerInputs(type, questionInput, answerInput) {
+  // Make sure that question input doesn't have multiple things in it.
+  if (questionInput &&
+    questionInput.conversioninput &&
+    questionInput.surveyrangeinput) {
+    throw new QuestionGenericError("Cannot have both conversioninput and surveyrangeinput defined");
+  }
+
+  // Create the question syntax string.
+  const questionSyntaxString = questionSyntaxFormatter(
+    questionInput.text,
+    questionInput.conversioninput || questionInput.surveyrangeinput,
+  );
+
+  // Create the answer syntax string.
+  const answerSyntaxString = answerSyntaxFormatter(
+    answerInput.string,
+    answerInput.multiplechoiceinput,
+    answerInput.conversioninput,
+  );
+
+  // Feed the inputted type, the question text, and the answer text into the parser.
+  // If there are any problems that were not caught in the syntax formatters above will
+  // throw errors now.
+  parseQAStrings(
+    type,
+    questionSyntaxString,
+    answerSyntaxString,
+  );
+
+  return { questionSyntaxString, answerSyntaxString };
+}
+
 module.exports = {
   minMax,
   floatSmoother,
@@ -284,4 +331,5 @@ module.exports = {
   surveyAnswerFormatter,
   questionSyntaxFormatter,
   answerSyntaxFormatter,
+  checkAndParseQuestionAnswerInputs,
 };

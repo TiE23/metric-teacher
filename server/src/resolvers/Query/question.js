@@ -3,10 +3,15 @@ const {
 } = require("../../utils");
 
 const {
+  checkAndParseQuestionAnswerInputs,
+} = require("../../logic/utils");
+
+const {
   GraphQlDumpWarning,
 } = require("../../errors");
 
 const {
+  USER_TYPE_STUDENT,
   USER_TYPE_TEACHER,
   USER_STATUS_NORMAL,
 } = require("../../constants");
@@ -64,7 +69,7 @@ const question = {
       },
     };
 
-    return ctx.db.query.question(queryClause, info);
+    return ctx.db.query.questions(queryClause, info);
   },
 
 
@@ -91,7 +96,63 @@ const question = {
       action: "questionSearch",
     });
 
-    return ctx.db.quesy.question(args, info);
+    return ctx.db.query.questions(args, info);
+  },
+
+
+  /**
+   * Provide a quick dry-run of submitQuestion. It'll throw up a bunch of errors if something is
+   * wrong, otherwise it'll return true. If this returns true, the question will be accepted
+   * @param parent
+   * @param args
+   *        type: Int!
+   *        questioninput: QuestionQuestionInput {
+   *          text: String
+   *            conversioninput: ConversionQuestionInput: {
+   *              lower: Float!
+   *              upper: Float!
+   *              unit: String!
+   *              step: Float
+   *            }
+   *            surveyrangeinput: RangeQuestionInput: {
+   *              lower: Float!
+   *              upper: Float!
+   *              unit: String!
+   *              step: Float
+   *            }
+   *        }!
+   *        answerinput: QuestionAnswerInput: {
+   *          text: String
+   *          multiplechoiceinput: MultipleChoiceInput: {
+   *            choices: [
+   *              MultipleChoiceInputRow: {
+   *                value: Float
+   *                written: String
+   *                unit: String!
+   *              }!
+   *            ]!
+   *            choicesoffered: Int
+   *          }
+   *          conversioninput: ConversionAnswerInput: {
+   *            unit: String!
+   *            accuracy: Float
+   *          }
+   *        }!
+   * @param ctx
+   * @returns {boolean}
+   */
+  async checkSubmitQuestion(parent, args, ctx) {
+    await checkAuth(ctx, {
+      type: USER_TYPE_STUDENT,
+      status: USER_STATUS_NORMAL,
+      action: "checkSubmitQuestion",
+    });
+
+    // Throws the input through the gauntlet. Anything wrong? Errors!
+    checkAndParseQuestionAnswerInputs(args.type, args.questioninput, args.answerinput);
+
+    // If it reaches this point the inputs were acceptable. Return true.
+    return true;
   },
 };
 

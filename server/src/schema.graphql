@@ -47,6 +47,7 @@ type Query {
   question(questionid: ID!): Question
   questions(questionids: [ID!]!): [Question]!
   questionSearch(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+  checkSubmitQuestion(type: Int!, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Boolean!
 
   # Feedback Queries
   feedbackSearch(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback]!
@@ -93,7 +94,6 @@ type Mutation {
 
   # Question Mutations
   submitQuestion(subsubjectid: ID!, type: Int!, flags: Int!, difficulty: Int!, media: String, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Question!
-  checkSubmitQuestion(type: Int!, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Boolean!
 
   # Feedback Mutations
   submitFeedback(questionid: ID!, type: Int!, text: String): Feedback!

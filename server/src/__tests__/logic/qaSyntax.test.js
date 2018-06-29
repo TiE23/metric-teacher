@@ -362,6 +362,16 @@ describe("qaSyntax", () => {
         }).toThrowError(QuestionSyntaxError);
       });
 
+      it("Should reject a Conversion question with Written syntax", () => {
+        expect(() => {
+          parseQAStrings(
+            QUESTION_TYPE_CONVERSION,
+            "Blah blah blah?",
+            "[ft]",
+          );
+        }).toThrowError(QuestionSyntaxError);
+      });
+
       it("Should reject a Conversion question with an unrecognized unit", () => {
         expect(() => {
           parseQAStrings(
