@@ -13,7 +13,8 @@ type User {
   flags: Int!
   enrollment: Enrollment @relation(name: "UserToEnrollment")
   classroomsTeaching: [Classroom!]! @relation(name: "UserToClassroom")
-  feedback: [Feedback!]! @relation(name: "UserToFeedback")
+  feedbackGiven: [Feedback!]! @relation(name: "UserToFeedback")
+  feedbackReviewed: [Feedback!]! @relation(name: "ReviewerToFeedback")
 }
 
 # This is a structure that will allow teacher(s) to connect to their students and students to
@@ -145,4 +146,5 @@ type Feedback {
   text: String
   question: Question! @relation(name: "QuestionToFeedback")
   author: User! @relation(name: "UserToFeedback")
+  reviewer: User @relation(name: "ReviewerToFeedback")
 }
