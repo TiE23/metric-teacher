@@ -62,6 +62,8 @@ type Mutation {
   # User Mutations
   signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
+  updateUserProfile(userid: ID!, email: String, password: String, honorific: String, fname: String, lname: String): PrivateUser!
+  updateUserStates(userid: ID!, type: Int, status: Int, flags: Int): PrivateUser!
 
   # Student Mutations
   ## Enrollment

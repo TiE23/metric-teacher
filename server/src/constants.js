@@ -1,4 +1,7 @@
 const constants = {
+  // Server Configurations
+  BCRYPT_SALT_LENGTH: 10,
+
   // Database Constants
   // Generic
   FLAGS_NONE: 0,
