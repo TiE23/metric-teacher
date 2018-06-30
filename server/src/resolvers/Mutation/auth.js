@@ -1,14 +1,22 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const {
+  BCRYPT_SALT_LENGTH,
+  USER_TYPE_STUDENT,
+  USER_STATUS_NORMAL,
+  FLAGS_NONE,
+} = require("../../constants");
+
 const auth = {
-  async signup(parent, args, ctx, info) {
+  async signup(parent, args, ctx) {
+    // All new users are given these settings. Can't allow people to sign-up as Admins, after all!
     const defaultArgs = {
-      type: 0,
-      status: 0,
-      flags: 0,
+      type: USER_TYPE_STUDENT,
+      status: USER_STATUS_NORMAL,
+      flags: FLAGS_NONE,
     };
-    const password = await bcrypt.hash(args.password, 10);
+    const password = await bcrypt.hash(args.password, BCRYPT_SALT_LENGTH);
     const user = await ctx.db.mutation.createUser({
       data: { ...defaultArgs, ...args, password },
     });
