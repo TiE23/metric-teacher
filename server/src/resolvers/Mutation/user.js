@@ -143,7 +143,7 @@ const user = {
 
     // Only Teachers can have honorifics, remove it if they were once a teacher. ...This will never
     // happen...
-    if (targetUserData.type === USER_TYPE_TEACHER && args.type !== USER_TYPE_TEACHER) {
+    if (targetUserData.type === USER_TYPE_TEACHER && args.type && args.type !== USER_TYPE_TEACHER) {
       dataPayload.honorific = null;
     }
 
