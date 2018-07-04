@@ -356,7 +356,7 @@ QuestionAnswerInput: {
 
 #### QA Queries
 * `generateChallenge(courseid: ID!, subjectids: [ID], subsubjectids: [ID], listSize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!`
-    *
+    * Generate an entire list of QAObjects (called a "Challenge") based off a Course ID and a list of Subject or SubSubject IDs. Additional boolean arguments help customize the results.
 * `getQa(questionid: ID!): QaObject`
     * Generates a full QAObject from a single Question ID.
 

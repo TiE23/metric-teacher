@@ -115,7 +115,7 @@ const qa = {
 
   /**
    * Generate an entire list of QAObjects (called a "Challenge") based off a Course ID and
-   * a list of Subject or SubSubject IDs. Additional boolean arguments
+   * a list of Subject or SubSubject IDs. Additional boolean arguments help customize the results.
    * @param parent
    * @param args
    *        courseid: ID!
