@@ -16,7 +16,7 @@ It is written with...
 
 It uses [**MySQL**](https://www.mysql.com/) for its Database, [**Prisma**](https://www.prisma.io/) for its GraphQL Database, and [**Docker**](https://www.docker.com/) + [**Docker-Compose**](https://docs.docker.com/compose/overview/) to build and run the virtual machines for these programs.
 
-It is written against **Node.js v10**, though it does not use any bleeding-edge JavaScript.
+It is written against **Node.js v10.5.0**, though it does not use any bleeding-edge JavaScript.
 
 I wrote it using the following tools:
 * JetBrain's WebStorm IDE - [jetbrains.com/webstorm](https://www.jetbrains.com/webstorm/)
@@ -69,6 +69,368 @@ You *need to create this file* before things can run. You can even copy the exam
 This file is used by the module [`dotenv`](https://github.com/motdotla/dotenv).
 
 If you ever do remote hosting, you'll need to change the endpoint's url to the remote host's location, and change the `PRISMA_CLUSTER` value to whatever additional cluster you define in `~/.prisma/config.yml` (like the above example for `local`). You should do this by defining a second `.env` file with a name like `.env.remote` and then run, for example, `prisma deploy -e /.env.remote`.
+
+## GraphQL API Documentation
+### Types
+#### User
+For public-ish use. It does not expose password, email, enrollment, or classroomsTeaching. It does, however, expose first and last names. So take note about ever making this truly public.
+```
+type User {
+   id: ID!
+   createdAt: DateTime!
+   updatedAt: DateTime!
+   honorific: String
+   fname: String!
+   lname: String!
+   type: Int!
+   status: Int!
+   flags: Int!
+ }
+```
+
+#### PrivateUser
+For private use. It does not expose password.
+```
+type PrivateUser {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String!
+  honorific: String
+  fname: String!
+  lname: String!
+  type: Int!
+  status: Int!
+  flags: Int!
+  enrollment: Enrollment
+  classroomsTeaching: [Classroom!]!
+  feedbackWritten: [Feedback!]!
+  feedbackReviewed: [Feedback!]!
+  questionsWritten: [Question!]!
+  questionsReviewed: [Question!]!
+}
+```
+
+#### QaObject
+This is a complexly structured type with many nested types in order to recreate the deeply nested structure of a QA JSON object.
+```
+type QaObject {
+  questionId: ID!
+  subSubjectId: ID!
+  difficulty: Int!
+  flags: Int!
+  media: String
+  question: QaQuestionObject {
+              detail: String!
+              text: String!
+              type: Int!
+              data: QaQuestionData {            # Conversion + Survey Questions only
+                  fromUnitWord: type QaUnitWordObject {
+                                  plural: String!
+                                  singular: String!
+                                }!
+                  conversion: QaConversionQuestionObject {  # Conversion Questions Only
+                                exact: QaUnitObject {
+                                         value: Float!
+                                         unit: String!
+                                       }!
+                                step: Float!
+                              }
+                  survey: type QaSurveyQuestionObject {     # Survey Questions Only
+                            step: Float!
+                            surveyRange: QaRangeObject {
+                                           bottom: type QaUnitObject {
+                                                     value: Float!
+                                                     unit: String!
+                                                   }!
+                                           top: QaUnitObject {
+                                                  value: Float!
+                                                  unit: String!
+                                                }!
+                                         }!
+                            response: QaSurveyResponseObject {      # Only if survey was answered
+                                        id: ID!
+                                        score: Int!
+                                        answer: QaUnitObject {
+                                                  value: Float!
+                                                  unit: String!
+                                                }!
+                                        detail: String
+                                      }
+                            status: Int                             # Only if survey was answered
+                          }
+                }
+            }!
+  answer: QaAnswerObject {
+            detail: String!
+            type: Int!
+            data: QaAnswerData {
+                    toUnitWord: QaUnitWordObject {      # Conversion and Survey Questions Only
+                                  plural: String!
+                                  singular: String!
+                                }
+                    multiple: QaMultipleChoiceObject {  # Written Questions Only
+                                choicesOffered: Int!
+                                choices: [QaMixedUnitObject {
+                                            value: Float    # For number answers
+                                            written: String # For string answers
+                                            unit: String!   # Always defined
+                                          }]!
+                              }
+                    conversion: QaConversionObject {    # Conversion and Survey Questions Only
+                                  accuracy: Float!
+                                  range: QaRangeObject {
+                                           bottom: QaUnitObject!
+                                           top: QaUnitObject!
+                                         }!
+                                  exact: Float!
+                                  rounded: Float!
+                                  friendly: Float!
+                                  choices: [QaUnitObject {
+                                              value: Float!
+                                              unit: String!
+                                            }]!
+                                }
+                    survey: QaSurveyAnswerObject {      # Survey Questions when survey completed Only
+                              choices: [QaUnitObject {
+                                          value: Float!
+                                          unit: String!
+                                        }]!
+                            }
+                  }!
+          }!
+}
+```
+
+### Inputs
+#### MasteryScoreInput
+```
+MasteryScoreInput {
+  subsubjectid: ID!
+  score: Int!
+}
+```
+
+#### SurveyScoreInput
+```
+SurveyScoreInput {
+  surveyid: ID!
+  score: Int!
+}
+```
+
+#### SurveyAnswerInput
+```
+SurveyAnswerInput {
+  questionid: ID!
+  skip: Boolean
+  value: Float
+  unit: String
+  detail: String
+}
+```
+
+#### QuestionQuestionInput
+```
+QuestionQuestionInput {
+  text: String
+    conversioninput: ConversionQuestionInput: {
+      lower: Float!
+      upper: Float!
+      unit: String!
+      step: Float
+    }
+    surveyrangeinput: RangeQuestionInput: {
+      lower: Float!
+      upper: Float!
+      unit: String!
+      step: Float
+    }
+}!
+```
+
+#### QuestionAnswerInput
+```
+QuestionAnswerInput: {
+  text: String
+  multiplechoiceinput: MultipleChoiceInput: {
+    choices: [
+      MultipleChoiceInputRow: {
+        value: Float
+        written: String
+        unit: String!
+      }!
+    ]!
+    choicesoffered: Int
+  }
+  conversioninput: ConversionAnswerInput: {
+    unit: String!
+    accuracy: Float
+  }
+}!
+```
+
+### Queries
+#### User Queries
+* `me: PrivateUser`
+    * Basic argument-free query that takes the calling user (identified by the provided Authorization JWT Bearer HTTP header) who is logged in and returns the content of their user account via the type PrivateUser.
+* `user(userid: ID!): PrivateUser`
+    * Get the PrivateUser data of a user account. For moderators and better only.
+* `users(userids: [ID!]!): [PrivateUser]!`
+    * Get the PrivateUser data of multiple user accounts by their ID. For moderators and better only.
+* `userSearch(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PrivateUser]!`
+    * Get the PrivateUser data of multiple user accounts. For moderators and better only. Exposes Prisma Query parameters.
+
+#### Classroom Queries
+* `classroom(classroomid: ID!): Classroom`
+    * Get a classroom by a single Classroom Id. For moderators or better only. Students and Teachers can get it through me().
+* `classrooms(classroomids: [ID!]!): [Classroom]!`
+  * Get a list of Classrooms by their IDs. For moderators or better only. Students and Teachers can get them through me().
+* `classroomSearch(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom]!`
+  * Get a list of Classrooms by Prisma query search parameters. For Moderators or better only because of potentially sensitive data. Students and Teachers can get them through me().
+
+#### Course Queries
+* `activeCourse(studentid: ID!): Course`
+    * Gives access to the active Course of a student. Will return null if there is no active Course. For students checking themselves and mods or better only.
+* `course(courseid: ID!): Course`
+    * Get a Course by its ID. Only the owning student (or moderators or better) can do this.
+* `courses(courseids: [ID!]!): [Course]!`
+    * Get a list of Courses by their IDs. Only the owning student (or moderators or better) can do this.
+* `courseSearch(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!`
+    * Get a list of Courses by Prisma query search parameters. For Moderators or better only because of potentially sensitive data. Students can get them through me().
+
+#### Mastery Queries
+* `activeMasteries(studentid: ID!): [Mastery]!`
+    * Gives access to the active Masteries of a student. Will return [] if there are no active Masteries. For students checking themselves and mods or better only.
+* `mastery(masteryid: ID!): Mastery`
+    * Get a Mastery by Mastery ID. Only the owning student (or moderators or better) can do this.
+* `masteries(masteryids: [ID!]!): [Mastery]!`
+    * Get a list of Masteries by a list of Mastery IDs. Only the owning student (or moderators or better) can do this.
+* `masterySearch(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery]!`
+    * Get a list of Masteries by Prisma query search parameters. For moderators or better only because of potentially sensitive data. Students can get through other options.
+
+#### Subject Queries
+* `allSubjects: [Subject]!`
+    * Get a list of all Subjects. For logged-in and normal users only.
+* `subject(subjectid: ID!): Subject`
+    * Get a Subject by a single ID. For logged in and normal.
+* `subjects(subjectids: [ID!]!): [Subject]!`
+    * Get a list of Subjects by their IDs. For logged-in and normal users only.
+* `subjectSearch(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!`
+    * Get a list of Subjects by Prisma query search parameters. For logged-in only.
+
+#### SubSubject Queries
+* `allSubSubjects: [SubSubject]!`
+    * Get all SubSubjects. For anyone logged-in and normal.
+* `subSubject(subsubjectid: ID!): SubSubject`
+    * Get a SubSubject by ID. For anyone logged-in and normal.
+* `subSubjects(subsubjectids: [ID!]!): [SubSubject]!`
+    * Get a list of SubSubjects by a list of IDs. For anyone logged-in and normal.
+* `subSubjectSearch(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!`
+    * Get a list of SubSubjects by Prisma query search parameters. For anyone logged-in and normal.
+
+#### Survey Queries
+* `activeSurveys(studentid: ID!): [Survey]!`
+    * Give access to the active Surveys of a student. Will return [] if there are no active Surveys. Only the owning student (or moderators or better) can do this.
+* `survey(surveyid: ID!): Survey`
+    * Get a Survey by a Survey ID. Only the owning student (or moderators or better) can do this.
+* `surveys(surveyids: [ID!]!): [Survey]!`
+    * Get a list of Surveys by a list of Survey IDs. Only the owning student (or moderators or better) can do this.
+* `surveySearch(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey]!`
+    * Get a list of Surveys by Prisma query search parameters. For moderators or better only because of potentially sensitive data. Students can get through other options.
+
+#### Question Queries
+* `question(questionid: ID!): Question`
+    * Get a Question by ID. For teachers and better only.
+* `questions(questionids: [ID!]!): [Question]!`
+    * Get a list of Questions by a list of IDs. For teachers and better only.
+* `questionSearch(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!`
+    * Get a list of Questions by Prisma query search parameters. For teachers and better only.
+* `checkSubmitQuestion(type: Int!, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Boolean!`
+    * Provide a quick dry-run of submitQuestion. It'll throw up a bunch of errors if something is wrong, otherwise it'll return true. If this returns true, the question will be accepted.
+    * See `QuestionQuestionInput` and `QuestionAnswerInput` Input types described above.
+
+#### Feedback Queries
+* `feedbackSearch(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback]!`
+    * Get a list of Feedbacks by Prisma query search parameters. For Moderators or better only because Feedback is typically only a Moderator thing. A Student, for example, can look at their own Feedback through their me() query.
+
+#### QA Queries
+* `generateChallenge(courseid: ID!, subjectids: [ID], subsubjectids: [ID], listSize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!`
+    *
+* `getQa(questionid: ID!): QaObject`
+    * Generates a full QAObject from a single Question ID.
+
+### Mutations
+#### Auth Mutations
+* `signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!`
+    * Sign up for an account. All arguments are required and emails need to be unique.
+* `login(email: String!, password: String!): AuthPayload!`
+    * Log in to the account of a user by providing the email and password. Bcrypt is used to check the password input for correctness.
+
+#### User Mutations
+* `updateUserProfile(userid: ID!, email: String, password: String, honorific: String, fname: String, lname: String): PrivateUser!`
+    * Mutation providing a method to self-update user profile information. There are some additional checks on Moderators disallowing them from updating other Moderators or Admins. Admins, on the other hand, have full power.
+* `updateUserStates(userid: ID!, type: Int, status: Int, flags: Int): PrivateUser!`
+    * Mutation providing administrative-style updates to a User row. This includes changing the type, status, and flags of a User. There are some additional checks on Moderators disallowing them from updating other Moderators or Admins. Admins, on the other hand, have full power.
+
+#### Student Mutations
+* `enrollStudent(studentid: ID!): Enrollment!`
+    * Gives a student a new Enrollment and immediately gives them a new Course and sets it as active.
+* `assignStudentNewCourse(studentid: ID!, prefermetric: Boolean): Course!`
+    * Give a student a new Course. They must be enrolled first, though.
+* `setActiveCourse(studentid: ID!, courseid: ID!): Course!`
+    * Will set a student's courses all to inactive and the targeted course to active. Requires the studentid to perform.
+
+#### Course Mutations
+* `assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!`
+    * Assigns subSubjects to an existing course. Only the owning student (or moderators or better) can do this.
+* `deactivateCourse(courseid: ID!): Course!`
+    * Deactivates a course. Only the owning student (or moderators or better) can do this.
+* `addMasteryScores(courseid: ID!, scoreinput: [MasteryScoreInput!]!): Course!`
+    * Give a Course ID and a list of combination SubSubject IDs and scores (positive or negative) and those values will be added to each valid Mastery belonging to that Course. It automatically gathers the Mastery IDs so you don't need to! Only the owning student (or moderators or better) can do this.
+    * See `MasteryScoreInput` Input type described above.
+* `addSurveyScores(courseid: ID!, scoreinput: [SurveyScoreInput!]!): Course!`
+    * Give a courseid and a list of combination Survey IDs and scores (positive or negative) and those values will be added to each valid Survey belonging to that Course. Only the owning student (or moderators or better) can do this.
+    * See `SurveyScoreInput` Input type described above.
+* `addSurveyAnswers(courseid: ID!, answerinput: [SurveyAnswerInput!]!): Course!`
+    * Answer or re-answer a series of Survey questions. Only the owning student (or moderators or better) can do this.
+    * See `SurveyAnswerInput` Input type described above.
+* `addChallengeResults(courseid: ID!, masteryscoreinput: [MasteryScoreInput]!, surveyscoreinput: [SurveyScoreInput]!, surveyanswerinput: [SurveyAnswerInput]!): Course!`
+    * Batch update a student's masteries, survey scores, and survey answers after completing a challenge.
+    * See `MasteryScoreInput`, `SurveyScoreInput`, and `SurveyAnswerInput` Input types described above.
+
+#### Mastery Mutations
+* `activateMastery(masteryid: ID!): Mastery!`
+    * Activate a mastery. Only the owning student (or moderators or better) can do this.
+* `deactivateMastery(masteryid: ID!): Mastery!`
+    * Deactivate a mastery. Only the owning student (or moderators or better) can do this.
+* `addMasteryScore(masteryid: ID!, score: Int!): Mastery!`
+    * Give a Mastery ID and a score you want to increase/decrease the Mastery score by. Only the owning student (or moderators or better) can do this.
+
+#### Classroom Mutations
+* `createClassroom(name: String!, description: String, teacherid: ID!): Classroom!`
+    * Create a new Classroom for a teacher. A teacher's User ID must be given as a Classroom should have at least one teacher (though this is not a technical necessity).
+* `addUsersToClassroom(classroomid: ID!, userids: [ID!]!): Classroom!`
+    * Add users (students or teachers) to a classroom. Only teachers (or better) can add students to classrooms they are teachers of.
+* `removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!`
+    * Remove users (students or teachers) from a classroom. Only teachers (or better) can add students to classrooms they are teachers of. Teachers cannot remove students from classrooms where the student's active course is not in that classroom.
+
+#### Survey Mutations
+* `addSurveyAnswer(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!`
+    * Answer or re-answer a Survey question. Only the owning student (or moderators or better) can do this.
+* `addSurveyScore(surveyid: ID!, score: Int!): Survey!`
+    * Add a score value to a Survey's score field. Only the owning student (or moderators or better) can do this. The value can be negative to remove points. It will not be possible to make the score below the minimum (0) nor above the max (1000). If you want to set a score to 0, send -1000. If you want to set the score to 1000, send 1000.
+
+#### Question Mutations
+* `submitQuestion(subsubjectid: ID!, type: Int!, flags: Int!, difficulty: Int!, media: String, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Question!`
+    * Mutation that creates a new Question row from multiple inputs and with heavy checking will submit the question with a status putting it up for review. For normal users only.
+    * See `QuestionQuestionInput` and `QuestionAnswerInput` Input types described above.
+
+#### Feedback Mutations
+* `submitFeedback(questionid: ID!, type: Int!, text: String): Feedback!`
+    * Simple mutation allows one to submit Feedback for a Question. All normal users can use this.
+* `updateFeedbackStatus(feedbackid: ID!, status: Int!): Feedback!`
+    * Simple mutation updates the status of a Feedback row. Useful if they've completed a review of a piece of user-submitted Feedback. For moderators or better only.
 
 ## Database Documentation
 ### User
