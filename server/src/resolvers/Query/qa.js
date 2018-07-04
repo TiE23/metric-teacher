@@ -28,11 +28,18 @@ const {
 
 
 const qa = {
-  // TODO this needs to be polished - Likely in ISSUE-020.
+  /**
+   * Generates a full QAObject from a single Question ID.
+   * @param parent
+   * @param args
+   *        questionid: ID!
+   * @param ctx
+   * @returns QaObject
+   */
   async getQa(parent, args, ctx) {
     const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
-      action: "testGetQa",
+      action: "getQa",
     }); // Must be logged in
     const questionObject = await ctx.db.query.question(
       { where: { id: args.questionid } },
@@ -54,12 +61,6 @@ const qa = {
     // If the question wasn't found
     if (!questionObject) {
       throw new QuestionNotFound(args.questionid);
-    }
-
-    // TODO Do I really want to prevent processing inactive questions?
-    // Question isn't active
-    if (questionObject.status !== QUESTION_STATUS_ACTIVE) {
-      throw new QuestionNotActive(args.questionid);
     }
 
     // Check if the student has answered the survey. Don't bother for non-students.
@@ -113,13 +114,14 @@ const qa = {
 
 
   /**
-   *
+   * Generate an entire list of QAObjects (called a "Challenge") based off a Course ID and
+   * a list of Subject or SubSubject IDs. Additional boolean arguments
    * @param parent
    * @param args
    *        courseid: ID!
    *        subjectids: [ID]
    *        subsubjectids: [ID]
-   *        listSize: Int!
+   *        listsize: Int!
    *        ignorerarity: Boolean
    *        ignoredifficulty: Boolean
    *        ignorepreference: Boolean
@@ -171,7 +173,7 @@ const qa = {
       args.courseid,
       args.subjectids || [],
       args.subsubjectids || [],
-      args.listSize,
+      args.listsize,
       args.ignorerarity || false,
       args.ignoredifficulty || false,
       args.ignorepreference || false,

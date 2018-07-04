@@ -1,5 +1,4 @@
 const {
-  getUserId,
   checkAuth,
 } = require("../../utils");
 
@@ -9,6 +8,7 @@ const {
 
 const {
   USER_STATUS_NORMAL,
+  USER_TYPE_STUDENT,
   USER_TYPE_MODERATOR,
 } = require("../../constants");
 
@@ -22,9 +22,15 @@ const user = {
    * @param info
    * @returns PrivateUser
    */
-  me(parent, args, ctx, info) {
-    const id = getUserId(ctx);
-    return ctx.db.query.user({ where: { id } }, info);
+  async me(parent, args, ctx, info) {
+    // Must be logged in moderator or better and normal
+    const callingUserData = await checkAuth(ctx, {
+      type: USER_TYPE_STUDENT,
+      status: USER_STATUS_NORMAL,
+      action: "me",
+    });
+
+    return ctx.db.query.user({ where: { id: callingUserData.id } }, info);
   },
 
 
@@ -50,7 +56,6 @@ const user = {
     }
 
     // TODO teacher support
-
     return ctx.db.query.user({ where: { id: args.userid } }, info);
   },
 

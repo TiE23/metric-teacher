@@ -102,7 +102,7 @@ const question = {
 
   /**
    * Provide a quick dry-run of submitQuestion. It'll throw up a bunch of errors if something is
-   * wrong, otherwise it'll return true. If this returns true, the question will be accepted
+   * wrong, otherwise it'll return true. If this returns true, the question will be accepted.
    * @param parent
    * @param args
    *        type: Int!

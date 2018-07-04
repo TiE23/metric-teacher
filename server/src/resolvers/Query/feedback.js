@@ -11,7 +11,7 @@ const feedback = {
   /**
    * Get a list of Feedbacks by Prisma query search parameters.
    * For Moderators or better only because Feedback is typically only a Moderator thing.
-   * A Student, for example, can look at their own Feedback through their me query.
+   * A Student, for example, can look at their own Feedback through their me() query.
    * @param parent
    * @param args
    *        where: FeedbackWhereInput

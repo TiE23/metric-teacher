@@ -393,7 +393,8 @@ const course = {
 
 
   /**
-   *
+   * Batch update a student's masteries, survey scores, and survey answers after completing a
+   * challenge.
    * @param parent
    * @param args
    *        courseid: ID!

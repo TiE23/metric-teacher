@@ -9,6 +9,17 @@ const {
 } = require("../../constants");
 
 const auth = {
+  /**
+   * Sign up for an account. All arguments are required and emails need to be unique.
+   * @param parent
+   * @param args
+   *        email: String!
+   *        password: String!
+   *        fname: String!
+   *        lname: String!
+   * @param ctx
+   * @returns AuthPayload!
+   */
   async signup(parent, args, ctx) {
     // All new users are given these settings. Can't allow people to sign-up as Admins, after all!
     const defaultArgs = {
@@ -27,6 +38,16 @@ const auth = {
     };
   },
 
+
+  /**
+   * Log in to the account of a user by providing the email and password. Bcrypt is used
+   * to check the password input for correctness.
+   * @param parent
+   * @param email
+   * @param password
+   * @param ctx
+   * @returns AuthPayload!
+   */
   async login(parent, { email, password }, ctx) {
     const user = await ctx.db.query.user({ where: { email } });
     if (!user) {

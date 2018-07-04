@@ -13,7 +13,7 @@ const {
 
 const classroom = {
   /**
-   * Get a classroom by a single classroomid. For moderators or better only. Students and Teachers
+   * Get a classroom by a single Classroom Id. For moderators or better only. Students and Teachers
    * can get it through me().
    * @param parent
    * @param args

@@ -72,7 +72,7 @@ const mastery = {
    * @param args
    * @param ctx
    * @param info
-   * @returns {Promise<void>}
+   * @returns Mastery!
    */
   async addMasteryScore(parent, args, ctx, info) {
     const callingUserData = await checkAuth(ctx, {
