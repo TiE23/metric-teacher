@@ -3,25 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "apollo-boost": "^0.1.6",
-    "deline": "^1.0.4",
+    "apollo-boost": "^0.1.10",
+    "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
-    "lodash": "^4.17.10",
-    "prop-types": "^15.6.1",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
+    "react": "^16.4.1",
+    "react-apollo": "^2.1.9",
+    "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
-    "semantic-ui-css": "^2.3.1",
-    "semantic-ui-react": "^0.80.0",
-    "sprintf-js": "^1.1.1"
+    "semantic-ui-react": "^0.81.3"
   },
-  "devDependencies": {},
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build-semantic": "cd src/semantic && gulp build-css build-assets",
+    "watch-semantic": "cd src/semantic && yarn run build-semantic && gulp watch",
+    "start": "yarn run build-semantic && react-scripts start",
+    "build": "yarn run build-semantic && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "semantic-ui": "^2.3.2"
   }
 }
