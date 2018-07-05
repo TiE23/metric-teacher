@@ -26,7 +26,7 @@ const {
 
 const student = {
   /**
-   * Gives a student a new course and makes that course the only active course for that student.
+   * Gives a student a new Enrollment and immediately gives them a new Course and sets it as active.
    * @param parent
    * @param args
    *        studentid: ID!
@@ -73,7 +73,7 @@ const student = {
 
 
   /**
-   * Give a student a new course. They must be enrolled first, though.
+   * Give a student a new Course. They must be enrolled first, though.
    * @param parent
    * @param args
    *        studentid: ID!

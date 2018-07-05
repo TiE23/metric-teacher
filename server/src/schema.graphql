@@ -53,28 +53,28 @@ type Query {
   feedbackSearch(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback]!
 
   # QA Queries
-  generateChallenge(courseid: ID!, subjectids: [ID], subsubjectids: [ID], listSize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!
+  generateChallenge(courseid: ID!, subjectids: [ID], subsubjectids: [ID], listsize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!
   getQa(questionid: ID!): QaObject
 }
 
 ### Mutations
 type Mutation {
-  # User Mutations
+  # Auth Mutations
   signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
+
+  # User Mutations
   updateUserProfile(userid: ID!, email: String, password: String, honorific: String, fname: String, lname: String): PrivateUser!
   updateUserStates(userid: ID!, type: Int, status: Int, flags: Int): PrivateUser!
 
   # Student Mutations
-  ## Enrollment
   enrollStudent(studentid: ID!): Enrollment!
-  ## Course
   assignStudentNewCourse(studentid: ID!, prefermetric: Boolean): Course!
   setActiveCourse(studentid: ID!, courseid: ID!): Course!
 
   # Course Mutations
-  deactivateCourse(courseid: ID!): Course!
   assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
+  deactivateCourse(courseid: ID!): Course!
   addMasteryScores(courseid: ID!, scoreinput: [MasteryScoreInput!]!): Course!
   addSurveyScores(courseid: ID!, scoreinput: [SurveyScoreInput!]!): Course!
   addSurveyAnswers(courseid: ID!, answerinput: [SurveyAnswerInput!]!): Course!

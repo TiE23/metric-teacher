@@ -14,6 +14,7 @@ const {
 
 const {
   FLAGS_NONE,
+  USER_STATUS_NORMAL,
   USER_TYPE_TEACHER,
   USER_TYPE_MODERATOR,
   CLASSROOM_STATUS_ACTIVE,
@@ -23,7 +24,8 @@ const {
 
 const classroom = {
   /**
-   * Create a classroom for a teacher. This is typically expected behavior for Teachers
+   * Create a new Classroom for a teacher. A teacher's User ID must be given as a Classroom should
+   * have at least one teacher (though this is not a technical necessity).
    * @param parent
    * @param args
    *        name: String!
@@ -35,7 +37,8 @@ const classroom = {
    */
   async createClassroom(parent, args, ctx, info) {
     const callingUserData = await checkAuth(ctx, {
-      type: USER_TYPE_TEACHER,
+      type: USER_TYPE_TEACHER,  // Teacher or better
+      status: USER_STATUS_NORMAL,
       action: "createClassroom",
     });
 
