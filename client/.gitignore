@@ -3,6 +3,9 @@
 # dependencies
 /node_modules
 
+# semantic build
+/semantic/dist
+
 # testing
 /coverage
 
