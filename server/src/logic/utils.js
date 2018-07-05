@@ -173,7 +173,7 @@ function questionSyntaxFormatter(text = null, rangeInput = null) {
   let questionSyntax = "";
   if (text) {
     if (text.search(/[[\]]/) !== -1) {
-      throw new QuestionTextSyntaxError(text, "Cannot contain square brackets");
+      throw new QuestionTextSyntaxError(text, "Cannot contain '[' or ']'");
     }
     questionSyntax += text.trim();
   }
@@ -251,8 +251,8 @@ function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput
       if (choice.unit === WRITTEN_ANSWER_UNIT && choice.written.trim().length === 0) {
         choicesInputErrors.push("Written choices cannot be blank.");
       }
-      if (choice.unit === WRITTEN_ANSWER_UNIT && choice.written.search(/\|/) !== -1) {
-        choicesInputErrors.push(`Written choice ${choice.written} cannot have pipes (|) in them.`);
+      if (choice.unit === WRITTEN_ANSWER_UNIT && choice.written.search(/[|[\]]/) !== -1) {
+        choicesInputErrors.push(`Written choice '${choice.written}' cannot have '|', '[', or ']' in it.`);
       }
     });
     if (choicesInputErrors.length) {
