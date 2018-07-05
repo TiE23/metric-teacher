@@ -49,8 +49,15 @@ class ChallengeGenerator {
    * @param ignorePreference
    * @returns [QAObjects]
    */
-  async generateChallenge(courseId, subjectIds, subSubjectIds, listSize, ignoreRarity,
-    ignoreDifficulty, ignorePreference) {
+  async generateChallenge(
+    courseId,
+    subjectIds,
+    subSubjectIds,
+    listSize,
+    ignoreRarity,
+    ignoreDifficulty,
+    ignorePreference,
+  ) {
     // Need to have Subject or SubSubject IDs defined.
     if (subjectIds.length === 0 && subSubjectIds.length === 0) {
       throw new ChallengeHasNoTargetedSubSubjects();

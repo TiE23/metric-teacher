@@ -7,14 +7,12 @@ const {
   CourseNotFound,
   CourseInactive,
   QuestionNotFound,
-  QuestionNotActive,
 } = require("../../errors");
 
 const {
   USER_TYPE_STUDENT,
   USER_STATUS_NORMAL,
   COURSE_STATUS_ACTIVE,
-  QUESTION_STATUS_ACTIVE,
   QUESTION_TYPE_SURVEY,
 } = require("../../constants");
 
@@ -39,8 +37,9 @@ const qa = {
   async getQa(parent, args, ctx) {
     const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
+      status: USER_STATUS_NORMAL,
       action: "getQa",
-    }); // Must be logged in
+    });
     const questionObject = await ctx.db.query.question(
       { where: { id: args.questionid } },
       `{
