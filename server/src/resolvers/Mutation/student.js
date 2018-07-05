@@ -36,7 +36,7 @@ const student = {
    */
   async enrollStudent(parent, args, ctx, info) {
     // Block teachers and non-normal users.
-    await checkAuth(ctx,{
+    await checkAuth(ctx, {
       type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
       status: USER_STATUS_NORMAL,
       action: "deactivateCourse",
