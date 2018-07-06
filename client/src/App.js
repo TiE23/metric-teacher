@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import "../semantic/dist/semantic.min.css";
+import "./semantic/dist/semantic.min.css";
 
 class App extends Component {
   render() {
