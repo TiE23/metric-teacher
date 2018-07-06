@@ -32,6 +32,8 @@ let token = utils.readTokenLocalStorage();  // eslint-disable-line prefer-const
  * @returns {Promise<string>}
  */
 const customFetch = (uri, options) => {
+  // Fire off the initial fetch and see if it worked.
+  // eslint-disable-next-line no-undef
   const initialRequest = fetch(uri, options);
 
   return initialRequest.then(response => (
@@ -46,12 +48,14 @@ const customFetch = (uri, options) => {
       // Attempt to re-grab the token from local storage
       this.token = utils.readTokenLocalStorage();
 
+      // Don't attempt fetch again if there was no token.
       if (this.token) {
         // Load it into the authorization header
         const updatedOptions = options;
         updatedOptions.headers.authorization = `Bearer ${this.token}`;
 
         // Fire off the fetch a second time and hope it works.
+        // eslint-disable-next-line no-undef
         return fetch(uri, updatedOptions);
       }
     }
@@ -104,6 +108,7 @@ ReactDOM.render(
       <App />
     </ApolloProvider>
   </BrowserRouter>
+  // eslint-disable-next-line no-undef
   , document.getElementById("root"),
 );
 registerServiceWorker();
