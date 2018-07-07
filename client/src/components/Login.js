@@ -12,7 +12,6 @@ import utils from "../utils";
 import {
   PASSWORD_MINIMUM_LENGTH,
   BAD_PASSWORDS,
-  EMAIL_NORMALIZE_OPTIONS,
 } from "../constants";
 
 import {
@@ -44,9 +43,9 @@ class Login extends Component {
       if (BAD_PASSWORDS.includes(this.state.password.toLowerCase()))
         errors.push("Password is far too common. Please try a better password!");
 
-      const normalizedEmail = normalizeEmail(this.state.email, EMAIL_NORMALIZE_OPTIONS);
+      const normalizedEmail = utils.customNormalizeEmail(this.state.email);
       if (normalizedEmail !== this.state.email.toLowerCase())
-        errors.push(`Please normalize email to ${normalizedEmail}`);
+        errors.push(`Please normalize your email to "${normalizedEmail}"`);
 
     }
 
@@ -102,7 +101,7 @@ class Login extends Component {
           variables: {
             fname: this.state.fname,
             lname: this.state.lname,
-            email: normalizeEmail(this.state.email, EMAIL_NORMALIZE_OPTIONS),
+            email: utils.customNormalizeEmail(this.state.email),
             password: this.state.password,
           },
           // update: this._meQueryUpdate,

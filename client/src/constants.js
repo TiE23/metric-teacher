@@ -24,3 +24,7 @@ export const EMAIL_NORMALIZE_OPTIONS = {
   icloud_lowercase: true,
   icloud_remove_subaddress: true,
 };
+export const EMAIL_SECRET_PREFIXES = [
+  "594613e2c5679b0d25e8912b0523b5a9",
+  "806158031bb277505a058d0e4e07cff9",
+];
