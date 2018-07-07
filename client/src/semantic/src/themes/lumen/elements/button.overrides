@@ -1,0 +1,46 @@
+.ui.button,
+.ui.basic.button {
+  border-width: 0 1px 4px 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.15); // bind border color with background color
+  font-weight: bold;
+  text-transform: @textTransform;
+
+  &:hover {
+    margin-top: 1px;
+    border-bottom-width: 3px;
+  }
+
+  &:active {
+    margin-top: 2px;
+    border-bottom-width: 2px;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: @backgroundColor;
+    border-color: rgba(0, 0, 0, 0.25);
+  }
+}
+
+.ui.menu .button {
+  &:hover {
+    margin-top: 8px;
+  }
+
+  &:active {
+    margin-top: 9px;
+  }
+}
+
+.ui.vertical.buttons {
+  .button + .button {
+    &:hover {
+      border-top-width: 1px;
+    }
+
+    &:active {
+      border-top-width: 2px;
+    }
+  }
+}
