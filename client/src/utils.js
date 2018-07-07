@@ -52,6 +52,10 @@ const queryOK = (query, data) => (
   !!query && !!data && !query.loading && !query.error
 );
 
+const normalizeEmailHelper = (email) => {
+
+};
+
 const utils = {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
