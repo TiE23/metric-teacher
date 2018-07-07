@@ -1,18 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import "./semantic/dist/semantic.min.css";
 
-import Ping from "./components/Ping";
+import Welcome from "./components/Welcome";
+import Login from "./components/Login";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <p>Hi!</p>
-        <Ping />
-      </div>
-    );
-  }
-}
+
+const App = () => (
+  <div className="App">
+    <Switch>
+      <Route exact path="/" render={() => <Redirect to="/welcome" />} />
+      <Route exact path="/welcome" component={Welcome} />
+      <Route exact path="/login" render={() => <Login loginPath="/login" />} />
+      <Route exact path="/signup" render={() => <Login loginPath="/login" />} />
+    </Switch>
+  </div>
+);
 
 export default App;
