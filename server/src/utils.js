@@ -7,20 +7,19 @@ const {
 } = require("./errors");
 
 /**
- * Gets the calling user's ID by their Authorization JavaScript Web Token.
+ * Gets the calling user's data (id, type, status, flags, iat) by their Authorization
+ * JavaScript Web Token.
  * Does not hit the database and costs almost nothing to perform.
  * @param ctx
- * @returns ID
+ * @returns {{id, type, status, flags, iat}}
  * @throws AuthError
  */
-function getUserId(ctx) {
+function getAuthTokenData(ctx) {
   const Authorization = ctx.request.get("Authorization");
   if (Authorization) {
     const token = Authorization.replace("Bearer ", "");
-    const { userId } = jwt.verify(token, process.env.APP_SECRET);
-    return userId;
+    return jwt.verify(token, process.env.APP_SECRET);
   }
-
   throw new AuthError();
 }
 
@@ -118,7 +117,8 @@ async function setStatusForCourses(ctx, courseIds, status) {
 
 
 /**
- * Check the auth of a calling user's request with various options.
+ * Check the auth of a calling user's request with various options. It uses JWT data payload
+ * to get the calling user's type, status, and flags.
  * @param ctx
  * @param payload
  * - type         Mixed, can be an int (MINIMUM user type allowed), an array of APPROVED
@@ -126,7 +126,7 @@ async function setStatusForCourses(ctx, courseIds, status) {
  *                  "Why support anonymous?" you ask, "Just don't have an auth check for requests
  *                  that are public!" I have this because running this function before each request
  *                  can still allow me to reject banned users just to be spiteful. >:)
- *                  If simply the user must be logged in just set to 0.
+ *                  If simply the user must be logged in just set to USER_TYPE_STUDENT.
  * - status       Mixed, can be an int (MAXIMUM status value allowed) or an array of
  *                  approved statuses. If null will allow any value
  * - flagExclude  Int, pass bitwise flags that are NOT allowed. Leave null to ignore.
@@ -148,10 +148,10 @@ async function checkAuth(
     action: null,
   },
 ) {
-  let callingUserId = "";
+  let callingUserData = null;
 
   try {
-    callingUserId = getUserId(ctx);
+    callingUserData = getAuthTokenData(ctx);
   } catch (e) {
     // If the user is not recognized an AuthError will have been thrown
     if (e instanceof AuthError) {
@@ -162,13 +162,9 @@ async function checkAuth(
 
       // Throw a slightly more detailed error.
       throw new AuthError("User must be logged in.", payload.action);
-    } else {
-      throw e;  // Some other error
     }
+    throw e;  // Some other error
   }
-
-  // At this point user id will be defined, let's grab their type, status, and flags.
-  const callingUserData = await getUserData(ctx, callingUserId, "{ type, status, flags }");
 
   // This is how we track in what ways the user is rejected if they are rejected.
   let approval = true;
@@ -176,7 +172,7 @@ async function checkAuth(
 
   // Check type. If null, do not check anything.
   if (Array.isArray(payload.type)) {
-    if (payload.type.indexOf(callingUserData.type) === -1) {
+    if (!payload.type.includes(callingUserData.type)) {
       approval = false;
       rejectionReasons.push(`User type '${callingUserData.type}' disallowed.`);
     }
@@ -221,16 +217,11 @@ async function checkAuth(
     throw new AuthError(rejectionReasons.join(" "), payload.action);
   }
 
-  return {
-    id: callingUserId,
-    type: callingUserData.type,
-    status: callingUserData.status,
-    flags: callingUserData.flags,
-  };
+  return callingUserData;
 }
 
 module.exports = {
-  getUserId,
+  getAuthTokenData,
   getUserData,
   getUsersData,
   targetStudentDataHelper,

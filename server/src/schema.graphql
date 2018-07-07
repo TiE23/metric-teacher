@@ -169,7 +169,7 @@ input ConversionAnswerInput {
 ### Types
 type AuthPayload {
   token: String!
-  user: User!
+  user: PrivateUser!
 }
 
 # For public-ish use. It does not expose password, email, enrollment, or classroomsTeaching.
