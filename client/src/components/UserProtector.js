@@ -10,18 +10,21 @@ import { ME_AUTH_QUERY } from "../graphql/Queries";
 
 // Inspired from https://www.graph.cool/forum/t/react-hoc-to-check-for-authorized-user-protected-routes/478/2
 export default (IncomingRoute, options = {}) => {
+  // TODO - Make this a pure function.
   class AuthHOC extends Component {
     render() {
       const { meAuthData } = this.props;
 
+      // TODO - Rewrite this whole thing. It's hideous and confusing.
       // Only show the error (usually the user is not logged in) if the route is private.
       if (meAuthData.loading ||
         (options.private && (meAuthData.error || meAuthData.me === undefined))
       ) {
         return (
           <LoadingError
-            error={meAuthData.error || (options.private && meAuthData.me === undefined)}
-            errorMessage={(
+            error={meAuthData.error || (options.private && !meAuthData.loading &&
+              meAuthData.me === undefined)}
+            errorMessage={meAuthData.error ? (
               <div>
                 <p>{(meAuthData.error && meAuthData.error.message) || "There was a problem..."}</p>
                 {meAuthData.error && meAuthData.error.message === "GraphQL error: Not authorized" &&
@@ -37,7 +40,7 @@ export default (IncomingRoute, options = {}) => {
                   </p>
                 }
               </div>
-            )}
+            ) : null}
             loadingMessage={options.private ? "Checking if you're logged in..." : "Loading..."}
           />
         );
