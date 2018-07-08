@@ -6,7 +6,7 @@ const UserDetailBasics = (props) => {
   let enrollmentId = null;
   if (props.query.loading) enrollmentId = "Loading...";
   else if (props.query.error) enrollmentId = `Error: ${props.query.error}`;
-  else enrollmentId = props.query.data.me.enrollment.id;
+  else enrollmentId = props.query.data.user.enrollment.id;
 
   return (
     <p>
@@ -17,7 +17,13 @@ const UserDetailBasics = (props) => {
 };
 
 UserDetailBasics.propTypes = {
-  query: PropTypes.object.isRequired,
+  query: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.any,
+    data: PropTypes.shape({
+      user: PropTypes.any.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default withRouter(UserDetailBasics);

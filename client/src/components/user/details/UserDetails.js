@@ -1,31 +1,34 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import { withRouter } from "react-router";
 
 import UserDetailBasics from "./UserDetailBasics";
-import LoadingError from "../../LoadingError";
 import QueryWaiter from "../../QueryWaiter";
 
-// TODO - Can I not add this to the Apollo cache?
-import { ME_DETAILS_QUERY } from "../../../graphql/Queries";
+// TODO - Would it make sense to add this to the Apollo cache at all?
+import { USER_DETAILS_QUERY } from "../../../graphql/Queries";
 
-const UserDetails = (props) => {
-  return (
-    <Query
-      query={ME_DETAILS_QUERY}
-    >
-      {queryProps => (
-        <QueryWaiter
+const UserDetails = props => (
+  <Query
+    query={USER_DETAILS_QUERY}
+    variables={{ userid: props.userid }}
+  >
+    {queryProps => (
+      <QueryWaiter
+        query={queryProps}
+      >
+        <UserDetailBasics
           query={queryProps}
-          loadingErrorProps={{ loadingMessage: "123123123123123" }}
-        >
-          <UserDetailBasics
-            query={queryProps}
-          />
-        </QueryWaiter>
-      )}
-    </Query>
-  );
+        />
+        {/* TODO - Further components showing different user data. */}
+      </QueryWaiter>
+    )}
+  </Query>
+);
+
+UserDetails.propTypes = {
+  userid: PropTypes.string.isRequired,
 };
 
 export default withRouter(UserDetails);

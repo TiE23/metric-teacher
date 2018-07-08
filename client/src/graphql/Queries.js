@@ -7,6 +7,11 @@ import gql from "graphql-tag";
 
 import {
   EnrollmentDataAll,
+  CourseDataAll,
+  ClassroomDataAll,
+  MasteryDataAll,
+  SubSubjectDataAll,
+  SurveyDataAll,
 } from "./fragments/SimpleFragments";
 
 export const PING_QUERY = gql`
@@ -32,9 +37,9 @@ export const ME_AUTH_QUERY = gql`
   }
 `;
 
-export const ME_DETAILS_QUERY = gql`
-  query MeDetailsQuery {
-    me {
+export const USER_DETAILS_QUERY = gql`
+  query UserDetailsQuery ($userid: ID!) {
+    user (userid: $userid) {
       id
       createdAt
       updatedAt
@@ -47,8 +52,34 @@ export const ME_DETAILS_QUERY = gql`
       flags
       enrollment {
         ...EnrollmentDataAll
+        courses (where: { status: 0 }, first: 1) {
+          ...CourseDataAll
+          classrooms {
+            ...ClassroomDataAll
+            teachers {
+              id
+              fname
+              lname
+              honorific
+            }
+          }
+          masteries {
+            ...MasteryDataAll
+            subSubject {
+              ...SubSubjectDataAll
+            }
+          }
+          surveys {
+            ...SurveyDataAll
+          }
+        }
       }
     }
   }
   ${EnrollmentDataAll}
+  ${CourseDataAll}
+  ${ClassroomDataAll}
+  ${MasteryDataAll}
+  ${SubSubjectDataAll}
+  ${SurveyDataAll}
 `;

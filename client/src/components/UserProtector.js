@@ -9,7 +9,7 @@ import LoadingError from "./LoadingError";
 import { ME_AUTH_QUERY } from "../graphql/Queries";
 
 // Inspired from https://www.graph.cool/forum/t/react-hoc-to-check-for-authorized-user-protected-routes/478/2
-export default (IncomingRoute, options = {}) => {
+export default (IncomingComponent, options = {}) => {
   // TODO - Make this a pure function.
   class AuthHOC extends Component {
     render() {
@@ -46,12 +46,13 @@ export default (IncomingRoute, options = {}) => {
         );
       }
 
-      // Pass the received "props" and created functions to the IncomingRoute component
+      // Pass the received "props" and created functions to the IncomingComponent component
       return (
-        <IncomingRoute
+        <IncomingComponent
           {...this.props}
           {...options.props}
           meAuthQuery={ME_AUTH_QUERY}
+          meAuthData={meAuthData}
         />
       );
     }
