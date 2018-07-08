@@ -55,7 +55,10 @@ const auth = {
    * @returns AuthPayload!
    */
   async login(parent, args, ctx) {
-    const user = await ctx.db.query.user({ where: { email: args.email } });
+    const user = await ctx.db.query.user(
+      { where: { email: args.email } },
+      "{ id, type, status, flags, password }",
+    );
     if (!user) {
       throw new Error(`No such user found for email: ${args.email}`);
     }
@@ -73,7 +76,7 @@ const auth = {
         status: user.status,
         flags: user.flags,
       }, process.env.APP_SECRET),
-      user,
+      user: { id: user.id },  // Used by AuthPayload.js's function user().
     };
   },
 };

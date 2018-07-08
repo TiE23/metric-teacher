@@ -6,7 +6,6 @@ import { withRouter } from "react-router";
 import { Header, Segment, Form, Button, Container, Dimmer, Loader, Message } from "semantic-ui-react";
 
 import isEmail from "validator/lib/isEmail";
-import normalizeEmail from "validator/lib/normalizeEmail";
 
 import utils from "../utils";
 import {
@@ -61,11 +60,11 @@ class Login extends Component {
     this.setState(data);
   };
 
-  // _meQueryUpdate = (proxy, { data: { login: { user } } }) => {
-  //   if (user) {
-  //     proxy.writeQuery({ query: this.props.meQuery, data: { me: user } });
-  //   }
-  // };
+  _meAuthQueryUpdate = (proxy, { data: { login: { user } } }) => {
+    if (user) {
+      proxy.writeQuery({ query: this.props.meAuthQuery, data: { me: user } });
+    }
+  };
 
   _confirm = async () => {
     const formErrors = this.validate();
@@ -82,7 +81,7 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password,
           },
-          // update: this._meQueryUpdate,
+          update: this._meAuthQueryUpdate,
         });
 
         const { token } = result.data.login;
@@ -104,7 +103,7 @@ class Login extends Component {
             email: utils.customNormalizeEmail(this.state.email),
             password: this.state.password,
           },
-          // update: this._meQueryUpdate,
+          update: this._meAuthQueryUpdate,
         });
 
         const { token } = result.data.signup;
@@ -171,7 +170,7 @@ class Login extends Component {
             <Form.Input
               required={true}
               value={this.state.email}
-              error={!(this.state.email === "" || isEmail(this.state.email))}
+              error={!loginPage && !(this.state.email === "" || isEmail(this.state.email))}
               onChange={e => this.handleChange({ email: e.target.value })}
               label="Email"
               autoComplete="email"
@@ -229,7 +228,7 @@ class Login extends Component {
   }
 }
 
-Login.propType = {
+Login.propTypes = {
   signupMutation: PropTypes.func.isRequired,
   loginMutation: PropTypes.func.isRequired,
   loginPath: PropTypes.string.isRequired,
