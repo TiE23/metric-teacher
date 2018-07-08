@@ -11,13 +11,15 @@ export const SIGNUP_MUTATION = gql`
       token
       user {
         id
+        createdAt
+        updatedAt
         email
+        honorific
+        fname
+        lname
         type
         status
         flags
-        fname
-        lname
-        honorific
       }
     }
   }
@@ -29,13 +31,15 @@ export const LOGIN_MUTATION = gql`
       token
       user {
         id
+        createdAt
+        updatedAt
         email
+        honorific
+        fname
+        lname
         type
         status
         flags
-        fname
-        lname
-        honorific
       }
     }
   }
