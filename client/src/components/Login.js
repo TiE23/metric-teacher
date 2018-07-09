@@ -42,10 +42,10 @@ class Login extends Component {
       if (BAD_PASSWORDS.includes(this.state.password.toLowerCase()))
         errors.push("Password is far too common. Please try a better password!");
 
+      // Prevent user from using tricky email addresses.
       const normalizedEmail = utils.customNormalizeEmail(this.state.email);
-      if (normalizedEmail !== this.state.email.toLowerCase())
+      if (isEmail(this.state.email) && normalizedEmail !== this.state.email.toLowerCase())
         errors.push(`Please normalize your email to "${normalizedEmail}"`);
-
     }
 
     if (!this.state.email.trim()) errors.push("Email required");
@@ -170,7 +170,6 @@ class Login extends Component {
             <Form.Input
               required={true}
               value={this.state.email}
-              error={!loginPage && !(this.state.email === "" || isEmail(this.state.email))}
               onChange={e => this.handleChange({ email: e.target.value })}
               label="Email"
               autoComplete="email"

@@ -275,7 +275,7 @@ QuestionAnswerInput: {
 * `me: PrivateUser`
     * Basic argument-free query that takes the calling user (identified by the provided Authorization JWT Bearer HTTP header) who is logged in and returns the content of their user account via the type PrivateUser.
 * `user(userid: ID!): PrivateUser`
-    * Get the PrivateUser data of a user account. For moderators and better only.
+    * Get the PrivateUser data of a user account. Only the owning user (or moderators or better) can do this. This essentially becomes a me() query providing far greater simplicity for client logic allowing shared code between self data and other user data.
 * `users(userids: [ID!]!): [PrivateUser]!`
     * Get the PrivateUser data of multiple user accounts by their ID. For moderators and better only.
 * `userSearch(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PrivateUser]!`

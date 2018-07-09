@@ -174,7 +174,7 @@ type AuthPayload {
 
 # For public-ish use. It does not expose password, email, enrollment, or classroomsTeaching.
 # It does, however, expose first and last names. So take note about ever making this truly public.
-type User {
+type User implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -187,7 +187,7 @@ type User {
 }
 
 # For private use. It does not expose password.
-type PrivateUser {
+type PrivateUser implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!

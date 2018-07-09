@@ -1,9 +1,18 @@
 import gql from "graphql-tag";
 
-// TODO - Use Fragments when issue is fixed someday.
+// TODO - Use PrivateUser fragment when issue is fixed someday.
 // import {
 //   MeAuthData,
 // } from "./fragments/UserFragments";
+
+import {
+  EnrollmentDataAll,
+  CourseDataAll,
+  ClassroomDataAll,
+  MasteryDataAll,
+  SubSubjectDataAll,
+  SurveyDataAll,
+} from "./fragments/SimpleFragments";
 
 export const PING_QUERY = gql`
   query PingQuery {
@@ -14,14 +23,63 @@ export const PING_QUERY = gql`
 export const ME_AUTH_QUERY = gql`
   query MeAuthQuery {
     me {
-        id
-        email
-        type
-        status
-        flags
-        fname
-        lname
-        honorific
+      id
+      createdAt
+      updatedAt
+      email
+      honorific
+      fname
+      lname
+      type
+      status
+      flags
     }
   }
+`;
+
+export const USER_DETAILS_QUERY = gql`
+  query UserDetailsQuery ($userid: ID!) {
+    user (userid: $userid) {
+      id
+      createdAt
+      updatedAt
+      email
+      honorific
+      fname
+      lname
+      type
+      status
+      flags
+      enrollment {
+        ...EnrollmentDataAll
+        courses (where: { status: 0 }, first: 1) {
+          ...CourseDataAll
+          classrooms {
+            ...ClassroomDataAll
+            teachers {
+              id
+              fname
+              lname
+              honorific
+            }
+          }
+          masteries {
+            ...MasteryDataAll
+            subSubject {
+              ...SubSubjectDataAll
+            }
+          }
+          surveys {
+            ...SurveyDataAll
+          }
+        }
+      }
+    }
+  }
+  ${EnrollmentDataAll}
+  ${CourseDataAll}
+  ${ClassroomDataAll}
+  ${MasteryDataAll}
+  ${SubSubjectDataAll}
+  ${SurveyDataAll}
 `;

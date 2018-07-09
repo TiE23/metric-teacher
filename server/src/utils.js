@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const JsonWebTokenError = require("jsonwebtoken/lib/JsonWebTokenError");
 
 const {
   AuthError,
@@ -18,7 +19,15 @@ function getAuthTokenData(ctx) {
   const Authorization = ctx.request.get("Authorization");
   if (Authorization) {
     const token = Authorization.replace("Bearer ", "");
-    return jwt.verify(token, process.env.APP_SECRET);
+
+    try {
+      return jwt.verify(token, process.env.APP_SECRET);
+    } catch (e) {
+      if (e instanceof JsonWebTokenError) {
+        throw new AuthError();
+      }
+      throw e; // Some other error
+    }
   }
   throw new AuthError();
 }
