@@ -3,6 +3,16 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
+/**
+ * Simple component checks incoming error prop for a message with an indicator that tells the
+ * component the error is due to the user not being logged in. It'll provide links to the login and
+ * signup pages including the Link prop state.from to let the user to automatically be returned to
+ * the page they found this error at through the use of the withRouter enhancer.
+ * >>Use this as the error prop of the LoadingError component.<<
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const ErrorPleaseLogin = props => (
   <div>
     <p>

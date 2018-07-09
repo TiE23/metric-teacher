@@ -22,12 +22,16 @@ import LoadingError from "./LoadingError";
  *     )}
  *   </Query>
  *
+ * If the Query is optional (not required to display on the page), pass the prop `skip`.
+ *  When skipped it'll skip this Component (maybe you shouldn't be calling it!)
+ * If the Query's success is optional, but you still want to wait, pass the prop `optional`.
+ *
  * @param props
  * @returns {*}
  * @constructor
  */
 const QueryWaiter = (props) => {
-  if (props.query.loading || props.query.error) {
+  if (!props.skip && (props.query.loading || (!props.optional && props.query.error))) {
     return (
       <LoadingError
         error={props.query.error}
@@ -40,6 +44,8 @@ const QueryWaiter = (props) => {
 };
 
 QueryWaiter.propTypes = {
+  skip: PropTypes.bool,
+  optional: PropTypes.bool,
   query: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     error: PropTypes.any.isRequired,
@@ -53,6 +59,11 @@ QueryWaiter.propTypes = {
     errorMessage: PropTypes.node,
     loadingMessage: PropTypes.string,
   }),
+};
+
+QueryWaiter.defaultProps = {
+  skip: false,
+  optional: false,
 };
 
 export default QueryWaiter;

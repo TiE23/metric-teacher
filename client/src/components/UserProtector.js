@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { graphql, compose, withApollo } from "react-apollo";
+import { Query } from "react-apollo";
 import { withRouter } from "react-router";
 
-import LoadingError from "./LoadingError";
+import QueryWaiter from "./QueryWaiter";
 import ErrorPleaseLogin from "./ErrorPleaseLogin";
 
 import { ME_AUTH_QUERY } from "../graphql/Queries";
@@ -13,30 +13,28 @@ export default (IncomingComponent, options = {}) => {
   // TODO - Make this a pure function.
   class AuthHOC extends Component {
     render() {
-      const { meAuthData } = this.props;
-
-      // TODO - Rewrite this whole thing. It's hideous and confusing.
-      // Only show the error (usually the user is not logged in) if the route is private.
-      if (meAuthData.loading ||
-        (options.private && (meAuthData.error || meAuthData.me === undefined))
-      ) {
-        return (
-          <LoadingError
-            error={meAuthData.error || (options.private && !meAuthData.loading &&
-              meAuthData.me === undefined)}
-            errorMessage={meAuthData.error ? <ErrorPleaseLogin error={meAuthData.error} /> : null}
-            loadingMessage={options.private ? "Checking if you're logged in..." : "Loading..."}
-          />
-        );
-      }
-
-      // Pass the received "props" and created functions to the IncomingComponent component
+      // TODO - Make the Query only run on Private routes.
       return (
-        <IncomingComponent
-          {...this.props}
-          {...options.props}
-          meAuthQuery={ME_AUTH_QUERY}
-        />
+        <Query
+          query={ME_AUTH_QUERY}
+          fetchPolicy="cache-first"
+        >
+          {queryProps => (
+            <QueryWaiter
+              optional={!options.private}
+              query={queryProps}
+              loadingErrorProps={{
+                errorMessage: <ErrorPleaseLogin error={queryProps.error} />,
+                loadingMessage: options.private && "Checking if you're logged in...",
+              }}
+            >
+              <IncomingComponent
+                query={queryProps}
+                {...options.props}
+              />
+            </QueryWaiter>
+          )}
+        </Query>
       );
     }
   }
@@ -46,19 +44,16 @@ export default (IncomingComponent, options = {}) => {
   };
 
   AuthHOC.propTypes = {
-    meAuthData: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      error: PropTypes.any,
-      me: PropTypes.any,
-    }).isRequired,
+    options: PropTypes.shape({
+      private: PropTypes.bool,
+    }),
   };
 
-  return compose(
-    withRouter,
-    withApollo,
-    graphql(ME_AUTH_QUERY, {
-      name: "meAuthData",
-      options: { fetchPolicy: "cache-first" },
-    }),
-  )(AuthHOC);
+  AuthHOC.defaultProps = {
+    options: {
+      private: false,
+    },
+  };
+
+  return withRouter(AuthHOC);
 };
