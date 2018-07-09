@@ -25,31 +25,34 @@ import { ME_AUTH_QUERY } from "../graphql/Queries";
  * @returns {*}
  */
 export default (IncomingComponent, options = {}) => {
-  const AuthHOC = () => {
-    // TODO - Make the Query only run on Private routes.
-    return (
-      <Query
-        query={ME_AUTH_QUERY}
-        fetchPolicy="cache-first"
-      >
-        {queryProps => (
-          <QueryWaiter
-            optional={!options.private}
-            query={queryProps}
-            loadingErrorProps={{
-              errorMessage: <ErrorPleaseLogin error={queryProps.error} />,
-              loadingMessage: options.private && "Checking if you're logged in...",
-            }}
-          >
-            <IncomingComponent
+  const AuthHOC = () => (
+    <div>
+      { options.private ?
+        <Query
+          query={ME_AUTH_QUERY}
+          fetchPolicy="cache-first"
+        >
+          {queryProps => (
+            <QueryWaiter
+              optional={!options.private}
               query={queryProps}
-              {...options.props}
-            />
-          </QueryWaiter>
-        )}
-      </Query>
-    );
-  };
+              loadingErrorProps={{
+                errorMessage: <ErrorPleaseLogin error={queryProps.error} />,
+                loadingMessage: options.private && "Checking if you're logged in...",
+              }}
+            >
+              <IncomingComponent
+                {...options.props}
+                query={queryProps}
+              />
+            </QueryWaiter>
+          )}
+        </Query>
+        :
+        <IncomingComponent {...options.props} />
+      }
+    </div>
+  );
 
   AuthHOC.contextTypes = {
     router: PropTypes.object.isRequired,
