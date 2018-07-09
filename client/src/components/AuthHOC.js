@@ -14,6 +14,12 @@ import { ME_AUTH_QUERY } from "../graphql/Queries";
  * user's data on whatever private-route page they happen to be viewing. Inspired by:
  * https://www.graph.cool/forum/t/react-hoc-to-check-for-authorized-user-protected-routes/478/2
  *
+ * Ex) Declare a route private like so:
+ *    import withAuth from "./components/AuthHOC";
+ *    <Switch>
+ *      <Route exact path="/private" component={withAuth(PrivateComponent, { private: true })} />
+ *    </Switch>
+ *
  * @param IncomingComponent
  * @param options
  * @returns {*}

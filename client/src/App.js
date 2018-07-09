@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 
 import "./semantic/dist/semantic.min.css";
 
-import withUser from "./components/UserProtector";
+import withAuth from "./components/AuthHOC";
 import LoadingError from "./components/LoadingError";
 
 import Welcome from "./components/Welcome";
@@ -15,12 +15,12 @@ import Test from "./components/Test";
 const App = () => (
   <div className="App">
     <Switch>
-      <Route exact path="/" component={withUser(Welcome)} />
+      <Route exact path="/" component={withAuth(Welcome)} />
       {/* TODO The loginPath prop here is a little hacky, consider a better solution... */}
-      <Route exact path="/login" component={withUser(Login, { props: { loginPath: "/login" } })} />
-      <Route exact path="/signup" component={withUser(Login, { props: { loginPath: "/login" } })} />
-      <Route exact path="/user/:id" component={withUser(User, { private: true })} />
-      <Route exact path="/private" component={withUser(Test, { private: true })} />
+      <Route exact path="/login" component={withAuth(Login, { props: { loginPath: "/login" } })} />
+      <Route exact path="/signup" component={withAuth(Login, { props: { loginPath: "/login" } })} />
+      <Route exact path="/user/:id" component={withAuth(User, { private: true })} />
+      <Route exact path="/private" component={withAuth(Test, { private: true })} />
       <Route
         path="*"
         render={() => (
