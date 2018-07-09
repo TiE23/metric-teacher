@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { graphql, compose, withApollo } from "react-apollo";
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 
 import LoadingError from "./LoadingError";
+import ErrorPleaseLogin from "./ErrorPleaseLogin";
 
 import { ME_AUTH_QUERY } from "../graphql/Queries";
 
@@ -24,24 +24,7 @@ export default (IncomingComponent, options = {}) => {
           <LoadingError
             error={meAuthData.error || (options.private && !meAuthData.loading &&
               meAuthData.me === undefined)}
-            errorMessage={meAuthData.error ? (
-              <div>
-                <p>{(meAuthData.error && meAuthData.error.message) || "There was a problem..."}</p>
-                {meAuthData.error && meAuthData.error.message.includes("Not authorized") &&
-                  <p>
-                    Please <Link to={{
-                      pathname: "/login",
-                      state: { from: this.props.location },
-                    }}>Login</Link> {" "}
-                    or <Link to={{
-                      pathname: "/signup",
-                      state: { from: this.props.location },
-                    }}>Sign-up</Link> {" "}
-                    or <button onClick={this.props.history.goBack}>Go back</button>!
-                  </p>
-                }
-              </div>
-            ) : null}
+            errorMessage={meAuthData.error ? <ErrorPleaseLogin error={meAuthData.error} /> : null}
             loadingMessage={options.private ? "Checking if you're logged in..." : "Loading..."}
           />
         );
@@ -53,7 +36,6 @@ export default (IncomingComponent, options = {}) => {
           {...this.props}
           {...options.props}
           meAuthQuery={ME_AUTH_QUERY}
-          // meAuthData={meAuthData}
         />
       );
     }
