@@ -15,6 +15,8 @@ const Welcome = () => (
     <Link to="/signup">Signup</Link>
     <br />
     <Link to="/user/me">My details</Link>
+    <br />
+    <Link to="/private">Private Test</Link>
   </div>
 );
 

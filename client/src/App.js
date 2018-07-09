@@ -9,6 +9,7 @@ import LoadingError from "./components/LoadingError";
 import Welcome from "./components/Welcome";
 import Login from "./components/Login";
 import User from "./components/user/User";
+import Test from "./components/Test";
 
 
 const App = () => (
@@ -19,6 +20,7 @@ const App = () => (
       <Route exact path="/login" component={withUser(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/signup" component={withUser(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/user/:id" component={withUser(User, { private: true })} />
+      <Route exact path="/private" component={withUser(Test, { private: true })} />
       <Route
         path="*"
         render={() => (

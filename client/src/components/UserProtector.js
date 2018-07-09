@@ -27,7 +27,7 @@ export default (IncomingComponent, options = {}) => {
             errorMessage={meAuthData.error ? (
               <div>
                 <p>{(meAuthData.error && meAuthData.error.message) || "There was a problem..."}</p>
-                {meAuthData.error && meAuthData.error.message === "GraphQL error: Not authorized" &&
+                {meAuthData.error && meAuthData.error.message.includes("Not authorized") &&
                   <p>
                     Please <Link to={{
                       pathname: "/login",
@@ -36,7 +36,8 @@ export default (IncomingComponent, options = {}) => {
                     or <Link to={{
                       pathname: "/signup",
                       state: { from: this.props.location },
-                    }}>Sign-up</Link>!
+                    }}>Sign-up</Link> {" "}
+                    or <button onClick={this.props.history.goBack}>Go back</button>!
                   </p>
                 }
               </div>
@@ -52,7 +53,7 @@ export default (IncomingComponent, options = {}) => {
           {...this.props}
           {...options.props}
           meAuthQuery={ME_AUTH_QUERY}
-          meAuthData={meAuthData}
+          // meAuthData={meAuthData}
         />
       );
     }
@@ -64,18 +65,9 @@ export default (IncomingComponent, options = {}) => {
 
   AuthHOC.propTypes = {
     meAuthData: PropTypes.shape({
-      loading: PropTypes.bool,
+      loading: PropTypes.bool.isRequired,
       error: PropTypes.any,
-      me: PropTypes.shape({
-        id: PropTypes.string,
-        type: PropTypes.number,
-        status: PropTypes.number,
-        flags: PropTypes.number,
-        fname: PropTypes.string,
-        lname: PropTypes.string,
-        honorific: PropTypes.string,
-        email: PropTypes.string,
-      }),
+      me: PropTypes.any,
     }).isRequired,
   };
 
