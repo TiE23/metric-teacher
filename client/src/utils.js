@@ -83,12 +83,10 @@ const customNormalizeEmail = (email) => {
   return normalizeEmail(email, EMAIL_NORMALIZE_OPTIONS);
 };
 
-const utils = {
+export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
   readTokenLocalStorage,
   queryOK,
   customNormalizeEmail,
 };
-
-export default utils;
