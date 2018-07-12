@@ -56,7 +56,7 @@ export default (IncomingComponent, options = {}) => {
             error
             errorHeader="Insufficient permissions."
             errorMessage={
-              <ErrorPleaseLogin error={{ message: rejectionReasons.join("\n") }} />
+              <ErrorPleaseLogin error={{ message: rejectionReasons.join(" ") }} />
             }
           />
         );
