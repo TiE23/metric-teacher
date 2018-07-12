@@ -48,6 +48,10 @@
     "no-bitwise": "off",
     "no-else-return": [
       "off"
+    ],
+    "object-curly-newline": [
+      "error",
+      { "consistent": true }
     ]
   }
 }

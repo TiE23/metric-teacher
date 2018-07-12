@@ -3,6 +3,7 @@ const {
 } = require("../../utils");
 
 const {
+  AuthError,
   GraphQlDumpWarning,
 } = require("../../errors");
 
@@ -35,7 +36,9 @@ const user = {
 
 
   /**
-   * Get the PrivateUser data of a user account. For moderators and better only.
+   * Get the PrivateUser data of a user account. Only the owning user (or moderators or better) can
+   * do this. This essentially becomes a me() query providing far greater simplicity for client
+   * logic allowing shared code between self data and other user data.
    * @param parent
    * @param args
    *        userid: ID!
@@ -44,9 +47,8 @@ const user = {
    * @return PrivateUser
    */
   async user(parent, args, ctx, info) {
-    // Must be logged in moderator or better and normal
-    await checkAuth(ctx, {
-      type: USER_TYPE_MODERATOR,
+    const callingUserData = await checkAuth(ctx, {
+      type: USER_TYPE_STUDENT,
       status: USER_STATUS_NORMAL,
       action: "user",
     });
@@ -56,6 +58,12 @@ const user = {
     }
 
     // TODO teacher support
+    // A student can get their data and moderators or better can as well.
+    if (callingUserData.id !== args.userid &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "user");
+    }
+
     return ctx.db.query.user({ where: { id: args.userid } }, info);
   },
 

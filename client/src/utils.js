@@ -1,4 +1,6 @@
 import md5 from "md5";
+import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
+
 import normalizeEmail from "validator/lib/normalizeEmail";
 
 import {
@@ -83,12 +85,111 @@ const customNormalizeEmail = (email) => {
   return normalizeEmail(email, EMAIL_NORMALIZE_OPTIONS);
 };
 
-const utils = {
+
+/**
+ * Grabs the token from local storage and parses it for the payload of user data.
+ * @returns {*}
+ */
+const checkJWT = () => {
+  const token = readTokenLocalStorage();
+  if (token) {
+    try {
+      return jwt_decode(token);
+    } catch (e) {
+      return null;
+    }
+  }
+  return null;
+};
+
+
+/**
+ * This permissions checking function is DIRECTLY LIFTED from server/src/utils.js.
+ * Use this function to prevent users from even visiting a section of the website before the server
+ * rejects them.
+ * @param callingUserData
+ * @param permissions
+ * - type         Mixed, can be an int (MINIMUM user type allowed), an array of APPROVED
+ *                  user types, or null, indicating that anonymous requests are welcome.
+ *                  "Why support anonymous?" you ask, "Just don't have an auth check for requests
+ *                  that are public!" I have this because running this function before each request
+ *                  can still allow me to reject banned users just to be spiteful. >:)
+ *                  If simply the user must be logged in just set to USER_TYPE_STUDENT.
+ * - status       Mixed, can be an int (MAXIMUM status value allowed) or an array of
+ *                  approved statuses. If null will allow any value
+ * - flagExclude  Int, pass bitwise flags that are NOT allowed. Leave null to ignore.
+ * - flagRequire  Int, include bitwise flags that are REQUIRED. Leave null to ignore.
+ * - action       String, optional descriptive text that will display in the AuthError message.
+ *                  Example, if you pass "query teachersList" the error could say:
+ *                  "Not authorized to query teachersList. Reason: User type '0' insufficient."
+ * @returns {{approval: boolean, rejectionReasons: Array}}
+ */
+const checkAuth = (callingUserData, permissions = {
+  type: null,
+  status: null,
+  flagExclude: null,
+  flagRequire: null,
+  action: null,
+}) => {
+  if (!callingUserData) {
+    return { approval: false, rejectionReasons: ["User must be logged in. Could not read user token."]};
+  }
+
+  // This is how we track in what ways the user is rejected if they are rejected.
+  let approval = true;
+  const rejectionReasons = [];
+
+  // Check type. If null, do not check anything.
+  if (Array.isArray(permissions.type)) {
+    if (!permissions.type.includes(callingUserData.type)) {
+      approval = false;
+      rejectionReasons.push(`User type '${callingUserData.type}' disallowed.`);
+    }
+  } else if (Number.isInteger(permissions.type)) {
+    if (callingUserData.type < permissions.type) {
+      approval = false;
+      rejectionReasons.push(`User type '${callingUserData.type}' insufficient.`);
+    }
+  }
+
+  // Check status. If null, do not check anything.
+  if (Array.isArray(permissions.status)) {
+    if (permissions.status.indexOf(callingUserData.status) === -1) {
+      approval = false;
+      rejectionReasons.push(`User status '${callingUserData.status}' disallowed.`);
+    }
+  } else if (Number.isInteger(permissions.status)) {
+    if (callingUserData.status < permissions.status) {
+      approval = false;
+      rejectionReasons.push(`User status '${callingUserData.status}' insufficient.`);
+    }
+  }
+
+  // Check flags (excluded flags)
+  if (permissions.flagExclude) {
+    if (callingUserData.flags & permissions.flagExclude) {
+      approval = false;
+      rejectionReasons.push("User marked with disallowed flags.");
+    }
+  }
+
+  // Check flags (required flags)
+  if (permissions.flagRequire) {
+    if ((callingUserData.flags & permissions.flagRequire) !== permissions.flagRequire) {
+      approval = false;
+      rejectionReasons.push("User not marked with required flags.");
+    }
+  }
+
+  return { approval, rejectionReasons };
+};
+
+export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
   readTokenLocalStorage,
   queryOK,
   customNormalizeEmail,
+  checkJWT,
+  checkAuth,
 };
-
-export default utils;

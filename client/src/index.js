@@ -33,8 +33,7 @@ let token = utils.readTokenLocalStorage();  // eslint-disable-line prefer-const
  */
 const customFetch = (uri, options) => {
   // Fire off the initial fetch and see if it worked.
-  // eslint-disable-next-line no-undef
-  const initialRequest = fetch(uri, options);
+  const initialRequest = fetch(uri, options); // eslint-disable-line no-undef
 
   return initialRequest.then(response => (
     response.text()
@@ -43,7 +42,7 @@ const customFetch = (uri, options) => {
 
     // If there was an error we need to attempt to handle it...
     if (jsonified.errors && jsonified.errors.findIndex(error =>
-      error.message === "Not authorized") !== -1  // TODO Confirm this string
+      error.message.includes("Not authorized")) !== -1
     ) {
       // Attempt to re-grab the token from local storage
       this.token = utils.readTokenLocalStorage();
@@ -55,8 +54,7 @@ const customFetch = (uri, options) => {
         updatedOptions.headers.authorization = `Bearer ${this.token}`;
 
         // Fire off the fetch a second time and hope it works.
-        // eslint-disable-next-line no-undef
-        return fetch(uri, updatedOptions);
+        return fetch(uri, updatedOptions);  // eslint-disable-line no-undef
       }
     }
 

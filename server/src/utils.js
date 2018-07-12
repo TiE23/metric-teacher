@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const JsonWebTokenError = require("jsonwebtoken/lib/JsonWebTokenError");
 
 const {
   AuthError,
@@ -18,7 +19,15 @@ function getAuthTokenData(ctx) {
   const Authorization = ctx.request.get("Authorization");
   if (Authorization) {
     const token = Authorization.replace("Bearer ", "");
-    return jwt.verify(token, process.env.APP_SECRET);
+
+    try {
+      return jwt.verify(token, process.env.APP_SECRET);
+    } catch (e) {
+      if (e instanceof JsonWebTokenError) {
+        throw new AuthError();
+      }
+      throw e; // Some other error
+    }
   }
   throw new AuthError();
 }
@@ -120,7 +129,7 @@ async function setStatusForCourses(ctx, courseIds, status) {
  * Check the auth of a calling user's request with various options. It uses JWT data payload
  * to get the calling user's type, status, and flags.
  * @param ctx
- * @param payload
+ * @param permissions
  * - type         Mixed, can be an int (MINIMUM user type allowed), an array of APPROVED
  *                  user types, or null, indicating that anonymous requests are welcome.
  *                  "Why support anonymous?" you ask, "Just don't have an auth check for requests
@@ -140,7 +149,7 @@ async function setStatusForCourses(ctx, courseIds, status) {
  */
 async function checkAuth(
   ctx,
-  payload = {
+  permissions = {
     type: null,
     status: null,
     flagExclude: null,
@@ -156,12 +165,12 @@ async function checkAuth(
     // If the user is not recognized an AuthError will have been thrown
     if (e instanceof AuthError) {
       // The type is explicitly null (indicating anonymous requests are welcome)
-      if (payload.type === null) {
+      if (permissions.type === null) {
         return null;
       }
 
       // Throw a slightly more detailed error.
-      throw new AuthError("User must be logged in.", payload.action);
+      throw new AuthError("User must be logged in.", permissions.action);
     }
     throw e;  // Some other error
   }
@@ -171,42 +180,42 @@ async function checkAuth(
   const rejectionReasons = [];
 
   // Check type. If null, do not check anything.
-  if (Array.isArray(payload.type)) {
-    if (!payload.type.includes(callingUserData.type)) {
+  if (Array.isArray(permissions.type)) {
+    if (!permissions.type.includes(callingUserData.type)) {
       approval = false;
       rejectionReasons.push(`User type '${callingUserData.type}' disallowed.`);
     }
-  } else if (Number.isInteger(payload.type)) {
-    if (callingUserData.type < payload.type) {
+  } else if (Number.isInteger(permissions.type)) {
+    if (callingUserData.type < permissions.type) {
       approval = false;
       rejectionReasons.push(`User type '${callingUserData.type}' insufficient.`);
     }
   }
 
   // Check status. If null, do not check anything.
-  if (Array.isArray(payload.status)) {
-    if (payload.status.indexOf(callingUserData.status) === -1) {
+  if (Array.isArray(permissions.status)) {
+    if (permissions.status.indexOf(callingUserData.status) === -1) {
       approval = false;
       rejectionReasons.push(`User status '${callingUserData.status}' disallowed.`);
     }
-  } else if (Number.isInteger(payload.status)) {
-    if (callingUserData.status < payload.status) {
+  } else if (Number.isInteger(permissions.status)) {
+    if (callingUserData.status < permissions.status) {
       approval = false;
       rejectionReasons.push(`User status '${callingUserData.status}' insufficient.`);
     }
   }
 
   // Check flags (excluded flags)
-  if (payload.flagExclude) {
-    if (callingUserData.flags & payload.flagExclude) {
+  if (permissions.flagExclude) {
+    if (callingUserData.flags & permissions.flagExclude) {
       approval = false;
       rejectionReasons.push("User marked with disallowed flags.");
     }
   }
 
   // Check flags (required flags)
-  if (payload.flagRequire) {
-    if ((callingUserData.flags & payload.flagRequire) !== payload.flagRequire) {
+  if (permissions.flagRequire) {
+    if ((callingUserData.flags & permissions.flagRequire) !== permissions.flagRequire) {
       approval = false;
       rejectionReasons.push("User not marked with required flags.");
     }
@@ -214,7 +223,7 @@ async function checkAuth(
 
   // If it user was rejected for any reason explain it.
   if (!approval) {
-    throw new AuthError(rejectionReasons.join(" "), payload.action);
+    throw new AuthError(rejectionReasons.join(" "), permissions.action);
   }
 
   return callingUserData;
