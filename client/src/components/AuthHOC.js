@@ -19,8 +19,11 @@ import utils from "../utils";
  *    </Switch>
  *
  * There are two settings: private and permissions.
- * Private blocks out any people who aren't logged in.
- * Permissions blocks out certain people who are logged in.
+ * Private (a bool) blocks out any people who aren't logged in.
+ * Permissions (an object fitting the permissions argument of checkAuth() in utils) blocks out
+ * certain people who are logged in.
+ *
+ * TODO - There are still improvements possible with this (better structure as an HOC?)
  *
  * @param IncomingComponent
  * @param options
@@ -31,18 +34,16 @@ export default (IncomingComponent, options = {}) => {
     const userTokenData = utils.checkJWT();
 
     // Check that the user is even logged in (has a valid token).
-    if (options.private) {
-      if (!userTokenData) {
-        return (
-          <LoadingError
-            error
-            errorHeader="You must be logged in to visit this page."
-            errorMessage={
-              <ErrorPleaseLogin showLoginLinks />
-            }
-          />
-        );
-      }
+    if (options.private && !userTokenData) {
+      return (
+        <LoadingError
+          error
+          errorHeader="You must be logged in to visit this page."
+          errorMessage={
+            <ErrorPleaseLogin showLoginLinks />
+          }
+        />
+      );
     }
 
     // Check user permissions.
@@ -81,41 +82,6 @@ export default (IncomingComponent, options = {}) => {
 
   AuthHOC.contextTypes = {
     router: PropTypes.object.isRequired,
-  };
-
-  // TODO - These don't actually do anything, do they?
-  AuthHOC.propTypes = {
-    options: PropTypes.shape({
-      props: PropTypes.any,
-      private: PropTypes.bool,
-      permissions: PropTypes.shape({
-        type: PropTypes.oneOfType([
-          PropTypes.number,
-          PropTypes.array,
-        ]),
-        status: PropTypes.oneOfType([
-          PropTypes.number,
-          PropTypes.array,
-        ]),
-        flagExclude: PropTypes.number,
-        flagRequire: PropTypes.number,
-        action: PropTypes.string,
-      }),
-    }),
-  };
-
-  AuthHOC.defaultProps = {
-    options: {
-      props: null,
-      private: false,
-      permissions: {
-        type: null,
-        status: null,
-        flagExclude: null,
-        flagRequire: null,
-        action: null,
-      },
-    },
   };
 
   return withRouter(AuthHOC);
