@@ -9,6 +9,7 @@
     "apollo-utilities": "^1.0.16",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
+    "jwt-decode": "^2.2.0",
     "md5": "^2.2.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",

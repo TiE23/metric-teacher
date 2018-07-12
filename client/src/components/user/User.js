@@ -10,7 +10,7 @@ const User = props => (
     <Grid.Row>
       <Grid.Column>
         <UserDetails
-          userid={props.match.params.id === "me" ? props.query.data.me.id : props.match.params.id}
+          userid={props.match.params.id === "me" ? props.userTokenData.id : props.match.params.id}
         />
       </Grid.Column>
     </Grid.Row>
@@ -23,13 +23,15 @@ User.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  query: PropTypes.shape({
-    data: PropTypes.shape({
-      me: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-      }).isRequired,
-    }).isRequired,
-  }).isRequired,
+  userTokenData: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+};
+
+User.defaultProps = {
+  userTokenData: {
+    id: null,
+  },
 };
 
 export default withRouter(User);

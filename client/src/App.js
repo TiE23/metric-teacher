@@ -20,7 +20,18 @@ const App = () => (
       <Route exact path="/login" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/signup" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/user/:id" component={withAuth(User, { private: true })} />
+      {/* Below are test paths for development... */}
       <Route exact path="/private" component={withAuth(Test, { private: true })} />
+      <Route
+        exact
+        path="/adminOnly"
+        component={
+          withAuth(Test, {
+            private: true,
+            permissions: { type: 3 },
+          })
+        }
+      />
       <Route
         path="*"
         render={() => (

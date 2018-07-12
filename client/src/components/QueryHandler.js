@@ -13,12 +13,12 @@ import LoadingError from "./LoadingError";
  * Ex:
  *   <Query query={SOME_QUERY}>
  *     {queryProps => (
- *       <QueryWaiter
+ *       <QueryHandler
  *        query={queryProps}
  *        loadingErrorProps={{ loadingMessage: "Custom Loading Message!" }}
  *       >
  *         <MyComponent query={queryProps} />
- *       </QueryWaiter>
+ *       </QueryHandler>
  *     )}
  *   </Query>
  *
@@ -30,8 +30,9 @@ import LoadingError from "./LoadingError";
  * @returns {*}
  * @constructor
  */
-const QueryWaiter = (props) => {
+const QueryHandler = (props) => {
   if (!props.skip && (props.query.loading || (!props.optional && props.query.error))) {
+    // Waiting for the query to load or displaying the error.
     return (
       <LoadingError
         error={props.query.error}
@@ -39,11 +40,12 @@ const QueryWaiter = (props) => {
       />
     );
   } else {
+    // The query has loaded
     return (props.children);
   }
 };
 
-QueryWaiter.propTypes = {
+QueryHandler.propTypes = {
   skip: PropTypes.bool,
   optional: PropTypes.bool,
   query: PropTypes.shape({
@@ -61,9 +63,9 @@ QueryWaiter.propTypes = {
   }),
 };
 
-QueryWaiter.defaultProps = {
+QueryHandler.defaultProps = {
   skip: false,
   optional: false,
 };
 
-export default QueryWaiter;
+export default QueryHandler;

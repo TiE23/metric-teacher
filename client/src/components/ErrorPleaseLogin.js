@@ -15,11 +15,13 @@ import { Link } from "react-router-dom";
  */
 const ErrorPleaseLogin = props => (
   <div>
-    <p>
-      {(props.error && props.error.message) || "There was a problem..."}
-    </p>
+    {props.error &&
+      <p>
+        {props.error.message || "There was an error."}
+      </p>
+    }
 
-    {props.error && props.error.message.includes("User must be logged in") &&
+    {(props.showLoginLinks || (props.error && props.error.message.includes("User must be logged in"))) &&
     <p>
       Please <Link to={{ pathname: "/login", state: { from: props.location } }}>login</Link> {" "}
       or <Link to={{ pathname: "/signup", state: { from: props.location } }}>sign-up</Link>.
@@ -33,6 +35,7 @@ ErrorPleaseLogin.propTypes = {
   error: PropTypes.shape({
     message: PropTypes.string,
   }),
+  showLoginLinks: PropTypes.bool,
   location: PropTypes.string.isRequired,
   history: PropTypes.shape({
     goBack: PropTypes.func.isRequired,
@@ -41,6 +44,7 @@ ErrorPleaseLogin.propTypes = {
 
 ErrorPleaseLogin.defaultProps = {
   error: null,
+  showLoginLinks: false,
 };
 
 export default withRouter(ErrorPleaseLogin);

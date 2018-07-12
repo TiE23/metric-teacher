@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import { withRouter } from "react-router";
 
 import UserDetailBasics from "./UserDetailBasics";
-import QueryWaiter from "../../QueryWaiter";
+import QueryHandler from "../../QueryHandler";
 
 // TODO - Would it make sense to add this to the Apollo cache at all?
 import { USER_DETAILS_QUERY } from "../../../graphql/Queries";
@@ -15,14 +15,14 @@ const UserDetails = props => (
     variables={{ userid: props.userid }}
   >
     {queryProps => (
-      <QueryWaiter
+      <QueryHandler
         query={queryProps}
       >
         <UserDetailBasics
           query={queryProps}
         />
         {/* TODO - Further components showing different user data. */}
-      </QueryWaiter>
+      </QueryHandler>
     )}
   </Query>
 );
