@@ -14,6 +14,8 @@ const Welcome = () => (
     <br />
     <Link to="/signup">Signup</Link>
     <br />
+    <Link to="/logout">Logout</Link>
+    <br />
     <Link to="/user/me">My details</Link>
     <br />
     <Link to="/private">Private Test</Link>

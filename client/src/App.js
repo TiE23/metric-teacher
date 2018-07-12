@@ -8,9 +8,9 @@ import LoadingError from "./components/LoadingError";
 
 import Welcome from "./components/Welcome";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 import User from "./components/user/User";
 import Test from "./components/Test";
-
 
 const App = () => (
   <div className="App">
@@ -19,6 +19,7 @@ const App = () => (
       {/* TODO The loginPath prop here is a little hacky, consider a better solution... */}
       <Route exact path="/login" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/signup" component={withAuth(Login, { props: { loginPath: "/login" } })} />
+      <Route exact path="/logout" component={Logout} />
       <Route exact path="/user/:id" component={withAuth(User, { private: true })} />
       {/* Below are test paths for development... */}
       <Route exact path="/private" component={withAuth(Test, { private: true })} />
