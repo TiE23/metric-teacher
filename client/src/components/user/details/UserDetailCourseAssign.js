@@ -26,9 +26,7 @@ class UserDetailCourseAssign extends PureComponent {
             query: this.props.userQuery,
             variables: { userid: this.props.studentId },
           });
-          console.log(data.user);
           data.user.enrollment.courses.push(assignStudentNewCourse);
-          console.log(data.user);
           cache.writeQuery({
             query: this.props.userQuery,
             variables: { userid: this.props.studentId },
