@@ -95,9 +95,10 @@ const link = split(
 );
 
 const client = new ApolloClient({
-  dataIdFromObject: o => o.id,
   link,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    dataIdFromObject: object => object.id,
+  }),
 });
 
 ReactDOM.render(
