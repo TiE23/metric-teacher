@@ -31,11 +31,12 @@ import LoadingError from "./LoadingError";
  * @constructor
  */
 const QueryHandler = (props) => {
-  if (!props.skip && (props.query.loading || (!props.optional && props.query.error))) {
+  const { query, skip, optional } = props;
+  if (!skip && (query.loading || (!optional && query.error))) {
     // Waiting for the query to load or displaying the error.
     return (
       <LoadingError
-        error={props.query.error}
+        error={query.error}
         {...props.loadingErrorProps}
       />
     );
