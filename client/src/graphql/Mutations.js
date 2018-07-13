@@ -9,6 +9,10 @@ import {
   EnrollmentForUserDetails,
 } from "./fragments/EnrollmentFragments";
 
+import {
+  CourseForUserDetails,
+} from "./fragments/CourseFragments";
+
 export const SIGNUP_MUTATION = gql`
   mutation SignupMutation($email: String!, $password: String!, $fname: String!, $lname: String!) {
     signup(email: $email, password: $password, fname: $fname, lname: $lname) {
@@ -50,10 +54,19 @@ export const LOGIN_MUTATION = gql`
 `;
 
 export const ENROLL_STUDENT_MUTATION = gql`
-  mutation EnrollStudent($studentid: ID!) {
+  mutation EnrollStudentMutation($studentid: ID!) {
     enrollStudent(studentid: $studentid) {
       ...EnrollmentForUserDetails
     }
   }
   ${EnrollmentForUserDetails}
+`;
+
+export const COURSE_ASSIGN_MUTATION = gql`
+  mutation CourseAssignMutation($studentid: ID!, $prefermetric: Boolean) {
+    assignStudentNewCourse(studentid: $studentid, prefermetric: $prefermetric) {
+      ...CourseForUserDetails
+    }
+  }
+  ${CourseForUserDetails}
 `;

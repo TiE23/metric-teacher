@@ -12,7 +12,11 @@ const UserDetailEnrollment = (props) => {
     return (
       <div>
         <p>Enrollment ID: {enrollment.id}</p>
-        <UserDetailCourse courses={enrollment.courses} />
+        <UserDetailCourse
+          courses={enrollment.courses}
+          studentId={user.id}
+          userQuery={props.userQuery}
+        />
       </div>
     );
   } else if (user.type === 0) {

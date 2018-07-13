@@ -142,8 +142,7 @@ const student = {
 
     // Deactivate all other previously active courses, leave only the new one active
     if (activeCourses.length) {
-      // Do not await, just fire and forget
-      setStatusForCourses(ctx, activeCourses, COURSE_STATUS_INACTIVE);
+      await setStatusForCourses(ctx, activeCourses, COURSE_STATUS_INACTIVE);
     }
 
     return course;

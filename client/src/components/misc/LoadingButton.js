@@ -31,7 +31,7 @@ LoadingButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   buttonText: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.any.isRequired,  // eslint-disable-line react/forbid-prop-types
+  error: PropTypes.any,  // eslint-disable-line react/forbid-prop-types
 };
 
 export default LoadingButton;
