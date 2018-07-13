@@ -6,7 +6,8 @@ import { FLOATING_CENTER_GRID_COLUMN_WIDTH } from "../constants";
 
 /**
  * This is a presentational component that puts its children into a pleasant-ish looking
- * centered grid with some basic responsiveness
+ * centered grid with some basic responsiveness.
+ * TODO - This can be made into a functional component, c'mon...
  */
 class FloatingCenterGrid extends PureComponent {
   render() {

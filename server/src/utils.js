@@ -89,11 +89,11 @@ async function getUsersData(ctx, userIds, fields) {
  * @returns {Promise<{callingUserData: *, targetUserData: *}>}
  */
 async function targetStudentDataHelper(ctx, targetId, fields) {
-  const callingUserId = getUserId(ctx); // User must be logged in.
-  const callingUserData = await getUserData(ctx, callingUserId, fields);
+  const callingUserTokenData = getAuthTokenData(ctx); // User must be logged in.
+  const callingUserData = await getUserData(ctx, callingUserTokenData.id, fields);
 
   // If assigning self save a step; we already have the data.
-  const targetUserData = callingUserId === targetId ?
+  const targetUserData = callingUserTokenData.id === targetId ?
     callingUserData :
     await getUserData(ctx, targetId, fields);
 

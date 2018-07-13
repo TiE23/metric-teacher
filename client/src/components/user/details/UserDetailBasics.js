@@ -7,7 +7,7 @@ import {
 } from "../../../constants";
 
 const UserDetailBasics = (props) => {
-  const { user } = props.query.data;
+  const { user } = props.queryData.data;
   return (
     <div>
       <h1>User Detail Basics.</h1>
@@ -23,7 +23,7 @@ const UserDetailBasics = (props) => {
 };
 
 UserDetailBasics.propTypes = {
-  query: PropTypes.shape({
+  queryData: PropTypes.shape({
     data: PropTypes.shape({
       user: PropTypes.any.isRequired,
     }).isRequired,
