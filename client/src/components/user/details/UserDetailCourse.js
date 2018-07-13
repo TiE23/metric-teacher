@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import UserDetailMasteries from "./UserDetailMasteries";
+import UserDetailSurveys from "./UserDetailSurveys";
 
 const UserDetailCourse = (props) => {
   if (props.courses.length) {
@@ -10,6 +11,7 @@ const UserDetailCourse = (props) => {
       <div>
         <p>Course ID: {course.id}</p>
         <UserDetailMasteries masteries={course.masteries} />
+        <UserDetailSurveys surveys={course.surveys} />
       </div>
     );
   } else {
@@ -24,7 +26,8 @@ const UserDetailCourse = (props) => {
 UserDetailCourse.propTypes = {
   courses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    masteries: PropTypes.array,
+    masteries: PropTypes.array.isRequired,
+    surveys: PropTypes.array.isRequired,
   })).isRequired,
 };
 

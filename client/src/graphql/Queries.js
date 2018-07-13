@@ -12,6 +12,7 @@ import {
   MasteryDataAll,
   SubSubjectDataAll,
   SurveyDataAll,
+  QuestionDataAll,
 } from "./fragments/SimpleFragments";
 
 export const PING_QUERY = gql`
@@ -37,6 +38,7 @@ export const ME_AUTH_QUERY = gql`
   }
 `;
 
+// TODO - Save data by building tailored fragments.
 export const USER_DETAILS_QUERY = gql`
   query UserDetailsQuery ($userid: ID!) {
     user (userid: $userid) {
@@ -71,6 +73,9 @@ export const USER_DETAILS_QUERY = gql`
           }
           surveys {
             ...SurveyDataAll
+            question {
+              ...QuestionDataAll
+            }
           }
         }
       }
@@ -82,4 +87,5 @@ export const USER_DETAILS_QUERY = gql`
   ${MasteryDataAll}
   ${SubSubjectDataAll}
   ${SurveyDataAll}
+  ${QuestionDataAll}
 `;
