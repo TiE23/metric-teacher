@@ -1,6 +1,5 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router";
 
 import LoadingError from "./LoadingError";
 import ErrorPleaseLogin from "./ErrorPleaseLogin";
@@ -23,66 +22,69 @@ import utils from "../utils";
  * Permissions (an object fitting the permissions argument of checkAuth() in utils) blocks out
  * certain people who are logged in.
  *
- * TODO - There are still improvements possible with this (better structure as an HOC?)
- *
- * @param IncomingComponent
+ * @param WrappedComponent
  * @param options
  * @returns {*}
  */
-export default (IncomingComponent, options = {}) => {
-  const AuthHOC = () => {
-    const userTokenData = utils.checkJWT();
+const withAuth = (WrappedComponent, options = {}) => (
+  class AuthHOC extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {};
 
-    // Check that the user is even logged in (has a valid token).
-    if (options.private && !userTokenData) {
-      return (
-        <LoadingError
-          error
-          errorHeader="You must be logged in to visit this page."
-          errorMessage={
-            <ErrorPleaseLogin showLoginLinks />
-          }
-        />
-      );
+      this.userTokenData = utils.checkJWT();
     }
 
-    // Check user permissions.
-    if (options.permissions) {
-      const { approval, rejectionReasons } =
-        utils.checkAuth(userTokenData, options.permissions);
-      if (!approval) {
+    render() {
+      // Check that the user is even logged in (has a valid token).
+      if (options.private && !this.userTokenData) {
         return (
           <LoadingError
             error
-            errorHeader="Insufficient permissions."
+            errorHeader="You must be logged in to visit this page."
             errorMessage={
-              <ErrorPleaseLogin error={{ message: rejectionReasons.join(" ") }} />
+              <ErrorPleaseLogin showLoginLinks />
             }
           />
         );
       }
 
-      // User was logged in and user had permissions. Pass the userTokenData along as well!
+      // Check user permissions.
+      if (options.permissions) {
+        const { approval, rejectionReasons } =
+          utils.checkAuth(this.userTokenData, options.permissions);
+        if (!approval) {
+          return (
+            <LoadingError
+              error
+              errorHeader="Insufficient permissions."
+              errorMessage={
+                <ErrorPleaseLogin error={{ message: rejectionReasons.join(" ") }} />
+              }
+            />
+          );
+        }
+
+        // User was logged in and user had permissions. Pass the userTokenData along as well!
+        return (
+          <WrappedComponent
+            {...options.props}
+            userTokenData={this.userTokenData}
+            {...this.props}
+          />
+        );
+      }
+
+      // Nothing required but pass on the userTokenData if it exists as well, it might be useful.
       return (
-        <IncomingComponent
+        <WrappedComponent
           {...options.props}
-          userTokenData={userTokenData}
+          userTokenData={this.userTokenData}
+          {...this.props}
         />
       );
     }
+  }
+);
 
-    // Nothing required but pass on the userTokenData if it exists as well, it might be useful.
-    return (
-      <IncomingComponent
-        {...options.props}
-        userTokenData={userTokenData}
-      />
-    );
-  };
-
-  AuthHOC.contextTypes = {
-    router: PropTypes.object.isRequired,
-  };
-
-  return withRouter(AuthHOC);
-};
+export default withAuth;
