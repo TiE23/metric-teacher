@@ -12,6 +12,7 @@ const User = props => (
         <UserDetails
           userid={props.match.params.id === "me" ? props.userTokenData.id : props.match.params.id}
         />
+        <button onClick={props.history.goBack}>Go back</button>
       </Grid.Column>
     </Grid.Row>
   </Grid>
@@ -26,6 +27,9 @@ User.propTypes = {
   userTokenData: PropTypes.shape({
     id: PropTypes.string,
   }),
+  history: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 User.defaultProps = {
