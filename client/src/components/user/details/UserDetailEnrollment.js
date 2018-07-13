@@ -5,8 +5,8 @@ import UserDetailCourse from "./UserDetailCourse";
 import UserDetailEnroll from "./UserDetailEnroll";
 
 const UserDetailEnrollment = (props) => {
-  const { user } = props.query.data;
-  const { enrollment } = props.query.data.user;
+  const { user } = props.queryData.data;
+  const { enrollment } = props.queryData.data.user;
 
   if (enrollment) {
     return (
@@ -19,7 +19,10 @@ const UserDetailEnrollment = (props) => {
     return (
       <div>
         <p>Not enrolled!</p>
-        <UserDetailEnroll studentId={user.id} />
+        <UserDetailEnroll
+          studentId={user.id}
+          userQuery={props.userQuery}
+        />
       </div>
     );
   } else {
@@ -28,7 +31,8 @@ const UserDetailEnrollment = (props) => {
 };
 
 UserDetailEnrollment.propTypes = {
-  query: PropTypes.shape({
+  userQuery: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryData: PropTypes.shape({
     data: PropTypes.shape({
       user: PropTypes.shape({
         id: PropTypes.string.isRequired,

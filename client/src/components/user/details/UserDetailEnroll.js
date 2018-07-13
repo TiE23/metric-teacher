@@ -6,16 +6,27 @@ import {
   ENROLL_STUDENT_MUTATION,
 } from "../../../graphql/Mutations";
 
-const UserDetailEnrollment = (props) => {
+const UserDetailEnroll = (props) => {
   return (
     <Mutation
       mutation={ENROLL_STUDENT_MUTATION}
-      // update={}
+      update={(cache, { data: { enrollStudent } }) => {
+        const data = cache.readQuery({
+          query: props.userQuery,
+          variables: { userid: props.studentId },
+        });
+        data.user.enrollment = enrollStudent;
+        cache.writeQuery({
+          query: props.userQuery,
+          variables: { userid: props.studentId },
+          data,
+        });
+      }}
     >
-      {(EnrollStudent, { data }) => (
+      {enrollStudent => (
         <button onClick={(e) => {
           e.preventDefault();
-          EnrollStudent({ variables: { studentid: props.studentId } });
+          enrollStudent({ variables: { studentid: props.studentId } });
         }}
         >
           Enroll now! (Click once!)
@@ -25,8 +36,9 @@ const UserDetailEnrollment = (props) => {
   );
 };
 
-UserDetailEnrollment.propTypes = {
+UserDetailEnroll.propTypes = {
+  userQuery: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   studentId: PropTypes.string.isRequired,
 };
 
-export default UserDetailEnrollment;
+export default UserDetailEnroll;

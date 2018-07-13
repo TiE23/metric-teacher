@@ -16,13 +16,15 @@ const UserDetails = props => (
   >
     {queryProps => (
       <QueryHandler
-        query={queryProps}
+        queryData={queryProps}
       >
         <UserDetailBasics
-          query={queryProps}
+          queryData={queryProps}
         />
-        <UserDetailEnrollment query={queryProps} />
-        {/* TODO - Further components showing different user data. */}
+        <UserDetailEnrollment
+          queryData={queryProps}
+          userQuery={USER_DETAILS_QUERY}
+        />
       </QueryHandler>
     )}
   </Query>
