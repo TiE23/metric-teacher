@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 
+import LoadingButton from "../../misc/LoadingButton";
+
 import {
   ENROLL_STUDENT_MUTATION,
 } from "../../../graphql/Mutations";
@@ -23,14 +25,13 @@ const UserDetailEnroll = (props) => {
         });
       }}
     >
-      {enrollStudent => (
-        <button onClick={(e) => {
-          e.preventDefault();
-          enrollStudent({ variables: { studentid: props.studentId } });
-        }}
-        >
-          Enroll now! (Click once!)
-        </button>
+      {(enrollStudent, { loading, error }) => (
+        <LoadingButton
+          onClick={() => enrollStudent({ variables: { studentid: props.studentId } })}
+          loading={loading}
+          error={error}
+          buttonText="Enroll"
+        />
       )}
     </Mutation>
   );
