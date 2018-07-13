@@ -6,20 +6,8 @@ import gql from "graphql-tag";
 // } from "./fragments/UserFragments";
 
 import {
-  EnrollmentDataAll,
-  CourseDataAll,
-  ClassroomDataAll,
-  MasteryDataAll,
-  SubSubjectDataAll,
-  SurveyDataAll,
-  QuestionDataAll,
-} from "./fragments/SimpleFragments";
-
-export const PING_QUERY = gql`
-  query PingQuery {
-    ping
-  }
-`;
+  EnrollmentForUserDetails,
+} from "./fragments/EnrollmentFragments";
 
 export const ME_AUTH_QUERY = gql`
   query MeAuthQuery {
@@ -53,39 +41,9 @@ export const USER_DETAILS_QUERY = gql`
       status
       flags
       enrollment {
-        ...EnrollmentDataAll
-        courses (where: { status: 0 }, first: 1) {
-          ...CourseDataAll
-          classrooms {
-            ...ClassroomDataAll
-            teachers {
-              id
-              fname
-              lname
-              honorific
-            }
-          }
-          masteries {
-            ...MasteryDataAll
-            subSubject {
-              ...SubSubjectDataAll
-            }
-          }
-          surveys {
-            ...SurveyDataAll
-            question {
-              ...QuestionDataAll
-            }
-          }
-        }
+        ...EnrollmentForUserDetails
       }
     }
   }
-  ${EnrollmentDataAll}
-  ${CourseDataAll}
-  ${ClassroomDataAll}
-  ${MasteryDataAll}
-  ${SubSubjectDataAll}
-  ${SurveyDataAll}
-  ${QuestionDataAll}
+  ${EnrollmentForUserDetails}
 `;

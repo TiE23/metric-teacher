@@ -5,6 +5,10 @@ import gql from "graphql-tag";
 //   MeAuthData,
 // } from "./fragments/UserFragments";
 
+import {
+  EnrollmentForUserDetails,
+} from "./fragments/EnrollmentFragments";
+
 export const SIGNUP_MUTATION = gql`
   mutation SignupMutation($email: String!, $password: String!, $fname: String!, $lname: String!) {
     signup(email: $email, password: $password, fname: $fname, lname: $lname) {
@@ -43,4 +47,13 @@ export const LOGIN_MUTATION = gql`
       }
     }
   }
+`;
+
+export const ENROLL_STUDENT_MUTATION = gql`
+  mutation EnrollStudent($studentid: ID!) {
+    enrollStudent(studentid: $studentid) {
+      ...EnrollmentForUserDetails
+    }
+  }
+  ${EnrollmentForUserDetails}
 `;
