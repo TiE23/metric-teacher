@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import UserDetailCourse from "./UserDetailCourse";
+
 const UserDetailEnrollment = (props) => {
   const { enrollment } = props.query.data.user;
 
@@ -8,7 +10,7 @@ const UserDetailEnrollment = (props) => {
     return (
       <div>
         <p>Enrollment ID: {enrollment.id}</p>
-        <p>Enrollment createdAt: {enrollment.createdAt}</p>
+        <UserDetailCourse courses={enrollment.courses} />
       </div>
     );
   } else {
@@ -25,7 +27,7 @@ UserDetailEnrollment.propTypes = {
     data: PropTypes.shape({
       enrollment: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        createdAt: PropTypes.string.isRequired,
+        courses: PropTypes.array,
       }), // Not required.
     }).isRequired,
   }).isRequired,
