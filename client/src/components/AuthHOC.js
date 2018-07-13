@@ -14,13 +14,25 @@ import utils from "../utils";
  * Ex) Declare a route private like so:
  *    import withAuth from "./components/AuthHOC";
  *    <Switch>
- *      <Route exact path="/private" component={withAuth(PrivateComponent, { private: true })} />
+ *      <Route exact path="/private" component={withAuth(PrivateComponent, {
+ *        private: true,
+ *        props: { foo: "bar" }
+ *      })} />
  *    </Switch>
+ *
+ * The prop object `props` will be passed as props to the wrapped Component.
  *
  * There are two settings: private and permissions.
  * Private (a bool) blocks out any people who aren't logged in.
  * Permissions (an object fitting the permissions argument of checkAuth() in utils) blocks out
  * certain people who are logged in.
+ *
+ * Ex) Gain access to JWT token data in the prop userTokenData like so:
+ *    import withAuth from "../AuthHOC";
+ *    const MyComponent = (props) => {
+ *      [...]
+ *    };
+ *    export default withAuth(MyComponent);
  *
  * @param WrappedComponent
  * @param options
@@ -59,28 +71,18 @@ const withAuth = (WrappedComponent, options = {}) => {
               error
               errorHeader="Insufficient permissions."
               errorMessage={
-                <ErrorPleaseLogin error={{ message: rejectionReasons.join(" ") }}/>
+                <ErrorPleaseLogin error={{ message: rejectionReasons.join(" ") }} />
               }
             />
           );
         }
-
-        // User was logged in and user had permissions. Pass the userTokenData along as well!
-        return (
-          <WrappedComponent
-            {...options.props}
-            userTokenData={this.userTokenData}
-            {...this.props}
-          />
-        );
       }
 
-      // Nothing required but pass on the userTokenData if it exists as well, it might be useful.
       return (
         <WrappedComponent
-          {...options.props}
           userTokenData={this.userTokenData}
           {...this.props}
+          {...options.props}
         />
       );
     }
