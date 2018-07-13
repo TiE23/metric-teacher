@@ -104,9 +104,10 @@ const checkJWT = () => {
 
 
 /**
- * This permissions checking function is DIRECTLY LIFTED from server/src/utils.js.
  * Use this function to prevent users from even visiting a section of the website before the server
  * rejects them.
+ *  NOTE: If you make changes to this you should also STRONGLY consider making the changes to the
+ * server's checkAuth function located in server/src/utils.js.
  * @param callingUserData
  * @param permissions
  * - type         Mixed, can be an int (MINIMUM user type allowed), an array of APPROVED

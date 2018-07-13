@@ -128,6 +128,8 @@ async function setStatusForCourses(ctx, courseIds, status) {
 /**
  * Check the auth of a calling user's request with various options. It uses JWT data payload
  * to get the calling user's type, status, and flags.
+ * NOTE: If you make changes to this you should also STRONGLY consider making the changes to the
+ * client's checkAuth function located in client/src/utils.js.
  * @param ctx
  * @param permissions
  * - type         Mixed, can be an int (MINIMUM user type allowed), an array of APPROVED
