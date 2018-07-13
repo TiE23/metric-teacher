@@ -26,7 +26,7 @@ import utils from "../utils";
  * @param options
  * @returns {*}
  */
-const withAuth = (WrappedComponent, options = {}) => (
+const withAuth = (WrappedComponent, options = {}) => {
   class AuthHOC extends Component {
     constructor(props) {
       super(props);
@@ -43,7 +43,7 @@ const withAuth = (WrappedComponent, options = {}) => (
             error
             errorHeader="You must be logged in to visit this page."
             errorMessage={
-              <ErrorPleaseLogin showLoginLinks />
+              <ErrorPleaseLogin showLoginLinks/>
             }
           />
         );
@@ -59,7 +59,7 @@ const withAuth = (WrappedComponent, options = {}) => (
               error
               errorHeader="Insufficient permissions."
               errorMessage={
-                <ErrorPleaseLogin error={{ message: rejectionReasons.join(" ") }} />
+                <ErrorPleaseLogin error={{ message: rejectionReasons.join(" ") }}/>
               }
             />
           );
@@ -85,6 +85,42 @@ const withAuth = (WrappedComponent, options = {}) => (
       );
     }
   }
-);
+
+  AuthHOC.propTypes = {
+    options: PropTypes.shape({
+      props: PropTypes.any,
+      private: PropTypes.bool,
+      permissions: PropTypes.shape({
+        type: PropTypes.oneOfType([
+          PropTypes.number,
+          PropTypes.array,
+        ]),
+        status: PropTypes.oneOfType([
+          PropTypes.number,
+          PropTypes.array,
+        ]),
+        flagExclude: PropTypes.number,
+        flagRequire: PropTypes.number,
+        action: PropTypes.string,
+      }),
+    }),
+  };
+
+  AuthHOC.defaultProps = {
+    options: {
+      props: null,
+      private: false,
+      permissions: {
+        type: null,
+        status: null,
+        flagExclude: null,
+        flagRequire: null,
+        action: null,
+      },
+    },
+  };
+
+  return AuthHOC;
+};
 
 export default withAuth;
