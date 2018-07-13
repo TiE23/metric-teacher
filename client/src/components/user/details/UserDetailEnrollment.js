@@ -5,6 +5,8 @@ import UserDetailCourse from "./UserDetailCourse";
 import UserDetailEnroll from "./UserDetailEnroll";
 
 const UserDetailEnrollment = (props) => {
+  if (!props.queryData) return null;
+
   const { user } = props.queryData.data;
   const { enrollment } = props.queryData.data.user;
 
@@ -19,6 +21,7 @@ const UserDetailEnrollment = (props) => {
         />
       </div>
     );
+  // Only show Enroll button for students.
   } else if (user.type === 0) {
     return (
       <div>
@@ -40,13 +43,18 @@ UserDetailEnrollment.propTypes = {
     data: PropTypes.shape({
       user: PropTypes.shape({
         id: PropTypes.string.isRequired,
+        type: PropTypes.number.isRequired,
       }).isRequired,
       enrollment: PropTypes.shape({
         id: PropTypes.string.isRequired,
         courses: PropTypes.array,
       }), // Not required.
     }).isRequired,
-  }).isRequired,
+  }),
+};
+
+UserDetailEnrollment.defaultProps = {
+  queryData: null,
 };
 
 export default UserDetailEnrollment;
