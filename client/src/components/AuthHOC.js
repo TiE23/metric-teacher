@@ -55,7 +55,7 @@ const withAuth = (WrappedComponent, options = {}) => {
             error
             errorHeader="You must be logged in to visit this page."
             errorMessage={
-              <ErrorPleaseLogin showLoginLinks/>
+              <ErrorPleaseLogin showLoginLinks />
             }
           />
         );

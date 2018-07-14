@@ -34,4 +34,8 @@ LoadingButton.propTypes = {
   error: PropTypes.any,  // eslint-disable-line react/forbid-prop-types
 };
 
+LoadingButton.defaultProps = {
+  error: false,
+};
+
 export default LoadingButton;
