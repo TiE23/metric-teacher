@@ -7,6 +7,7 @@ const {
 const {
   AuthError,
   UserNotFound,
+  ExistingPasswordRequired,
 } = require("../../errors");
 
 const {
@@ -25,14 +26,17 @@ const user = {
    * other hand, have full power.
    * TODO - Email validity check (it's not just for the client these days!!)
    * TODO - Email confirmations (waaaay in the future no doubt!)
-   * TODO - Password check (minimum length, complexity requirements, easy password blocking)
-   * TODO - Name check (no numerals, no odd punctuation, etc)
+   * TODO - Password check (min length, complexity requirements?, trimming, easy password blocking)
+   * TODO - Name check (no numerals, no odd punctuation, no emoji, etc)
    * TODO - Honorific check (maybe?)
    * @param parent
    * @param args
    *        userid: ID!
    *        email: String
-   *        password: String
+   *        password: PasswordInput {
+   *          new: String
+   *          old: String
+   *        }
    *        honorific: String
    *        fname: String
    *        lname: String
@@ -51,18 +55,36 @@ const user = {
       {
         id
         type
+        password
       }
     `);
 
     // Check the User exists.
     if (targetUserData === null) {
-      throw new UserNotFound(args.courseid);
+      throw new UserNotFound(args.userid);
     }
 
     // A Student or Teacher can update their own info and moderators or better can as well.
     if (callingUserData.id !== targetUserData.id &&
       callingUserData.type < USER_TYPE_MODERATOR) {
       throw new AuthError(null, "updateUserProfile");
+    }
+
+    // TODO - Password resetting will be a different mutation someday.
+    // Students, teachers, AND moderators must supply their old password to change their password or
+    // email. Moderators can change the password or email of students and teachers without the old
+    // password. Admins can change everyone's password or email without old passwords, even other
+    // admins. Other rules for moderators still apply below with moderatorPermissionsCheck().
+    if (args.password && args.password.new && (callingUserData.type < USER_TYPE_MODERATOR ||
+      (targetUserData.type === USER_TYPE_MODERATOR && callingUserData.type < USER_TYPE_ADMIN)) &&
+      (!args.password.old || !await bcrypt.compare(args.password.old, targetUserData.password))) {
+      throw new ExistingPasswordRequired("set a new password");
+    }
+    if (args.email && (callingUserData.type < USER_TYPE_MODERATOR ||
+      (targetUserData.type === USER_TYPE_MODERATOR && callingUserData.type < USER_TYPE_ADMIN)) &&
+      (!args.password || (args.password && (!args.password.old ||
+      !await bcrypt.compare(args.password.old, targetUserData.password))))) {
+      throw new ExistingPasswordRequired("update email address");
     }
 
     // Do some Moderator checking...
@@ -73,7 +95,9 @@ const user = {
 
     // Email and passwords cannot be made blank.
     if (args.email) dataPayload.email = args.email;
-    if (args.password) dataPayload.password = await bcrypt.hash(args.password, BCRYPT_SALT_LENGTH);
+    if (args.password && args.password.new) {
+      dataPayload.password = await bcrypt.hash(args.password.new, BCRYPT_SALT_LENGTH);
+    }
 
     // First and last names can be made blank.
     if (args.fname !== undefined) dataPayload.fname = args.fname;

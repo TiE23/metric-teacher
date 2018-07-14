@@ -30,6 +30,12 @@ class UserMustBe extends Error {
   }
 }
 
+class ExistingPasswordRequired extends Error {
+  constructor(action) {
+    super(`Existing password must be supplied to ${action}`);
+  }
+}
+
 class CourseNotFound extends Error {
   constructor(courseId) {
     super(`Course ${courseId} not found`);
@@ -239,6 +245,7 @@ module.exports = {
   GraphQlDumpWarning,
   UserNotFound,
   UserMustBe,
+  ExistingPasswordRequired,
   CourseNotFound,
   CourseInactive,
   CourseNoSubSubjectsAdded,
