@@ -31,7 +31,9 @@ import LoadingError from "./LoadingError";
  * @constructor
  */
 const QueryHandler = (props) => {
-  const { queryData, skip, optional } = props;
+  const { children, queryData, skip, optional } = props;
+
+  // The query is loading or in error...
   if (!skip && (queryData.loading || (!optional && queryData.error))) {
     // Waiting for the query to load or displaying the error.
     return (
@@ -40,9 +42,17 @@ const QueryHandler = (props) => {
         {...props.loadingErrorProps}
       />
     );
+
+  // The query has loaded and doesn't have errors, display the children
   } else {
-    // The query has loaded
-    return (props.children);
+    // Pass the queryData prop to each child.
+    const childrenWithQueryData = React.Children.map(children, child =>
+      React.cloneElement(child, { queryData }));
+    return (
+      <div>
+        {childrenWithQueryData}
+      </div>
+    );
   }
 };
 
@@ -51,7 +61,7 @@ QueryHandler.propTypes = {
   optional: PropTypes.bool,
   queryData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
-    error: PropTypes.any.isRequired,
+    error: PropTypes.any,
   }).isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),

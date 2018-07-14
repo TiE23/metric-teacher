@@ -26,6 +26,7 @@
     "build-semantic": "cd src/semantic && gulp build-css build-assets",
     "watch-semantic": "cd src/semantic && yarn run build-semantic && gulp watch",
     "start": "yarn run build-semantic && react-scripts start",
+    "fast-start": "react-scripts start",
     "build": "yarn run build-semantic && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

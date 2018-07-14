@@ -7,6 +7,8 @@ import {
 } from "../../../constants";
 
 const UserDetailBasics = (props) => {
+  if (!props.queryData) return null;
+
   const { user } = props.queryData.data;
   return (
     <div>
@@ -27,7 +29,11 @@ UserDetailBasics.propTypes = {
     data: PropTypes.shape({
       user: PropTypes.any.isRequired,
     }).isRequired,
-  }).isRequired,
+  }),
+};
+
+UserDetailBasics.defaultProps = {
+  queryData: null,
 };
 
 export default UserDetailBasics;

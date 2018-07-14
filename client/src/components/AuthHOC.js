@@ -1,6 +1,5 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router";
 
 import LoadingError from "./LoadingError";
 import ErrorPleaseLogin from "./ErrorPleaseLogin";
@@ -15,74 +14,115 @@ import utils from "../utils";
  * Ex) Declare a route private like so:
  *    import withAuth from "./components/AuthHOC";
  *    <Switch>
- *      <Route exact path="/private" component={withAuth(PrivateComponent, { private: true })} />
+ *      <Route exact path="/private" component={withAuth(PrivateComponent, {
+ *        private: true,
+ *        props: { foo: "bar" }
+ *      })} />
  *    </Switch>
+ *
+ * The prop object `props` will be passed as props to the wrapped Component.
  *
  * There are two settings: private and permissions.
  * Private (a bool) blocks out any people who aren't logged in.
  * Permissions (an object fitting the permissions argument of checkAuth() in utils) blocks out
  * certain people who are logged in.
  *
- * TODO - There are still improvements possible with this (better structure as an HOC?)
+ * Ex) Gain access to JWT token data in the prop userTokenData like so:
+ *    import withAuth from "../AuthHOC";
+ *    const MyComponent = (props) => {
+ *      [...]
+ *    };
+ *    export default withAuth(MyComponent);
  *
- * @param IncomingComponent
+ * @param WrappedComponent
  * @param options
  * @returns {*}
  */
-export default (IncomingComponent, options = {}) => {
-  const AuthHOC = () => {
-    const userTokenData = utils.checkJWT();
+const withAuth = (WrappedComponent, options = {}) => {
+  class AuthHOC extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {};
 
-    // Check that the user is even logged in (has a valid token).
-    if (options.private && !userTokenData) {
-      return (
-        <LoadingError
-          error
-          errorHeader="You must be logged in to visit this page."
-          errorMessage={
-            <ErrorPleaseLogin showLoginLinks />
-          }
-        />
-      );
+      this.userTokenData = utils.checkJWT();
     }
 
-    // Check user permissions.
-    if (options.permissions) {
-      const { approval, rejectionReasons } =
-        utils.checkAuth(userTokenData, options.permissions);
-      if (!approval) {
+    render() {
+      // Check that the user is even logged in (has a valid token).
+      if (options.private && !this.userTokenData) {
         return (
           <LoadingError
             error
-            errorHeader="Insufficient permissions."
+            errorHeader="You must be logged in to visit this page."
             errorMessage={
-              <ErrorPleaseLogin error={{ message: rejectionReasons.join(" ") }} />
+              <ErrorPleaseLogin showLoginLinks/>
             }
           />
         );
       }
 
-      // User was logged in and user had permissions. Pass the userTokenData along as well!
+      // Check user permissions.
+      if (options.permissions) {
+        const { approval, rejectionReasons } =
+          utils.checkAuth(this.userTokenData, options.permissions);
+        if (!approval) {
+          return (
+            <LoadingError
+              error
+              errorHeader="Insufficient permissions."
+              errorMessage={
+                <ErrorPleaseLogin error={{ message: rejectionReasons.join(" ") }} />
+              }
+            />
+          );
+        }
+      }
+
       return (
-        <IncomingComponent
+        <WrappedComponent
+          userTokenData={this.userTokenData}
+          {...this.props}
           {...options.props}
-          userTokenData={userTokenData}
         />
       );
     }
+  }
 
-    // Nothing required but pass on the userTokenData if it exists as well, it might be useful.
-    return (
-      <IncomingComponent
-        {...options.props}
-        userTokenData={userTokenData}
-      />
-    );
+  AuthHOC.propTypes = {
+    options: PropTypes.shape({
+      props: PropTypes.any,
+      private: PropTypes.bool,
+      permissions: PropTypes.shape({
+        type: PropTypes.oneOfType([
+          PropTypes.number,
+          PropTypes.array,
+        ]),
+        status: PropTypes.oneOfType([
+          PropTypes.number,
+          PropTypes.array,
+        ]),
+        flagExclude: PropTypes.number,
+        flagRequire: PropTypes.number,
+        action: PropTypes.string,
+      }),
+    }),
   };
 
-  AuthHOC.contextTypes = {
-    router: PropTypes.object.isRequired,
+  AuthHOC.defaultProps = {
+    options: {
+      props: null,
+      private: false,
+      permissions: {
+        type: null,
+        status: null,
+        flagExclude: null,
+        flagRequire: null,
+        action: null,
+      },
+    },
   };
 
-  return withRouter(AuthHOC);
+  return AuthHOC;
 };
+
+export default withAuth;
