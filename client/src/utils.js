@@ -1,12 +1,16 @@
 import md5 from "md5";
 import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
+import isEmail from "validator/lib/isEmail";
+import mergeWith from "lodash/mergeWith";
 
 import normalizeEmail from "validator/lib/normalizeEmail";
 
 import {
   AUTH_TOKEN,
+  BAD_PASSWORDS,
   EMAIL_NORMALIZE_OPTIONS,
   EMAIL_SECRET_PREFIXES,
+  PASSWORD_MINIMUM_LENGTH,
 } from "./constants";
 
 // TODO better token management
@@ -185,6 +189,87 @@ const checkAuth = (callingUserData, permissions = {
   return { approval, rejectionReasons };
 };
 
+
+/**
+ * Tricky little system that provides a common place to enforce rules during login, signup, and
+ * when editing user details.
+ * @param inputForm
+ * @param inputChecked
+ * @returns {Array}
+ */
+const userDetailFormValidator = (inputForm, inputChecked) => {
+  const defaultForm = {
+    fname: "",
+    lname: "",
+    honorific: "",
+    emailNew: "",
+    emailOld: "",
+    password: {
+      new: "",
+      old: "",
+    },
+  };
+
+  const defaultChecked = {
+    fname: false,
+    lname: false,
+    honorific: false,
+    emailNew: false,
+    emailOld: false,
+    password: {
+      new: false,
+      old: false,
+    },
+  };
+
+  // Customizer function for mergeWith. See https://lodash.com/docs/4.17.10#mergeWith
+  const mergeCustomizer = (objValue, srcValue) => {
+    // Recursive trick merges objects together.
+    if (typeof objValue === "object" && typeof srcValue === "object") {
+      return mergeWith(objValue, srcValue, mergeCustomizer);
+    }
+    // Only allow truthy values to overwrite (namely, I want to prevent null from squashing "").
+    return srcValue || objValue;
+  };
+
+  const form = defaultForm;
+  mergeWith(form, inputForm, mergeCustomizer);
+  const checked = { ...defaultChecked, ...inputChecked };
+
+  const errors = [];
+
+  if (checked.fname && !form.fname.trim()) errors.push("First name required");
+  if (checked.lname && !form.lname.trim()) errors.push("Last name required");
+  if (checked.honorific && !form.honorific.trim()) errors.push("Honorific required");
+
+  // New email requirements
+  if (checked.emailNew && !form.emailNew.trim()) errors.push("Email required");
+  else if (checked.emailNew && !isEmail(form.emailNew)) errors.push("Email invalid");
+  else if (checked.emailNew) {
+    const normalizedEmail = customNormalizeEmail(form.emailNew);
+    if (isEmail(form.emailNew) && normalizedEmail !== form.emailNew.toLowerCase()) {
+      errors.push(`Please normalize your email to "${normalizedEmail}"`);
+    }
+  }
+
+  // Old email requirements
+  if (checked.emailOld && !form.emailOld.trim()) errors.push("Email required");
+
+  // New password requirements
+  if (checked.password.new && form.password.new.trim().length < PASSWORD_MINIMUM_LENGTH) {
+    errors.push(`Password must be at least ${PASSWORD_MINIMUM_LENGTH} characters long`);
+  }
+  if (checked.password.new && BAD_PASSWORDS.includes(form.password.new.toLowerCase())) {
+    errors.push("Password is far too common. Please try a better password!");
+  }
+
+  if (checked.password.old && !form.password.old.trim()) {
+    errors.push("Password required");
+  }
+
+  return errors;
+};
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -193,4 +278,5 @@ export default {
   customNormalizeEmail,
   checkJWT,
   checkAuth,
+  userDetailFormValidator,
 };

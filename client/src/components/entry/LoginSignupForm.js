@@ -24,6 +24,7 @@ class LoginSignupForm extends Component {
   }
 
   validate() {
+    // TODO - Convert to utils.userDetailFormValidator()
     const errors = [];
 
     // Validations only necessary on sign-up page.

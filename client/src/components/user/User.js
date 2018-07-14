@@ -10,7 +10,7 @@ const User = props => (
     <Grid.Row>
       <Grid.Column>
         <UserDetails
-          userid={props.match.params.id === "me" ? props.userTokenData.id : props.match.params.id}
+          userId={props.match.params.id === "me" ? props.userTokenData.id : props.match.params.id}
         />
         <button onClick={props.history.goBack}>Go back</button>
       </Grid.Column>
