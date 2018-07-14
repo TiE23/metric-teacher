@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Mutation } from "react-apollo";
+import { Mutation, compose } from "react-apollo";
 import { Redirect } from "react-router-dom";
 import { withRouter } from "react-router";
 
+import AlreadyLoggedIn from "./AlreadyLoggedIn";
 import LoginSignupForm from "./LoginSignupForm";
 
+import withAuth from "../AuthHOC";
 import utils from "../../utils";
 
 import {
@@ -13,7 +15,7 @@ import {
   LOGIN_MUTATION,
 } from "../../graphql/Mutations";
 
-class Login extends Component {
+class Login extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,6 +29,10 @@ class Login extends Component {
   }
 
   render() {
+    if (this.props.userTokenData) {
+      return (<AlreadyLoggedIn />);
+    }
+
     if (this.state.shouldRedirect) {
       return (
         <Redirect to={this.redirectPath()} />
@@ -68,6 +74,16 @@ Login.propTypes = {
       }),
     }),
   }).isRequired,
+  userTokenData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
 };
 
-export default withRouter(Login);
+Login.defaultProps = {
+  userTokenData: null,
+};
+
+export default compose(
+  withRouter,
+  withAuth,
+)(Login);
