@@ -7,8 +7,8 @@ import withAuth from "./components/AuthHOC";
 import LoadingError from "./components/LoadingError";
 
 import Welcome from "./components/Welcome";
-import Login from "./components/Login";
-import Logout from "./components/Logout";
+import Login from "./components/entry/Login";
+import Logout from "./components/entry/Logout";
 import User from "./components/user/User";
 import Test from "./components/Test";
 

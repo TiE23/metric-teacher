@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { withRouter } from "react-router";
 import { withApollo, compose } from "react-apollo";
 
-import utils from "../utils";
+import utils from "../../utils";
 
 const Logout = (props) => {
   // Clear out the local token.

@@ -7,16 +7,16 @@ import { Header, Segment, Form, Button, Container, Dimmer, Loader, Message } fro
 
 import isEmail from "validator/lib/isEmail";
 
-import utils from "../utils";
+import utils from "../../utils";
 import {
   PASSWORD_MINIMUM_LENGTH,
   BAD_PASSWORDS,
-} from "../constants";
+} from "../../constants";
 
 import {
   SIGNUP_MUTATION,
   LOGIN_MUTATION,
-} from "../graphql/Mutations";
+} from "../../graphql/Mutations";
 
 class Login extends Component {
   state = {
