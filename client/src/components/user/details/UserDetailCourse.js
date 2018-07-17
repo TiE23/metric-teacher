@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 
 import withAuth from "../../AuthHOC";
 
+import {
+  USER_TYPE_MODERATOR,
+} from "../../../constants";
+
 import UserDetailMasteries from "./UserDetailMasteries";
 import UserDetailSurveys from "./UserDetailSurveys";
 import UserDetailCourseAssign from "./UserDetailCourseAssign";
@@ -23,7 +27,8 @@ const UserDetailCourse = (props) => {
       <div>
         <p>No active course!</p>
         {/* In addition to the student, allow moderators or better to assign a new Course */}
-        {(props.studentId === props.userTokenData.id || props.userTokenData.type >= 2) &&
+        {(props.studentId === props.userTokenData.id ||
+          props.userTokenData.type >= USER_TYPE_MODERATOR) &&
           <UserDetailCourseAssign
             studentId={props.studentId}
             userQuery={props.userQuery}

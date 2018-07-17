@@ -40,3 +40,7 @@ export const USER_STATUS_NAMES = [
   "Normal",
   "Closed",
 ];
+export const USER_TYPE_STUDENT = 0;
+export const USER_TYPE_TEACHER = 1;
+export const USER_TYPE_MODERATOR = 2;
+export const USER_TYPE_ADMIN = 3;

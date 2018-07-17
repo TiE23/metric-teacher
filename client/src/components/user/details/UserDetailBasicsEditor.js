@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Header, Segment, Form, Button, Container, Dimmer, Loader, Message } from "semantic-ui-react";
-import { PASSWORD_MINIMUM_LENGTH } from "../../../constants";
+import {
+  PASSWORD_MINIMUM_LENGTH,
+  USER_TYPE_MODERATOR,
+  USER_TYPE_ADMIN,
+} from "../../../constants";
+
+import withAuth from "../../AuthHOC";
 
 import utils from "../../../utils";
 
@@ -24,22 +30,28 @@ class UserDetailBasicsEditor extends Component {
   }
 
   validate(variables) {
-    // TODO - Set different rules for moderators and admins.
+    const { initUserData, userTokenData } = this.props;
+
+    // Construct the form checked values.
     return utils.userDetailFormValidator(
       { ...variables, emailNew: variables.email },  // Casually switch email to emailNew
       {
-        fname: this.state.fname !== this.props.initUserData.fname,
-        lname: this.state.lname !== this.props.initUserData.lname,
-        emailNew: this.state.email !== this.props.initUserData.email,
+        fname: this.state.fname !== initUserData.fname,
+        lname: this.state.lname !== initUserData.lname,
+        emailNew: this.state.email !== initUserData.email,
         password: {
           new: !!this.state.passwordNew,
-          old: !!this.state.passwordNew || this.state.email !== this.props.initUserData.email,
+          old: (
+            userTokenData.type < USER_TYPE_MODERATOR ||
+            (initUserData.type === USER_TYPE_MODERATOR && userTokenData.type < USER_TYPE_ADMIN)
+          ) && (!!this.state.passwordNew || this.state.email !== initUserData.email),
         },
       },
     );
   }
 
   submit() {
+    // Construct the variable values.
     const variables = {
       honorific: this.state.honorific !== this.props.initUserData.honorific ?
         this.state.honorific : undefined,
@@ -56,6 +68,7 @@ class UserDetailBasicsEditor extends Component {
     const formErrors = this.validate(variables);
     this.setState({ formErrors });
 
+    // Fire off the mutation if everything was acceptable.
     if (formErrors.length === 0) {
       this.props.onSubmit(variables);
     }
@@ -157,8 +170,13 @@ class UserDetailBasicsEditor extends Component {
 }
 
 UserDetailBasicsEditor.propTypes = {
+  userTokenData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    type: PropTypes.number.isRequired,
+  }).isRequired,
   onSubmit: PropTypes.func.isRequired,
   initUserData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     fname: PropTypes.string.isRequired,
     lname: PropTypes.string.isRequired,
@@ -173,4 +191,4 @@ UserDetailBasicsEditor.defaultProps = {
   error: false,
 };
 
-export default UserDetailBasicsEditor;
+export default withAuth(UserDetailBasicsEditor);
