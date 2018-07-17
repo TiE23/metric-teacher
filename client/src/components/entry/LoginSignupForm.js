@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Header, Segment, Form, Button, Container, Dimmer, Loader, Message } from "semantic-ui-react";
-import isEmail from "validator/lib/isEmail";
-
-import utils from "../../utils";
 
 import {
-  BAD_PASSWORDS,
   PASSWORD_MINIMUM_LENGTH,
 } from "../../constants";
+
+import utils from "../../utils";
 
 class LoginSignupForm extends Component {
   constructor(props) {
@@ -23,34 +21,26 @@ class LoginSignupForm extends Component {
     };
   }
 
-  validate() {
-    // TODO - Convert to utils.userDetailFormValidator()
-    const errors = [];
-
-    // Validations only necessary on sign-up page.
-    if (!this.props.loginPage) {
-      if (!this.state.fname.trim()) errors.push("First name required");
-      if (!this.state.lname.trim()) errors.push("Last name required");
-      if (this.state.password.trim().length < PASSWORD_MINIMUM_LENGTH) {
-        errors.push(`Password must be at least ${PASSWORD_MINIMUM_LENGTH} characters long`);
-      }
-      if (BAD_PASSWORDS.includes(this.state.password.toLowerCase())) {
-        errors.push("Password is far too common. Please try a better password!");
-      }
-
-      // Prevent user from using tricky email addresses.
-      const normalizedEmail = utils.customNormalizeEmail(this.state.email);
-      if (isEmail(this.state.email) && normalizedEmail !== this.state.email.toLowerCase()) {
-        errors.push(`Please normalize your email to "${normalizedEmail}"`);
-      }
-    }
-
-    if (!this.state.email.trim()) errors.push("Email required");
-    else if (!isEmail(this.state.email)) errors.push("Email invalid");
-
-    if (!this.state.password) errors.push("Password required");
-
-    return errors;
+  validate(variables) {
+    // Construct the form checked values.
+    return utils.userDetailFormValidator(
+      {
+        ...variables,
+        email: this.props.loginPage ? { old: this.state.email } : { new: this.state.email },
+      },
+      {
+        fname: !this.props.loginPage,
+        lname: !this.props.loginPage,
+        email: {
+          new: !this.props.loginPage,
+          old: this.props.loginPage,
+        },
+        password: {
+          new: !this.props.loginPage,
+          old: this.props.loginPage,
+        },
+      },
+    );
   }
 
   handleChange(data) {
@@ -58,21 +48,19 @@ class LoginSignupForm extends Component {
   }
 
   submit() {
-    const formErrors = this.validate();
+    const variables = {
+      fname: !this.props.loginPage ? this.state.fname : undefined,
+      lname: !this.props.loginPage ? this.state.lname : undefined,
+      email: this.state.email,
+      password: this.props.loginPage ?
+        { old: this.state.password } : { new: this.state.password },
+    };
+    const formErrors = this.validate(variables);
     this.setState({ formErrors });
 
-    if (formErrors.length === 0 && this.props.loginPage) {
-      this.props.onSubmit({
-        email: this.state.email,
-        password: this.state.password,
-      });
-    } else {
-      this.props.onSubmit({
-        fname: this.state.fname,
-        lname: this.state.lname,
-        email: this.state.email,
-        password: this.state.password,
-      });
+    // Fire off the mutation if everything was acceptable.
+    if (formErrors.length === 0) {
+      this.props.onSubmit(variables);
     }
   }
 

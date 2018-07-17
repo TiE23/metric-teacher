@@ -202,8 +202,10 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
     fname: "",
     lname: "",
     honorific: "",
-    emailNew: "",
-    emailOld: "",
+    email: {
+      new: "",
+      old: "",
+    },
     password: {
       new: "",
       old: "",
@@ -214,8 +216,10 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
     fname: false,
     lname: false,
     honorific: false,
-    emailNew: false,
-    emailOld: false,
+    email: {
+      new: false,
+      old: false,
+    },
     password: {
       new: false,
       old: false,
@@ -243,17 +247,17 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
   if (checked.honorific && !form.honorific.trim()) errors.push("Honorific required");
 
   // New email requirements
-  if (checked.emailNew && !form.emailNew.trim()) errors.push("Email required");
-  else if (checked.emailNew && !isEmail(form.emailNew)) errors.push("Email invalid");
-  else if (checked.emailNew) {
-    const normalizedEmail = customNormalizeEmail(form.emailNew);
-    if (isEmail(form.emailNew) && normalizedEmail !== form.emailNew.toLowerCase()) {
+  if (checked.email.new && !form.email.new.trim()) errors.push("Email required");
+  else if (checked.email.new && !isEmail(form.email.new)) errors.push("Email invalid");
+  else if (checked.email.new) {
+    const normalizedEmail = customNormalizeEmail(form.email.new);
+    if (isEmail(form.email.new) && normalizedEmail !== form.email.new.toLowerCase()) {
       errors.push(`Please normalize your email to "${normalizedEmail}"`);
     }
   }
 
   // Old email requirements
-  if (checked.emailOld && !form.emailOld.trim()) errors.push("Email required");
+  if (checked.email.old && !form.email.old.trim()) errors.push("Email required");
 
   // New password requirements
   if (checked.password.new && form.password.new.trim().length < PASSWORD_MINIMUM_LENGTH) {

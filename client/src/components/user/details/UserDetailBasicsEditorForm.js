@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Header, Segment, Form, Button, Container, Dimmer, Loader, Message } from "semantic-ui-react";
+
 import {
   PASSWORD_MINIMUM_LENGTH,
   USER_TYPE_MODERATOR,
@@ -8,7 +9,6 @@ import {
 } from "../../../constants";
 
 import withAuth from "../../AuthHOC";
-
 import utils from "../../../utils";
 
 class UserDetailBasicsEditorForm extends Component {
@@ -34,11 +34,13 @@ class UserDetailBasicsEditorForm extends Component {
 
     // Construct the form checked values.
     return utils.userDetailFormValidator(
-      { ...variables, emailNew: variables.email },  // Casually switch email to emailNew
+      { ...variables, email: { new: variables.email } },  // Casually switch email to email.new
       {
         fname: this.state.fname !== initUserData.fname,
         lname: this.state.lname !== initUserData.lname,
-        emailNew: this.state.email !== initUserData.email,
+        email: {
+          new: this.state.email !== initUserData.email,
+        },
         password: {
           new: !!this.state.passwordNew,
           old: (
