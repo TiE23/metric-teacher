@@ -41,17 +41,18 @@ class UserDetailBasicsEditor extends Component {
 
   submit() {
     const variables = {
-      // TODO - Fix graphQL error by replacing null with undefined?
       honorific: this.state.honorific !== this.props.initUserData.honorific ?
-        this.state.honorific : null,
-      fname: this.state.fname !== this.props.initUserData.fname ? this.state.fname : null,
-      lname: this.state.lname !== this.props.initUserData.lname ? this.state.lname : null,
-      email: this.state.email !== this.props.initUserData.email ? this.state.email : null,
+        this.state.honorific : undefined,
+      fname: this.state.fname !== this.props.initUserData.fname ? this.state.fname : undefined,
+      lname: this.state.lname !== this.props.initUserData.lname ? this.state.lname : undefined,
+      email: this.state.email !== this.props.initUserData.email ? this.state.email : undefined,
       password: this.state.passwordNew || this.state.passwordOld ?
-        { new: this.state.passwordNew || null, old: this.state.passwordOld || null } : null,
+        {
+          new: this.state.passwordNew || undefined,
+          old: this.state.passwordOld || undefined,
+        } : undefined,
     };
 
-    // TODO Validation
     const formErrors = this.validate(variables);
     this.setState({ formErrors });
 
