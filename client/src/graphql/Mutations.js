@@ -57,8 +57,8 @@ export const LOGIN_MUTATION = gql`
 
 // Only grabbing fields that are accessible and can be changed in the mutation.
 export const UPDATE_USER_PROFILE_MUTATION = gql`
-  mutation UpdateUserProfileMutation($userid: ID!, $email: String, $passwordnew: String, $passwordold: String, $honorific: String, $fname: String, $lname: String) {
-    updateUserProfile(userid: $userid, email: $email, password: {new: $passwordnew, old: $passwordold}, honorific: $honorific, fname: $fname, lname: $lname) {
+  mutation UpdateUserProfileMutation($userid: ID!, $email: String, $password: PasswordInput, $honorific: String, $fname: String, $lname: String) {
+    updateUserProfile(userid: $userid, email: $email, password: $password, honorific: $honorific, fname: $fname, lname: $lname) {
       email
       honorific
       fname
