@@ -313,21 +313,21 @@ QuestionAnswerInput: {
 * `allSubjects: [Subject]!`
     * Get a list of all Subjects. For logged-in and normal users only.
 * `subject(subjectid: ID!): Subject`
-    * Get a Subject by a single ID. For logged in and normal.
+    * Get a Subject by a single ID. For logged-in and normal users only.
 * `subjects(subjectids: [ID!]!): [Subject]!`
     * Get a list of Subjects by their IDs. For logged-in and normal users only.
 * `subjectSearch(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!`
-    * Get a list of Subjects by Prisma query search parameters. For logged-in only.
+    * Get a list of Subjects by Prisma query search parameters. For logged-in and normal users only.
 
 #### SubSubject Queries
 * `allSubSubjects: [SubSubject]!`
-    * Get all SubSubjects. For anyone logged-in and normal.
+    * Get all SubSubjects. For logged-in and normal users only.
 * `subSubject(subsubjectid: ID!): SubSubject`
-    * Get a SubSubject by ID. For anyone logged-in and normal.
+    * Get a SubSubject by ID. For logged-in and normal users only.
 * `subSubjects(subsubjectids: [ID!]!): [SubSubject]!`
-    * Get a list of SubSubjects by a list of IDs. For anyone logged-in and normal.
+    * Get a list of SubSubjects by a list of IDs. For logged-in and normal users only.
 * `subSubjectSearch(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!`
-    * Get a list of SubSubjects by Prisma query search parameters. For anyone logged-in and normal.
+    * Get a list of SubSubjects by Prisma query search parameters. For logged-in and normal users only.
 
 #### Survey Queries
 * `activeSurveys(studentid: ID!): [Survey]!`
