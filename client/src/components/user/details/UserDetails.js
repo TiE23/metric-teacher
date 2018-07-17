@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Query, Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 
 import QueryHandler from "../../QueryHandler";
 import UserDetailBasics from "./UserDetailBasics";
@@ -14,13 +14,13 @@ class UserDetails extends PureComponent {
     editUserDetailBasics: false,
   };
 
-  openUserDetailBasicsEditor() {
+  openUserDetailBasicsEditor = () => {
     this.setState({ editUserDetailBasics: true });
-  }
+  };
 
-  closeUserDetailBasicsEditor() {
+  closeUserDetailBasicsEditor = () => {
     this.setState({ editUserDetailBasics: false });
-  }
+  };
 
   render() {
     return (
@@ -34,17 +34,14 @@ class UserDetails extends PureComponent {
             query={USER_DETAILS_QUERY}
           >
             {this.state.editUserDetailBasics ?
-              <UserDetailBasicsEditor />
+              <UserDetailBasicsEditor
+                closeEditor={this.closeUserDetailBasicsEditor}
+              />
               :
-              <UserDetailBasics />
+              <UserDetailBasics
+                openEditor={this.openUserDetailBasicsEditor}
+              />
             }
-            {/* TODO - Need to move these out of QueryHandler, queryData causes warnings! */}
-            <button onClick={() => this.openUserDetailBasicsEditor()} >
-              Open Editor
-            </button>
-            <button onClick={() => this.closeUserDetailBasicsEditor()} >
-              Close Editor
-            </button>
             <UserDetailEnrollment userQuery={USER_DETAILS_QUERY} />
           </QueryHandler>
         )}

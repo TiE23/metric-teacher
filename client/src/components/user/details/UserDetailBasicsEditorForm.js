@@ -163,6 +163,13 @@ class UserDetailBasicsEditorForm extends Component {
               >
                 Submit
               </Button>
+              {typeof this.props.closeEditor === "function" &&
+                <Button
+                  onClick={this.props.closeEditor}
+                >
+                  Close
+                </Button>
+              }
             </Container>
           </Form>
         </Segment>
@@ -177,12 +184,13 @@ UserDetailBasicsEditorForm.propTypes = {
     type: PropTypes.number.isRequired,
   }).isRequired,
   onSubmit: PropTypes.func.isRequired,
+  closeEditor: PropTypes.func,
   initUserData: PropTypes.shape({
     id: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     fname: PropTypes.string.isRequired,
     lname: PropTypes.string.isRequired,
-    honorific: PropTypes.string.isRequired,
+    honorific: PropTypes.string,
     type: PropTypes.number.isRequired,
   }).isRequired,
   loading: PropTypes.bool.isRequired,
@@ -191,6 +199,7 @@ UserDetailBasicsEditorForm.propTypes = {
 
 UserDetailBasicsEditorForm.defaultProps = {
   error: false,
+  closeEditor: null,
 };
 
 export default withAuth(UserDetailBasicsEditorForm);

@@ -35,6 +35,7 @@ const UserDetailBasicsEditor = (props) => {
           onSubmit={variables => updateUserProfile({
             variables: { ...variables, userid: user.id },
           })}
+          closeEditor={props.closeEditor}
           loading={loading}
           error={error}
         />
@@ -52,11 +53,13 @@ UserDetailBasicsEditor.propTypes = {
     }).isRequired,
   }),
   query: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  closeEditor: PropTypes.func,
 };
 
 UserDetailBasicsEditor.defaultProps = {
   queryData: null,
   query: null,
+  closeEditor: null,
 };
 
 export default UserDetailBasicsEditor;

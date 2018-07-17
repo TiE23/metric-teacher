@@ -27,6 +27,8 @@ class LoginSignupForm extends Component {
       {
         ...variables,
         email: this.props.loginPage ? { old: this.state.email } : { new: this.state.email },
+        password: this.props.loginPage ?
+          { old: this.state.password } : { new: this.state.password },
       },
       {
         fname: !this.props.loginPage,
@@ -52,8 +54,7 @@ class LoginSignupForm extends Component {
       fname: !this.props.loginPage ? this.state.fname : undefined,
       lname: !this.props.loginPage ? this.state.lname : undefined,
       email: this.state.email,
-      password: this.props.loginPage ?
-        { old: this.state.password } : { new: this.state.password },
+      password: this.state.password,
     };
     const formErrors = this.validate(variables);
     this.setState({ formErrors });
