@@ -75,15 +75,23 @@ const user = {
     // email. Moderators can change the password or email of students and teachers without the old
     // password. Admins can change everyone's password or email without old passwords, even other
     // admins. Other rules for moderators still apply below with moderatorPermissionsCheck().
-    if (args.password && args.password.new && (callingUserData.type < USER_TYPE_MODERATOR ||
-      (targetUserData.type === USER_TYPE_MODERATOR && callingUserData.type < USER_TYPE_ADMIN)) &&
+    if (args.password && args.password.new &&
+      (
+        callingUserData.type < USER_TYPE_MODERATOR ||
+        (targetUserData.type === USER_TYPE_MODERATOR && callingUserData.type < USER_TYPE_ADMIN)
+      ) &&
       (!args.password.old || !await bcrypt.compare(args.password.old, targetUserData.password))) {
       throw new ExistingPasswordRequired("set a new password");
     }
-    if (args.email && (callingUserData.type < USER_TYPE_MODERATOR ||
-      (targetUserData.type === USER_TYPE_MODERATOR && callingUserData.type < USER_TYPE_ADMIN)) &&
-      (!args.password || (args.password && (!args.password.old ||
-      !await bcrypt.compare(args.password.old, targetUserData.password))))) {
+    if (args.email &&
+      (
+        callingUserData.type < USER_TYPE_MODERATOR ||
+        (targetUserData.type === USER_TYPE_MODERATOR && callingUserData.type < USER_TYPE_ADMIN)
+      ) &&
+      (
+        !args.password || (args.password && (!args.password.old ||
+        !await bcrypt.compare(args.password.old, targetUserData.password)))
+      )) {
       throw new ExistingPasswordRequired("update email address");
     }
 

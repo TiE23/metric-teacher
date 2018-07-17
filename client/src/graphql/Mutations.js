@@ -13,6 +13,7 @@ import {
   CourseForUserDetails,
 } from "./fragments/CourseFragments";
 
+// TODO - Only need the token?
 export const SIGNUP_MUTATION = gql`
   mutation SignupMutation($email: String!, $password: String!, $fname: String!, $lname: String!) {
     signup(email: $email, password: $password, fname: $fname, lname: $lname) {
@@ -33,6 +34,7 @@ export const SIGNUP_MUTATION = gql`
   }
 `;
 
+// TODO - Only need the token?
 export const LOGIN_MUTATION = gql`
   mutation LoginMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -49,6 +51,18 @@ export const LOGIN_MUTATION = gql`
         status
         flags
       }
+    }
+  }
+`;
+
+// Only grabbing fields that are accessible and can be changed in the mutation.
+export const UPDATE_USER_PROFILE_MUTATION = gql`
+  mutation UpdateUserProfileMutation($userid: ID!, $email: String, $password: PasswordInput, $honorific: String, $fname: String, $lname: String) {
+    updateUserProfile(userid: $userid, email: $email, password: $password, honorific: $honorific, fname: $fname, lname: $lname) {
+      email
+      honorific
+      fname
+      lname
     }
   }
 `;
