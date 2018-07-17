@@ -8,7 +8,6 @@ import UserDetailBasicsEditor from "./UserDetailBasicsEditor";
 import UserDetailEnrollment from "./UserDetailEnrollment";
 
 import { USER_DETAILS_QUERY } from "../../../graphql/Queries";
-import { UPDATE_USER_PROFILE_MUTATION } from "../../../graphql/Mutations";
 
 class UserDetails extends PureComponent {
   state = {
@@ -30,34 +29,12 @@ class UserDetails extends PureComponent {
         variables={{ userid: this.props.userId }}
       >
         {queryProps => (
-          <QueryHandler queryData={queryProps} >
+          <QueryHandler
+            queryData={queryProps}
+            query={USER_DETAILS_QUERY}
+          >
             {this.state.editUserDetailBasics ?
-              <Mutation
-                mutation={UPDATE_USER_PROFILE_MUTATION}
-                update={(cache, { data: { updateUserProfile } }) => {
-                  const data = cache.reachQuery({
-                    query: USER_DETAILS_QUERY,
-                    variables: { userid: this.props.userId },
-                  });
-                  data.user = { ...data.user, ...updateUserProfile };
-                  cache.writeQuery({
-                    query: USER_DETAILS_QUERY,
-                    variables: { userid: this.props.userId },
-                    data,
-                  });
-                }}
-              >
-                {(updateUserProfile, { loading, error }) => (
-                  <UserDetailBasicsEditor
-                    initUserData={queryProps.data.user}
-                    onSubmit={variables => updateUserProfile({
-                      variables: { ...variables, userid: this.props.userId }
-                    })}
-                    loading={loading}
-                    error={error}
-                  />
-                )}
-              </Mutation>
+              <UserDetailBasicsEditor />
               :
               <UserDetailBasics />
             }

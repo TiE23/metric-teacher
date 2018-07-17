@@ -27,7 +27,15 @@ const UserDetailBasics = (props) => {
 UserDetailBasics.propTypes = {
   queryData: PropTypes.shape({
     data: PropTypes.shape({
-      user: PropTypes.any.isRequired,
+      user: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        fname: PropTypes.string.isRequired,
+        lname: PropTypes.string.isRequired,
+        honorific: PropTypes.string,
+        type: PropTypes.number.isRequired,
+        status: PropTypes.number.isRequired,
+      }).isRequired,
     }).isRequired,
   }),
 };
