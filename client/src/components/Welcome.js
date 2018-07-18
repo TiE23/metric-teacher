@@ -18,6 +18,8 @@ const Welcome = () => (
     <br />
     <Link to="/user/me">My details</Link>
     <br />
+    <Link to="/subjects">Subjects</Link>
+    <br />
     <Link to="/private">Private Test</Link>
     <br />
     <Link to="/adminOnly">Admin Only</Link>

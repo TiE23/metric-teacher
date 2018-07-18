@@ -20,7 +20,9 @@ const UserDetailBasics = (props) => {
         <li>Type: {USER_TYPE_NAMES[user.type] || "Unknown"}</li>
         <li>Status: {USER_STATUS_NAMES[user.status] || "Unknown"}</li>
       </ul>
-      <button onClick={props.openEditor}>Edit Profile</button>
+      {typeof props.openEditor === "function" &&
+        <button onClick={props.openEditor}>Edit Profile</button>
+      }
     </div>
   );
 };
@@ -39,11 +41,12 @@ UserDetailBasics.propTypes = {
       }).isRequired,
     }).isRequired,
   }),
-  openEditor: PropTypes.func.isRequired,
+  openEditor: PropTypes.func,
 };
 
 UserDetailBasics.defaultProps = {
   queryData: null,
+  openEditor: null,
 };
 
 export default UserDetailBasics;
