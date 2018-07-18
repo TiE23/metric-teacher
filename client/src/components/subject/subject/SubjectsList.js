@@ -4,12 +4,10 @@ import PropTypes from "prop-types";
 import Subject from "./Subject";
 
 const SubjectsList = (props) => {
-  if (!props.queryData) return null;
-
-  const { subjectSearch } = props.queryData.data;
+  if (!props.subjectsData) return null;
 
   return (
-    subjectSearch.map(subjectData => (
+    props.subjectsData.map(subjectData => (
       <Subject
         key={subjectData.id}
         subjectData={subjectData}
@@ -20,19 +18,16 @@ const SubjectsList = (props) => {
 };
 
 SubjectsList.propTypes = {
-  queryData: PropTypes.shape({
-    data: PropTypes.shape({
-      subjectSearch: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-      })).isRequired,
-    }).isRequired,
-  }),
+  subjectsData: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  })),
+  query: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   publicList: PropTypes.bool,
 };
 
 SubjectsList.defaultProps = {
-  queryData: null,
+  subjectsData: null,
+  query: null,
   publicList: true,
 };
 

@@ -23,7 +23,11 @@ const Subjects = (props) => {
           queryData={queryProps}
           query={query}
         >
-          <SubjectsList publicList={!!props.studentId} />
+          <SubjectsList
+            subjectsData={queryProps.data.subjectSearch}
+            query={query}
+            publicList={!!props.studentId}
+          />
         </QueryHandler>
       )}
     </Query>

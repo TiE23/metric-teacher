@@ -7,18 +7,21 @@ import {
 } from "../../../constants";
 
 const UserDetailBasics = (props) => {
-  if (!props.queryData) return null;
+  if (!props.userData) return null;
 
-  const { user } = props.queryData.data;
+  const { userData } = props;
+
   return (
     <div>
       <h1>User Detail Basics.</h1>
       <ul>
-        <li>Name: {user.honorific ? `${user.honorific} ` : ""}{user.fname} {user.lname}</li>
-        <li>Email: {user.email}</li>
-        <li>ID: {user.id}</li>
-        <li>Type: {USER_TYPE_NAMES[user.type] || "Unknown"}</li>
-        <li>Status: {USER_STATUS_NAMES[user.status] || "Unknown"}</li>
+        <li>Name: {userData.honorific ?
+          `${userData.honorific} ` : ""}{userData.fname} {userData.lname}
+        </li>
+        <li>Email: {userData.email}</li>
+        <li>ID: {userData.id}</li>
+        <li>Type: {USER_TYPE_NAMES[userData.type] || "Unknown"}</li>
+        <li>Status: {USER_STATUS_NAMES[userData.status] || "Unknown"}</li>
       </ul>
       {typeof props.openEditor === "function" &&
         <button onClick={props.openEditor}>Edit Profile</button>
@@ -28,24 +31,20 @@ const UserDetailBasics = (props) => {
 };
 
 UserDetailBasics.propTypes = {
-  queryData: PropTypes.shape({
-    data: PropTypes.shape({
-      user: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        fname: PropTypes.string.isRequired,
-        lname: PropTypes.string.isRequired,
-        honorific: PropTypes.string,
-        type: PropTypes.number.isRequired,
-        status: PropTypes.number.isRequired,
-      }).isRequired,
-    }).isRequired,
+  userData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    fname: PropTypes.string.isRequired,
+    lname: PropTypes.string.isRequired,
+    honorific: PropTypes.string,
+    type: PropTypes.number.isRequired,
+    status: PropTypes.number.isRequired,
   }),
   openEditor: PropTypes.func,
 };
 
 UserDetailBasics.defaultProps = {
-  queryData: null,
+  userData: null,
   openEditor: null,
 };
 
