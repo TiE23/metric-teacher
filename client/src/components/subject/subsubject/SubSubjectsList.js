@@ -11,7 +11,7 @@ const SubSubjectsList = (props) => {
       <SubSubject
         key={subSubjectData.id}
         subSubjectData={subSubjectData}
-        publicList={props.publicList}
+        studentId={props.studentId}
       />
     ))
   );
@@ -21,11 +21,11 @@ SubSubjectsList.propTypes = {
   subSubjectsData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
   })).isRequired,
-  publicList: PropTypes.bool,
+  studentId: PropTypes.string,
 };
 
 SubSubjectsList.defaultProps = {
-  publicList: true,
+  studentId: null,
 };
 
 export default SubSubjectsList;

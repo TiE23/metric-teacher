@@ -11,7 +11,7 @@ const SubjectsList = (props) => {
       <Subject
         key={subjectData.id}
         subjectData={subjectData}
-        publicList={props.publicList}
+        studentId={props.studentId}
       />
     ))
   );
@@ -22,13 +22,13 @@ SubjectsList.propTypes = {
     id: PropTypes.string.isRequired,
   })),
   query: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  publicList: PropTypes.bool,
+  studentId: PropTypes.string,
 };
 
 SubjectsList.defaultProps = {
   subjectsData: null,
   query: null,
-  publicList: true,
+  studentId: null,
 };
 
 export default SubjectsList;

@@ -15,8 +15,8 @@ const SubjectsPage = props => (
       <Grid.Column>
         <p>Subjects</p>
         <Subjects
-          studentId={props.userTokenData && props.userTokenData.type === USER_TYPE_STUDENT &&
-          props.userTokenData.id}
+          studentId={props.userTokenData && props.userTokenData.type === USER_TYPE_STUDENT ?
+            props.userTokenData.id : null}
         />
         <button onClick={props.history.goBack}>Go back</button>
       </Grid.Column>

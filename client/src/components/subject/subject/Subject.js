@@ -11,7 +11,7 @@ const Subject = (props) => {
       <br />
       <SubSubjectsList
         subSubjectsData={subjectData.subSubjects}
-        publicList={props.publicList}
+        studentId={props.studentId}
       />
     </div>
   );
@@ -23,11 +23,11 @@ Subject.propTypes = {
     name: PropTypes.string.isRequired,
     subSubjects: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
-  publicList: PropTypes.bool,
+  studentId: PropTypes.string,
 };
 
 Subject.defaultProps = {
-  publicList: false,
+  studentId: null,
 };
 
 export default Subject;

@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Mastery from "../../mastery/Mastery";
+
 const SubSubject = (props) => {
   const { subSubjectData } = props;
   const mastery = subSubjectData.masteries && subSubjectData.masteries.length !== 0 ?
@@ -10,7 +12,7 @@ const SubSubject = (props) => {
     <div>
       --SubSubject: {subSubjectData.name} ({subSubjectData.id})
       {mastery &&
-        <span>----Mastery - Status: {mastery.status} - Score: {mastery.score} </span>
+        <Mastery masteryData={mastery} />
       }
     </div>
   );
@@ -20,16 +22,13 @@ SubSubject.propTypes = {
   subSubjectData: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    masteries: PropTypes.arrayOf(PropTypes.shape({
-      status: PropTypes.number.isRequired,
-      score: PropTypes.number.isRequired,
-    })),
+    masteries: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-  publicList: PropTypes.bool,
+  studentId: PropTypes.string,
 };
 
 SubSubject.defaultProps = {
-  publicList: true,
+  studentId: null,
 };
 
 export default SubSubject;
