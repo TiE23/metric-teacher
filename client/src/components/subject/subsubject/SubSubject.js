@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Mastery from "../../mastery/Mastery";
+import MasteryAssign from "../../mastery/MasteryAssign";
 
 const SubSubject = (props) => {
   const { subSubjectData } = props;
@@ -14,6 +15,13 @@ const SubSubject = (props) => {
       {mastery &&
         <Mastery masteryData={mastery} />
       }
+      {!mastery && props.studentId &&
+        <MasteryAssign
+          query={props.query}
+          subSubjectId={subSubjectData.id}
+          studentId={props.studentId}
+        />
+      }
     </div>
   );
 };
@@ -24,6 +32,7 @@ SubSubject.propTypes = {
     name: PropTypes.string.isRequired,
     masteries: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
+  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   studentId: PropTypes.string,
 };
 

@@ -11,6 +11,7 @@ const SubjectsList = (props) => {
       <Subject
         key={subjectData.id}
         subjectData={subjectData}
+        query={props.query}
         studentId={props.studentId}
       />
     ))
