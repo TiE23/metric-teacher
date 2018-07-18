@@ -24,7 +24,7 @@ import {
  */
 const writeTokenLocalStorage = (token) => {
   if (typeof localStorage !== "undefined") {
-    localStorage.setItem(AUTH_TOKEN, token);
+    localStorage.setItem(AUTH_TOKEN, token);  // eslint-disable-line no-undef
     return;
   }
   throw new Error("localStorage not available on this browser!");
@@ -36,7 +36,7 @@ const writeTokenLocalStorage = (token) => {
  */
 const removeTokenLocalStorage = () => {
   if (typeof localStorage !== "undefined") {
-    localStorage.removeItem(AUTH_TOKEN);
+    localStorage.removeItem(AUTH_TOKEN);  // eslint-disable-line no-undef
     return;
   }
   throw new Error("localStorage not available on this browser!");
@@ -49,7 +49,7 @@ const removeTokenLocalStorage = () => {
  */
 const readTokenLocalStorage = () => {
   if (typeof localStorage !== "undefined") {
-    return localStorage.getItem(AUTH_TOKEN);
+    return localStorage.getItem(AUTH_TOKEN);  // eslint-disable-line no-undef
   }
   throw new Error("localStorage not available on this browser!");
 };
@@ -137,7 +137,7 @@ const checkAuth = (callingUserData, permissions = {
   action: null,
 }) => {
   if (!callingUserData) {
-    return { approval: false, rejectionReasons: ["User must be logged in. Could not read user token."]};
+    return { approval: false, rejectionReasons: ["User must be logged in. Could not read user token."] };
   }
 
   // This is how we track in what ways the user is rejected if they are rejected.
@@ -226,16 +226,6 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
     },
   };
 
-  // Customizer function for mergeWith. See https://lodash.com/docs/4.17.10#mergeWith
-  const mergeCustomizer = (objValue, srcValue) => {
-    // Recursive trick merges objects together.
-    if (typeof objValue === "object" && typeof srcValue === "object") {
-      return mergeWith(objValue, srcValue, mergeCustomizer);
-    }
-    // Only allow truthy values to overwrite (namely, I want to prevent null from squashing "").
-    return srcValue || objValue;
-  };
-
   const form = defaultForm;
   mergeWith(form, inputForm, mergeCustomizer);
   const checked = { ...defaultChecked, ...inputChecked };
@@ -274,6 +264,66 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
   return errors;
 };
 
+
+/**
+ * Customizer function for mergeWith. See https://lodash.com/docs/4.17.10#mergeWith
+ * Recursive trick merges objects together.
+ * Only allow truthy values to overwrite (namely, I want to prevent null from squashing "").
+ * @param objValue
+ * @param srcValue
+ * @returns {*|Object}
+ */
+const mergeCustomizer = (objValue, srcValue) => {
+  if (typeof objValue === "object" && typeof srcValue === "object") {
+    return mergeWith(objValue, srcValue, mergeCustomizer);
+  }
+  return srcValue || objValue;
+};
+
+
+const cacheNewObject = (data, parentId, key, newValue) => {
+  const parentObject = findRecursive(data, object => object.id === parentId);
+  if (!parentObject) return false;
+  parentObject[key] = newValue;
+  return true;
+};
+
+
+/**
+ * Basic find function iterates through Objects and arrays in a recursive method.
+ * Returns the first element that predicate returns truthy for.
+ * @param data
+ * @param predicate
+ * @returns {*}
+ */
+const findRecursive = (data, predicate) => {
+  if (predicate(data)) {
+    return data;
+  }
+
+  // Return statements in the forEach() functions don't work so must do this instead.
+  let result = undefined; // eslint-disable-line no-undef-init
+
+  if (typeof data === "object") {
+    const keys = Object.keys(data);
+    keys.forEach((key) => {
+      const value = data[key];
+      if (typeof value === "object") {
+        result = findRecursive(value, predicate);
+      }
+    });
+  } else if (Array.isArray(data)) {
+    data.forEach((value) => {
+      if (typeof value === "object") {
+        result = findRecursive(value, predicate);
+      }
+    });
+  }
+
+  return result;
+};
+
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -283,4 +333,5 @@ export default {
   checkJWT,
   checkAuth,
   userDetailFormValidator,
+  cacheNewObject,
 };
