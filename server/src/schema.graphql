@@ -76,7 +76,8 @@ type Mutation {
   setActiveCourse(studentid: ID!, courseid: ID!): Course!
 
   # Course Mutations
-  assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!
+  assignCourseNewMasteries(courseid: ID!, subsubjectids: [ID!]!): Course!
+  assignStudentNewMasteries(studentid: ID!, subsubjectids: [ID!]!): Course!
   deactivateCourse(courseid: ID!): Course!
   addMasteryScores(courseid: ID!, scoreinput: [MasteryScoreInput!]!): Course!
   addSurveyScores(courseid: ID!, scoreinput: [SurveyScoreInput!]!): Course!

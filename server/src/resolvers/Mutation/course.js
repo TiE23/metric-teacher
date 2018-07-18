@@ -1,3 +1,5 @@
+const queryCourse = require("../Query/course");
+
 const {
   checkAuth,
 } = require("../../utils");
@@ -10,7 +12,8 @@ const {
 const {
   AuthError,
   CourseNotFound,
-  CourseNoSubSubjectsAdded,
+  CourseNoMasteriesAdded,
+  StudentNoActiveCourse,
   SurveyAnswerIncomplete,
 } = require("../../errors");
 
@@ -33,22 +36,22 @@ const {
 
 const course = {
   /**
-   * Assigns subSubjects to an existing course. Only the owning student (or moderators or better)
+   * Assigns SubSubjects to an existing Course. Only the owning student (or moderators or better)
    * can do this.
-   * TODO let teachers (connected via active course + active classroom) also assign SubSubjects.
+   * TODO - Let teachers (connected via active Course + active Classroom) also assign SubSubjects.
    * @param parent
    * @param args
    *        courseid: ID!
-   *        subsubjects: [ID!]!
+   *        subsubjectids: [ID!]!
    * @param ctx
    * @param info
    * @returns Course!
    */
-  async assignCourseNewSubSubjects(parent, args, ctx, info) {
+  async assignCourseNewMasteries(parent, args, ctx, info) {
     const callingUserData = await checkAuth(ctx, {
       type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
       status: USER_STATUS_NORMAL,
-      action: "assignCourseNewSubSubjects",
+      action: "assignCourseNewMasteries",
     });
 
     const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
@@ -75,39 +78,86 @@ const course = {
     // A student can assign new SubSubjects and moderators or better can as well.
     if (callingUserData.id !== targetCourseData.parent.student.id &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "assignCourseNewSubSubjects");
+      throw new AuthError(null, "assignCourseNewMasteries");
     }
 
-    // Only act on SubSubjects that are not already listed in Masteries
-    const existingSubSubjectIds =
-      targetCourseData.masteries.map(mastery => mastery.subSubject.id);
-    const newSubSubjectIds =
-      args.subsubjects.filter(newSubSubjectId => !existingSubSubjectIds.includes(newSubSubjectId));
-
-    // If no SubSubjects are being added throw an error. Common situation might be where this
-    // mutation is run twice by accident.
-    if (newSubSubjectIds.length === 0) {
-      throw new CourseNoSubSubjectsAdded(targetCourseData.id);
-    }
-
-    // Construct connect statements for each targeted SubSubject
-    const newMasteries = newSubSubjectIds.map(subSubjectId => (
-      {
-        status: MASTERY_STATUS_ACTIVE,
-        score: MASTERY_DEFAULT_SCORE,
-        subSubject: {
-          connect: {
-            id: subSubjectId,
-          },
-        },
-      }
-    ));
+    const newMasteriesClauses = createMasteriesForCourse(targetCourseData, args.subsubjectids);
 
     return ctx.db.mutation.updateCourse({
       where: { id: targetCourseData.id },
       data: {
         masteries: {
-          create: newMasteries,
+          create: newMasteriesClauses,
+        },
+      },
+    }, info);
+  },
+
+
+  /**
+   * Assigns SubSubjects to a student's active Course. Only the owning student (or moderators or
+   * better) can do this.
+   * TODO - Let teachers (connected via active Course + active Classroom) also assign SubSubjects.
+   *
+   * Cheater mutation. I had to write this because it was far easier to have just the student's ID
+   * instead of the Course ID. It involves an extra query to the server. If at all possible prefer
+   * assignCourseNewMasteries() over this function.
+   * @param parent
+   * @param args
+   *        studentid: ID!
+   *        subsubjects: [ID!]!
+   * @param ctx
+   * @param info
+   * @returns Course!
+   */
+  async assignStudentNewMasteries(parent, args, ctx, info) {
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "assignStudentNewMasteries",
+    });
+
+    const activeCourseData =
+      await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, "{ id }");
+
+    if (!activeCourseData) {
+      throw new StudentNoActiveCourse(args.studentid, "assignStudentNewMasteries");
+    }
+
+    const targetCourseData = await ctx.db.query.course({ where: { id: activeCourseData.id } }, `
+      {
+        id
+        parent {
+          student {
+            id
+          }
+        }
+        masteries {
+          subSubject {
+            id 
+          }
+        }
+      }
+    `);
+
+    // Check the course exists.
+    if (targetCourseData === null) {
+      throw new CourseNotFound(args.courseid);
+    }
+
+    // A student can assign new SubSubjects and moderators or better can as well.
+    if (callingUserData.id !== targetCourseData.parent.student.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "assignCourseNewMasteries");
+    }
+
+    const newMasteriesClauses = createMasteriesForCourse(targetCourseData, args.subsubjectids);
+
+    return ctx.db.mutation.updateCourse({
+      where: { id: targetCourseData.id },
+      data: {
+        masteries: {
+          create: newMasteriesClauses,
         },
       },
     }, info);
@@ -693,6 +743,42 @@ function surveysAnswerUpdatePayloadGenerator(targetCourseData, answerInput, cour
   });
 
   return surveysUpdatePayload;
+}
+
+
+/**
+ * Helper function that provides some shared functionality between assignCourseNewMasteries() and
+ * assignStudentNewMasteries(). Creates the Mastery create clause bodies with a connection between
+ * the Course and multiple SubSubjects identified with an array of their IDs.
+ * @param existingCourse
+ * @param newSubSubjectIds
+ * @returns {*}
+ */
+function createMasteriesForCourse(existingCourse, newSubSubjectIds) {
+  // Only act on SubSubjects that are not already listed in Masteries.
+  const existingSubSubjectIds =
+    existingCourse.masteries.map(mastery => mastery.subSubject.id);
+  const filteredNewSubSubjectIds = newSubSubjectIds.filter(newSubSubjectId =>
+    !existingSubSubjectIds.includes(newSubSubjectId));
+
+  // If no SubSubjects are being added throw an error. Common situation might be where this
+  // mutation is run twice by accident.
+  if (filteredNewSubSubjectIds.length === 0) {
+    throw new CourseNoMasteriesAdded(existingCourse.id);
+  }
+
+  // Construct connect statements for each targeted SubSubject.
+  return filteredNewSubSubjectIds.map(subSubjectId => (
+    {
+      status: MASTERY_STATUS_ACTIVE,
+      score: MASTERY_DEFAULT_SCORE,
+      subSubject: {
+        connect: {
+          id: subSubjectId,
+        },
+      },
+    }
+  ));
 }
 
 module.exports = { course };

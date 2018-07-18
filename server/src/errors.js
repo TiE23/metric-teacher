@@ -48,9 +48,9 @@ class CourseInactive extends Error {
   }
 }
 
-class CourseNoSubSubjectsAdded extends Error {
+class CourseNoMasteriesAdded extends Error {
   constructor(courseId) {
-    super(`No SubSubjects added to Course ${courseId}`);
+    super(`No Masteries added to Course ${courseId}`);
   }
 }
 
@@ -105,6 +105,12 @@ class StudentAlreadyEnrolled extends Error {
 class StudentNotEnrolled extends Error {
   constructor(userId, action) {
     super(`User ${userId} not enrolled. Cannot perform '${action}'`);
+  }
+}
+
+class StudentNoActiveCourse extends Error {
+  constructor(userId, action) {
+    super(`User ${userId} has no active Course. Cannot perform '${action}'`);
   }
 }
 
@@ -248,7 +254,7 @@ module.exports = {
   ExistingPasswordRequired,
   CourseNotFound,
   CourseInactive,
-  CourseNoSubSubjectsAdded,
+  CourseNoMasteriesAdded,
   ClassroomNotFound,
   ClassroomNoUsersAdded,
   ClassroomNoUsersRemoved,
@@ -258,6 +264,7 @@ module.exports = {
   QuestionNotActive,
   StudentAlreadyEnrolled,
   StudentNotEnrolled,
+  StudentNoActiveCourse,
   StudentNotOwner,
   SurveyNotFound,
   SurveyAnswerValueInvalid,
