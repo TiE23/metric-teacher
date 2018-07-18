@@ -7,36 +7,32 @@ import {
   USER_TYPE_MODERATOR,
 } from "../../../constants";
 
-import UserDetailCourse from "./UserDetailCourse";
 import UserDetailEnroll from "./UserDetailEnroll";
+import UserDetailEnrollmentDetails from "./UserDetailEnrollmentDetails";
 
 const UserDetailEnrollment = (props) => {
-  if (!props.queryData) return null;
+  if (!props.userData) return null;
 
-  const { user } = props.queryData.data;
-  const { enrollment } = props.queryData.data.user;
+  const { userData, userTokenData } = props;
+  const { enrollment } = userData;
 
   if (enrollment) {
     return (
-      <div>
-        <p>Enrollment ID: {enrollment.id}</p>
-        <UserDetailCourse
-          courses={enrollment.courses}
-          studentId={user.id}
-          userQuery={props.userQuery}
-        />
-      </div>
+      <UserDetailEnrollmentDetails
+        enrollmentData={{ ...enrollment, student: { id: userData.id } }}
+        query={props.query}
+      />
     );
   // Only show Enroll button for students.
-  } else if (user.type === 0) {
+  } else if (userData.type === 0) {
     return (
       <div>
         <p>Not enrolled!</p>
         {/* In addition to the student, allow moderators or better to Enroll the student */}
-        {(user.id === props.userTokenData.id || props.userTokenData.type >= USER_TYPE_MODERATOR) &&
+        {(userData.id === userTokenData.id || userTokenData.type >= USER_TYPE_MODERATOR) &&
           <UserDetailEnroll
-            studentId={user.id}
-            userQuery={props.userQuery}
+            studentId={userData.id}
+            query={props.query}
           />
         }
       </div>
@@ -47,19 +43,15 @@ const UserDetailEnrollment = (props) => {
 };
 
 UserDetailEnrollment.propTypes = {
-  userQuery: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  queryData: PropTypes.shape({
-    data: PropTypes.shape({
-      user: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        type: PropTypes.number.isRequired,
-      }).isRequired,
-      enrollment: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        courses: PropTypes.array,
-      }), // Not required.
-    }).isRequired,
+  userData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    type: PropTypes.number.isRequired,
+    enrollment: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      courses: PropTypes.array,
+    }),
   }),
+  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   userTokenData: PropTypes.shape({
     type: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
@@ -67,7 +59,8 @@ UserDetailEnrollment.propTypes = {
 };
 
 UserDetailEnrollment.defaultProps = {
-  queryData: null,
+  enrollmentData: null,
+  query: null,
 };
 
 export default withAuth(UserDetailEnrollment);  // provide access to userTokenData

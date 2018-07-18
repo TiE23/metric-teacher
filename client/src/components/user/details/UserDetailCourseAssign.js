@@ -23,12 +23,12 @@ class UserDetailCourseAssign extends PureComponent {
         mutation={COURSE_ASSIGN_MUTATION}
         update={(cache, { data: { assignStudentNewCourse } }) => {
           const data = cache.readQuery({
-            query: this.props.userQuery,
+            query: this.props.query,
             variables: { userid: this.props.studentId },
           });
           data.user.enrollment.courses.push(assignStudentNewCourse);
           cache.writeQuery({
-            query: this.props.userQuery,
+            query: this.props.query,
             variables: { userid: this.props.studentId },
             data,
           });
@@ -69,7 +69,7 @@ class UserDetailCourseAssign extends PureComponent {
 
 UserDetailCourseAssign.propTypes = {
   studentId: PropTypes.string.isRequired,
-  userQuery: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default UserDetailCourseAssign;

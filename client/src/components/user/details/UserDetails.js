@@ -46,7 +46,10 @@ class UserDetails extends PureComponent {
                 openEditor={this.openUserDetailBasicsEditor}
               />
             }
-            <UserDetailEnrollment userQuery={USER_DETAILS_QUERY} />
+            <UserDetailEnrollment
+              userData={queryProps.data.user}
+              query={USER_DETAILS_QUERY}
+            />
           </QueryHandler>
         )}
       </Query>
