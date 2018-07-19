@@ -282,9 +282,47 @@ const mergeCustomizer = (objValue, srcValue) => {
 
 
 const cacheNewObject = (data, parentId, key, newValue) => {
-  const parentObject = findRecursive(data, object => object.id === parentId);
-  if (!parentObject) return false;
-  parentObject[key] = newValue;
+  const findResult = findRecursive(data, object => object.id === parentId);
+  if (!findResult) return false;
+  findResult.target[key] = newValue;
+  return true;
+};
+
+
+const cacheUpdateObject = (data, targetId, updateObject) => {
+  const findResult = findRecursive(data, object => object.id === targetId);
+  if (!findResult) return false;
+  mergeWith(findResult.target, updateObject, mergeCustomizer);
+  return true;
+};
+
+
+const cacheDeleteObject = (data, targetId) => {
+  const findResult = findRecursive(data, object => object.id === targetId);
+  if (!findResult) return false;
+  if (!findResult.parent) return false; // Cannot delete the root object in Strict Mode!
+  delete findResult.parent[findResult.targetKey];
+  return true;
+};
+
+
+const cachePushIntoArray = (data, parentId, arrayKey, newValue) => {
+  const findResult = findRecursive(data, object => object.id === parentId);
+  if (!findResult) return false;
+  if (!findResult.target[arrayKey]) return false;
+  if (!Array.isArray(findResult.target[arrayKey])) return false;
+  findResult.target[arrayKey].push(newValue);
+  return true;
+};
+
+
+const cacheRemoveFromArray = (data, parentId, arrayKey, targetId) => {
+  const findResult = findRecursive(data, object => object.id === parentId);
+  if (!findResult) return false;
+  if (!findResult.target[arrayKey]) return false;
+  const index = findResult.target[arrayKey].findIndex(element => element.id === targetId);
+  if (index === -1) return false;
+  findResult.target[arrayKey].splice(index, 1);
   return true;
 };
 
@@ -292,30 +330,38 @@ const cacheNewObject = (data, parentId, key, newValue) => {
 /**
  * Basic find function iterates through Objects and arrays in a recursive method.
  * Returns the first element that predicate returns truthy for.
- * @param data
+ *
+ * It returns an object with three values:
+ *  target is the found value.
+ *  parent is the found value's parent object/array.
+ *  targetKey is the found value's key or index in its parent object/array.
+ *
+ * @param target
  * @param predicate
- * @returns {*}
+ * @param parent    You should leave this null, it's for recursion.
+ * @param targetKey You should leave this null, it's for recursion.
+ * @returns { target, parent, targetKey }
  */
-const findRecursive = (data, predicate) => {
-  if (predicate(data)) {
-    return data;
+const findRecursive = (target, predicate, parent = null, targetKey = null) => {
+  if (predicate(target)) {
+    return { target, parent, targetKey };
   }
 
   // Return statements in the forEach() functions don't work so must do this instead.
   let result = undefined; // eslint-disable-line no-undef-init
 
-  if (typeof data === "object") {
-    const keys = Object.keys(data);
+  if (typeof target === "object") {
+    const keys = Object.keys(target);
     keys.forEach((key) => {
-      const value = data[key];
+      const value = target[key];
       if (typeof value === "object") {
-        result = findRecursive(value, predicate);
+        result = findRecursive(value, predicate, target, key);
       }
     });
-  } else if (Array.isArray(data)) {
-    data.forEach((value) => {
+  } else if (Array.isArray(target)) {
+    target.forEach((value, index) => {
       if (typeof value === "object") {
-        result = findRecursive(value, predicate);
+        result = findRecursive(value, predicate, target, index);
       }
     });
   }
@@ -334,4 +380,8 @@ export default {
   checkAuth,
   userDetailFormValidator,
   cacheNewObject,
+  cacheUpdateObject,
+  cacheDeleteObject,
+  cachePushIntoArray,
+  cacheRemoveFromArray,
 };
