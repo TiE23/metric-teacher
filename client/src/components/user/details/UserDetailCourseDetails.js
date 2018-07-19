@@ -18,7 +18,6 @@ UserDetailCourseDetails.propTypes = {
     masteries: PropTypes.arrayOf(PropTypes.object),
     surveys: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default UserDetailCourseDetails;

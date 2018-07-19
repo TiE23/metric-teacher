@@ -9,7 +9,7 @@ const UserDetailEnrollmentDetails = props => (
     <UserDetailCourse
       coursesData={props.enrollmentData.courses}
       studentId={props.enrollmentData.student.id}
-      query={props.query}
+      queryInfo={props.queryInfo}
     />
   </div>
 );
@@ -22,7 +22,10 @@ UserDetailEnrollmentDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 export default UserDetailEnrollmentDetails;

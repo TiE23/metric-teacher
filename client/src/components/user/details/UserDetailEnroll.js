@@ -12,14 +12,10 @@ const UserDetailEnroll = props => (
   <Mutation
     mutation={ENROLL_STUDENT_MUTATION}
     update={(cache, { data: { enrollStudent } }) => {
-      const data = cache.readQuery({
-        query: props.query,
-        variables: { userid: props.studentId },
-      });
+      const data = cache.readQuery(props.queryInfo);
       data.user.enrollment = enrollStudent;
       cache.writeQuery({
-        query: props.query,
-        variables: { userid: props.studentId },
+        ...props.queryInfo,
         data,
       });
     }}
@@ -37,7 +33,10 @@ const UserDetailEnroll = props => (
 
 UserDetailEnroll.propTypes = {
   studentId: PropTypes.string.isRequired,
-  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 export default UserDetailEnroll;
