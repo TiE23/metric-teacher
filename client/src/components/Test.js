@@ -24,8 +24,9 @@ const Test = (props) => {
     console.log(dat3.topRow.c);
     utils.cacheNewObject(dat3, "c1", "vehicle", { id: "vehicle", word: "car" });
     console.log(dat3.topRow.c);
+    console.log(dat3.topRow.c.vehicle);
     utils.cacheUpdateObject(dat3, "vehicle", { word: "truck" });
-    console.log(dat3.topRow.c);
+    console.log(dat3.topRow.c.vehicle);
     utils.cacheNewObject(dat3, "c1", "vehicle2", { id: "vehicle2", word: "roadster" });
     console.log(dat3.topRow.c);
     utils.cacheDeleteObject(dat3, "vehicle");
