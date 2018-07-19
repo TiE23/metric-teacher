@@ -2,6 +2,7 @@ import md5 from "md5";
 import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
 import isEmail from "validator/lib/isEmail";
 import mergeWith from "lodash/mergeWith";
+import forEach from "lodash/forEach";
 
 import normalizeEmail from "validator/lib/normalizeEmail";
 
@@ -271,7 +272,7 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
  * Only allow truthy values to overwrite (namely, I want to prevent null from squashing "").
  * @param objValue
  * @param srcValue
- * @returns {*|Object}
+ * @returns {*}
  */
 const mergeCustomizer = (objValue, srcValue) => {
   if (typeof objValue === "object" && typeof srcValue === "object") {
@@ -281,14 +282,41 @@ const mergeCustomizer = (objValue, srcValue) => {
 };
 
 
-const cacheNewObject = (data, parentId, key, newValue) => {
+/**
+ * Find an object by the parentId and using the key define a new value (or overwrite an old one).
+ *
+ * Ex:  const data = { users: [{ id: "user1", fname: "John", lname: "Doe" }] }
+ *      cacheNewObject(data, "user1", "lname", "Connor")
+ *      // data: { users: [{ id: "user1", fname: "John", lname: "Connor" }] }
+ *
+ * @param data
+ * @param parentId
+ * @param key
+ * @param newValue
+ * @param safe
+ * @returns {boolean}
+ */
+const cacheNewObject = (data, parentId, key, newValue, safe = false) => {
   const findResult = findRecursive(data, object => object.id === parentId);
   if (!findResult) return false;
+  if (findResult.target[key] && safe) return false; // Do not overwrite an existing value.
   findResult.target[key] = newValue;
   return true;
 };
 
 
+/**
+ * Find an object by the targetId and update the contents of that object with a merge.
+ *
+ * Ex:  const data = { users: [{ id: "user1", fname: "John" }] }
+ *      cacheUpdateObject(data, "user1", { fname: "Sarah", lname: "Connor" })
+ *      // data: { users: [{ id: "user1", fname: "Sarah", lname: "Connor" }] }
+ *
+ * @param data
+ * @param targetId
+ * @param updateObject
+ * @returns {boolean}
+ */
 const cacheUpdateObject = (data, targetId, updateObject) => {
   const findResult = findRecursive(data, object => object.id === targetId);
   if (!findResult) return false;
@@ -297,32 +325,60 @@ const cacheUpdateObject = (data, targetId, updateObject) => {
 };
 
 
+/**
+ * Find an object by the targetId and delete it from existence.
+ * There is a single limitation: Due to strict JavaScript rules the targetId cannot be the root
+ * object. I think this isn't such a big problem as I cannot imagine ever needing to do this.
+ *
+ * Ex:  const data = { user: { id: "user1", fname: "John" } }
+ *      cacheDeleteObject(data, "user1")
+ *      // data: { user: {} }
+ *
+ * Works for targets in Arrays as well!
+ * Ex:  const data = { users: [{ id: "user1", fname: "John" }] }
+ *      cacheDeleteObject(data, "user1")
+ *      // data: { users: [] }
+ *
+ * @param data
+ * @param targetId
+ * @returns {boolean}
+ */
 const cacheDeleteObject = (data, targetId) => {
   const findResult = findRecursive(data, object => object.id === targetId);
   if (!findResult) return false;
   if (!findResult.parent) return false; // Cannot delete the root object in Strict Mode!
-  delete findResult.parent[findResult.targetKey];
-  return true;
+
+  if (Array.isArray(findResult.parent)) {
+    findResult.parent.splice(findResult.targetKey, 1);
+    return true;
+  } else if (typeof findResult.parent === "object") {
+    delete findResult.parent[findResult.targetKey];
+    return true;
+  }
+  return false;
 };
 
 
-const cachePushIntoArray = (data, parentId, arrayKey, newValue) => {
-  const findResult = findRecursive(data, object => object.id === parentId);
+/**
+ * Add a value to the target object's specific array value by the target object's ID and the key
+ * for the intended array.
+ *
+ * Ex:  const data = { user: { id: "user1", fname: "John", favoriteNumbers: [5, 9, 23] }
+ *      cachePushIntoArray(data, "user1", "favoriteNumbers", 99)
+ *      // data: { user: { id: "user1", fname: "John", favoriteNumbers: [5, 9, 23, 99] }
+ *
+ * @param data
+ * @param targetId
+ * @param arrayKey
+ * @param newValue
+ * @returns {boolean}
+ */
+const cachePushIntoArray = (data, targetId, arrayKey, newValue) => {
+  const findResult = findRecursive(data, object => object.id === targetId);
   if (!findResult) return false;
   if (!findResult.target[arrayKey]) return false;
   if (!Array.isArray(findResult.target[arrayKey])) return false;
   findResult.target[arrayKey].push(newValue);
-  return true;
-};
-
-
-const cacheRemoveFromArray = (data, parentId, arrayKey, targetId) => {
-  const findResult = findRecursive(data, object => object.id === parentId);
-  if (!findResult) return false;
-  if (!findResult.target[arrayKey]) return false;
-  const index = findResult.target[arrayKey].findIndex(element => element.id === targetId);
-  if (index === -1) return false;
-  findResult.target[arrayKey].splice(index, 1);
   return true;
 };
 
@@ -352,16 +408,18 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
 
   if (typeof target === "object") {
     const keys = Object.keys(target);
-    keys.forEach((key) => {
+    forEach(keys, (key) => {  // eslint-disable-line consistent-return
       const value = target[key];
       if (typeof value === "object") {
         result = findRecursive(value, predicate, target, key);
+        if (result) return false; // Stop the forEach loop
       }
     });
   } else if (Array.isArray(target)) {
-    target.forEach((value, index) => {
+    forEach(target, (value, index) => { // eslint-disable-line consistent-return
       if (typeof value === "object") {
         result = findRecursive(value, predicate, target, index);
+        if (result) return false; // Stop the forEach loop
       }
     });
   }
@@ -383,5 +441,5 @@ export default {
   cacheUpdateObject,
   cacheDeleteObject,
   cachePushIntoArray,
-  cacheRemoveFromArray,
+  findRecursive,
 };

@@ -22,17 +22,23 @@ const Test = (props) => {
       },
     };
     console.log(dat3.topRow.c);
-    utils.cacheNewObject(dat3, "c1", "newVehicle", { id: "vehicle", word: "car" });
-    console.log(dat3.topRow.c.newVehicle);
+    utils.cacheNewObject(dat3, "c1", "vehicle", { id: "vehicle", word: "car" });
+    console.log(dat3.topRow.c);
     utils.cacheUpdateObject(dat3, "vehicle", { word: "truck" });
-    console.log(dat3.topRow.c.newVehicle);
+    console.log(dat3.topRow.c);
+    utils.cacheNewObject(dat3, "c1", "vehicle2", { id: "vehicle2", word: "roadster" });
+    console.log(dat3.topRow.c);
     utils.cacheDeleteObject(dat3, "vehicle");
+    console.log(dat3.topRow.c);
+    utils.cacheDeleteObject(dat3, "vehicle2");
     console.log(dat3.topRow.c);
     utils.cacheNewObject(dat3, "c1", "newArray", [{ id: "Aaron" }, { id: "Bill" }]);
     console.log(dat3.topRow.c.newArray);
+    utils.cacheNewObject(dat3, "c1", "newArray2", [{ id: "Abby" }, { id: "Bobby" }]);
+    console.log(dat3.topRow.c.newArray);
     utils.cachePushIntoArray(dat3, "c1", "newArray", { id: "Carrie" });
     console.log(dat3.topRow.c.newArray);
-    utils.cacheRemoveFromArray(dat3, "c1", "newArray", "Bill");
+    utils.cacheDeleteObject(dat3, "Bill");
     console.log(dat3.topRow.c.newArray);
   };
 
