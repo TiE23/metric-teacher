@@ -23,16 +23,6 @@ const App = () => (
       <Route exact path="/logout" component={Logout} />
       <Route exact path="/user/:id" component={withAuth(User, { private: true })} />
       <Route exact path="/subjects" component={withAuth(Subjects)} />
-      <Route
-        path="*"
-        render={() => (
-          <LoadingError
-            error
-            errorHeader="404"
-            errorMessage="Page Not Found"
-          />
-        )}
-      />
       {/* Below are test paths for development... */}
       <Route exact path="/private" component={withAuth(Test, { private: true })} />
       <Route
@@ -44,6 +34,17 @@ const App = () => (
             permissions: { type: 3 },
           })
         }
+      />
+      {/* This is the 404 Page */}
+      <Route
+        path="*"
+        render={() => (
+          <LoadingError
+            error
+            errorHeader="404"
+            errorMessage="Page Not Found"
+          />
+        )}
       />
     </Switch>
   </div>

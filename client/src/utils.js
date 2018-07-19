@@ -2,6 +2,7 @@ import md5 from "md5";
 import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
 import isEmail from "validator/lib/isEmail";
 import mergeWith from "lodash/mergeWith";
+import forEach from "lodash/forEach";
 
 import normalizeEmail from "validator/lib/normalizeEmail";
 
@@ -24,7 +25,7 @@ import {
  */
 const writeTokenLocalStorage = (token) => {
   if (typeof localStorage !== "undefined") {
-    localStorage.setItem(AUTH_TOKEN, token);
+    localStorage.setItem(AUTH_TOKEN, token);  // eslint-disable-line no-undef
     return;
   }
   throw new Error("localStorage not available on this browser!");
@@ -36,7 +37,7 @@ const writeTokenLocalStorage = (token) => {
  */
 const removeTokenLocalStorage = () => {
   if (typeof localStorage !== "undefined") {
-    localStorage.removeItem(AUTH_TOKEN);
+    localStorage.removeItem(AUTH_TOKEN);  // eslint-disable-line no-undef
     return;
   }
   throw new Error("localStorage not available on this browser!");
@@ -49,7 +50,7 @@ const removeTokenLocalStorage = () => {
  */
 const readTokenLocalStorage = () => {
   if (typeof localStorage !== "undefined") {
-    return localStorage.getItem(AUTH_TOKEN);
+    return localStorage.getItem(AUTH_TOKEN);  // eslint-disable-line no-undef
   }
   throw new Error("localStorage not available on this browser!");
 };
@@ -137,7 +138,7 @@ const checkAuth = (callingUserData, permissions = {
   action: null,
 }) => {
   if (!callingUserData) {
-    return { approval: false, rejectionReasons: ["User must be logged in. Could not read user token."]};
+    return { approval: false, rejectionReasons: ["User must be logged in. Could not read user token."] };
   }
 
   // This is how we track in what ways the user is rejected if they are rejected.
@@ -226,16 +227,6 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
     },
   };
 
-  // Customizer function for mergeWith. See https://lodash.com/docs/4.17.10#mergeWith
-  const mergeCustomizer = (objValue, srcValue) => {
-    // Recursive trick merges objects together.
-    if (typeof objValue === "object" && typeof srcValue === "object") {
-      return mergeWith(objValue, srcValue, mergeCustomizer);
-    }
-    // Only allow truthy values to overwrite (namely, I want to prevent null from squashing "").
-    return srcValue || objValue;
-  };
-
   const form = defaultForm;
   mergeWith(form, inputForm, mergeCustomizer);
   const checked = { ...defaultChecked, ...inputChecked };
@@ -274,6 +265,166 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
   return errors;
 };
 
+
+/**
+ * Customizer function for mergeWith. See https://lodash.com/docs/4.17.10#mergeWith
+ * Recursive trick merges objects together.
+ * Only allow truthy values to overwrite (namely, I want to prevent null from squashing "").
+ * @param objValue
+ * @param srcValue
+ * @returns {*}
+ */
+const mergeCustomizer = (objValue, srcValue) => {
+  if (typeof objValue === "object" && typeof srcValue === "object") {
+    return mergeWith(objValue, srcValue, mergeCustomizer);
+  }
+  return srcValue || objValue;
+};
+
+
+/**
+ * Find an object by the parentId and using the key define a new value (or overwrite an old one).
+ *
+ * Ex:  const data = { users: [{ id: "user1", fname: "John", lname: "Doe" }] }
+ *      cacheNewObject(data, "user1", "lname", "Connor")
+ *      // data: { users: [{ id: "user1", fname: "John", lname: "Connor" }] }
+ *
+ * @param data
+ * @param parentId
+ * @param key
+ * @param newValue
+ * @param safe
+ * @returns {boolean}
+ */
+const cacheNewObject = (data, parentId, key, newValue, safe = false) => {
+  const findResult = findRecursive(data, object => object.id === parentId);
+  if (!findResult) return false;
+  if (findResult.target[key] && safe) return false; // Do not overwrite an existing value.
+  findResult.target[key] = newValue;
+  return true;
+};
+
+
+/**
+ * Find an object by the targetId and update the contents of that object with a merge.
+ *
+ * Ex:  const data = { users: [{ id: "user1", fname: "John" }] }
+ *      cacheUpdateObject(data, "user1", { fname: "Sarah", lname: "Connor" })
+ *      // data: { users: [{ id: "user1", fname: "Sarah", lname: "Connor" }] }
+ *
+ * @param data
+ * @param targetId
+ * @param updateObject
+ * @returns {boolean}
+ */
+const cacheUpdateObject = (data, targetId, updateObject) => {
+  const findResult = findRecursive(data, object => object.id === targetId);
+  if (!findResult) return false;
+  mergeWith(findResult.target, updateObject, mergeCustomizer);
+  return true;
+};
+
+
+/**
+ * Find an object by the targetId and delete it from existence.
+ * There is a single limitation: Due to strict JavaScript rules the targetId cannot be the root
+ * object. I think this isn't such a big problem as I cannot imagine ever needing to do this.
+ *
+ * Ex:  const data = { user: { id: "user1", fname: "John" } }
+ *      cacheDeleteObject(data, "user1")
+ *      // data: { user: {} }
+ *
+ * Works for targets in Arrays as well!
+ * Ex:  const data = { users: [{ id: "user1", fname: "John" }] }
+ *      cacheDeleteObject(data, "user1")
+ *      // data: { users: [] }
+ *
+ * @param data
+ * @param targetId
+ * @returns {boolean}
+ */
+const cacheDeleteObject = (data, targetId) => {
+  const findResult = findRecursive(data, object => object.id === targetId);
+  if (!findResult) return false;
+  if (!findResult.parent) return false; // Cannot delete the root object in Strict Mode!
+
+  if (Array.isArray(findResult.parent)) {
+    findResult.parent.splice(findResult.targetKey, 1);
+    return true;
+  } else if (typeof findResult.parent === "object") {
+    delete findResult.parent[findResult.targetKey];
+    return true;
+  }
+  return false;
+};
+
+
+/**
+ * Add a value to the target object's specific array value by the target object's ID and the key
+ * for the intended array.
+ *
+ * Ex:  const data = { user: { id: "user1", fname: "John", favoriteNumbers: [5, 9, 23] }
+ *      cachePushIntoArray(data, "user1", "favoriteNumbers", 99)
+ *      // data: { user: { id: "user1", fname: "John", favoriteNumbers: [5, 9, 23, 99] }
+ *
+ * @param data
+ * @param targetId
+ * @param arrayKey
+ * @param newValue
+ * @returns {boolean}
+ */
+const cachePushIntoArray = (data, targetId, arrayKey, newValue) => {
+  const findResult = findRecursive(data, object => object.id === targetId);
+  if (!findResult) return false;
+  if (!findResult.target[arrayKey]) return false;
+  if (!Array.isArray(findResult.target[arrayKey])) return false;
+  findResult.target[arrayKey].push(newValue);
+  return true;
+};
+
+
+/**
+ * Basic find function iterates through Objects and arrays in a recursive method.
+ * Returns the first element that predicate returns truthy for.
+ *
+ * It returns an object with three values:
+ *  target is the found value.
+ *  parent is the found value's parent object/array.
+ *  targetKey is the found value's key or index in its parent object/array.
+ *
+ * @param target
+ * @param predicate
+ * @param parent    You should leave this null, it's for recursion.
+ * @param targetKey You should leave this null, it's for recursion.
+ * @returns { target, parent, targetKey }
+ */
+const findRecursive = (target, predicate, parent = null, targetKey = null) => {
+  if (predicate(target)) {
+    return { target, parent, targetKey };
+  }
+
+  // Return statements in the forEach() functions don't work so must do this instead.
+  let result = undefined; // eslint-disable-line no-undef-init
+
+  // Arrays in JS are also objects.
+  if (typeof target === "object") {
+    const isArray = Array.isArray(target);
+    const iterable = isArray ? target : Object.keys(target);
+    forEach(iterable, (key) => {  // eslint-disable-line consistent-return
+      const value = isArray ? key : target[key];
+      if (typeof value === "object") {
+        result = findRecursive(value, predicate, target, key);
+        if (result) {
+          return false; // Stop the forEach loop.
+        }
+      }
+    });
+  }
+
+  return result;
+};
+
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -283,4 +434,9 @@ export default {
   checkJWT,
   checkAuth,
   userDetailFormValidator,
+  cacheNewObject,
+  cacheUpdateObject,
+  cacheDeleteObject,
+  cachePushIntoArray,
+  findRecursive,
 };
