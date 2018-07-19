@@ -9,11 +9,16 @@ const {
 const {
   AuthError,
   MasteryNotFound,
+  CourseNoMasteriesAdded,
+  StudentNoActiveCourse,
 } = require("../../errors");
+
+const queryCourse = require("../Query/course");
 
 const {
   MASTERY_STATUS_ACTIVE,
   MASTERY_STATUS_INACTIVE,
+  MASTERY_DEFAULT_SCORE,
   MASTERY_MIN_SCORE,
   MASTERY_MAX_SCORE,
   USER_TYPE_STUDENT,
@@ -23,6 +28,77 @@ const {
 } = require("../../constants");
 
 const mastery = {
+  /**
+   * Create a single new Mastery for a student by their user ID. Only the owning student (or
+   * moderators or better) can do this.
+   * @param parent
+   * @param args
+   *        studentid: ID!
+   *        subsubjectid: ID!
+   * @param ctx
+   * @param info
+   * @returns Mastery!
+   */
+  async assignStudentNewMastery(parent, args, ctx, info) {
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "assignStudentNewMastery",
+    });
+
+    const targetCourseData =
+      await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, `
+      {
+        id
+        parent {
+          student {
+            id
+          }
+        }
+        masteries {
+          subSubject {
+            id 
+          }
+        }
+      }
+    `);
+
+    if (!targetCourseData) {
+      throw new StudentNoActiveCourse(args.studentid, "assignStudentNewMasteries");
+    }
+
+    // A student can assign new SubSubjects and moderators or better can as well.
+    if (callingUserData.id !== targetCourseData.parent.student.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "assignStudentNewMasteries");
+    }
+
+    const existingSubSubjectIds =
+      targetCourseData.masteries.map(masteryObject => masteryObject.subSubject.id);
+
+    if (existingSubSubjectIds.includes(args.subsubjectid)) {
+      throw new CourseNoMasteriesAdded(targetCourseData.id);
+    }
+
+    return ctx.db.mutation.createMastery({
+      data: {
+        status: MASTERY_STATUS_ACTIVE,
+        score: MASTERY_DEFAULT_SCORE,
+        parent: {
+          connect: {
+            id: targetCourseData.id,
+          },
+        },
+        subSubject: {
+          connect: {
+            id: args.subsubjectid,
+          },
+        },
+      },
+    }, info);
+  },
+
+
   /**
    * Activate a mastery. Only the owning student (or moderators or better) can do this.
    * @param parent

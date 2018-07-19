@@ -9,18 +9,20 @@ import LoadingError from "./components/LoadingError";
 import Welcome from "./components/Welcome";
 import Login from "./components/entry/Login";
 import Logout from "./components/entry/Logout";
-import User from "./components/user/User";
+import User from "./components/user/UserPage";
+import Subjects from "./components/subject/SubjectsPage";
 import Test from "./components/Test";
 
 const App = () => (
   <div className="App">
     <Switch>
-      <Route exact path="/" component={withAuth(Welcome)} />
+      <Route exact path="/" component={Welcome} />
       {/* TODO The loginPath prop here is a little hacky, consider a better solution... */}
       <Route exact path="/login" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/signup" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/logout" component={Logout} />
       <Route exact path="/user/:id" component={withAuth(User, { private: true })} />
+      <Route exact path="/subjects" component={withAuth(Subjects)} />
       {/* Below are test paths for development... */}
       <Route exact path="/private" component={withAuth(Test, { private: true })} />
       <Route
@@ -33,6 +35,7 @@ const App = () => (
           })
         }
       />
+      {/* This is the 404 Page */}
       <Route
         path="*"
         render={() => (

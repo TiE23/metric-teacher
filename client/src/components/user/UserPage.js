@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import { Grid } from "semantic-ui-react";
 
+// eslint-disable-next-line import/no-named-as-default,import/no-named-as-default-member
 import UserDetails from "./details/UserDetails";
 
-const User = props => (
+const UserPage = props => (
   <Grid padded>
     <Grid.Row>
       <Grid.Column>
@@ -18,7 +19,7 @@ const User = props => (
   </Grid>
 );
 
-User.propTypes = {
+UserPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -32,10 +33,10 @@ User.propTypes = {
   }).isRequired,
 };
 
-User.defaultProps = {
+UserPage.defaultProps = {
   userTokenData: {
     id: null,
   },
 };
 
-export default withRouter(User);
+export default withRouter(UserPage);

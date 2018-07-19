@@ -313,21 +313,21 @@ QuestionAnswerInput: {
 * `allSubjects: [Subject]!`
     * Get a list of all Subjects. For logged-in and normal users only.
 * `subject(subjectid: ID!): Subject`
-    * Get a Subject by a single ID. For logged in and normal.
+    * Get a Subject by a single ID. For logged-in and normal users only.
 * `subjects(subjectids: [ID!]!): [Subject]!`
     * Get a list of Subjects by their IDs. For logged-in and normal users only.
 * `subjectSearch(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!`
-    * Get a list of Subjects by Prisma query search parameters. For logged-in only.
+    * Get a list of Subjects by Prisma query search parameters. For logged-in and normal users only.
 
 #### SubSubject Queries
 * `allSubSubjects: [SubSubject]!`
-    * Get all SubSubjects. For anyone logged-in and normal.
+    * Get all SubSubjects. For logged-in and normal users only.
 * `subSubject(subsubjectid: ID!): SubSubject`
-    * Get a SubSubject by ID. For anyone logged-in and normal.
+    * Get a SubSubject by ID. For logged-in and normal users only.
 * `subSubjects(subsubjectids: [ID!]!): [SubSubject]!`
-    * Get a list of SubSubjects by a list of IDs. For anyone logged-in and normal.
+    * Get a list of SubSubjects by a list of IDs. For logged-in and normal users only.
 * `subSubjectSearch(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!`
-    * Get a list of SubSubjects by Prisma query search parameters. For anyone logged-in and normal.
+    * Get a list of SubSubjects by Prisma query search parameters. For logged-in and normal users only.
 
 #### Survey Queries
 * `activeSurveys(studentid: ID!): [Survey]!`
@@ -379,18 +379,20 @@ QuestionAnswerInput: {
 * `assignStudentNewCourse(studentid: ID!, prefermetric: Boolean): Course!`
     * Give a student a new Course. They must be enrolled first, though.
 * `setActiveCourse(studentid: ID!, courseid: ID!): Course!`
-    * Will set a student's courses all to inactive and the targeted course to active. Requires the studentid to perform.
+    * Will set a student's Courses all to inactive and the targeted Course to active. Requires the studentid to perform.
 
 #### Course Mutations
-* `assignCourseNewSubSubjects(courseid: ID!, subsubjects: [ID!]!): Course!`
-    * Assigns subSubjects to an existing course. Only the owning student (or moderators or better) can do this.
+* `assignCourseNewMasteries(courseid: ID!, subsubjectids: [ID!]!): Course!`
+    * Assigns subSubjects to an existing Course. Only the owning student (or moderators or better) can do this.
+* `assignStudentNewMasteries(student: ID!, subsubjectids: [ID!]!): Course!`
+    * Assigns subSubjects to a student's active Course. If at all possible prefer assignCourseNewMasteries() over this function as it involves an extra hit to the database to get the student's active Course. Only the owning student (or moderators or better) can do this.
 * `deactivateCourse(courseid: ID!): Course!`
     * Deactivates a course. Only the owning student (or moderators or better) can do this.
 * `addMasteryScores(courseid: ID!, scoreinput: [MasteryScoreInput!]!): Course!`
     * Give a Course ID and a list of combination SubSubject IDs and scores (positive or negative) and those values will be added to each valid Mastery belonging to that Course. It automatically gathers the Mastery IDs so you don't need to! Only the owning student (or moderators or better) can do this.
     * See `MasteryScoreInput` Input type described above.
 * `addSurveyScores(courseid: ID!, scoreinput: [SurveyScoreInput!]!): Course!`
-    * Give a courseid and a list of combination Survey IDs and scores (positive or negative) and those values will be added to each valid Survey belonging to that Course. Only the owning student (or moderators or better) can do this.
+    * Give a Course ID and a list of combination Survey IDs and scores (positive or negative) and those values will be added to each valid Survey belonging to that Course. Only the owning student (or moderators or better) can do this.
     * See `SurveyScoreInput` Input type described above.
 * `addSurveyAnswers(courseid: ID!, answerinput: [SurveyAnswerInput!]!): Course!`
     * Answer or re-answer a series of Survey questions. Only the owning student (or moderators or better) can do this.
@@ -400,6 +402,8 @@ QuestionAnswerInput: {
     * See `MasteryScoreInput`, `SurveyScoreInput`, and `SurveyAnswerInput` Input types described above.
 
 #### Mastery Mutations
+* `assignStudentNewMastery(studentid: ID!, subsubjectid: ID!): Mastery!`
+    * Create a single new Mastery for a student by their user ID. Only the owning student (or moderators or better) can do this.
 * `activateMastery(masteryid: ID!): Mastery!`
     * Activate a mastery. Only the owning student (or moderators or better) can do this.
 * `deactivateMastery(masteryid: ID!): Mastery!`
@@ -413,7 +417,7 @@ QuestionAnswerInput: {
 * `addUsersToClassroom(classroomid: ID!, userids: [ID!]!): Classroom!`
     * Add users (students or teachers) to a classroom. Only teachers (or better) can add students to classrooms they are teachers of.
 * `removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!`
-    * Remove users (students or teachers) from a classroom. Only teachers (or better) can add students to classrooms they are teachers of. Teachers cannot remove students from classrooms where the student's active course is not in that classroom.
+    * Remove users (students or teachers) from a classroom. Only teachers (or better) can add students to classrooms they are teachers of. Teachers cannot remove students from classrooms where the student's active Course is not in that classroom.
 
 #### Survey Mutations
 * `addSurveyAnswer(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!`
@@ -552,6 +556,8 @@ QuestionAnswerInput: {
     * Relation to Subject row.
 * `questions`
     * Relations to Question rows.
+* `masteries`
+    * Relations to Mastery rows. **This is worth paying attention to as it is a public access vector to user rows.**
 
 ### Question
 * `id`

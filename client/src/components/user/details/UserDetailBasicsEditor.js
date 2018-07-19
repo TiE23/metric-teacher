@@ -9,9 +9,9 @@ import {
 } from "../../../graphql/Mutations";
 
 const UserDetailBasicsEditor = (props) => {
-  if (!props.queryData || !props.query) return null;
+  if (!props.userData || !props.query) return null;
 
-  const { user } = props.queryData.data;
+  const { userData } = props;
 
   return (
     <Mutation
@@ -19,21 +19,21 @@ const UserDetailBasicsEditor = (props) => {
       update={(cache, { data: { updateUserProfile } }) => {
         const data = cache.readQuery({
           query: props.query,
-          variables: { userid: user.id },
+          variables: { userid: userData.id },
         });
         data.user = { ...data.user, ...updateUserProfile };
         cache.writeQuery({
           query: props.query,
-          variables: { userid: user.id },
+          variables: { userid: userData.id },
           data,
         });
       }}
     >
       {(updateUserProfile, { loading, error }) => (
         <UserDetailBasicsEditorForm
-          initUserData={user}
+          initUserData={userData}
           onSubmit={variables => updateUserProfile({
-            variables: { ...variables, userid: user.id },
+            variables: { ...variables, userid: userData.id },
           })}
           closeEditor={props.closeEditor}
           loading={loading}
@@ -45,19 +45,15 @@ const UserDetailBasicsEditor = (props) => {
 };
 
 UserDetailBasicsEditor.propTypes = {
-  queryData: PropTypes.shape({
-    data: PropTypes.shape({
-      user: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-      }).isRequired,
-    }).isRequired,
+  userData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
   }),
   query: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   closeEditor: PropTypes.func,
 };
 
 UserDetailBasicsEditor.defaultProps = {
-  queryData: null,
+  userData: null,
   query: null,
   closeEditor: null,
 };

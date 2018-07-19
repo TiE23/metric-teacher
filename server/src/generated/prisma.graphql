@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Thu Jun 28 2018 18:27:34 GMT-0700 (PDT)
+# timestamp: Tue Jul 17 2018 15:58:53 GMT-0700 (Pacific Daylight Time)
 
 type AggregateClassroom {
   count: Int!
@@ -1634,7 +1634,7 @@ input MasteryCreateInput {
   status: Int!
   score: Int!
   parent: CourseCreateOneWithoutMasteriesInput!
-  subSubject: SubSubjectCreateOneInput!
+  subSubject: SubSubjectCreateOneWithoutMasteriesInput!
 }
 
 input MasteryCreateManyWithoutParentInput {
@@ -1642,10 +1642,21 @@ input MasteryCreateManyWithoutParentInput {
   connect: [MasteryWhereUniqueInput!]
 }
 
+input MasteryCreateManyWithoutSubSubjectInput {
+  create: [MasteryCreateWithoutSubSubjectInput!]
+  connect: [MasteryWhereUniqueInput!]
+}
+
 input MasteryCreateWithoutParentInput {
   status: Int!
   score: Int!
-  subSubject: SubSubjectCreateOneInput!
+  subSubject: SubSubjectCreateOneWithoutMasteriesInput!
+}
+
+input MasteryCreateWithoutSubSubjectInput {
+  status: Int!
+  score: Int!
+  parent: CourseCreateOneWithoutMasteriesInput!
 }
 
 """An edge in a connection."""
@@ -1721,7 +1732,7 @@ input MasteryUpdateInput {
   status: Int
   score: Int
   parent: CourseUpdateOneWithoutMasteriesInput
-  subSubject: SubSubjectUpdateOneInput
+  subSubject: SubSubjectUpdateOneWithoutMasteriesInput
 }
 
 input MasteryUpdateManyWithoutParentInput {
@@ -1733,10 +1744,25 @@ input MasteryUpdateManyWithoutParentInput {
   upsert: [MasteryUpsertWithWhereUniqueWithoutParentInput!]
 }
 
+input MasteryUpdateManyWithoutSubSubjectInput {
+  create: [MasteryCreateWithoutSubSubjectInput!]
+  connect: [MasteryWhereUniqueInput!]
+  disconnect: [MasteryWhereUniqueInput!]
+  delete: [MasteryWhereUniqueInput!]
+  update: [MasteryUpdateWithWhereUniqueWithoutSubSubjectInput!]
+  upsert: [MasteryUpsertWithWhereUniqueWithoutSubSubjectInput!]
+}
+
 input MasteryUpdateWithoutParentDataInput {
   status: Int
   score: Int
-  subSubject: SubSubjectUpdateOneInput
+  subSubject: SubSubjectUpdateOneWithoutMasteriesInput
+}
+
+input MasteryUpdateWithoutSubSubjectDataInput {
+  status: Int
+  score: Int
+  parent: CourseUpdateOneWithoutMasteriesInput
 }
 
 input MasteryUpdateWithWhereUniqueWithoutParentInput {
@@ -1744,10 +1770,21 @@ input MasteryUpdateWithWhereUniqueWithoutParentInput {
   data: MasteryUpdateWithoutParentDataInput!
 }
 
+input MasteryUpdateWithWhereUniqueWithoutSubSubjectInput {
+  where: MasteryWhereUniqueInput!
+  data: MasteryUpdateWithoutSubSubjectDataInput!
+}
+
 input MasteryUpsertWithWhereUniqueWithoutParentInput {
   where: MasteryWhereUniqueInput!
   update: MasteryUpdateWithoutParentDataInput!
   create: MasteryCreateWithoutParentInput!
+}
+
+input MasteryUpsertWithWhereUniqueWithoutSubSubjectInput {
+  where: MasteryWhereUniqueInput!
+  update: MasteryUpdateWithoutSubSubjectDataInput!
+  create: MasteryCreateWithoutSubSubjectInput!
 }
 
 input MasteryWhereInput {
@@ -1903,9 +1940,9 @@ type Mutation {
   createMastery(data: MasteryCreateInput!): Mastery!
   createSurvey(data: SurveyCreateInput!): Survey!
   createSubject(data: SubjectCreateInput!): Subject!
+  createSubSubject(data: SubSubjectCreateInput!): SubSubject!
   createFeedback(data: FeedbackCreateInput!): Feedback!
   createQuestion(data: QuestionCreateInput!): Question!
-  createSubSubject(data: SubSubjectCreateInput!): SubSubject!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateClassroom(data: ClassroomUpdateInput!, where: ClassroomWhereUniqueInput!): Classroom
   updateEnrollment(data: EnrollmentUpdateInput!, where: EnrollmentWhereUniqueInput!): Enrollment
@@ -1913,9 +1950,9 @@ type Mutation {
   updateMastery(data: MasteryUpdateInput!, where: MasteryWhereUniqueInput!): Mastery
   updateSurvey(data: SurveyUpdateInput!, where: SurveyWhereUniqueInput!): Survey
   updateSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
+  updateSubSubject(data: SubSubjectUpdateInput!, where: SubSubjectWhereUniqueInput!): SubSubject
   updateFeedback(data: FeedbackUpdateInput!, where: FeedbackWhereUniqueInput!): Feedback
   updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
-  updateSubSubject(data: SubSubjectUpdateInput!, where: SubSubjectWhereUniqueInput!): SubSubject
   deleteUser(where: UserWhereUniqueInput!): User
   deleteClassroom(where: ClassroomWhereUniqueInput!): Classroom
   deleteEnrollment(where: EnrollmentWhereUniqueInput!): Enrollment
@@ -1923,9 +1960,9 @@ type Mutation {
   deleteMastery(where: MasteryWhereUniqueInput!): Mastery
   deleteSurvey(where: SurveyWhereUniqueInput!): Survey
   deleteSubject(where: SubjectWhereUniqueInput!): Subject
+  deleteSubSubject(where: SubSubjectWhereUniqueInput!): SubSubject
   deleteFeedback(where: FeedbackWhereUniqueInput!): Feedback
   deleteQuestion(where: QuestionWhereUniqueInput!): Question
-  deleteSubSubject(where: SubSubjectWhereUniqueInput!): SubSubject
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertClassroom(where: ClassroomWhereUniqueInput!, create: ClassroomCreateInput!, update: ClassroomUpdateInput!): Classroom!
   upsertEnrollment(where: EnrollmentWhereUniqueInput!, create: EnrollmentCreateInput!, update: EnrollmentUpdateInput!): Enrollment!
@@ -1933,9 +1970,9 @@ type Mutation {
   upsertMastery(where: MasteryWhereUniqueInput!, create: MasteryCreateInput!, update: MasteryUpdateInput!): Mastery!
   upsertSurvey(where: SurveyWhereUniqueInput!, create: SurveyCreateInput!, update: SurveyUpdateInput!): Survey!
   upsertSubject(where: SubjectWhereUniqueInput!, create: SubjectCreateInput!, update: SubjectUpdateInput!): Subject!
+  upsertSubSubject(where: SubSubjectWhereUniqueInput!, create: SubSubjectCreateInput!, update: SubSubjectUpdateInput!): SubSubject!
   upsertFeedback(where: FeedbackWhereUniqueInput!, create: FeedbackCreateInput!, update: FeedbackUpdateInput!): Feedback!
   upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
-  upsertSubSubject(where: SubSubjectWhereUniqueInput!, create: SubSubjectCreateInput!, update: SubSubjectUpdateInput!): SubSubject!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyClassrooms(data: ClassroomUpdateInput!, where: ClassroomWhereInput): BatchPayload!
   updateManyEnrollments(data: EnrollmentUpdateInput!, where: EnrollmentWhereInput): BatchPayload!
@@ -1943,9 +1980,9 @@ type Mutation {
   updateManyMasteries(data: MasteryUpdateInput!, where: MasteryWhereInput): BatchPayload!
   updateManySurveys(data: SurveyUpdateInput!, where: SurveyWhereInput): BatchPayload!
   updateManySubjects(data: SubjectUpdateInput!, where: SubjectWhereInput): BatchPayload!
+  updateManySubSubjects(data: SubSubjectUpdateInput!, where: SubSubjectWhereInput): BatchPayload!
   updateManyFeedbacks(data: FeedbackUpdateInput!, where: FeedbackWhereInput): BatchPayload!
   updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
-  updateManySubSubjects(data: SubSubjectUpdateInput!, where: SubSubjectWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyClassrooms(where: ClassroomWhereInput): BatchPayload!
   deleteManyEnrollments(where: EnrollmentWhereInput): BatchPayload!
@@ -1953,9 +1990,9 @@ type Mutation {
   deleteManyMasteries(where: MasteryWhereInput): BatchPayload!
   deleteManySurveys(where: SurveyWhereInput): BatchPayload!
   deleteManySubjects(where: SubjectWhereInput): BatchPayload!
+  deleteManySubSubjects(where: SubSubjectWhereInput): BatchPayload!
   deleteManyFeedbacks(where: FeedbackWhereInput): BatchPayload!
   deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
-  deleteManySubSubjects(where: SubSubjectWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1993,9 +2030,9 @@ type Query {
   masteries(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery]!
   surveys(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey]!
   subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
+  subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!
   feedbacks(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback]!
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
-  subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!
   user(where: UserWhereUniqueInput!): User
   classroom(where: ClassroomWhereUniqueInput!): Classroom
   enrollment(where: EnrollmentWhereUniqueInput!): Enrollment
@@ -2003,9 +2040,9 @@ type Query {
   mastery(where: MasteryWhereUniqueInput!): Mastery
   survey(where: SurveyWhereUniqueInput!): Survey
   subject(where: SubjectWhereUniqueInput!): Subject
+  subSubject(where: SubSubjectWhereUniqueInput!): SubSubject
   feedback(where: FeedbackWhereUniqueInput!): Feedback
   question(where: QuestionWhereUniqueInput!): Question
-  subSubject(where: SubSubjectWhereUniqueInput!): SubSubject
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   classroomsConnection(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClassroomConnection!
   enrollmentsConnection(where: EnrollmentWhereInput, orderBy: EnrollmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EnrollmentConnection!
@@ -2013,9 +2050,9 @@ type Query {
   masteriesConnection(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MasteryConnection!
   surveysConnection(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SurveyConnection!
   subjectsConnection(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectConnection!
+  subSubjectsConnection(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubSubjectConnection!
   feedbacksConnection(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FeedbackConnection!
   questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
-  subSubjectsConnection(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubSubjectConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -3075,9 +3112,9 @@ type Subscription {
   mastery(where: MasterySubscriptionWhereInput): MasterySubscriptionPayload
   survey(where: SurveySubscriptionWhereInput): SurveySubscriptionPayload
   subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
+  subSubject(where: SubSubjectSubscriptionWhereInput): SubSubjectSubscriptionPayload
   feedback(where: FeedbackSubscriptionWhereInput): FeedbackSubscriptionPayload
   question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
-  subSubject(where: SubSubjectSubscriptionWhereInput): SubSubjectSubscriptionPayload
 }
 
 type SubSubject implements Node {
@@ -3091,6 +3128,7 @@ type SubSubject implements Node {
   scale: String!
   parent(where: SubjectWhereInput): Subject!
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
+  masteries(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery!]
 }
 
 """A connection to a list of items."""
@@ -3111,6 +3149,7 @@ input SubSubjectCreateInput {
   scale: String!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
   questions: QuestionCreateManyWithoutParentInput
+  masteries: MasteryCreateManyWithoutSubSubjectInput
 }
 
 input SubSubjectCreateManyWithoutParentInput {
@@ -3118,14 +3157,24 @@ input SubSubjectCreateManyWithoutParentInput {
   connect: [SubSubjectWhereUniqueInput!]
 }
 
-input SubSubjectCreateOneInput {
-  create: SubSubjectCreateInput
+input SubSubjectCreateOneWithoutMasteriesInput {
+  create: SubSubjectCreateWithoutMasteriesInput
   connect: SubSubjectWhereUniqueInput
 }
 
 input SubSubjectCreateOneWithoutQuestionsInput {
   create: SubSubjectCreateWithoutQuestionsInput
   connect: SubSubjectWhereUniqueInput
+}
+
+input SubSubjectCreateWithoutMasteriesInput {
+  name: String!
+  description: String!
+  toMetric: Boolean!
+  rarity: Int!
+  scale: String!
+  parent: SubjectCreateOneWithoutSubSubjectsInput!
+  questions: QuestionCreateManyWithoutParentInput
 }
 
 input SubSubjectCreateWithoutParentInput {
@@ -3135,6 +3184,7 @@ input SubSubjectCreateWithoutParentInput {
   rarity: Int!
   scale: String!
   questions: QuestionCreateManyWithoutParentInput
+  masteries: MasteryCreateManyWithoutSubSubjectInput
 }
 
 input SubSubjectCreateWithoutQuestionsInput {
@@ -3144,6 +3194,7 @@ input SubSubjectCreateWithoutQuestionsInput {
   rarity: Int!
   scale: String!
   parent: SubjectCreateOneWithoutSubSubjectsInput!
+  masteries: MasteryCreateManyWithoutSubSubjectInput
 }
 
 """An edge in a connection."""
@@ -3224,16 +3275,6 @@ input SubSubjectSubscriptionWhereInput {
   node: SubSubjectWhereInput
 }
 
-input SubSubjectUpdateDataInput {
-  name: String
-  description: String
-  toMetric: Boolean
-  rarity: Int
-  scale: String
-  parent: SubjectUpdateOneWithoutSubSubjectsInput
-  questions: QuestionUpdateManyWithoutParentInput
-}
-
 input SubSubjectUpdateInput {
   name: String
   description: String
@@ -3242,6 +3283,7 @@ input SubSubjectUpdateInput {
   scale: String
   parent: SubjectUpdateOneWithoutSubSubjectsInput
   questions: QuestionUpdateManyWithoutParentInput
+  masteries: MasteryUpdateManyWithoutSubSubjectInput
 }
 
 input SubSubjectUpdateManyWithoutParentInput {
@@ -3253,12 +3295,12 @@ input SubSubjectUpdateManyWithoutParentInput {
   upsert: [SubSubjectUpsertWithWhereUniqueWithoutParentInput!]
 }
 
-input SubSubjectUpdateOneInput {
-  create: SubSubjectCreateInput
+input SubSubjectUpdateOneWithoutMasteriesInput {
+  create: SubSubjectCreateWithoutMasteriesInput
   connect: SubSubjectWhereUniqueInput
   delete: Boolean
-  update: SubSubjectUpdateDataInput
-  upsert: SubSubjectUpsertNestedInput
+  update: SubSubjectUpdateWithoutMasteriesDataInput
+  upsert: SubSubjectUpsertWithoutMasteriesInput
 }
 
 input SubSubjectUpdateOneWithoutQuestionsInput {
@@ -3269,6 +3311,16 @@ input SubSubjectUpdateOneWithoutQuestionsInput {
   upsert: SubSubjectUpsertWithoutQuestionsInput
 }
 
+input SubSubjectUpdateWithoutMasteriesDataInput {
+  name: String
+  description: String
+  toMetric: Boolean
+  rarity: Int
+  scale: String
+  parent: SubjectUpdateOneWithoutSubSubjectsInput
+  questions: QuestionUpdateManyWithoutParentInput
+}
+
 input SubSubjectUpdateWithoutParentDataInput {
   name: String
   description: String
@@ -3276,6 +3328,7 @@ input SubSubjectUpdateWithoutParentDataInput {
   rarity: Int
   scale: String
   questions: QuestionUpdateManyWithoutParentInput
+  masteries: MasteryUpdateManyWithoutSubSubjectInput
 }
 
 input SubSubjectUpdateWithoutQuestionsDataInput {
@@ -3285,6 +3338,7 @@ input SubSubjectUpdateWithoutQuestionsDataInput {
   rarity: Int
   scale: String
   parent: SubjectUpdateOneWithoutSubSubjectsInput
+  masteries: MasteryUpdateManyWithoutSubSubjectInput
 }
 
 input SubSubjectUpdateWithWhereUniqueWithoutParentInput {
@@ -3292,9 +3346,9 @@ input SubSubjectUpdateWithWhereUniqueWithoutParentInput {
   data: SubSubjectUpdateWithoutParentDataInput!
 }
 
-input SubSubjectUpsertNestedInput {
-  update: SubSubjectUpdateDataInput!
-  create: SubSubjectCreateInput!
+input SubSubjectUpsertWithoutMasteriesInput {
+  update: SubSubjectUpdateWithoutMasteriesDataInput!
+  create: SubSubjectCreateWithoutMasteriesInput!
 }
 
 input SubSubjectUpsertWithoutQuestionsInput {
@@ -3551,9 +3605,9 @@ input SubSubjectWhereInput {
   questions_every: QuestionWhereInput
   questions_some: QuestionWhereInput
   questions_none: QuestionWhereInput
-  _MagicalBackRelation_MasteryToSubSubject_every: MasteryWhereInput
-  _MagicalBackRelation_MasteryToSubSubject_some: MasteryWhereInput
-  _MagicalBackRelation_MasteryToSubSubject_none: MasteryWhereInput
+  masteries_every: MasteryWhereInput
+  masteries_some: MasteryWhereInput
+  masteries_none: MasteryWhereInput
 }
 
 input SubSubjectWhereUniqueInput {

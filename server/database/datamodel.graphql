@@ -120,6 +120,7 @@ type SubSubject {
   scale: String!
   parent: Subject! @relation(name: "SubjectToSubSubject")
   questions: [Question!]! @relation(name: "SubSubjectToQuestion")
+  masteries: [Mastery!]! @relation(name: "MasteryToSubSubject")
 }
 
 # These are pre-defined questions.
