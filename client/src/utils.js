@@ -406,20 +406,16 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
   // Return statements in the forEach() functions don't work so must do this instead.
   let result = undefined; // eslint-disable-line no-undef-init
 
+  // Arrays in JS are also objects.
   if (typeof target === "object") {
-    const keys = Object.keys(target);
+    const keys = Object.keys(target); // Also works for arrays.
     forEach(keys, (key) => {  // eslint-disable-line consistent-return
       const value = target[key];
       if (typeof value === "object") {
         result = findRecursive(value, predicate, target, key);
-        if (result) return false; // Stop the forEach loop
-      }
-    });
-  } else if (Array.isArray(target)) {
-    forEach(target, (value, index) => { // eslint-disable-line consistent-return
-      if (typeof value === "object") {
-        result = findRecursive(value, predicate, target, index);
-        if (result) return false; // Stop the forEach loop
+        if (result) {
+          return false; // Stop the forEach loop.
+        }
       }
     });
   }
