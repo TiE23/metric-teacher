@@ -100,3 +100,15 @@ export const STUDENT_ASSIGN_NEW_MASTERY_MUTATION = gql`
   }
   ${MasteryDataAll}
 `;
+
+export const MASTERY_UPDATE_STATUS_MUTATION = gql`
+  mutation MasteryUpdateStatusMutation($masteryid: ID!, $status: Int!) {
+    updateMasteryStatus(masteryid: $masteryid, status: $status) {
+      ...MasteryDataAll
+      parent {
+        id
+      }
+    }
+  }
+  ${MasteryDataAll}
+`;
