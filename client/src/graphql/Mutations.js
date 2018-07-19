@@ -13,6 +13,10 @@ import {
   CourseForUserDetails,
 } from "./fragments/CourseFragments";
 
+import {
+  MasteryDataAll,
+} from "./fragments/SimpleFragments";
+
 // TODO - Only need the token?
 export const SIGNUP_MUTATION = gql`
   mutation SignupMutation($email: String!, $password: String!, $fname: String!, $lname: String!) {
@@ -83,4 +87,16 @@ export const COURSE_ASSIGN_MUTATION = gql`
     }
   }
   ${CourseForUserDetails}
+`;
+
+export const STUDENT_ASSIGN_NEW_MASTERY_MUTATION = gql`
+  mutation StudentAssignNewMasteriesMutation($studentid: ID!, $subsubjectid: ID!) {
+    assignStudentNewMastery(studentid: $studentid, subsubjectid: $subsubjectid) {
+      ...MasteryDataAll
+      parent {
+        id
+      }
+    }
+  }
+  ${MasteryDataAll}
 `;
