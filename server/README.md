@@ -402,6 +402,8 @@ QuestionAnswerInput: {
     * See `MasteryScoreInput`, `SurveyScoreInput`, and `SurveyAnswerInput` Input types described above.
 
 #### Mastery Mutations
+* `assignStudentNewMastery(studentid: ID!, subsubjectid: ID!): Mastery!`
+    * Create a single new Mastery for a student by their user ID. Only the owning student (or moderators or better) can do this.
 * `activateMastery(masteryid: ID!): Mastery!`
     * Activate a mastery. Only the owning student (or moderators or better) can do this.
 * `deactivateMastery(masteryid: ID!): Mastery!`

@@ -148,7 +148,7 @@ const course = {
     // A student can assign new SubSubjects and moderators or better can as well.
     if (callingUserData.id !== targetCourseData.parent.student.id &&
       callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "assignCourseNewMasteries");
+      throw new AuthError(null, "assignStudentNewMasteries");
     }
 
     const newMasteriesClauses = createMasteriesForCourse(targetCourseData, args.subsubjectids);

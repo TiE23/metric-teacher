@@ -85,6 +85,7 @@ type Mutation {
   addChallengeResults(courseid: ID!, masteryscoreinput: [MasteryScoreInput]!, surveyscoreinput: [SurveyScoreInput]!, surveyanswerinput: [SurveyAnswerInput]!): Course!
 
   # Mastery Mutations
+  assignStudentNewMastery(studentid: ID!, subsubjectid: ID!): Mastery!
   activateMastery(masteryid: ID!): Mastery!
   deactivateMastery(masteryid: ID!): Mastery!
   addMasteryScore(masteryid: ID!, score: Int!): Mastery!
