@@ -408,9 +408,10 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
 
   // Arrays in JS are also objects.
   if (typeof target === "object") {
-    const keys = Object.keys(target); // Also works for arrays.
-    forEach(keys, (key) => {  // eslint-disable-line consistent-return
-      const value = target[key];
+    const isArray = Array.isArray(target);
+    const iterable = isArray ? target : Object.keys(target);
+    forEach(iterable, (key) => {  // eslint-disable-line consistent-return
+      const value = isArray ? key : target[key];
       if (typeof value === "object") {
         result = findRecursive(value, predicate, target, key);
         if (result) {
