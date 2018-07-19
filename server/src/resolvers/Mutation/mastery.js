@@ -100,7 +100,7 @@ const mastery = {
 
 
   /**
-   * Activate a mastery. Only the owning student (or moderators or better) can do this.
+   * Activate a Mastery. Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
    *        masteryid: ID!
@@ -121,7 +121,7 @@ const mastery = {
 
 
   /**
-   * Deactivate a mastery. Only the owning student (or moderators or better) can do this.
+   * Deactivate a Mastery. Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
    *        masteryid: ID!
@@ -137,6 +137,28 @@ const mastery = {
       info,
       MASTERY_STATUS_INACTIVE,
       "deactivateMastery",
+    );
+  },
+
+
+  /**
+   * Update a Mastery's status. Only the owning student (or moderators or better) can do this.
+   * @param parent
+   * @param args
+   *        masteryid: ID!
+   *        status: Int
+   * @param ctx
+   * @param info
+   * @returns Mastery!
+   */
+  async updateMasteryStatus(parent, args, ctx, info) {
+    return changeMasteryStatus(
+      parent,
+      args,
+      ctx,
+      info,
+      args.status,
+      "updateMasteryStatus",
     );
   },
 

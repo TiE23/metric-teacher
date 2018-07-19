@@ -88,6 +88,7 @@ type Mutation {
   assignStudentNewMastery(studentid: ID!, subsubjectid: ID!): Mastery!
   activateMastery(masteryid: ID!): Mastery!
   deactivateMastery(masteryid: ID!): Mastery!
+  updateMasteryStatus(masteryid: ID!, status: Int!): Mastery!
   addMasteryScore(masteryid: ID!, score: Int!): Mastery!
 
   # Classroom Mutations
