@@ -1,5 +1,10 @@
+// Standard names
 export const AUTH_TOKEN = "auth-token";
+
+// Styling
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH = { mobile: 16, tablet: 8, computer: 8 };
+
+// Password
 export const PASSWORD_MINIMUM_LENGTH = 6;
 export const BAD_PASSWORDS = [
   "password",
@@ -13,6 +18,8 @@ export const BAD_PASSWORDS = [
   "1234567",
   "12345678",
 ];
+
+// Email
 export const EMAIL_NORMALIZE_OPTIONS = {
   all_lowercase: true,
   gmail_lowercase: true,
@@ -26,10 +33,13 @@ export const EMAIL_NORMALIZE_OPTIONS = {
   icloud_lowercase: true,
   icloud_remove_subaddress: true,
 };
+
 export const EMAIL_SECRET_PREFIXES = [
   "594613e2c5679b0d25e8912b0523b5a9",
   "806158031bb277505a058d0e4e07cff9",
 ];
+
+// User
 export const USER_TYPE_NAMES = [
   "Student",
   "Teacher",
@@ -44,3 +54,7 @@ export const USER_TYPE_STUDENT = 0;
 export const USER_TYPE_TEACHER = 1;
 export const USER_TYPE_MODERATOR = 2;
 export const USER_TYPE_ADMIN = 3;
+
+// Mastery
+export const MASTERY_STATUS_ACTIVE = 0;
+export const MASTERY_STATUS_INACTIVE = 1;

@@ -408,6 +408,8 @@ QuestionAnswerInput: {
     * Activate a mastery. Only the owning student (or moderators or better) can do this.
 * `deactivateMastery(masteryid: ID!): Mastery!`
     * Deactivate a mastery. Only the owning student (or moderators or better) can do this.
+* `updateMasteryStatus(masteryid: ID!, status: Int!): Mastery!`
+    *  Update a Mastery's status. Only the owning student (or moderators or better) can do this.
 * `addMasteryScore(masteryid: ID!, score: Int!): Mastery!`
     * Give a Mastery ID and a score you want to increase/decrease the Mastery score by. Only the owning student (or moderators or better) can do this.
 

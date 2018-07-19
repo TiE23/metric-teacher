@@ -13,7 +13,10 @@ const SubSubject = (props) => {
     <div>
       --SubSubject: {subSubjectData.name} ({subSubjectData.id})
       {mastery &&
-        <Mastery masteryData={mastery} />
+        <Mastery
+          queryInfo={props.queryInfo}
+          masteryData={mastery}
+        />
       }
       {!mastery && props.studentId &&
         <MasteryAssign

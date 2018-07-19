@@ -100,44 +100,54 @@ const mastery = {
 
 
   /**
-   * Activate a mastery. Only the owning student (or moderators or better) can do this.
+   * Update a Mastery's status. Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
    *        masteryid: ID!
+   *        status: Int
    * @param ctx
    * @param info
    * @returns Mastery!
    */
-  async activateMastery(parent, args, ctx, info) {
-    return changeMasteryStatus(
-      parent,
-      args,
-      ctx,
-      info,
-      MASTERY_STATUS_ACTIVE,
-      "activateMastery",
-    );
-  },
+  async updateMasteryStatus(parent, args, ctx, info) {
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "updateMasteryStatus",
+    });
 
+    const targetMasteryData = await ctx.db.query.mastery({ where: { id: args.masteryid } }, `
+      {
+        id
+        status
+        parent {
+          parent {
+            student {
+              id
+            }
+          }
+        }
+      }
+    `);
 
-  /**
-   * Deactivate a mastery. Only the owning student (or moderators or better) can do this.
-   * @param parent
-   * @param args
-   *        masteryid: ID!
-   * @param ctx
-   * @param info
-   * @returns Mastery!
-   */
-  async deactivateMastery(parent, args, ctx, info) {
-    return changeMasteryStatus(
-      parent,
-      args,
-      ctx,
-      info,
-      MASTERY_STATUS_INACTIVE,
-      "deactivateMastery",
-    );
+    // Check the Mastery exists.
+    if (targetMasteryData === null) {
+      throw new MasteryNotFound(args.masteryid);
+    }
+
+    // A student can change the status of a Mastery and moderators or better can as well.
+    if (callingUserData.id !== targetMasteryData.parent.parent.student.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "updateMasteryStatus");
+    }
+
+    // Perform the update.
+    return ctx.db.mutation.updateMastery({
+      where: { id: args.masteryid },
+      data: {
+        status: args.status,
+      },
+    }, info);
   },
 
 
@@ -146,6 +156,8 @@ const mastery = {
    * Only the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
+   *        masteryid: ID!
+   *        score: Int!
    * @param ctx
    * @param info
    * @returns Mastery!
@@ -196,58 +208,5 @@ const mastery = {
     }, info);
   },
 };
-
-
-/**
- * Change the status of a Mastery. Only the owning student (or moderators or better) can do this.
- * @param parent
- * @param args
- *        masteryid: ID!
- * @param ctx
- * @param info
- * @param changeStatus
- * @param actionName
- * @returns Mastery!
- */
-async function changeMasteryStatus(parent, args, ctx, info, changeStatus, actionName) {
-  const callingUserData = await checkAuth(ctx, {
-    type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
-    status: USER_STATUS_NORMAL,
-    action: actionName,
-  });
-
-  const targetMasteryData = await ctx.db.query.mastery({ where: { id: args.masteryid } }, `
-      {
-        id
-        status
-        parent {
-          parent {
-            student {
-              id
-            }
-          }
-        }
-      }
-    `);
-
-  // Check the Mastery exists.
-  if (targetMasteryData === null) {
-    throw new MasteryNotFound(args.masteryid);
-  }
-
-  // A student can change the status of a Mastery and moderators or better can as well.
-  if (callingUserData.id !== targetMasteryData.parent.parent.student.id &&
-    callingUserData.type < USER_TYPE_MODERATOR) {
-    throw new AuthError(null, actionName);
-  }
-
-  // Perform the update.
-  return ctx.db.mutation.updateMastery({
-    where: { id: args.masteryid },
-    data: {
-      status: changeStatus,
-    },
-  }, info);
-}
 
 module.exports = { mastery };
