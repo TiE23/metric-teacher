@@ -11,7 +11,7 @@ const SubSubjectsList = (props) => {
       <SubSubject
         key={subSubjectData.id}
         subSubjectData={subSubjectData}
-        query={props.query}
+        queryInfo={props.queryInfo}
         studentId={props.studentId}
       />
     ))
@@ -22,7 +22,10 @@ SubSubjectsList.propTypes = {
   subSubjectsData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
   })).isRequired,
-  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
   studentId: PropTypes.string,
 };
 

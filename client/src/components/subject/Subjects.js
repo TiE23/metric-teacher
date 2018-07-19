@@ -25,7 +25,7 @@ const Subjects = (props) => {
         >
           <SubjectsList
             subjectsData={queryProps.data.subjectSearch}
-            query={query}
+            queryInfo={{ query, variables: queryProps.variables }}
             studentId={props.studentId}
           />
         </QueryHandler>

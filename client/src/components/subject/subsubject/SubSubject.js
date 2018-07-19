@@ -17,7 +17,7 @@ const SubSubject = (props) => {
       }
       {!mastery && props.studentId &&
         <MasteryAssign
-          query={props.query}
+          queryInfo={props.queryInfo}
           subSubjectId={subSubjectData.id}
           studentId={props.studentId}
         />
@@ -32,7 +32,10 @@ SubSubject.propTypes = {
     name: PropTypes.string.isRequired,
     masteries: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
   studentId: PropTypes.string,
 };
 

@@ -16,14 +16,10 @@ const MasteryAssign = (props) => {
     <Mutation
       mutation={STUDENT_ASSIGN_NEW_MASTERY_MUTATION}
       update={(cache, { data: { assignStudentNewMastery } }) => {
-        const data = cache.readQuery({
-          query: props.query,
-          variables: { studentid: props.studentId },
-        });
+        const data = cache.readQuery(props.queryInfo);
         utils.cachePushIntoArray(data, props.subSubjectId, "masteries", assignStudentNewMastery);
         cache.writeQuery({
-          query: props.query,
-          variables: { studentid: props.studentId },
+          ...props.queryInfo,
           data,
         });
       }}
@@ -43,7 +39,10 @@ const MasteryAssign = (props) => {
 };
 
 MasteryAssign.propTypes = {
-  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
   studentId: PropTypes.string.isRequired,
   subSubjectId: PropTypes.string.isRequired,
 };
