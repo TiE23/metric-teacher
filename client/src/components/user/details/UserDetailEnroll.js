@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 
+import utils from "../../../utils";
+
 import LoadingButton from "../../misc/LoadingButton";
 
 import {
@@ -13,7 +15,7 @@ const UserDetailEnroll = props => (
     mutation={ENROLL_STUDENT_MUTATION}
     update={(cache, { data: { enrollStudent } }) => {
       const data = cache.readQuery(props.queryInfo);
-      data.user.enrollment = enrollStudent;
+      utils.cacheNewObject(data, props.studentId, "enrollment", enrollStudent);
       cache.writeQuery({
         ...props.queryInfo,
         data,

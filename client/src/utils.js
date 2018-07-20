@@ -2,6 +2,7 @@ import md5 from "md5";
 import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
 import isEmail from "validator/lib/isEmail";
 import mergeWith from "lodash/mergeWith";
+import isPlainObject from "lodash/isPlainObject";
 import forEach from "lodash/forEach";
 
 import normalizeEmail from "validator/lib/normalizeEmail";
@@ -275,7 +276,8 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
  * @returns {*}
  */
 const mergeCustomizer = (objValue, srcValue) => {
-  if (typeof objValue === "object" && typeof srcValue === "object") {
+  // The use of isPlainObject should disable merging of arrays, so keep that in mind.
+  if (isPlainObject(objValue) && isPlainObject(srcValue)) {
     return mergeWith(objValue, srcValue, mergeCustomizer);
   }
   return srcValue || objValue;
@@ -283,24 +285,34 @@ const mergeCustomizer = (objValue, srcValue) => {
 
 
 /**
- * Find an object by the parentId and using the key define a new value (or overwrite an old one).
+ * Find an object by the parentId and using the targetAddress define a new value (or overwrite an
+ * old one).
  *
- * Ex:  const data = { users: [{ id: "user1", fname: "John", lname: "Doe" }] }
- *      cacheNewObject(data, "user1", "lname", "Connor")
+ * Ex:  const data = { users: [{ id: "user1", fname: "John", lname: "Doe" }] };
+ *      cacheNewObject(data, "user1", "lname", "Connor");
  *      // data: { users: [{ id: "user1", fname: "John", lname: "Connor" }] }
+ *      const data2 = { a: { id: "a1", b: { c: "cat" } } };
+ *      cacheNewObject(data, "a1", "b.c", "dog");
+ *      // data2: { a: { id: "a1", b: { c: "dog" } } }
  *
  * @param data
  * @param parentId
- * @param key
+ * @param targetAddress
  * @param newValue
  * @param safe
  * @returns {boolean}
  */
-const cacheNewObject = (data, parentId, key, newValue, safe = false) => {
+const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false) => {
   const findResult = findRecursive(data, object => object.id === parentId);
   if (!findResult) return false;
-  if (findResult.target[key] && safe) return false; // Do not overwrite an existing value.
-  findResult.target[key] = newValue;
+
+  // Note: targetParentAddress ONLY becomes the address AFTER the targetKey has been pop()'d.
+  const targetParentAddress = typeof targetAddress === "string" ?
+    targetAddress.split(".") : targetAddress;
+  const targetKey = targetParentAddress.pop();
+  const targetParentObject = navigateObjectDots(findResult.target, targetParentAddress);
+  if (targetParentObject[targetKey] && safe) return false; // Do not overwrite an existing value.
+  targetParentObject[targetKey] = newValue;
   return true;
 };
 
@@ -330,13 +342,13 @@ const cacheUpdateObject = (data, targetId, updateObject) => {
  * There is a single limitation: Due to strict JavaScript rules the targetId cannot be the root
  * object. I think this isn't such a big problem as I cannot imagine ever needing to do this.
  *
- * Ex:  const data = { user: { id: "user1", fname: "John" } }
- *      cacheDeleteObject(data, "user1")
+ * Ex:  const data = { user: { id: "user1", fname: "John" } };
+ *      cacheDeleteObject(data, "user1");
  *      // data: { user: {} }
  *
  * Works for targets in Arrays as well!
- * Ex:  const data = { users: [{ id: "user1", fname: "John" }] }
- *      cacheDeleteObject(data, "user1")
+ * Ex:  const data = { users: [{ id: "user1", fname: "John" }] };
+ *      cacheDeleteObject(data, "user1");
  *      // data: { users: [] }
  *
  * @param data
@@ -363,22 +375,23 @@ const cacheDeleteObject = (data, targetId) => {
  * Add a value to the target object's specific array value by the target object's ID and the key
  * for the intended array.
  *
- * Ex:  const data = { user: { id: "user1", fname: "John", favoriteNumbers: [5, 9, 23] }
- *      cachePushIntoArray(data, "user1", "favoriteNumbers", 99)
+ * Ex:  const data = { user: { id: "user1", fname: "John", favoriteNumbers: [5, 9, 23] };
+ *      cachePushIntoArray(data, "user1", "favoriteNumbers", 99);
  *      // data: { user: { id: "user1", fname: "John", favoriteNumbers: [5, 9, 23, 99] }
  *
  * @param data
  * @param targetId
- * @param arrayKey
+ * @param targetAddress
  * @param newValue
  * @returns {boolean}
  */
-const cachePushIntoArray = (data, targetId, arrayKey, newValue) => {
+const cachePushIntoArray = (data, targetId, targetAddress, newValue) => {
   const findResult = findRecursive(data, object => object.id === targetId);
   if (!findResult) return false;
-  if (!findResult.target[arrayKey]) return false;
-  if (!Array.isArray(findResult.target[arrayKey])) return false;
-  findResult.target[arrayKey].push(newValue);
+  const targetArray = navigateObjectDots(findResult.target, targetAddress);
+  if (!targetArray) return false;
+  if (!Array.isArray(targetArray)) return false;
+  targetArray.push(newValue);
   return true;
 };
 
@@ -425,6 +438,39 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
 };
 
 
+/**
+ * Hacky but elegant recursive method to navigate objects with a string in dot notation or array of
+ * keys.
+ * Ex:  const object = { a: { b: { c: "cat" } } };
+ *      navigateObjectDots(object, "a");
+ *      // { b: { c: "cat" } }
+ *      navigateObjectDots(object, "a.b.c");
+ *      // "cat"
+ *      navigateObjectDots(object, "a.b.c.2");
+ *      // "t" (String digits work for arrays!)
+ *      navigateObjectDots(object, "a.foo");
+ *      // undefined
+ *      navigateObjectDots(object, "a.b.c.foo.bar");
+ *      // undefined
+ * @param object
+ * @param address
+ * @returns {*}
+ */
+const navigateObjectDots = (object, address) => {
+  if (address.length === 0) {
+    return object;
+  }
+
+  const addresses = typeof address === "string" ? address.split(".") : address;
+  const currentAddress = addresses.shift();
+  const currentObject = object[currentAddress];
+  if (currentObject !== undefined) {
+    return navigateObjectDots(currentObject, addresses);
+  }
+  return currentObject;
+};
+
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -439,4 +485,5 @@ export default {
   cacheDeleteObject,
   cachePushIntoArray,
   findRecursive,
+  navigateObjectDots,
 };

@@ -20,7 +20,7 @@ const UserDetailBasicsEditor = (props) => {
       mutation={UPDATE_USER_PROFILE_MUTATION}
       update={(cache, { data: { updateUserProfile } }) => {
         const data = cache.readQuery(props.queryInfo);
-        data.user = { ...data.user, ...updateUserProfile };
+        utils.cacheUpdateObject(data, userData.id, updateUserProfile);
         cache.writeQuery({
           ...props.queryInfo,
           data,

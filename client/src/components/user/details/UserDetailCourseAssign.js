@@ -2,6 +2,8 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 
+import utils from "../../../utils";
+
 import LoadingButton from "../../misc/LoadingButton";
 
 import {
@@ -23,7 +25,8 @@ class UserDetailCourseAssign extends PureComponent {
         mutation={COURSE_ASSIGN_MUTATION}
         update={(cache, { data: { assignStudentNewCourse } }) => {
           const data = cache.readQuery(this.props.queryInfo);
-          data.user.enrollment.courses.push(assignStudentNewCourse);
+          utils.cachePushIntoArray(data, this.props.studentId, "enrollment.courses",
+            assignStudentNewCourse);
           cache.writeQuery({
             ...this.props.queryInfo,
             data,
