@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 
+import utils from "../../../utils";
+
 import LoadingButton from "../../misc/LoadingButton";
 
 import {
@@ -12,14 +14,10 @@ const UserDetailEnroll = props => (
   <Mutation
     mutation={ENROLL_STUDENT_MUTATION}
     update={(cache, { data: { enrollStudent } }) => {
-      const data = cache.readQuery({
-        query: props.query,
-        variables: { userid: props.studentId },
-      });
-      data.user.enrollment = enrollStudent;
+      const data = cache.readQuery(props.queryInfo);
+      utils.cacheNewObject(data, props.studentId, "enrollment", enrollStudent);
       cache.writeQuery({
-        query: props.query,
-        variables: { userid: props.studentId },
+        ...props.queryInfo,
         data,
       });
     }}
@@ -37,7 +35,10 @@ const UserDetailEnroll = props => (
 
 UserDetailEnroll.propTypes = {
   studentId: PropTypes.string.isRequired,
-  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 export default UserDetailEnroll;

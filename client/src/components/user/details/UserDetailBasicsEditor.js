@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 
+import utils from "../../../utils";
+
 import UserDetailBasicsEditorForm from "./UserDetailBasicsEditorForm";
 
 import {
@@ -9,7 +11,7 @@ import {
 } from "../../../graphql/Mutations";
 
 const UserDetailBasicsEditor = (props) => {
-  if (!props.userData || !props.query) return null;
+  if (!props.userData) return null;
 
   const { userData } = props;
 
@@ -17,14 +19,10 @@ const UserDetailBasicsEditor = (props) => {
     <Mutation
       mutation={UPDATE_USER_PROFILE_MUTATION}
       update={(cache, { data: { updateUserProfile } }) => {
-        const data = cache.readQuery({
-          query: props.query,
-          variables: { userid: userData.id },
-        });
-        data.user = { ...data.user, ...updateUserProfile };
+        const data = cache.readQuery(props.queryInfo);
+        utils.cacheUpdateObject(data, userData.id, updateUserProfile);
         cache.writeQuery({
-          query: props.query,
-          variables: { userid: userData.id },
+          ...props.queryInfo,
           data,
         });
       }}
@@ -48,13 +46,15 @@ UserDetailBasicsEditor.propTypes = {
   userData: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }),
-  query: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
   closeEditor: PropTypes.func,
 };
 
 UserDetailBasicsEditor.defaultProps = {
   userData: null,
-  query: null,
   closeEditor: null,
 };
 

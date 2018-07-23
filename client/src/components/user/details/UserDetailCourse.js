@@ -16,7 +16,6 @@ const UserDetailCourse = (props) => {
     return (
       <UserDetailCourseDetails
         courseData={props.coursesData[0]}
-        query={props.query}
       />
     );
   } else {
@@ -29,7 +28,7 @@ const UserDetailCourse = (props) => {
           props.userTokenData.type >= USER_TYPE_MODERATOR) &&
           <UserDetailCourseAssign
             studentId={props.studentId}
-            query={props.query}
+            queryInfo={props.queryInfo}
           />
         }
       </div>
@@ -43,7 +42,10 @@ UserDetailCourse.propTypes = {
     masteries: PropTypes.array.isRequired,
     surveys: PropTypes.array.isRequired,
   })).isRequired,
-  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
   studentId: PropTypes.string.isRequired,
   userTokenData: PropTypes.shape({
     type: PropTypes.number.isRequired,

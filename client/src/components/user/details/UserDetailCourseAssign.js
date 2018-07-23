@@ -2,6 +2,8 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 
+import utils from "../../../utils";
+
 import LoadingButton from "../../misc/LoadingButton";
 
 import {
@@ -22,14 +24,11 @@ class UserDetailCourseAssign extends PureComponent {
       <Mutation
         mutation={COURSE_ASSIGN_MUTATION}
         update={(cache, { data: { assignStudentNewCourse } }) => {
-          const data = cache.readQuery({
-            query: this.props.query,
-            variables: { userid: this.props.studentId },
-          });
-          data.user.enrollment.courses.push(assignStudentNewCourse);
+          const data = cache.readQuery(this.props.queryInfo);
+          utils.cachePushIntoArray(data, this.props.studentId, "enrollment.courses",
+            assignStudentNewCourse);
           cache.writeQuery({
-            query: this.props.query,
-            variables: { userid: this.props.studentId },
+            ...this.props.queryInfo,
             data,
           });
         }}
@@ -69,7 +68,10 @@ class UserDetailCourseAssign extends PureComponent {
 
 UserDetailCourseAssign.propTypes = {
   studentId: PropTypes.string.isRequired,
-  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 export default UserDetailCourseAssign;

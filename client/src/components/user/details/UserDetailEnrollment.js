@@ -20,7 +20,7 @@ const UserDetailEnrollment = (props) => {
     return (
       <UserDetailEnrollmentDetails
         enrollmentData={{ ...enrollment, student: { id: userData.id } }}
-        query={props.query}
+        queryInfo={props.queryInfo}
       />
     );
   // Only show Enroll button for students.
@@ -32,7 +32,7 @@ const UserDetailEnrollment = (props) => {
         {(userData.id === userTokenData.id || userTokenData.type >= USER_TYPE_MODERATOR) &&
           <UserDetailEnroll
             studentId={userData.id}
-            query={props.query}
+            queryInfo={props.queryInfo}
           />
         }
       </div>
@@ -51,16 +51,14 @@ UserDetailEnrollment.propTypes = {
       courses: PropTypes.array,
     }),
   }),
-  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
   userTokenData: PropTypes.shape({
     type: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
   }).isRequired,
-};
-
-UserDetailEnrollment.defaultProps = {
-  enrollmentData: null,
-  query: null,
 };
 
 export default withAuth(UserDetailEnrollment);  // provide access to userTokenData
