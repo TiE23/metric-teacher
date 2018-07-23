@@ -292,14 +292,14 @@ const mergeCustomizer = (objValue, srcValue) => {
  *      cacheNewObject(data, "user1", "lname", "Connor");
  *      // data: { users: [{ id: "user1", fname: "John", lname: "Connor" }] }
  *      const data2 = { a: { id: "a1", b: { c: "cat" } } };
- *      cacheNewObject(data, "a1", "b.c", "dog");
+ *      cacheNewObject(data2, "a1", "b.c", "dog");
  *      // data2: { a: { id: "a1", b: { c: "dog" } } }
  *
  * @param data
  * @param parentId
  * @param targetAddress
  * @param newValue
- * @param safe
+ * @param safe - false, set to true to prevent overwriting existing values
  * @returns {boolean}
  */
 const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false) => {
@@ -310,8 +310,9 @@ const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false) =
   const targetParentAddress = typeof targetAddress === "string" ?
     targetAddress.split(".") : targetAddress;
   const targetKey = targetParentAddress.pop();
+  if (!targetKey) return false; // There was no key provided.
   const targetParentObject = navigateObjectDots(findResult.target, targetParentAddress);
-  if (targetParentObject[targetKey] && safe) return false; // Do not overwrite an existing value.
+  if (targetParentObject[targetKey] && safe) return false;
   targetParentObject[targetKey] = newValue;
   return true;
 };
@@ -323,16 +324,22 @@ const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false) =
  * Ex:  const data = { users: [{ id: "user1", fname: "John" }] }
  *      cacheUpdateObject(data, "user1", { fname: "Sarah", lname: "Connor" })
  *      // data: { users: [{ id: "user1", fname: "Sarah", lname: "Connor" }] }
+ *      const data2 = { a: { id: "a1", b: { c: "cat" } } };
+ *      cacheNewObject(data2, "a1", "dog", "b.c");
+ *      // data2: { a: { id: "a1", b: { c: "dog" } } }
  *
  * @param data
  * @param targetId
  * @param updateObject
+ * @param targetAddress - leave unset to update the targetId object
  * @returns {boolean}
  */
-const cacheUpdateObject = (data, targetId, updateObject) => {
+const cacheUpdateObject = (data, targetId, updateObject, targetAddress = []) => {
   const findResult = findRecursive(data, object => object.id === targetId);
   if (!findResult) return false;
-  mergeWith(findResult.target, updateObject, mergeCustomizer);
+  const targetObject = navigateObjectDots(findResult.target, targetAddress);
+  if (!targetObject) return false;  // Object was not found at this address.
+  mergeWith(targetObject, updateObject, mergeCustomizer);
   return true;
 };
 
