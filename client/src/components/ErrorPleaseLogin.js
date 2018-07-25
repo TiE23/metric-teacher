@@ -36,7 +36,9 @@ ErrorPleaseLogin.propTypes = {
     message: PropTypes.string,
   }),
   showLoginLinks: PropTypes.bool,
-  location: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
   history: PropTypes.shape({
     goBack: PropTypes.func.isRequired,
   }).isRequired,

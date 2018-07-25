@@ -16,6 +16,7 @@ const UserDetailCourse = (props) => {
     return (
       <UserDetailCourseDetails
         courseData={props.coursesData[0]}
+        queryInfo={props.queryInfo}
       />
     );
   } else {

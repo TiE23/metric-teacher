@@ -7,8 +7,9 @@ import {
   USER_TYPE_MODERATOR,
 } from "../../../constants";
 
+import UserDetailCourse from "./UserDetailCourse";
+import Enrollment from "../../enrollment/Enrollment";
 import UserDetailEnroll from "./UserDetailEnroll";
-import UserDetailEnrollmentDetails from "./UserDetailEnrollmentDetails";
 
 const UserDetailEnrollment = (props) => {
   if (!props.userData) return null;
@@ -18,10 +19,16 @@ const UserDetailEnrollment = (props) => {
 
   if (enrollment) {
     return (
-      <UserDetailEnrollmentDetails
-        enrollmentData={{ ...enrollment, student: { id: userData.id } }}
-        queryInfo={props.queryInfo}
-      />
+      <div>
+        <Enrollment
+          enrollmentData={enrollment}
+        />
+        <UserDetailCourse
+          coursesData={enrollment.courses}
+          studentId={userData.id}
+          queryInfo={props.queryInfo}
+        />
+      </div>
     );
   // Only show Enroll button for students.
   } else if (userData.type === 0) {
@@ -47,7 +54,6 @@ UserDetailEnrollment.propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.number.isRequired,
     enrollment: PropTypes.shape({
-      id: PropTypes.string.isRequired,
       courses: PropTypes.array,
     }),
   }),

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import UserDetailMastery from "./UserDetailMastery";
+import Mastery from "../../mastery/Mastery";
 
 const UserDetailMasteries = (props) => {
   if (props.masteries.length) {
@@ -9,7 +9,9 @@ const UserDetailMasteries = (props) => {
       <div>
         <ul>
           {props.masteries.map(mastery => (
-            <UserDetailMastery key={mastery.id} mastery={mastery} />
+            <li key={mastery.id}>
+              <Mastery masteryData={mastery} queryInfo={props.queryInfo} />
+            </li>
           ))}
         </ul>
       </div>
@@ -27,6 +29,10 @@ UserDetailMasteries.propTypes = {
   masteries: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
   })).isRequired,
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 export default UserDetailMasteries;
