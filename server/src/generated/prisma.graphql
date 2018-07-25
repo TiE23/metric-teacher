@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Tue Jul 17 2018 15:58:53 GMT-0700 (Pacific Daylight Time)
+# timestamp: Wed Jul 25 2018 15:28:20 GMT-0700 (Pacific Daylight Time)
 
 type AggregateClassroom {
   count: Int!
@@ -2736,9 +2736,6 @@ input QuestionWhereInput {
   feedback_none: FeedbackWhereInput
   author: UserWhereInput
   reviewer: UserWhereInput
-  _MagicalBackRelation_SurveyToQuestion_every: SurveyWhereInput
-  _MagicalBackRelation_SurveyToQuestion_some: SurveyWhereInput
-  _MagicalBackRelation_SurveyToQuestion_none: SurveyWhereInput
 }
 
 input QuestionWhereUniqueInput {
