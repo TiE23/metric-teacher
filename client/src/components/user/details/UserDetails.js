@@ -27,6 +27,7 @@ class UserDetails extends PureComponent {
       <Query
         query={USER_DETAILS_QUERY}
         variables={{ userid: this.props.userId }}
+        fetchPolicy="network-only"  // Always have the freshest data available.
       >
         {queryProps => (
           <QueryHandler

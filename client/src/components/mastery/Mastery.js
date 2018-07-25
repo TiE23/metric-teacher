@@ -1,17 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import MasteryToggle from "./MasteryToggle";
 
 const Mastery = (props) => {
   const { masteryData } = props;
   return (
     <span>
-      ----Mastery ({masteryData.id})- Status: {masteryData.status} - Score: {masteryData.score}
-      <MasteryToggle
-        queryInfo={props.queryInfo}
-        masteryId={masteryData.id}
-        masteryCurrentStatus={masteryData.status}
-      />
+      <b>Mastery</b>: ({masteryData.id})- Status: {masteryData.status} - Score: {masteryData.score}
+      {props.queryInfo &&
+        <MasteryToggle
+          queryInfo={props.queryInfo}
+          masteryId={masteryData.id}
+          masteryCurrentStatus={masteryData.status}
+        />
+      }
     </span>
   );
 };
@@ -25,7 +28,11 @@ Mastery.propTypes = {
   queryInfo: PropTypes.shape({
     query: PropTypes.object.isRequired,
     variables: PropTypes.object.isRequired,
-  }).isRequired,
+  }),
+};
+
+Mastery.defaultProps = {
+  queryInfo: null,
 };
 
 export default Mastery;

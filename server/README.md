@@ -311,7 +311,7 @@ QuestionAnswerInput: {
 
 #### Subject Queries
 * `allSubjects: [Subject]!`
-    * Get a list of all Subjects. For logged-in and normal users only.
+    * Get a list of all Subjects. Available to the public.
 * `subject(subjectid: ID!): Subject`
     * Get a Subject by a single ID. For logged-in and normal users only.
 * `subjects(subjectids: [ID!]!): [Subject]!`

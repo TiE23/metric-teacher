@@ -7,12 +7,11 @@ const Subject = (props) => {
   const { subjectData } = props;
 
   return (
-    <div>Subject: {subjectData.name} ({subjectData.id})
+    <div><b>Subject</b>: {subjectData.name} ({subjectData.id})
       <br />
       <SubSubjectsList
         subSubjectsData={subjectData.subSubjects}
         queryInfo={props.queryInfo}
-        studentId={props.studentId}
       />
     </div>
   );
@@ -28,11 +27,6 @@ Subject.propTypes = {
     query: PropTypes.object.isRequired,
     variables: PropTypes.object.isRequired,
   }).isRequired,
-  studentId: PropTypes.string,
-};
-
-Subject.defaultProps = {
-  studentId: null,
 };
 
 export default Subject;
