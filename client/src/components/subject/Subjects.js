@@ -12,11 +12,12 @@ import {
 
 const Subjects = (props) => {
   const query = props.studentId ? SUBJECT_DETAILS_STUDENT_QUERY : SUBJECT_DETAILS_PUBLIC_QUERY;
+  const queryName = props.studentId ? "subjectSearch" : "allSubjects";
 
   return (
     <Query
       query={query}
-      variables={{ studentid: props.studentId }}
+      variables={{ studentid: props.studentId }}  // This is ignored for Public query.
     >
       {queryProps => (
         <QueryHandler
@@ -24,9 +25,8 @@ const Subjects = (props) => {
           query={query}
         >
           <SubjectsList
-            subjectsData={queryProps.data.subjectSearch}
+            subjectsData={queryProps.data[queryName]}
             queryInfo={{ query, variables: queryProps.variables }}
-            studentId={props.studentId}
           />
         </QueryHandler>
       )}

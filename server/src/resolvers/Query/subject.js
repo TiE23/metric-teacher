@@ -13,7 +13,7 @@ const {
 
 const subject = {
   /**
-   * Get a list of all Subjects. For logged-in and normal users only.
+   * Get a list of all Subjects. Available to the publc.
    * @param parent
    * @param args
    *        (NONE)
@@ -22,13 +22,6 @@ const subject = {
    * @returns [Subject]!
    */
   async allSubjects(parent, args, ctx, info) {
-    // Must be logged in and normal
-    await checkAuth(ctx, {
-      type: USER_TYPE_STUDENT,
-      status: USER_STATUS_NORMAL,
-      action: "allSubjects",
-    });
-
     return ctx.db.query.subjects({}, info);
   },
 

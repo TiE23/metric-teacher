@@ -56,7 +56,7 @@ export const USER_DETAILS_QUERY = gql`
 
 export const SUBJECT_DETAILS_PUBLIC_QUERY = gql`
   query SubjectDetailsPublicQuery {
-    subjectSearch {
+    allSubjects {
       ...SubjectDataAll
       subSubjects {
         ...SubSubjectDataAll

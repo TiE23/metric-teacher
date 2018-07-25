@@ -12,7 +12,6 @@ const SubjectsList = (props) => {
         key={subjectData.id}
         subjectData={subjectData}
         queryInfo={props.queryInfo}
-        studentId={props.studentId}
       />
     ))
   );
@@ -26,12 +25,10 @@ SubjectsList.propTypes = {
     query: PropTypes.object.isRequired,
     variables: PropTypes.object.isRequired,
   }),
-  studentId: PropTypes.string,
 };
 
 SubjectsList.defaultProps = {
   subjectsData: null,
-  studentId: null,
 };
 
 export default SubjectsList;
