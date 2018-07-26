@@ -33,7 +33,7 @@ const MasteriesList = (props) => {
 
   return (
     <Accordion
-      defaultActiveIndex={-1}
+      defaultActiveIndex={props.defaultActiveIndex}
       panels={masteryPanels}
       styled
     />
@@ -48,10 +48,12 @@ MasteriesList.propTypes = {
     }).isRequired,
   }).isRequired).isRequired,
   queryInfo: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
+  defaultActiveIndex: PropTypes.number,
 };
 
 MasteriesList.defaultProps = {
   queryInfo: null,
+  defaultActiveIndex: -1,
 };
 
 export default MasteriesList;
