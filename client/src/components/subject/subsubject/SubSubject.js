@@ -1,15 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SubSubject = props =>  (
-  <p>
-    {props.subSubjectData.description}
-  </p>
+const SubSubject = props => (
+  <div>
+    <b>SubSubject</b>: {props.subSubjectData.name} ({props.subSubjectData.id})
+  </div>
 );
 
 SubSubject.propTypes = {
   subSubjectData: PropTypes.shape({
-    description: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    masteries: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
 

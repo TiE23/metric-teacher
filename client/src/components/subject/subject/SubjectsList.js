@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Accordion } from "semantic-ui-react";
 
-import Subject from "./Subject";
+import SubSubjectsList from "../subsubject/SubSubjectsList";
 
 const SubjectsList = (props) => {
   if (!props.subjectsData) return null;
@@ -11,7 +11,17 @@ const SubjectsList = (props) => {
     {
       key: subjectData.id,
       title: subjectData.name,
-      content: { content: (<Subject subjectData={subjectData} queryInfo={props.queryInfo} />) },
+      content: { content: (
+        <div>
+          <p>
+            {subjectData.description}
+          </p>
+          <SubSubjectsList
+            subSubjectsData={subjectData.subSubjects}
+            queryInfo={props.queryInfo}
+          />
+        </div>
+      ) },
     }
   ));
 
@@ -28,6 +38,7 @@ SubjectsList.propTypes = {
   subjectsData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
   })),
   queryInfo: PropTypes.shape({
     query: PropTypes.object.isRequired,

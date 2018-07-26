@@ -8,7 +8,6 @@ import {
   MASTERY_STATUS_INACTIVE,
 } from "../../../constants";
 
-import SubSubject from "./SubSubject";
 import Mastery from "../../mastery/Mastery";
 import MasteryAssign from "../../mastery/MasteryAssign";
 
@@ -36,10 +35,10 @@ const SubSubjectsList = (props) => {
       key: subSubjectData.id,
       title,
       content: { content: (
-        <div key={subSubjectData.id}>
-          <SubSubject
-            subSubjectData={subSubjectData}
-          />
+        <div>
+          <p>
+            {subSubjectData.description}
+          </p>
           {mastery &&
           <Mastery
             queryInfo={props.queryInfo}
@@ -70,6 +69,7 @@ const SubSubjectsList = (props) => {
 SubSubjectsList.propTypes = {
   subSubjectsData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     masteries: PropTypes.array,
   })).isRequired,
   queryInfo: PropTypes.shape({
