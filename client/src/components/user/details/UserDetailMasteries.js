@@ -1,29 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Mastery from "../../mastery/Mastery";
-import SubSubject from "../../subject/subsubject/SubSubject";
+import MasteriesList from "../../mastery/MasteriesList";
 
 const UserDetailMasteries = (props) => {
   if (props.masteries.length) {
     return (
-      <div>
-        <ul>
-          {props.masteries.map(mastery => (
-            <li key={mastery.id}>
-              <Mastery
-                masteryData={mastery}
-                queryInfo={props.queryInfo}
-              />
-              {mastery.subSubject &&
-                <SubSubject
-                  subSubjectData={mastery.subSubject}
-                />
-              }
-            </li>
-          ))}
-        </ul>
-      </div>
+      <MasteriesList
+        masteriesData={props.masteries}
+      />
     );
   } else {
     return (

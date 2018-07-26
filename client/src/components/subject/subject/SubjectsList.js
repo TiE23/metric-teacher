@@ -14,6 +14,8 @@ const SubjectsList = (props) => {
       content: { content: (
         <div>
           <p>
+            {subjectData.measurementDescription}
+            <br />
             {subjectData.description}
           </p>
           <SubSubjectsList
@@ -39,6 +41,7 @@ SubjectsList.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    measurementDescription: PropTypes.string.isRequired,
   })),
   queryInfo: PropTypes.shape({
     query: PropTypes.object.isRequired,
