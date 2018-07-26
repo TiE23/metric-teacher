@@ -27,6 +27,7 @@ const Subjects = (props) => {
           <SubjectsList
             subjectsData={queryProps.data[queryName]}
             queryInfo={{ query, variables: queryProps.variables }}
+            compactView
           />
         </QueryHandler>
       )}
