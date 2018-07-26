@@ -9,9 +9,7 @@ import {
   MASTERY_MAX_SCORE,
 } from "../../../constants";
 
-import SubSubject from "./SubSubject";
-import Mastery from "../../mastery/Mastery";
-import MasteryAssign from "../../mastery/MasteryAssign";
+import MasteryAndSubSubject from "../../mastery/MasteryAndSubSubject";
 
 const SubSubjectsList = (props) => {
   const subSubjectPanels = props.subSubjectsData.map((subSubjectData) => {
@@ -33,32 +31,16 @@ const SubSubjectsList = (props) => {
     const title = `${utils.firstLetterCap(subSubjectData.scale)}-scale - ${subSubjectData.toMetric ?
       "To Metric" : "To Imperial"}${masteryTitleString ? ` - ${masteryTitleString}` : ""}`;
 
-
     return ({
       key: subSubjectData.id,
       title,
       content: {
         content: (
-          <div>
-            <SubSubject subSubjectData={subSubjectData} />
-            {masteryData &&
-            <Mastery
-              queryInfo={props.queryInfo}
-              masteryData={masteryData}
-            />
-            }
-            {!masteryData && props.queryInfo && props.queryInfo.variables.studentid &&
-            <MasteryAssign
-              queryInfo={props.queryInfo}
-              subSubjectId={subSubjectData.id}
-              studentId={props.queryInfo.variables.studentid}
-              buttonProps={{
-                primary: true,
-                fluid: true,
-              }}
-            />
-            }
-          </div>
+          <MasteryAndSubSubject
+            subSubjectData={subSubjectData}
+            masteryData={masteryData}
+            queryInfo={props.queryInfo}
+          />
         ),
         key: subSubjectData.id,
       },

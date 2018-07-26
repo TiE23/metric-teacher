@@ -7,7 +7,7 @@ import {
   MASTERY_MAX_SCORE,
 } from "../../constants";
 
-import MasteryListItem from "./MasteryListItem";
+import MasteryAndSubSubject from "./MasteryAndSubSubject";
 
 const MasteriesList = (props) => {
   const { masteriesData } = props;
@@ -20,7 +20,7 @@ const MasteriesList = (props) => {
       title,
       content: {
         content: (
-          <MasteryListItem
+          <MasteryAndSubSubject
             masteryData={masteryData}
             queryInfo={props.queryInfo}
             subSubjectData={masteryData.subSubject}

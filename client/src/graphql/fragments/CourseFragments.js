@@ -21,7 +21,7 @@ export const CourseForUserDetails = gql`
         honorific
       }
     }
-    masteries {
+    masteries(orderBy: createdAt_ASC) {
       ...MasteryDataAll
       subSubject {
         ...SubSubjectDataAll
