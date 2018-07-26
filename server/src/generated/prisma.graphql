@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Wed Jul 25 2018 15:28:20 GMT-0700 (Pacific Daylight Time)
+# timestamp: Wed Jul 25 2018 21:15:19 GMT-0700 (Pacific Daylight Time)
 
 type AggregateClassroom {
   count: Int!
@@ -2748,6 +2748,7 @@ type Subject implements Node {
   updatedAt: DateTime!
   name: String!
   description: String!
+  media: String
   measurementDescription: String!
   subSubjects(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject!]
 }
@@ -2765,6 +2766,7 @@ type SubjectConnection {
 input SubjectCreateInput {
   name: String!
   description: String!
+  media: String
   measurementDescription: String!
   subSubjects: SubSubjectCreateManyWithoutParentInput
 }
@@ -2777,6 +2779,7 @@ input SubjectCreateOneWithoutSubSubjectsInput {
 input SubjectCreateWithoutSubSubjectsInput {
   name: String!
   description: String!
+  media: String
   measurementDescription: String!
 }
 
@@ -2800,6 +2803,8 @@ enum SubjectOrderByInput {
   name_DESC
   description_ASC
   description_DESC
+  media_ASC
+  media_DESC
   measurementDescription_ASC
   measurementDescription_DESC
 }
@@ -2810,6 +2815,7 @@ type SubjectPreviousValues {
   updatedAt: DateTime!
   name: String!
   description: String!
+  media: String
   measurementDescription: String!
 }
 
@@ -2855,6 +2861,7 @@ input SubjectSubscriptionWhereInput {
 input SubjectUpdateInput {
   name: String
   description: String
+  media: String
   measurementDescription: String
   subSubjects: SubSubjectUpdateManyWithoutParentInput
 }
@@ -2870,6 +2877,7 @@ input SubjectUpdateOneWithoutSubSubjectsInput {
 input SubjectUpdateWithoutSubSubjectsDataInput {
   name: String
   description: String
+  media: String
   measurementDescription: String
 }
 
@@ -3051,6 +3059,46 @@ input SubjectWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  media: String
+
+  """All values that are not equal to given value."""
+  media_not: String
+
+  """All values that are contained in given list."""
+  media_in: [String!]
+
+  """All values that are not contained in given list."""
+  media_not_in: [String!]
+
+  """All values less than the given value."""
+  media_lt: String
+
+  """All values less than or equal the given value."""
+  media_lte: String
+
+  """All values greater than the given value."""
+  media_gt: String
+
+  """All values greater than or equal the given value."""
+  media_gte: String
+
+  """All values containing the given string."""
+  media_contains: String
+
+  """All values not containing the given string."""
+  media_not_contains: String
+
+  """All values starting with the given string."""
+  media_starts_with: String
+
+  """All values not starting with the given string."""
+  media_not_starts_with: String
+
+  """All values ending with the given string."""
+  media_ends_with: String
+
+  """All values not ending with the given string."""
+  media_not_ends_with: String
   measurementDescription: String
 
   """All values that are not equal to given value."""
@@ -3120,6 +3168,7 @@ type SubSubject implements Node {
   updatedAt: DateTime!
   name: String!
   description: String!
+  media: String
   toMetric: Boolean!
   rarity: Int!
   scale: String!
@@ -3141,6 +3190,7 @@ type SubSubjectConnection {
 input SubSubjectCreateInput {
   name: String!
   description: String!
+  media: String
   toMetric: Boolean!
   rarity: Int!
   scale: String!
@@ -3167,6 +3217,7 @@ input SubSubjectCreateOneWithoutQuestionsInput {
 input SubSubjectCreateWithoutMasteriesInput {
   name: String!
   description: String!
+  media: String
   toMetric: Boolean!
   rarity: Int!
   scale: String!
@@ -3177,6 +3228,7 @@ input SubSubjectCreateWithoutMasteriesInput {
 input SubSubjectCreateWithoutParentInput {
   name: String!
   description: String!
+  media: String
   toMetric: Boolean!
   rarity: Int!
   scale: String!
@@ -3187,6 +3239,7 @@ input SubSubjectCreateWithoutParentInput {
 input SubSubjectCreateWithoutQuestionsInput {
   name: String!
   description: String!
+  media: String
   toMetric: Boolean!
   rarity: Int!
   scale: String!
@@ -3214,6 +3267,8 @@ enum SubSubjectOrderByInput {
   name_DESC
   description_ASC
   description_DESC
+  media_ASC
+  media_DESC
   toMetric_ASC
   toMetric_DESC
   rarity_ASC
@@ -3228,6 +3283,7 @@ type SubSubjectPreviousValues {
   updatedAt: DateTime!
   name: String!
   description: String!
+  media: String
   toMetric: Boolean!
   rarity: Int!
   scale: String!
@@ -3275,6 +3331,7 @@ input SubSubjectSubscriptionWhereInput {
 input SubSubjectUpdateInput {
   name: String
   description: String
+  media: String
   toMetric: Boolean
   rarity: Int
   scale: String
@@ -3311,6 +3368,7 @@ input SubSubjectUpdateOneWithoutQuestionsInput {
 input SubSubjectUpdateWithoutMasteriesDataInput {
   name: String
   description: String
+  media: String
   toMetric: Boolean
   rarity: Int
   scale: String
@@ -3321,6 +3379,7 @@ input SubSubjectUpdateWithoutMasteriesDataInput {
 input SubSubjectUpdateWithoutParentDataInput {
   name: String
   description: String
+  media: String
   toMetric: Boolean
   rarity: Int
   scale: String
@@ -3331,6 +3390,7 @@ input SubSubjectUpdateWithoutParentDataInput {
 input SubSubjectUpdateWithoutQuestionsDataInput {
   name: String
   description: String
+  media: String
   toMetric: Boolean
   rarity: Int
   scale: String
@@ -3532,6 +3592,46 @@ input SubSubjectWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  media: String
+
+  """All values that are not equal to given value."""
+  media_not: String
+
+  """All values that are contained in given list."""
+  media_in: [String!]
+
+  """All values that are not contained in given list."""
+  media_not_in: [String!]
+
+  """All values less than the given value."""
+  media_lt: String
+
+  """All values less than or equal the given value."""
+  media_lte: String
+
+  """All values greater than the given value."""
+  media_gt: String
+
+  """All values greater than or equal the given value."""
+  media_gte: String
+
+  """All values containing the given string."""
+  media_contains: String
+
+  """All values not containing the given string."""
+  media_not_contains: String
+
+  """All values starting with the given string."""
+  media_starts_with: String
+
+  """All values not starting with the given string."""
+  media_not_starts_with: String
+
+  """All values ending with the given string."""
+  media_ends_with: String
+
+  """All values not ending with the given string."""
+  media_not_ends_with: String
   toMetric: Boolean
 
   """All values that are not equal to given value."""

@@ -11,16 +11,30 @@ import {
 
 const Mastery = (props) => {
   const { masteryData } = props;
+
+  const masteryQuarters = MASTERY_MAX_SCORE / 4;
+  let masteryColor;
+
+  if (masteryData.score < masteryQuarters) masteryColor = "red";
+  else if (masteryData.score < masteryQuarters * 2) masteryColor = "orange";
+  else if (masteryData.score < masteryQuarters * 3) masteryColor = "yellow";
+  else if (masteryData.score < masteryQuarters * 4) masteryColor = "olive";
+  else masteryColor = "green";
+
+  const color = masteryData.status === MASTERY_STATUS_ACTIVE ? masteryColor : "grey";
+
   return (
-    <Segment>
+    <Segment
+      color={color}
+    >
       <Progress
         progress="percent"
         value={masteryData.score}
         total={MASTERY_MAX_SCORE}
-        color={masteryData.status === MASTERY_STATUS_ACTIVE ? "olive" : "red"}
+        color={color}
         active={masteryData.status === MASTERY_STATUS_ACTIVE}
       >
-        Mastery <i>{masteryData.score}/{MASTERY_MAX_SCORE}</i>
+        Mastery {masteryData.score}/{MASTERY_MAX_SCORE}
       </Progress>
       {props.queryInfo &&
         <MasteryToggle

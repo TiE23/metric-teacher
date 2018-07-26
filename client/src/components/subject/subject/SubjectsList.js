@@ -29,7 +29,7 @@ const SubjectsList = (props) => {
 
   return (
     <Accordion
-      defaultActiveIndex={-1}
+      defaultActiveIndex={props.defaultActiveIndex}
       panels={subjectPanels}
       styled
     />
@@ -48,11 +48,13 @@ SubjectsList.propTypes = {
     query: PropTypes.object.isRequired,
     variables: PropTypes.object.isRequired,
   }),
+  defaultActiveIndex: PropTypes.number,
 };
 
 SubjectsList.defaultProps = {
   subjectsData: null,
   queryInfo: null,
+  defaultActiveIndex: -1,
 };
 
 export default SubjectsList;

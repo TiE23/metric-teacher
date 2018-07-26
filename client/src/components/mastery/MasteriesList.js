@@ -4,7 +4,6 @@ import { Accordion, Segment } from "semantic-ui-react";
 
 import {
   MASTERY_STATUS_ACTIVE,
-  MASTERY_STATUS_INACTIVE,
   MASTERY_MAX_SCORE,
 } from "../../constants";
 
@@ -15,34 +14,27 @@ const MasteriesList = (props) => {
   const { masteriesData } = props;
 
   const masteryPanels = masteriesData.map((masteryData) => {
-    let masteryTitleString = "";
-
-    if (masteryData.status === MASTERY_STATUS_ACTIVE) {
-      masteryTitleString = "Active";
-    } else if (masteryData.status === MASTERY_STATUS_INACTIVE) {
-      masteryTitleString = "Inactive";
-    } else {
-      masteryTitleString = "Unassigned";
-    }
-
-    const title = `${masteryData.subSubject.name} - ${(masteryData.score / MASTERY_MAX_SCORE) * 100}% Mastered - ${masteryTitleString}`;
+    const title = `${masteryData.subSubject.name} - ${(masteryData.score / MASTERY_MAX_SCORE) * 100}% Mastered - ${masteryData.status === MASTERY_STATUS_ACTIVE ? "Active" : "Inactive"}`;
 
     return ({
       key: masteryData.id,
       title,
-      content: { content: (
-        <Segment>
-          {masteryData.subSubject &&
-          <SubSubject
-            subSubjectData={masteryData.subSubject}
-          />
-          }
-          <Mastery
-            masteryData={masteryData}
-            queryInfo={props.queryInfo}
-          />
-        </Segment>
-      ) },
+      content: {
+        content: (
+          <Segment>
+            {masteryData.subSubject &&
+            <SubSubject
+              subSubjectData={masteryData.subSubject}
+            />
+            }
+            <Mastery
+              masteryData={masteryData}
+              queryInfo={props.queryInfo}
+            />
+          </Segment>
+        ),
+        key: masteryData.id,
+      },
     });
   });
 
@@ -56,12 +48,12 @@ const MasteriesList = (props) => {
 };
 
 MasteriesList.propTypes = {
-  masteriesData: PropTypes.shape({
+  masteriesData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     subSubject: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,
-  }).isRequired,
+  }).isRequired).isRequired,
   queryInfo: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
 };
 

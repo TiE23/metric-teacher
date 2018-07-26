@@ -6,6 +6,7 @@ import utils from "../../../utils";
 import {
   MASTERY_STATUS_ACTIVE,
   MASTERY_STATUS_INACTIVE,
+  MASTERY_MAX_SCORE,
 } from "../../../constants";
 
 import SubSubject from "./SubSubject";
@@ -17,14 +18,16 @@ const SubSubjectsList = (props) => {
     const masteryData = subSubjectData.masteries && subSubjectData.masteries.length !== 0 ?
       subSubjectData.masteries[0] : null;
 
-    let masteryTitleString = "";
+    let masteryTitleString;
 
-    if (masteryData && masteryData.status === MASTERY_STATUS_ACTIVE) {
-      masteryTitleString = "Active";
+    if (!props.queryInfo || !props.queryInfo.variables.studentid) {
+      masteryTitleString = "";
+    } else if (masteryData && masteryData.status === MASTERY_STATUS_ACTIVE) {
+      masteryTitleString = `${(masteryData.score / MASTERY_MAX_SCORE) * 100}% Mastered - Active`;
     } else if (masteryData && masteryData.status === MASTERY_STATUS_INACTIVE) {
-      masteryTitleString = "Inactive";
+      masteryTitleString = `${(masteryData.score / MASTERY_MAX_SCORE) * 100}% Mastered - Inactive`;
     } else {
-      masteryTitleString = "Unassigned";
+      masteryTitleString = "Not Assigned";
     }
 
     const title = `${utils.firstLetterCap(subSubjectData.scale)}-scale - ${subSubjectData.toMetric ?
@@ -64,7 +67,7 @@ const SubSubjectsList = (props) => {
 
   return (
     <Accordion
-      defaultActiveIndex={-1}
+      defaultActiveIndex={props.defaultActiveIndex}
       panels={subSubjectPanels}
       styled
     />
@@ -83,10 +86,12 @@ SubSubjectsList.propTypes = {
       studentid: PropTypes.string,
     }),
   }),
+  defaultActiveIndex: PropTypes.number,
 };
 
 SubSubjectsList.defaultProps = {
   queryInfo: null,
+  defaultActiveIndex: -1,
 };
 
 export default SubSubjectsList;
