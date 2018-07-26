@@ -34,26 +34,29 @@ const SubSubjectsList = (props) => {
     return ({
       key: subSubjectData.id,
       title,
-      content: { content: (
-        <div>
-          <p>
-            {subSubjectData.description}
-          </p>
-          {mastery &&
-          <Mastery
-            queryInfo={props.queryInfo}
-            masteryData={mastery}
-          />
-          }
-          {!mastery && props.queryInfo && props.queryInfo.variables.studentid &&
-          <MasteryAssign
-            queryInfo={props.queryInfo}
-            subSubjectId={subSubjectData.id}
-            studentId={props.queryInfo.variables.studentid}
-          />
-          }
-        </div>
-      ) },
+      content: {
+        content: (
+          <div>
+            <p>
+              {subSubjectData.description}
+            </p>
+            {mastery &&
+            <Mastery
+              queryInfo={props.queryInfo}
+              masteryData={mastery}
+            />
+            }
+            {!mastery && props.queryInfo && props.queryInfo.variables.studentid &&
+            <MasteryAssign
+              queryInfo={props.queryInfo}
+              subSubjectId={subSubjectData.id}
+              studentId={props.queryInfo.variables.studentid}
+            />
+            }
+          </div>
+        ),
+        key: subSubjectData.id,
+      },
     });
   });
 

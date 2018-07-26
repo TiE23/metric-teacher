@@ -11,19 +11,22 @@ const SubjectsList = (props) => {
     {
       key: subjectData.id,
       title: subjectData.name,
-      content: { content: (
-        <div>
-          <p>
-            {subjectData.measurementDescription}
-            <br />
-            {subjectData.description}
-          </p>
-          <SubSubjectsList
-            subSubjectsData={subjectData.subSubjects}
-            queryInfo={props.queryInfo}
-          />
-        </div>
-      ) },
+      content: {
+        content: (
+          <div>
+            <p>
+              {subjectData.measurementDescription}
+              <br />
+              {subjectData.description}
+            </p>
+            <SubSubjectsList
+              subSubjectsData={subjectData.subSubjects}
+              queryInfo={props.queryInfo}
+            />
+          </div>
+        ),
+        key: subjectData.id,
+      },
     }
   ));
 
