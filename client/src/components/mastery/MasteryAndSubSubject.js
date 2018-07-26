@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Segment } from "semantic-ui-react";
 
 import SubSubject from "../subject/subsubject/SubSubject";
 import Mastery from "./Mastery";
 import MasteryAssign from "./MasteryAssign";
 
 const MasteryAndSubSubject = props => (
-  <Segment>
+  <div>
     {props.subSubjectData &&
     <SubSubject
       subSubjectData={props.subSubjectData}
@@ -31,7 +30,7 @@ const MasteryAndSubSubject = props => (
         }}
       />
     }
-  </Segment>
+  </div>
 );
 
 MasteryAndSubSubject.propTypes = {

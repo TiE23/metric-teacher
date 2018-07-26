@@ -25,6 +25,7 @@ const Mastery = (props) => {
 
   return (
     <Segment
+      attached
       color={color}
     >
       <Progress

@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Segment } from "semantic-ui-react";
 
 const SubSubject = props => (
-  <p>
+  <Segment attached>
     {props.subSubjectData.description}
-  </p>
+  </Segment>
 );
 
 SubSubject.propTypes = {
