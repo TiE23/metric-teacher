@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Accordion, Segment } from "semantic-ui-react";
+import { Accordion } from "semantic-ui-react";
 
 import {
   MASTERY_STATUS_ACTIVE,
   MASTERY_MAX_SCORE,
 } from "../../constants";
 
-import Mastery from "./Mastery";
-import SubSubject from "../subject/subsubject/SubSubject";
+import MasteryListItem from "./MasteryListItem";
 
 const MasteriesList = (props) => {
   const { masteriesData } = props;
@@ -21,17 +20,11 @@ const MasteriesList = (props) => {
       title,
       content: {
         content: (
-          <Segment>
-            {masteryData.subSubject &&
-            <SubSubject
-              subSubjectData={masteryData.subSubject}
-            />
-            }
-            <Mastery
-              masteryData={masteryData}
-              queryInfo={props.queryInfo}
-            />
-          </Segment>
+          <MasteryListItem
+            masteryData={masteryData}
+            queryInfo={props.queryInfo}
+            subSubjectData={masteryData.subSubject}
+          />
         ),
         key: masteryData.id,
       },
