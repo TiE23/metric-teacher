@@ -8,6 +8,7 @@ const UserDetailMasteries = (props) => {
     return (
       <MasteriesList
         masteriesData={props.masteries}
+        queryInfo={props.queryInfo}
       />
     );
   } else {

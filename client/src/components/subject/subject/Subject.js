@@ -1,21 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Subject = (props) => {
-  const { subjectData } = props;
-
-  return (
-    <span>
-      <b>Subject</b>: {subjectData.name} ({subjectData.id})
-    </span>
-  );
-};
+const Subject = props =>  (
+  <p>
+    {props.subjectData.measurementDescription}
+    <br />
+    {props.subjectData.description}
+  </p>
+);
 
 Subject.propTypes = {
   subjectData: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    subSubjects: PropTypes.arrayOf(PropTypes.object).isRequired,
+    measurementDescription: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
   }).isRequired,
 };
 
