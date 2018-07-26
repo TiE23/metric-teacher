@@ -7,8 +7,10 @@ const Subject = (props) => {
   const { subjectData } = props;
 
   return (
-    <div><b>Subject</b>: {subjectData.name} ({subjectData.id})
-      <br />
+    <div>
+      <p>
+        {subjectData.description}
+      </p>
       <SubSubjectsList
         subSubjectsData={subjectData.subSubjects}
         queryInfo={props.queryInfo}
@@ -19,8 +21,7 @@ const Subject = (props) => {
 
 Subject.propTypes = {
   subjectData: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     subSubjects: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   queryInfo: PropTypes.shape({

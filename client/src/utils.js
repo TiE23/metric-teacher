@@ -478,6 +478,17 @@ const navigateObjectDots = (object, address) => {
 };
 
 
+/**
+ * Capitalize the first letter of a string.
+ * @param string
+ * @returns {string}
+ */
+const firstLetterCap = (string) => {
+  if (string.length === 0) return string;
+  return string.slice(0, 1).toLocaleUpperCase() + string.slice(1);
+};
+
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -493,4 +504,5 @@ export default {
   cachePushIntoArray,
   findRecursive,
   navigateObjectDots,
+  firstLetterCap,
 };
