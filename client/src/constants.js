@@ -62,3 +62,8 @@ export const MASTERY_STATUS_INACTIVE = 1;
 export const MASTERY_DEFAULT_SCORE = 0;
 export const MASTERY_MIN_SCORE = 0;
 export const MASTERY_MAX_SCORE = 1000;
+
+// Course
+export const COURSE_STATUS_ACTIVE = 0;
+export const COURSE_STATUS_INACTIVE = 1;
+export const COURSE_FLAG_PREFER_METRIC = 0x01;

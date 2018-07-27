@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Message, Container } from "semantic-ui-react";
 
 import withAuth from "../../AuthHOC";
 
@@ -33,16 +34,19 @@ const UserDetailEnrollment = (props) => {
   // Only show Enroll button for students.
   } else if (userData.type === 0) {
     return (
-      <div>
-        <p>Not enrolled!</p>
-        {/* In addition to the student, allow moderators or better to Enroll the student */}
+      <Message attached >
+        <Message.Header>
+          Not enrolled!
+        </Message.Header>
         {(userData.id === userTokenData.id || userTokenData.type >= USER_TYPE_MODERATOR) &&
-          <UserDetailEnroll
-            studentId={userData.id}
-            queryInfo={props.queryInfo}
-          />
+          <Container textAlign="right" >
+            <UserDetailEnroll
+              studentId={userData.id}
+              queryInfo={props.queryInfo}
+            />
+          </Container>
         }
-      </div>
+      </Message>
     );
   } else {
     return null;

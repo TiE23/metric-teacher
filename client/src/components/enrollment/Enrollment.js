@@ -1,16 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { Message } from "semantic-ui-react";
 
-const Enrollment = props => (
-  <div>
-    <p>Enrollment ID: {props.enrollmentData.id}</p>
-  </div>
+const Enrollment = () => (
+  <Message attached color="olive" >
+    <Message.Header>
+      Currently Enrolled
+    </Message.Header>
+  </Message>
 );
-
-Enrollment.propTypes = {
-  enrollmentData: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Enrollment;

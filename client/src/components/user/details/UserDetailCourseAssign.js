@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
+import { Form, Radio, Container } from "semantic-ui-react";
 
 import utils from "../../../utils";
 
@@ -34,32 +35,42 @@ class UserDetailCourseAssign extends PureComponent {
         }}
       >
         {(assignStudentNewCourse, { loading, error }) => (
-          <div>
-            <LoadingButton
-              onClick={() => assignStudentNewCourse({
-                variables: {
-                  studentid: this.props.studentId,
-                  prefermetric: this.state.preference === "metric",
-                },
-              })}
-              loading={loading}
-              error={error}
-              buttonText="Assign New Course"
-            />
-            <input
-              type="radio"
-              value="metric"
-              checked={this.state.preference === "metric"}
-              onChange={() => this.handleChange({ preference: "metric" })}
-            /> Prefer Metric
-            {" "}
-            <input
-              type="radio"
-              value="imperial"
-              checked={this.state.preference === "imperial"}
-              onChange={() => this.handleChange({ preference: "imperial" })}
-            /> Prefer Imperial
-          </div>
+          <Form>
+            <Form.Field>
+              <Radio
+                label="I am more familiar with the Metric system."
+                name="preferMetric"
+                value="metric"
+                checked={this.state.preference === "metric"}
+                onChange={() => this.handleChange({ preference: "metric" })}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Radio
+                label="I am more familiar with the Imperial system."
+                name="preferImperial"
+                value="metric"
+                checked={this.state.preference === "imperial"}
+                onChange={() => this.handleChange({ preference: "imperial" })}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Container textAlign="right" >
+              <LoadingButton
+                onClick={() => assignStudentNewCourse({
+                  variables: {
+                    studentid: this.props.studentId,
+                    prefermetric: this.state.preference === "metric",
+                  },
+                })}
+                loading={loading}
+                error={error}
+                buttonText="Assign New Course"
+                buttonProps={{ primary: true }}
+              />
+              </Container>
+            </Form.Field>
+          </Form>
         )}
       </Mutation>
     );
