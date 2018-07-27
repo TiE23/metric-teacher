@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Segment, Message } from "semantic-ui-react";
+import { Segment, Message, Header } from "semantic-ui-react";
 
 import UserDetailMasteries from "./UserDetailMasteries";
 import UserDetailSurveys from "./UserDetailSurveys";
@@ -11,7 +11,7 @@ import {
 
 const UserDetailCourseDetails = props => (
   <div>
-    <Message attached color="olive" >
+    <Message attached color="olive">
       <Message.Header>
         Active Course
       </Message.Header>
@@ -22,7 +22,9 @@ const UserDetailCourseDetails = props => (
       </Message.Content>
     </Message>
     <Segment attached >
-      <p>Mastery</p>
+      <Header size="medium" textAlign="center">
+        Mastery
+      </Header>
       <UserDetailMasteries
         masteries={props.courseData.masteries}
         queryInfo={props.queryInfo}
