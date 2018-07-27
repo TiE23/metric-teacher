@@ -10,7 +10,6 @@ import {
 } from "../../../constants";
 
 const UserDetailBasics = (props) => {
-  if (!props.userData) console.log("here!");
   if (!props.userData) return null;
 
   const { userData } = props;

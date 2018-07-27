@@ -51,6 +51,12 @@ const CourseAndMasteriesAndSurveys = props => (
         surveys={props.courseData.surveys}
         queryInfo={props.queryInfo}
       />
+      <br />
+      <p>
+        <Icon name="info circle" /> {" "}
+        Surveys are personalized questions found during challenges that quiz you on measurements
+        that matter to you - such as your weight or how far your work or school is from your home.
+      </p>
     </Segment>
   </div>
 );

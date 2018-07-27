@@ -8,22 +8,35 @@ import UserDetailCourseAssign from "../user/details/UserDetailCourseAssign";
 const CourseNoneActive = props => (
   <Message attached >
     <Message.Header>
-      You have no Course assigned to your account!
+      There is no Course assigned to this account!
     </Message.Header>
     <p>
-      A Course tracks progress as you learn more about the measurement system you are unfamiliar
-      with. Tell us what system you are more familiar with and click button below to start.
+      A Course tracks a student&apos;s progress as they learn more about converting between Metric
+      and Imperial systems.
+      {props.assignAvailable &&
+        <span>
+          <br />
+          Tell us what system you are more familiar with and click the button below to start.
+        </span>
+      }
     </p>
-    <UserDetailCourseAssign
-      studentId={props.studentId}
-      queryInfo={props.queryInfo}
-    />
+    {props.assignAvailable &&
+      <UserDetailCourseAssign
+        studentId={props.studentId}
+        queryInfo={props.queryInfo}
+      />
+    }
   </Message>
 );
 
 CourseNoneActive.propTypes = {
   studentId: PropTypes.string.isRequired,
   queryInfo: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  assignAvailable: PropTypes.bool,
+};
+
+CourseNoneActive.defaultProps = {
+  assignAvailable: false,
 };
 
 export default CourseNoneActive;

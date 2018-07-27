@@ -89,16 +89,18 @@ class UserDetailBasicsEditorForm extends Component {
 
   render() {
     return (
-      <Segment textAlign="left" >
-        <Dimmer inverted active={this.props.loading}>
-          <Loader />
-        </Dimmer>
-        <Header size="large" textAlign="center">
-          <Header.Content>
-            Update your information
-          </Header.Content>
-        </Header>
+      <Segment>
         <Form className="attached fluid segment" >
+          <Dimmer inverted active={this.props.loading}>
+            <Loader />
+          </Dimmer>
+          <Form.Input
+            value={this.state.email}
+            onChange={e => this.handleChange({ email: e.target.value })}
+            label="Email"
+            autoComplete="email"
+            placeholder="Your email"
+          />
           {this.props.initUserData.type === 1 &&
           <Form.Input
             value={this.state.honorific}
@@ -120,13 +122,6 @@ class UserDetailBasicsEditorForm extends Component {
             label="Last Name"
             autoComplete="family-name"
             placeholder="Your last name"
-          />
-          <Form.Input
-            value={this.state.email}
-            onChange={e => this.handleChange({ email: e.target.value })}
-            label="Email"
-            autoComplete="email"
-            placeholder="Your email"
           />
           <Form.Input
             value={this.state.passwordNew}

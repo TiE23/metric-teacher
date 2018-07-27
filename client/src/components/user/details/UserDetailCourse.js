@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Message } from "semantic-ui-react";
 
 import withAuth from "../../AuthHOC";
 
@@ -19,21 +18,14 @@ const UserDetailCourse = (props) => {
         queryInfo={props.queryInfo}
       />
     );
-
-  // In addition to the student, allow moderators or better to assign a new Course
-  } else if (props.studentId === props.userTokenData.id ||
-    props.userTokenData.type >= USER_TYPE_MODERATOR) {
+  } else {
     return (
       <CourseNoneActive
         studentId={props.studentId}
         queryInfo={props.queryInfo}
+        assignAvailable={props.studentId === props.userTokenData.id ||
+          props.userTokenData.type >= USER_TYPE_MODERATOR}
       />
-    );
-  } else {
-    return (
-      <Message attached >
-        No active courses.
-      </Message>
     );
   }
 };

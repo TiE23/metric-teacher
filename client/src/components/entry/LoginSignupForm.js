@@ -85,6 +85,14 @@ class LoginSignupForm extends Component {
           Please {this.props.loginPage ? "login" : "sign-up"} below!
         </Header>
         <Form>
+          <Form.Input
+            required
+            value={this.state.email}
+            onChange={e => this.handleChange({ email: e.target.value })}
+            label="Email"
+            autoComplete="email"
+            placeholder="Your email"
+          />
           {!this.props.loginPage && (
             <Form.Input
               required={!this.props.loginPage}
@@ -105,14 +113,6 @@ class LoginSignupForm extends Component {
               placeholder="Your last name"
             />
           )}
-          <Form.Input
-            required
-            value={this.state.email}
-            onChange={e => this.handleChange({ email: e.target.value })}
-            label="Email"
-            autoComplete="email"
-            placeholder="Your email"
-          />
           <Form.Input
             required
             value={this.state.password}
