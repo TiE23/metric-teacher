@@ -13,13 +13,13 @@ const UserDetailCourseDetails = props => (
   <div>
     <Message attached color="olive" >
       <Message.Header>
-        Course - {" "}
-        <i>
-          &quot;I am more familiar with the {" "}
-          {props.courseData.flags & COURSE_FLAG_PREFER_METRIC ?
-            "Metric" : "Imperial"} system&quot;
-        </i>
+        Active Course
       </Message.Header>
+      <Message.Content>
+        &quot;I am more familiar with the {" "}
+        {props.courseData.flags & COURSE_FLAG_PREFER_METRIC ?
+          "Metric" : "Imperial"} system.&quot;
+      </Message.Content>
     </Message>
     <Segment attached >
       <p>Mastery</p>
