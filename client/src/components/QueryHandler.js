@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import utils from "../utils";
+
 import LoadingError from "./LoadingError";
 
 /**
@@ -41,12 +43,20 @@ import LoadingError from "./LoadingError";
 const QueryHandler = (props) => {
   const { children, queryData, skip, optional } = props;
 
+  // If the data is empty after loading is complete we got nothing!
+  const dataIsEmptyError =
+    !props.noDataIsAcceptable && !queryData.loading && utils.isEmptyRecursive(queryData.data);
+
   // The query is loading or in error...
-  if (!skip && (queryData.loading || (!optional && queryData.error))) {
+  if (!skip &&
+    (queryData.loading ||
+      ((!optional && queryData.error) || dataIsEmptyError)
+    )) {
     // Waiting for the query to load or displaying the error.
     return (
       <LoadingError
-        error={queryData.error}
+        error={(!optional && queryData.error) || dataIsEmptyError}
+        errorMessage={dataIsEmptyError && props.noDataErrorMessage}
         {...props.loadingErrorProps}
       />
     );
@@ -74,11 +84,15 @@ QueryHandler.propTypes = {
     errorMessage: PropTypes.node,
     loadingMessage: PropTypes.string,
   }),
+  noDataIsAcceptable: PropTypes.bool,
+  noDataErrorMessage: PropTypes.string,
 };
 
 QueryHandler.defaultProps = {
   skip: false,
   optional: false,
+  noDataIsAcceptable: false,
+  noDataErrorMessage: "No data was returned from the server.",
 };
 
 export default QueryHandler;

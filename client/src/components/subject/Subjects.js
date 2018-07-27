@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 
 import QueryHandler from "../QueryHandler";
-import SubjectsList from "./subject/SubjectsList";
+import SubjectsList from "./SubjectsList";
 
 import {
   SUBJECT_DETAILS_PUBLIC_QUERY,

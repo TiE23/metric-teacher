@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Segment, Container, Button, Header, List } from "semantic-ui-react";
+
+import utils from "../../../utils";
 
 import {
   USER_TYPE_NAMES,
@@ -10,23 +13,38 @@ const UserDetailBasics = (props) => {
   if (!props.userData) return null;
 
   const { userData } = props;
+  const nameFormated =
+    `${userData.honorific ? `${userData.honorific} ` : ""}${userData.fname} ${userData.lname}`;
 
   return (
-    <div>
-      <h1>User Detail Basics.</h1>
-      <ul>
-        <li>Name: {userData.honorific ?
-          `${userData.honorific} ` : ""}{userData.fname} {userData.lname}
-        </li>
-        <li>Email: {userData.email}</li>
-        <li>ID: {userData.id}</li>
-        <li>Type: {USER_TYPE_NAMES[userData.type] || "Unknown"}</li>
-        <li>Status: {USER_STATUS_NAMES[userData.status] || "Unknown"}</li>
-      </ul>
+    <Segment>
+      <Header size="huge" textAlign="center">
+        User Profile
+      </Header>
+      <List>
+        <List.Item icon="user" content={nameFormated} />
+        <List.Item icon="mail" content={userData.email} />
+        <List.Item
+          icon="certificate"
+          content={utils.firstLetterCap(USER_TYPE_NAMES[userData.type]) || "Unknown"}
+        />
+        <List.Item
+          icon="shield"
+          content={utils.firstLetterCap(USER_STATUS_NAMES[userData.status]) || "Unknown"}
+        />
+        <List.Item icon="id card" content={userData.id} />
+      </List>
       {typeof props.openEditor === "function" &&
-        <button onClick={props.openEditor}>Edit Profile</button>
+        <Container textAlign="right" >
+          <Button
+            onClick={props.openEditor}
+            primary
+          >
+            Edit Profile
+          </Button>
+        </Container>
       }
-    </div>
+    </Segment>
   );
 };
 

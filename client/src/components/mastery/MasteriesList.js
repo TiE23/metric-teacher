@@ -36,6 +36,7 @@ const MasteriesList = (props) => {
       defaultActiveIndex={props.defaultActiveIndex}
       panels={masteryPanels}
       styled
+      {...props.accordionProps}
     />
   );
 };
@@ -49,11 +50,13 @@ MasteriesList.propTypes = {
   }).isRequired).isRequired,
   queryInfo: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
   defaultActiveIndex: PropTypes.number,
+  accordionProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 MasteriesList.defaultProps = {
   queryInfo: null,
   defaultActiveIndex: -1,
+  accordionProps: null,
 };
 
 export default MasteriesList;

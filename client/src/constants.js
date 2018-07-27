@@ -2,7 +2,8 @@
 export const AUTH_TOKEN = "auth-token";
 
 // Styling
-export const FLOATING_CENTER_GRID_COLUMN_WIDTH = { mobile: 16, tablet: 8, computer: 8 };
+export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8, computer: 8 };
+export const FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE = { mobile: 16, tablet: 14, computer: 14 };
 
 // Password
 export const PASSWORD_MINIMUM_LENGTH = 6;
@@ -41,14 +42,14 @@ export const EMAIL_SECRET_PREFIXES = [
 
 // User
 export const USER_TYPE_NAMES = [
-  "Student",
-  "Teacher",
-  "Moderator",
-  "Admin",
+  "student",
+  "teacher",
+  "moderator",
+  "admin",
 ];
 export const USER_STATUS_NAMES = [
-  "Normal",
-  "Closed",
+  "normal",
+  "closed",
 ];
 export const USER_TYPE_STUDENT = 0;
 export const USER_TYPE_TEACHER = 1;
@@ -61,3 +62,15 @@ export const MASTERY_STATUS_INACTIVE = 1;
 export const MASTERY_DEFAULT_SCORE = 0;
 export const MASTERY_MIN_SCORE = 0;
 export const MASTERY_MAX_SCORE = 1000;
+
+// Survey
+export const SURVEY_DEFAULT_SCORE = 0;
+export const SURVEY_MIN_SCORE = 0;
+export const SURVEY_MAX_SCORE = 1000;
+export const SURVEY_STATUS_NORMAL = 0;
+export const SURVEY_STATUS_SKIPPED = 1;
+
+// Course
+export const COURSE_STATUS_ACTIVE = 0;
+export const COURSE_STATUS_INACTIVE = 1;
+export const COURSE_FLAG_PREFER_METRIC = 0x01;

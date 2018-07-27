@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Accordion } from "semantic-ui-react";
 
-import utils from "../../../utils";
+import utils from "../../utils";
 import {
   MASTERY_STATUS_ACTIVE,
   MASTERY_STATUS_INACTIVE,
   MASTERY_MAX_SCORE,
-} from "../../../constants";
+} from "../../constants";
 
-import MasteryAndSubSubject from "../../mastery/MasteryAndSubSubject";
+import MasteryAndSubSubject from "../mastery/MasteryAndSubSubject";
 
 const SubSubjectsList = (props) => {
   const subSubjectPanels = props.subSubjectsData.map((subSubjectData) => {

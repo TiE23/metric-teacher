@@ -1,6 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Header, Segment, Form, Button, Container, Dimmer, Loader, Message } from "semantic-ui-react";
+import {
+  Header,
+  Segment,
+  Form,
+  Button,
+  Container,
+  Dimmer,
+  Loader,
+  Message,
+} from "semantic-ui-react";
+
+import withAuth from "../../AuthHOC";
+import utils from "../../../utils";
 
 import {
   PASSWORD_MINIMUM_LENGTH,
@@ -8,8 +20,7 @@ import {
   USER_TYPE_ADMIN,
 } from "../../../constants";
 
-import withAuth from "../../AuthHOC";
-import utils from "../../../utils";
+import LoadingButton from "../../misc/LoadingButton";
 
 class UserDetailBasicsEditorForm extends Component {
   constructor(props) {
@@ -78,102 +89,93 @@ class UserDetailBasicsEditorForm extends Component {
 
   render() {
     return (
-      <div>
-        <Header as="h1" textAlign="center">
-          <Header.Content>
-            Edit your details!
-          </Header.Content>
-        </Header>
-        <Segment>
+      <Segment>
+        <Form className="attached fluid segment" >
           <Dimmer inverted active={this.props.loading}>
             <Loader />
           </Dimmer>
-          <Form>
-            {this.props.initUserData.type === 1 &&
-            <Form.Input
-              value={this.state.honorific}
-              onChange={e => this.handleChange({ honorific: e.target.value })}
-              label="Honorific"
-              placeholder="Honorific Prefix (ex: Mr., Ms., Prof., etc)"
+          <Form.Input
+            value={this.state.email}
+            onChange={e => this.handleChange({ email: e.target.value })}
+            label="Email"
+            autoComplete="email"
+            placeholder="Your email"
+          />
+          {this.props.initUserData.type === 1 &&
+          <Form.Input
+            value={this.state.honorific}
+            onChange={e => this.handleChange({ honorific: e.target.value })}
+            label="Honorific"
+            placeholder="Honorific Prefix (ex: Mr., Ms., Prof., etc)"
+          />
+          }
+          <Form.Input
+            value={this.state.fname}
+            onChange={e => this.handleChange({ fname: e.target.value })}
+            label="First Name"
+            autoComplete="given-name"
+            placeholder="Your first name"
+          />
+          <Form.Input
+            value={this.state.lname}
+            onChange={e => this.handleChange({ lname: e.target.value })}
+            label="Last Name"
+            autoComplete="family-name"
+            placeholder="Your last name"
+          />
+          <Form.Input
+            value={this.state.passwordNew}
+            onChange={e => this.handleChange({ passwordNew: e.target.value })}
+            label="New Password"
+            autoComplete="new-password"
+            placeholder={`Password must be at least ${PASSWORD_MINIMUM_LENGTH} characters long`}
+            type="password"
+          />
+          {(this.state.email !== this.props.initUserData.email || this.state.passwordNew) &&
+          <Form.Input
+            value={this.state.passwordOld}
+            onChange={e => this.handleChange({ passwordOld: e.target.value })}
+            label="Current Password"
+            autoComplete="current-password"
+            placeholder="Current password required to change email or set new password"
+            type="password"
+          />
+          }
+          <Container textAlign="right">
+            <LoadingButton
+              onClick={() => this.submit()}
+              buttonText="Submit"
+              buttonProps={{
+                primary: true,
+                type: "submit",
+              }}
+              loading={this.props.loading}
             />
-            }
-            <Form.Input
-              value={this.state.fname}
-              onChange={e => this.handleChange({ fname: e.target.value })}
-              label="First Name"
-              autoComplete="given-name"
-              placeholder="Your first name"
-            />
-            <Form.Input
-              value={this.state.lname}
-              onChange={e => this.handleChange({ lname: e.target.value })}
-              label="Last Name"
-              autoComplete="family-name"
-              placeholder="Your last name"
-            />
-            <Form.Input
-              value={this.state.email}
-              onChange={e => this.handleChange({ email: e.target.value })}
-              label="Email"
-              autoComplete="email"
-              placeholder="Your email"
-            />
-            <Form.Input
-              value={this.state.passwordNew}
-              onChange={e => this.handleChange({ passwordNew: e.target.value })}
-              label="New Password"
-              autoComplete="new-password"
-              placeholder={`Password must be at least ${PASSWORD_MINIMUM_LENGTH} characters long`}
-              type="password"
-            />
-            {(this.state.email !== this.props.initUserData.email || this.state.passwordNew) &&
-            <Form.Input
-              value={this.state.passwordOld}
-              onChange={e => this.handleChange({ passwordOld: e.target.value })}
-              label="Current Password"
-              autoComplete="current-password"
-              placeholder="Current password required to change email or set new password"
-              type="password"
-            />
-            }
-            {this.props.error &&
-            <Container>
-              <Message negative>
-                <Message.Header>Error</Message.Header>
-                {this.props.error.message}
-              </Message>
-            </Container>
-            }
-            {this.state.formErrors.length !== 0 &&
-            <Container>
-              <Message negative>
-                <Message.Header>Form Errors</Message.Header>
-                <ul>
-                  {this.state.formErrors.map(errorMessage =>
-                    <li key={errorMessage}>{errorMessage}</li>)}
-                </ul>
-              </Message>
-            </Container>
-            }
-            <Container textAlign="right">
+            {typeof this.props.closeEditor === "function" &&
               <Button
-                primary
-                type="submit"
-                onClick={() => this.submit()}
+                onClick={this.props.closeEditor}
               >
-                Submit
+                Close
               </Button>
-              {typeof this.props.closeEditor === "function" &&
-                <Button
-                  onClick={this.props.closeEditor}
-                >
-                  Close
-                </Button>
-              }
-            </Container>
-          </Form>
-        </Segment>
-      </div>
+            }
+          </Container>
+        </Form>
+        {this.props.error &&
+        <Message attached negative>
+          <Message.Header>Error</Message.Header>
+          {this.props.error.message}
+        </Message>
+        }
+        {this.state.formErrors.length !== 0 &&
+        <Message attached negative>
+          <Message.Header>Form Errors</Message.Header>
+          <ul>
+            {this.state.formErrors.map(errorMessage =>
+              <li key={errorMessage}>{errorMessage}</li>)}
+          </ul>
+        </Message>
+        }
+      </Segment>
     );
   }
 }

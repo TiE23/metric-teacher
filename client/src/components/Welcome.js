@@ -24,7 +24,7 @@ const Welcome = () => (
     <br />
     <Link to="/adminOnly">Admin Only</Link>
     <br />
-    <Link to="/user/cjiz30cd400jb0721gz677i1z">A student</Link>
+    <Link to="/user/cjk1pagik004a0793ur0ov3bq">A student</Link>
   </div>
 );
 

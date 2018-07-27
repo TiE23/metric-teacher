@@ -27,7 +27,8 @@ const UserDetailEnroll = props => (
         onClick={() => enrollStudent({ variables: { studentid: props.studentId } })}
         loading={loading}
         error={error}
-        buttonText="Enroll"
+        buttonText="Enroll Now"
+        buttonProps={{ primary: true }}
       />
     )}
   </Mutation>

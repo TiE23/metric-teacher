@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
+import { Segment, Header } from "semantic-ui-react";
 
 import utils from "../../../utils";
 
@@ -28,15 +29,22 @@ const UserDetailBasicsEditor = (props) => {
       }}
     >
       {(updateUserProfile, { loading, error }) => (
-        <UserDetailBasicsEditorForm
-          initUserData={userData}
-          onSubmit={variables => updateUserProfile({
-            variables: { ...variables, userid: userData.id },
-          })}
-          closeEditor={props.closeEditor}
-          loading={loading}
-          error={error}
-        />
+        <Segment>
+          <Header size="huge" textAlign="center">
+            <Header.Content>
+              Update Your Information
+            </Header.Content>
+          </Header>
+          <UserDetailBasicsEditorForm
+            initUserData={userData}
+            onSubmit={variables => updateUserProfile({
+              variables: { ...variables, userid: userData.id },
+            })}
+            closeEditor={props.closeEditor}
+            loading={loading}
+            error={error}
+          />
+        </Segment>
       )}
     </Mutation>
   );

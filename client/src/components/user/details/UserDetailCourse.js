@@ -7,32 +7,25 @@ import {
   USER_TYPE_MODERATOR,
 } from "../../../constants";
 
-// eslint-disable-next-line import/no-named-as-default,import/no-named-as-default-member
-import UserDetailCourseAssign from "./UserDetailCourseAssign";
-import UserDetailCourseDetails from "./UserDetailCourseDetails";
+import CourseAndMasteriesAndSurveys from "../../course/CourseAndMasteriesAndSurveys";
+import CourseNoneActive from "../../course/CourseNoneActive";
 
 const UserDetailCourse = (props) => {
   if (props.coursesData.length) {
     return (
-      <UserDetailCourseDetails
+      <CourseAndMasteriesAndSurveys
         courseData={props.coursesData[0]}
         queryInfo={props.queryInfo}
       />
     );
   } else {
-    // No need to check that the user type is student as only students can be enrolled.
     return (
-      <div>
-        <p>No active course!</p>
-        {/* In addition to the student, allow moderators or better to assign a new Course */}
-        {(props.studentId === props.userTokenData.id ||
-          props.userTokenData.type >= USER_TYPE_MODERATOR) &&
-          <UserDetailCourseAssign
-            studentId={props.studentId}
-            queryInfo={props.queryInfo}
-          />
-        }
-      </div>
+      <CourseNoneActive
+        studentId={props.studentId}
+        queryInfo={props.queryInfo}
+        assignAvailable={props.studentId === props.userTokenData.id ||
+          props.userTokenData.type >= USER_TYPE_MODERATOR}
+      />
     );
   }
 };

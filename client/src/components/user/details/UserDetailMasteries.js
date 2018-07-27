@@ -5,7 +5,7 @@ import sortBy from "lodash/sortBy";
 import utils from "../../../utils";
 
 import MasteriesList from "../../mastery/MasteriesList";
-import SubjectsList from "../../subject/subject/SubjectsList";
+import SubjectsList from "../../subject/SubjectsList";
 
 const UserDetailMasteries = (props) => {
   if (props.masteries.length) {
@@ -24,6 +24,7 @@ const UserDetailMasteries = (props) => {
           subjectsData={subjectsTree}
           queryInfo={props.queryInfo}
           compactView={props.subjectCompactView}
+          accordionProps={{ fluid: true }}
         />
       );
     } else {
@@ -31,14 +32,13 @@ const UserDetailMasteries = (props) => {
         <MasteriesList
           masteriesData={props.masteries}
           queryInfo={props.queryInfo}
+          accordionProps={{ fluid: true }}
         />
       );
     }
   } else {
     return (
-      <div>
-        <p>No masteries!</p>
-      </div>
+      <p>No masteries!</p>
     );
   }
 };

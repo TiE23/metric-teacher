@@ -96,6 +96,7 @@ type Mutation {
 
   # Survey Mutations
   addSurveyAnswer(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
+  updateSurveyStatus(surveyid: ID!, status: Int!): Survey!
   addSurveyScore(surveyid: ID!, score: Int!): Survey!
 
   # Question Mutations

@@ -1,32 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import UserDetailSurvey from "./UserDetailSurvey";
+import SurveysList from "../../survey/SurveysList";
 
 const UserDetailSurveys = (props) => {
   if (props.surveys.length) {
     return (
-      <div>
-        <ul>
-          {props.surveys.map(survey => (
-            <UserDetailSurvey key={survey.id} survey={survey} />
-          ))}
-        </ul>
-      </div>
+      <SurveysList
+        surveysData={props.surveys}
+        queryInfo={props.queryInfo}
+        accordionProps={{ fluid: true }}
+      />
     );
   } else {
     return (
-      <div>
-        <p>No surveys!</p>
-      </div>
+      <p>No surveys!</p>
     );
   }
 };
 
 UserDetailSurveys.propTypes = {
-  surveys: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  })).isRequired,
+  surveys: PropTypes.array.isRequired,  // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.object.isRequired,  // eslint-disable-line react/forbid-prop-types
 };
 
 export default UserDetailSurveys;
