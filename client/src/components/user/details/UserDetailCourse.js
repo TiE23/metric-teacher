@@ -8,13 +8,13 @@ import {
   USER_TYPE_MODERATOR,
 } from "../../../constants";
 
-import UserDetailCourseDetails from "./UserDetailCourseDetails";
+import CourseAndMasteriesAndSurveys from "../../course/CourseAndMasteriesAndSurveys";
 import CourseNoneActive from "../../course/CourseNoneActive";
 
 const UserDetailCourse = (props) => {
   if (props.coursesData.length) {
     return (
-      <UserDetailCourseDetails
+      <CourseAndMasteriesAndSurveys
         courseData={props.coursesData[0]}
         queryInfo={props.queryInfo}
       />

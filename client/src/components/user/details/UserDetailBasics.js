@@ -16,10 +16,8 @@ const UserDetailBasics = (props) => {
 
   return (
     <Segment>
-      <Header as="h1" textAlign="center">
-        <Header.Content>
-          User Profile
-        </Header.Content>
+      <Header size="huge" textAlign="center">
+        User Profile
       </Header>
       <List>
         <List.Item icon="user" content={nameFormated} />

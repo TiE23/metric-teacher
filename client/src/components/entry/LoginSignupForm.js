@@ -5,7 +5,6 @@ import {
   Header,
   Segment,
   Form,
-  Button,
   Container,
   Dimmer,
   Loader,
@@ -82,10 +81,8 @@ class LoginSignupForm extends Component {
         <Dimmer inverted active={this.props.loading}>
           <Loader />
         </Dimmer>
-        <Header size="large" textAlign="center">
-          <Header.Content>
-            Please {this.props.loginPage ? "login" : "sign-up"} below!
-          </Header.Content>
+        <Header size="huge" textAlign="center">
+          Please {this.props.loginPage ? "login" : "sign-up"} below!
         </Header>
         <Form>
           {!this.props.loginPage && (

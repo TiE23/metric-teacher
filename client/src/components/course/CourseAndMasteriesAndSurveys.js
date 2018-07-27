@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Segment, Message, Header } from "semantic-ui-react";
 
-import UserDetailMasteries from "./UserDetailMasteries";
-import UserDetailSurveys from "./UserDetailSurveys";
+import UserDetailMasteries from "../user/details/UserDetailMasteries";
+import UserDetailSurveys from "../user/details/UserDetailSurveys";
 
 import {
   COURSE_FLAG_PREFER_METRIC,
-} from "../../../constants";
+} from "../../constants";
 
-const UserDetailCourseDetails = props => (
+const CourseAndMasteriesAndSurveys = props => (
   <div>
     <Message attached color="olive">
       <Message.Header>
@@ -44,7 +44,7 @@ const UserDetailCourseDetails = props => (
   </div>
 );
 
-UserDetailCourseDetails.propTypes = {
+CourseAndMasteriesAndSurveys.propTypes = {
   courseData: PropTypes.shape({
     id: PropTypes.string.isRequired,
     masteries: PropTypes.arrayOf(PropTypes.object),
@@ -57,4 +57,4 @@ UserDetailCourseDetails.propTypes = {
   }).isRequired,
 };
 
-export default UserDetailCourseDetails;
+export default CourseAndMasteriesAndSurveys;
