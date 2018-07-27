@@ -54,7 +54,7 @@ export const USER_DETAILS_QUERY = gql`
   ${EnrollmentForUserDetails}
 `;
 
-export const SUBJECT_DETAILS_PUBLIC_QUERY = gql`
+export const SUBJECT_DETAILS_QUERY = gql`
   query SubjectDetailsPublicQuery {
     allSubjects {
       ...SubjectDataAll
@@ -67,43 +67,21 @@ export const SUBJECT_DETAILS_PUBLIC_QUERY = gql`
   ${SubSubjectDataAll}
 `;
 
-export const SUBJECT_DETAILS_STUDENT_QUERY = gql`
-  query SubjectDetailsStudentQuery ($studentid: ID!) {
-    subjectSearch(
-      where: {
-        subSubjects_every: {
-          masteries_every: {
-            parent: {
-              parent: {
-                student: {
-                  AND: [
-                    {
-                      id: $studentid
-                    },
-                    {
-                      enrollment: {
-                        courses_every: {
-                          status: 0
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    ) {
+export const SUBJECT_AND_MASTERY_DETAILS_QUERY = gql`
+  query StudentActiveMasteriesQuery ($studentid: ID!) {
+    allSubjects {
       ...SubjectDataAll
       subSubjects {
         ...SubSubjectDataAll
-        masteries {
-          ...MasteryDataAll
-          parent {
-            id
-          }
-        }
+      }
+    }
+    activeMasteries(studentid: $studentid) {
+      ...MasteryDataAll
+      parent {
+        id
+      }
+      subSubject {
+        id
       }
     }
   }
