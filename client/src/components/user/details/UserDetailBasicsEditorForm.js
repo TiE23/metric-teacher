@@ -1,6 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Header, Segment, Form, Button, Container, Dimmer, Loader, Message } from "semantic-ui-react";
+import {
+  Header,
+  Segment,
+  Form,
+  Button,
+  Container,
+  Dimmer,
+  Loader,
+  Message,
+} from "semantic-ui-react";
+
+import withAuth from "../../AuthHOC";
+import utils from "../../../utils";
 
 import {
   PASSWORD_MINIMUM_LENGTH,
@@ -8,8 +20,7 @@ import {
   USER_TYPE_ADMIN,
 } from "../../../constants";
 
-import withAuth from "../../AuthHOC";
-import utils from "../../../utils";
+import LoadingButton from "../../misc/LoadingButton";
 
 class UserDetailBasicsEditorForm extends Component {
   constructor(props) {
@@ -73,11 +84,6 @@ class UserDetailBasicsEditorForm extends Component {
     // Fire off the mutation if everything was acceptable.
     if (formErrors.length === 0) {
       this.props.onSubmit(variables);
-
-      // Close the editor automatically.
-      if (typeof this.props.closeEditor === "function") {
-        this.props.closeEditor();
-      }
     }
   }
 
@@ -87,11 +93,11 @@ class UserDetailBasicsEditorForm extends Component {
         <Dimmer inverted active={this.props.loading}>
           <Loader />
         </Dimmer>
-        <Message
-          attached
-          header="Update your information below"
-          content="Changing your email address or password will require entering in your current password."
-        />
+        <Header size="large" textAlign="center">
+          <Header.Content>
+            Update your information
+          </Header.Content>
+        </Header>
         <Form className="attached fluid segment" >
           {this.props.initUserData.type === 1 &&
           <Form.Input
@@ -141,13 +147,15 @@ class UserDetailBasicsEditorForm extends Component {
           />
           }
           <Container textAlign="right">
-            <Button
-              primary
-              type="submit"
+            <LoadingButton
               onClick={() => this.submit()}
-            >
-              Submit
-            </Button>
+              buttonText="Submit"
+              buttonProps={{
+                primary: true,
+                type: "submit",
+              }}
+              loading={this.props.loading}
+            />
             {typeof this.props.closeEditor === "function" &&
               <Button
                 onClick={this.props.closeEditor}

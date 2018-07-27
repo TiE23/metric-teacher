@@ -1,19 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Loader } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 
 const LoadingButton = (props) => {
   if (props.loading) {
     return (
-      <div>
-        <Loader active />
-        <Button
-          disabled
-          {...props.buttonProps}
-        >
-          Loading...
-        </Button>
-      </div>
+      <Button
+        disabled
+        {...props.buttonProps}
+      >
+        Loading...
+      </Button>
     );
   }
 
