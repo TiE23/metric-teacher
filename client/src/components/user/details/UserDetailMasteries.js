@@ -5,7 +5,7 @@ import sortBy from "lodash/sortBy";
 import utils from "../../../utils";
 
 import MasteriesList from "../../mastery/MasteriesList";
-import SubjectsList from "../../subject/subject/SubjectsList";
+import SubjectsList from "../../subject/SubjectsList";
 
 const UserDetailMasteries = (props) => {
   if (props.masteries.length) {

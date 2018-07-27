@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import SubSubject from "../subject/subsubject/SubSubject";
+import SubSubject from "../subsubject/SubSubject";
 import Mastery from "./Mastery";
 import MasteryAssign from "./MasteryAssign";
 
