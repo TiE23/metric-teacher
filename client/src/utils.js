@@ -296,6 +296,9 @@ const mergeCustomizer = (objValue, srcValue) => {
  *      const data2 = { a: { id: "a1", b: { c: "cat" } } };
  *      cacheNewObject(data2, "a1", "b.c", "dog");
  *      // data2: { a: { id: "a1", b: { c: "dog" } } }
+ *      const data3 = { a: { id: "a1", b: {} } };
+ *      cacheNewObject(data3, "a1", "b.c", ["dog"]);
+ *      // data3: { a: { id: "a1", b: { c: ["dog"] } } }
  *
  * @param data
  * @param parentId

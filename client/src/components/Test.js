@@ -41,6 +41,9 @@ const Test = (props) => {
     console.log(dat3.topRow.c.newArray);
     utils.cacheDeleteObject(dat3, "Bill");
     console.log(dat3.topRow.c.newArray);
+    const datax = { a: { id: "a1", b: {} } };
+    utils.cacheNewObject(datax, "a1", "b.c", ["dog"]);
+    console.log(datax);
   };
 
   return (
