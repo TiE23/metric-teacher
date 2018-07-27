@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Segment, Container, Button } from "semantic-ui-react";
 
 import {
   USER_TYPE_NAMES,
@@ -12,7 +13,7 @@ const UserDetailBasics = (props) => {
   const { userData } = props;
 
   return (
-    <div>
+    <Segment>
       <h1>User Detail Basics.</h1>
       <ul>
         <li>Name: {userData.honorific ?
@@ -24,9 +25,16 @@ const UserDetailBasics = (props) => {
         <li>Status: {USER_STATUS_NAMES[userData.status] || "Unknown"}</li>
       </ul>
       {typeof props.openEditor === "function" &&
-        <button onClick={props.openEditor}>Edit Profile</button>
+        <Container textAlign="right" >
+          <Button
+            onClick={props.openEditor}
+            primary
+          >
+            Edit Profile
+          </Button>
+        </Container>
       }
-    </div>
+    </Segment>
   );
 };
 

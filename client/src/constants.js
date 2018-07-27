@@ -2,7 +2,8 @@
 export const AUTH_TOKEN = "auth-token";
 
 // Styling
-export const FLOATING_CENTER_GRID_COLUMN_WIDTH = { mobile: 16, tablet: 8, computer: 8 };
+export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8, computer: 8 };
+export const FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE = { mobile: 16, tablet: 14, computer: 14 };
 
 // Password
 export const PASSWORD_MINIMUM_LENGTH = 6;

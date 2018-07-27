@@ -24,6 +24,7 @@ const UserDetailMasteries = (props) => {
           subjectsData={subjectsTree}
           queryInfo={props.queryInfo}
           compactView={props.subjectCompactView}
+          accordionProps={{ fluid: true }}
         />
       );
     } else {
@@ -31,6 +32,7 @@ const UserDetailMasteries = (props) => {
         <MasteriesList
           masteriesData={props.masteries}
           queryInfo={props.queryInfo}
+          accordionProps={{ fluid: true }}
         />
       );
     }

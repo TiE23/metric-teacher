@@ -7,12 +7,12 @@ import { Grid } from "semantic-ui-react";
 import UserDetails from "./details/UserDetails";
 
 const UserPage = props => (
-  <Grid padded>
+  <Grid padded stackable columns="equal">
+    <UserDetails
+      userId={props.match.params.id === "me" ? props.userTokenData.id : props.match.params.id}
+    />
     <Grid.Row>
       <Grid.Column>
-        <UserDetails
-          userId={props.match.params.id === "me" ? props.userTokenData.id : props.match.params.id}
-        />
         <button onClick={props.history.goBack}>Go back</button>
       </Grid.Column>
     </Grid.Row>

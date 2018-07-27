@@ -73,18 +73,23 @@ class UserDetailBasicsEditorForm extends Component {
     // Fire off the mutation if everything was acceptable.
     if (formErrors.length === 0) {
       this.props.onSubmit(variables);
+
+      // Close the editor automatically.
+      if (typeof this.props.closeEditor === "function") {
+        this.props.closeEditor();
+      }
     }
   }
 
   render() {
     return (
-      <div>
+      <Segment>
         <Header as="h1" textAlign="center">
           <Header.Content>
             Edit your details!
           </Header.Content>
         </Header>
-        <Segment>
+        <Container textAlign="left">
           <Dimmer inverted active={this.props.loading}>
             <Loader />
           </Dimmer>
@@ -172,8 +177,8 @@ class UserDetailBasicsEditorForm extends Component {
               }
             </Container>
           </Form>
-        </Segment>
-      </div>
+        </Container>
+      </Segment>
     );
   }
 }

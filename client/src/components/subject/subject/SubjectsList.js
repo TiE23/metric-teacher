@@ -35,6 +35,7 @@ const SubjectsList = (props) => {
         defaultActiveIndex={props.defaultActiveIndex}
         panels={subjectPanels}
         styled
+        {...props.accordionProps}
       />
     );
 
@@ -84,6 +85,7 @@ SubjectsList.propTypes = {
   }),
   defaultActiveIndex: PropTypes.number,
   compactView: PropTypes.bool,
+  accordionProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 SubjectsList.defaultProps = {
@@ -91,6 +93,7 @@ SubjectsList.defaultProps = {
   queryInfo: null,
   defaultActiveIndex: -1,
   compactView: false,
+  accordionProps: null,
 };
 
 export default SubjectsList;
