@@ -17,7 +17,6 @@ const queryCourse = require("../Query/course");
 
 const {
   MASTERY_STATUS_ACTIVE,
-  MASTERY_STATUS_INACTIVE,
   MASTERY_DEFAULT_SCORE,
   MASTERY_MIN_SCORE,
   MASTERY_MAX_SCORE,

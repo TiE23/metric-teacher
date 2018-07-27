@@ -38,9 +38,7 @@ const UserDetailMasteries = (props) => {
     }
   } else {
     return (
-      <div>
-        <p>No masteries!</p>
-      </div>
+      <p>No masteries!</p>
     );
   }
 };

@@ -125,6 +125,58 @@ const survey = {
 
 
   /**
+   * Update a Survey's status. Only the owning student (or moderators or better) can do this.
+   * @param parent
+   * @param args
+   *        surveyid: ID!
+   *        status: Int
+   * @param ctx
+   * @param info
+   * @returns Survey!
+   */
+  async updateSurveyStatus(parent, args, ctx, info) {
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "updateSurveyStatus",
+    });
+
+    const targetSurveyData = await ctx.db.query.survey({ where: { id: args.surveyid } }, `
+      {
+        id
+        status
+        parent {
+          parent {
+            student {
+              id
+            }
+          }
+        }
+      }
+    `);
+
+    // Check the Survey exists.
+    if (targetSurveyData === null) {
+      throw new SurveyNotFound(args.surveyid);
+    }
+
+    // A student can change the status of a Survey and moderators or better can as well.
+    if (callingUserData.id !== targetSurveyData.parent.parent.student.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "updateSurveyStatus");
+    }
+
+    // Perform the update.
+    return ctx.db.mutation.updateSurvey({
+      where: { id: args.surveyid },
+      data: {
+        status: args.status,
+      },
+    }, info);
+  },
+
+
+  /**
    * Add a score value to a Survey's score field. Only the owning student (or moderators or better)
    * can do this. The value can be negative to remove points.
    * It will not be possible to make the score below the minimum (0) nor above the max (1000).

@@ -23,7 +23,7 @@ const UserDetailCourseDetails = props => (
     </Message>
     <Segment attached >
       <Header size="medium" textAlign="center">
-        Mastery
+        Masteries
       </Header>
       <UserDetailMasteries
         masteries={props.courseData.masteries}
@@ -31,8 +31,14 @@ const UserDetailCourseDetails = props => (
         organizeBySubject
         subjectCompactView
       />
+    </Segment>
+    <Segment attached >
+      <Header size="medium" textAlign="center">
+        Surveys
+      </Header>
       <UserDetailSurveys
         surveys={props.courseData.surveys}
+        queryInfo={props.queryInfo}
       />
     </Segment>
   </div>

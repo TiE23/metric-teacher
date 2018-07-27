@@ -63,6 +63,13 @@ export const MASTERY_DEFAULT_SCORE = 0;
 export const MASTERY_MIN_SCORE = 0;
 export const MASTERY_MAX_SCORE = 1000;
 
+// Survey
+export const SURVEY_DEFAULT_SCORE = 0;
+export const SURVEY_MIN_SCORE = 0;
+export const SURVEY_MAX_SCORE = 1000;
+export const SURVEY_STATUS_NORMAL = 0;
+export const SURVEY_STATUS_SKIPPED = 1;
+
 // Course
 export const COURSE_STATUS_ACTIVE = 0;
 export const COURSE_STATUS_INACTIVE = 1;
