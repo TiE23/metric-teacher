@@ -27,7 +27,7 @@ import LoadingError from "./LoadingError";
  *        queryData={queryProps}
  *        loadingErrorProps={{ loadingMessage: "Custom Loading Message!" }}
  *       >
- *         <MyComponent queryData={queryProps} />
+ *         <MyComponent myData={queryProps.data && queryProps.data.someQuery} />
  *       </QueryHandler>
  *     )}
  *   </Query>
@@ -41,22 +41,22 @@ import LoadingError from "./LoadingError";
  * @constructor
  */
 const QueryHandler = (props) => {
-  const { children, queryData, skip, optional } = props;
+  const { children, queryData, skip, optional, noDataIsAcceptable, noDataErrorMessage } = props;
+
+  // If the server sent an error.
+  const queryError = (!optional && queryData.error);
 
   // If the data is empty after loading is complete we got nothing!
   const dataIsEmptyError =
-    !props.noDataIsAcceptable && !queryData.loading && utils.isEmptyRecursive(queryData.data);
+    !noDataIsAcceptable && !queryData.loading && utils.isEmptyRecursive(queryData.data);
 
   // The query is loading or in error...
-  if (!skip &&
-    (queryData.loading ||
-      ((!optional && queryData.error) || dataIsEmptyError)
-    )) {
+  if (!skip && (queryData.loading || queryError || dataIsEmptyError)) {
     // Waiting for the query to load or displaying the error.
     return (
       <LoadingError
-        error={(!optional && queryData.error) || dataIsEmptyError}
-        errorMessage={dataIsEmptyError && props.noDataErrorMessage}
+        error={queryError || dataIsEmptyError}
+        errorMessage={(!queryError && dataIsEmptyError && noDataErrorMessage)}
         {...props.loadingErrorProps}
       />
     );

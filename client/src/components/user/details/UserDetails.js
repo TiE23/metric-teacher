@@ -47,7 +47,7 @@ class UserDetails extends PureComponent {
               <Grid.Row centered>
                 <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
                   <UserDetailBasicsEditor
-                    userData={queryProps.data.user}
+                    userData={queryProps.data && queryProps.data.user}
                     queryInfo={{ query: USER_DETAILS_QUERY, variables: queryProps.variables }}
                     closeEditor={this.closeUserDetailBasicsEditor}
                   />
@@ -57,7 +57,7 @@ class UserDetails extends PureComponent {
               <Grid.Row centered>
                 <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
                   <UserDetailBasics
-                    userData={queryProps.data.user}
+                    userData={queryProps.data && queryProps.data.user}
                     queryInfo={{ query: USER_DETAILS_QUERY, variables: queryProps.variables }}
                     openEditor={this.openUserDetailBasicsEditor}
                   />
@@ -67,7 +67,7 @@ class UserDetails extends PureComponent {
             <Grid.Row centered>
               <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
                 <UserDetailEnrollment
-                  userData={queryProps.data.user}
+                  userData={queryProps.data && queryProps.data.user}
                   queryInfo={{ query: USER_DETAILS_QUERY, variables: queryProps.variables }}
                 />
               </Grid.Column>

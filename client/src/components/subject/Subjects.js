@@ -25,7 +25,7 @@ const Subjects = (props) => {
           query={query}
         >
           <SubjectsList
-            subjectsData={queryProps.data[queryName]}
+            subjectsData={queryProps.data && queryProps.data[queryName]}
             queryInfo={{ query, variables: queryProps.variables }}
             compactView
           />
