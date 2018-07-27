@@ -65,12 +65,10 @@ const reverseMasteriesData = (masteriesData) => {
       utils.cachePushIntoArray(temp, "root", "subjects", subjectShallowData);
     }
     if (!utils.cacheTargetExists(temp, subSubjectShallowData.id)) {
-      utils.cacheNewObject(temp, subjectShallowData.id, "subSubjects", [], true);
-      utils.cachePushIntoArray(temp, subjectShallowData.id, "subSubjects", subSubjectShallowData);
+      utils.cacheNewObject(temp, subjectShallowData.id, "subSubjects", [subSubjectShallowData], true);
     }
     if (!utils.cacheTargetExists(temp, masteryShallowData.id)) {
-      utils.cacheNewObject(temp, subSubjectShallowData.id, "masteries", [], true);
-      utils.cachePushIntoArray(temp, subSubjectShallowData.id, "masteries", masteryShallowData);
+      utils.cacheNewObject(temp, subSubjectShallowData.id, "masteries", [masteryShallowData], true);
     }
   });
 
