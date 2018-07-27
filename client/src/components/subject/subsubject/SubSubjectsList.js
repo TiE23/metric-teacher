@@ -18,7 +18,8 @@ const SubSubjectsList = (props) => {
 
     let masteryTitleString;
 
-    if (!props.queryInfo || !props.queryInfo.variables.studentid) {
+    if (!props.queryInfo ||
+      !(props.queryInfo.variables.studentid || props.queryInfo.variables.userid)) {
       masteryTitleString = "";
     } else if (masteryData && masteryData.status === MASTERY_STATUS_ACTIVE) {
       masteryTitleString = `${(masteryData.score / MASTERY_MAX_SCORE) * 100}% Mastered - Active`;
@@ -66,6 +67,7 @@ SubSubjectsList.propTypes = {
     query: PropTypes.object.isRequired,
     variables: PropTypes.shape({
       studentid: PropTypes.string,
+      userid: PropTypes.string,
     }),
   }),
   defaultActiveIndex: PropTypes.number,

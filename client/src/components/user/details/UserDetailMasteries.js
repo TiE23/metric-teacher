@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import sortBy from "lodash/sortBy";
 
 import utils from "../../../utils";
 
@@ -9,7 +10,15 @@ import SubjectsList from "../../subject/subject/SubjectsList";
 const UserDetailMasteries = (props) => {
   if (props.masteries.length) {
     if (props.organizeBySubject) {
-      const subjectsTree = reverseMasteriesData(props.masteries);
+      // Sort Subjects by ID, ascending.
+      const subjectsTree = sortBy(reverseMasteriesData(props.masteries), ["id"]);
+
+      // Sort SubSubjects by ID, ascending.
+      subjectsTree.forEach((subject) => {
+        // eslint-disable-next-line no-param-reassign
+        subject.subSubjects = sortBy(subject.subSubjects, ["id"]);
+      });
+
       return (
         <SubjectsList
           subjectsData={subjectsTree}
@@ -65,7 +74,6 @@ const reverseMasteriesData = (masteriesData) => {
     }
   });
 
-  // TODO - Sort Subjects and possibly SubSubjects.
   return temp.subjects;
 };
 
