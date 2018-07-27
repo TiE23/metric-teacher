@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Segment, Container, Button } from "semantic-ui-react";
+import { Segment, Container, Button, Header, List } from "semantic-ui-react";
 
 import {
   USER_TYPE_NAMES,
@@ -11,19 +11,23 @@ const UserDetailBasics = (props) => {
   if (!props.userData) return null;
 
   const { userData } = props;
+  const nameFormated =
+    `${userData.honorific ? `${userData.honorific} ` : ""}${userData.fname} ${userData.lname}`;
 
   return (
     <Segment>
-      <h1>User Detail Basics.</h1>
-      <ul>
-        <li>Name: {userData.honorific ?
-          `${userData.honorific} ` : ""}{userData.fname} {userData.lname}
-        </li>
-        <li>Email: {userData.email}</li>
-        <li>ID: {userData.id}</li>
-        <li>Type: {USER_TYPE_NAMES[userData.type] || "Unknown"}</li>
-        <li>Status: {USER_STATUS_NAMES[userData.status] || "Unknown"}</li>
-      </ul>
+      <Header as="h1" textAlign="center">
+        <Header.Content>
+          User Profile
+        </Header.Content>
+      </Header>
+      <List>
+        <List.Item icon="user" content={nameFormated} />
+        <List.Item icon="mail" content={userData.email} />
+        <List.Item icon="certificate" content={USER_TYPE_NAMES[userData.type] || "Unknown"} />
+        <List.Item icon="shield" content={USER_STATUS_NAMES[userData.status] || "Unknown"} />
+        <List.Item icon="id card" content={userData.id} />
+      </List>
       {typeof props.openEditor === "function" &&
         <Container textAlign="right" >
           <Button
