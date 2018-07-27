@@ -1,31 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Item } from "semantic-ui-react";
 
-import SubSubjectsList from "../subsubject/SubSubjectsList";
-
-const Subject = (props) => {
-  const { subjectData } = props;
-
-  return (
-    <div><b>Subject</b>: {subjectData.name} ({subjectData.id})
-      <br />
-      <SubSubjectsList
-        subSubjectsData={subjectData.subSubjects}
-        queryInfo={props.queryInfo}
-      />
-    </div>
-  );
-};
+const Subject = props =>  (
+  <Item.Group>
+    <Item>
+      <Item.Image size="small" src={props.subjectData.media || "/img/placeholder.png"} />
+      <Item.Content>
+        <Item.Header>{props.subjectData.name}</Item.Header>
+        <Item.Description>
+          {props.subjectData.description}
+        </Item.Description>
+        <Item.Extra>
+          <b>Did you know?</b>{props.subjectData.measurementDescription}
+        </Item.Extra>
+      </Item.Content>
+    </Item>
+  </Item.Group>
+);
 
 Subject.propTypes = {
   subjectData: PropTypes.shape({
-    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    subSubjects: PropTypes.arrayOf(PropTypes.object).isRequired,
-  }).isRequired,
-  queryInfo: PropTypes.shape({
-    query: PropTypes.object.isRequired,
-    variables: PropTypes.object.isRequired,
+    measurementDescription: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    media: PropTypes.string,
   }).isRequired,
 };
 

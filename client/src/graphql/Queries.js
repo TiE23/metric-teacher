@@ -74,18 +74,22 @@ export const SUBJECT_DETAILS_STUDENT_QUERY = gql`
         subSubjects_every: {
           masteries_every: {
             parent: {
-              AND: [
-                {
-                  status: 0
-                },
-                {
-                  parent: {
-                    student: {
+              parent: {
+                student: {
+                  AND: [
+                    {
                       id: $studentid
+                    },
+                    {
+                      enrollment: {
+                        courses_every: {
+                          status: 0
+                        }
+                      }
                     }
-                  }
+                  ]
                 }
-              ]
+              }
             }
           }
         }

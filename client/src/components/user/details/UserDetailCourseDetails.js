@@ -10,6 +10,8 @@ const UserDetailCourseDetails = props => (
     <UserDetailMasteries
       masteries={props.courseData.masteries}
       queryInfo={props.queryInfo}
+      organizeBySubject
+      subjectCompactView
     />
     <UserDetailSurveys
       surveys={props.courseData.surveys}

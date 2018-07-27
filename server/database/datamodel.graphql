@@ -98,6 +98,7 @@ type Subject {
   updatedAt: DateTime!
   name: String! @unique
   description: String!
+  media: String
   measurementDescription: String!
   subSubjects: [SubSubject!]! @relation(name: "SubjectToSubSubject")
 }
@@ -115,6 +116,7 @@ type SubSubject {
   updatedAt: DateTime!
   name: String! @unique
   description: String!
+  media: String
   toMetric: Boolean!
   rarity: Int!
   scale: String!

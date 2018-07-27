@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
+import { Segment } from "semantic-ui-react";
 
 import utils from "../../utils";
 
@@ -23,14 +24,17 @@ const MasteryAssign = props => (
     }}
   >
     {(assignStudentNewMastery, { loading, error }) => (
-      <LoadingButton
-        onClick={() => assignStudentNewMastery({
-          variables: { studentid: props.studentId, subsubjectid: props.subSubjectId },
-        })}
-        loading={loading}
-        error={error}
-        buttonText="Assign"
-      />
+      <Segment>
+        <LoadingButton
+          onClick={() => assignStudentNewMastery({
+            variables: { studentid: props.studentId, subsubjectid: props.subSubjectId },
+          })}
+          loading={loading}
+          error={error}
+          buttonText="Assign"
+          buttonProps={props.buttonProps}
+        />
+      </Segment>
     )}
   </Mutation>
 );
@@ -42,6 +46,11 @@ MasteryAssign.propTypes = {
   }).isRequired,
   studentId: PropTypes.string.isRequired,
   subSubjectId: PropTypes.string.isRequired,
+  buttonProps: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
+};
+
+MasteryAssign.defaultProps = {
+  buttonProps: null,
 };
 
 export default MasteryAssign;

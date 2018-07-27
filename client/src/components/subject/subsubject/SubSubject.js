@@ -1,17 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Segment } from "semantic-ui-react";
 
-const SubSubject = props =>  (
-  <div>
-    <b>SubSubject</b>: {props.subSubjectData.name} ({props.subSubjectData.id})
-  </div>
+const SubSubject = props => (
+  <Segment attached>
+    {props.subSubjectData.description}
+  </Segment>
 );
 
 SubSubject.propTypes = {
   subSubjectData: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    masteries: PropTypes.arrayOf(PropTypes.object),
+    description: PropTypes.string.isRequired,
   }).isRequired,
 };
 

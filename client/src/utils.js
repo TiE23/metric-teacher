@@ -3,6 +3,7 @@ import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
 import isEmail from "validator/lib/isEmail";
 import mergeWith from "lodash/mergeWith";
 import isPlainObject from "lodash/isPlainObject";
+import isObject from "lodash/isObject";
 import forEach from "lodash/forEach";
 
 import normalizeEmail from "validator/lib/normalizeEmail";
@@ -404,6 +405,29 @@ const cachePushIntoArray = (data, targetId, targetAddress, newValue) => {
 
 
 /**
+ * Find if a target object by their ID alone or a child by targetAddress and a parent ID exists.
+ *
+ * Ex:  const data = { id: "root", cars: [{ id: "1", name: "Ford" }, { id: "2", name: "VW" }] }
+ *      cacheTargetExists(data, "1")
+ *      // True - "Ford"
+ *      cacheTargetExists(data, "root", "cars")
+ *      // True - "[{ id: "1", name: "Ford" }, { id: "2", name: "VW" }]"
+ *
+ * @param data
+ * @param targetId
+ * @param targetAddress
+ * @returns {boolean}
+ */
+const cacheTargetExists = (data, targetId, targetAddress = []) => {
+  const findResult = findRecursive(data, object => object.id === targetId);
+  if (!findResult) return false;
+  const targetObject = navigateObjectDots(findResult.target, targetAddress);
+  if (!targetObject) return false;  // Object was not found at this address.
+  return true;
+};
+
+
+/**
  * Basic find function iterates through Objects and arrays in a recursive method.
  * Returns the first element that predicate returns truthy for.
  *
@@ -448,6 +472,7 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
 /**
  * Hacky but elegant recursive method to navigate objects with a string in dot notation or array of
  * keys.
+ *
  * Ex:  const object = { a: { b: { c: "cat" } } };
  *      navigateObjectDots(object, "a");
  *      // { b: { c: "cat" } }
@@ -459,6 +484,7 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
  *      // undefined
  *      navigateObjectDots(object, "a.b.c.foo.bar");
  *      // undefined
+ *
  * @param object
  * @param address
  * @returns {*}
@@ -478,6 +504,35 @@ const navigateObjectDots = (object, address) => {
 };
 
 
+/**
+ * Simple function shallow copies the content of an object skipping any values that are objects.
+ * This is essentially the opposite of a recursive copy of an object.
+ *
+ * @param data
+ */
+const rootCopy = (data) => {
+  const topCopy = {};
+
+  forEach(data, (value, key) => {
+    if (!isObject(value)) {
+      topCopy[key] = value;
+    }
+  });
+
+  return topCopy;
+};
+
+
+/**
+ * Capitalize the first letter of a string.
+ * @param string
+ * @returns {string}
+ */
+const firstLetterCap = (string) => {
+  if (string.length === 0) return string;
+  return string.slice(0, 1).toLocaleUpperCase() + string.slice(1);
+};
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -491,6 +546,9 @@ export default {
   cacheUpdateObject,
   cacheDeleteObject,
   cachePushIntoArray,
+  cacheTargetExists,
   findRecursive,
   navigateObjectDots,
+  rootCopy,
+  firstLetterCap,
 };

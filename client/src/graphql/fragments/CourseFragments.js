@@ -5,6 +5,7 @@ import {
   ClassroomDataAll,
   MasteryDataAll,
   SubSubjectDataAll,
+  SubjectDataAll,
   SurveyDataAll,
   QuestionDataAll,
 } from "./SimpleFragments";
@@ -21,10 +22,13 @@ export const CourseForUserDetails = gql`
         honorific
       }
     }
-    masteries {
+    masteries(orderBy: createdAt_ASC) {
       ...MasteryDataAll
       subSubject {
         ...SubSubjectDataAll
+        parent {
+          ...SubjectDataAll
+        }
       }
     }
     surveys {
@@ -38,6 +42,7 @@ export const CourseForUserDetails = gql`
   ${ClassroomDataAll}
   ${MasteryDataAll}
   ${SubSubjectDataAll}
+  ${SubjectDataAll}
   ${SurveyDataAll}
   ${QuestionDataAll}
 `;

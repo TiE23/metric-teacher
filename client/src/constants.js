@@ -58,3 +58,6 @@ export const USER_TYPE_ADMIN = 3;
 // Mastery
 export const MASTERY_STATUS_ACTIVE = 0;
 export const MASTERY_STATUS_INACTIVE = 1;
+export const MASTERY_DEFAULT_SCORE = 0;
+export const MASTERY_MIN_SCORE = 0;
+export const MASTERY_MAX_SCORE = 1000;

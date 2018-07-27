@@ -39,6 +39,10 @@ const MasteryToggle = props => (
         loading={loading}
         error={error}
         buttonText={props.masteryCurrentStatus === MASTERY_STATUS_ACTIVE ? "Disable" : "Enable"}
+        buttonProps={{
+          primary: props.masteryCurrentStatus === MASTERY_STATUS_INACTIVE,
+          ...props.buttonProps,
+        }}
       />
     )}
   </Mutation>
@@ -51,6 +55,11 @@ MasteryToggle.propTypes = {
   }).isRequired,
   masteryId: PropTypes.string.isRequired,
   masteryCurrentStatus: PropTypes.number.isRequired,
+  buttonProps: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
+};
+
+MasteryToggle.defaultProps = {
+  buttonProps: null,
 };
 
 export default MasteryToggle;

@@ -1,29 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Button, Loader } from "semantic-ui-react";
 
 const LoadingButton = (props) => {
   if (props.loading) {
     return (
-      <img alt="loading" src="/img/loading.gif" />
+      <div>
+        <Loader active />
+        <Button
+          disabled
+          {...props.buttonProps}
+        >
+          Loading...
+        </Button>
+      </div>
     );
   }
 
   if (props.error) {
     return (
-      <button disabled>
+      <Button disabled>
         Error!
-      </button>
+      </Button>
     );
   }
 
   return (
-    <button onClick={(e) => {
-      e.preventDefault();
-      props.onClick();
-    }}
+    <Button
+      onClick={(e) => {
+        e.preventDefault();
+        props.onClick();
+      }}
+      {...props.buttonProps}
     >
       {props.buttonText}
-    </button>
+    </Button>
   );
 };
 
@@ -32,10 +43,12 @@ LoadingButton.propTypes = {
   buttonText: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.any,  // eslint-disable-line react/forbid-prop-types
+  buttonProps: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
 };
 
 LoadingButton.defaultProps = {
   error: false,
+  buttonProps: null,
 };
 
 export default LoadingButton;
