@@ -15,17 +15,20 @@ import {
 import { USER_DETAILS_QUERY } from "../../../graphql/Queries";
 
 class UserDetails extends PureComponent {
-  state = {
-    editUserDetailBasics: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editUserDetailBasics: false,
+    };
 
-  openUserDetailBasicsEditor = () => {
-    this.setState({ editUserDetailBasics: true });
-  };
+    this.openUserDetailBasicsEditor = () => {
+      this.setState({ editUserDetailBasics: true });
+    };
 
-  closeUserDetailBasicsEditor = () => {
-    this.setState({ editUserDetailBasics: false });
-  };
+    this.closeUserDetailBasicsEditor = () => {
+      this.setState({ editUserDetailBasics: false });
+    };
+  }
 
   render() {
     return (
@@ -38,6 +41,7 @@ class UserDetails extends PureComponent {
           <QueryHandler
             queryData={queryProps}
             query={USER_DETAILS_QUERY}
+            noDataErrorMessage="User not found."
           >
             {this.state.editUserDetailBasics ?
               <Grid.Row centered>

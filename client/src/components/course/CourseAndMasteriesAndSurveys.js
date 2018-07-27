@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Segment, Message, Header } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Segment, Message, Header, Icon } from "semantic-ui-react";
 
 import UserDetailMasteries from "../user/details/UserDetailMasteries";
 import UserDetailSurveys from "../user/details/UserDetailSurveys";
@@ -31,6 +32,16 @@ const CourseAndMasteriesAndSurveys = props => (
         organizeBySubject
         subjectCompactView
       />
+      <br />
+      <p>
+        <Icon name="info circle" />
+        Assign new subjects to master by visiting the {" "}
+        <Link
+          to="/subjects"
+        >
+          Subjects page
+        </Link>.
+      </p>
     </Segment>
     <Segment attached >
       <Header size="medium" textAlign="center">

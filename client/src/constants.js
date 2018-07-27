@@ -42,14 +42,14 @@ export const EMAIL_SECRET_PREFIXES = [
 
 // User
 export const USER_TYPE_NAMES = [
-  "Student",
-  "Teacher",
-  "Moderator",
-  "Admin",
+  "student",
+  "teacher",
+  "moderator",
+  "admin",
 ];
 export const USER_STATUS_NAMES = [
-  "Normal",
-  "Closed",
+  "normal",
+  "closed",
 ];
 export const USER_TYPE_STUDENT = 0;
 export const USER_TYPE_TEACHER = 1;

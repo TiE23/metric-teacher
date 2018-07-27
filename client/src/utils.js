@@ -5,6 +5,7 @@ import mergeWith from "lodash/mergeWith";
 import isPlainObject from "lodash/isPlainObject";
 import isObject from "lodash/isObject";
 import forEach from "lodash/forEach";
+import isEmpty from "lodash/isEmpty";
 
 import normalizeEmail from "validator/lib/normalizeEmail";
 
@@ -450,7 +451,7 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
   // Return statements in the forEach() functions don't work so must do this instead.
   let result = undefined; // eslint-disable-line no-undef-init
 
-  // Arrays in JS are also objects.
+  // In JS arrays are also objects.
   if (typeof target === "object") {
     const isArray = Array.isArray(target);
     const iterable = isArray ? target : Object.keys(target);
@@ -458,7 +459,7 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
       const value = isArray ? key : target[key];
       if (typeof value === "object") {
         result = findRecursive(value, predicate, target, key);
-        if (result) {
+        if (result) { // The object was FOUND. This is the base case.
           return false; // Stop the forEach loop.
         }
       }
@@ -533,6 +534,80 @@ const firstLetterCap = (string) => {
   return string.slice(0, 1).toLocaleUpperCase() + string.slice(1);
 };
 
+
+/**
+ * Very simple question text grabber. Just skips
+ * @param string
+ * @returns {*}
+ */
+const questionTextGrabber = (string) => {
+  const squareBracketIndex = string.indexOf("[");
+  if (squareBracketIndex === -1) return string;
+  return string.slice(0, squareBracketIndex).trim();
+};
+
+
+/**
+ * Very simple string truncator.
+ * Ex: ("Hello World!", 9) returns "Hello..."
+ *      --> That's 8 characters because it won't return "Hello ..."
+ * @param string
+ * @param length
+ * @param trunc
+ * @returns {String}
+ */
+const stringTruncator = (string, length, trunc = "...") => {
+  if (length <= 0) return "";
+  if (length <= trunc.length) return trunc.slice(0, length);
+  const trimmedString = string.trim();
+  if (trimmedString.length <= length) return trimmedString;
+  return trimmedString.slice(0, length - trunc.length).trimEnd() + trunc;
+};
+
+
+/**
+ * An extension to lodash's isEmpty function where it'll say an object is empty if it is
+ * functionally empty. As in, it can have multiple keys and still be empty if it has no values.
+ *
+ * Ex:  utils.isEmptyRecursive({ a: null })                                 // True
+ *      utils.isEmptyRecursive({ a: { b: null } })                          // True
+ *      utils.isEmptyRecursive({ a: { b: [] } })                            // True
+ *      utils.isEmptyRecursive({ a: { b: [{ b1: null }, { b2: null }] } })  // True
+ *      utils.isEmptyRecursive({ a: { b: "boy" } })                         // False
+ *      utils.isEmptyRecursive({ a: { b: false } })                         // False (!)
+ *
+ * @param object
+ * @returns {boolean}
+ */
+const isEmptyRecursive = (object) => {
+  if (isEmpty(object)) return true;
+
+  let result = false;
+
+  // In JS arrays are also objects.
+  if (typeof object === "object") {
+    const isArray = Array.isArray(object);
+    const iterable = isArray ? object : Object.keys(object);
+    forEach(iterable, (key) => {
+      const value = isArray ? key : object[key];
+
+      // Recurse on objects/arrays
+      if (typeof value === "object") {
+        result = isEmptyRecursive(value);
+        if (!result) {  // The object was NOT empty, this is the base case.
+          return false; // Stop the forEach loop.
+        }
+      // On non-objects, just confirm it's not null
+      } else if (value !== null) {
+        result = false;
+      }
+      return true;
+    });
+  }
+
+  return result;
+};
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -551,4 +626,7 @@ export default {
   navigateObjectDots,
   rootCopy,
   firstLetterCap,
+  questionTextGrabber,
+  stringTruncator,
+  isEmptyRecursive,
 };

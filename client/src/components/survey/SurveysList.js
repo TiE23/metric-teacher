@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Accordion } from "semantic-ui-react";
 
+import utils from "../../utils";
+
 import {
   SURVEY_STATUS_NORMAL,
   SURVEY_MAX_SCORE,
@@ -13,7 +15,9 @@ const SurveysList = (props) => {
   const { surveysData } = props;
 
   const surveyPanels = surveysData.map((surveyData) => {
-    const title = `${surveyData.question.id} - ${(surveyData.score / SURVEY_MAX_SCORE) * 100}% Mastered${surveyData.status === SURVEY_STATUS_NORMAL ? "" : " - Skipped"}`;
+    const questionText =
+      surveyData.question.question.slice(0, surveyData.question.question.indexOf("[")).trim();
+    const title = `"${utils.stringTruncator(questionText, 30)}" - ${(surveyData.score / SURVEY_MAX_SCORE) * 100}% Mastered${surveyData.status === SURVEY_STATUS_NORMAL ? "" : " - Skipped"}`;
 
     return ({
       key: surveyData.id,

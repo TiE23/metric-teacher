@@ -2,12 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Segment, Container, Button, Header, List } from "semantic-ui-react";
 
+import utils from "../../../utils";
+
 import {
   USER_TYPE_NAMES,
   USER_STATUS_NAMES,
 } from "../../../constants";
 
 const UserDetailBasics = (props) => {
+  if (!props.userData) console.log("here!");
   if (!props.userData) return null;
 
   const { userData } = props;
@@ -22,8 +25,14 @@ const UserDetailBasics = (props) => {
       <List>
         <List.Item icon="user" content={nameFormated} />
         <List.Item icon="mail" content={userData.email} />
-        <List.Item icon="certificate" content={USER_TYPE_NAMES[userData.type] || "Unknown"} />
-        <List.Item icon="shield" content={USER_STATUS_NAMES[userData.status] || "Unknown"} />
+        <List.Item
+          icon="certificate"
+          content={utils.firstLetterCap(USER_TYPE_NAMES[userData.type]) || "Unknown"}
+        />
+        <List.Item
+          icon="shield"
+          content={utils.firstLetterCap(USER_STATUS_NAMES[userData.status]) || "Unknown"}
+        />
         <List.Item icon="id card" content={userData.id} />
       </List>
       {typeof props.openEditor === "function" &&
