@@ -53,7 +53,7 @@ type Query {
   feedbackSearch(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback]!
 
   # QA Queries
-  generateChallenge(courseid: ID!, subjectids: [ID], subsubjectids: [ID], listsize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!
+  generateChallenge(studentid: ID!, subjectids: [ID], subsubjectids: [ID], listsize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!
   getQa(questionids: [ID!]!, studentid: ID): [QaObject]!
 
   # Other Queries
