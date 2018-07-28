@@ -1,3 +1,6 @@
+const find = require("lodash/find");
+const difference = require("lodash/difference");
+
 const {
   checkAuth,
 } = require("../../utils");
@@ -27,21 +30,24 @@ const {
 
 const qa = {
   /**
-   * Generates a full QAObject from a single Question ID.
+   * Generates a list of QAObjects from a list of Question IDs.
+   * If studentid is defined it'll try to get Surveys from that student's active Course.
    * @param parent
    * @param args
-   *        questionid: ID!
+   *        questionids: [ID!]!
+   *        studentid: ID
    * @param ctx
    * @returns QaObject
    */
   async getQa(parent, args, ctx) {
-    const callingUserData = await checkAuth(ctx, {
+    await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
       status: USER_STATUS_NORMAL,
       action: "getQa",
     });
-    const questionObject = await ctx.db.query.question(
-      { where: { id: args.questionid } },
+
+    const questionObjects = await ctx.db.query.questions(
+      { where: { id_in: args.questionids } },
       `{
         id
         type
@@ -57,16 +63,28 @@ const qa = {
       }`,
     );
 
-    // If the question wasn't found
-    if (!questionObject) {
-      throw new QuestionNotFound(args.questionid);
+
+    // If a question wasn't found, stop and report it immediately.
+    const foundQuestionIds = questionObjects.map(questionObject => questionObject.id);
+    const missingQuestions = difference(args.questionids, foundQuestionIds);
+    if (!missingQuestions) {
+      throw new QuestionNotFound(`["${missingQuestions.join(", ")}"]`);
     }
 
-    // Check if the student has answered the survey. Don't bother for non-students.
-    if (callingUserData.type === USER_TYPE_STUDENT &&
-      questionObject.type === QUESTION_TYPE_SURVEY) {
+    // Get the survey type Question IDs, but only bother if we have a student ID inputted.
+    const surveyQuestionIds = [];
+    if (args.studentid) {
+      questionObjects.forEach((questionObject) => {
+        if (questionObject.type === QUESTION_TYPE_SURVEY) {
+          surveyQuestionIds.push(questionObject.id);
+        }
+      });
+    }
+
+    // Find the survey entries for a student for any survey type Questions given.
+    if (args.studentid && surveyQuestionIds) {
       const userSurveyObject = await ctx.db.query.user(
-        { where: { id: callingUserData.id } },
+        { where: { id: args.studentid } },
         `{
           enrollment {
             courses( where: {
@@ -74,10 +92,13 @@ const qa = {
             }, first: 1) {
               surveys( where: {
                 question: {
-                  id: "${args.questionid}"
+                  id_in: [
+                    ${`"${surveyQuestionIds.join("\",\"")}"`}
+                  ]
                 }
               }) {
                 id
+                status
                 score
                 answer
                 detail
@@ -96,10 +117,14 @@ const qa = {
       // TODO Better error reporting, explain user doesn't have enrollment or course.
       try {
         // If the survey question was answered the surveyObject below will be defined.
-        const surveyObject = userSurveyObject.enrollment.courses[0].surveys[0];
+        const surveyObjects = userSurveyObject.enrollment.courses[0].surveys;
 
-        // Survey response found! Feed it into qaGenerate and return results
-        return qaGenerate(questionObject, surveyObject);
+        // Survey responses found! Feed it into qaGenerate and return results
+        return questionObjects.map((questionObject) => {
+          const matchingSurvey = find(surveyObjects, survey =>
+            survey.question.id === questionObject.id);
+          return qaGenerate(questionObject, matchingSurvey);  // If not found, will be undefined.
+        });
       } catch (e) {
         // In the case that the user has no courses we catch and swallow TypeErrors.
         if (!(e instanceof TypeError)) {
@@ -108,7 +133,7 @@ const qa = {
       }
     }
 
-    return qaGenerate(questionObject);
+    return questionObjects.map(questionObject => qaGenerate(questionObject));
   },
 
 

@@ -14,7 +14,6 @@ const {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
-  SURVEY_STATUS_NORMAL,
   CONVERSION_CHOICE_OPTIONS_MULTIPLIERS,
   UNITS,
 } = require("../constants");
@@ -134,9 +133,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
     if (surveyData) {
       response = {
         // When using parseSingleAnswer we must strip out square brackets.
-        answer: surveyData.status === SURVEY_STATUS_NORMAL ?
-          parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer) :
-          null,
+        answer: parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer),
         score: surveyData.score,
         id: surveyData.id,
         detail: surveyData.detail,

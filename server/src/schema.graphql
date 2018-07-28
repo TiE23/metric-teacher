@@ -54,7 +54,7 @@ type Query {
 
   # QA Queries
   generateChallenge(courseid: ID!, subjectids: [ID], subsubjectids: [ID], listsize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!
-  getQa(questionid: ID!): QaObject
+  getQa(questionids: [ID!]!, studentid: ID): [QaObject]!
 
   # Other Queries
   ping: String!
