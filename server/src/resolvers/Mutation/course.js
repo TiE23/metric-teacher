@@ -36,72 +36,9 @@ const {
 
 const course = {
   /**
-   * Assigns SubSubjects to an existing Course. Only the owning student (or moderators or better)
-   * can do this.
-   * TODO - Let teachers (connected via active Course + active Classroom) also assign SubSubjects.
-   * @param parent
-   * @param args
-   *        courseid: ID!
-   *        subsubjectids: [ID!]!
-   * @param ctx
-   * @param info
-   * @returns Course!
-   */
-  async assignCourseNewMasteries(parent, args, ctx, info) {
-    const callingUserData = await checkAuth(ctx, {
-      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
-      status: USER_STATUS_NORMAL,
-      action: "assignCourseNewMasteries",
-    });
-
-    const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
-      {
-        id
-        parent {
-          student {
-            id
-          }
-        }
-        masteries {
-          subSubject {
-            id 
-          }
-        }
-      }
-    `);
-
-    // Check the course exists.
-    if (targetCourseData === null) {
-      throw new CourseNotFound(args.courseid);
-    }
-
-    // A student can assign new SubSubjects and moderators or better can as well.
-    if (callingUserData.id !== targetCourseData.parent.student.id &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "assignCourseNewMasteries");
-    }
-
-    const newMasteriesClauses = createMasteriesForCourse(targetCourseData, args.subsubjectids);
-
-    return ctx.db.mutation.updateCourse({
-      where: { id: targetCourseData.id },
-      data: {
-        masteries: {
-          create: newMasteriesClauses,
-        },
-      },
-    }, info);
-  },
-
-
-  /**
    * Assigns SubSubjects to a student's active Course. Only the owning student (or moderators or
    * better) can do this.
    * TODO - Let teachers (connected via active Course + active Classroom) also assign SubSubjects.
-   *
-   * Cheater mutation. I had to write this because it was far easier to have just the student's ID
-   * instead of the Course ID. It involves an extra query to the server. If at all possible prefer
-   * assignCourseNewMasteries() over this function.
    * @param parent
    * @param args
    *        studentid: ID!
@@ -117,14 +54,8 @@ const course = {
       action: "assignStudentNewMasteries",
     });
 
-    const activeCourseData =
-      await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, "{ id }");
-
-    if (!activeCourseData) {
-      throw new StudentNoActiveCourse(args.studentid, "assignStudentNewMasteries");
-    }
-
-    const targetCourseData = await ctx.db.query.course({ where: { id: activeCourseData.id } }, `
+    const targetCourseData =
+      await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, `
       {
         id
         parent {
@@ -142,7 +73,7 @@ const course = {
 
     // Check the course exists.
     if (targetCourseData === null) {
-      throw new CourseNotFound(args.courseid);
+      throw new StudentNoActiveCourse(args.studentid, "assignStudentNewMasteries");
     }
 
     // A student can assign new SubSubjects and moderators or better can as well.
@@ -213,13 +144,13 @@ const course = {
 
 
   /**
-   * Give a Course ID and a list of combination SubSubject IDs and scores (positive or negative) and
-   * those values will be added to each valid Mastery belonging to that Course.
-   * It automatically gathers the Mastery IDs so you don't need to!
-   * Only the owning student (or moderators or better) can do this.
+   * Give a student ID and a list of combination SubSubject IDs and scores (positive or negative)
+   * and those values will be added to each valid Mastery belonging to that student's active Course.
+   * It automatically gathers the Mastery IDs so you don't need to! Only the owning student (or
+   * moderators or better) can do this.
    * @param parent
    * @param args
-   *        courseid: ID!
+   *        studentid: ID!
    *        scoreinput: [
    *          MasteryScoreInput: {
    *            subsubjectid: ID!
@@ -237,42 +168,41 @@ const course = {
       action: "addMasteryScores",
     });
 
-    // Note: Does not check if the Mastery is active or not, so it could affect inactive Masteries.
-    const targetCourseData = await ctx.db.query.course(
-      { where: { id: args.courseid } },
-      `{
-        id
-        parent {
-          student {
-            id
-          }
-        }
-        masteries(
-          where: {
-            subSubject: {
-              id_in: [
-                ${args.scoreinput.map(scoreInput => `"${scoreInput.subsubjectid}"`).join(",")}
-              ]
-            }
-          }
-        ){
-          subSubject {
-            id
-          }
-          id
-          score
-        }
-      }`,
-    );
-
-    if (!targetCourseData) {
-      throw new CourseNotFound(args.courseid);
+    // Students can only do this to themselves. Mods and better can access freely.
+    if (callingUserData.id !== args.studentid && callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "addMasteryScores");
     }
 
-    // Check to make sure that the Course belongs to the student. Mods and better can access freely.
-    if (callingUserData.id !== targetCourseData.parent.student.id &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "addMasteryScores");
+    // Note: Does not check if the Mastery is active or not, so it could affect inactive Masteries.
+    const targetCourseData =
+      await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, `
+        {
+          id
+          parent {
+            student {
+              id
+            }
+          }
+          masteries(
+            where: {
+              subSubject: {
+                id_in: [
+                  ${args.scoreinput.map(scoreInput => `"${scoreInput.subsubjectid}"`).join(",")}
+                ]
+              }
+            }
+          ){
+            subSubject {
+              id
+            }
+            id
+            score
+          }
+        }
+      `);
+
+    if (!targetCourseData) {
+      throw new StudentNoActiveCourse(args.studentid, "addMasteryScores");
     }
 
     // Generate the mutation's Masteries update payload.
@@ -281,7 +211,7 @@ const course = {
 
     // Perform the mutation.
     return ctx.db.mutation.updateCourse({
-      where: { id: args.courseid },
+      where: { id: targetCourseData.id },
       data: {
         masteries: {
           update: masteriesUpdateClause,
@@ -292,12 +222,12 @@ const course = {
 
 
   /**
-   * Give a courseid and a list of combination Survey IDs and scores (positive or negative) and
-   * those values will be added to each valid Survey belonging to that Course.
-   * Only the owning student (or moderators or better) can do this.
+   * Give a student ID and a list of combination Survey IDs and scores (positive or negative) and
+   * those values will be added to each valid Survey belonging to that student's active Course. Only
+   * the owning student (or moderators or better) can do this.
    * @param parent
    * @param args
-   *        courseid: ID!
+   *        studentid: ID!
    *        scoreinput: [
    *          SurveyScoreInput: {
    *            surveyid: ID!
@@ -316,37 +246,36 @@ const course = {
       action: "addSurveyScores",
     });
 
-    // Note: Does not check if the Survey is skipped or not, so it could affect skipped Surveys.
-    const targetCourseData = await ctx.db.query.course(
-      { where: { id: args.courseid } },
-      `{
-        id
-        parent {
-          student {
-            id
-          }
-        }
-        surveys(
-          where: {
-            id_in: [
-              ${args.scoreinput.map(scoreInput => `"${scoreInput.surveyid}"`).join(",")}
-            ]
-          }
-        ){
-          id
-          score
-        }
-      }`,
-    );
-
-    if (!targetCourseData) {
-      throw new CourseNotFound(args.courseid);
+    // Students can only do this to themselves. Mods and better can access freely.
+    if (callingUserData.id !== args.studentid && callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "addSurveyScores");
     }
 
-    // Check to make sure that the Course belongs to the student. Mods and better can access freely.
-    if (callingUserData.id !== targetCourseData.parent.student.id &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "addSurveyScores");
+    // Note: Does not check if the Survey is skipped or not, so it could affect skipped Surveys.
+    const targetCourseData =
+      await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, `
+        {
+          id
+          parent {
+            student {
+              id
+            }
+          }
+          surveys(
+            where: {
+              id_in: [
+                ${args.scoreinput.map(scoreInput => `"${scoreInput.surveyid}"`).join(",")}
+              ]
+            }
+          ){
+            id
+            score
+          }
+        }
+      `);
+
+    if (!targetCourseData) {
+      throw new StudentNoActiveCourse(args.studentid, "addSurveyScores");
     }
 
     // Generate the mutation's Surveys update payload.
@@ -355,7 +284,7 @@ const course = {
 
     // Perform the mutation.
     return ctx.db.mutation.updateCourse({
-      where: { id: args.courseid },
+      where: { id: targetCourseData.id },
       data: {
         surveys: {
           update: surveysUpdateClause,
@@ -366,11 +295,12 @@ const course = {
 
 
   /**
-   * Answer or re-answer a series of Survey questions. Only the owning student (or moderators or
-   * better) can do this.
+   * Answer or re-answer a series of Survey questions with a student ID and a list of inputs.
+   * It will target the student's active Course. Only the owning student (or moderators or better)
+   * can do this.
    * @param parent
    * @param args
-   *        courseid: ID!
+   *        studentid: ID!
    *        answerinput: [
    *          SurveyAnswerInput: {
    *            questionid: ID!
@@ -391,50 +321,51 @@ const course = {
       action: "addSurveyAnswers",
     });
 
-    // Note: Does not check if the Survey is skipped or not, so it could affect skipped Surveys.
-    const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
-    {
-      id
-      parent {
-        student {
-          id
-        }
-      }
-      surveys(
-        where: {
-          question: {
-            id_in: [
-              ${args.answerinput.map(answerInput => `"${answerInput.questionid}"`).join(",")}
-            ]
-          }
-        }
-      ) {
-        id
-        question {
-          id
-        }
-      }
-    }
-    `);
-
-    // Check the course exists.
-    if (targetCourseData === null) {
-      throw new CourseNotFound(args.courseid);
-    }
-
-    // A student can answer/re-answer Surveys and moderators or better can as well.
-    if (callingUserData.id !== targetCourseData.parent.student.id &&
+    // Students can only do this to themselves. Mods and better can access freely.
+    if (callingUserData.id !== args.studentid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
       throw new AuthError(null, "addSurveyAnswers");
     }
 
+    // Note: Does not check if the Survey is skipped or not, so it could affect skipped Surveys.
+    const targetCourseData =
+      await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, `
+        {
+          id
+          parent {
+            student {
+              id
+            }
+          }
+          surveys(
+            where: {
+              question: {
+                id_in: [
+                  ${args.answerinput.map(answerInput => `"${answerInput.questionid}"`).join(",")}
+                ]
+              }
+            }
+          ) {
+            id
+            question {
+              id
+            }
+          }
+        }
+      `);
+
+    // Check the course exists.
+    if (targetCourseData === null) {
+      throw new StudentNoActiveCourse(args.studentid, "addSurveyAnswers");
+    }
+
     // Generate the mutation's Surveys update payload.
     const surveysUpdatePayload =
-      surveysAnswerUpdatePayloadGenerator(targetCourseData, args.answerinput, args.courseid);
+      surveysAnswerUpdatePayloadGenerator(targetCourseData, args.answerinput, targetCourseData.id);
 
     // Fire off the mutation!
     return ctx.db.mutation.updateCourse({
-      where: { id: args.courseid },
+      where: { id: targetCourseData.id },
       data: {
         surveys: surveysUpdatePayload,
       },
@@ -444,10 +375,12 @@ const course = {
 
   /**
    * Batch update a student's masteries, survey scores, and survey answers after completing a
-   * challenge.
+   * challenge. Enter in the student's ID to target their active Course. Only the owning student
+   * (or moderators or better) can do this.
+   * All the inputs are required, but you are allowed to not insert anything.
    * @param parent
    * @param args
-   *        courseid: ID!
+   *        studentid: ID!
    *        masteryscoreinput: [
    *          MasteryScoreInput: {
    *            subsubjectid: ID!
@@ -480,66 +413,66 @@ const course = {
       action: "addChallengeResults",
     });
 
+    // Students can only do this to themselves. Mods and better can access freely.
+    if (callingUserData.id !== args.studentid && callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "addChallengeResults");
+    }
+
     // Note: Does not check if the Survey is skipped or not, so it could affect skipped Surveys.
     //       Does not check if the Mastery is active or not, so it could affect inactive Masteries.
-    const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
-    {
-      id
-      parent {
-        student {
+    const targetCourseData =
+      await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, `
+        {
           id
-        }
-      }
-      masteries(
-        where: {
-          subSubject: {
-            id_in: [
-              ${args.masteryscoreinput.map(scoreInput => `"${scoreInput.subsubjectid}"`).join(",")}
-            ]
+          parent {
+            student {
+              id
+            }
           }
-        }
-      ){
-        subSubject {
-          id
-        }
-        id
-        score
-      }
-      surveys(
-        where: {
-          OR: [
-            {
-              id_in: [
-                ${args.surveyscoreinput.map(scoreInput => `"${scoreInput.surveyid}"`).join(",")}
-              ]
-            },
-            {
-              question: {
+          masteries(
+            where: {
+              subSubject: {
                 id_in: [
-                  ${args.surveyanswerinput.map(answerInput => `"${answerInput.questionid}"`).join(",")}
+                  ${args.masteryscoreinput.map(scoreInput => `"${scoreInput.subsubjectid}"`).join(",")}
                 ]
               }
             }
-          ]
+          ){
+            subSubject {
+              id
+            }
+            id
+            score
+          }
+          surveys(
+            where: {
+              OR: [
+                {
+                  id_in: [
+                    ${args.surveyscoreinput.map(scoreInput => `"${scoreInput.surveyid}"`).join(",")}
+                  ]
+                },
+                {
+                  question: {
+                    id_in: [
+                      ${args.surveyanswerinput.map(answerInput => `"${answerInput.questionid}"`).join(",")}
+                    ]
+                  }
+                }
+              ]
+            }
+          ){
+            id
+            score
+            question {
+              id
+            }
+          }
         }
-      ){
-        id
-        score
-        question {
-          id
-        }
-      }
-    }
-    `);
+      `);
 
     if (!targetCourseData) {
-      throw new CourseNotFound(args.courseid);
-    }
-
-    // Check to make sure that the Course belongs to the student. Mods and better can access freely.
-    if (callingUserData.id !== targetCourseData.parent.student.id &&
-      callingUserData.type < USER_TYPE_MODERATOR) {
-      throw new AuthError(null, "addChallengeResults");
+      throw new StudentNoActiveCourse(args.studentid, "addChallengeResults");
     }
 
     // Let's compose the Prisma data payload now by combining everything together.
@@ -566,8 +499,11 @@ const course = {
     }
 
     // Generate the mutation's Survey answers update payload.
-    const surveysUpdatePayload =
-      surveysAnswerUpdatePayloadGenerator(targetCourseData, args.surveyanswerinput, args.courseid);
+    const surveysUpdatePayload = surveysAnswerUpdatePayloadGenerator(
+      targetCourseData,
+      args.surveyanswerinput,
+      targetCourseData.id,
+    );
 
     // If there were no score updates, we'll need to define the surveys payload object.
     if ((surveysUpdatePayload.create || surveysUpdatePayload.update) &&
@@ -599,7 +535,7 @@ const course = {
 
     // Perform the mutation.
     return ctx.db.mutation.updateCourse({
-      where: { id: args.courseid },
+      where: { id: targetCourseData.id },
       data: dataPayload,
     }, info);
   },

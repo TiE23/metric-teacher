@@ -355,10 +355,10 @@ QuestionAnswerInput: {
     * Get a list of Feedbacks by Prisma query search parameters. For Moderators or better only because Feedback is typically only a Moderator thing. A Student, for example, can look at their own Feedback through their me() query.
 
 #### QA Queries
-* `generateChallenge(courseid: ID!, subjectids: [ID], subsubjectids: [ID], listSize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!`
-    * Generate an entire list of QAObjects (called a "Challenge") based off a Course ID and a list of Subject or SubSubject IDs. Additional boolean arguments help customize the results.
-* `getQa(questionid: ID!): QaObject`
-    * Generates a full QAObject from a single Question ID.
+* `generateChallenge(studentid: ID!, subjectids: [ID], subsubjectids: [ID], listSize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!`
+    * Generate an entire list of QAObjects (called a "Challenge") based off a student ID and a list of Subject or SubSubject IDs. Additional boolean arguments help customize the results.
+* `getQa(questionid: [ID!]!, studentid: ID): [QaObject]!`
+    * Generates a list of QA objects from a list of Question IDs. If studentid is set it'll retrieve that student's active Course's Surveys pertaining to any inputted survey-type question IDs.
 
 ### Mutations
 #### Auth Mutations
@@ -382,23 +382,22 @@ QuestionAnswerInput: {
     * Will set a student's Courses all to inactive and the targeted Course to active. Requires the studentid to perform.
 
 #### Course Mutations
-* `assignCourseNewMasteries(courseid: ID!, subsubjectids: [ID!]!): Course!`
-    * Assigns subSubjects to an existing Course. Only the owning student (or moderators or better) can do this.
 * `assignStudentNewMasteries(student: ID!, subsubjectids: [ID!]!): Course!`
     * Assigns subSubjects to a student's active Course. If at all possible prefer assignCourseNewMasteries() over this function as it involves an extra hit to the database to get the student's active Course. Only the owning student (or moderators or better) can do this.
 * `deactivateCourse(courseid: ID!): Course!`
     * Deactivates a course. Only the owning student (or moderators or better) can do this.
-* `addMasteryScores(courseid: ID!, scoreinput: [MasteryScoreInput!]!): Course!`
-    * Give a Course ID and a list of combination SubSubject IDs and scores (positive or negative) and those values will be added to each valid Mastery belonging to that Course. It automatically gathers the Mastery IDs so you don't need to! Only the owning student (or moderators or better) can do this.
+* `addMasteryScores(studentid: ID!, scoreinput: [MasteryScoreInput!]!): Course!`
+    * Give a student ID and a list of combination SubSubject IDs and scores (positive or negative) and those values will be added to each valid Mastery belonging to that student's active Course. It automatically gathers the Mastery IDs so you don't need to! Only the owning student (or moderators or better) can do this.
     * See `MasteryScoreInput` Input type described above.
-* `addSurveyScores(courseid: ID!, scoreinput: [SurveyScoreInput!]!): Course!`
-    * Give a Course ID and a list of combination Survey IDs and scores (positive or negative) and those values will be added to each valid Survey belonging to that Course. Only the owning student (or moderators or better) can do this.
+* `addSurveyScores(studentid: ID!, scoreinput: [SurveyScoreInput!]!): Course!`
+    * Give a student ID and a list of combination Survey IDs and scores (positive or negative) and those values will be added to each valid Survey belonging to that student's active Course. Only the owning student (or moderators or better) can do this.
     * See `SurveyScoreInput` Input type described above.
-* `addSurveyAnswers(courseid: ID!, answerinput: [SurveyAnswerInput!]!): Course!`
-    * Answer or re-answer a series of Survey questions. Only the owning student (or moderators or better) can do this.
+* `addSurveyAnswers(studentid: ID!, answerinput: [SurveyAnswerInput!]!): Course!`
+    * Answer or re-answer a series of Survey questions with a student ID and a list of inputs. It will target the student's active Course. Only the owning student (or moderators or better) can do this.
     * See `SurveyAnswerInput` Input type described above.
-* `addChallengeResults(courseid: ID!, masteryscoreinput: [MasteryScoreInput]!, surveyscoreinput: [SurveyScoreInput]!, surveyanswerinput: [SurveyAnswerInput]!): Course!`
-    * Batch update a student's masteries, survey scores, and survey answers after completing a challenge.
+* `addChallengeResults(studentid: ID!, masteryscoreinput: [MasteryScoreInput]!, surveyscoreinput: [SurveyScoreInput]!, surveyanswerinput: [SurveyAnswerInput]!): Course!`
+    * Batch update a student's masteries, survey scores, and survey answers after completing a challenge. Enter in the student's ID to target their active Course. Only the owning student (or moderators or better) can do this.
+    * All the inputs are required, but you are allowed to not insert anything.
     * See `MasteryScoreInput`, `SurveyScoreInput`, and `SurveyAnswerInput` Input types described above.
 
 #### Mastery Mutations

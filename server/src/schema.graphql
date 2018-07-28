@@ -53,8 +53,8 @@ type Query {
   feedbackSearch(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback]!
 
   # QA Queries
-  generateChallenge(courseid: ID!, subjectids: [ID], subsubjectids: [ID], listsize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!
-  getQa(questionid: ID!): QaObject
+  generateChallenge(studentid: ID!, subjectids: [ID], subsubjectids: [ID], listsize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!
+  getQa(questionids: [ID!]!, studentid: ID): [QaObject]!
 
   # Other Queries
   ping: String!
@@ -76,13 +76,12 @@ type Mutation {
   setActiveCourse(studentid: ID!, courseid: ID!): Course!
 
   # Course Mutations
-  assignCourseNewMasteries(courseid: ID!, subsubjectids: [ID!]!): Course!
   assignStudentNewMasteries(studentid: ID!, subsubjectids: [ID!]!): Course!
   deactivateCourse(courseid: ID!): Course!
-  addMasteryScores(courseid: ID!, scoreinput: [MasteryScoreInput!]!): Course!
-  addSurveyScores(courseid: ID!, scoreinput: [SurveyScoreInput!]!): Course!
-  addSurveyAnswers(courseid: ID!, answerinput: [SurveyAnswerInput!]!): Course!
-  addChallengeResults(courseid: ID!, masteryscoreinput: [MasteryScoreInput]!, surveyscoreinput: [SurveyScoreInput]!, surveyanswerinput: [SurveyAnswerInput]!): Course!
+  addMasteryScores(studentid: ID!, scoreinput: [MasteryScoreInput!]!): Course!
+  addSurveyScores(studentid: ID!, scoreinput: [SurveyScoreInput!]!): Course!
+  addSurveyAnswers(studentid: ID!, answerinput: [SurveyAnswerInput!]!): Course!
+  addChallengeResults(studentid: ID!, masteryscoreinput: [MasteryScoreInput]!, surveyscoreinput: [SurveyScoreInput]!, surveyanswerinput: [SurveyAnswerInput]!): Course!
 
   # Mastery Mutations
   assignStudentNewMastery(studentid: ID!, subsubjectid: ID!): Mastery!
