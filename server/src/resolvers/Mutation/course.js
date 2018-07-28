@@ -117,14 +117,8 @@ const course = {
       action: "assignStudentNewMasteries",
     });
 
-    const activeCourseData =
-      await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, "{ id }");
-
-    if (!activeCourseData) {
-      throw new StudentNoActiveCourse(args.studentid, "assignStudentNewMasteries");
-    }
-
-    const targetCourseData = await ctx.db.query.course({ where: { id: activeCourseData.id } }, `
+    const targetCourseData =
+      await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, `
       {
         id
         parent {
@@ -142,7 +136,7 @@ const course = {
 
     // Check the course exists.
     if (targetCourseData === null) {
-      throw new CourseNotFound(args.courseid);
+      throw new StudentNoActiveCourse(args.studentid, "assignStudentNewMasteries");
     }
 
     // A student can assign new SubSubjects and moderators or better can as well.
