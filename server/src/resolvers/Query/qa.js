@@ -14,6 +14,7 @@ const {
 
 const {
   USER_TYPE_STUDENT,
+  USER_TYPE_MODERATOR,
   USER_STATUS_NORMAL,
   COURSE_STATUS_ACTIVE,
   QUESTION_TYPE_SURVEY,
@@ -31,7 +32,7 @@ const queryCourse = require("../Query/course");
 
 const qa = {
   /**
-   * Generates a list of QAObjects from a list of Question IDs.
+   * Generates a list of QA objects from a list of Question IDs.
    * If studentid is defined it'll try to get Surveys from that student's active Course.
    * @param parent
    * @param args
@@ -41,11 +42,17 @@ const qa = {
    * @returns QaObject
    */
   async getQa(parent, args, ctx) {
-    await checkAuth(ctx, {
+    const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
       status: USER_STATUS_NORMAL,
       action: "getQa",
     });
+
+    // Students can only do this to themselves. Mods and better can access freely.
+    if (args.studentid && callingUserData.id !== args.studentid &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "getQa");
+    }
 
     const questionObjects = await ctx.db.query.questions(
       { where: { id_in: args.questionids } },
@@ -139,7 +146,7 @@ const qa = {
 
 
   /**
-   * Generate an entire list of QAObjects (called a "Challenge") based off a student ID and
+   * Generate an entire list of QA objects (called a "Challenge") based off a student ID and
    * a list of Subject or SubSubject IDs. Additional boolean arguments help customize the results.
    * @param parent
    * @param args
@@ -155,11 +162,16 @@ const qa = {
    */
   async generateChallenge(parent, args, ctx) {
     // Must be normal status.
-    await checkAuth(ctx, {
+    const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
       status: USER_STATUS_NORMAL,
       action: "generateChallenge",
     });
+
+    // Students can only do this to themselves. Mods and better can access freely.
+    if (callingUserData.id !== args.studentid && callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "generateChallenge");
+    }
 
     const targetCourseData =
       await queryCourse.course.activeCourse(parent, { studentid: args.studentid }, ctx, `
