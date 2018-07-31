@@ -13,7 +13,7 @@ const MasteriesList = (props) => {
   const { masteriesData } = props;
 
   const masteryPanels = masteriesData.map((masteryData) => {
-    const title = `${masteryData.subSubject.name} - ${(masteryData.score / MASTERY_MAX_SCORE) * 100}% Mastered - ${masteryData.status === MASTERY_STATUS_ACTIVE ? "Active" : "Inactive"}`;
+    const title = `${masteryData.subSubject.name} - ${masteryData.score / (MASTERY_MAX_SCORE / 100)}% Mastered - ${masteryData.status === MASTERY_STATUS_ACTIVE ? "Active" : "Inactive"}`;
 
     return ({
       key: masteryData.id,

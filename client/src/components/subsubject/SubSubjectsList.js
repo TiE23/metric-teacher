@@ -22,9 +22,9 @@ const SubSubjectsList = (props) => {
       !(props.queryInfo.variables.studentid || props.queryInfo.variables.userid)) {
       masteryTitleString = "";
     } else if (masteryData && masteryData.status === MASTERY_STATUS_ACTIVE) {
-      masteryTitleString = `${(masteryData.score / MASTERY_MAX_SCORE) * 100}% Mastered - Active`;
+      masteryTitleString = `${masteryData.score / (MASTERY_MAX_SCORE / 100)}% Mastered - Active`;
     } else if (masteryData && masteryData.status === MASTERY_STATUS_INACTIVE) {
-      masteryTitleString = `${(masteryData.score / MASTERY_MAX_SCORE) * 100}% Mastered - Inactive`;
+      masteryTitleString = `${masteryData.score / (MASTERY_MAX_SCORE / 100)}% Mastered - Inactive`;
     } else {
       masteryTitleString = "Not Assigned";
     }

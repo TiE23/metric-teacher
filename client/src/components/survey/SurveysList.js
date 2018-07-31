@@ -17,7 +17,7 @@ const SurveysList = (props) => {
   const surveyPanels = surveysData.map((surveyData) => {
     const questionText =
       surveyData.question.question.slice(0, surveyData.question.question.indexOf("[")).trim();
-    const title = `"${utils.stringTruncator(questionText, 30)}" - ${(surveyData.score / SURVEY_MAX_SCORE) * 100}% Mastered${surveyData.status === SURVEY_STATUS_NORMAL ? "" : " - Skipped"}`;
+    const title = `"${utils.stringTruncator(questionText, 30)}" - ${surveyData.score / (SURVEY_MAX_SCORE / 100)}% Mastered${surveyData.status === SURVEY_STATUS_NORMAL ? "" : " - Skipped"}`;
 
     return ({
       key: surveyData.id,

@@ -611,6 +611,24 @@ const isEmptyRecursive = (object) => {
   return result;
 };
 
+
+/**
+ * Used by Mastery and Survey scores. Different colors for different scores in proportion to their
+ * maximum score.
+ * @param currentScore
+ * @param maxScore
+ * @returns {string}
+ */
+const scoreProgressColor = (currentScore, maxScore) => {
+  const scoreQuarters = maxScore / 4;
+
+  if (currentScore < scoreQuarters) return "red";
+  else if (currentScore < scoreQuarters * 2) return "orange";
+  else if (currentScore < scoreQuarters * 3) return "yellow";
+  else if (currentScore < scoreQuarters * 4) return "olive";
+  else return "green";
+};
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -632,4 +650,5 @@ export default {
   questionTextGrabber,
   stringTruncator,
   isEmptyRecursive,
+  scoreProgressColor,
 };

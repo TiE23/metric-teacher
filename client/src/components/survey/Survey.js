@@ -8,20 +8,13 @@ import {
   SURVEY_STATUS_NORMAL,
   SURVEY_MAX_SCORE,
 } from "../../constants";
+import utils from "../../utils";
 
 const Survey = (props) => {
   const { surveyData } = props;
 
-  const surveyQuarters = SURVEY_MAX_SCORE / 4;
-  let surveyColor;
-
-  if (surveyData.score < surveyQuarters) surveyColor = "red";
-  else if (surveyData.score < surveyQuarters * 2) surveyColor = "orange";
-  else if (surveyData.score < surveyQuarters * 3) surveyColor = "yellow";
-  else if (surveyData.score < surveyQuarters * 4) surveyColor = "olive";
-  else surveyColor = "green";
-
-  const color = surveyData.status === SURVEY_STATUS_NORMAL ? surveyColor : "grey";
+  const color = surveyData.status === SURVEY_STATUS_NORMAL ?
+    utils.scoreProgressColor(surveyData.score, SURVEY_MAX_SCORE) : "grey";
 
   return (
     <Segment
@@ -29,9 +22,7 @@ const Survey = (props) => {
       color={color}
     >
       <Progress
-        progress="percent"
-        value={surveyData.score}
-        total={SURVEY_MAX_SCORE}
+        percent={surveyData.score / (SURVEY_MAX_SCORE / 100)}
         color={color}
         active={surveyData.status === SURVEY_STATUS_NORMAL}
       >

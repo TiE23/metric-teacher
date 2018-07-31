@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Segment, Progress } from "semantic-ui-react";
 
+import utils from "../../utils";
+
 import MasteryToggle from "./MasteryToggle";
 
 import {
@@ -12,16 +14,8 @@ import {
 const Mastery = (props) => {
   const { masteryData } = props;
 
-  const masteryQuarters = MASTERY_MAX_SCORE / 4;
-  let masteryColor;
-
-  if (masteryData.score < masteryQuarters) masteryColor = "red";
-  else if (masteryData.score < masteryQuarters * 2) masteryColor = "orange";
-  else if (masteryData.score < masteryQuarters * 3) masteryColor = "yellow";
-  else if (masteryData.score < masteryQuarters * 4) masteryColor = "olive";
-  else masteryColor = "green";
-
-  const color = masteryData.status === MASTERY_STATUS_ACTIVE ? masteryColor : "grey";
+  const color = masteryData.status === MASTERY_STATUS_ACTIVE ?
+    utils.scoreProgressColor(masteryData.score, MASTERY_MAX_SCORE) : "grey";
 
   return (
     <Segment
@@ -29,9 +23,7 @@ const Mastery = (props) => {
       color={color}
     >
       <Progress
-        progress="percent"
-        value={masteryData.score}
-        total={MASTERY_MAX_SCORE}
+        percent={masteryData.score / (MASTERY_MAX_SCORE / 100)}
         color={color}
         active={masteryData.status === MASTERY_STATUS_ACTIVE}
       >
