@@ -27,7 +27,7 @@ const CourseAndMasteriesAndSurveys = props => (
         Masteries
       </Header>
       <UserDetailMasteries
-        masteries={props.courseData.masteries}
+        masteriesData={props.courseData.masteries}
         queryInfo={props.queryInfo}
         organizeBySubject
         subjectCompactView

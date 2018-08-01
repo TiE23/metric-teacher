@@ -8,10 +8,10 @@ import MasteriesList from "../../mastery/MasteriesList";
 import SubjectsList from "../../subject/SubjectsList";
 
 const UserDetailMasteries = (props) => {
-  if (props.masteries.length) {
+  if (props.masteriesData.length) {
     if (props.organizeBySubject) {
       // Sort Subjects by ID, ascending.
-      const subjectsTree = sortBy(reverseMasteriesData(props.masteries), ["id"]);
+      const subjectsTree = sortBy(reverseMasteriesData(props.masteriesData), ["id"]);
 
       // Sort SubSubjects by ID, ascending.
       subjectsTree.forEach((subject) => {
@@ -30,7 +30,7 @@ const UserDetailMasteries = (props) => {
     } else {
       return (
         <MasteriesList
-          masteriesData={props.masteries}
+          masteriesData={props.masteriesData}
           queryInfo={props.queryInfo}
           accordionProps={{ fluid: true }}
         />
@@ -56,19 +56,23 @@ const reverseMasteriesData = (masteriesData) => {
   };
 
   masteriesData.forEach((masteryData) => {
-    // Make shallow copies of each object.
-    const subjectShallowData = utils.rootCopy(masteryData.subSubject.parent);
-    const subSubjectShallowData = utils.rootCopy(masteryData.subSubject);
-    const masteryShallowData = utils.rootCopy(masteryData);
+    // Make root (no child objects) copies of each object.
+    const subjectRootData = utils.rootCopy(masteryData.subSubject.parent);
+    const subSubjectRootData = utils.rootCopy(masteryData.subSubject);
+    const masteryRootData = utils.rootCopy(masteryData);
 
-    if (!utils.cacheTargetExists(temp, subjectShallowData.id)) {
-      utils.cachePushIntoArray(temp, "root", "subjects", subjectShallowData);
+    if (!utils.cacheTargetExists(temp, subjectRootData.id)) {
+      utils.cachePushIntoArray(temp, "root", "subjects", subjectRootData);
     }
-    if (!utils.cacheTargetExists(temp, subSubjectShallowData.id)) {
-      utils.cacheNewObject(temp, subjectShallowData.id, "subSubjects", [subSubjectShallowData], true);
+    if (!utils.cacheTargetExists(temp, subSubjectRootData.id)) {
+      if (!utils.cacheNewObject(temp, subjectRootData.id, "subSubjects", [subSubjectRootData], true)) {
+        utils.cachePushIntoArray(temp, subjectRootData.id, "subSubjects", subSubjectRootData);
+      }
     }
-    if (!utils.cacheTargetExists(temp, masteryShallowData.id)) {
-      utils.cacheNewObject(temp, subSubjectShallowData.id, "masteries", [masteryShallowData], true);
+    if (!utils.cacheTargetExists(temp, masteryRootData.id)) {
+      if (!utils.cacheNewObject(temp, subSubjectRootData.id, "masteries", [masteryRootData], true)) {
+        utils.cachePushIntoArray(temp, subSubjectRootData.id, "masteries", masteryRootData);
+      }
     }
   });
 
@@ -77,7 +81,7 @@ const reverseMasteriesData = (masteriesData) => {
 
 
 UserDetailMasteries.propTypes = {
-  masteries: PropTypes.arrayOf(PropTypes.shape({
+  masteriesData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     subSubject: PropTypes.object,
   })).isRequired,

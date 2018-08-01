@@ -14,7 +14,7 @@ const SubjectsList = (props) => {
   let subjectsData;
 
   // If there are masteries passed through, add them to each matching SubSubject.
-  if (props.masteriesData && props.masteriesData.length > 0) {
+  if (props.masteriesData && props.masteriesData.length) {
     // Must create a clone as the original props object is marked as "not-extensible".
     subjectsData = cloneDeep(props.subjectsData);
 
@@ -102,6 +102,7 @@ SubjectsList.propTypes = {
     measurementDescription: PropTypes.string.isRequired,
     subSubjects: PropTypes.array.isRequired,
   })),
+  // For use with Subjects component. UserDetailMasteries fills subjectsData with masteriesData.
   masteriesData: PropTypes.arrayOf(PropTypes.shape({
     subSubject: PropTypes.shape({
       id: PropTypes.string.isRequired,
