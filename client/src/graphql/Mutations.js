@@ -1,6 +1,7 @@
 import gql from "graphql-tag";
 
 // TODO - Use Fragments when issue is fixed someday.
+// https://github.com/prismagraphql/prisma-binding/issues/208
 // import {
 //   MeAuthData,
 // } from "./fragments/UserFragments";
@@ -14,7 +15,7 @@ import {
 } from "./fragments/CourseFragments";
 
 import {
-  MasteryDataAll,
+  MasteryDataAllExtra,
   SurveyDataAll,
 } from "./fragments/SimpleFragments";
 
@@ -67,25 +68,19 @@ export const COURSE_ASSIGN_MUTATION = gql`
 export const STUDENT_ASSIGN_NEW_MASTERY_MUTATION = gql`
   mutation StudentAssignNewMasteriesMutation($studentid: ID!, $subsubjectid: ID!) {
     assignStudentNewMastery(studentid: $studentid, subsubjectid: $subsubjectid) {
-      ...MasteryDataAll
-      parent {
-        id
-      }
+      ...MasteryDataAllExtra
     }
   }
-  ${MasteryDataAll}
+  ${MasteryDataAllExtra}
 `;
 
 export const MASTERY_UPDATE_STATUS_MUTATION = gql`
   mutation MasteryUpdateStatusMutation($masteryid: ID!, $status: Int!) {
     updateMasteryStatus(masteryid: $masteryid, status: $status) {
-      ...MasteryDataAll
-      parent {
-        id
-      }
+      ...MasteryDataAllExtra
     }
   }
-  ${MasteryDataAll}
+  ${MasteryDataAllExtra}
 `;
 
 export const SURVEY_UPDATE_STATUS_MUTATION = gql`

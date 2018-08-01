@@ -59,6 +59,20 @@ export const MasteryDataAll = gql`
   }
 `;
 
+// I very often need the parent Course's ID and the SubSubject's ID.
+export const MasteryDataAllExtra = gql`
+  fragment MasteryDataAllExtra on Mastery {
+    ...MasteryDataAll
+    parent {
+      id
+    }
+    subSubject {
+      id
+    }
+  }
+  ${MasteryDataAll}
+`;
+
 export const SurveyDataAll = gql`
   fragment SurveyDataAll on Survey {
     id

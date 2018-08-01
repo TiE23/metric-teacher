@@ -14,17 +14,16 @@ const SubjectsList = (props) => {
   let subjectsData;
 
   // If there are masteries passed through, add them to each matching SubSubject.
-  if (props.masteriesData) {
+  if (props.masteriesData && props.masteriesData.length > 0) {
     // Must create a clone as the original props object is marked as "not-extensible".
     subjectsData = cloneDeep(props.subjectsData);
 
     props.masteriesData.forEach((masteryData) => {
-      utils.cacheNewObject(
+      utils.cachePushIntoArray(
         subjectsData,
         masteryData.subSubject.id,
         "masteries",
-        [masteryData],
-        true,
+        masteryData,
       );
     });
   } else {
