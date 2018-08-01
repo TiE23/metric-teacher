@@ -12,7 +12,7 @@ import {
 import {
   SubjectDataAll,
   SubSubjectDataAll,
-  MasteryDataAll,
+  MasteryDataAllExtra,
 } from "./fragments/SimpleFragments";
 
 export const ME_AUTH_QUERY = gql`
@@ -67,25 +67,25 @@ export const SUBJECT_DETAILS_QUERY = gql`
   ${SubSubjectDataAll}
 `;
 
+// "first: 0" on masteries is important work-around to allow client-side manipulation in
+// SubjectsList component where a student's active Masteries are added before the page is rendered.
+// Limiting to zero lets me have an empty array to later fill with a single Mastery.
 export const SUBJECT_AND_MASTERY_DETAILS_QUERY = gql`
   query StudentActiveMasteriesQuery ($studentid: ID!) {
     allSubjects {
       ...SubjectDataAll
       subSubjects {
         ...SubSubjectDataAll
+        masteries (first: 0) {
+          ...MasteryDataAllExtra
+        }
       }
     }
-    activeMasteries(studentid: $studentid) {
-      ...MasteryDataAll
-      parent {
-        id
-      }
-      subSubject {
-        id
-      }
+    activeMasteries (studentid: $studentid) {
+      ...MasteryDataAllExtra
     }
   }
   ${SubjectDataAll}
   ${SubSubjectDataAll}
-  ${MasteryDataAll}
+  ${MasteryDataAllExtra}
 `;
