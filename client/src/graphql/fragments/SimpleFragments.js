@@ -134,3 +134,181 @@ export const SubSubjectDataAll = gql`
     scale
   }
 `;
+
+// QA Fragments
+// Because fragments need to be defined before they are referenced this list is in an upside-down
+// order with child nodes going before their parents.
+
+// Leaf
+export const QaUnitWordObjectDataAll = gql`
+  fragment QaUnitWordObjectDataAll on QaUnitWordObject {
+    plural
+    singular
+  }
+`;
+
+export const QaUnitObjectDataAll = gql`
+  fragment QaUnitObjectDataAll on QaUnitObject {
+    value
+    unit
+  }
+`;
+
+export const QaMixedUnitObjectDataAll = gql`
+  fragment QaMixedUnitObjectDataAll on QaMixedUnitObject {
+    value
+    written
+    unit
+  }
+`;
+
+export const QaRangeObjectDataAll = gql`
+  fragment QaRangeObjectDataAll on QaRangeObject {
+    bottom {
+      ...QaUnitObjectDataAll
+    }
+    top {
+      ...QaUnitObjectDataAll
+    }
+  }
+  ${QaUnitObjectDataAll}
+`;
+
+// Question Great Great Grand Children
+export const QaSurveyResponseObjectDataAll = gql`
+  fragment QaSurveyResponseObjectDataAll on QaSurveyResponseObject {
+    id
+    score
+    answer {
+      ...QaUnitObjectDataAll
+    }
+    detail
+  }
+  ${QaUnitObjectDataAll}
+`;
+
+// Question Great Grand Children
+export const QaConversionQuestionObjectDataAll = gql`
+  fragment QaConversionQuestionObjectDataAll on QaConversionQuestionObject {
+    exact {
+      ...QaUnitObjectDataAll
+    }
+    step
+  }
+  ${QaUnitObjectDataAll}
+`;
+
+export const QaSurveyQuestionObjectDataAll = gql`
+  fragment QaSurveyQuestionObjectDataAll on QaSurveyQuestionObject {
+    step
+    surveyRange {
+      ...QaRangeObjectDataAll
+    }
+    response {
+      ...QaSurveyResponseObjectDataAll
+    }
+    status
+  }
+  ${QaRangeObjectDataAll}
+  ${QaSurveyResponseObjectDataAll}
+`;
+
+// Answer Great Grand Children
+export const QaMultipleChoiceObjectDataAll = gql`
+  fragment QaMultipleChoiceObjectDataAll on QaMultipleChoiceObject {
+    choicesOffered
+    choices {
+      ...QaMixedUnitObjectDataAll
+    }
+  }
+  ${QaMixedUnitObjectDataAll}
+`;
+
+export const QaConversionObjectDataAll = gql`
+  fragment QaConversionObjectDataAll on QaConversionObject {
+    accuracy
+    range {
+      ...QaRangeObjectDataAll
+    }
+    exact
+    rounded
+    friendly
+    choices {
+      ...QaUnitObjectDataAll
+    }
+  }
+  ${QaRangeObjectDataAll}
+  ${QaUnitObjectDataAll}
+`;
+
+export const QaSurveyAnswerObjectDataAll = gql`
+  fragment QaSurveyAnswerObjectDataAll on QaSurveyAnswerObject {
+    choices {
+      ...QaUnitObjectDataAll
+    }
+  }
+  ${QaUnitObjectDataAll}
+`;
+
+// Grand Children
+export const QaQuestionDataDataAll = gql`
+  fragment QaQuestionDataDataAll on QaQuestionData {
+    fromUnitWord {
+      ...QaUnitWordObjectDataAll
+    }
+    conversion {
+      ...QaConversionQuestionObjectDataAll
+    }
+    survey {
+      ...QaSurveyQuestionObjectDataAll
+    }
+  }
+  ${QaUnitWordObjectDataAll}
+  ${QaConversionQuestionObjectDataAll}
+  ${QaSurveyQuestionObjectDataAll}
+`;
+
+export const QaAnswerDataDataAll = gql`
+  fragment QaAnswerDataDataAll on QaAnswerData {
+    toUnitWord {
+      ...QaUnitWordObjectDataAll
+    }
+    multiple {
+      ...QaMultipleChoiceObjectDataAll
+    }
+    conversion {
+      ...QaConversionObjectDataAll
+    }
+    survey {
+      ...QaSurveyAnswerObjectDataAll
+    }
+  }
+  ${QaUnitWordObjectDataAll}
+  ${QaMultipleChoiceObjectDataAll}
+  ${QaConversionObjectDataAll}
+  ${QaSurveyAnswerObjectDataAll}
+`;
+
+// Children
+export const QaQuestionObjectDataAll = gql`
+  fragment QaQuestionObjectDataAll on QaQuestionObject{
+    detail
+    text
+    type
+    data {
+      ...QaQuestionDataDataAll
+    }
+  }
+  ${QaQuestionDataDataAll}
+`;
+
+export const QaAnswerObjectDataAll = gql`
+  fragment QaAnswerObjectDataAll on QaAnswerObject {
+    detail
+    type
+    data {
+      ...QaAnswerDataDataAll
+    }
+  }
+  ${QaAnswerDataDataAll}
+`;

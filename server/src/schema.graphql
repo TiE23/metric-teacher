@@ -284,6 +284,7 @@ type QaSurveyAnswerObject {
   choices: [QaUnitObject]!
 }
 
+## Great Great Grand Child Question Objects
 type QaSurveyResponseObject {
   id: ID!
   score: Int!
@@ -291,7 +292,7 @@ type QaSurveyResponseObject {
   detail: String
 }
 
-## Generic Objects
+## Leaf Objects
 type QaUnitWordObject {
   plural: String!
   singular: String!
