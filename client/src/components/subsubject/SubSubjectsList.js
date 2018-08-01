@@ -50,9 +50,9 @@ const SubSubjectsList = (props) => {
 
   return (
     <Accordion
-      defaultActiveIndex={props.defaultActiveIndex}
       panels={subSubjectPanels}
       styled
+      {...props.accordionProps}
     />
   );
 };
@@ -70,12 +70,12 @@ SubSubjectsList.propTypes = {
       userid: PropTypes.string,
     }),
   }),
-  defaultActiveIndex: PropTypes.number,
+  accordionProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 SubSubjectsList.defaultProps = {
   queryInfo: null,
-  defaultActiveIndex: -1,
+  accordionProps: null,
 };
 
 export default SubSubjectsList;

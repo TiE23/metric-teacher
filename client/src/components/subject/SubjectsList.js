@@ -55,7 +55,6 @@ const SubjectsList = (props) => {
 
     return (
       <Accordion
-        defaultActiveIndex={props.defaultActiveIndex}
         panels={subjectPanels}
         styled
         {...props.accordionProps}
@@ -73,7 +72,6 @@ const SubjectsList = (props) => {
         >
           <Subject subjectData={subjectData} />
           <Accordion
-            defaultActiveIndex={-1}
             panels={[{
               key: subjectData.id,
               title: "Sub-Subjects Available",
@@ -87,6 +85,8 @@ const SubjectsList = (props) => {
                 key: subjectData.id,
               },
             }]}
+            styled
+            {...props.accordionProps}
           />
         </Segment>
       ))
@@ -112,7 +112,6 @@ SubjectsList.propTypes = {
     query: PropTypes.object.isRequired,
     variables: PropTypes.object.isRequired,
   }),
-  defaultActiveIndex: PropTypes.number,
   compactView: PropTypes.bool,
   accordionProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
@@ -121,7 +120,6 @@ SubjectsList.defaultProps = {
   subjectsData: null,
   masteriesData: null,
   queryInfo: null,
-  defaultActiveIndex: -1,
   compactView: false,
   accordionProps: null,
 };

@@ -37,7 +37,6 @@ const SurveysList = (props) => {
 
   return (
     <Accordion
-      defaultActiveIndex={props.defaultActiveIndex}
       panels={surveyPanels}
       styled
       {...props.accordionProps}
@@ -53,13 +52,11 @@ SurveysList.propTypes = {
     }).isRequired,
   }).isRequired).isRequired,
   queryInfo: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
-  defaultActiveIndex: PropTypes.number,
   accordionProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 SurveysList.defaultProps = {
   queryInfo: null,
-  defaultActiveIndex: -1,
   accordionProps: null,
 };
 
