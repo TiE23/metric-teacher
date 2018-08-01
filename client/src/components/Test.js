@@ -44,6 +44,14 @@ const Test = (props) => {
     const datax = { a: { id: "a1", b: {} } };
     utils.cacheNewObject(datax, "a1", "b.c", ["dog"]);
     console.log(datax);
+
+    console.log(utils.isEmptyRecursive({ a: null }));                                 // True
+    console.log(utils.isEmptyRecursive({ a: { b: null } }));                          // True
+    console.log(utils.isEmptyRecursive({ a: { b: [] } }));                            // True
+    console.log(utils.isEmptyRecursive({ a: { b: [{ b1: null }, { b2: null }] } }));  // True
+    console.log(utils.isEmptyRecursive({ a: { b: "boy" } }));                         // False
+    console.log(utils.isEmptyRecursive({ a: { b: false } }));                         // False (!)
+    console.log(utils.isEmptyRecursive({ alpha: [], a: { id: "a1", b: {} } }));       // False
   };
 
   return (

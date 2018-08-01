@@ -603,6 +603,7 @@ const isEmptyRecursive = (object) => {
       // On non-objects, just confirm it's not null
       } else if (value !== null) {
         result = false;
+        return false; // Stop the forEach loop.
       }
       return true;
     });
