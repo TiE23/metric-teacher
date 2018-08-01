@@ -8,6 +8,7 @@ const SurveyAndQuestion = props => (
     {props.questionData &&
       <p>Question ID: {props.questionData.id}</p>
     }
+    {props.opened && <p>Opened!</p>}
     {props.surveyData &&
     <Survey
       surveyData={props.surveyData}
@@ -28,12 +29,14 @@ SurveyAndQuestion.propTypes = {
       userid: PropTypes.string,
     }).isRequired,
   }),
+  opened: PropTypes.any,
 };
 
 SurveyAndQuestion.defaultProps = {
   questionData: null,
   surveyData: null,
   queryInfo: null,
+  opened: false,
 };
 
 export default SurveyAndQuestion;
