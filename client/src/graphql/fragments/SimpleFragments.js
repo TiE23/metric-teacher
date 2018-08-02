@@ -135,6 +135,16 @@ export const SubSubjectDataAll = gql`
   }
 `;
 
+export const QaObjectDataAll = gql`
+  fragment QaObjectDataAll on QaObject {
+    questionId
+    subSubjectId
+    difficulty
+    flags
+    media
+  }
+`;
+
 // QA Fragments
 // Because fragments need to be defined before they are referenced this list is in an upside-down
 // order with child nodes going before their parents.
