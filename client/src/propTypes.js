@@ -30,7 +30,7 @@ export const QA_DATA_EVERYTHING = PropTypes.shape({
       }),
       survey: PropTypes.shape({                 // Only if survey question.
         step: PropTypes.number.isRequired,
-        surveyRange: PropTypes.shape({
+        range: PropTypes.shape({
           bottom: QaUnitObjectType.isRequired,
           top: QaUnitObjectType.isRequired,
         }).isRequired,

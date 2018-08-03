@@ -223,7 +223,7 @@ export const QaSurveyQuestionObjectDataAll = gql`
 export const QaSurveyQuestionObjectDataAllExtra = gql`
   fragment QaSurveyQuestionObjectDataAllExtra on QaSurveyQuestionObject {
     ...QaSurveyQuestionObjectDataAll
-    surveyRange {
+    range {
       ...QaRangeObjectDataAllExtra
     }
     response {

@@ -138,7 +138,7 @@ type QaObject {
                               }
                   survey: type QaSurveyQuestionObject {     # Survey Questions Only
                             step: Float!
-                            surveyRange: QaRangeObject {
+                            range: QaRangeObject {
                                            bottom: type QaUnitObject {
                                                      value: Float!
                                                      unit: String!
@@ -854,7 +854,7 @@ Examples:
       },
       survey: {
         step: 1,
-        surveyRange: {
+        range: {
           bottom: { unit: "in", value: 70 },
           top: { unit: "in", value: 96 },
         },

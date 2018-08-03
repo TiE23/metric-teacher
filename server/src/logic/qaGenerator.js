@@ -143,7 +143,8 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
         id: surveyData.id,
         status: surveyData.status,
         // When using parseSingleAnswer we must strip out square brackets.
-        answer: parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer),
+        answer: surveyData.answer ?
+          parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer) : null,
         score: surveyData.score,
         detail: surveyData.detail,
       } : null;
@@ -159,7 +160,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
         },
         survey: {
           step: questionPayload.data.step,
-          surveyRange: {
+          range: {
             bottom: {
               value: questionPayload.data.rangeBottom,
               unit: questionPayload.data.unit,

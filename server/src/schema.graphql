@@ -261,7 +261,7 @@ type QaConversionQuestionObject {
 
 type QaSurveyQuestionObject {
   step: Float!
-  surveyRange: QaRangeObject!
+  range: QaRangeObject!
   response: QaSurveyResponseObject        # Only if survey was answered
 }
 

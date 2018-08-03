@@ -35,7 +35,7 @@ const QaReviewBasics = (props) => {
     questionDescription = question.text;
     surveyDetail = deline`
       Accepted survey answer range is
-      ${utils.rangeWorder(question.data.survey.surveyRange, question.data.fromUnitWord)}.
+      ${utils.rangeWorder(question.data.survey.range, question.data.fromUnitWord)}.
     `;
   } else {
     questionDescription = question.text;
