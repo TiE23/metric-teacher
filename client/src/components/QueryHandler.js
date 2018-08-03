@@ -24,7 +24,6 @@ import LoadingError from "./LoadingError";
  *   <Query query={SOME_QUERY}>
  *     {queryProps => (
  *       <QueryHandler
- *        queryData={queryProps}
  *        loadingErrorProps={{ loadingMessage: "Custom Loading Message!" }}
  *       >
  *         <MyComponent myData={queryProps.data && queryProps.data.someQuery} />

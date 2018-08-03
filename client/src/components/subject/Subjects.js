@@ -22,7 +22,6 @@ const Subjects = (props) => {
       {queryProps => (
         <QueryHandler
           queryData={queryProps}
-          query={query}
         >
           <SubjectsList
             subjectsData={queryProps.data && queryProps.data.allSubjects}

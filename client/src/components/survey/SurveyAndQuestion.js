@@ -23,7 +23,6 @@ const SurveyAndQuestion = props => (
         {queryProps => (
           <QueryHandler
             queryData={queryProps}
-            query={GET_QA_QUESTIONS_WITH_STUDENT}
           >
             <QaReview
               qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
