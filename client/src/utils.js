@@ -630,6 +630,37 @@ const scoreProgressColor = (currentScore, maxScore) => {
   else return "green";
 };
 
+
+/**
+ * Super simple function. You put in your value and your fromUnitWord or toUnitWord object and get
+ * the proper string in return.
+ * Ex:
+ *  utils.unitWorder(1, { singular: "foot", plural: "feet" }) // "1 foot"
+ *  utils.unitWorder(1.5, { singluar: "meter", plural: "meters" }) // "1.5 meters"
+ * @param value
+ * @param words
+ * @returns {string}
+ */
+const unitWorder = (value, words) => (
+  `${value} ${value === 1 ? words.singular : words.plural}`
+);
+
+
+/**
+ * Super simple function. You put in your bottom/top range object and your fromUnitWord or
+ * toUnitWord object and get the proper string in return.
+ * Ex:
+ *  utils.rangeWorder(
+ *   { bottom: { value: 1 }, top: { value: 3 }, { singular: "foot", plural: "feet" }}
+ *  ) // "1-3 feet"
+ * @param range
+ * @param words
+ * @returns {string}
+ */
+const rangeWorder = (range, words) => (
+  `${range.bottom.value}-${range.top.value} ${range.top.value === 1 ? words.singular : words.plural}`
+);
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -652,4 +683,6 @@ export default {
   stringTruncator,
   isEmptyRecursive,
   scoreProgressColor,
+  unitWorder,
+  rangeWorder,
 };

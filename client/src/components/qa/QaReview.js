@@ -1,6 +1,11 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Segment, Progress } from "semantic-ui-react";
+
+import {
+  QA_DATA_EVERYTHING,
+} from "../../propTypes";
+
+import QaReviewBasics from "./QaReviewBasics";
 
 class QaReview extends PureComponent {
   constructor(props) {
@@ -21,19 +26,14 @@ class QaReview extends PureComponent {
           editQ? {this.props.allowQuestionEditor ? "yes" : "no"},
           editS? {this.props.allowSurveyEditor ? "yes" : "no"}
         </p>
+        <QaReviewBasics qaData={this.props.qaData} />
       </div>
     );
   }
 }
 
 QaReview.propTypes = {
-  qaData: PropTypes.shape({
-    questionId: PropTypes.string.isRequired,
-    subSubjectId: PropTypes.string.isRequired,
-    difficulty: PropTypes.number.isRequired,
-    flags: PropTypes.number.isRequired,
-    media: PropTypes.string,
-  }).isRequired,
+  qaData: QA_DATA_EVERYTHING.isRequired,
   allowQuestionEditor: PropTypes.bool,
   allowSurveyEditor: PropTypes.bool,
 };
