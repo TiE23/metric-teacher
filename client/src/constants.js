@@ -79,3 +79,8 @@ export const COURSE_FLAG_PREFER_METRIC = 0x01;
 export const QUESTION_TYPE_WRITTEN = 0;
 export const QUESTION_TYPE_CONVERSION = 1;
 export const QUESTION_TYPE_SURVEY = 2;
+export const QUESTION_TYPE_NAMES = [
+  "written",
+  "conversion",
+  "survey",
+];
