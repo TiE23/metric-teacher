@@ -849,15 +849,15 @@ Examples:
         singular: "inch",
       },
       survey: {
-        status: 0,
         step: 1,
         surveyRange: {
           bottom: { unit: "in", value: 70 },
           top: { unit: "in", value: 96 },
         },
         response: {
-          detail: "My neighbor Anthony",
           id: <<someSurveyId>>,
+          status: 0,
+          detail: "My neighbor Anthony",
           score: 0,
           answer: { unit: "in", value: 80 },
         },

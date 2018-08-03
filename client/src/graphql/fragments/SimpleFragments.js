@@ -178,6 +178,7 @@ export const QaRangeObjectDataAllExtra = gql`
 export const QaSurveyResponseObjectDataAll = gql`
   fragment QaSurveyResponseObjectDataAll on QaSurveyResponseObject {
     id
+    status
     score
     detail
   }
@@ -213,7 +214,6 @@ export const QaConversionQuestionObjectDataAllExtra = gql`
 export const QaSurveyQuestionObjectDataAll = gql`
   fragment QaSurveyQuestionObjectDataAll on QaSurveyQuestionObject {
     step
-    status
   }
 `;
 export const QaSurveyQuestionObjectDataAllExtra = gql`

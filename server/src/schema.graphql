@@ -262,7 +262,6 @@ type QaSurveyQuestionObject {
   step: Float!
   surveyRange: QaRangeObject!
   response: QaSurveyResponseObject        # Only if survey was answered
-  status: Int                             # Only if survey was answered
 }
 
 ## Great Grand Child Answer Objects
@@ -287,6 +286,7 @@ type QaSurveyAnswerObject {
 ## Great Great Grand Child Question Objects
 type QaSurveyResponseObject {
   id: ID!
+  status: Int!
   score: Int!
   answer: QaUnitObject!
   detail: String
