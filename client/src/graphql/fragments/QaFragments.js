@@ -5,8 +5,8 @@ import {
 } from "./SimpleFragments";
 
 // Returns absolutely everything.
-export const QaObjectDataAllExtra = gql`
-  fragment QaObjectDataAllExtra on QaObject {
+export const QaObjectDataEverything = gql`
+  fragment QaObjectDataEverything on QaObject {
     ...QaObjectDataAllExtra
   }
   ${QaObjectDataAllExtra}

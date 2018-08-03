@@ -1,14 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Query } from "react-apollo";
 
+import QueryHandler from "../QueryHandler";
 import Survey from "./Survey";
+import QaReview from "../qa/QaReview";
+
+import {
+  GET_QA_QUESTIONS_WITH_STUDENT,
+} from "../../graphql/Queries";
 
 const SurveyAndQuestion = props => (
   <div>
-    {props.questionData &&
-      <p>Question ID: {props.questionData.id}</p>
+    {props.opened &&
+      <Query
+        query={GET_QA_QUESTIONS_WITH_STUDENT}
+        variables={{
+          questionids: [props.questionData.id],
+          studentid: props.queryInfo.variables.studentid || props.queryInfo.variables.userid,
+        }}
+      >
+        {queryProps => (
+          <QueryHandler
+            queryData={queryProps}
+            query={GET_QA_QUESTIONS_WITH_STUDENT}
+          >
+            <QaReview
+              qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
+              allowSurveyEditor
+            />
+          </QueryHandler>
+        )}
+      </Query>
     }
-    {props.opened && <p>Opened!</p>}
     {props.surveyData &&
     <Survey
       surveyData={props.surveyData}
