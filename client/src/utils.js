@@ -15,6 +15,7 @@ import {
   EMAIL_NORMALIZE_OPTIONS,
   EMAIL_SECRET_PREFIXES,
   PASSWORD_MINIMUM_LENGTH,
+  UNIT_INITIALISMS,
 } from "./constants";
 
 // TODO better token management
@@ -661,6 +662,31 @@ const rangeWorder = (range, words) => (
   `${range.bottom.value}-${range.top.value} ${range.top.value === 1 ? words.singular : words.plural}`
 );
 
+
+/**
+ * Super simple function. You put in your choice object and get the proper string in return.
+ * Ex:
+ *  utils.choiceWorder({ unit: "lb", value: 10 }) // "10lb"
+ *  utils.choiceWorder({ unit: "f", value: 12.5 }) // "12.5°F"
+ *  utils.choiceWorder({ unit: "written", written: "The Eiffel tower." } // "The Eiffel tower."
+ * @param choice
+ * @returns {string}
+ */
+const choiceWorder = choice => (
+  choice.unit === "written" ? `${choice.written}` : `${choice.value}${unitInitilizer(choice.unit)}`
+);
+
+
+/**
+ * Super simple function. Takes in a standard unit string and returns a slightly better reading
+ * unit string in its place. See the constant UNIT_INITIALISMS for more info.
+ * @param unit
+ * @returns {*}
+ */
+const unitInitilizer = unit => (
+  UNIT_INITIALISMS[unit] ? UNIT_INITIALISMS[unit] : unit
+)
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -685,4 +711,6 @@ export default {
   scoreProgressColor,
   unitWorder,
   rangeWorder,
+  choiceWorder,
+  unitInitilizer,
 };

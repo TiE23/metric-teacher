@@ -84,3 +84,16 @@ export const QUESTION_TYPE_NAMES = [
   "conversion",
   "survey",
 ];
+
+// Unit initials
+export const UNIT_INITIALISMS = {
+  cum: "m³",
+  cuin: "in³",
+  c: "°C",
+  f: "°F",
+  sqm: "m²",
+  sqkm: "km²",
+  sqft: "ft²",
+  sqmi: "mi²",
+  kmph: "km/h",
+};

@@ -1,15 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Item } from "semantic-ui-react";
+import { Item, Responsive } from "semantic-ui-react";
 import deline from "deline";
 
 import utils from "../../utils";
+
+import QaReviewChoices from "./QaReviewChoices";
 
 import {
   QA_DATA_EVERYTHING,
 } from "../../propTypes";
 
 import {
+  QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
   QUESTION_TYPE_NAMES,
@@ -42,14 +44,25 @@ const QaReviewBasics = (props) => {
   }
 
   return (
-    <Item.Group>
+    <Item.Group unstackable>
       <Item>
-        <Item.Image size="small" src={props.qaData.media || "/img/placeholder.png"} />
+        <Responsive
+          as={Item.Image}
+          minWidth={500}
+          size="small"
+          src={props.qaData.media || "/img/placeholder-square.png"}
+        />
         <Item.Content>
           <Item.Header>{questionTypeName} Question</Item.Header>
           <Item.Description>{questionDescription}</Item.Description>
           {(question.detail || surveyDetail) &&
             <Item.Extra>{question.detail || surveyDetail}</Item.Extra>
+          }
+          {question.type === QUESTION_TYPE_WRITTEN &&
+            <QaReviewChoices
+              choices={answer.data.multiple.choices}
+              choicesOffered={answer.data.multiple.choicesOffered}
+            />
           }
         </Item.Content>
       </Item>
