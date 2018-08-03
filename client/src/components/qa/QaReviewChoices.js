@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Icon, Grid, Label, List, Segment, Container} from "semantic-ui-react";
+import { Icon, Grid, Label, List, Segment } from "semantic-ui-react";
 import cloneDeep from "lodash/cloneDeep";
 
 import utils from "../../utils";

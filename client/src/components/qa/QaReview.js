@@ -5,7 +5,12 @@ import {
   QA_DATA_EVERYTHING,
 } from "../../propTypes";
 
+import {
+  QUESTION_TYPE_WRITTEN,
+} from "../../constants";
+
 import QaReviewBasics from "./QaReviewBasics";
+import QaReviewChoices from "./QaReviewChoices";
 
 class QaReview extends PureComponent {
   constructor(props) {
@@ -17,9 +22,20 @@ class QaReview extends PureComponent {
   }
 
   render() {
+    const { qaData } = this.props;
+
     return (
       <div>
-        <QaReviewBasics qaData={this.props.qaData} />
+        <QaReviewBasics
+          qaData={qaData}
+        >
+          {qaData.question.type === QUESTION_TYPE_WRITTEN &&
+            <QaReviewChoices
+              choices={qaData.answer.data.multiple.choices}
+              choicesOffered={qaData.answer.data.multiple.choicesOffered}
+            />
+          }
+        </QaReviewBasics>
       </div>
     );
   }

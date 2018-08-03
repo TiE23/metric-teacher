@@ -1,17 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Item, Responsive } from "semantic-ui-react";
 import deline from "deline";
 
 import utils from "../../utils";
-
-import QaReviewChoices from "./QaReviewChoices";
 
 import {
   QA_DATA_EVERYTHING,
 } from "../../propTypes";
 
 import {
-  QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
   QUESTION_TYPE_NAMES,
@@ -58,12 +56,7 @@ const QaReviewBasics = (props) => {
           {(question.detail || surveyDetail) &&
             <Item.Extra>{question.detail || surveyDetail}</Item.Extra>
           }
-          {question.type === QUESTION_TYPE_WRITTEN &&
-            <QaReviewChoices
-              choices={answer.data.multiple.choices}
-              choicesOffered={answer.data.multiple.choicesOffered}
-            />
-          }
+          {props.children}
         </Item.Content>
       </Item>
     </Item.Group>
@@ -72,6 +65,11 @@ const QaReviewBasics = (props) => {
 
 QaReviewBasics.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
+  children: PropTypes.node,
+};
+
+QaReviewBasics.defaultProps = {
+  children: null,
 };
 
 export default QaReviewBasics;
