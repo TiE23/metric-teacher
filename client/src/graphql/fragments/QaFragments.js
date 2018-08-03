@@ -1,22 +1,13 @@
 import gql from "graphql-tag";
 
 import {
-  QaObjectDataAll,
-  QaQuestionObjectDataAll,
-  QaAnswerObjectDataAll,
+  QaObjectDataAllExtra,
 } from "./SimpleFragments";
 
-export const QaObjectDataAll = gql`
-  fragment QaObjectDataAll on QaObject {
-    ...QaObjectDataAll
-    question {
-      ...QaQuestionObjectDataAll
-    }
-    answer {
-      ...QaAnswerObjectDataAll
-    }
+// Returns absolutely everything.
+export const QaObjectDataAllExtra = gql`
+  fragment QaObjectDataAllExtra on QaObject {
+    ...QaObjectDataAllExtra
   }
-  ${QaObjectDataAll}
-  ${QaQuestionObjectDataAll}
-  ${QaAnswerObjectDataAll}
+  ${QaObjectDataAllExtra}
 `;

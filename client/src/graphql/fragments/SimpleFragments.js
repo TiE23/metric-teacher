@@ -135,16 +135,6 @@ export const SubSubjectDataAll = gql`
   }
 `;
 
-export const QaObjectDataAll = gql`
-  fragment QaObjectDataAll on QaObject {
-    questionId
-    subSubjectId
-    difficulty
-    flags
-    media
-  }
-`;
-
 // QA Fragments
 // Because fragments need to be defined before they are referenced this list is in an upside-down
 // order with child nodes going before their parents.
@@ -172,8 +162,8 @@ export const QaMixedUnitObjectDataAll = gql`
   }
 `;
 
-export const QaRangeObjectDataAll = gql`
-  fragment QaRangeObjectDataAll on QaRangeObject {
+export const QaRangeObjectDataAllExtra = gql`
+  fragment QaRangeObjectDataAllExtra on QaRangeObject {
     bottom {
       ...QaUnitObjectDataAll
     }
@@ -189,70 +179,100 @@ export const QaSurveyResponseObjectDataAll = gql`
   fragment QaSurveyResponseObjectDataAll on QaSurveyResponseObject {
     id
     score
+    detail
+  }
+`;
+export const QaSurveyResponseObjectDataAllExtra = gql`
+  fragment QaSurveyResponseObjectDataAllExtra on QaSurveyResponseObject {
+    ...QaSurveyResponseObjectDataAll
     answer {
       ...QaUnitObjectDataAll
     }
-    detail
   }
+  ${QaSurveyResponseObjectDataAll}
   ${QaUnitObjectDataAll}
 `;
 
 // Question Great Grand Children
 export const QaConversionQuestionObjectDataAll = gql`
   fragment QaConversionQuestionObjectDataAll on QaConversionQuestionObject {
+    step
+  }
+`;
+export const QaConversionQuestionObjectDataAllExtra = gql`
+  fragment QaConversionQuestionObjectDataAllExtra on QaConversionQuestionObject {
+    ...QaConversionQuestionObjectDataAll
     exact {
       ...QaUnitObjectDataAll
     }
-    step
   }
+  ${QaConversionQuestionObjectDataAll}
   ${QaUnitObjectDataAll}
 `;
 
 export const QaSurveyQuestionObjectDataAll = gql`
   fragment QaSurveyQuestionObjectDataAll on QaSurveyQuestionObject {
     step
-    surveyRange {
-      ...QaRangeObjectDataAll
-    }
-    response {
-      ...QaSurveyResponseObjectDataAll
-    }
     status
   }
-  ${QaRangeObjectDataAll}
-  ${QaSurveyResponseObjectDataAll}
+`;
+export const QaSurveyQuestionObjectDataAllExtra = gql`
+  fragment QaSurveyQuestionObjectDataAllExtra on QaSurveyQuestionObject {
+    ...QaSurveyQuestionObjectDataAll
+    surveyRange {
+      ...QaRangeObjectDataAllExtra
+    }
+    response {
+      ...QaSurveyResponseObjectDataAllExtra
+    }
+  }
+  ${QaSurveyQuestionObjectDataAll}
+  ${QaRangeObjectDataAllExtra}
+  ${QaSurveyResponseObjectDataAllExtra}
 `;
 
 // Answer Great Grand Children
 export const QaMultipleChoiceObjectDataAll = gql`
   fragment QaMultipleChoiceObjectDataAll on QaMultipleChoiceObject {
     choicesOffered
+  }
+`;
+export const QaMultipleChoiceObjectDataAllExtra = gql`
+  fragment QaMultipleChoiceObjectDataAllExtra on QaMultipleChoiceObject {
+    ...QaMultipleChoiceObjectDataAll
     choices {
       ...QaMixedUnitObjectDataAll
     }
   }
+  ${QaMultipleChoiceObjectDataAll}
   ${QaMixedUnitObjectDataAll}
 `;
 
 export const QaConversionObjectDataAll = gql`
   fragment QaConversionObjectDataAll on QaConversionObject {
     accuracy
-    range {
-      ...QaRangeObjectDataAll
-    }
     exact
     rounded
     friendly
+  }
+`;
+export const QaConversionObjectDataAllExtra = gql`
+  fragment QaConversionObjectDataAllExtra on QaConversionObject {
+    ...QaConversionObjectDataAll
     choices {
       ...QaUnitObjectDataAll
     }
+    range {
+      ...QaRangeObjectDataAllExtra
+    }
   }
-  ${QaRangeObjectDataAll}
+  ${QaConversionObjectDataAll}
+  ${QaRangeObjectDataAllExtra}
   ${QaUnitObjectDataAll}
 `;
 
-export const QaSurveyAnswerObjectDataAll = gql`
-  fragment QaSurveyAnswerObjectDataAll on QaSurveyAnswerObject {
+export const QaSurveyAnswerObjectDataAllExtra = gql`
+  fragment QaSurveyAnswerObjectDataAllExtra on QaSurveyAnswerObject {
     choices {
       ...QaUnitObjectDataAll
     }
@@ -261,42 +281,42 @@ export const QaSurveyAnswerObjectDataAll = gql`
 `;
 
 // Grand Children
-export const QaQuestionDataDataAll = gql`
-  fragment QaQuestionDataDataAll on QaQuestionData {
+export const QaQuestionDataDataAllExtra = gql`
+  fragment QaQuestionDataDataAllExtra on QaQuestionData {
     fromUnitWord {
       ...QaUnitWordObjectDataAll
     }
     conversion {
-      ...QaConversionQuestionObjectDataAll
+      ...QaConversionQuestionObjectDataAllExtra
     }
     survey {
-      ...QaSurveyQuestionObjectDataAll
+      ...QaSurveyQuestionObjectDataAllExtra
     }
   }
   ${QaUnitWordObjectDataAll}
-  ${QaConversionQuestionObjectDataAll}
-  ${QaSurveyQuestionObjectDataAll}
+  ${QaConversionQuestionObjectDataAllExtra}
+  ${QaSurveyQuestionObjectDataAllExtra}
 `;
 
-export const QaAnswerDataDataAll = gql`
-  fragment QaAnswerDataDataAll on QaAnswerData {
+export const QaAnswerDataDataAllExtra = gql`
+  fragment QaAnswerDataDataAllExtra on QaAnswerData {
     toUnitWord {
       ...QaUnitWordObjectDataAll
     }
     multiple {
-      ...QaMultipleChoiceObjectDataAll
+      ...QaMultipleChoiceObjectDataAllExtra
     }
     conversion {
-      ...QaConversionObjectDataAll
+      ...QaConversionObjectDataAllExtra
     }
     survey {
-      ...QaSurveyAnswerObjectDataAll
+      ...QaSurveyAnswerObjectDataAllExtra
     }
   }
   ${QaUnitWordObjectDataAll}
-  ${QaMultipleChoiceObjectDataAll}
-  ${QaConversionObjectDataAll}
-  ${QaSurveyAnswerObjectDataAll}
+  ${QaMultipleChoiceObjectDataAllExtra}
+  ${QaConversionObjectDataAllExtra}
+  ${QaSurveyAnswerObjectDataAllExtra}
 `;
 
 // Children
@@ -305,20 +325,56 @@ export const QaQuestionObjectDataAll = gql`
     detail
     text
     type
+  }
+`;
+export const QaQuestionObjectDataAllExtra = gql`
+  fragment QaQuestionObjectDataAllExtra on QaQuestionObject{
+    ...QaQuestionObjectDataAll
     data {
-      ...QaQuestionDataDataAll
+      ...QaQuestionDataDataAllExtra
     }
   }
-  ${QaQuestionDataDataAll}
+  ${QaQuestionObjectDataAll}
+  ${QaQuestionDataDataAllExtra}
 `;
 
 export const QaAnswerObjectDataAll = gql`
   fragment QaAnswerObjectDataAll on QaAnswerObject {
     detail
     type
+  }
+`;
+export const QaAnswerObjectDataAllExtra = gql`
+  fragment QaAnswerObjectDataAllExtra on QaAnswerObject {
+    ...QaAnswerObjectDataAll
     data {
-      ...QaAnswerDataDataAll
+      ...QaAnswerDataDataAllExtra
     }
   }
-  ${QaAnswerDataDataAll}
+  ${QaAnswerObjectDataAll}
+  ${QaAnswerDataDataAllExtra}
+`;
+
+export const QaObjectDataAll = gql`
+  fragment QaObjectDataAll on QaObject {
+    questionId
+    subSubjectId
+    difficulty
+    flags
+    media
+  }
+`;
+export const QaObjectDataAllExtra = gql`
+  fragment QaObjectDataAllExtra on QaObject {
+    ...QaObjectDataAll
+    question {
+      ...QaQuestionObjectDataAllExtra
+    }
+    answer {
+      ...QaAnswerObjectDataAllExtra
+    }
+  }
+  ${QaObjectDataAll}
+  ${QaQuestionObjectDataAllExtra}
+  ${QaAnswerObjectDataAllExtra}
 `;
