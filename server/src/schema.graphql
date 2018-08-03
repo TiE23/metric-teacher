@@ -254,8 +254,9 @@ type QaAnswerData {
 
 ## Great Grand Child Question Objects
 type QaConversionQuestionObject {
-  exact: QaUnitObject!
   step: Float!
+  range: QaRangeObject!
+  exact: QaUnitObject!
 }
 
 type QaSurveyQuestionObject {

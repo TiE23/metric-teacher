@@ -113,6 +113,16 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
         },
         conversion: {
           step: questionPayload.data.step,
+          range: {
+            bottom: {
+              value: questionPayload.data.rangeBottom,
+              unit: questionPayload.data.unit,
+            },
+            top: {
+              value: questionPayload.data.rangeTop,
+              unit: questionPayload.data.unit,
+            },
+          },
           exact: {
             value,
             unit: questionPayload.data.unit,

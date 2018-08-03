@@ -763,8 +763,12 @@ Examples:
         singular: "pound",
       },
       conversion: {
-        exact: { unit: "lb", value: 42 },
         step: 1,
+        range: {
+          bottom: { unit: "lb", value: 35 },
+          top: { unit: "lb", value: 45 },
+        },
+        exact: { unit: "lb", value: 42 },
       },
     },
   },

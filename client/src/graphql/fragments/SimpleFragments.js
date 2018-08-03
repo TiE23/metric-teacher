@@ -203,11 +203,15 @@ export const QaConversionQuestionObjectDataAll = gql`
 export const QaConversionQuestionObjectDataAllExtra = gql`
   fragment QaConversionQuestionObjectDataAllExtra on QaConversionQuestionObject {
     ...QaConversionQuestionObjectDataAll
+    range {
+      ...QaRangeObjectDataAllExtra
+    }
     exact {
       ...QaUnitObjectDataAll
     }
   }
   ${QaConversionQuestionObjectDataAll}
+  ${QaRangeObjectDataAllExtra}
   ${QaUnitObjectDataAll}
 `;
 
