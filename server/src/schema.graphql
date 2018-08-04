@@ -94,7 +94,6 @@ type Mutation {
   removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
 
   # Survey Mutations
-  addSurveyAnswer(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!
   updateSurveyStatus(surveyid: ID!, status: Int!): Survey!
   addSurveyScore(surveyid: ID!, score: Int!): Survey!
 
@@ -215,6 +214,7 @@ type PrivateUser implements Node {
 ### QA Object data schema and its numerous children below
 ## Parent Object
 type QaObject {
+  id: ID!
   questionId: ID!
   subSubjectId: ID!
   difficulty: Int!
@@ -254,15 +254,15 @@ type QaAnswerData {
 
 ## Great Grand Child Question Objects
 type QaConversionQuestionObject {
-  exact: QaUnitObject!
   step: Float!
+  range: QaRangeObject!
+  exact: QaUnitObject!
 }
 
 type QaSurveyQuestionObject {
   step: Float!
-  surveyRange: QaRangeObject!
+  range: QaRangeObject!
   response: QaSurveyResponseObject        # Only if survey was answered
-  status: Int                             # Only if survey was answered
 }
 
 ## Great Grand Child Answer Objects
@@ -284,14 +284,16 @@ type QaSurveyAnswerObject {
   choices: [QaUnitObject]!
 }
 
+## Great Great Grand Child Question Objects
 type QaSurveyResponseObject {
-  id: ID!
+  surveyId: ID!
+  status: Int!
   score: Int!
   answer: QaUnitObject!
   detail: String
 }
 
-## Generic Objects
+## Leaf Objects
 type QaUnitWordObject {
   plural: String!
   singular: String!

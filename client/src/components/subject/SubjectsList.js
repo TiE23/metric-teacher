@@ -14,7 +14,7 @@ const SubjectsList = (props) => {
   let subjectsData;
 
   // If there are masteries passed through, add them to each matching SubSubject.
-  if (props.masteriesData && props.masteriesData.length > 0) {
+  if (props.masteriesData && props.masteriesData.length) {
     // Must create a clone as the original props object is marked as "not-extensible".
     subjectsData = cloneDeep(props.subjectsData);
 
@@ -55,7 +55,6 @@ const SubjectsList = (props) => {
 
     return (
       <Accordion
-        defaultActiveIndex={props.defaultActiveIndex}
         panels={subjectPanels}
         styled
         {...props.accordionProps}
@@ -73,7 +72,6 @@ const SubjectsList = (props) => {
         >
           <Subject subjectData={subjectData} />
           <Accordion
-            defaultActiveIndex={-1}
             panels={[{
               key: subjectData.id,
               title: "Sub-Subjects Available",
@@ -87,6 +85,8 @@ const SubjectsList = (props) => {
                 key: subjectData.id,
               },
             }]}
+            styled
+            {...props.accordionProps}
           />
         </Segment>
       ))
@@ -102,6 +102,7 @@ SubjectsList.propTypes = {
     measurementDescription: PropTypes.string.isRequired,
     subSubjects: PropTypes.array.isRequired,
   })),
+  // For use with Subjects component. UserDetailMasteries fills subjectsData with masteriesData.
   masteriesData: PropTypes.arrayOf(PropTypes.shape({
     subSubject: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -111,7 +112,6 @@ SubjectsList.propTypes = {
     query: PropTypes.object.isRequired,
     variables: PropTypes.object.isRequired,
   }),
-  defaultActiveIndex: PropTypes.number,
   compactView: PropTypes.bool,
   accordionProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
@@ -120,7 +120,6 @@ SubjectsList.defaultProps = {
   subjectsData: null,
   masteriesData: null,
   queryInfo: null,
-  defaultActiveIndex: -1,
   compactView: false,
   accordionProps: null,
 };

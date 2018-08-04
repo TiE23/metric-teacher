@@ -133,6 +133,13 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord.singular).toBe("Celsius");
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("Celsius");
         expect(qaFormat.question.data.conversion).toBeDefined();
+        expect(qaFormat.question.data.conversion.range).toBeDefined();
+        expect(qaFormat.question.data.conversion.range.bottom).toBeDefined();
+        expect(qaFormat.question.data.conversion.range.top).toBeDefined();
+        expect(qaFormat.question.data.conversion.range.bottom.unit).toBe("c");
+        expect(qaFormat.question.data.conversion.range.top.unit).toBe("c");
+        expect(qaFormat.question.data.conversion.range.bottom.value).toBe(100);
+        expect(qaFormat.question.data.conversion.range.top.value).toBe(100);
         expect(qaFormat.question.data.conversion.step).toBe(1);
         expect(qaFormat.question.data.conversion.exact).toBeDefined();
         expect(qaFormat.question.data.conversion.exact.value).toBe(100);
@@ -449,16 +456,15 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord.singular).toBe("inch");
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("inches");
         expect(qaFormat.question.data.survey).toBeDefined();
-        expect(qaFormat.question.data.survey.status).toBeNull();
         expect(qaFormat.question.data.survey.response).toBeNull();
         expect(qaFormat.question.data.survey.step).toBe(1);
-        expect(qaFormat.question.data.survey.surveyRange).toBeDefined();
-        expect(qaFormat.question.data.survey.surveyRange.bottom).toBeDefined();
-        expect(qaFormat.question.data.survey.surveyRange.top).toBeDefined();
-        expect(qaFormat.question.data.survey.surveyRange.bottom.value).toBe(40);
-        expect(qaFormat.question.data.survey.surveyRange.bottom.unit).toBe("in");
-        expect(qaFormat.question.data.survey.surveyRange.top.value).toBe(96);
-        expect(qaFormat.question.data.survey.surveyRange.top.unit).toBe("in");
+        expect(qaFormat.question.data.survey.range).toBeDefined();
+        expect(qaFormat.question.data.survey.range.bottom).toBeDefined();
+        expect(qaFormat.question.data.survey.range.top).toBeDefined();
+        expect(qaFormat.question.data.survey.range.bottom.value).toBe(40);
+        expect(qaFormat.question.data.survey.range.bottom.unit).toBe("in");
+        expect(qaFormat.question.data.survey.range.top.value).toBe(96);
+        expect(qaFormat.question.data.survey.range.top.unit).toBe("in");
 
         // Answer Data
         expect(qaFormat.answer).toBeDefined();
@@ -488,20 +494,20 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord.singular).toBe("inch");
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("inches");
         expect(qaFormat.question.data.survey).toBeDefined();
-        expect(qaFormat.question.data.survey.status).toBe(SURVEY_STATUS_NORMAL);
         expect(qaFormat.question.data.survey.response).toBeDefined();
         expect(qaFormat.question.data.survey.response.id).toBe("survey01");
+        expect(qaFormat.question.data.survey.response.status).toBe(SURVEY_STATUS_NORMAL);
         expect(qaFormat.question.data.survey.response.score).toBe(0);
         expect(qaFormat.question.data.survey.response.answer.unit).toBe("in");
         expect(qaFormat.question.data.survey.response.answer.value).toBe(70);
         expect(qaFormat.question.data.survey.step).toBe(1);
-        expect(qaFormat.question.data.survey.surveyRange).toBeDefined();
-        expect(qaFormat.question.data.survey.surveyRange.bottom).toBeDefined();
-        expect(qaFormat.question.data.survey.surveyRange.top).toBeDefined();
-        expect(qaFormat.question.data.survey.surveyRange.bottom.value).toBe(40);
-        expect(qaFormat.question.data.survey.surveyRange.bottom.unit).toBe("in");
-        expect(qaFormat.question.data.survey.surveyRange.top.value).toBe(96);
-        expect(qaFormat.question.data.survey.surveyRange.top.unit).toBe("in");
+        expect(qaFormat.question.data.survey.range).toBeDefined();
+        expect(qaFormat.question.data.survey.range.bottom).toBeDefined();
+        expect(qaFormat.question.data.survey.range.top).toBeDefined();
+        expect(qaFormat.question.data.survey.range.bottom.value).toBe(40);
+        expect(qaFormat.question.data.survey.range.bottom.unit).toBe("in");
+        expect(qaFormat.question.data.survey.range.top.value).toBe(96);
+        expect(qaFormat.question.data.survey.range.top.unit).toBe("in");
 
         // Answer Data
         expect(qaFormat.answer).toBeDefined();
@@ -554,18 +560,18 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord.singular).toBe("inch");
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("inches");
         expect(qaFormat.question.data.survey).toBeDefined();
-        expect(qaFormat.question.data.survey.status).toBe(SURVEY_STATUS_SKIPPED);
         expect(qaFormat.question.data.survey.response).toBeDefined();
         expect(qaFormat.question.data.survey.response.id).toBe("survey01");
+        expect(qaFormat.question.data.survey.response.status).toBe(SURVEY_STATUS_SKIPPED);
         expect(qaFormat.question.data.survey.response.score).toBe(0);
         expect(qaFormat.question.data.survey.step).toBe(1);
-        expect(qaFormat.question.data.survey.surveyRange).toBeDefined();
-        expect(qaFormat.question.data.survey.surveyRange.bottom).toBeDefined();
-        expect(qaFormat.question.data.survey.surveyRange.top).toBeDefined();
-        expect(qaFormat.question.data.survey.surveyRange.bottom.value).toBe(40);
-        expect(qaFormat.question.data.survey.surveyRange.bottom.unit).toBe("in");
-        expect(qaFormat.question.data.survey.surveyRange.top.value).toBe(96);
-        expect(qaFormat.question.data.survey.surveyRange.top.unit).toBe("in");
+        expect(qaFormat.question.data.survey.range).toBeDefined();
+        expect(qaFormat.question.data.survey.range.bottom).toBeDefined();
+        expect(qaFormat.question.data.survey.range.top).toBeDefined();
+        expect(qaFormat.question.data.survey.range.bottom.value).toBe(40);
+        expect(qaFormat.question.data.survey.range.bottom.unit).toBe("in");
+        expect(qaFormat.question.data.survey.range.top.value).toBe(96);
+        expect(qaFormat.question.data.survey.range.top.unit).toBe("in");
 
         // Answer Data
         expect(qaFormat.answer).toBeDefined();

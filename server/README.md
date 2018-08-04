@@ -138,7 +138,7 @@ type QaObject {
                               }
                   survey: type QaSurveyQuestionObject {     # Survey Questions Only
                             step: Float!
-                            surveyRange: QaRangeObject {
+                            range: QaRangeObject {
                                            bottom: type QaUnitObject {
                                                      value: Float!
                                                      unit: String!
@@ -421,8 +421,8 @@ QuestionAnswerInput: {
     * Remove users (students or teachers) from a classroom. Only teachers (or better) can add students to classrooms they are teachers of. Teachers cannot remove students from classrooms where the student's active Course is not in that classroom.
 
 #### Survey Mutations
-* `addSurveyAnswer(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!`
-    * Answer or re-answer a Survey question. Only the owning student (or moderators or better) can do this.
+* `updateSurveyStatus(surveyid: ID!, status: Int!): Survey!`
+    * Update a Survey's status. Only the owning student (or moderators or better) can do this.
 * `addSurveyScore(surveyid: ID!, score: Int!): Survey!`
     * Add a score value to a Survey's score field. Only the owning student (or moderators or better) can do this. The value can be negative to remove points. It will not be possible to make the score below the minimum (0) nor above the max (1000). If you want to set a score to 0, send -1000. If you want to set the score to 1000, send 1000.
 
@@ -698,6 +698,7 @@ Examples:
 **QA Object**
 ```
 {
+  id: QA_<<someQuestionId>>,
   questionId: <<someQuestionId>>,
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
@@ -747,6 +748,7 @@ Examples:
 **QA Object**
 ```
 {
+  id: QA_<<someQuestionId>>,
   questionId: <<someQuestionId>>,
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
@@ -763,8 +765,12 @@ Examples:
         singular: "pound",
       },
       conversion: {
-        exact: { unit: "lb", value: 42 },
         step: 1,
+        range: {
+          bottom: { unit: "lb", value: 35 },
+          top: { unit: "lb", value: 45 },
+        },
+        exact: { unit: "lb", value: 42 },
       },
     },
   },
@@ -833,6 +839,7 @@ Examples:
 **QA Object**
 ```
 {
+  id: QA_<<someQuestionId>>,
   questionId: <<someQuestionId>>,
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
@@ -849,15 +856,15 @@ Examples:
         singular: "inch",
       },
       survey: {
-        status: 0,
         step: 1,
-        surveyRange: {
+        range: {
           bottom: { unit: "in", value: 70 },
           top: { unit: "in", value: 96 },
         },
         response: {
+          surveyId: <<someSurveyId>>,
+          status: 0,
           detail: "My neighbor Anthony",
-          id: <<someSurveyId>>,
           score: 0,
           answer: { unit: "in", value: 80 },
         },

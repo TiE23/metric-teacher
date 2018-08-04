@@ -40,7 +40,6 @@ class UserDetails extends PureComponent {
         {queryProps => (
           <QueryHandler
             queryData={queryProps}
-            query={USER_DETAILS_QUERY}
             noDataErrorMessage="User not found."
           >
             {this.state.editUserDetailBasics ?

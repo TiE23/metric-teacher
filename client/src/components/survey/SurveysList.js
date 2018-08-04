@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Accordion } from "semantic-ui-react";
 
@@ -11,38 +11,59 @@ import {
 
 import SurveyAndQuestion from "./SurveyAndQuestion";
 
-const SurveysList = (props) => {
-  const { surveysData } = props;
+class SurveysList extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      openedPanels: {},
+    };
+  }
 
-  const surveyPanels = surveysData.map((surveyData) => {
-    const questionText =
-      surveyData.question.question.slice(0, surveyData.question.question.indexOf("[")).trim();
-    const title = `"${utils.stringTruncator(questionText, 30)}" - ${surveyData.score / (SURVEY_MAX_SCORE / 100)}% Mastered${surveyData.status === SURVEY_STATUS_NORMAL ? "" : " - Skipped"}`;
+  // Mark a panel opened on the first time it was opened. This'll be used to trigger a query.
+  markPanelOpened(index) {
+    if (!this.state.openedPanels[index]) {
+      const newOpen = {};
+      newOpen[index] = true;
+      this.setState({
+        openedPanels: { ...this.state.openedPanels, ...newOpen },
+      });
+    }
+  }
 
-    return ({
-      key: surveyData.id,
-      title,
-      content: {
-        content: (
-          <SurveyAndQuestion
-            questionData={surveyData.question}
-            surveyData={surveyData}
-            queryInfo={props.queryInfo}
-          />
-        ),
+  render() {
+    const { surveysData } = this.props;
+
+    const surveyPanels = surveysData.map((surveyData, index) => {
+      const questionText =
+        surveyData.question.question.slice(0, surveyData.question.question.indexOf("[")).trim();
+      const title = `"${utils.stringTruncator(questionText, 30)}" - ${surveyData.score / (SURVEY_MAX_SCORE / 100)}% Mastered${surveyData.status === SURVEY_STATUS_NORMAL ? "" : " - Skipped"}`;
+
+      return ({
         key: surveyData.id,
-      },
+        title,
+        content: {
+          content: (
+            <SurveyAndQuestion
+              questionData={surveyData.question}
+              surveyData={surveyData}
+              queryInfo={this.props.queryInfo}
+              opened={this.state.openedPanels[index]}
+            />
+          ),
+          key: surveyData.id,
+        },
+      });
     });
-  });
 
-  return (
-    <Accordion
-      defaultActiveIndex={props.defaultActiveIndex}
-      panels={surveyPanels}
-      styled
-      {...props.accordionProps}
-    />
-  );
+    return (
+      <Accordion
+        panels={surveyPanels}
+        styled
+        {...this.props.accordionProps}
+        onTitleClick={(e, data) => this.markPanelOpened(data.index)}
+      />
+    );
+  }
 };
 
 SurveysList.propTypes = {
@@ -53,13 +74,11 @@ SurveysList.propTypes = {
     }).isRequired,
   }).isRequired).isRequired,
   queryInfo: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
-  defaultActiveIndex: PropTypes.number,
   accordionProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 SurveysList.defaultProps = {
   queryInfo: null,
-  defaultActiveIndex: -1,
   accordionProps: null,
 };
 

@@ -15,6 +15,10 @@ import {
   MasteryDataAllExtra,
 } from "./fragments/SimpleFragments";
 
+import {
+  QaObjectDataEverything,
+} from "./fragments/QaFragments";
+
 export const ME_AUTH_QUERY = gql`
   query MeAuthQuery {
     me {
@@ -88,4 +92,13 @@ export const SUBJECT_AND_MASTERY_DETAILS_QUERY = gql`
   ${SubjectDataAll}
   ${SubSubjectDataAll}
   ${MasteryDataAllExtra}
+`;
+
+export const GET_QA_QUESTIONS_WITH_STUDENT = gql`
+  query GetQaQuestionsWithStudent ($questionids: [ID!]!, $studentid: ID!) {
+    getQa (questionids: $questionids, studentid: $studentid) {
+      ...QaObjectDataEverything
+    }
+  }
+  ${QaObjectDataEverything}
 `;

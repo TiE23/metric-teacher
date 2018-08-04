@@ -62,6 +62,7 @@ function qaGenerate(questionData, surveyData = null) {
   );
 
   return {
+    id: `QA_${questionData.id}`,
     questionId: questionData.id,
     subSubjectId: questionData.parent.id,
     difficulty: questionData.difficulty,
@@ -113,6 +114,16 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
         },
         conversion: {
           step: questionPayload.data.step,
+          range: {
+            bottom: {
+              value: questionPayload.data.rangeBottom,
+              unit: questionPayload.data.unit,
+            },
+            top: {
+              value: questionPayload.data.rangeTop,
+              unit: questionPayload.data.unit,
+            },
+          },
           exact: {
             value,
             unit: questionPayload.data.unit,
@@ -128,18 +139,16 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
     }
 
     // If the survey has been taken put the answer's info in new response object. Else null.
-    let response = null;
-    let surveyStatus = null;
-    if (surveyData) {
-      response = {
+    const response = surveyData ?
+      {
+        surveyId: surveyData.id,
+        status: surveyData.status,
         // When using parseSingleAnswer we must strip out square brackets.
-        answer: parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer),
+        answer: surveyData.answer ?
+          parseSingleAnswer(surveyData.answer.replace(/[[\]]/g, ""), surveyData.answer) : null,
         score: surveyData.score,
-        id: surveyData.id,
         detail: surveyData.detail,
-      };
-      surveyStatus = surveyData.status;
-    }
+      } : null;
 
     return {
       type: questionPayload.type,
@@ -151,9 +160,8 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
           plural: UNITS[questionPayload.data.unit].plural,
         },
         survey: {
-          status: surveyStatus,
           step: questionPayload.data.step,
-          surveyRange: {
+          range: {
             bottom: {
               value: questionPayload.data.rangeBottom,
               unit: questionPayload.data.unit,
@@ -163,7 +171,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
               unit: questionPayload.data.unit,
             },
           },
-          response, // Null or { value: 2, unit: "m", score: 0, id: "someId", detail: "Foo" }
+          response,
         },
       },
     };

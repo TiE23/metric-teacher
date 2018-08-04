@@ -74,3 +74,26 @@ export const SURVEY_STATUS_SKIPPED = 1;
 export const COURSE_STATUS_ACTIVE = 0;
 export const COURSE_STATUS_INACTIVE = 1;
 export const COURSE_FLAG_PREFER_METRIC = 0x01;
+
+// Question
+export const QUESTION_TYPE_WRITTEN = 0;
+export const QUESTION_TYPE_CONVERSION = 1;
+export const QUESTION_TYPE_SURVEY = 2;
+export const QUESTION_TYPE_NAMES = [
+  "written",
+  "conversion",
+  "survey",
+];
+
+// Unit initials
+export const UNIT_INITIALISMS = {
+  cum: "m³",
+  cuin: "in³",
+  c: "°C",
+  f: "°F",
+  sqm: "m²",
+  sqkm: "km²",
+  sqft: "ft²",
+  sqmi: "mi²",
+  kmph: "km/h",
+};

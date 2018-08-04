@@ -15,6 +15,7 @@ import {
   EMAIL_NORMALIZE_OPTIONS,
   EMAIL_SECRET_PREFIXES,
   PASSWORD_MINIMUM_LENGTH,
+  UNIT_INITIALISMS,
 } from "./constants";
 
 // TODO better token management
@@ -308,7 +309,7 @@ const mergeCustomizer = (objValue, srcValue) => {
  * @returns {boolean}
  */
 const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false) => {
-  const findResult = findRecursive(data, object => object.id === parentId);
+  const findResult = findRecursive(data, object => object && object.id === parentId);
   if (!findResult) return false;
 
   // Note: targetParentAddress ONLY becomes the address AFTER the targetKey has been pop()'d.
@@ -340,7 +341,7 @@ const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false) =
  * @returns {boolean}
  */
 const cacheUpdateObject = (data, targetId, updateObject, targetAddress = []) => {
-  const findResult = findRecursive(data, object => object.id === targetId);
+  const findResult = findRecursive(data, object => object && object.id === targetId);
   if (!findResult) return false;
   const targetObject = navigateObjectDots(findResult.target, targetAddress);
   if (!targetObject) return false;  // Object was not found at this address.
@@ -368,7 +369,7 @@ const cacheUpdateObject = (data, targetId, updateObject, targetAddress = []) => 
  * @returns {boolean}
  */
 const cacheDeleteObject = (data, targetId) => {
-  const findResult = findRecursive(data, object => object.id === targetId);
+  const findResult = findRecursive(data, object => object && object.id === targetId);
   if (!findResult) return false;
   if (!findResult.parent) return false; // Cannot delete the root object in Strict Mode!
 
@@ -398,7 +399,7 @@ const cacheDeleteObject = (data, targetId) => {
  * @returns {boolean}
  */
 const cachePushIntoArray = (data, targetId, targetAddress, newValue) => {
-  const findResult = findRecursive(data, object => object.id === targetId);
+  const findResult = findRecursive(data, object => object && object.id === targetId);
   if (!findResult) return false;
   const targetArray = navigateObjectDots(findResult.target, targetAddress);
   if (!targetArray) return false;
@@ -423,7 +424,7 @@ const cachePushIntoArray = (data, targetId, targetAddress, newValue) => {
  * @returns {boolean}
  */
 const cacheTargetExists = (data, targetId, targetAddress = []) => {
-  const findResult = findRecursive(data, object => object.id === targetId);
+  const findResult = findRecursive(data, object => object && object.id === targetId);
   if (!findResult) return false;
   const targetObject = navigateObjectDots(findResult.target, targetAddress);
   if (!targetObject) return false;  // Object was not found at this address.
@@ -455,7 +456,7 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
   let result = undefined; // eslint-disable-line no-undef-init
 
   // In JS arrays are also objects.
-  if (typeof target === "object") {
+  if (target && typeof target === "object") {
     const isArray = Array.isArray(target);
     const iterable = isArray ? target : Object.keys(target);
     forEach(iterable, (key) => {  // eslint-disable-line consistent-return
@@ -630,6 +631,62 @@ const scoreProgressColor = (currentScore, maxScore) => {
   else return "green";
 };
 
+
+/**
+ * Super simple function. You put in your value and your fromUnitWord or toUnitWord object and get
+ * the proper string in return.
+ * Ex:
+ *  utils.unitWorder(1, { singular: "foot", plural: "feet" }) // "1 foot"
+ *  utils.unitWorder(1.5, { singluar: "meter", plural: "meters" }) // "1.5 meters"
+ * @param value
+ * @param words
+ * @returns {string}
+ */
+const unitWorder = (value, words) => (
+  `${value} ${value === 1 ? words.singular : words.plural}`
+);
+
+
+/**
+ * Super simple function. You put in your bottom/top range object and your fromUnitWord or
+ * toUnitWord object and get the proper string in return.
+ * Ex:
+ *  utils.rangeWorder(
+ *   { bottom: { value: 1 }, top: { value: 3 }, { singular: "foot", plural: "feet" }}
+ *  ) // "1-3 feet"
+ * @param range
+ * @param words
+ * @returns {string}
+ */
+const rangeWorder = (range, words) => (
+  `${range.bottom.value}-${range.top.value} ${range.top.value === 1 ? words.singular : words.plural}`
+);
+
+
+/**
+ * Super simple function. You put in your QaUnit object and get the proper string in return.
+ * Ex:
+ *  utils.choiceWorder({ unit: "lb", value: 10 }) // "10lb"
+ *  utils.choiceWorder({ unit: "f", value: 12.5 }) // "12.5°F"
+ *  utils.choiceWorder({ unit: "written", written: "The Eiffel tower." } // "The Eiffel tower."
+ * @param choice
+ * @returns {string}
+ */
+const choiceWorder = choice => (
+  choice.unit === "written" ? `${choice.written}` : `${choice.value}${unitInitilizer(choice.unit)}`
+);
+
+
+/**
+ * Super simple function. Takes in a standard unit string and returns a slightly better reading
+ * unit string in its place. See the constant UNIT_INITIALISMS for more info.
+ * @param unit
+ * @returns {*}
+ */
+const unitInitilizer = unit => (
+  UNIT_INITIALISMS[unit] ? UNIT_INITIALISMS[unit] : unit
+);
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -652,4 +709,8 @@ export default {
   stringTruncator,
   isEmptyRecursive,
   scoreProgressColor,
+  unitWorder,
+  rangeWorder,
+  choiceWorder,
+  unitInitilizer,
 };
