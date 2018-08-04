@@ -9,6 +9,7 @@ import QaReview from "../qa/QaReview";
 import {
   GET_QA_QUESTIONS_WITH_STUDENT,
 } from "../../graphql/Queries";
+import SubjectsList from "../subject/SubjectsList";
 
 const SurveyAndQuestion = props => (
   <div>
@@ -28,6 +29,8 @@ const SurveyAndQuestion = props => (
           >
             <QaReview
               qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
+              queryInfo={{ query: GET_QA_QUESTIONS_WITH_STUDENT, variables: queryProps.variables }}
+              studentId={queryProps.variables.studentid}
               allowSurveyEditor
             />
           </QueryHandler>

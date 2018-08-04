@@ -7,6 +7,7 @@ import {
 } from "../../propTypes";
 
 import QaReviewSurveyBasics from "./QaReviewSurveyBasics";
+import QaReviewSurveyEditor from "./QaReviewSurveyEditor";
 
 const QaReviewSurvey = props => (
   <Grid
@@ -41,7 +42,13 @@ const QaReviewSurvey = props => (
             </Button>
           }
           {props.surveyEditorOpen ?
-            <p>Editor</p>
+            <QaReviewSurveyEditor
+              queryInfo={props.queryInfo}
+              studentId={props.studentId}
+              questionId={props.questionId}
+              surveyData={props.surveyResponseData}
+              closeSurveyEditor={props.closeSurveyEditor}
+            />
             :
             <QaReviewSurveyBasics
               answer={props.surveyResponseData.answer}
@@ -56,6 +63,9 @@ const QaReviewSurvey = props => (
 
 QaReviewSurvey.propTypes = {
   surveyResponseData: QA_DATA_QUESTION_SURVEY_RESPONSE.isRequired,
+  queryInfo: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  studentId: PropTypes.string.isRequired,
+  questionId: PropTypes.string.isRequired,
   surveyEditorOpen: PropTypes.bool,
   openSurveyEditor: PropTypes.func,
   closeSurveyEditor: PropTypes.func,
