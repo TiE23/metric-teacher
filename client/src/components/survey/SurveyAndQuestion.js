@@ -9,7 +9,6 @@ import QaReview from "../qa/QaReview";
 import {
   GET_QA_QUESTIONS_WITH_STUDENT,
 } from "../../graphql/Queries";
-import SubjectsList from "../subject/SubjectsList";
 
 const SurveyAndQuestion = props => (
   <div>
