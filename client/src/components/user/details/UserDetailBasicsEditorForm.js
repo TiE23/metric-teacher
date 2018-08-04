@@ -33,57 +33,57 @@ class UserDetailBasicsEditorForm extends Component {
       honorific: props.initUserData.honorific,
       formErrors: [],
     };
-  }
 
-  handleChange(data) {
-    this.setState(data);
-  }
-
-  validate(variables) {
-    const { initUserData, userTokenData } = this.props;
-
-    // Construct the form checked values.
-    return utils.userDetailFormValidator(
-      { ...variables, email: { new: variables.email } },  // Casually switch email to email.new
-      {
-        fname: this.state.fname !== initUserData.fname,
-        lname: this.state.lname !== initUserData.lname,
-        email: {
-          new: this.state.email !== initUserData.email,
-        },
-        password: {
-          new: !!this.state.passwordNew,
-          old: (
-            userTokenData.type < USER_TYPE_MODERATOR ||
-            (initUserData.type === USER_TYPE_MODERATOR && userTokenData.type < USER_TYPE_ADMIN)
-          ) && (!!this.state.passwordNew || this.state.email !== initUserData.email),
-        },
-      },
-    );
-  }
-
-  submit() {
-    // Construct the variable values.
-    const variables = {
-      honorific: this.state.honorific !== this.props.initUserData.honorific ?
-        this.state.honorific : undefined,
-      fname: this.state.fname !== this.props.initUserData.fname ? this.state.fname : undefined,
-      lname: this.state.lname !== this.props.initUserData.lname ? this.state.lname : undefined,
-      email: this.state.email !== this.props.initUserData.email ? this.state.email : undefined,
-      password: this.state.passwordNew || this.state.passwordOld ?
-        {
-          new: this.state.passwordNew || undefined,
-          old: this.state.passwordOld || undefined,
-        } : undefined,
+    this.handleChange = (data) => {
+      this.setState(data);
     };
 
-    const formErrors = this.validate(variables);
-    this.setState({ formErrors });
+    this.validate = (variables) => {
+      const { initUserData, userTokenData } = this.props;
 
-    // Fire off the mutation if everything was acceptable.
-    if (formErrors.length === 0) {
-      this.props.onSubmit(variables);
-    }
+      // Construct the form checked values.
+      return utils.userDetailFormValidator(
+        { ...variables, email: { new: variables.email } },  // Casually switch email to email.new
+        {
+          fname: this.state.fname !== initUserData.fname,
+          lname: this.state.lname !== initUserData.lname,
+          email: {
+            new: this.state.email !== initUserData.email,
+          },
+          password: {
+            new: !!this.state.passwordNew,
+            old: (
+              userTokenData.type < USER_TYPE_MODERATOR ||
+              (initUserData.type === USER_TYPE_MODERATOR && userTokenData.type < USER_TYPE_ADMIN)
+            ) && (!!this.state.passwordNew || this.state.email !== initUserData.email),
+          },
+        },
+      );
+    };
+
+    this.submit = () => {
+      // Construct the variable values.
+      const variables = {
+        honorific: this.state.honorific !== this.props.initUserData.honorific ?
+          this.state.honorific : undefined,
+        fname: this.state.fname !== this.props.initUserData.fname ? this.state.fname : undefined,
+        lname: this.state.lname !== this.props.initUserData.lname ? this.state.lname : undefined,
+        email: this.state.email !== this.props.initUserData.email ? this.state.email : undefined,
+        password: this.state.passwordNew || this.state.passwordOld ?
+          {
+            new: this.state.passwordNew || undefined,
+            old: this.state.passwordOld || undefined,
+          } : undefined,
+      };
+
+      const formErrors = this.validate(variables);
+      this.setState({ formErrors });
+
+      // Fire off the mutation if everything was acceptable.
+      if (formErrors.length === 0) {
+        this.props.onSubmit(variables);
+      }
+    };
   }
 
   render() {
@@ -93,13 +93,6 @@ class UserDetailBasicsEditorForm extends Component {
           <Dimmer inverted active={this.props.loading}>
             <Loader />
           </Dimmer>
-          <Form.Input
-            value={this.state.email}
-            onChange={e => this.handleChange({ email: e.target.value })}
-            label="Email"
-            autoComplete="email"
-            placeholder="Your email"
-          />
           {this.props.initUserData.type === 1 &&
           <Form.Input
             value={this.state.honorific}
@@ -123,6 +116,14 @@ class UserDetailBasicsEditorForm extends Component {
             placeholder="Your last name"
           />
           <Form.Input
+            // Here to help password managers work properly on signup. https://goo.gl/9p2vKq
+            value={this.state.email}
+            onChange={e => this.handleChange({ email: e.target.value })}
+            label="Email"
+            autoComplete="email"
+            placeholder="Your email"
+          />
+          <Form.Input
             value={this.state.passwordNew}
             onChange={e => this.handleChange({ passwordNew: e.target.value })}
             label="New Password"
@@ -131,18 +132,18 @@ class UserDetailBasicsEditorForm extends Component {
             type="password"
           />
           {(this.state.email !== this.props.initUserData.email || this.state.passwordNew) &&
-          <Form.Input
-            value={this.state.passwordOld}
-            onChange={e => this.handleChange({ passwordOld: e.target.value })}
-            label="Current Password"
-            autoComplete="current-password"
-            placeholder="Current password required to change email or set new password"
-            type="password"
-          />
+            <Form.Input
+              value={this.state.passwordOld}
+              onChange={e => this.handleChange({ passwordOld: e.target.value })}
+              label="Current Password"
+              autoComplete="current-password"
+              placeholder="Current password required to change email or set new password"
+              type="password"
+            />
           }
           <Container textAlign="right">
             <LoadingButton
-              onClick={() => this.submit()}
+              onClick={this.submit}
               buttonText="Submit"
               buttonProps={{
                 primary: true,
