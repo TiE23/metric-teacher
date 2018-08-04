@@ -21,6 +21,14 @@ class QaReview extends PureComponent {
       questionEditorOpen: false,
       surveyEditorOpen: false,
     };
+
+    this.openSurveyEditor = () => {
+      this.setState({ surveyEditorOpen: true });
+    };
+
+    this.closeSurveyEditor = () => {
+      this.setState({ surveyEditorOpen: false });
+    };
   }
 
   render() {
@@ -39,6 +47,9 @@ class QaReview extends PureComponent {
         {qaData.question.type === QUESTION_TYPE_SURVEY && qaData.question.data.survey.response &&
           <QaReviewSurvey
             surveyResponseData={qaData.question.data.survey.response}
+            surveyEditorOpen={this.props.allowSurveyEditor ? this.state.surveyEditorOpen : false}
+            openSurveyEditor={this.props.allowSurveyEditor ? this.openSurveyEditor : null}
+            closeSurveyEditor={this.props.allowSurveyEditor ? this.closeSurveyEditor : null}
           />
         }
       </QaReviewBasics>

@@ -1,11 +1,12 @@
 import React from "react";
-import { Grid, Segment, Label, List } from "semantic-ui-react";
-
-import utils from "../../utils";
+import PropTypes from "prop-types";
+import { Grid, Segment, Label, Button } from "semantic-ui-react";
 
 import {
   QA_DATA_QUESTION_SURVEY_RESPONSE,
 } from "../../propTypes";
+
+import QaReviewSurveyBasics from "./QaReviewSurveyBasics";
 
 const QaReviewSurvey = props => (
   <Grid
@@ -20,16 +21,33 @@ const QaReviewSurvey = props => (
           <Label color="olive" ribbon>
             Survey Response
           </Label>
-          <List>
-            <List.Item>
-              <b>Answer</b>: {utils.choiceWorder(props.surveyResponseData.answer)}
-            </List.Item>
-            {props.surveyResponseData.detail &&
-              <List.Item>
-                <b>Note</b>: &quot;{props.surveyResponseData.detail}&quot;
-              </List.Item>
-            }
-          </List>
+          {props.openSurveyEditor && !props.surveyEditorOpen &&
+            <Button
+              onClick={props.openSurveyEditor}
+              primary
+              floated="right"
+              size="mini"
+            >
+              Update Response
+            </Button>
+          }
+          {props.closeSurveyEditor && props.surveyEditorOpen &&
+            <Button
+              onClick={props.closeSurveyEditor}
+              floated="right"
+              size="mini"
+            >
+              Close
+            </Button>
+          }
+          {props.surveyEditorOpen ?
+            <p>Editor</p>
+            :
+            <QaReviewSurveyBasics
+              answer={props.surveyResponseData.answer}
+              detail={props.surveyResponseData.detail}
+            />
+          }
         </Segment>
       </Grid.Column>
     </Grid.Row>
@@ -38,6 +56,15 @@ const QaReviewSurvey = props => (
 
 QaReviewSurvey.propTypes = {
   surveyResponseData: QA_DATA_QUESTION_SURVEY_RESPONSE.isRequired,
+  surveyEditorOpen: PropTypes.bool,
+  openSurveyEditor: PropTypes.func,
+  closeSurveyEditor: PropTypes.func,
+};
+
+QaReviewSurvey.defaultProps = {
+  surveyEditorOpen: false,
+  openSurveyEditor: null,
+  closeSurveyEditor: null,
 };
 
 export default QaReviewSurvey;
