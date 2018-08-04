@@ -141,7 +141,7 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
     // If the survey has been taken put the answer's info in new response object. Else null.
     const response = surveyData ?
       {
-        id: surveyData.id,
+        surveyId: surveyData.id,
         status: surveyData.status,
         // When using parseSingleAnswer we must strip out square brackets.
         answer: surveyData.answer ?

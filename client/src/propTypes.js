@@ -11,9 +11,9 @@ export const QA_RANGE_OBJECT_TYPE = PropTypes.shape({
 });
 
 export const QA_DATA_QUESTION_SURVEY_RESPONSE = PropTypes.shape({
-  id: PropTypes.string.isRequired,
+  surveyId: PropTypes.string.isRequired,
   status: PropTypes.number,
-  detail: PropTypes.string.isRequired,
+  detail: PropTypes.string,
   score: PropTypes.number.isRequired,
   answer: QA_UNIT_OBJECT_TYPE,                // Will be null if survey was skipped.
 });

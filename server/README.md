@@ -862,7 +862,7 @@ Examples:
           top: { unit: "in", value: 96 },
         },
         response: {
-          id: <<someSurveyId>>,
+          surveyId: <<someSurveyId>>,
           status: 0,
           detail: "My neighbor Anthony",
           score: 0,

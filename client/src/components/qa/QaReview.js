@@ -24,6 +24,8 @@ class QaReview extends PureComponent {
   }
 
   render() {
+    if (!this.props.qaData) return null;
+
     const { qaData } = this.props;
 
     return (
@@ -45,12 +47,13 @@ class QaReview extends PureComponent {
 }
 
 QaReview.propTypes = {
-  qaData: QA_DATA_EVERYTHING.isRequired,
+  qaData: QA_DATA_EVERYTHING,
   allowQuestionEditor: PropTypes.bool,
   allowSurveyEditor: PropTypes.bool,
 };
 
 QaReview.defaultProps = {
+  qaData: null,
   allowQuestionEditor: false,
   allowSurveyEditor: false,
 };

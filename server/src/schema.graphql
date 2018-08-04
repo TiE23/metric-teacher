@@ -286,7 +286,7 @@ type QaSurveyAnswerObject {
 
 ## Great Great Grand Child Question Objects
 type QaSurveyResponseObject {
-  id: ID!
+  surveyId: ID!
   status: Int!
   score: Int!
   answer: QaUnitObject!

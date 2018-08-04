@@ -177,7 +177,7 @@ export const QaRangeObjectDataAllExtra = gql`
 // Question Great Great Grand Children
 export const QaSurveyResponseObjectDataAll = gql`
   fragment QaSurveyResponseObjectDataAll on QaSurveyResponseObject {
-    id
+    surveyId
     status
     score
     detail
