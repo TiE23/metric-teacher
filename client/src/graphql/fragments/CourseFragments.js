@@ -6,9 +6,11 @@ import {
   MasteryDataAll,
   SubSubjectDataAll,
   SubjectDataAll,
-  SurveyDataAll,
-  QuestionDataAll,
 } from "./SimpleFragments";
+
+import {
+  SurveyForUserDetails,
+} from "./SurveyFragments";
 
 export const CourseForUserDetails = gql`
   fragment CourseForUserDetails on Course {
@@ -32,10 +34,7 @@ export const CourseForUserDetails = gql`
       }
     }
     surveys {
-      ...SurveyDataAll
-      question {
-        ...QuestionDataAll
-      }
+      ...SurveyForUserDetails
     }
   }
   ${CourseDataAll}
@@ -43,6 +42,5 @@ export const CourseForUserDetails = gql`
   ${MasteryDataAll}
   ${SubSubjectDataAll}
   ${SubjectDataAll}
-  ${SurveyDataAll}
-  ${QuestionDataAll}
+  ${SurveyForUserDetails}
 `;

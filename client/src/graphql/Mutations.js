@@ -15,8 +15,11 @@ import {
 } from "./fragments/CourseFragments";
 
 import {
+  SurveyForUserDetails,
+} from "./fragments/SurveyFragments";
+
+import {
   MasteryDataAllExtra,
-  SurveyDataAll,
 } from "./fragments/SimpleFragments";
 
 export const SIGNUP_MUTATION = gql`
@@ -86,11 +89,8 @@ export const MASTERY_UPDATE_STATUS_MUTATION = gql`
 export const SURVEY_UPDATE_STATUS_MUTATION = gql`
   mutation SurveyUpdateStatusMutation($surveyid: ID!, $status: Int!) {
     updateSurveyStatus(surveyid: $surveyid, status: $status) {
-      ...SurveyDataAll
-      parent {
-        id
-      }
+      ...SurveyForUserDetails
     }
   }
-  ${SurveyDataAll}
+  ${SurveyForUserDetails}
 `;
