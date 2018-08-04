@@ -34,6 +34,7 @@ const QaViewerPage = (props) => {
           questionids: [props.match.params.questionId],
           studentid: props.userTokenData.id,
         }}
+        fetchPolicy="network-only"
       >
         {queryProps => (
           <QueryHandler

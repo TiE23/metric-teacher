@@ -19,10 +19,12 @@ const SurveyAndQuestion = props => (
           questionids: [props.questionData.id],
           studentid: props.queryInfo.variables.studentid || props.queryInfo.variables.userid,
         }}
+        fetchPolicy="network-only"
       >
         {queryProps => (
           <QueryHandler
             queryData={queryProps}
+            noDataErrorMessage="No QA object returned."
           >
             <QaReview
               qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
@@ -52,7 +54,7 @@ SurveyAndQuestion.propTypes = {
       userid: PropTypes.string,
     }).isRequired,
   }),
-  opened: PropTypes.any,
+  opened: PropTypes.bool,
 };
 
 SurveyAndQuestion.defaultProps = {

@@ -7,10 +7,12 @@ import {
 
 import {
   QUESTION_TYPE_WRITTEN,
+  QUESTION_TYPE_SURVEY,
 } from "../../constants";
 
 import QaReviewBasics from "./QaReviewBasics";
 import QaReviewChoices from "./QaReviewChoices";
+import QaReviewSurvey from "./QaReviewSurvey";
 
 class QaReview extends PureComponent {
   constructor(props) {
@@ -25,18 +27,19 @@ class QaReview extends PureComponent {
     const { qaData } = this.props;
 
     return (
-      <div>
-        <QaReviewBasics
-          qaData={qaData}
-        >
-          {qaData.question.type === QUESTION_TYPE_WRITTEN &&
-            <QaReviewChoices
-              choices={qaData.answer.data.multiple.choices}
-              choicesOffered={qaData.answer.data.multiple.choicesOffered}
-            />
-          }
-        </QaReviewBasics>
-      </div>
+      <QaReviewBasics qaData={qaData}>
+        {qaData.question.type === QUESTION_TYPE_WRITTEN &&
+          <QaReviewChoices
+            choices={qaData.answer.data.multiple.choices}
+            choicesOffered={qaData.answer.data.multiple.choicesOffered}
+          />
+        }
+        {qaData.question.type === QUESTION_TYPE_SURVEY && qaData.question.data.survey.response &&
+          <QaReviewSurvey
+            surveyResponseData={qaData.question.data.survey.response}
+          />
+        }
+      </QaReviewBasics>
     );
   }
 }

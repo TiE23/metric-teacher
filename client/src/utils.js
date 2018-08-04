@@ -664,7 +664,7 @@ const rangeWorder = (range, words) => (
 
 
 /**
- * Super simple function. You put in your choice object and get the proper string in return.
+ * Super simple function. You put in your QaUnit object and get the proper string in return.
  * Ex:
  *  utils.choiceWorder({ unit: "lb", value: 10 }) // "10lb"
  *  utils.choiceWorder({ unit: "f", value: 12.5 }) // "12.5°F"
@@ -685,7 +685,7 @@ const choiceWorder = choice => (
  */
 const unitInitilizer = unit => (
   UNIT_INITIALISMS[unit] ? UNIT_INITIALISMS[unit] : unit
-)
+);
 
 export default {
   writeTokenLocalStorage,

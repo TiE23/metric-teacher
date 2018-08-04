@@ -421,8 +421,8 @@ QuestionAnswerInput: {
     * Remove users (students or teachers) from a classroom. Only teachers (or better) can add students to classrooms they are teachers of. Teachers cannot remove students from classrooms where the student's active Course is not in that classroom.
 
 #### Survey Mutations
-* `addSurveyAnswer(courseid: ID!, questionid: ID!, skip: Boolean, value: Float, unit: String, detail: String): Survey!`
-    * Answer or re-answer a Survey question. Only the owning student (or moderators or better) can do this.
+* `updateSurveyStatus(surveyid: ID!, status: Int!): Survey!`
+    * Update a Survey's status. Only the owning student (or moderators or better) can do this.
 * `addSurveyScore(surveyid: ID!, score: Int!): Survey!`
     * Add a score value to a Survey's score field. Only the owning student (or moderators or better) can do this. The value can be negative to remove points. It will not be possible to make the score below the minimum (0) nor above the max (1000). If you want to set a score to 0, send -1000. If you want to set the score to 1000, send 1000.
 
