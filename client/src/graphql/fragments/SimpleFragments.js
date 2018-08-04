@@ -361,6 +361,7 @@ export const QaAnswerObjectDataAllExtra = gql`
 
 export const QaObjectDataAll = gql`
   fragment QaObjectDataAll on QaObject {
+    id
     questionId
     subSubjectId
     difficulty

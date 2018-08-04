@@ -10,6 +10,14 @@ export const QA_RANGE_OBJECT_TYPE = PropTypes.shape({
   top: QA_UNIT_OBJECT_TYPE.isRequired,
 });
 
+export const QA_DATA_QUESTION_SURVEY_RESPONSE = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  status: PropTypes.number,
+  detail: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+  answer: QA_UNIT_OBJECT_TYPE,                // Will be null if survey was skipped.
+});
+
 export const QA_DATA_QUESTION = PropTypes.shape({
   detail: PropTypes.string,
   text: PropTypes.string,
@@ -27,13 +35,7 @@ export const QA_DATA_QUESTION = PropTypes.shape({
     survey: PropTypes.shape({                 // Only if survey question.
       step: PropTypes.number.isRequired,
       range: QA_RANGE_OBJECT_TYPE.isRequired,
-      response: PropTypes.shape({             // Only if survey is answered.
-        id: PropTypes.string.isRequired,
-        status: PropTypes.number,
-        detail: PropTypes.string.isRequired,
-        score: PropTypes.number.isRequired,
-        answer: QA_UNIT_OBJECT_TYPE.isRequired,
-      }),
+      response: QA_DATA_QUESTION_SURVEY_RESPONSE,       // Only if survey was answered.
     }),
   }),
 });

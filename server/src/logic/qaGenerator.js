@@ -62,6 +62,7 @@ function qaGenerate(questionData, surveyData = null) {
   );
 
   return {
+    id: `QA_${questionData.id}`,
     questionId: questionData.id,
     subSubjectId: questionData.parent.id,
     difficulty: questionData.difficulty,

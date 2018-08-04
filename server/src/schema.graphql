@@ -215,6 +215,7 @@ type PrivateUser implements Node {
 ### QA Object data schema and its numerous children below
 ## Parent Object
 type QaObject {
+  id: ID!
   questionId: ID!
   subSubjectId: ID!
   difficulty: Int!
