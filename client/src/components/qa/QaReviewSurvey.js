@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Grid, Segment, Label, Button } from "semantic-ui-react";
 
 import {
+  QA_RANGE_OBJECT_TYPE,
   QA_DATA_QUESTION_SURVEY_RESPONSE,
 } from "../../propTypes";
 
@@ -47,6 +48,7 @@ const QaReviewSurvey = props => (
               studentId={props.studentId}
               questionId={props.questionId}
               surveyData={props.surveyResponseData}
+              surveyRangeData={props.surveyRangeData}
               closeSurveyEditor={props.closeSurveyEditor}
             />
             :
@@ -63,6 +65,7 @@ const QaReviewSurvey = props => (
 
 QaReviewSurvey.propTypes = {
   surveyResponseData: QA_DATA_QUESTION_SURVEY_RESPONSE.isRequired,
+  surveyRangeData: QA_RANGE_OBJECT_TYPE.isRequired,
   queryInfo: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   studentId: PropTypes.string.isRequired,
   questionId: PropTypes.string.isRequired,

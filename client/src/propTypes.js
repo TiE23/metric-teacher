@@ -18,6 +18,12 @@ export const QA_DATA_QUESTION_SURVEY_RESPONSE = PropTypes.shape({
   answer: QA_UNIT_OBJECT_TYPE,                // Will be null if survey was skipped.
 });
 
+export const QA_DATA_QUESTION_SURVEY = PropTypes.shape({
+  step: PropTypes.number.isRequired,
+  range: QA_RANGE_OBJECT_TYPE.isRequired,
+  response: QA_DATA_QUESTION_SURVEY_RESPONSE,       // Only if survey was answered.
+});
+
 export const QA_DATA_QUESTION = PropTypes.shape({
   detail: PropTypes.string,
   text: PropTypes.string,
@@ -32,11 +38,7 @@ export const QA_DATA_QUESTION = PropTypes.shape({
       range: QA_RANGE_OBJECT_TYPE.isRequired,
       exact: QA_UNIT_OBJECT_TYPE.isRequired,
     }),
-    survey: PropTypes.shape({                 // Only if survey question.
-      step: PropTypes.number.isRequired,
-      range: QA_RANGE_OBJECT_TYPE.isRequired,
-      response: QA_DATA_QUESTION_SURVEY_RESPONSE,       // Only if survey was answered.
-    }),
+    survey: QA_DATA_QUESTION_SURVEY,          // Only if survey question.
   }),
 });
 

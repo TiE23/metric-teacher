@@ -47,6 +47,7 @@ class QaReview extends PureComponent {
         {qaData.question.type === QUESTION_TYPE_SURVEY && qaData.question.data.survey.response &&
           <QaReviewSurvey
             surveyResponseData={qaData.question.data.survey.response}
+            surveyRangeData={qaData.question.data.survey.range}
             queryInfo={this.props.queryInfo}
             studentId={this.props.studentId}
             questionId={qaData.questionId}

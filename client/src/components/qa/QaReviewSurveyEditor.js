@@ -10,6 +10,10 @@ import {
   SURVEY_ADD_ANSWER_MUTATION,
 } from "../../graphql/Mutations";
 
+import {
+  QA_RANGE_OBJECT_TYPE,
+} from "../../propTypes";
+
 const QaReviewSurveyEditor = (props) => {
   return (
     <Mutation
@@ -31,6 +35,7 @@ const QaReviewSurveyEditor = (props) => {
       {(addSurveyAnswers, { loading, error }) => (
         <QaReviewSurveyEditorForm
           surveyData={props.surveyData}
+          surveyRangeData={props.surveyRangeData}
           onSubmit={answerInputVariables => addSurveyAnswers({
             variables: {
               studentid: props.studentId,
@@ -50,6 +55,7 @@ const QaReviewSurveyEditor = (props) => {
 
 QaReviewSurveyEditor.propTypes = {
   surveyData: PropTypes.object.isRequired,  // eslint-disable-line react/forbid-prop-types
+  surveyRangeData: QA_RANGE_OBJECT_TYPE.isRequired,
   queryInfo: PropTypes.object.isRequired,   // eslint-disable-line react/forbid-prop-types
   studentId: PropTypes.string.isRequired,
   questionId: PropTypes.string.isRequired,

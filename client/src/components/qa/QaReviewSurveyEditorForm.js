@@ -1,10 +1,16 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Form, Container, Dimmer, Loader, Message, Label } from "semantic-ui-react";
+import deline from "deline";
 
 import utils from "../../utils";
 
 import LoadingButton from "../misc/LoadingButton";
+
+import {
+  QA_UNIT_OBJECT_TYPE,
+  QA_RANGE_OBJECT_TYPE,
+} from "../../propTypes";
 
 class QaReviewSurveyEditorForm extends PureComponent {
   constructor(props) {
@@ -12,24 +18,49 @@ class QaReviewSurveyEditorForm extends PureComponent {
     this.state = {
       answer: `${this.props.surveyData.answer.value}`,
       note: this.props.surveyData.detail,
+      formErrors: [],
     };
 
     this.handleChange = (data) => {
       this.setState(data);
     };
 
-    this.submit = () => {
-      // TODO - Form validation
-
+    this.validate = () => {
+      const formErrors = [];
       const newValue = parseInt(this.state.answer, 10);
-      // TODO - Add min/max limit handling (will need to get it here first)
 
-      this.props.onSubmit({
-        value: newValue,
-        unit: this.props.surveyData.answer.unit,  // Cannot be changed, but still required.
-        detail: this.state.note,
-        score: newValue === this.props.surveyData.answer.value ? this.props.surveyData.score : null,
-      });
+      // Force min/max limits.
+      const top = this.props.surveyRangeData.top.value;
+      const bottom = this.props.surveyRangeData.bottom.value;
+      const unit = utils.unitInitilizer(this.props.surveyRangeData.top.unit);
+
+      if (newValue > top) {
+        formErrors.push(deline`You answer ${newValue}${unit}
+          is greater than the acceptable maximum value of ${top}${unit}.`);
+      }
+      if (newValue < bottom) {
+        formErrors.push(deline`Your answer ${newValue}${unit}
+          is lower than the acceptable minimum value of ${bottom}${unit}.`);
+      }
+
+      return formErrors;
+    };
+
+    this.submit = () => {
+      const formErrors = this.validate();
+      this.setState({ formErrors });
+
+      if (formErrors.length === 0) {
+        const newValue = parseInt(this.state.answer, 10);
+
+        this.props.onSubmit({
+          value: newValue,
+          unit: this.props.surveyData.answer.unit,  // Cannot be changed, but still required.
+          detail: this.state.note,
+          score: newValue === this.props.surveyData.answer.value ?
+            this.props.surveyData.score : null,
+        });
+      }
     };
   }
 
@@ -73,6 +104,15 @@ class QaReviewSurveyEditorForm extends PureComponent {
             {this.props.error.message}
           </Message>
         }
+        {this.state.formErrors.length !== 0 &&
+        <Message attached negative>
+          <Message.Header>Form Errors</Message.Header>
+          <ul>
+            {this.state.formErrors.map(errorMessage =>
+              <li key={errorMessage}>{errorMessage}</li>)}
+          </ul>
+        </Message>
+        }
       </div>
     );
   }
@@ -80,13 +120,11 @@ class QaReviewSurveyEditorForm extends PureComponent {
 
 QaReviewSurveyEditorForm.propTypes = {
   surveyData: PropTypes.shape({
-    answer: PropTypes.shape({
-      value: PropTypes.number.isRequired,
-      unit: PropTypes.string.isRequired,
-    }).isRequired,
+    answer: QA_UNIT_OBJECT_TYPE.isRequired,
     detail: PropTypes.string.isRequired,
     score: PropTypes.number.isRequired,
   }).isRequired,
+  surveyRangeData: QA_RANGE_OBJECT_TYPE.isRequired,
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
