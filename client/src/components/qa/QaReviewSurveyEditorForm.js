@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Form, Container, Dimmer, Loader, Message, Label } from "semantic-ui-react";
 import deline from "deline";
+import isDecimal from "validator/lib/isDecimal";
 
 import utils from "../../utils";
 
@@ -25,21 +26,21 @@ class QaReviewSurveyEditorForm extends PureComponent {
     };
 
     this.validate = () => {
+      const { surveyData } = this.props;
       const formErrors = [];
-      const newValue = parseInt(this.state.answer, 10);
 
-      // Force min/max limits.
-      const top = this.props.surveyData.range.top.value;
-      const bottom = this.props.surveyData.range.bottom.value;
-      const unit = utils.unitInitilizer(this.props.surveyData.range.top.unit);
-
-      if (newValue > top) {
-        formErrors.push(deline`You answer ${newValue}${unit}
-          is greater than the acceptable maximum value of ${top}${unit}.`);
-      }
-      if (newValue < bottom) {
-        formErrors.push(deline`Your answer ${newValue}${unit}
-          is lower than the acceptable minimum value of ${bottom}${unit}.`);
+      // Make sure it's a number.
+      if (!isDecimal(this.state.answer)) {
+        formErrors.push(deline`Only enter in a number for your
+        answer.${this.state.answer.includes(",") && " Do not use commas."}`);
+      } else {
+        formErrors.push(...utils.surveyAnswerValidator(
+          parseFloat(this.state.answer),
+          surveyData.range.top.value,
+          surveyData.range.bottom.value,
+          surveyData.range.top.unit,
+          surveyData.step,
+        ));
       }
 
       return formErrors;
@@ -50,7 +51,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
       this.setState({ formErrors });
 
       if (formErrors.length === 0) {
-        const newValue = parseInt(this.state.answer, 10);
+        const newValue = parseFloat(this.state.answer);
 
         this.props.onSubmit({
           value: newValue,
@@ -73,7 +74,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
           <Form.Input
             value={this.state.answer}
             onChange={e => this.handleChange({ answer: e.target.value })}
-            label="Answer (Changing this will reset your progress!)"
+            label="Answer - Changes will reset your progress!"
           >
             <input />
             <Label basic>

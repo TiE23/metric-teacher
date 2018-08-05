@@ -6,6 +6,7 @@ import isPlainObject from "lodash/isPlainObject";
 import isObject from "lodash/isObject";
 import forEach from "lodash/forEach";
 import isEmpty from "lodash/isEmpty";
+import deline from "deline";
 
 import normalizeEmail from "validator/lib/normalizeEmail";
 
@@ -696,6 +697,49 @@ const unitInitilizer = unit => (
   UNIT_INITIALISMS[unit] ? UNIT_INITIALISMS[unit] : unit
 );
 
+
+/**
+ * Takes typical Survey response requirements for the inputted value and returns form errors to
+ * report to the user of their failures in life.
+ * @param value         (must be a number)
+ * @param rangeTop      (must be a number)
+ * @param rangeBottom   (must be a number)
+ * @param unit
+ * @param step          (must be a number)
+ * @returns {Array}     (any errors found)
+ */
+const surveyAnswerValidator = (value, rangeTop, rangeBottom, unit, step) => {
+  const formErrors = [];
+
+  // Min/Max requirements.
+  const unitString = unitInitilizer(unit);
+
+  if (value > rangeTop) {
+    formErrors.push(deline`You answer ${value}${unitString} is greater than the acceptable
+      maximum value of ${rangeTop}${unitString}.`);
+  }
+  if (value < rangeBottom) {
+    formErrors.push(deline`Your answer ${value}${unitString} is lower than the acceptable
+      minimum value of ${rangeBottom}${unitString}.`);
+  }
+
+  // Step requirements.
+  const stepVal = step || 1;
+  const stepMod = (value * 100000) % (stepVal * 100000); // Avoid float issues up to 0.0000001
+  if (stepMod !== 0) {
+    if (stepVal === 1) {
+      formErrors.push(`Your answer ${value}${unitString} must be a whole number.`);
+    } else if (stepVal < 1 && value % 1 !== 0) {  // Accept whole numbers, always.
+      formErrors.push(deline`Your answer ${value}${unitString} must be a whole number or
+        multiple of ${stepVal}.`);
+    } else if (stepVal > 1) {
+      formErrors.push(`Your answer ${value}${unitString} must be a multiple of ${stepVal}.`);
+    }
+  }
+
+  return formErrors;
+};
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -722,4 +766,5 @@ export default {
   rangeWorder,
   choiceWorder,
   unitInitilizer,
+  surveyAnswerValidator,
 };

@@ -33,10 +33,16 @@ const QaReviewBasics = (props) => {
     `;
   } else if (question.type === QUESTION_TYPE_SURVEY) {
     questionDescription = question.text;
-    surveyDetail = deline`
-      Accepted survey answer range is
-      ${utils.rangeWorder(question.data.survey.range, question.data.fromUnitWord)}.
-    `;
+
+    let stepClause = " and must be a whole number (no decimals)";
+    if (question.data.survey.step < 1) {
+      stepClause = ` and can be a whole number or a multiple of ${question.data.survey.step}`;
+    } else if (question.data.survey.step > 1) {
+      stepClause = ` and must be a multiple of ${question.data.survey.step}`;
+    }
+
+    surveyDetail = deline`Accepted survey answer range is
+      ${utils.rangeWorder(question.data.survey.range, question.data.fromUnitWord)}${stepClause}.`;
   } else {
     questionDescription = question.text;
   }
