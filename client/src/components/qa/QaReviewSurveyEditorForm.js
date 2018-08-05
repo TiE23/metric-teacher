@@ -12,6 +12,10 @@ import {
   QA_DATA_QUESTION_SURVEY,
 } from "../../propTypes";
 
+import {
+  QUESTION_FLAG_USER_DETAIL_REQUIRED,
+} from "../../constants";
+
 class QaReviewSurveyEditorForm extends PureComponent {
   constructor(props) {
     super(props);
@@ -26,6 +30,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
     };
 
     this.validate = () => {
+      // TODO - Limit length of note input.
       const { surveyData } = this.props;
       const formErrors = [];
 
@@ -43,6 +48,12 @@ class QaReviewSurveyEditorForm extends PureComponent {
         ));
       }
 
+      // If a note is required, make sure it's filled!
+      if ((this.props.questionFlags & QUESTION_FLAG_USER_DETAIL_REQUIRED) &&
+        !this.state.note.trim()) {
+        formErrors.push("This survey requires you have a note. Please do not leave it blank.");
+      }
+
       return formErrors;
     };
 
@@ -56,7 +67,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
         this.props.onSubmit({
           value: newValue,
           unit: this.props.surveyData.response.answer.unit,  // Cannot be changed, but is required.
-          detail: this.state.note,
+          detail: this.state.note.trim(),
           score: newValue === this.props.surveyData.response.answer.value ?
             this.props.surveyData.response.score : null,
         });
@@ -120,6 +131,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
 
 QaReviewSurveyEditorForm.propTypes = {
   surveyData: QA_DATA_QUESTION_SURVEY.isRequired,
+  questionFlags: PropTypes.number.isRequired,
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object,  // eslint-disable-line react/forbid-prop-types

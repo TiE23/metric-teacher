@@ -50,6 +50,7 @@ class QaReview extends PureComponent {
             queryInfo={this.props.queryInfo}
             studentId={this.props.studentId}
             questionId={qaData.questionId}
+            questionFlags={qaData.flags}
             surveyEditorOpen={this.props.allowSurveyEditor ? this.state.surveyEditorOpen : false}
             openSurveyEditor={this.props.allowSurveyEditor ? this.openSurveyEditor : null}
             closeSurveyEditor={this.props.allowSurveyEditor ? this.closeSurveyEditor : null}

@@ -43,10 +43,11 @@ const QaReviewSurvey = props => (
           }
           {props.surveyEditorOpen ?
             <QaReviewSurveyEditor
+              surveyData={props.surveyData}
               queryInfo={props.queryInfo}
               studentId={props.studentId}
               questionId={props.questionId}
-              surveyData={props.surveyData}
+              questionFlags={props.questionFlags}
               closeSurveyEditor={props.closeSurveyEditor}
             />
             :
@@ -66,6 +67,7 @@ QaReviewSurvey.propTypes = {
   queryInfo: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   studentId: PropTypes.string.isRequired,
   questionId: PropTypes.string.isRequired,
+  questionFlags: PropTypes.number.isRequired,
   surveyEditorOpen: PropTypes.bool,
   openSurveyEditor: PropTypes.func,
   closeSurveyEditor: PropTypes.func,

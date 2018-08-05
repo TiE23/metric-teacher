@@ -35,6 +35,7 @@ const QaReviewSurveyEditor = (props) => {
       {(addSurveyAnswers, { loading, error }) => (
         <QaReviewSurveyEditorForm
           surveyData={props.surveyData}
+          questionFlags={props.questionFlags}
           onSubmit={answerInputVariables => addSurveyAnswers({
             variables: {
               studentid: props.studentId,
@@ -57,6 +58,7 @@ QaReviewSurveyEditor.propTypes = {
   queryInfo: PropTypes.object.isRequired,   // eslint-disable-line react/forbid-prop-types
   studentId: PropTypes.string.isRequired,
   questionId: PropTypes.string.isRequired,
+  questionFlags: PropTypes.number.isRequired,
 };
 
 export default QaReviewSurveyEditor;
