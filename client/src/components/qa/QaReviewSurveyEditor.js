@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 
+import utils from "../../utils";
+
 import QaReviewSurveyEditorForm from "./QaReviewSurveyEditorForm";
 
 import {
@@ -14,7 +16,16 @@ const QaReviewSurveyEditor = (props) => {
       mutation={SURVEY_ADD_ANSWER_MUTATION}
       update={(cache, { data: { addSurveyAnswer } }) => {
         const data = cache.readQuery(props.queryInfo);
-        // TODO - Update cache.
+        const newData = {
+          score: addSurveyAnswer.score,
+          detail: addSurveyAnswer.detail,
+          answer: { value: addSurveyAnswer.value },
+        };
+        utils.cacheUpdateObject(data, addSurveyAnswer.id, newData, [], "surveyId");
+        cache.writeQuery({
+          ...props.queryInfo,
+          data,
+        });
       }}
     >
       {(addSurveyAnswers, { loading, error }) => (

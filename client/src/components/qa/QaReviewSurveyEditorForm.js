@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Form, Container, Dimmer, Loader, Message } from "semantic-ui-react";
+import { Form, Container, Dimmer, Loader, Message, Label } from "semantic-ui-react";
+
+import utils from "../../utils";
 
 import LoadingButton from "../misc/LoadingButton";
 
@@ -41,8 +43,13 @@ class QaReviewSurveyEditorForm extends PureComponent {
           <Form.Input
             value={this.state.answer}
             onChange={e => this.handleChange({ answer: e.target.value })}
-            label={`Answer (${this.props.surveyData.answer.unit})`}
-          />
+            label="Answer (Changing this will reset your progress!)"
+          >
+            <input />
+            <Label basic>
+              <b>{utils.unitInitilizer(this.props.surveyData.answer.unit)}</b>
+            </Label>
+          </Form.Input>
           <Form.Input
             value={this.state.note}
             onChange={e => this.handleChange({ note: e.target.value })}
@@ -56,7 +63,6 @@ class QaReviewSurveyEditorForm extends PureComponent {
               buttonProps={{
                 primary: true,
                 type: "submit",
-                size: "mini",
               }}
             />
           </Container>
