@@ -13,6 +13,7 @@ import {
 } from "../../propTypes";
 
 import {
+  QUESTION_FLAG_USER_DETAIL_OPTIONAL,
   QUESTION_FLAG_USER_DETAIL_REQUIRED,
 } from "../../constants";
 
@@ -30,7 +31,6 @@ class QaReviewSurveyEditorForm extends PureComponent {
     };
 
     this.validate = () => {
-      // TODO - Limit length of note input.
       const { surveyData } = this.props;
       const formErrors = [];
 
@@ -48,6 +48,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
         ));
       }
 
+      // TODO - Limit length of note input.
       // If a note is required, make sure it's filled!
       if ((this.props.questionFlags & QUESTION_FLAG_USER_DETAIL_REQUIRED) &&
         !this.state.note.trim()) {
@@ -92,11 +93,14 @@ class QaReviewSurveyEditorForm extends PureComponent {
               <b>{utils.unitInitilizer(this.props.surveyData.response.answer.unit)}</b>
             </Label>
           </Form.Input>
-          <Form.Input
-            value={this.state.note}
-            onChange={e => this.handleChange({ note: e.target.value })}
-            label="Note"
-          />
+          {(this.state.note || !!(this.props.questionFlags &
+            (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED))) &&
+            <Form.Input
+              value={this.state.note}
+              onChange={e => this.handleChange({ note: e.target.value })}
+              label="Note"
+            />
+          }
           <Container textAlign="right">
             <LoadingButton
               onClick={this.submit}

@@ -27,7 +27,6 @@ const QaReviewSurvey = props => (
               onClick={props.openSurveyEditor}
               primary
               floated="right"
-              size="mini"
             >
               Update Response
             </Button>
@@ -36,7 +35,6 @@ const QaReviewSurvey = props => (
             <Button
               onClick={props.closeSurveyEditor}
               floated="right"
-              size="mini"
             >
               Close
             </Button>
@@ -54,6 +52,7 @@ const QaReviewSurvey = props => (
             <QaReviewSurveyBasics
               answer={props.surveyData.response.answer}
               detail={props.surveyData.response.detail}
+              questionFlags={props.questionFlags}
             />
           }
         </Segment>

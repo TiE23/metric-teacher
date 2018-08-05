@@ -712,15 +712,15 @@ const surveyAnswerValidator = (value, rangeTop, rangeBottom, unit, step) => {
   const formErrors = [];
 
   // Min/Max requirements.
-  const unitString = unitInitilizer(unit);
+  const valueString = choiceWorder({ value, unit });
 
   if (value > rangeTop) {
-    formErrors.push(deline`You answer ${value}${unitString} is greater than the acceptable
-      maximum value of ${rangeTop}${unitString}.`);
+    formErrors.push(deline`You answer ${valueString} is greater than the acceptable
+      maximum value of ${rangeTop}.`);
   }
   if (value < rangeBottom) {
-    formErrors.push(deline`Your answer ${value}${unitString} is lower than the acceptable
-      minimum value of ${rangeBottom}${unitString}.`);
+    formErrors.push(deline`Your answer ${valueString} is lower than the acceptable
+      minimum value of ${rangeBottom}.`);
   }
 
   // Step requirements.
@@ -728,12 +728,12 @@ const surveyAnswerValidator = (value, rangeTop, rangeBottom, unit, step) => {
   const stepMod = (value * 100000) % (stepVal * 100000); // Avoid float issues up to 0.0000001
   if (stepMod !== 0) {
     if (stepVal === 1) {
-      formErrors.push(`Your answer ${value}${unitString} must be a whole number.`);
+      formErrors.push(`Your answer ${valueString} must be a whole number.`);
     } else if (stepVal < 1 && value % 1 !== 0) {  // Accept whole numbers, always.
-      formErrors.push(deline`Your answer ${value}${unitString} must be a whole number or
+      formErrors.push(deline`Your answer ${valueString} must be a whole number or
         multiple of ${stepVal}.`);
     } else if (stepVal > 1) {
-      formErrors.push(`Your answer ${value}${unitString} must be a multiple of ${stepVal}.`);
+      formErrors.push(`Your answer ${valueString} must be a multiple of ${stepVal}.`);
     }
   }
 
