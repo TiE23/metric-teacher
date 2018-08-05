@@ -8,16 +8,15 @@ import utils from "../../utils";
 import LoadingButton from "../misc/LoadingButton";
 
 import {
-  QA_UNIT_OBJECT_TYPE,
-  QA_RANGE_OBJECT_TYPE,
+  QA_DATA_QUESTION_SURVEY,
 } from "../../propTypes";
 
 class QaReviewSurveyEditorForm extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      answer: `${this.props.surveyData.answer.value}`,
-      note: this.props.surveyData.detail,
+      answer: `${this.props.surveyData.response.answer.value}`,
+      note: this.props.surveyData.response.detail,
       formErrors: [],
     };
 
@@ -30,9 +29,9 @@ class QaReviewSurveyEditorForm extends PureComponent {
       const newValue = parseInt(this.state.answer, 10);
 
       // Force min/max limits.
-      const top = this.props.surveyRangeData.top.value;
-      const bottom = this.props.surveyRangeData.bottom.value;
-      const unit = utils.unitInitilizer(this.props.surveyRangeData.top.unit);
+      const top = this.props.surveyData.range.top.value;
+      const bottom = this.props.surveyData.range.bottom.value;
+      const unit = utils.unitInitilizer(this.props.surveyData.range.top.unit);
 
       if (newValue > top) {
         formErrors.push(deline`You answer ${newValue}${unit}
@@ -55,10 +54,10 @@ class QaReviewSurveyEditorForm extends PureComponent {
 
         this.props.onSubmit({
           value: newValue,
-          unit: this.props.surveyData.answer.unit,  // Cannot be changed, but still required.
+          unit: this.props.surveyData.response.answer.unit,  // Cannot be changed, but is required.
           detail: this.state.note,
-          score: newValue === this.props.surveyData.answer.value ?
-            this.props.surveyData.score : null,
+          score: newValue === this.props.surveyData.response.answer.value ?
+            this.props.surveyData.response.score : null,
         });
       }
     };
@@ -78,7 +77,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
           >
             <input />
             <Label basic>
-              <b>{utils.unitInitilizer(this.props.surveyData.answer.unit)}</b>
+              <b>{utils.unitInitilizer(this.props.surveyData.response.answer.unit)}</b>
             </Label>
           </Form.Input>
           <Form.Input
@@ -119,12 +118,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
 }
 
 QaReviewSurveyEditorForm.propTypes = {
-  surveyData: PropTypes.shape({
-    answer: QA_UNIT_OBJECT_TYPE.isRequired,
-    detail: PropTypes.string.isRequired,
-    score: PropTypes.number.isRequired,
-  }).isRequired,
-  surveyRangeData: QA_RANGE_OBJECT_TYPE.isRequired,
+  surveyData: QA_DATA_QUESTION_SURVEY.isRequired,
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
