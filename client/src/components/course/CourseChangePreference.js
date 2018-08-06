@@ -41,6 +41,8 @@ const CourseChangePreference = props => (
         loading={loading}
         error={error}
         buttonProps={props.buttonProps}
+        confirmModal
+        modalProps={{ basic: true }}
       />
     )}
   </Mutation>
