@@ -68,6 +68,15 @@ export const COURSE_ASSIGN_MUTATION = gql`
   ${CourseForUserDetails}
 `;
 
+export const COURSE_UPDATE_FLAGS_MUTATION = gql`
+  mutation CourseUpdateFlagsMutation($courseid: ID!, $flags: Int!) {
+    updateCourseFlags(courseid: $courseid, flags: $flags) {
+      ...CourseForUserDetails
+    }
+  }
+  ${CourseForUserDetails}
+`;
+
 export const STUDENT_ASSIGN_NEW_MASTERY_MUTATION = gql`
   mutation StudentAssignNewMasteriesMutation($studentid: ID!, $subsubjectid: ID!) {
     assignStudentNewMastery(studentid: $studentid, subsubjectid: $subsubjectid) {
