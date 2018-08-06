@@ -374,19 +374,21 @@ QuestionAnswerInput: {
 * `updateUserStates(userid: ID!, type: Int, status: Int, flags: Int): PrivateUser!`
     * Mutation providing administrative-style updates to a User row. This includes changing the type, status, and flags of a User. There are some additional checks on Moderators disallowing them from updating other Moderators or Admins. Admins, on the other hand, have full power.
 
-#### Student Mutations
+#### Enrollment Mutations
 * `enrollStudent(studentid: ID!): Enrollment!`
     * Gives a student a new Enrollment and immediately gives them a new Course and sets it as active.
+
+#### Course Mutations
 * `assignStudentNewCourse(studentid: ID!, prefermetric: Boolean): Course!`
     * Give a student a new Course. They must be enrolled first, though.
 * `setActiveCourse(studentid: ID!, courseid: ID!): Course!`
     * Will set a student's Courses all to inactive and the targeted Course to active. Requires the studentid to perform.
-
-#### Course Mutations
 * `assignStudentNewMasteries(student: ID!, subsubjectids: [ID!]!): Course!`
     * Assigns subSubjects to a student's active Course. If at all possible prefer assignCourseNewMasteries() over this function as it involves an extra hit to the database to get the student's active Course. Only the owning student (or moderators or better) can do this.
 * `deactivateCourse(courseid: ID!): Course!`
     * Deactivates a course. Only the owning student (or moderators or better) can do this.
+* `updateCourseFlags(courseid: ID!, flags: Int!): Course!`
+    * Updates the flags field of a course. Only the owning student (or moderators or better) can do this.
 * `addMasteryScores(studentid: ID!, scoreinput: [MasteryScoreInput!]!): Course!`
     * Give a student ID and a list of combination SubSubject IDs and scores (positive or negative) and those values will be added to each valid Mastery belonging to that student's active Course. It automatically gathers the Mastery IDs so you don't need to! Only the owning student (or moderators or better) can do this.
     * See `MasteryScoreInput` Input type described above.

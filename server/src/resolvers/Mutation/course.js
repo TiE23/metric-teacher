@@ -1,6 +1,8 @@
 const queryCourse = require("../Query/course");
 
 const {
+  targetStudentDataHelper,
+  setStatusForCourses,
   checkAuth,
 } = require("../../utils");
 
@@ -15,6 +17,8 @@ const {
   CourseNoMasteriesAdded,
   StudentNoActiveCourse,
   SurveyAnswerIncomplete,
+  UserMustBe,
+  StudentNotEnrolled,
 } = require("../../errors");
 
 const {
@@ -22,7 +26,10 @@ const {
   USER_TYPE_STUDENT,
   USER_TYPE_MODERATOR,
   USER_TYPE_ADMIN,
+  FLAGS_NONE,
+  COURSE_STATUS_ACTIVE,
   COURSE_STATUS_INACTIVE,
+  COURSE_FLAG_PREFER_METRIC,
   MASTERY_DEFAULT_SCORE,
   MASTERY_MIN_SCORE,
   MASTERY_MAX_SCORE,
@@ -35,6 +42,160 @@ const {
 } = require("../../constants");
 
 const course = {
+  /**
+   * Give a student a new Course. They must be enrolled first, though.
+   * @param parent
+   * @param args
+   *        studentid: ID!
+   *        prefermetric: Boolean
+   * @param ctx
+   * @param info
+   * @returns Course!
+   */
+  async assignStudentNewCourse(parent, args, ctx, info) {
+    // Block teachers and non-normal users.
+    await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "assignStudentNewCourse",
+    });
+
+    const { callingUserData, targetUserData } =
+      await targetStudentDataHelper(
+        ctx,
+        args.studentid,
+        `{
+          id
+          type
+          enrollment {
+            id
+            courses (where: {
+              status: ${COURSE_STATUS_ACTIVE}
+            }) {
+              id
+            }
+          }
+        }`,
+      );
+
+    // Only a student can be assigned a course.
+    if (targetUserData.type !== USER_TYPE_STUDENT) {
+      throw new UserMustBe(targetUserData.id, "STUDENT");
+    }
+
+    // Cannot assign a course to a student that isn't enrolled.
+    if (!targetUserData.enrollment) {
+      throw new StudentNotEnrolled(targetUserData.id, "assignStudentNewCourse");
+    }
+
+    // Grab existing active courses (there should be at most one, but we can't be too careful!)
+    const activeCourses = targetUserData.enrollment.courses.map(course => course.id);
+
+    // A student can assign themselves a Course and moderators or better can as well
+    if (callingUserData.id !== targetUserData.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "assignStudentNewCourse");
+    }
+
+    // Create new Course, connecting to targeted Enrollment.
+    const newCourse = await ctx.db.mutation.createCourse({
+      data: {
+        status: COURSE_STATUS_ACTIVE,
+        flags: args.prefermetric ? COURSE_FLAG_PREFER_METRIC : FLAGS_NONE,
+        parent: {
+          connect: {
+            id: targetUserData.enrollment.id,
+          },
+        },
+      },
+    }, info);
+
+    // Deactivate all other previously active courses, leave only the new one active
+    if (activeCourses.length) {
+      await setStatusForCourses(ctx, activeCourses, COURSE_STATUS_INACTIVE);
+    }
+
+    return newCourse;
+  },
+
+
+  /**
+   * Will set a student's courses all to inactive and the targeted course to active. Requires
+   * the studentid to perform.
+   * @param parent
+   * @param args
+   *        studentid: ID!
+   *        courseid: ID!
+   * @param ctx
+   * @param info
+   * @returns Course!
+   */
+  async setActiveCourse(parent, args, ctx, info) {
+    // Block teachers and non-normal users.
+    await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "deactivateCourse",
+    });
+
+    const { callingUserData, targetUserData } =
+      await targetStudentDataHelper(ctx, args.studentid, `
+        {
+          id
+          type
+          enrollment {
+            id
+            courses {
+              id
+              status
+            }
+          }
+        }
+      `);
+
+    // Only a student can be assigned a course.
+    if (targetUserData.type !== USER_TYPE_STUDENT) {
+      throw new UserMustBe(targetUserData.id, "STUDENT");
+    }
+
+    // Cannot assign a course to a student that isn't enrolled.
+    if (!targetUserData.enrollment) {
+      throw new StudentNotEnrolled(targetUserData.id, "setActiveCourse");
+    }
+
+    // Grab existing courses
+    const courseIds = targetUserData.enrollment.courses.map(courseRow => courseRow.id);
+
+    // A student can change their Courses and moderators or better can as well
+    if (callingUserData.id !== targetUserData.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "setActiveCourse");
+    }
+
+    // Course we're trying to activate isn't found
+    if (!courseIds.includes(args.courseid)) {
+      throw new CourseNotFound(args.courseid);
+    }
+
+    // Remove the targeted courseid
+    const targetCoursePosition = courseIds.indexOf(args.courseid);
+    courseIds.splice(targetCoursePosition, 1);
+
+    if (courseIds.length) {
+      // Do not await, just fire and forget
+      setStatusForCourses(ctx, courseIds, COURSE_STATUS_INACTIVE);
+    }
+
+    // Let's check that the course is actually deactivated first. If it is, make it active.
+    if (targetUserData.enrollment.courses[targetCoursePosition].status !== COURSE_STATUS_ACTIVE) {
+      // Do not await, just fire and forget
+      setStatusForCourses(ctx, [args.courseid], COURSE_STATUS_ACTIVE);
+    }
+
+    return ctx.db.query.course({ where: { id: args.courseid } }, info);
+  },
+
+
   /**
    * Assigns SubSubjects to a student's active Course. Only the owning student (or moderators or
    * better) can do this.
@@ -138,6 +299,56 @@ const course = {
       where: { id: args.courseid },
       data: {
         status: COURSE_STATUS_INACTIVE,
+      },
+    }, info);
+  },
+
+
+  /**
+   * Updates the flags field of a course. Only the owning student (or moderators or better) can do
+   * this.
+   * @param parent
+   * @param args
+   *        courseid: ID!
+   *        flags: Int!
+   * @param ctx
+   * @param info
+   * @returns {Promise<*>}
+   */
+  async updateCourseFlags(parent, args, ctx, info) {
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "updateCourseFlags",
+    });
+
+    const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
+      {
+        id
+        status
+        parent {
+          student {
+            id
+          }
+        }
+      }
+    `);
+
+    // Check the Course exists.
+    if (targetCourseData === null) {
+      throw new CourseNotFound(args.courseid);
+    }
+    // A student can change the flags of a Course and moderators or better can as well.
+    if (callingUserData.id !== targetCourseData.parent.student.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "updateCourseFlags");
+    }
+
+    // Perform the update
+    return ctx.db.mutation.updateCourse({
+      where: { id: args.courseid },
+      data: {
+        flags: args.flags,
       },
     }, info);
   },
@@ -615,13 +826,12 @@ function surveysScoreUpdateClauseGenerator(targetCourseData, scoreInput) {
  * Helper function performs steps that generates a mutation's Surveys answer update payload.
  * @param targetCourseData
  * @param answerInput
- * @param courseId
  * @returns {{
  *            create: [{createClause}]
  *            update: [{updateClause}]
  *          }}
  */
-function surveysAnswerUpdatePayloadGenerator(targetCourseData, answerInput, courseId) {
+function surveysAnswerUpdatePayloadGenerator(targetCourseData, answerInput) {
   // Get existing Survey answer ids and connected question ids
   const existingSurveyQuestionAnswers =
     targetCourseData.surveys.map(survey => ({

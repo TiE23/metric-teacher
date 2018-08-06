@@ -1,23 +1,23 @@
 const { auth } = require("./auth");
-const { user } = require("./user");
-const { student } = require("./student");
-const { course } = require("./course");
 const { classroom } = require("./classroom");
-const { mastery } = require("./mastery");
-const { survey } = require("./survey");
+const { course } = require("./course");
+const { enrollment } = require("./enrollment");
 const { feedback } = require("./feedback");
+const { mastery } = require("./mastery");
 const { question } = require("./question");
+const { survey } = require("./survey");
+const { user } = require("./user");
 
 module.exports = {
   Mutation: {
     ...auth,
-    ...user,
-    ...student,
-    ...course,
     ...classroom,
-    ...mastery,
-    ...survey,
+    ...course,
+    ...enrollment,
     ...feedback,
+    ...mastery,
     ...question,
+    ...survey,
+    ...user,
   },
 };

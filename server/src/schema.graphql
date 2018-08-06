@@ -70,14 +70,15 @@ type Mutation {
   updateUserProfile(userid: ID!, email: String, password: PasswordInput, honorific: String, fname: String, lname: String): PrivateUser!
   updateUserStates(userid: ID!, type: Int, status: Int, flags: Int): PrivateUser!
 
-  # Student Mutations
+  # Enrollment Mutations
   enrollStudent(studentid: ID!): Enrollment!
-  assignStudentNewCourse(studentid: ID!, prefermetric: Boolean): Course!
-  setActiveCourse(studentid: ID!, courseid: ID!): Course!
 
   # Course Mutations
+  assignStudentNewCourse(studentid: ID!, prefermetric: Boolean): Course!
+  setActiveCourse(studentid: ID!, courseid: ID!): Course!
   assignStudentNewMasteries(studentid: ID!, subsubjectids: [ID!]!): Course!
   deactivateCourse(courseid: ID!): Course!
+  updateCourseFlags(courseid: ID!, flags: Int!): Course!
   addMasteryScores(studentid: ID!, scoreinput: [MasteryScoreInput!]!): Course!
   addSurveyScores(studentid: ID!, scoreinput: [SurveyScoreInput!]!): Course!
   addSurveyAnswers(studentid: ID!, answerinput: [SurveyAnswerInput!]!): Course!

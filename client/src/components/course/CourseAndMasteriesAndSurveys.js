@@ -5,6 +5,7 @@ import { Segment, Message, Header, Icon, Checkbox, Container } from "semantic-ui
 
 import UserDetailMasteries from "../user/details/UserDetailMasteries";
 import UserDetailSurveys from "../user/details/UserDetailSurveys";
+import CourseChangePreference from "./CourseChangePreference";
 
 import {
   COURSE_FLAG_PREFER_METRIC,
@@ -29,6 +30,16 @@ class CourseAndMasteriesAndSurveys extends PureComponent {
             &quot;I am more familiar with the {" "}
             {this.props.courseData.flags & COURSE_FLAG_PREFER_METRIC ?
               "Metric" : "Imperial"} system.&quot;
+            <Container textAlign="right">
+              <CourseChangePreference
+                courseId={this.props.courseData.id}
+                courseFlags={this.props.courseData.flags}
+                queryInfo={this.props.queryInfo}
+                buttonProps={{
+                  basic: true,
+                }}
+              />
+            </Container>
           </Message.Content>
         </Message>
         <Segment attached >
@@ -88,10 +99,7 @@ CourseAndMasteriesAndSurveys.propTypes = {
     surveys: PropTypes.arrayOf(PropTypes.object),
     flags: PropTypes.number.isRequired,
   }).isRequired,
-  queryInfo: PropTypes.shape({
-    query: PropTypes.object.isRequired,
-    variables: PropTypes.object.isRequired,
-  }).isRequired,
+  queryInfo: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default CourseAndMasteriesAndSurveys;
