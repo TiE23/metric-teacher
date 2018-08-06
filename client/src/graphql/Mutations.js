@@ -94,3 +94,12 @@ export const SURVEY_UPDATE_STATUS_MUTATION = gql`
   }
   ${SurveyForUserDetails}
 `;
+
+export const SURVEY_ADD_ANSWER_MUTATION = gql`
+  mutation SurveyAddAnswerMutation($studentid: ID!, $answerinput: SurveyAnswerInput!) {
+    addSurveyAnswer(studentid: $studentid, answerinput: $answerinput) {
+      ...SurveyForUserDetails
+    }
+  }
+  ${SurveyForUserDetails}
+`;

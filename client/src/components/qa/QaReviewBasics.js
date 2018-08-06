@@ -13,6 +13,8 @@ import {
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
   QUESTION_TYPE_NAMES,
+  QUESTION_FLAG_USER_DETAIL_OPTIONAL,
+  QUESTION_FLAG_USER_DETAIL_REQUIRED,
 } from "../../constants";
 
 const QaReviewBasics = (props) => {
@@ -33,10 +35,25 @@ const QaReviewBasics = (props) => {
     `;
   } else if (question.type === QUESTION_TYPE_SURVEY) {
     questionDescription = question.text;
-    surveyDetail = deline`
-      Accepted survey answer range is
-      ${utils.rangeWorder(question.data.survey.range, question.data.fromUnitWord)}.
-    `;
+
+    let stepClause = "and must be a whole number (no decimals)";
+    if (question.data.survey.step < 1) {
+      stepClause = `and can be a whole number or a multiple of ${question.data.survey.step}`;
+    } else if (question.data.survey.step > 1) {
+      stepClause = `and must be a multiple of ${question.data.survey.step}`;
+    }
+
+    let noteClause = "";
+    if (props.qaData.flags &
+      (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED)) {
+      noteClause = deline`For this survey question you are 
+      ${props.qaData.flags & QUESTION_FLAG_USER_DETAIL_REQUIRED ? "required" : "welcome"}
+      to enter a note to help add context to your answer.`;
+    }
+
+    surveyDetail = deline`Accepted survey answer range is
+      ${utils.rangeWorder(question.data.survey.range, question.data.fromUnitWord)}
+      ${stepClause}. ${noteClause}`;
   } else {
     questionDescription = question.text;
   }

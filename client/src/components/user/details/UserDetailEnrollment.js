@@ -34,7 +34,7 @@ const UserDetailEnrollment = (props) => {
   // Only show Enroll button for students.
   } else if (userData.type === 0) {
     return (
-      <Message attached >
+      <Message>
         <Message.Header>
           Not enrolled!
         </Message.Header>

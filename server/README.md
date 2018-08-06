@@ -226,6 +226,7 @@ SurveyAnswerInput {
   skip: Boolean
   value: Float
   unit: String
+  score: Int
   detail: String
 }
 ```
@@ -421,6 +422,8 @@ QuestionAnswerInput: {
     * Remove users (students or teachers) from a classroom. Only teachers (or better) can add students to classrooms they are teachers of. Teachers cannot remove students from classrooms where the student's active Course is not in that classroom.
 
 #### Survey Mutations
+* `addSurveyAnswer(studentid: ID!, answerinput: SurveyAnswerInput!): Survey!`
+    * Answer or re-answer a Survey question. Only the owning student (or moderators or better) can do this.
 * `updateSurveyStatus(surveyid: ID!, status: Int!): Survey!`
     * Update a Survey's status. Only the owning student (or moderators or better) can do this.
 * `addSurveyScore(surveyid: ID!, score: Int!): Survey!`

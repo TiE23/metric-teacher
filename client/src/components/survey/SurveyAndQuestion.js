@@ -28,6 +28,8 @@ const SurveyAndQuestion = props => (
           >
             <QaReview
               qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
+              queryInfo={{ query: GET_QA_QUESTIONS_WITH_STUDENT, variables: queryProps.variables }}
+              studentId={queryProps.variables.studentid}
               allowSurveyEditor
             />
           </QueryHandler>

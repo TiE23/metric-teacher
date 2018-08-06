@@ -21,6 +21,14 @@ class QaReview extends PureComponent {
       questionEditorOpen: false,
       surveyEditorOpen: false,
     };
+
+    this.openSurveyEditor = () => {
+      this.setState({ surveyEditorOpen: true });
+    };
+
+    this.closeSurveyEditor = () => {
+      this.setState({ surveyEditorOpen: false });
+    };
   }
 
   render() {
@@ -38,7 +46,14 @@ class QaReview extends PureComponent {
         }
         {qaData.question.type === QUESTION_TYPE_SURVEY && qaData.question.data.survey.response &&
           <QaReviewSurvey
-            surveyResponseData={qaData.question.data.survey.response}
+            surveyData={qaData.question.data.survey}
+            queryInfo={this.props.queryInfo}
+            studentId={this.props.studentId}
+            questionId={qaData.questionId}
+            questionFlags={qaData.flags}
+            surveyEditorOpen={this.props.allowSurveyEditor ? this.state.surveyEditorOpen : false}
+            openSurveyEditor={this.props.allowSurveyEditor ? this.openSurveyEditor : null}
+            closeSurveyEditor={this.props.allowSurveyEditor ? this.closeSurveyEditor : null}
           />
         }
       </QaReviewBasics>
@@ -48,6 +63,11 @@ class QaReview extends PureComponent {
 
 QaReview.propTypes = {
   qaData: QA_DATA_EVERYTHING,
+  queryInfo: PropTypes.shape({
+    query: PropTypes.object.isRequired,
+    variables: PropTypes.object.isRequired,
+  }).isRequired,
+  studentId: PropTypes.string.isRequired,
   allowQuestionEditor: PropTypes.bool,
   allowSurveyEditor: PropTypes.bool,
 };

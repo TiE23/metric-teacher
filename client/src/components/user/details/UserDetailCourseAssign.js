@@ -12,13 +12,20 @@ import {
 } from "../../../graphql/Mutations";
 
 class UserDetailCourseAssign extends PureComponent {
-  state = {
-    preference: "imperial",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      preference: "imperial",
+    };
 
-  handleChange = (data) => {
-    this.setState(data);
-  };
+    this.setMetricPreference = () => {
+      this.setState({ preference: "metric" });
+    };
+
+    this.setImperialPreference = () => {
+      this.setState({ preference: "imperial" });
+    };
+  }
 
   render() {
     return (
@@ -26,8 +33,12 @@ class UserDetailCourseAssign extends PureComponent {
         mutation={COURSE_ASSIGN_MUTATION}
         update={(cache, { data: { assignStudentNewCourse } }) => {
           const data = cache.readQuery(this.props.queryInfo);
-          utils.cachePushIntoArray(data, this.props.studentId, "enrollment.courses",
-            assignStudentNewCourse);
+          utils.cachePushIntoArray(
+            data,
+            this.props.studentId,
+            "enrollment.courses",
+            assignStudentNewCourse,
+          );
           cache.writeQuery({
             ...this.props.queryInfo,
             data,
@@ -42,7 +53,7 @@ class UserDetailCourseAssign extends PureComponent {
                 name="preferMetric"
                 value="metric"
                 checked={this.state.preference === "metric"}
-                onChange={() => this.handleChange({ preference: "metric" })}
+                onChange={this.setMetricPreference}
               />
             </Form.Field>
             <Form.Field>
@@ -51,23 +62,23 @@ class UserDetailCourseAssign extends PureComponent {
                 name="preferImperial"
                 value="metric"
                 checked={this.state.preference === "imperial"}
-                onChange={() => this.handleChange({ preference: "imperial" })}
+                onChange={this.setImperialPreference}
               />
             </Form.Field>
             <Form.Field>
               <Container textAlign="right" >
-              <LoadingButton
-                onClick={() => assignStudentNewCourse({
-                  variables: {
-                    studentid: this.props.studentId,
-                    prefermetric: this.state.preference === "metric",
-                  },
-                })}
-                loading={loading}
-                error={error}
-                buttonText="Assign New Course"
-                buttonProps={{ primary: true }}
-              />
+                <LoadingButton
+                  onClick={() => assignStudentNewCourse({
+                    variables: {
+                      studentid: this.props.studentId,
+                      prefermetric: this.state.preference === "metric",
+                    },
+                  })}
+                  loading={loading}
+                  error={error}
+                  buttonText="Assign New Course"
+                  buttonProps={{ primary: true }}
+                />
               </Container>
             </Form.Field>
           </Form>

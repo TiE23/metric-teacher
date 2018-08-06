@@ -85,15 +85,7 @@ class LoginSignupForm extends Component {
           Please {this.props.loginPage ? "login" : "sign-up"} below!
         </Header>
         <Form>
-          <Form.Input
-            required
-            value={this.state.email}
-            onChange={e => this.handleChange({ email: e.target.value })}
-            label="Email"
-            autoComplete="email"
-            placeholder="Your email"
-          />
-          {!this.props.loginPage && (
+          {!this.props.loginPage &&
             <Form.Input
               required={!this.props.loginPage}
               value={this.state.fname}
@@ -102,8 +94,8 @@ class LoginSignupForm extends Component {
               autoComplete="given-name"
               placeholder="Your first name"
             />
-          )}
-          {!this.props.loginPage && (
+          }
+          {!this.props.loginPage &&
             <Form.Input
               required={!this.props.loginPage}
               value={this.state.lname}
@@ -112,7 +104,16 @@ class LoginSignupForm extends Component {
               autoComplete="family-name"
               placeholder="Your last name"
             />
-          )}
+          }
+          <Form.Input
+            // Here to help password managers work properly on signup. https://goo.gl/9p2vKq
+            required
+            value={this.state.email}
+            onChange={e => this.handleChange({ email: e.target.value })}
+            label="Email"
+            autoComplete="email"
+            placeholder="Your email"
+          />
           <Form.Input
             required
             value={this.state.password}

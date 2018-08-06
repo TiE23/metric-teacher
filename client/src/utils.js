@@ -6,6 +6,7 @@ import isPlainObject from "lodash/isPlainObject";
 import isObject from "lodash/isObject";
 import forEach from "lodash/forEach";
 import isEmpty from "lodash/isEmpty";
+import deline from "deline";
 
 import normalizeEmail from "validator/lib/normalizeEmail";
 
@@ -273,7 +274,8 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
 /**
  * Customizer function for mergeWith. See https://lodash.com/docs/4.17.10#mergeWith
  * Recursive trick merges objects together.
- * Only allow truthy values to overwrite (namely, I want to prevent null from squashing "").
+ * This will not merge arrays.
+ * Only allow non-null values to overwrite (namely, I wanted to prevent null from squashing "").
  * @param objValue
  * @param srcValue
  * @returns {*}
@@ -283,7 +285,10 @@ const mergeCustomizer = (objValue, srcValue) => {
   if (isPlainObject(objValue) && isPlainObject(srcValue)) {
     return mergeWith(objValue, srcValue, mergeCustomizer);
   }
-  return srcValue || objValue;
+  if (srcValue !== null) {
+    return srcValue;
+  }
+  return objValue;
 };
 
 
@@ -300,16 +305,20 @@ const mergeCustomizer = (objValue, srcValue) => {
  *      const data3 = { a: { id: "a1", b: {} } };
  *      cacheNewObject(data3, "a1", "b.c", ["dog"]);
  *      // data3: { a: { id: "a1", b: { c: ["dog"] } } }
+ *      const data4 = { a: { theId: "a1", b: {} } };
+ *      cacheNewObject(data4, "a1", "b.c", ["dog"], false, "theId");
+ *      // data4: { a: { id: "a1", b: { c: ["dog"] } } }
  *
  * @param data
  * @param parentId
  * @param targetAddress
  * @param newValue
  * @param safe - false, set to true to prevent overwriting existing values
+ * @param key - leave unset to search by an object's id property
  * @returns {boolean}
  */
-const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false) => {
-  const findResult = findRecursive(data, object => object && object.id === parentId);
+const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false, key = "id") => {
+  const findResult = findRecursive(data, object => object && object[key] === parentId);
   if (!findResult) return false;
 
   // Note: targetParentAddress ONLY becomes the address AFTER the targetKey has been pop()'d.
@@ -338,10 +347,11 @@ const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false) =
  * @param targetId
  * @param updateObject
  * @param targetAddress - leave unset to update the targetId object
+ * @param key - leave unset to search by an object's id property
  * @returns {boolean}
  */
-const cacheUpdateObject = (data, targetId, updateObject, targetAddress = []) => {
-  const findResult = findRecursive(data, object => object && object.id === targetId);
+const cacheUpdateObject = (data, targetId, updateObject, targetAddress = [], key = "id") => {
+  const findResult = findRecursive(data, object => object && object[key] === targetId);
   if (!findResult) return false;
   const targetObject = navigateObjectDots(findResult.target, targetAddress);
   if (!targetObject) return false;  // Object was not found at this address.
@@ -366,10 +376,11 @@ const cacheUpdateObject = (data, targetId, updateObject, targetAddress = []) => 
  *
  * @param data
  * @param targetId
+ * @param key - leave unset to search by an object's id property
  * @returns {boolean}
  */
-const cacheDeleteObject = (data, targetId) => {
-  const findResult = findRecursive(data, object => object && object.id === targetId);
+const cacheDeleteObject = (data, targetId, key = "id") => {
+  const findResult = findRecursive(data, object => object && object[key] === targetId);
   if (!findResult) return false;
   if (!findResult.parent) return false; // Cannot delete the root object in Strict Mode!
 
@@ -396,10 +407,11 @@ const cacheDeleteObject = (data, targetId) => {
  * @param targetId
  * @param targetAddress
  * @param newValue
+ * @param key - leave unset to search by an object's id property
  * @returns {boolean}
  */
-const cachePushIntoArray = (data, targetId, targetAddress, newValue) => {
-  const findResult = findRecursive(data, object => object && object.id === targetId);
+const cachePushIntoArray = (data, targetId, targetAddress, newValue, key = "id") => {
+  const findResult = findRecursive(data, object => object && object[key] === targetId);
   if (!findResult) return false;
   const targetArray = navigateObjectDots(findResult.target, targetAddress);
   if (!targetArray) return false;
@@ -420,11 +432,12 @@ const cachePushIntoArray = (data, targetId, targetAddress, newValue) => {
  *
  * @param data
  * @param targetId
- * @param targetAddress
+ * @param targetAddress - leave unset to check the targetId object
+ * @param key - leave unset to search by an object's id property
  * @returns {boolean}
  */
-const cacheTargetExists = (data, targetId, targetAddress = []) => {
-  const findResult = findRecursive(data, object => object && object.id === targetId);
+const cacheTargetExists = (data, targetId, targetAddress = [], key = "id") => {
+  const findResult = findRecursive(data, object => object && object[key] === targetId);
   if (!findResult) return false;
   const targetObject = navigateObjectDots(findResult.target, targetAddress);
   if (!targetObject) return false;  // Object was not found at this address.
@@ -540,7 +553,7 @@ const firstLetterCap = (string) => {
 
 
 /**
- * Very simple question text grabber. Just skips
+ * Very simple question text grabber. Just skips content found after the first incident of "[".
  * @param string
  * @returns {*}
  */
@@ -687,6 +700,49 @@ const unitInitilizer = unit => (
   UNIT_INITIALISMS[unit] ? UNIT_INITIALISMS[unit] : unit
 );
 
+
+/**
+ * Takes typical Survey response requirements for the inputted value and returns form errors to
+ * report to the user of their failures in life.
+ * @param value         (must be a number)
+ * @param rangeTop      (must be a number)
+ * @param rangeBottom   (must be a number)
+ * @param unit
+ * @param step          (must be a number)
+ * @returns {Array}     (any errors found)
+ */
+const surveyAnswerValidator = (value, rangeTop, rangeBottom, unit, step) => {
+  const formErrors = [];
+
+  // Min/Max requirements.
+  const valueString = choiceWorder({ value, unit });
+
+  if (value > rangeTop) {
+    formErrors.push(deline`You answer ${valueString} is greater than the acceptable
+      maximum value of ${rangeTop}.`);
+  }
+  if (value < rangeBottom) {
+    formErrors.push(deline`Your answer ${valueString} is lower than the acceptable
+      minimum value of ${rangeBottom}.`);
+  }
+
+  // Step requirements.
+  const stepVal = step || 1;
+  const stepMod = (value * 100000) % (stepVal * 100000); // Avoid float issues up to 0.0000001
+  if (stepMod !== 0) {
+    if (stepVal === 1) {
+      formErrors.push("Your answer must be a whole number.");
+    } else if (stepVal < 1 && value % 1 !== 0) {  // Accept whole numbers, always.
+      formErrors.push(deline`Your answer must be a whole number or
+        multiple of ${stepVal}.`);
+    } else if (stepVal > 1) {
+      formErrors.push(`Your answer must be a multiple of ${stepVal}.`);
+    }
+  }
+
+  return formErrors;
+};
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -713,4 +769,5 @@ export default {
   rangeWorder,
   choiceWorder,
   unitInitilizer,
+  surveyAnswerValidator,
 };

@@ -94,6 +94,7 @@ type Mutation {
   removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!
 
   # Survey Mutations
+  addSurveyAnswer(studentid: ID!, answerinput: SurveyAnswerInput!): Survey!
   updateSurveyStatus(surveyid: ID!, status: Int!): Survey!
   addSurveyScore(surveyid: ID!, score: Int!): Survey!
 
@@ -126,6 +127,7 @@ input SurveyAnswerInput {
   skip: Boolean
   value: Float
   unit: String
+  score: Int
   detail: String
 }
 

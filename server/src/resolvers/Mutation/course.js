@@ -622,13 +622,6 @@ function surveysScoreUpdateClauseGenerator(targetCourseData, scoreInput) {
  *          }}
  */
 function surveysAnswerUpdatePayloadGenerator(targetCourseData, answerInput, courseId) {
-  // Check all answer inputs to confirm they are complete
-  answerInput.forEach((answerInputRow) => {
-    if (!((answerInputRow.value && answerInputRow.unit) || answerInputRow.skip === true)) {
-      throw new SurveyAnswerIncomplete(courseId, answerInputRow.questionid);
-    }
-  });
-
   // Get existing Survey answer ids and connected question ids
   const existingSurveyQuestionAnswers =
     targetCourseData.surveys.map(survey => ({
@@ -641,10 +634,17 @@ function surveysAnswerUpdatePayloadGenerator(targetCourseData, answerInput, cour
 
   // Loop through the answers input.
   answerInput.forEach((answerInputRow) => {
+    // Reject an answer if missing value or unit arguments (and it's not being skipped)
+    if (!((answerInputRow.value && answerInputRow.unit) || answerInputRow.skip === true)) {
+      throw new SurveyAnswerIncomplete(targetCourseData.id, answerInputRow.questionid);
+    }
+
     // Construct data payload
     const surveyData = {
       status: answerInputRow.skip === true ? SURVEY_STATUS_SKIPPED : SURVEY_STATUS_NORMAL,
-      score: SURVEY_DEFAULT_SCORE,
+      score: (answerInputRow.score &&
+        minMax(SURVEY_MIN_SCORE, answerInputRow.score, SURVEY_MAX_SCORE)
+      ) || SURVEY_DEFAULT_SCORE,
       answer: answerInputRow.skip === true ?
         "" : surveyAnswerFormatter(answerInputRow.value, answerInputRow.unit),
       detail: answerInputRow.skip === true ? null : answerInputRow.detail,
