@@ -34,13 +34,15 @@ class QaReviewSurveyEditorForm extends PureComponent {
       const { surveyData } = this.props;
       const formErrors = [];
 
+      const inputValue = this.state.answer.trim();
+
       // Make sure it's a number.
-      if (!isDecimal(this.state.answer)) {
+      if (!isDecimal(inputValue)) {
         formErrors.push(deline`Only enter in a number for your
-        answer.${this.state.answer.includes(",") && " Do not use commas."}`);
+        answer.${inputValue.includes(",") && " Do not use commas."}`);
       } else {
         formErrors.push(...utils.surveyAnswerValidator(
-          parseFloat(this.state.answer),
+          parseFloat(inputValue),
           surveyData.range.top.value,
           surveyData.range.bottom.value,
           surveyData.range.top.unit,
@@ -63,7 +65,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
       this.setState({ formErrors });
 
       if (formErrors.length === 0) {
-        const newValue = parseFloat(this.state.answer);
+        const newValue = parseFloat(this.state.answer.trim());
 
         this.props.onSubmit({
           value: newValue,

@@ -275,7 +275,7 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
  * Customizer function for mergeWith. See https://lodash.com/docs/4.17.10#mergeWith
  * Recursive trick merges objects together.
  * This will not merge arrays.
- * Only allow truthy values to overwrite (namely, I want to prevent null from squashing "").
+ * Only allow non-null values to overwrite (namely, I wanted to prevent null from squashing "").
  * @param objValue
  * @param srcValue
  * @returns {*}
@@ -285,7 +285,10 @@ const mergeCustomizer = (objValue, srcValue) => {
   if (isPlainObject(objValue) && isPlainObject(srcValue)) {
     return mergeWith(objValue, srcValue, mergeCustomizer);
   }
-  return srcValue || objValue;
+  if (srcValue !== null) {
+    return srcValue;
+  }
+  return objValue;
 };
 
 
@@ -728,12 +731,12 @@ const surveyAnswerValidator = (value, rangeTop, rangeBottom, unit, step) => {
   const stepMod = (value * 100000) % (stepVal * 100000); // Avoid float issues up to 0.0000001
   if (stepMod !== 0) {
     if (stepVal === 1) {
-      formErrors.push(`Your answer ${valueString} must be a whole number.`);
+      formErrors.push("Your answer must be a whole number.");
     } else if (stepVal < 1 && value % 1 !== 0) {  // Accept whole numbers, always.
-      formErrors.push(deline`Your answer ${valueString} must be a whole number or
+      formErrors.push(deline`Your answer must be a whole number or
         multiple of ${stepVal}.`);
     } else if (stepVal > 1) {
-      formErrors.push(`Your answer ${valueString} must be a multiple of ${stepVal}.`);
+      formErrors.push(`Your answer must be a multiple of ${stepVal}.`);
     }
   }
 

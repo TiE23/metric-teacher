@@ -23,7 +23,7 @@ const QaReviewSurveyEditor = (props) => {
         const newData = {
           score: addSurveyAnswer.score,
           detail: addSurveyAnswer.detail,
-          answer: { value: addSurveyAnswer.value },
+          answer: { value: parseFloat(addSurveyAnswer.answer.match(/[.0-9]+/)[0]) },
         };
         utils.cacheUpdateObject(data, addSurveyAnswer.id, newData, [], "surveyId");
         cache.writeQuery({
