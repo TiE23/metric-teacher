@@ -19,7 +19,9 @@ import {
 } from "./fragments/SurveyFragments";
 
 import {
+  CourseDataAll,
   MasteryDataAllExtra,
+  SurveyDataAll,
 } from "./fragments/SimpleFragments";
 
 export const SIGNUP_MUTATION = gql`
@@ -71,10 +73,10 @@ export const COURSE_ASSIGN_MUTATION = gql`
 export const COURSE_UPDATE_FLAGS_MUTATION = gql`
   mutation CourseUpdateFlagsMutation($courseid: ID!, $flags: Int!) {
     updateCourseFlags(courseid: $courseid, flags: $flags) {
-      ...CourseForUserDetails
+      ...CourseDataAll
     }
   }
-  ${CourseForUserDetails}
+  ${CourseDataAll}
 `;
 
 export const STUDENT_ASSIGN_NEW_MASTERY_MUTATION = gql`
@@ -98,10 +100,10 @@ export const MASTERY_UPDATE_STATUS_MUTATION = gql`
 export const SURVEY_UPDATE_STATUS_MUTATION = gql`
   mutation SurveyUpdateStatusMutation($surveyid: ID!, $status: Int!) {
     updateSurveyStatus(surveyid: $surveyid, status: $status) {
-      ...SurveyForUserDetails
+      ...SurveyDataAll
     }
   }
-  ${SurveyForUserDetails}
+  ${SurveyDataAll}
 `;
 
 export const SURVEY_ADD_ANSWER_MUTATION = gql`
