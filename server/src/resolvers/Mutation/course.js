@@ -305,6 +305,56 @@ const course = {
 
 
   /**
+   * Updates the flags field of a course. Only the owning student (or moderators or better) can do
+   * this.
+   * @param parent
+   * @param args
+   *        courseid: ID!
+   *        flags: Int!
+   * @param ctx
+   * @param info
+   * @returns {Promise<*>}
+   */
+  async updateCourseFlags(parent, args, ctx, info) {
+    const callingUserData = await checkAuth(ctx, {
+      type: [USER_TYPE_STUDENT, USER_TYPE_MODERATOR, USER_TYPE_ADMIN],
+      status: USER_STATUS_NORMAL,
+      action: "updateCourseFlags",
+    });
+
+    const targetCourseData = await ctx.db.query.course({ where: { id: args.courseid } }, `
+      {
+        id
+        status
+        parent {
+          student {
+            id
+          }
+        }
+      }
+    `);
+
+    // Check the Course exists.
+    if (targetCourseData === null) {
+      throw new CourseNotFound(args.courseid);
+    }
+    // A student can change the flags of a Course and moderators or better can as well.
+    if (callingUserData.id !== targetCourseData.parent.student.id &&
+      callingUserData.type < USER_TYPE_MODERATOR) {
+      throw new AuthError(null, "updateCourseFlags");
+    }
+
+    // Perform the update
+    return ctx.db.mutation.updateCourse({
+      where: { id: args.courseid },
+      data: {
+        flags: args.flags,
+      },
+    }, info);
+  },
+
+
+  /**
    * Give a student ID and a list of combination SubSubject IDs and scores (positive or negative)
    * and those values will be added to each valid Mastery belonging to that student's active Course.
    * It automatically gathers the Mastery IDs so you don't need to! Only the owning student (or
