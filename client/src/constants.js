@@ -86,6 +86,30 @@ export const QUESTION_TYPE_NAMES = [
   "conversion",
   "survey",
 ];
+export const QUESTION_STATUS_ACTIVE = 0;
+export const QUESTION_STATUS_INACTIVE = 1;
+export const QUESTION_STATUS_REVIEW_PENDING = 2;
+export const QUESTION_STATUS_REVIEW_REJECTED = 3;
+export const QUESTION_STATUS_NAMES = [
+  "active",
+  "inactive",
+  "review pending",
+  "review rejected",
+];
+export const QUESTION_DIFFICULTY_NONE = 0;
+export const QUESTION_DIFFICULTY_EASY = 1;
+export const QUESTION_DIFFICULTY_EASY_MEDIUM = 2;
+export const QUESTION_DIFFICULTY_MEDIUM = 3;
+export const QUESTION_DIFFICULTY_MEDIUM_HARD = 4;
+export const QUESTION_DIFFICULTY_HARD = 5;
+export const QUESTION_DIFFICULTY_NAMES = [
+  "none",
+  "easy",
+  "easy/medium",
+  "medium",
+  "medium/hard",
+  "hard",
+];
 
 // Unit initials
 export const UNIT_INITIALISMS = {

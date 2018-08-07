@@ -10,6 +10,12 @@ import {
   GET_QA_QUESTIONS_DATA_LIMITED,
 } from "../../graphql/Queries";
 
+/**
+ * This is for testing purposes right now.
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const QuestionViewerPage = (props) => {
   if (!props.match.params.questionId) {
     return (<p>You need to provide a question id!</p>);

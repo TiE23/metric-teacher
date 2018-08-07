@@ -113,12 +113,15 @@ type PrivateUser {
 
 #### QaObject
 This is a complexly structured type with many nested types in order to recreate the deeply nested structure of a QA JSON object.
+The id of a QA Object is the Question ID prefixed with `qa_`.
 ```
 type QaObject {
+  id: ID!
   questionId: ID!
   subSubjectId: ID!
   difficulty: Int!
   flags: Int!
+  status: Int!
   media: String
   question: QaQuestionObject {
     detail: String!
@@ -713,6 +716,7 @@ Examples:
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
   flags: 0,
+  status: 0,
   media: "someMedia",
 
   question: {
@@ -763,6 +767,7 @@ Examples:
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
   flags: 0,
+  status: 0,
   media: "someMedia",
 
   question: {
@@ -854,6 +859,7 @@ Examples:
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
   flags: 2,
+  status: 0,
   media: "someMedia",
 
   question: {

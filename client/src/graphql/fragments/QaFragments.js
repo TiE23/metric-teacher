@@ -16,11 +16,7 @@ export const QaObjectDataEverything = gql`
 // Get just the data needed to populate all necessary Question information.
 export const QaObjectQuestionDataLimited = gql`
   fragment QaObjectQuestionDataLimited on QaObject {
-    questionId
-    subSubjectId
-    difficulty
-    flags
-    media
+    ...QaObjectDataAll
     question {
       text
       detail

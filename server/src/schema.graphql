@@ -223,6 +223,7 @@ type QaObject {
   subSubjectId: ID!
   difficulty: Int!
   flags: Int!
+  status: Int!
   media: String
   question: QaQuestionObject!
   answer: QaAnswerObject!

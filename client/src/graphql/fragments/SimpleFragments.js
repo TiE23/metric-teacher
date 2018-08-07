@@ -366,6 +366,7 @@ export const QaObjectDataAll = gql`
     subSubjectId
     difficulty
     flags
+    status
     media
   }
 `;
