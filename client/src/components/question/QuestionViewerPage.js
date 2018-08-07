@@ -7,7 +7,7 @@ import QueryHandler from "../QueryHandler";
 import QuestionReview from "./QuestionReview";
 
 import {
-  GET_QA_QUESTIONS_WITHOUT_STUDENT,
+  GET_QA_QUESTIONS_DATA_LIMITED,
 } from "../../graphql/Queries";
 
 const QuestionViewerPage = (props) => {
@@ -17,7 +17,7 @@ const QuestionViewerPage = (props) => {
 
   return (
     <Query
-      query={GET_QA_QUESTIONS_WITHOUT_STUDENT}
+      query={GET_QA_QUESTIONS_DATA_LIMITED}
       variables={{ questionids: [props.match.params.questionId] }}
       fetchPolicy="network-only"
     >
@@ -28,7 +28,7 @@ const QuestionViewerPage = (props) => {
         >
           <QuestionReview
             qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
-            queryInfo={{ GET_QA_QUESTIONS_WITHOUT_STUDENT, variables: queryProps.variables }}
+            queryInfo={{ GET_QA_QUESTIONS_DATA_LIMITED, variables: queryProps.variables }}
           />
         </QueryHandler>
       )}

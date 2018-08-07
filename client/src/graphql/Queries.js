@@ -17,6 +17,7 @@ import {
 
 import {
   QaObjectDataEverything,
+  QaObjectQuestionDataLimited,
 } from "./fragments/QaFragments";
 
 export const ME_AUTH_QUERY = gql`
@@ -110,4 +111,13 @@ export const GET_QA_QUESTIONS_WITHOUT_STUDENT = gql`
     }
   }
   ${QaObjectDataEverything}
+`;
+
+export const GET_QA_QUESTIONS_DATA_LIMITED = gql`
+  query GetQaQuestionsDataLimited ($questionids: [ID!]!) {
+    getQa (questionids: $questionids) {
+      ...QaObjectQuestionDataLimited
+    }
+  }
+  ${QaObjectQuestionDataLimited}
 `;
