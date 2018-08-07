@@ -72,6 +72,19 @@ export const SUBJECT_DETAILS_QUERY = gql`
   ${SubSubjectDataAll}
 `;
 
+export const SUBSUBJECT_DETAILS_QUERY = gql`
+  query SubSubjectDetailsQuery ($subsubjectid: ID!) {
+    subSubject(subsubjectid: $subsubjectid) {
+      ...SubSubjectDataAll
+      parent {
+        ...SubjectDataAll
+      }
+    }
+  }
+  ${SubSubjectDataAll}
+  ${SubjectDataAll}
+`;
+
 // "first: 0" on masteries is important work-around to allow client-side manipulation in
 // SubjectsList component where a student's active Masteries are added before the page is rendered.
 // Limiting to zero lets me have an empty array to later fill with a single Mastery.
