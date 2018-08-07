@@ -4,6 +4,7 @@ import { Grid } from "semantic-ui-react";
 
 import QuestionReviewDetailsBasics from "./QuestionReviewDetailsBasics";
 import QuestionReviewDetailsSubSubject from "./QuestionReviewDetailsSubSubject";
+import QuestionReviewDetailsQuestion from "./QuestionReviewDetailsQuestion";
 
 const QuestionReviewDetails = (props) => {
   if (!props.qaData) return null;
@@ -23,11 +24,17 @@ const QuestionReviewDetails = (props) => {
       <Grid.Row>
         {/* Quadrant 3 */}
         <Grid.Column>
-          <p>3</p>
+          <QuestionReviewDetailsQuestion qaQuestionData={props.qaData.question} />
         </Grid.Column>
         {/* Quadrant 4 */}
         <Grid.Column>
           <p>4</p>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        {/* Media Section? */}
+        <Grid.Column>
+          <p>Media?</p>
         </Grid.Column>
       </Grid.Row>
     </Grid>
