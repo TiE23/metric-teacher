@@ -1,4 +1,6 @@
 const round = require("lodash/round");
+const mergeWith = require("lodash/mergeWith");
+const isPlainObject = require("lodash/isPlainObject");
 
 const {
   parseQAStrings,
@@ -23,6 +25,30 @@ const {
   WRITTEN_ANSWER_UNIT,
   UNITS,
 } = require("../constants");
+
+/**
+ * Custom alternative function of mergeWith. See https://lodash.com/docs/4.17.10#mergeWith
+ * Recursive trick merges objects together.
+ * This will not merge arrays and NOTE: A mutation named updateQuestion() is counting on that!
+ * Only allow non-null values to overwrite (namely, I wanted to prevent null from squashing "").
+ * @param object
+ * @param update
+ * @returns {*}
+ */
+function customMerge(object, update) {
+  const mergeCustomizer = (objValue, srcValue) => {
+    // The use of isPlainObject should disable merging of arrays, so keep that in mind.
+    if (isPlainObject(objValue) && isPlainObject(srcValue)) {
+      return mergeWith(objValue, srcValue, mergeCustomizer);
+    }
+    if (srcValue !== null && srcValue !== undefined) {
+      return srcValue;
+    }
+    return objValue;
+  };
+
+  return mergeWith(object, update, mergeCustomizer);
+}
 
 
 /**
@@ -324,6 +350,7 @@ function checkAndParseQuestionAnswerInputs(type, questionInput, answerInput) {
 }
 
 module.exports = {
+  customMerge,
   minMax,
   floatSmoother,
   stepSmoother,

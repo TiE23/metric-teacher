@@ -121,84 +121,84 @@ type QaObject {
   flags: Int!
   media: String
   question: QaQuestionObject {
-              detail: String!
-              text: String!
-              type: Int!
-              data: QaQuestionData {            # Conversion + Survey Questions only
-                  fromUnitWord: type QaUnitWordObject {
-                                  plural: String!
-                                  singular: String!
-                                }!
-                  conversion: QaConversionQuestionObject {  # Conversion Questions Only
-                                exact: QaUnitObject {
-                                         value: Float!
-                                         unit: String!
-                                       }!
-                                step: Float!
-                              }
-                  survey: type QaSurveyQuestionObject {     # Survey Questions Only
-                            step: Float!
-                            range: QaRangeObject {
-                                           bottom: type QaUnitObject {
-                                                     value: Float!
-                                                     unit: String!
-                                                   }!
-                                           top: QaUnitObject {
-                                                  value: Float!
-                                                  unit: String!
-                                                }!
-                                         }!
-                            response: QaSurveyResponseObject {      # Only if survey was answered
-                                        id: ID!
-                                        score: Int!
-                                        answer: QaUnitObject {
-                                                  value: Float!
-                                                  unit: String!
-                                                }!
-                                        detail: String
-                                      }
-                            status: Int                             # Only if survey was answered
-                          }
-                }
-            }!
-  answer: QaAnswerObject {
-            detail: String!
-            type: Int!
-            data: QaAnswerData {
-                    toUnitWord: QaUnitWordObject {      # Conversion and Survey Questions Only
-                                  plural: String!
-                                  singular: String!
-                                }
-                    multiple: QaMultipleChoiceObject {  # Written Questions Only
-                                choicesOffered: Int!
-                                choices: [QaMixedUnitObject {
-                                            value: Float    # For number answers
-                                            written: String # For string answers
-                                            unit: String!   # Always defined
-                                          }]!
-                              }
-                    conversion: QaConversionObject {    # Conversion and Survey Questions Only
-                                  accuracy: Float!
-                                  range: QaRangeObject {
-                                           bottom: QaUnitObject!
-                                           top: QaUnitObject!
-                                         }!
-                                  exact: Float!
-                                  rounded: Float!
-                                  friendly: Float!
-                                  choices: [QaUnitObject {
-                                              value: Float!
-                                              unit: String!
-                                            }]!
-                                }
-                    survey: QaSurveyAnswerObject {      # Survey Questions when survey completed Only
-                              choices: [QaUnitObject {
-                                          value: Float!
-                                          unit: String!
-                                        }]!
-                            }
-                  }!
+    detail: String!
+    text: String!
+    type: Int!
+    data: QaQuestionData {                      # Conversion + Survey Questions only
+      fromUnitWord: type QaUnitWordObject {
+        plural: String!
+        singular: String!
+      }!
+      conversion: QaConversionQuestionObject {  # Conversion Questions Only
+        exact: QaUnitObject {
+          value: Float!
+          unit: String!
+        }!
+        step: Float!
+      }
+      survey: type QaSurveyQuestionObject {     # Survey Questions Only
+        step: Float!
+        range: QaRangeObject {
+          bottom: type QaUnitObject {
+            value: Float!
+            unit: String!
           }!
+          top: QaUnitObject {
+            value: Float!
+            unit: String!
+          }!
+        }!
+        response: QaSurveyResponseObject {      # Only if survey was answered
+          id: ID!
+          score: Int!
+          answer: QaUnitObject {
+            value: Float!
+            unit: String!
+          }!
+          detail: String
+        }
+        status: Int                             # Only if survey was answered
+      }
+    }
+  }!
+  answer: QaAnswerObject {
+    detail: String!
+    type: Int!
+    data: QaAnswerData {
+      toUnitWord: QaUnitWordObject {      # Conversion and Survey Questions Only
+        plural: String!
+        singular: String!
+      }
+      multiple: QaMultipleChoiceObject {  # Written Questions Only
+        choicesOffered: Int!
+        choices: [QaMixedUnitObject {
+          value: Float    # For number answers
+          written: String # For string answers
+          unit: String!   # Always defined
+        }]!
+      }
+      conversion: QaConversionObject {    # Conversion and Survey Questions Only
+        accuracy: Float!
+        range: QaRangeObject {
+          bottom: QaUnitObject!
+          top: QaUnitObject!
+        }!
+        exact: Float!
+        rounded: Float!
+        friendly: Float!
+        choices: [QaUnitObject {
+          value: Float!
+          unit: String!
+        }]!
+      }
+        survey: QaSurveyAnswerObject {    # Survey Questions when survey completed Only
+        choices: [QaUnitObject {
+          value: Float!
+          unit: String!
+        }]!
+      }
+    }!
+  }!
 }
 ```
 
@@ -435,6 +435,11 @@ QuestionAnswerInput: {
 * `submitQuestion(subsubjectid: ID!, type: Int!, flags: Int!, difficulty: Int!, media: String, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Question!`
     * Mutation that creates a new Question row from multiple inputs and with heavy checking will submit the question with a status putting it up for review. For normal users only.
     * See `QuestionQuestionInput` and `QuestionAnswerInput` Input types described above.
+* `updateQuestion(questionid: ID!, subsubjectid: ID, type: Int, flags: Int, status: Int, difficulty: Int, media: String, questioninput: QuestionQuestionInput, answerinput: QuestionAnswerInput): Question!`
+    * Mutation that updates an existing Question row from multiple inputs and with heavy checking will immediately change the question.
+    * Everything in `questioninput` and `answerinput` is optional - allowing you to create incremental updates. EXCEPT for one thing:
+        * `answerinput.multiplechoiceinput.choices` must be defined anew all together. You need to re-define all your answers at once, you cannot, say, only update the first item.
+    * For moderator and admin users only.
 
 #### Feedback Mutations
 * `submitFeedback(questionid: ID!, type: Int!, text: String): Feedback!`
