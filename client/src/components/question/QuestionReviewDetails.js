@@ -4,6 +4,8 @@ import { Grid, List } from "semantic-ui-react";
 
 import utils from "../../utils";
 
+import FlagLister from "../misc/FlagLister";
+
 import {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
@@ -17,6 +19,7 @@ import {
   QUESTION_DIFFICULTY_MEDIUM_HARD,
   QUESTION_DIFFICULTY_HARD,
   QUESTION_DIFFICULTY_NAMES,
+  QUESTION_FLAG_NAMES,
 } from "../../constants";
 
 const QuestionReviewDetails = (props) => {
@@ -47,8 +50,10 @@ const QuestionReviewDetails = (props) => {
               <List.Content>
                 <List.Header>Type</List.Header>
                 <List.Description>
-                  {utils.firstLetterCap(QUESTION_TYPE_NAMES[props.qaData.question.type])} {" "}
-                  - {props.qaData.question.type}
+                  {props.qaData.question.type} {" "}
+                  - &quot;
+                  {utils.firstLetterCap(QUESTION_TYPE_NAMES[props.qaData.question.type])}
+                  &quot;
                 </List.Description>
               </List.Content>
             </List.Item>
@@ -69,8 +74,10 @@ const QuestionReviewDetails = (props) => {
               <List.Content>
                 <List.Header>Difficulty</List.Header>
                 <List.Description>
-                  {utils.firstLetterCap(QUESTION_DIFFICULTY_NAMES[props.qaData.difficulty])} {" "}
-                  - {props.qaData.difficulty}
+                  {props.qaData.difficulty} {" "}
+                  - &quot;
+                  {utils.firstLetterCap(QUESTION_DIFFICULTY_NAMES[props.qaData.difficulty])}
+                  &quot;
                 </List.Description>
               </List.Content>
             </List.Item>
@@ -79,8 +86,8 @@ const QuestionReviewDetails = (props) => {
               <List.Content>
                 <List.Header>Status</List.Header>
                 <List.Description>
-                  {utils.firstLetterCap(QUESTION_STATUS_NAMES[props.qaData.status])} {" "}
-                  - {props.qaData.status}
+                  {props.qaData.status}{" "}
+                  - &quot;{utils.firstLetterCap(QUESTION_STATUS_NAMES[props.qaData.status])}&quot;
                 </List.Description>
               </List.Content>
             </List.Item>
@@ -89,7 +96,11 @@ const QuestionReviewDetails = (props) => {
               <List.Content>
                 <List.Header>Flags</List.Header>
                 <List.Description>
-                  {props.qaData.flags}
+                  {props.qaData.flags} {" - "}
+                  <FlagLister
+                    flags={props.qaData.flags}
+                    flagsDictionary={QUESTION_FLAG_NAMES}
+                  />
                 </List.Description>
               </List.Content>
             </List.Item>
