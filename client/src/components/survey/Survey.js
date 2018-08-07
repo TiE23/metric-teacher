@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Segment, Progress } from "semantic-ui-react";
+import { Segment, Progress, Icon } from "semantic-ui-react";
+
+import utils from "../../utils";
 
 import SurveyToggle from "./SurveyToggle";
 
@@ -8,7 +10,6 @@ import {
   SURVEY_STATUS_NORMAL,
   SURVEY_MAX_SCORE,
 } from "../../constants";
-import utils from "../../utils";
 
 const Survey = (props) => {
   const { surveyData } = props;
@@ -37,6 +38,14 @@ const Survey = (props) => {
             fluid: true,
           }}
         />
+      }
+      {props.queryInfo &&
+        <p>
+          <br />
+          <Icon name="info circle" /> {" "}
+          Skipping a Survey will make it no longer appear in challenges. There is no penalty for
+          skipping and you can reverse it at any time.
+        </p>
       }
     </Segment>
   );
