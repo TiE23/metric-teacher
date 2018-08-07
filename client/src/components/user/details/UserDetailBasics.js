@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Segment, Container, Button, Header, List } from "semantic-ui-react";
+import { Segment, Container, Button, Header, List, Icon } from "semantic-ui-react";
 
 import utils from "../../../utils";
 
@@ -19,7 +19,7 @@ const UserDetailBasics = (props) => {
   return (
     <Segment>
       <Header size="huge" textAlign="center">
-        User Profile
+        <Icon name="user" />User Profile
       </Header>
       <List>
         <List.Item icon="user" content={nameFormated} />

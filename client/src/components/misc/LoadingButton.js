@@ -7,10 +7,14 @@ class LoadingButton extends PureComponent {
     super(props);
     this.state = {
       modalOpen: false,
+      submitted: false,
     };
 
     this.closeModal = () => {
-      this.setState({ modalOpen: false });
+      this.setState({
+        modalOpen: false,
+        submitted: false, // Reset to false on close.
+      });
     };
 
     this.openModal = () => {
@@ -19,7 +23,18 @@ class LoadingButton extends PureComponent {
 
     this.submit = () => {
       this.props.onClick();
-      this.closeModal();
+      this.setState({ submitted: true }); // Mark the submission as fired.
+    };
+
+    this.componentDidUpdate = () => {
+      // Only close the modal if the submit has been fired, it's done loading, and no error.
+      if (this.state.submitted && !this.props.loading) {
+        if (!this.props.error) {
+          this.closeModal();
+        } else {
+          this.setState({ submitted: false });
+        }
+      }
     };
   }
 
@@ -32,12 +47,13 @@ class LoadingButton extends PureComponent {
             <Button
               {...this.props.buttonProps}
               onClick={this.openModal}
+              disabled={this.props.error}
             >
-              {this.props.buttonText}
+              {this.props.error ? "Error!" : this.props.buttonText}
             </Button>
           }
           open={this.state.modalOpen}
-          onClose={this.closeModal}
+          onClose={this.closeModal}W
           {...this.props.modalProps}
         >
           <Header {...this.props.headerProps}>
@@ -55,7 +71,7 @@ class LoadingButton extends PureComponent {
               color="red"
               onClick={this.closeModal}
             >
-              <Icon name="remove" /> {this.props.rejectLabel}
+              <Icon name="remove" /> {this.props.error ? "Close" : this.props.rejectLabel}
             </Button>
             <Button
               onClick={this.submit}
@@ -63,10 +79,10 @@ class LoadingButton extends PureComponent {
               inverted={this.props.modalProps.basic}
               color="green"
               disabled={this.props.loading || this.props.error}
+              loading={this.props.loading}
             >
               {!this.props.loading && !this.props.error && <Icon name="checkmark" />}
-              {this.props.loading ?  // eslint-disable-line no-nested-ternary
-                "Loading..." : this.props.error ? "Error!" : this.props.acceptLabel}
+              {this.props.error ? "Error!" : this.props.acceptLabel}
             </Button>
           </Modal.Actions>
         </Modal>
@@ -81,10 +97,10 @@ class LoadingButton extends PureComponent {
             this.props.onClick();
           }}
           disabled={this.props.loading || this.props.error}
+          loading={this.props.loading}
           {...this.props.buttonProps}
         >
-          {this.props.loading ?  // eslint-disable-line no-nested-ternary
-            "Loading..." : this.props.error ? "Error!" : this.props.buttonText}
+          {this.props.error ? "Error!" : this.props.buttonText}
         </Button>
       );
     }

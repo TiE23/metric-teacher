@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
+import deline from "deline";
 
 import utils from "../../utils";
 
@@ -36,13 +37,19 @@ const CourseChangePreference = props => (
               props.courseFlags | COURSE_FLAG_PREFER_METRIC,
           },
         })}
-        buttonText={`Switch to ${props.courseFlags & COURSE_FLAG_PREFER_METRIC ?
-          "Imperial" : "Metric"}`}
+        buttonText="Switch Preference"
         loading={loading}
         error={error}
         buttonProps={props.buttonProps}
         confirmModal
         modalProps={{ basic: true }}
+        headerContent={`Switch to ${props.courseFlags & COURSE_FLAG_PREFER_METRIC ?
+          "Imperial" : "Metric"}?`}
+        modalContent={deline`Switching this will change what surveys you are asked. For example,
+          if you prefer Imperial, a survey asking you for your height will ask for your answer in
+          feet and inches. On the other hand, if you prefer Metric, it'll instead ask for your
+          answer in centimeters. This is the only difference - how often you are asked to convert
+          to or from your preferred system is not affected.`}
       />
     )}
   </Mutation>
