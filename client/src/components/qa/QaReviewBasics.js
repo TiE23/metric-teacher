@@ -19,7 +19,7 @@ import {
 
 const QaReviewBasics = (props) => {
   const { question, answer } = props.qaData;
-  const questionTypeName = utils.firstLetterCap(QUESTION_TYPE_NAMES[question.type]);
+  const questionTypeName = QUESTION_TYPE_NAMES[question.type];
 
   let questionDescription;
   let surveyDetail;

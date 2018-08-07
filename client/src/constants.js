@@ -42,14 +42,14 @@ export const EMAIL_SECRET_PREFIXES = [
 
 // User
 export const USER_TYPE_NAMES = [
-  "student",
-  "teacher",
-  "moderator",
-  "admin",
+  "Student",
+  "Teacher",
+  "Moderator",
+  "Admin",
 ];
 export const USER_STATUS_NAMES = [
-  "normal",
-  "closed",
+  "Normal",
+  "Closed",
 ];
 export const USER_TYPE_STUDENT = 0;
 export const USER_TYPE_TEACHER = 1;
@@ -82,23 +82,23 @@ export const QUESTION_TYPE_SURVEY = 2;
 export const QUESTION_FLAG_USER_DETAIL_OPTIONAL = 0x01; // Survey requests user note (optional)
 export const QUESTION_FLAG_USER_DETAIL_REQUIRED = 0x02; // Survey requests user note (required)
 export const QUESTION_FLAG_NAMES = {
-  0x01: "user note optional",
-  0x02: "user note required",
+  0x01: "User note optional",
+  0x02: "User note required",
 };
 export const QUESTION_TYPE_NAMES = [
-  "written",
-  "conversion",
-  "survey",
+  "Written",
+  "Conversion",
+  "Survey",
 ];
 export const QUESTION_STATUS_ACTIVE = 0;
 export const QUESTION_STATUS_INACTIVE = 1;
 export const QUESTION_STATUS_REVIEW_PENDING = 2;
 export const QUESTION_STATUS_REVIEW_REJECTED = 3;
 export const QUESTION_STATUS_NAMES = [
-  "active",
-  "inactive",
-  "review pending",
-  "review rejected",
+  "Active",
+  "Inactive",
+  "Review pending",
+  "Review rejected",
 ];
 export const QUESTION_DIFFICULTY_NONE = 0;
 export const QUESTION_DIFFICULTY_EASY = 1;
@@ -107,12 +107,12 @@ export const QUESTION_DIFFICULTY_MEDIUM = 3;
 export const QUESTION_DIFFICULTY_MEDIUM_HARD = 4;
 export const QUESTION_DIFFICULTY_HARD = 5;
 export const QUESTION_DIFFICULTY_NAMES = [
-  "none",
-  "easy",
-  "easy/medium",
-  "medium",
-  "medium/hard",
-  "hard",
+  "None",
+  "Easy",
+  "Easy/Medium",
+  "Medium",
+  "Medium/Hard",
+  "Hard",
 ];
 
 // Unit initials

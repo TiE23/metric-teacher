@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid, List } from "semantic-ui-react";
 
-import utils from "../../utils";
-
 import FlagLister from "../misc/FlagLister";
 
 import {
@@ -52,7 +50,7 @@ const QuestionReviewDetails = (props) => {
                 <List.Description>
                   {props.qaData.question.type} {" "}
                   - &quot;
-                  {utils.firstLetterCap(QUESTION_TYPE_NAMES[props.qaData.question.type])}
+                  {QUESTION_TYPE_NAMES[props.qaData.question.type]}
                   &quot;
                 </List.Description>
               </List.Content>
@@ -75,9 +73,7 @@ const QuestionReviewDetails = (props) => {
                 <List.Header>Difficulty</List.Header>
                 <List.Description>
                   {props.qaData.difficulty} {" "}
-                  - &quot;
-                  {utils.firstLetterCap(QUESTION_DIFFICULTY_NAMES[props.qaData.difficulty])}
-                  &quot;
+                  - &quot;{QUESTION_DIFFICULTY_NAMES[props.qaData.difficulty]}&quot;
                 </List.Description>
               </List.Content>
             </List.Item>
@@ -87,7 +83,7 @@ const QuestionReviewDetails = (props) => {
                 <List.Header>Status</List.Header>
                 <List.Description>
                   {props.qaData.status}{" "}
-                  - &quot;{utils.firstLetterCap(QUESTION_STATUS_NAMES[props.qaData.status])}&quot;
+                  - &quot;{QUESTION_STATUS_NAMES[props.qaData.status]}&quot;
                 </List.Description>
               </List.Content>
             </List.Item>
@@ -97,10 +93,12 @@ const QuestionReviewDetails = (props) => {
                 <List.Header>Flags</List.Header>
                 <List.Description>
                   {props.qaData.flags} {" - "}
+                  &quot;
                   <FlagLister
                     flags={props.qaData.flags}
                     flagsDictionary={QUESTION_FLAG_NAMES}
                   />
+                  &quot;
                 </List.Description>
               </List.Content>
             </List.Item>

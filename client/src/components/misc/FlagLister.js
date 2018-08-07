@@ -2,13 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import forEach from "lodash/forEach";
 
-import utils from "../../utils";
-
 const FlagLister = (props) => {
   const flagDescriptions = [];
   forEach(props.flagsDictionary, (value, key) => {
     if (props.flags & key) {
-      flagDescriptions.push(`0x0${key.toString(16)}: "${utils.firstLetterCap(value)}"`);
+      flagDescriptions.push(`0x0${key.toString(16)}: (${value})`);
     }
   });
 
