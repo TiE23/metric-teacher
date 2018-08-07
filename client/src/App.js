@@ -13,6 +13,7 @@ import User from "./components/user/UserPage";
 import Subjects from "./components/subject/SubjectsPage";
 import Test from "./components/Test";
 import QaViewerPage from "./components/qa/QaViewerPage";
+import QuestionViewerPage from "./components/question/QuestionViewerPage";
 
 const App = () => (
   <div className="App">
@@ -26,6 +27,11 @@ const App = () => (
       <Route exact path="/subjects" component={withAuth(Subjects)} />
       {/* Below are test paths for development... */}
       <Route exact path="/qaviewer/:questionId" component={withAuth(QaViewerPage, { private: true })} />
+      <Route
+        exact
+        path="/questionviewer/:questionId"
+        component={withAuth(QuestionViewerPage, { private: true })}
+      />
       <Route exact path="/private" component={withAuth(Test, { private: true })} />
       <Route
         exact

@@ -26,11 +26,17 @@ const Welcome = () => (
     <br />
     <Link to="/user/cjk1pagik004a0793ur0ov3bq">A student</Link>
     <br />
-    <Link to="/qaviewer/cjk1paglb00540793kpqchouw">A written question</Link>
+    <Link to="/qaviewer/cjk1paglb00540793kpqchouw">A written QA</Link>
     <br />
-    <Link to="/qaviewer/cjk1pago700680793uvc6i2a2">A conversion question</Link>
+    <Link to="/qaviewer/cjk1pago700680793uvc6i2a2">A conversion QA</Link>
     <br />
-    <Link to="/qaviewer/cjk1pagpd006o0793yws3ys7n">A survey question</Link>
+    <Link to="/qaviewer/cjk1pagpd006o0793yws3ys7n">A survey QA</Link>
+    <br />
+    <Link to="/questionviewer/cjk1paglb00540793kpqchouw">A written question</Link>
+    <br />
+    <Link to="/questionviewer/cjk1pago700680793uvc6i2a2">A conversion question</Link>
+    <br />
+    <Link to="/questionviewer/cjk1pagpd006o0793yws3ys7n">A survey question</Link>
   </div>
 );
 

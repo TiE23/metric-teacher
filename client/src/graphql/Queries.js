@@ -102,3 +102,12 @@ export const GET_QA_QUESTIONS_WITH_STUDENT = gql`
   }
   ${QaObjectDataEverything}
 `;
+
+export const GET_QA_QUESTIONS_WITHOUT_STUDENT = gql`
+  query GetQaQuestionsWithoutStudent ($questionids: [ID!]!) {
+    getQa (questionids: $questionids) {
+      ...QaObjectDataEverything
+    }
+  }
+  ${QaObjectDataEverything}
+`;

@@ -239,8 +239,8 @@ const question = {
 
     const targetQa = targetQaList[0];
 
-    // Construct an existing set of input data from existing QA data.
-    const existingQuestionInput = {
+    // Construct a new set of input data from existing QA data.
+    const newQuestionInput = {
       text: targetQa.question.text || targetQa.question.detail,
       conversionInput: (targetQa.question.data && targetQa.question.data.conversion) ? {
         lower: targetQa.question.data.conversion.range.bottom.value,
@@ -256,7 +256,7 @@ const question = {
       } : undefined,
     };
 
-    const existingAnswerInput = {
+    const newAnswerInput = {
       text: targetQa.answer.detail,
       multiplechoiceinput: targetQa.answer.data.multiple ? {
         choices: targetQa.answer.data.multiple.choices.map(choice => ({
@@ -275,38 +275,24 @@ const question = {
     // Now merge inputted data with existing data.
     // Use custom merge, which doesn't merge arrays (very very important for
     // multiplechoiceinput.choices) and does NOT overwrite with undefined nor null values.
-    customMerge(existingQuestionInput, args.questioninput || {});
-    customMerge(existingAnswerInput, args.answerinput || {});
+    customMerge(newQuestionInput, args.questioninput || {});
+    customMerge(newAnswerInput, args.answerinput || {});
 
     // Now read to the type the question will be and remove incompatible data.
     const newType = args.type || targetQa.question.type;
     switch (newType) {
     case QUESTION_TYPE_WRITTEN:
-      if (existingQuestionInput.conversioninput) {
-        existingQuestionInput.conversioninput = undefined;
-      }
-      if (existingQuestionInput.surveyrangeinput) {
-        existingQuestionInput.surveyrangeinput = undefined;
-      }
-      if (existingAnswerInput.conversioninput) {
-        existingAnswerInput.conversioninput = undefined;
-      }
+      if (newQuestionInput.conversioninput) newQuestionInput.conversioninput = undefined;
+      if (newQuestionInput.surveyrangeinput) newQuestionInput.surveyrangeinput = undefined;
+      if (newAnswerInput.conversioninput) newAnswerInput.conversioninput = undefined;
       break;
     case QUESTION_TYPE_CONVERSION:
-      if (existingQuestionInput.surveyrangeinput) {
-        existingQuestionInput.surveyrangeinput = undefined;
-      }
-      if (existingAnswerInput.multiplechoiceinput) {
-        existingAnswerInput.multiplechoiceinput = undefined;
-      }
+      if (newQuestionInput.surveyrangeinput) newQuestionInput.surveyrangeinput = undefined;
+      if (newAnswerInput.multiplechoiceinput) newAnswerInput.multiplechoiceinput = undefined;
       break;
     case QUESTION_TYPE_SURVEY:
-      if (existingQuestionInput.conversioninput) {
-        existingQuestionInput.conversioninput = undefined;
-      }
-      if (existingAnswerInput.multiplechoiceinput) {
-        existingAnswerInput.multiplechoiceinput = undefined;
-      }
+      if (newQuestionInput.conversioninput) newQuestionInput.conversioninput = undefined;
+      if (newAnswerInput.multiplechoiceinput) newAnswerInput.multiplechoiceinput = undefined;
       break;
     default:
       break;
@@ -316,8 +302,8 @@ const question = {
     const { questionSyntaxString, answerSyntaxString } =
       checkAndParseQuestionAnswerInputs(
         newType,
-        existingQuestionInput,
-        existingAnswerInput,
+        newQuestionInput,
+        newAnswerInput,
       );
 
     // Update the question.
