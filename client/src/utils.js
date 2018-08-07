@@ -285,7 +285,7 @@ const mergeCustomizer = (objValue, srcValue) => {
   if (isPlainObject(objValue) && isPlainObject(srcValue)) {
     return mergeWith(objValue, srcValue, mergeCustomizer);
   }
-  if (srcValue !== null) {
+  if (srcValue !== null && srcValue !== undefined) {
     return srcValue;
   }
   return objValue;
