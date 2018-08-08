@@ -61,13 +61,6 @@ export const QaObjectQuestionDataLimited = gql`
             value
           }
         }
-        conversion {
-          range {
-            bottom {
-              unit
-            }
-          }
-        }
       }
     }
   }

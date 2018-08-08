@@ -5,6 +5,7 @@ import { List } from "semantic-ui-react";
 import utils from "../../utils";
 
 import {
+  QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
 } from "../../constants";
 
@@ -53,7 +54,7 @@ const QuestionReviewDetailsAnswer = props => (
       </List.Content>
     </List.Item>
     }
-    {props.qaAnswerData.data.conversion &&
+    {(props.qaType === QUESTION_TYPE_CONVERSION || props.qaType === QUESTION_TYPE_SURVEY) &&
     <List.Item>
       <List.Icon name="exchange" size="large" verticalAlign="top" />
       <List.Content>
@@ -64,9 +65,9 @@ const QuestionReviewDetailsAnswer = props => (
           <List.Item>
             <List.Icon name="dot circle outline" size="large" verticalAlign="middle" />
             <List.Content>
-              <List.Header>Unit</List.Header>
+              <List.Header>To Unit</List.Header>
               <List.Description>
-                {utils.unitInitilizer(props.qaAnswerData.data.conversion.range.bottom.unit)}
+                {utils.unitInitilizer(props.qaAnswerData.data.unit)}
               </List.Description>
             </List.Content>
           </List.Item>
@@ -74,7 +75,7 @@ const QuestionReviewDetailsAnswer = props => (
             <List.Icon name="crosshairs" size="large" verticalAlign="middle" />
             <List.Content>
               <List.Header>Accuracy</List.Header>
-              <List.Description>{props.qaAnswerData.data.conversion.accuracy}</List.Description>
+              <List.Description>{props.qaAnswerData.data.accuracy}</List.Description>
             </List.Content>
           </List.Item>
         </List.List>
@@ -88,6 +89,8 @@ QuestionReviewDetailsAnswer.propTypes = {
   qaAnswerData: PropTypes.shape({
     detail: PropTypes.string,
     data: PropTypes.shape({
+      accuracy: PropTypes.number.isRequired,
+      unit: PropTypes.string.isRequired,
       multiple: PropTypes.shape({
         choicesOffered: PropTypes.number.isRequired,
         choices: PropTypes.arrayOf(PropTypes.shape({
@@ -95,14 +98,6 @@ QuestionReviewDetailsAnswer.propTypes = {
           written: PropTypes.string,
           value: PropTypes.number,
         })),
-      }),
-      conversion: PropTypes.shape({
-        accuracy: PropTypes.number.isRequired,
-        range: PropTypes.shape({
-          bottom: PropTypes.shape({
-            unit: PropTypes.string.isRequired,
-          }),
-        }).isRequired,
       }),
     }).isRequired,
   }).isRequired,
