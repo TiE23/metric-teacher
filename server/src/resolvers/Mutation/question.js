@@ -209,8 +209,11 @@ const question = {
           }
         }
         answer {
+        type
           detail
           data {
+            accuracy
+            unit
             multiple {
               choices {
                 unit
@@ -218,14 +221,6 @@ const question = {
                 value
               }
               choicesOffered
-            }
-            conversion {
-              accuracy
-              range {
-                bottom {
-                  unit
-                }
-              }
             }
           }
         }
@@ -266,10 +261,12 @@ const question = {
         })),
         choicesoffered: targetQa.answer.data.multiple.choicesOffered,
       } : undefined,
-      conversioninput: targetQa.answer.data.conversion ? {
-        unit: targetQa.answer.data.conversion.range.bottom.unit,
-        accuracy: targetQa.answer.data.conversion.accuracy,
-      } : undefined,
+      conversioninput: (
+        targetQa.answer.type === QUESTION_TYPE_CONVERSION ||
+        targetQa.answer.type === QUESTION_TYPE_SURVEY) ? {
+          unit: targetQa.answer.data.unit,
+          accuracy: targetQa.answer.data.accuracy,
+        } : undefined,
     };
 
     // Now merge inputted data with existing data.

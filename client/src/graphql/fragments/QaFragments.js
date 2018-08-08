@@ -51,6 +51,8 @@ export const QaObjectQuestionDataLimited = gql`
     answer {
       detail
       data {
+        accuracy
+        unit
         multiple {
           choicesOffered
           choices {
@@ -60,7 +62,6 @@ export const QaObjectQuestionDataLimited = gql`
           }
         }
         conversion {
-          accuracy
           range {
             bottom {
               unit

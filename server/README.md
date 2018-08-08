@@ -168,6 +168,8 @@ type QaObject {
     detail: String!
     type: Int!
     data: QaAnswerData {
+      accuracy: Number                    # Conversion and Survey Questions Only
+      unit: String                        # Conversion and Survey Questions Only
       toUnitWord: QaUnitWordObject {      # Conversion and Survey Questions Only
         plural: String!
         singular: String!
@@ -794,6 +796,8 @@ Examples:
     detail: "",
     type: 1,
     data: {
+      accuracy: 1,
+      unit: "kg",
       toUnitWord: {
         plural: "kilograms",
         singular: "kilogram",
@@ -892,6 +896,8 @@ Examples:
     detail: "",
     type: 2,
     data: {
+      accuracy: 1,
+      unit: "cn",
       toUnitWord: {
         plural: "centimeters",
         singular: "centimeter",

@@ -251,6 +251,8 @@ type QaQuestionData {
 }
 
 type QaAnswerData {
+  accuracy: Float                         # Conversion and Survey Questions Only
+  unit: String                            # Conversion and Survey Questions Only
   toUnitWord: QaUnitWordObject            # Conversion and Survey Questions Only
   multiple: QaMultipleChoiceObject        # Written Questions Only
   conversion: QaConversionObject          # Conversion and Survey Questions Only
@@ -277,7 +279,6 @@ type QaMultipleChoiceObject {
 }
 
 type QaConversionObject {
-  accuracy: Float!
   range: QaRangeObject!
   exact: Float!
   rounded: Float!
