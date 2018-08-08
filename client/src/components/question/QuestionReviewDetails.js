@@ -6,6 +6,7 @@ import QuestionReviewDetailsBasics from "./QuestionReviewDetailsBasics";
 import QuestionReviewDetailsSubSubject from "./QuestionReviewDetailsSubSubject";
 import QuestionReviewDetailsQuestion from "./QuestionReviewDetailsQuestion";
 import QuestionReviewDetailsAnswer from "./QuestionReviewDetailsAnswer";
+import QuestionReviewDetailsMedia from "./QuestionReviewDetailsMedia";
 
 const QuestionReviewDetails = (props) => {
   if (!props.qaData) return null;
@@ -15,45 +16,37 @@ const QuestionReviewDetails = (props) => {
       <Grid.Row>
         {/* Quadrant 1 - Basic Details */}
         <Grid.Column>
-          <Header size="medium" textAlign="center" attached="top">Basic Details</Header>
-          <Segment attached>
-            <QuestionReviewDetailsBasics qaData={props.qaData} />
-          </Segment>
+          <Header size="medium" textAlign="center" dividing>Basic Details</Header>
+          <QuestionReviewDetailsBasics qaData={props.qaData} />
         </Grid.Column>
         {/* Quadrant 2 - SubSubject Details */}
         <Grid.Column>
-          <Header size="medium" textAlign="center" attached="top">SubSubject Details</Header>
-          <Segment attached>
-            <QuestionReviewDetailsSubSubject subSubjectId={props.qaData.subSubjectId} />
-          </Segment>
+          <Header size="medium" textAlign="center" dividing>SubSubject Details</Header>
+          <QuestionReviewDetailsSubSubject subSubjectId={props.qaData.subSubjectId} />
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
         {/* Quadrant 3 - Question Details */}
         <Grid.Column>
-          <Header size="medium" textAlign="center" attached="top">Question Details</Header>
-          <Segment attached>
-            <QuestionReviewDetailsQuestion
-              qaQuestionData={props.qaData.question}
-              qaType={props.qaData.question.type}
-            />
-          </Segment>
+          <Header size="medium" textAlign="center" dividing>Question Details</Header>
+          <QuestionReviewDetailsQuestion
+            qaQuestionData={props.qaData.question}
+            qaType={props.qaData.question.type}
+          />
         </Grid.Column>
         {/* Quadrant 4 - Answer Details */}
         <Grid.Column>
-          <Header size="medium" textAlign="center" attached="top">Answer Details</Header>
-          <Segment attached>
-            <QuestionReviewDetailsAnswer
-              qaAnswerData={props.qaData.answer}
-              qaType={props.qaData.question.type}
-            />
-          </Segment>
+          <Header size="medium" textAlign="center" dividing>Answer Details</Header>
+          <QuestionReviewDetailsAnswer
+            qaAnswerData={props.qaData.answer}
+            qaType={props.qaData.question.type}
+          />
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
         {/* Media Section? */}
         <Grid.Column>
-          <p>Media?</p>
+          <QuestionReviewDetailsMedia media={props.qaData.media} />
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -63,6 +56,7 @@ const QuestionReviewDetails = (props) => {
 QuestionReviewDetails.propTypes = {
   qaData: PropTypes.shape({
     subSubjectId: PropTypes.string.isRequired,
+    media: PropTypes.string,
     question: PropTypes.shape({
       type: PropTypes.number.isRequired,
     }).isRequired,
