@@ -803,7 +803,6 @@ Examples:
         singular: "kilogram",
       },
       conversion: {
-        accuracy: 1,
         range: {
           bottom: { unit: "kg", value: 18.05 },
           top: { unit: "kg", value: 20.05 },
@@ -897,13 +896,12 @@ Examples:
     type: 2,
     data: {
       accuracy: 1,
-      unit: "cn",
+      unit: "cm",
       toUnitWord: {
         plural: "centimeters",
         singular: "centimeter",
       },
       conversion: {
-        accuracy: 1,
         range: {
           bottom: { unit: "cm", value: 202.2 },
           top: { unit: "cm", value: 204.2 },
