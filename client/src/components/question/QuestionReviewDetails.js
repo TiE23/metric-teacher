@@ -5,6 +5,7 @@ import { Grid } from "semantic-ui-react";
 import QuestionReviewDetailsBasics from "./QuestionReviewDetailsBasics";
 import QuestionReviewDetailsSubSubject from "./QuestionReviewDetailsSubSubject";
 import QuestionReviewDetailsQuestion from "./QuestionReviewDetailsQuestion";
+import QuestionReviewDetailsAnswer from "./QuestionReviewDetailsAnswer";
 
 const QuestionReviewDetails = (props) => {
   if (!props.qaData) return null;
@@ -12,23 +13,29 @@ const QuestionReviewDetails = (props) => {
   return (
     <Grid columns="equal" celled="internally">
       <Grid.Row>
-        {/* Quadrant 1 Basics */}
+        {/* Quadrant 1 - Basic Details */}
         <Grid.Column>
           <QuestionReviewDetailsBasics qaData={props.qaData} />
         </Grid.Column>
-        {/* Quadrant 2 SubSubject */}
+        {/* Quadrant 2 - SubSubject Details */}
         <Grid.Column>
           <QuestionReviewDetailsSubSubject subSubjectId={props.qaData.subSubjectId} />
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
-        {/* Quadrant 3 */}
+        {/* Quadrant 3 - Question Details */}
         <Grid.Column>
-          <QuestionReviewDetailsQuestion qaQuestionData={props.qaData.question} />
+          <QuestionReviewDetailsQuestion
+            qaQuestionData={props.qaData.question}
+            qaType={props.qaData.question.type}
+          />
         </Grid.Column>
-        {/* Quadrant 4 */}
+        {/* Quadrant 4 - Answer Details */}
         <Grid.Column>
-          <p>4</p>
+          <QuestionReviewDetailsAnswer
+            qaAnswerData={props.qaData.answer}
+            qaType={props.qaData.question.type}
+          />
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
@@ -42,7 +49,13 @@ const QuestionReviewDetails = (props) => {
 };
 
 QuestionReviewDetails.propTypes = {
-  qaData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  qaData: PropTypes.shape({
+    subSubjectId: PropTypes.string.isRequired,
+    question: PropTypes.shape({
+      type: PropTypes.number.isRequired,
+    }).isRequired,
+    answer: PropTypes.object.isRequired,
+  }),
 };
 
 QuestionReviewDetails.defaultProps = {

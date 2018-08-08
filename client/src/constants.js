@@ -40,6 +40,9 @@ export const EMAIL_SECRET_PREFIXES = [
   "806158031bb277505a058d0e4e07cff9",
 ];
 
+// Database Constants
+export const FLAGS_NONE = 0;
+
 // User
 export const USER_TYPE_NAMES = [
   "Student",

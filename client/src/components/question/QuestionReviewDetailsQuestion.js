@@ -2,6 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { List } from "semantic-ui-react";
 
+import utils from "../../utils";
+
+import {
+  QUESTION_TYPE_CONVERSION,
+  QUESTION_TYPE_SURVEY,
+} from "../../constants";
+
 const QuestionReviewDetailsQuestion = props => (
   <List divided>
     {props.qaQuestionData.text &&
@@ -22,13 +29,12 @@ const QuestionReviewDetailsQuestion = props => (
       </List.Content>
     </List.Item>
     }
-    {props.qaQuestionData.data &&
-    (props.qaQuestionData.data.conversion || props.qaQuestionData.data.survey) &&
+    {(props.qaType === QUESTION_TYPE_CONVERSION || props.qaType === QUESTION_TYPE_SURVEY) &&
     <List.Item>
       <List.Icon name="chart bar" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>
-          {props.qaQuestionData.data.conversion ? "Conversion" : "Survey"} Range
+          {props.qaType === QUESTION_TYPE_CONVERSION ? "Conversion" : "Survey"} Range
         </List.Header>
         <List.List>
           <List.Item>
@@ -36,8 +42,10 @@ const QuestionReviewDetailsQuestion = props => (
             <List.Content>
               <List.Header>Lower Range</List.Header>
               <List.Description>
-                {props.qaQuestionData.data.conversion.range.bottom.value ||
-                props.qaQuestionData.data.survey.range.bottom.value}
+                {(props.qaQuestionData.data.conversion &&
+                  props.qaQuestionData.data.conversion.range.bottom.value) ||
+                  (props.qaQuestionData.data.survey &&
+                    props.qaQuestionData.data.survey.range.bottom.value)}
               </List.Description>
             </List.Content>
           </List.Item>
@@ -46,8 +54,10 @@ const QuestionReviewDetailsQuestion = props => (
             <List.Content>
               <List.Header>Upper Range</List.Header>
               <List.Description>
-                {props.qaQuestionData.data.conversion.range.top.value ||
-                props.qaQuestionData.data.survey.range.top.value}
+                {(props.qaQuestionData.data.conversion &&
+                  props.qaQuestionData.data.conversion.range.top.value) ||
+                (props.qaQuestionData.data.survey &&
+                  props.qaQuestionData.data.survey.range.top.value)}
               </List.Description>
             </List.Content>
           </List.Item>
@@ -56,8 +66,10 @@ const QuestionReviewDetailsQuestion = props => (
             <List.Content>
               <List.Header>Unit</List.Header>
               <List.Description>
-                {props.qaQuestionData.data.conversion.range.top.unit ||
-                props.qaQuestionData.data.survey.range.top.unit}
+                {utils.unitInitilizer((props.qaQuestionData.data.conversion &&
+                  props.qaQuestionData.data.conversion.range.top.unit) ||
+                (props.qaQuestionData.data.survey &&
+                  props.qaQuestionData.data.survey.range.top.unit))}
               </List.Description>
             </List.Content>
           </List.Item>
@@ -66,8 +78,10 @@ const QuestionReviewDetailsQuestion = props => (
             <List.Content>
               <List.Header>Step</List.Header>
               <List.Description>
-                {props.qaQuestionData.data.conversion.step ||
-                props.qaQuestionData.data.survey.step}
+                {(props.qaQuestionData.data.conversion &&
+                  props.qaQuestionData.data.conversion.step) ||
+                (props.qaQuestionData.data.survey &&
+                  props.qaQuestionData.data.survey.step)}
               </List.Description>
             </List.Content>
           </List.Item>
@@ -79,7 +93,6 @@ const QuestionReviewDetailsQuestion = props => (
 );
 
 QuestionReviewDetailsQuestion.propTypes = {
-  // questionType: PropTypes.number.isRequired,
   qaQuestionData: PropTypes.shape({
     text: PropTypes.string,
     detail: PropTypes.string,
@@ -110,6 +123,7 @@ QuestionReviewDetailsQuestion.propTypes = {
       }),
     }),
   }).isRequired,
+  qaType: PropTypes.number.isRequired,
 };
 
 export default QuestionReviewDetailsQuestion;

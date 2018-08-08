@@ -34,9 +34,15 @@ const Welcome = () => (
     <br />
     <Link to="/questionviewer/cjk1paglb00540793kpqchouw">A written question</Link>
     <br />
+    <Link to="/questionviewer/cjk1pagrj007k07933cf9py49">A written question (answer detail)</Link>
+    <br />
     <Link to="/questionviewer/cjk1pago700680793uvc6i2a2">A conversion question</Link>
     <br />
     <Link to="/questionviewer/cjk1pagpd006o0793yws3ys7n">A survey question</Link>
+    <br />
+    <Link to="/questionviewer/cjk1pagpx006w0793joov79gp">A survey question (flag 1)</Link>
+    <br />
+    <Link to="/questionviewer/cjk1pagq800700793jwuow8zp">A survey question (flag 2)</Link>
   </div>
 );
 

@@ -5,6 +5,7 @@ import { List } from "semantic-ui-react";
 import FlagLister from "../misc/FlagLister";
 
 import {
+  FLAGS_NONE,
   QUESTION_DIFFICULTY_NONE,
   QUESTION_DIFFICULTY_EASY,
   QUESTION_DIFFICULTY_EASY_MEDIUM,
@@ -83,7 +84,11 @@ const QuestionReviewDetailsBasics = props => (
       </List.Content>
     </List.Item>
     <List.Item>
-      <List.Icon name="flag" size="large" verticalAlign="middle" />
+      <List.Icon
+        name={props.qaData.flags === FLAGS_NONE ? "flag outline" : "flag"}
+        size="large"
+        verticalAlign="middle"
+      />
       <List.Content>
         <List.Header>Flags</List.Header>
         <List.Description>

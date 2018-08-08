@@ -52,12 +52,12 @@ export const QaObjectQuestionDataLimited = gql`
       detail
       data {
         multiple {
+          choicesOffered
           choices {
             unit
             written
             value
           }
-          choicesOffered
         }
         conversion {
           accuracy
