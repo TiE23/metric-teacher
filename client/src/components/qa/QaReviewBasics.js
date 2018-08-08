@@ -65,7 +65,10 @@ const QaReviewBasics = (props) => {
           as={Item.Image}
           minWidth={500}
           size="small"
-          src={`/img/question/${props.qaData.media}` || "/img/placeholder-square.png"}
+          src={
+            (props.qaData.media && `/img/question/${props.qaData.media}`) ||
+              "/img/placeholder-square.png"
+          }
           rounded
         />
         <Item.Content>

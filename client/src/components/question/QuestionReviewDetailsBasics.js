@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { List } from "semantic-ui-react";
+import { List, Icon, Modal, Image } from "semantic-ui-react";
 
 import FlagLister from "../misc/FlagLister";
 
@@ -102,6 +102,29 @@ const QuestionReviewDetailsBasics = props => (
         </List.Description>
       </List.Content>
     </List.Item>
+    {props.qaData.media &&
+    <List.Item>
+      <List.Icon name="picture" size="large" verticalAlign="top" />
+      <List.Content>
+        <List.Header>Media</List.Header>
+        <List.Description>
+          <Modal
+            trigger={
+              <span>
+                /img/question/<b>{props.qaData.media}</b> <Icon name="search plus" />
+              </span>
+            }
+            header={props.qaData.media}
+            content={
+              <Image src={`/img/question/${props.qaData.media}`} rounded size="large" centered />
+            }
+            actions={["Close"]}
+            basic
+          />
+        </List.Description>
+      </List.Content>
+    </List.Item>
+    }
   </List>
 );
 

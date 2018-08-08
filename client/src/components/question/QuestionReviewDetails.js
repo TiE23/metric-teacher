@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Header, Segment } from "semantic-ui-react";
+import { Grid, Header } from "semantic-ui-react";
 
 import QuestionReviewDetailsBasics from "./QuestionReviewDetailsBasics";
 import QuestionReviewDetailsSubSubject from "./QuestionReviewDetailsSubSubject";
 import QuestionReviewDetailsQuestion from "./QuestionReviewDetailsQuestion";
 import QuestionReviewDetailsAnswer from "./QuestionReviewDetailsAnswer";
-import QuestionReviewDetailsMedia from "./QuestionReviewDetailsMedia";
 
 const QuestionReviewDetails = (props) => {
   if (!props.qaData) return null;
@@ -41,12 +40,6 @@ const QuestionReviewDetails = (props) => {
             qaAnswerData={props.qaData.answer}
             qaType={props.qaData.question.type}
           />
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        {/* Media Section? */}
-        <Grid.Column>
-          <QuestionReviewDetailsMedia media={props.qaData.media} />
         </Grid.Column>
       </Grid.Row>
     </Grid>
