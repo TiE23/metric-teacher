@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import { withRouter } from "react-router";
 
 import QueryHandler from "../QueryHandler";
-import QuestionReview from "./QuestionReview";
+import QuestionView from "./QuestionView";
 
 import {
   GET_QA_QUESTIONS_DATA_LIMITED,
@@ -32,7 +32,7 @@ const QuestionViewerPage = (props) => {
           queryData={queryProps}
           noDataErrorMessage="Question not found."
         >
-          <QuestionReview
+          <QuestionView
             qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
             queryInfo={{ GET_QA_QUESTIONS_DATA_LIMITED, variables: queryProps.variables }}
           />

@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { List } from "semantic-ui-react";
 
-import utils from "../../utils";
+import utils from "../../../utils";
 
 import {
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
-} from "../../constants";
+} from "../../../constants";
 
 const QuestionReviewDetailsQuestion = props => (
   <List divided>

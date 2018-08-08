@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { List, Icon, Modal, Image } from "semantic-ui-react";
 
-import FlagLister from "../misc/FlagLister";
+import FlagLister from "../../misc/FlagLister";
 
 import {
   FLAGS_NONE,
@@ -19,7 +19,7 @@ import {
   QUESTION_TYPE_NAMES,
   QUESTION_TYPE_SURVEY,
   QUESTION_TYPE_WRITTEN,
-} from "../../constants";
+} from "../../../constants";
 
 const QuestionReviewDetailsBasics = props => (
   <List divided>

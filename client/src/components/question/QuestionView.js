@@ -1,8 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import QuestionReviewDetails from "./QuestionReviewDetails";
+import QuestionReviewDetails from "./review/QuestionReviewDetails";
 
-class QuestionReview extends PureComponent {
+class QuestionView extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,21 +22,19 @@ class QuestionReview extends PureComponent {
     if (!this.props.qaData) return null;
 
     return (
-      <QuestionReviewDetails
-        qaData={this.props.qaData}
-      />
+      <QuestionReviewDetails qaData={this.props.qaData} />
     );
   }
 }
 
-QuestionReview.propTypes = {
-  qaData: PropTypes.object,
+QuestionView.propTypes = {
+  qaData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   allowQuestionEditor: PropTypes.bool,
 };
 
-QuestionReview.defaultProps = {
+QuestionView.defaultProps = {
   qaData: null,
   allowQuestionEditor: false,
 };
 
-export default QuestionReview;
+export default QuestionView;
