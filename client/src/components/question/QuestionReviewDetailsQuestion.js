@@ -13,7 +13,7 @@ const QuestionReviewDetailsQuestion = props => (
   <List divided>
     {props.qaQuestionData.text &&
     <List.Item>
-      <List.Icon name="comment" size="large" verticalAlign="middle" />
+      <List.Icon name="comment" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>Text</List.Header>
         <List.Description>&quot;{props.qaQuestionData.text}&quot;</List.Description>
@@ -22,7 +22,7 @@ const QuestionReviewDetailsQuestion = props => (
     }
     {props.qaQuestionData.detail &&
     <List.Item>
-      <List.Icon name="comment alternate" size="large" verticalAlign="middle" />
+      <List.Icon name="comment alternate" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>Detail</List.Header>
         <List.Description>&quot;{props.qaQuestionData.detail}&quot;</List.Description>
@@ -38,7 +38,7 @@ const QuestionReviewDetailsQuestion = props => (
         </List.Header>
         <List.List>
           <List.Item>
-            <List.Icon name="chevron down" size="large" verticalAlign="middle" />
+            <List.Icon name="chevron down" size="large" verticalAlign="top" />
             <List.Content>
               <List.Header>Lower Range</List.Header>
               <List.Description>
@@ -50,7 +50,7 @@ const QuestionReviewDetailsQuestion = props => (
             </List.Content>
           </List.Item>
           <List.Item>
-            <List.Icon name="chevron up" size="large" verticalAlign="middle" />
+            <List.Icon name="chevron up" size="large" verticalAlign="top" />
             <List.Content>
               <List.Header>Upper Range</List.Header>
               <List.Description>
@@ -62,7 +62,7 @@ const QuestionReviewDetailsQuestion = props => (
             </List.Content>
           </List.Item>
           <List.Item>
-            <List.Icon name="dot circle" size="large" verticalAlign="middle" />
+            <List.Icon name="dot circle" size="large" verticalAlign="top" />
             <List.Content>
               <List.Header>From Unit</List.Header>
               <List.Description>
@@ -74,7 +74,7 @@ const QuestionReviewDetailsQuestion = props => (
             </List.Content>
           </List.Item>
           <List.Item>
-            <List.Icon name="signal" size="large" verticalAlign="middle" rotated="clockwise" />
+            <List.Icon name="signal" size="large" verticalAlign="top" rotated="clockwise" />
             <List.Content>
               <List.Header>Step</List.Header>
               <List.Description>

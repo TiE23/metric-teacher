@@ -10,7 +10,7 @@ const SubSubjectReview = (props) => {
   return (
     <List divided>
       <List.Item>
-        <List.Icon name="book" size="large" verticalAlign="middle" />
+        <List.Icon name="book" size="large" verticalAlign="top" />
         <List.Content>
           <List.Header>SubSubject ID</List.Header>
           <List.Description>{props.subSubjectData.id}</List.Description>
@@ -28,7 +28,7 @@ const SubSubjectReview = (props) => {
             "remove"
           }
           size="large"
-          verticalAlign="middle"
+          verticalAlign="top"
         />
         <List.Content>
           <List.Header>Subject</List.Header>
@@ -36,14 +36,14 @@ const SubSubjectReview = (props) => {
         </List.Content>
       </List.Item>
       <List.Item>
-        <List.Icon name="expand arrows alternate" size="large" verticalAlign="middle" />
+        <List.Icon name="expand arrows alternate" size="large" verticalAlign="top" />
         <List.Content>
           <List.Header>Scale</List.Header>
           <List.Description>{utils.firstLetterCap(props.subSubjectData.scale)}</List.Description>
         </List.Content>
       </List.Item>
       <List.Item>
-        <List.Icon name="sync alternate" size="large" verticalAlign="middle" />
+        <List.Icon name="sync alternate" size="large" verticalAlign="top" />
         <List.Content>
           <List.Header>Direction</List.Header>
           <List.Description>
@@ -55,7 +55,7 @@ const SubSubjectReview = (props) => {
         </List.Content>
       </List.Item>
       <List.Item>
-        <List.Icon name="gem" size="large" verticalAlign="middle" />
+        <List.Icon name="gem" size="large" verticalAlign="top" />
         <List.Content>
           <List.Header>Rarity</List.Header>
           <List.Description>{props.subSubjectData.rarity}</List.Description>

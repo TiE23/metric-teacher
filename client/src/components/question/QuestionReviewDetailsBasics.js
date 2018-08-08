@@ -24,7 +24,7 @@ import {
 const QuestionReviewDetailsBasics = props => (
   <List divided>
     <List.Item>
-      <List.Icon name="question circle" size="large" verticalAlign="middle" />
+      <List.Icon name="question circle" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>Question ID</List.Header>
         <List.Description>{props.qaData.questionId}</List.Description>
@@ -39,7 +39,7 @@ const QuestionReviewDetailsBasics = props => (
           "remove"
         }
         size="large"
-        verticalAlign="middle"
+        verticalAlign="top"
       />
       <List.Content>
         <List.Header>Type</List.Header>
@@ -63,7 +63,7 @@ const QuestionReviewDetailsBasics = props => (
           "remove"
         }
         size="large"
-        verticalAlign="middle"
+        verticalAlign="top"
       />
       <List.Content>
         <List.Header>Difficulty</List.Header>
@@ -74,7 +74,7 @@ const QuestionReviewDetailsBasics = props => (
       </List.Content>
     </List.Item>
     <List.Item>
-      <List.Icon name="certificate" size="large" verticalAlign="middle" />
+      <List.Icon name="certificate" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>Status</List.Header>
         <List.Description>
@@ -87,7 +87,7 @@ const QuestionReviewDetailsBasics = props => (
       <List.Icon
         name={props.qaData.flags === FLAGS_NONE ? "flag outline" : "flag"}
         size="large"
-        verticalAlign="middle"
+        verticalAlign="top"
       />
       <List.Content>
         <List.Header>Flags</List.Header>

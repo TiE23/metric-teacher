@@ -13,7 +13,7 @@ const QuestionReviewDetailsAnswer = props => (
   <List divided>
     {props.qaAnswerData.data.multiple &&
     <List.Item>
-      <List.Icon name="pencil alternate" size="large" verticalAlign="middle" />
+      <List.Icon name="pencil alternate" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>Choices Available</List.Header>
         <List.Description>{props.qaAnswerData.data.multiple.choicesOffered}</List.Description>
@@ -32,7 +32,7 @@ const QuestionReviewDetailsAnswer = props => (
                 name={index === 0 ? "check circle" : "remove circle"}
                 color={index === 0 ? "olive" : "red"}
                 size="large"
-                verticalAlign="middle"
+                verticalAlign="top"
               />
               <List.Content>
                 <List.Description>
@@ -47,7 +47,7 @@ const QuestionReviewDetailsAnswer = props => (
     }
     {props.qaAnswerData.detail &&
     <List.Item>
-      <List.Icon name="sticky note" size="large" verticalAlign="middle" />
+      <List.Icon name="sticky note" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>Detail</List.Header>
         <List.Description>{props.qaAnswerData.detail}</List.Description>
@@ -63,7 +63,7 @@ const QuestionReviewDetailsAnswer = props => (
         </List.Header>
         <List.List>
           <List.Item>
-            <List.Icon name="dot circle outline" size="large" verticalAlign="middle" />
+            <List.Icon name="dot circle outline" size="large" verticalAlign="top" />
             <List.Content>
               <List.Header>To Unit</List.Header>
               <List.Description>
@@ -72,7 +72,7 @@ const QuestionReviewDetailsAnswer = props => (
             </List.Content>
           </List.Item>
           <List.Item>
-            <List.Icon name="crosshairs" size="large" verticalAlign="middle" />
+            <List.Icon name="crosshairs" size="large" verticalAlign="top" />
             <List.Content>
               <List.Header>Accuracy</List.Header>
               <List.Description>{props.qaAnswerData.data.accuracy}</List.Description>
