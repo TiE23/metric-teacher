@@ -40,6 +40,15 @@ export const EMAIL_SECRET_PREFIXES = [
   "806158031bb277505a058d0e4e07cff9",
 ];
 
+export const SUBJECT_ICONS = {
+  Length: "arrows alternate horizontal",
+  Mass: "balance scale",
+  Volume: "cube",
+  Temperature: "thermometer three quarters",
+  Velocity: "rocket",
+  Area: "clone outline",
+};
+
 // Database Constants
 export const FLAGS_NONE = 0;
 

@@ -296,6 +296,8 @@ const mergeCustomizer = (objValue, srcValue) => {
  * Find an object by the parentId and using the targetAddress define a new value (or overwrite an
  * old one).
  *
+ * All manipulation of data is done by reference, so data objects will be changed.
+ *
  * Ex:  const data = { users: [{ id: "user1", fname: "John", lname: "Doe" }] };
  *      cacheNewObject(data, "user1", "lname", "Connor");
  *      // data: { users: [{ id: "user1", fname: "John", lname: "Connor" }] }
@@ -336,6 +338,8 @@ const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false, k
 /**
  * Find an object by the targetId and update the contents of that object with a merge.
  *
+ * All manipulation of data is done by reference, so data objects will be changed.
+ *
  * Ex:  const data = { users: [{ id: "user1", fname: "John" }] }
  *      cacheUpdateObject(data, "user1", { fname: "Sarah", lname: "Connor" })
  *      // data: { users: [{ id: "user1", fname: "Sarah", lname: "Connor" }] }
@@ -364,6 +368,8 @@ const cacheUpdateObject = (data, targetId, updateObject, targetAddress = [], key
  * Find an object by the targetId and delete it from existence.
  * There is a single limitation: Due to strict JavaScript rules the targetId cannot be the root
  * object. I think this isn't such a big problem as I cannot imagine ever needing to do this.
+ *
+ * All manipulation of data is done by reference, so data objects will be changed.
  *
  * Ex:  const data = { user: { id: "user1", fname: "John" } };
  *      cacheDeleteObject(data, "user1");
@@ -398,6 +404,8 @@ const cacheDeleteObject = (data, targetId, key = "id") => {
 /**
  * Add a value to the target object's specific array value by the target object's ID and the key
  * for the intended array.
+ *
+ * All manipulation of data is done by reference, so data objects will be changed.
  *
  * Ex:  const data = { user: { id: "user1", fname: "John", favoriteNumbers: [5, 9, 23] };
  *      cachePushIntoArray(data, "user1", "favoriteNumbers", 99);
@@ -447,6 +455,9 @@ const cacheTargetExists = (data, targetId, targetAddress = [], key = "id") => {
 
 /**
  * Find and retrieve target object by their ID alone or a child by targetAddress and a parent ID.
+ *
+ * Data is returned by reference, so if you plan to manipulate data be wary if you need to deep
+ * clone it first.
  *
  * Ex: const data = { cars: [{ id: "F-150", type: "Truck", make: { id: "make1", name: "Ford"} }] } }
  *      cacheGetTarget(data, "F-150", "make.name")

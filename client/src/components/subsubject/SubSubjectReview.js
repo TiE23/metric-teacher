@@ -4,6 +4,10 @@ import { List, Icon } from "semantic-ui-react";
 
 import utils from "../../utils";
 
+import {
+  SUBJECT_ICONS,
+} from "../../constants";
+
 const SubSubjectReview = (props) => {
   if (!props.subSubjectData) return null;
 
@@ -18,15 +22,7 @@ const SubSubjectReview = (props) => {
       </List.Item>
       <List.Item>
         <List.Icon
-          name={
-            (props.subSubjectData.parent.name === "Length" && "arrows alternate horizontal") ||
-            (props.subSubjectData.parent.name === "Mass" && "balance scale") ||
-            (props.subSubjectData.parent.name === "Volume" && "cube") ||
-            (props.subSubjectData.parent.name === "Temperature" && "thermometer three quarters") ||
-            (props.subSubjectData.parent.name === "Velocity" && "rocket") ||
-            (props.subSubjectData.parent.name === "Area" && "clone outline") ||
-            "remove"
-          }
+          name={SUBJECT_ICONS[props.subSubjectData.parent.name] || "remove"}
           size="large"
           verticalAlign="top"
         />
