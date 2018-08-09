@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Header } from "semantic-ui-react";
+import { Grid, Header, Container, Button } from "semantic-ui-react";
 
 import QuestionReviewDetailsBasics from "./QuestionReviewDetailsBasics";
 import QuestionReviewDetailsSubSubject from "./QuestionReviewDetailsSubSubject";
@@ -42,6 +42,20 @@ const QuestionReviewDetails = (props) => {
           />
         </Grid.Column>
       </Grid.Row>
+      {props.allowEditor && props.openEditor &&
+      <Grid.Row>
+        <Grid.Column>
+          <Container textAlign="right">
+            <Button
+              onClick={props.openEditor}
+              primary
+            >
+              Edit
+            </Button>
+          </Container>
+        </Grid.Column>
+      </Grid.Row>
+      }
     </Grid>
   );
 };
@@ -55,10 +69,14 @@ QuestionReviewDetails.propTypes = {
     }).isRequired,
     answer: PropTypes.object.isRequired,
   }),
+  allowEditor: PropTypes.bool,
+  openEditor: PropTypes.func,
 };
 
 QuestionReviewDetails.defaultProps = {
   qaData: null,
+  allowEditor: false,
+  openEditor: null,
 };
 
 export default QuestionReviewDetails;
