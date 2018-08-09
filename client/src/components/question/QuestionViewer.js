@@ -9,7 +9,16 @@ class QuestionViewer extends PureComponent {
     super(props);
     this.state = {
       editorOpen: false,
-      qaFormData: this.props.qaData ? {
+      qaFormData: null,
+    };
+
+    // On first load
+    this.componentDidMount = () => {
+      this.setState({ qaFormData: this.makeQaFormFromQaData() });
+    };
+
+    this.makeQaFormFromQaData = () => (
+      this.props.qaData ? {
         question: {
           basics: {
             id: this.props.qaData.questionId,
@@ -51,8 +60,8 @@ class QuestionViewer extends PureComponent {
           },
         },
         subSubjectId: this.props.qaData.subSubjectId,
-      } : null,
-    };
+      } : null
+    );
 
     this.openEditor = () => {
       this.setState({ editorOpen: true });
@@ -72,7 +81,6 @@ class QuestionViewer extends PureComponent {
 
     return (
       <QuestionViewerLayout
-        qaData={this.props.qaData}
         qaFormData={this.state.qaFormData}
         allowEditor={this.props.allowEditor}
         editorOpen={this.state.editorOpen}

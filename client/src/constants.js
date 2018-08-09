@@ -82,16 +82,15 @@ export const COURSE_FLAG_PREFER_METRIC = 0x01;
 export const QUESTION_TYPE_WRITTEN = 0;
 export const QUESTION_TYPE_CONVERSION = 1;
 export const QUESTION_TYPE_SURVEY = 2;
-export const QUESTION_FLAG_USER_DETAIL_OPTIONAL = 0x01; // Survey requests user note (optional)
-export const QUESTION_FLAG_USER_DETAIL_REQUIRED = 0x02; // Survey requests user note (required)
-export const QUESTION_FLAG_NAMES = {
-  0x01: "User note optional",
-  0x02: "User note required",
-};
 export const QUESTION_TYPE_NAMES = [
   "Written",
   "Conversion",
   "Survey",
+];
+export const QUESTION_TYPE_ICONS = [
+  "bullseye",
+  "calculator",
+  "edit",
 ];
 export const QUESTION_TYPE_DROPDOWN_OPTIONS = [
   { value: QUESTION_TYPE_WRITTEN, text: "Written" },
@@ -108,6 +107,12 @@ export const QUESTION_STATUS_NAMES = [
   "Review pending",
   "Review rejected",
 ];
+export const QUESTION_STATUS_DROPDOWN_OPTIONS = [
+  { value: QUESTION_STATUS_ACTIVE, text: "Active" },
+  { value: QUESTION_STATUS_INACTIVE, text: "Inactive" },
+  { value: QUESTION_STATUS_REVIEW_PENDING, text: "Review pending" },
+  { value: QUESTION_STATUS_REVIEW_REJECTED, text: "Review rejected" },
+];
 export const QUESTION_DIFFICULTY_NONE = 0;
 export const QUESTION_DIFFICULTY_EASY = 1;
 export const QUESTION_DIFFICULTY_EASY_MEDIUM = 2;
@@ -121,6 +126,40 @@ export const QUESTION_DIFFICULTY_NAMES = [
   "Medium",
   "Medium/Hard",
   "Hard",
+];
+export const QUESTION_DIFFICULTY_ICONS = [
+  "thermometer empty",
+  "thermometer empty",
+  "thermometer quarter",
+  "thermometer half",
+  "thermometer three quarters",
+  "thermometer full",
+];
+export const QUESTION_DIFFICULTY_DROPDOWN_OPTIONS = [
+  { value: QUESTION_DIFFICULTY_NONE, text: "None" },
+  { value: QUESTION_DIFFICULTY_EASY, text: "Easy" },
+  { value: QUESTION_DIFFICULTY_EASY_MEDIUM, text: "Easy/Medium" },
+  { value: QUESTION_DIFFICULTY_MEDIUM, text: "Medium" },
+  { value: QUESTION_DIFFICULTY_MEDIUM_HARD, text: "Medium/Hard" },
+  { value: QUESTION_DIFFICULTY_HARD, text: "Hard" },
+];
+export const QUESTION_FLAG_USER_DETAIL_OPTIONAL = 0x01; // Survey requests user note (optional)
+export const QUESTION_FLAG_USER_DETAIL_REQUIRED = 0x02; // Survey requests user note (required)
+export const QUESTION_FLAG_NAMES = {
+  0x01: "User note optional",
+  0x02: "User note required",
+};
+export const QUESTION_FLAG_DROPDOWN = [
+  {
+    value: QUESTION_FLAG_USER_DETAIL_OPTIONAL,
+    text: "0x01 User note optional",
+    key: 0x01,
+  },
+  {
+    value: QUESTION_FLAG_USER_DETAIL_REQUIRED,
+    text: "0x02 User note required",
+    key: 0x02,
+  },
 ];
 
 // Unit initials

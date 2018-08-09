@@ -743,6 +743,29 @@ const surveyAnswerValidator = (value, rangeTop, rangeBottom, unit, step) => {
   return formErrors;
 };
 
+
+/**
+ * Explodes an integer into individual flags in a list.
+ * Ex: (0) => []; (1) => [1]; (5) => [1, 4]; (7) => [1, 2, 4]
+ * @param bits
+ * @returns {Array}
+ */
+const explodeBits = (bits) => {
+  let bitsCopy = bits;
+  const flags = [];
+
+  let bit = 1;
+  while (bitsCopy > 0) {
+    if (bitsCopy & bit) {
+      flags.push(bit);
+      bitsCopy &= ~bit;
+    }
+    bit <<= 1;
+  }
+
+  return flags;
+};
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -770,4 +793,5 @@ export default {
   choiceWorder,
   unitInitilizer,
   surveyAnswerValidator,
+  explodeBits,
 };
