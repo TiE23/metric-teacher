@@ -93,6 +93,11 @@ export const QUESTION_TYPE_NAMES = [
   "Conversion",
   "Survey",
 ];
+export const QUESTION_TYPE_DROPDOWN_OPTIONS = [
+  { value: QUESTION_TYPE_WRITTEN, text: "Written" },
+  { value: QUESTION_TYPE_CONVERSION, text: "Conversion" },
+  { value: QUESTION_TYPE_SURVEY, text: "Survey" },
+];
 export const QUESTION_STATUS_ACTIVE = 0;
 export const QUESTION_STATUS_INACTIVE = 1;
 export const QUESTION_STATUS_REVIEW_PENDING = 2;

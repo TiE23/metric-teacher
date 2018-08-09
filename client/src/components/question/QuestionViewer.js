@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import merge from "lodash/merge";
 
 import QuestionViewerLayout from "./QuestionViewerLayout";
 
@@ -50,7 +51,6 @@ class QuestionViewer extends PureComponent {
           },
         },
         subSubjectId: this.props.qaData.subSubjectId,
-
       } : null,
     };
 
@@ -60,6 +60,10 @@ class QuestionViewer extends PureComponent {
 
     this.closeEditor = () => {
       this.setState({ editorOpen: false });
+    };
+
+    this.handleChange = (newState) => {
+      this.setState(previousState => merge({}, previousState, newState));
     };
   }
 
@@ -74,6 +78,7 @@ class QuestionViewer extends PureComponent {
         editorOpen={this.state.editorOpen}
         openEditor={this.openEditor}
         closeEditor={this.closeEditor}
+        handleChange={this.handleChange}
       />
     );
   }

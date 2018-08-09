@@ -16,6 +16,8 @@ const QuestionViewerLayout = (props) => {
           <Header size="medium" textAlign="center" dividing>Basic Details</Header>
           <QuestionDetailsBasics
             {...props.qaFormData.question.basics}
+            editMode={props.editorOpen}
+            handleChange={props.handleChange}
           />
         </Grid.Column>
         {/* Quadrant 2 - SubSubject Details */}
@@ -44,7 +46,7 @@ const QuestionViewerLayout = (props) => {
           />
         </Grid.Column>
       </Grid.Row>
-      {props.allowEditor && props.openEditor &&
+      {props.allowEditor && props.handleChange && props.openEditor &&
       <Grid.Row>
         <Grid.Column>
           <Container textAlign="right">
@@ -75,6 +77,7 @@ QuestionViewerLayout.propTypes = {
   editorOpen: PropTypes.bool,
   openEditor: PropTypes.func,
   closeEditor: PropTypes.func,
+  handleChange: PropTypes.func,
 };
 
 QuestionViewerLayout.defaultProps = {
@@ -82,6 +85,7 @@ QuestionViewerLayout.defaultProps = {
   editorOpen: false,
   openEditor: null,
   closeEditor: null,
+  handleChange: null,
 };
 
 export default QuestionViewerLayout;
