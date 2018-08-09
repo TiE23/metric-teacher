@@ -7,21 +7,23 @@ import QuestionDetailsSubSubject from "./details/QuestionDetailsSubSubject";
 import QuestionDetailsQuestion from "./details/QuestionDetailsQuestion";
 import QuestionDetailsAnswer from "./details/QuestionDetailsAnswer";
 
-const QuestionReview = (props) => {
-  if (!props.qaData) return null;
-
+const QuestionViewerLayout = (props) => {
   return (
     <Grid columns="equal" padded>
       <Grid.Row>
         {/* Quadrant 1 - Basic Details */}
         <Grid.Column>
           <Header size="medium" textAlign="center" dividing>Basic Details</Header>
-          <QuestionDetailsBasics qaData={props.qaData} />
+          <QuestionDetailsBasics
+            {...props.qaFormData.question.basics}
+          />
         </Grid.Column>
         {/* Quadrant 2 - SubSubject Details */}
         <Grid.Column>
           <Header size="medium" textAlign="center" dividing>SubSubject Details</Header>
-          <QuestionDetailsSubSubject subSubjectId={props.qaData.subSubjectId} />
+          <QuestionDetailsSubSubject
+            subSubjectId={props.qaFormData.subSubjectId}
+          />
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
@@ -29,16 +31,16 @@ const QuestionReview = (props) => {
         <Grid.Column>
           <Header size="medium" textAlign="center" dividing>Question Details</Header>
           <QuestionDetailsQuestion
-            qaQuestionData={props.qaData.question}
-            qaType={props.qaData.question.type}
+            type={props.qaFormData.question.basics.type}
+            {...props.qaFormData.question.questionData}
           />
         </Grid.Column>
         {/* Quadrant 4 - Answer Details */}
         <Grid.Column>
           <Header size="medium" textAlign="center" dividing>Answer Details</Header>
           <QuestionDetailsAnswer
-            qaAnswerData={props.qaData.answer}
-            qaType={props.qaData.question.type}
+            type={props.qaFormData.question.basics.type}
+            {...props.qaFormData.question.answerData}
           />
         </Grid.Column>
       </Grid.Row>
@@ -47,10 +49,10 @@ const QuestionReview = (props) => {
         <Grid.Column>
           <Container textAlign="right">
             <Button
-              onClick={props.openEditor}
-              primary
+              onClick={props.editorOpen ? props.closeEditor : props.openEditor}
+              primary={!props.editorOpen}
             >
-              Edit
+              {props.editorOpen ? "Close" : "Edit"}
             </Button>
           </Container>
         </Grid.Column>
@@ -60,25 +62,26 @@ const QuestionReview = (props) => {
   );
 };
 
-QuestionReview.propTypes = {
-  qaData: PropTypes.shape({
-    subSubjectId: PropTypes.string.isRequired,
-    media: PropTypes.string,
+QuestionViewerLayout.propTypes = {
+  qaFormData: PropTypes.shape({
     question: PropTypes.shape({
-      type: PropTypes.number.isRequired,
+      basics: PropTypes.object.isRequired,
+      questionData: PropTypes.object.isRequired,
+      answerData: PropTypes.object.isRequired,
     }).isRequired,
-    answer: PropTypes.object.isRequired,
-  }),
+    subSubjectId: PropTypes.string.isRequired,
+  }).isRequired,
   allowEditor: PropTypes.bool,
+  editorOpen: PropTypes.bool,
   openEditor: PropTypes.func,
   closeEditor: PropTypes.func,
 };
 
-QuestionReview.defaultProps = {
-  qaData: null,
+QuestionViewerLayout.defaultProps = {
   allowEditor: false,
+  editorOpen: false,
   openEditor: null,
   closeEditor: null,
 };
 
-export default QuestionReview;
+export default QuestionViewerLayout;

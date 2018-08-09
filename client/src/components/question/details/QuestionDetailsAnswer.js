@@ -11,22 +11,22 @@ import {
 
 const QuestionDetailsAnswer = props => (
   <List divided>
-    {props.qaAnswerData.data.multiple &&
+    {props.multiple &&
     <List.Item>
       <List.Icon name="pencil alternate" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>Choices Available</List.Header>
-        <List.Description>{props.qaAnswerData.data.multiple.choicesOffered}</List.Description>
+        <List.Description>{props.multiple.choicesOffered}</List.Description>
       </List.Content>
     </List.Item>
     }
-    {props.qaAnswerData.data.multiple &&
+    {props.multiple &&
     <List.Item>
       <List.Icon name="list" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>Choices</List.Header>
         <List.List>
-          {props.qaAnswerData.data.multiple.choices.map((choice, index) => (
+          {props.multiple.choices.map((choice, index) => (
             <List.Item key={`${choice.written || choice.value}_${choice.unit}`}>
               <List.Icon
                 name={index === 0 ? "check circle" : "remove circle"}
@@ -45,21 +45,21 @@ const QuestionDetailsAnswer = props => (
       </List.Content>
     </List.Item>
     }
-    {props.qaAnswerData.detail &&
+    {props.detail &&
     <List.Item>
       <List.Icon name="sticky note" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>Detail</List.Header>
-        <List.Description>{props.qaAnswerData.detail}</List.Description>
+        <List.Description>{props.detail}</List.Description>
       </List.Content>
     </List.Item>
     }
-    {(props.qaType === QUESTION_TYPE_CONVERSION || props.qaType === QUESTION_TYPE_SURVEY) &&
+    {(props.type === QUESTION_TYPE_CONVERSION || props.type === QUESTION_TYPE_SURVEY) &&
     <List.Item>
       <List.Icon name="exchange" size="large" verticalAlign="top" />
       <List.Content>
         <List.Header>
-          {props.qaType === QUESTION_TYPE_SURVEY ? "Survey " : ""}Conversion Requirements
+          {props.type === QUESTION_TYPE_SURVEY ? "Survey " : ""}Conversion Requirements
         </List.Header>
         <List.List>
           <List.Item>
@@ -67,7 +67,7 @@ const QuestionDetailsAnswer = props => (
             <List.Content>
               <List.Header>To Unit</List.Header>
               <List.Description>
-                {utils.unitInitilizer(props.qaAnswerData.data.unit)}
+                {utils.unitInitilizer(props.unit)}
               </List.Description>
             </List.Content>
           </List.Item>
@@ -75,7 +75,7 @@ const QuestionDetailsAnswer = props => (
             <List.Icon name="crosshairs" size="large" verticalAlign="top" />
             <List.Content>
               <List.Header>Accuracy</List.Header>
-              <List.Description>{props.qaAnswerData.data.accuracy}</List.Description>
+              <List.Description>{props.accuracy}</List.Description>
             </List.Content>
           </List.Item>
         </List.List>
@@ -86,22 +86,25 @@ const QuestionDetailsAnswer = props => (
 );
 
 QuestionDetailsAnswer.propTypes = {
-  qaAnswerData: PropTypes.shape({
-    detail: PropTypes.string,
-    data: PropTypes.shape({
-      accuracy: PropTypes.number.isRequired,
+  type: PropTypes.number.isRequired,
+  detail: PropTypes.string,
+  accuracy: PropTypes.number,
+  unit: PropTypes.string,
+  multiple: PropTypes.shape({
+    choicesOffered: PropTypes.number.isRequired,
+    choices: PropTypes.arrayOf(PropTypes.shape({
       unit: PropTypes.string.isRequired,
-      multiple: PropTypes.shape({
-        choicesOffered: PropTypes.number.isRequired,
-        choices: PropTypes.arrayOf(PropTypes.shape({
-          unit: PropTypes.string.isRequired,
-          written: PropTypes.string,
-          value: PropTypes.number,
-        })),
-      }),
-    }).isRequired,
-  }).isRequired,
-  qaType: PropTypes.number.isRequired,
+      written: PropTypes.string,
+      value: PropTypes.number,
+    })),
+  }),
+};
+
+QuestionDetailsAnswer.defaultProps = {
+  detail: null,
+  accuracy: null,
+  unit: null,
+  multiple: null,
 };
 
 export default QuestionDetailsAnswer;
