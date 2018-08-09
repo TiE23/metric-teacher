@@ -2,9 +2,9 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
 import QuestionEdit from "./edit/QuestionEdit";
-import QuestionReviewDetails from "./review/QuestionReviewDetails";
+import QuestionReview from "./QuestionReview";
 
-class QuestionView extends PureComponent {
+class QuestionViewer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,23 +32,24 @@ class QuestionView extends PureComponent {
       );
     }
     return (
-      <QuestionReviewDetails
+      <QuestionReview
         qaData={this.props.qaData}
         allowEditor={this.props.allowEditor}
         openEditor={this.openEditor}
+        closeEditor={this.closeEditor}
       />
     );
   }
 }
 
-QuestionView.propTypes = {
+QuestionViewer.propTypes = {
   qaData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   allowEditor: PropTypes.bool,
 };
 
-QuestionView.defaultProps = {
+QuestionViewer.defaultProps = {
   qaData: null,
   allowEditor: false,
 };
 
-export default QuestionView;
+export default QuestionViewer;

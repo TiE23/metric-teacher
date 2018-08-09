@@ -21,7 +21,7 @@ import {
   QUESTION_TYPE_WRITTEN,
 } from "../../../constants";
 
-const QuestionReviewDetailsBasics = props => (
+const QuestionDetailsBasics = props => (
   <List divided>
     <List.Item>
       <List.Icon name="question circle" size="large" verticalAlign="top" />
@@ -128,7 +128,7 @@ const QuestionReviewDetailsBasics = props => (
   </List>
 );
 
-QuestionReviewDetailsBasics.propTypes = {
+QuestionDetailsBasics.propTypes = {
   qaData: PropTypes.shape({
     questionId: PropTypes.string.isRequired,
     subSubjectId: PropTypes.string.isRequired,
@@ -191,8 +191,8 @@ QuestionReviewDetailsBasics.propTypes = {
   }),
 };
 
-QuestionReviewDetailsBasics.defaultProps = {
+QuestionDetailsBasics.defaultProps = {
   qaData: null,
 };
 
-export default QuestionReviewDetailsBasics;
+export default QuestionDetailsBasics;

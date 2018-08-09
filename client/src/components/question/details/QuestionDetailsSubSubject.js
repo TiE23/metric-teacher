@@ -9,7 +9,7 @@ import {
   SUBSUBJECT_DETAILS_QUERY,
 } from "../../../graphql/Queries";
 
-const QuestionReviewDetailsSubSubject = props => (
+const QuestionDetailsSubSubject = props => (
   <Query
     query={SUBSUBJECT_DETAILS_QUERY}
     variables={{ subsubjectid: props.subSubjectId }}
@@ -28,8 +28,8 @@ const QuestionReviewDetailsSubSubject = props => (
   </Query>
 );
 
-QuestionReviewDetailsSubSubject.propTypes = {
+QuestionDetailsSubSubject.propTypes = {
   subSubjectId: PropTypes.string.isRequired,
 };
 
-export default QuestionReviewDetailsSubSubject;
+export default QuestionDetailsSubSubject;

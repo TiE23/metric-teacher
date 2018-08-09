@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Header, Container, Button } from "semantic-ui-react";
 
-import QuestionReviewDetailsBasics from "./QuestionReviewDetailsBasics";
-import QuestionReviewDetailsSubSubject from "./QuestionReviewDetailsSubSubject";
-import QuestionReviewDetailsQuestion from "./QuestionReviewDetailsQuestion";
-import QuestionReviewDetailsAnswer from "./QuestionReviewDetailsAnswer";
+import QuestionDetailsBasics from "./details/QuestionDetailsBasics";
+import QuestionDetailsSubSubject from "./details/QuestionDetailsSubSubject";
+import QuestionDetailsQuestion from "./details/QuestionDetailsQuestion";
+import QuestionDetailsAnswer from "./details/QuestionDetailsAnswer";
 
-const QuestionReviewDetails = (props) => {
+const QuestionReview = (props) => {
   if (!props.qaData) return null;
 
   return (
@@ -16,19 +16,19 @@ const QuestionReviewDetails = (props) => {
         {/* Quadrant 1 - Basic Details */}
         <Grid.Column>
           <Header size="medium" textAlign="center" dividing>Basic Details</Header>
-          <QuestionReviewDetailsBasics qaData={props.qaData} />
+          <QuestionDetailsBasics qaData={props.qaData} />
         </Grid.Column>
         {/* Quadrant 2 - SubSubject Details */}
         <Grid.Column>
           <Header size="medium" textAlign="center" dividing>SubSubject Details</Header>
-          <QuestionReviewDetailsSubSubject subSubjectId={props.qaData.subSubjectId} />
+          <QuestionDetailsSubSubject subSubjectId={props.qaData.subSubjectId} />
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
         {/* Quadrant 3 - Question Details */}
         <Grid.Column>
           <Header size="medium" textAlign="center" dividing>Question Details</Header>
-          <QuestionReviewDetailsQuestion
+          <QuestionDetailsQuestion
             qaQuestionData={props.qaData.question}
             qaType={props.qaData.question.type}
           />
@@ -36,7 +36,7 @@ const QuestionReviewDetails = (props) => {
         {/* Quadrant 4 - Answer Details */}
         <Grid.Column>
           <Header size="medium" textAlign="center" dividing>Answer Details</Header>
-          <QuestionReviewDetailsAnswer
+          <QuestionDetailsAnswer
             qaAnswerData={props.qaData.answer}
             qaType={props.qaData.question.type}
           />
@@ -60,7 +60,7 @@ const QuestionReviewDetails = (props) => {
   );
 };
 
-QuestionReviewDetails.propTypes = {
+QuestionReview.propTypes = {
   qaData: PropTypes.shape({
     subSubjectId: PropTypes.string.isRequired,
     media: PropTypes.string,
@@ -71,12 +71,14 @@ QuestionReviewDetails.propTypes = {
   }),
   allowEditor: PropTypes.bool,
   openEditor: PropTypes.func,
+  closeEditor: PropTypes.func,
 };
 
-QuestionReviewDetails.defaultProps = {
+QuestionReview.defaultProps = {
   qaData: null,
   allowEditor: false,
   openEditor: null,
+  closeEditor: null,
 };
 
-export default QuestionReviewDetails;
+export default QuestionReview;

@@ -9,7 +9,7 @@ import {
   QUESTION_TYPE_SURVEY,
 } from "../../../constants";
 
-const QuestionReviewDetailsAnswer = props => (
+const QuestionDetailsAnswer = props => (
   <List divided>
     {props.qaAnswerData.data.multiple &&
     <List.Item>
@@ -85,7 +85,7 @@ const QuestionReviewDetailsAnswer = props => (
   </List>
 );
 
-QuestionReviewDetailsAnswer.propTypes = {
+QuestionDetailsAnswer.propTypes = {
   qaAnswerData: PropTypes.shape({
     detail: PropTypes.string,
     data: PropTypes.shape({
@@ -104,4 +104,4 @@ QuestionReviewDetailsAnswer.propTypes = {
   qaType: PropTypes.number.isRequired,
 };
 
-export default QuestionReviewDetailsAnswer;
+export default QuestionDetailsAnswer;
