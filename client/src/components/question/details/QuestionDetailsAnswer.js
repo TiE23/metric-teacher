@@ -5,13 +5,14 @@ import { List } from "semantic-ui-react";
 import utils from "../../../utils";
 
 import {
+  QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
 } from "../../../constants";
 
 const QuestionDetailsAnswer = props => (
   <List divided>
-    {props.multiple &&
+    {props.type === QUESTION_TYPE_WRITTEN && props.multiple &&
     <List.Item>
       <List.Icon name="pencil alternate" size="large" verticalAlign="top" />
       <List.Content>
@@ -20,7 +21,7 @@ const QuestionDetailsAnswer = props => (
       </List.Content>
     </List.Item>
     }
-    {props.multiple &&
+    {props.type === QUESTION_TYPE_WRITTEN && props.multiple &&
     <List.Item>
       <List.Icon name="list" size="large" verticalAlign="top" />
       <List.Content>
@@ -45,7 +46,7 @@ const QuestionDetailsAnswer = props => (
       </List.Content>
     </List.Item>
     }
-    {props.detail &&
+    {props.type === QUESTION_TYPE_WRITTEN && props.detail &&
     <List.Item>
       <List.Icon name="sticky note" size="large" verticalAlign="top" />
       <List.Content>

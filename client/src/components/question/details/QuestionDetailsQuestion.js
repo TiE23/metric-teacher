@@ -30,6 +30,7 @@ const QuestionDetailsQuestion = props => (
     </List.Item>
     }
     {(props.type === QUESTION_TYPE_CONVERSION || props.type === QUESTION_TYPE_SURVEY) &&
+    props.range &&
     <List.Item>
       <List.Icon name="chart bar" size="large" verticalAlign="top" />
       <List.Content>
@@ -81,7 +82,11 @@ QuestionDetailsQuestion.propTypes = {
     lower: PropTypes.number.isRequired,
     unit: PropTypes.string.isRequired,
     step: PropTypes.number.isRequired,
-  }).isRequired,
+  }),
+};
+
+QuestionDetailsQuestion.defaultProps = {
+  range: null,
 };
 
 export default QuestionDetailsQuestion;
