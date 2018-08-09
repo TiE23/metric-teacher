@@ -25,6 +25,7 @@ const QuestionViewerLayout = (props) => {
           <Header size="medium" textAlign="center" dividing>SubSubject Details</Header>
           <QuestionDetailsSubSubject
             subSubjectId={props.qaFormData.subSubjectId}
+            editMode={props.editorOpen}
           />
         </Grid.Column>
       </Grid.Row>

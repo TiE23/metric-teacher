@@ -60,11 +60,28 @@ export const USER_DETAILS_QUERY = gql`
 `;
 
 export const SUBJECT_DETAILS_QUERY = gql`
-  query SubjectDetailsPublicQuery {
+  query SubjectDetailsQuery {
     allSubjects {
       ...SubjectDataAll
       subSubjects {
         ...SubSubjectDataAll
+      }
+    }
+  }
+  ${SubjectDataAll}
+  ${SubSubjectDataAll}
+`;
+
+// Same as SUBJECT_DETAILS_QUERY but also includes a convenient Subject ID inside every SubSubject.
+export const SUBJECT_DETAILS_PARENT_ID_QUERY = gql`
+  query SubjectDetailsParentIdQuery {
+    allSubjects {
+      ...SubjectDataAll
+      subSubjects {
+        ...SubSubjectDataAll
+        parent {
+          id
+        }
       }
     }
   }

@@ -446,6 +446,27 @@ const cacheTargetExists = (data, targetId, targetAddress = [], key = "id") => {
 
 
 /**
+ * Find and retrieve target object by their ID alone or a child by targetAddress and a parent ID.
+ *
+ * Ex: const data = { cars: [{ id: "F-150", type: "Truck", make: { id: "make1", name: "Ford"} }] } }
+ *      cacheGetTarget(data, "F-150", "make.name")
+ *      // "Ford"
+ *
+ * @param data
+ * @param targetId
+ * @param targetAddress
+ * @param key
+ * @returns {*}
+ */
+const cacheGetTarget = (data, targetId, targetAddress = [], key = "id") => {
+  const findResult = findRecursive(data, object => object && object[key] === targetId);
+  if (!findResult) return undefined;
+  const targetObject = navigateObjectDots(findResult.target, targetAddress);
+  return targetObject;
+};
+
+
+/**
  * Basic find function iterates through Objects and arrays in a recursive method.
  * Returns the first element that predicate returns truthy for.
  *
@@ -780,6 +801,7 @@ export default {
   cacheDeleteObject,
   cachePushIntoArray,
   cacheTargetExists,
+  cacheGetTarget,
   findRecursive,
   navigateObjectDots,
   rootCopy,
