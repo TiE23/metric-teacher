@@ -10,7 +10,6 @@ const {
   SurveyAnswerUnitInvalid,
   SurveyAnswerValueInvalid,
   QuestionSyntaxError,
-  QuestionGenericError,
   QuestionTextSyntaxError,
   QuestionConversionSyntaxError,
   AnswerGenericError,
@@ -205,12 +204,12 @@ function questionSyntaxFormatter(text = null, rangeInput = null) {
   }
 
   if (rangeInput) {
-    const conversionInputErrors = [];
-    if (!rangeInput.lower) conversionInputErrors.push("Lower value not defined.");
-    if (!rangeInput.upper) conversionInputErrors.push("Upper value not defined.");
-    if (!rangeInput.unit) conversionInputErrors.push("Unit not defined.");
-    if (conversionInputErrors.length) {
-      throw new QuestionConversionSyntaxError(conversionInputErrors.join(" "));
+    const rangeInputErrors = [];
+    if (!rangeInput.lower) rangeInputErrors.push("Lower value not defined.");
+    if (!rangeInput.upper) rangeInputErrors.push("Upper value not defined.");
+    if (!rangeInput.unit) rangeInputErrors.push("Unit not defined.");
+    if (rangeInputErrors.length) {
+      throw new QuestionConversionSyntaxError(rangeInputErrors.join(" "));
     }
 
     const stepSyntax = rangeInput.step ? `(${rangeInput.step})s` : "";
@@ -235,10 +234,7 @@ function questionSyntaxFormatter(text = null, rangeInput = null) {
  * @returns {string}
  */
 function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput = null) {
-  if (choicesInput && conversionInput) {
-    throw new AnswerGenericError("Cannot have both multiplechoiceinput AND conversioninput defined");
-  }
-  if (!choicesInput && !conversionInput) {
+  if (!((choicesInput && !conversionInput) || (!choicesInput && conversionInput))) {
     throw new AnswerGenericError("Must have at least multiplechoiceinput OR conversioninput defined");
   }
 
@@ -317,17 +313,10 @@ function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput
  * @returns {{questionSyntaxString: string, answerSyntaxString: string}}
  */
 function checkAndParseQuestionAnswerInputs(type, questionInput, answerInput) {
-  // Make sure that question input doesn't have multiple things in it.
-  if (questionInput &&
-    questionInput.conversioninput &&
-    questionInput.surveyrangeinput) {
-    throw new QuestionGenericError("Cannot have both conversioninput and surveyrangeinput defined");
-  }
-
   // Create the question syntax string.
   const questionSyntaxString = questionSyntaxFormatter(
     questionInput.text,
-    questionInput.conversioninput || questionInput.surveyrangeinput,
+    questionInput.rangeinput,
   );
 
   // Create the answer syntax string.

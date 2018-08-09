@@ -37,13 +37,7 @@ const question = {
    *        media: String
    *        questioninput: QuestionQuestionInput {
    *          text: String
-   *          conversioninput: ConversionQuestionInput: {
-   *            lower: Float!
-   *            upper: Float!
-   *            unit: String!
-   *            step: Float
-   *          }
-   *          surveyrangeinput: RangeQuestionInput: {
+   *          rangeinput: QuestionQuestionRangeInput: {
    *            lower: Float!
    *            upper: Float!
    *            unit: String!
@@ -52,9 +46,9 @@ const question = {
    *        }!
    *        answerinput: QuestionAnswerInput: {
    *          text: String
-   *          multiplechoiceinput: MultipleChoiceInput: {
+   *          multiplechoiceinput: QuestionAnswerMultipleChoiceInput: {
    *            choices: [
-   *              MultipleChoiceInputRow: {
+   *              ChoiceInputRow: {
    *                value: Float
    *                written: String
    *                unit: String!
@@ -128,13 +122,7 @@ const question = {
    *        media: String
    *        questioninput: QuestionQuestionInput {
    *          text: String
-   *          conversioninput: ConversionQuestionInput: {
-   *            lower: Float!
-   *            upper: Float!
-   *            unit: String!
-   *            step: Float
-   *          }
-   *          surveyrangeinput: RangeQuestionInput: {
+   *          rangeinput: QuestionQuestionRangeInput: {
    *            lower: Float!
    *            upper: Float!
    *            unit: String!
@@ -143,9 +131,9 @@ const question = {
    *        }!
    *        answerinput: QuestionAnswerInput: {
    *          text: String
-   *          multiplechoiceinput: MultipleChoiceInput: {
+   *          multiplechoiceinput: QuestionAnswerMultipleChoiceInput: {
    *            choices: [
-   *              MultipleChoiceInputRow: {
+   *              ChoiceInputRow: {
    *                value: Float
    *                written: String
    *                unit: String!
@@ -237,7 +225,7 @@ const question = {
     // Construct a new set of input data from existing QA data.
     const newQuestionInput = {
       text: targetQa.question.text || targetQa.question.detail,
-      conversionInput: (targetQa.question.data && targetQa.question.data.conversion) ? {
+      rangeinput: (targetQa.question.data && targetQa.question.data.conversion) ? {
         lower: targetQa.question.data.conversion.range.bottom.value,
         upper: targetQa.question.data.conversion.range.top.value,
         unit: targetQa.question.data.conversion.range.top.unit,
@@ -261,7 +249,7 @@ const question = {
         })),
         choicesoffered: targetQa.answer.data.multiple.choicesOffered,
       } : undefined,
-      conversioninput: (
+      rangeinput: (
         targetQa.answer.type === QUESTION_TYPE_CONVERSION ||
         targetQa.answer.type === QUESTION_TYPE_SURVEY) ? {
           unit: targetQa.answer.data.unit,
@@ -279,16 +267,16 @@ const question = {
     const newType = args.type || targetQa.question.type;
     switch (newType) {
     case QUESTION_TYPE_WRITTEN:
-      if (newQuestionInput.conversioninput) newQuestionInput.conversioninput = undefined;
+      if (newQuestionInput.rangeinput) newQuestionInput.rangeinput = undefined;
       if (newQuestionInput.surveyrangeinput) newQuestionInput.surveyrangeinput = undefined;
-      if (newAnswerInput.conversioninput) newAnswerInput.conversioninput = undefined;
+      if (newAnswerInput.rangeinput) newAnswerInput.rangeinput = undefined;
       break;
     case QUESTION_TYPE_CONVERSION:
       if (newQuestionInput.surveyrangeinput) newQuestionInput.surveyrangeinput = undefined;
       if (newAnswerInput.multiplechoiceinput) newAnswerInput.multiplechoiceinput = undefined;
       break;
     case QUESTION_TYPE_SURVEY:
-      if (newQuestionInput.conversioninput) newQuestionInput.conversioninput = undefined;
+      if (newQuestionInput.rangeinput) newQuestionInput.rangeinput = undefined;
       if (newAnswerInput.multiplechoiceinput) newAnswerInput.multiplechoiceinput = undefined;
       break;
     default:

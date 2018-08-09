@@ -240,13 +240,7 @@ SurveyAnswerInput {
 ```
 QuestionQuestionInput {
   text: String
-    conversioninput: ConversionQuestionInput: {
-      lower: Float!
-      upper: Float!
-      unit: String!
-      step: Float
-    }
-    surveyrangeinput: RangeQuestionInput: {
+    rangeinput: QuestionQuestionRangeInput: {
       lower: Float!
       upper: Float!
       unit: String!
@@ -259,9 +253,9 @@ QuestionQuestionInput {
 ```
 QuestionAnswerInput: {
   text: String
-  multiplechoiceinput: MultipleChoiceInput: {
+  multiplechoiceinput: QuestionAnswerMultipleChoiceInput: {
     choices: [
-      MultipleChoiceInputRow: {
+      ChoiceInputRow: {
         value: Float
         written: String
         unit: String!
