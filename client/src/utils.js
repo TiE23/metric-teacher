@@ -1,6 +1,7 @@
 import md5 from "md5";
 import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
 import isEmail from "validator/lib/isEmail";
+import isDecimal from "validator/lib/isDecimal";
 import mergeWith from "lodash/mergeWith";
 import isPlainObject from "lodash/isPlainObject";
 import isObject from "lodash/isObject";
@@ -798,6 +799,41 @@ const explodeBits = (bits) => {
   return flags;
 };
 
+
+/**
+ * Custom isDecimal function checks a user's input and will determine if it's a decimal number
+ * or not. Unlike just straight isDecimal it won't reject typing a decimal at the end.
+ * That is the worst case scenario: a user can type "5." and possibly submit it, but it's not too
+ * bad since parseInt() and parseFloat() both read it as 5
+ * @param input
+ * @returns {*}
+ */
+const isDecimalTyped = (input) => {
+  const dots = input.match(/\./g);
+  if (dots && dots.length > 1) {
+    return false;
+  }
+  if (input[input.length - 1] === ".") {
+    return isDecimal(input.slice(0, input.length - 1));
+  } else {
+    return isDecimal(input);
+  }
+};
+
+
+/**
+ * Little helper function wraps up parseFloat() and parseInt() into a little package. The main
+ * difference being that if the input is a blank string it'll return null instead of NaN.
+ * @param input
+ * @param integer - Set to true to parse as integer or input an integer to serve as the base
+ * @returns {*}
+ */
+const parseNumber = (input, integer = false) => {
+  if (input === "") return null;
+  return integer ? parseInt(input, (Number.isInteger(integer) && integer) || 10) :
+    parseFloat(input);
+};
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -827,4 +863,6 @@ export default {
   unitInitilizer,
   surveyAnswerValidator,
   explodeBits,
+  isDecimalTyped,
+  parseNumber,
 };

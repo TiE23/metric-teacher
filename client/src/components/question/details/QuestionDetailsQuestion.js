@@ -1,8 +1,11 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { List, Icon, Input } from "semantic-ui-react";
+import { List, Input } from "semantic-ui-react";
+import isDecimal from "validator/lib/isDecimal";
 
 import utils from "../../../utils";
+
+import EditBelowIcon from "../../misc/EditBelowIcon";
 
 import {
   QUESTION_TYPE_WRITTEN,
@@ -29,7 +32,32 @@ class QuestionDetailsQuestion extends PureComponent {
       }
     };
 
-    // TODO - range change. Use isDecimal.
+    this.handleRangeLowerChange = (e, { value }) => {
+      const val = value === "." ? "0." : value;
+      if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
+        this.props.handleQuestionDataChange({ range: { lower: val } }); // These are strings!
+      }
+    };
+
+    this.handleRangeUpperChange = (e, { value }) => {
+      const val = value === "." ? "0." : value;
+      if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
+        this.props.handleQuestionDataChange({ range: { upper: val } }); // These are strings!
+      }
+    };
+
+    this.handleRangeUnitChange = (e, { value }) => {
+      if (this.props.handleQuestionDataChange) {
+        this.props.handleQuestionDataChange({ range: { unit: value } });
+      }
+    };
+
+    this.handleRangeStepChange = (e, { value }) => {
+      const val = value === "." ? "0." : value;
+      if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
+        this.props.handleQuestionDataChange({ range: { step: val } }); // These are strings!
+      }
+    };
   }
 
   render() {
@@ -40,7 +68,7 @@ class QuestionDetailsQuestion extends PureComponent {
         <List.Item>
           <List.Icon name="comment" size="large" verticalAlign="top" />
           <List.Content style={this.width100}>
-            <List.Header>Text {this.props.editMode && <Icon name="pencil" />}</List.Header>
+            <List.Header>Text {this.props.editMode && <EditBelowIcon />}</List.Header>
             <List.Description>
               {this.props.editMode ?
                 <div style={this.width100}>
@@ -64,7 +92,7 @@ class QuestionDetailsQuestion extends PureComponent {
         <List.Item>
           <List.Icon name="comment alternate" size="large" verticalAlign="top" />
           <List.Content style={this.width100}>
-            <List.Header>Detail {this.props.editMode && <Icon name="pencil" />}</List.Header>
+            <List.Header>Detail {this.props.editMode && <EditBelowIcon />}</List.Header>
             <List.Description>
               {this.props.editMode ?
                 <div style={this.width100}>
@@ -95,36 +123,78 @@ class QuestionDetailsQuestion extends PureComponent {
               <List.Item>
                 <List.Icon name="chevron down" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>Lower Range</List.Header>
+                  <List.Header>Lower Range {this.props.editMode && <EditBelowIcon />}</List.Header>
                   <List.Description>
-                    {(this.props.range && this.props.range.lower) || "Null"}
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleRangeLowerChange}
+                        value={this.props.range && this.props.range.lower}
+                        placeholder="Null"
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>{(this.props.range && this.props.range.lower) || "Null"}</span>
+                    }
                   </List.Description>
                 </List.Content>
               </List.Item>
               <List.Item>
                 <List.Icon name="chevron up" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>Upper Range</List.Header>
+                  <List.Header>Upper Range {this.props.editMode && <EditBelowIcon />}</List.Header>
                   <List.Description>
-                    {(this.props.range && this.props.range.upper) || "Null"}
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleRangeUpperChange}
+                        value={this.props.range && this.props.range.upper}
+                        placeholder="Null"
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>{(this.props.range && this.props.range.upper) || "Null"}</span>
+                    }
                   </List.Description>
                 </List.Content>
               </List.Item>
               <List.Item>
                 <List.Icon name="dot circle" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>From Unit</List.Header>
+                  <List.Header>From Unit {this.props.editMode && <EditBelowIcon />}</List.Header>
                   <List.Description>
-                    {(this.props.range && utils.unitInitilizer(this.props.range.unit)) || "..."}
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleRangeUnitChange}
+                        value={this.props.range && this.props.range.unit}
+                        placeholder="..."
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>
+                        {(this.props.range && utils.unitInitilizer(this.props.range.unit)) || "..."}
+                      </span>
+                    }
                   </List.Description>
                 </List.Content>
               </List.Item>
               <List.Item>
                 <List.Icon name="signal" size="large" verticalAlign="top" rotated="clockwise" />
                 <List.Content>
-                  <List.Header>Step</List.Header>
+                  <List.Header>Step {this.props.editMode && <EditBelowIcon />}</List.Header>
                   <List.Description>
-                    {(this.props.range && this.props.range.step) || "Null"}
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleRangeStepChange}
+                        value={this.props.range && this.props.range.step}
+                        placeholder="Null"
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>{(this.props.range && this.props.range.step) || "Null"}</span>
+                    }
                   </List.Description>
                 </List.Content>
               </List.Item>

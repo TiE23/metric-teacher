@@ -56,32 +56,25 @@ export const SCALE_ICONS = {
   hand: "hand paper",
   human: "male",
   room: "bed",
-  street: "truck",
   building: "building",
   // Length
-  //  hand
-  //  human
-  //  room
-  //  building
+  //  hand, human, room, building
   local: "map signs",
   geographic: "map",
   astronomical: "sun",
   // Mass
-  //  hand
-  //  human
-  //  street
+  //  hand, human
+  street: "truck",
   //  building
   // Volume
-  //  hand
-  //  room
-  //  building
+  //  hand, room, building
   // Temperature
   weather: "cloud",
   cooking: "food",
   chemistry: "fire",
   // Velocity
   pedestrian: "bicycle",
-  transit: "truck",
+  transit: "bus",
   racing: "car",
   air: "plane",
   rocket: "rocket",
@@ -153,7 +146,7 @@ export const QUESTION_STATUS_DROPDOWN = [
   { value: QUESTION_STATUS_ACTIVE, text: "Active", icon: "play" },
   { value: QUESTION_STATUS_INACTIVE, text: "Inactive", icon: "stop" },
   { value: QUESTION_STATUS_REVIEW_PENDING, text: "Review pending", icon: "ellipsis horizontal" },
-  { value: QUESTION_STATUS_REVIEW_REJECTED, text: "Review rejected", icon: "dont" },
+  { value: QUESTION_STATUS_REVIEW_REJECTED, text: "Review rejected", icon: "ban" },
 ];
 export const QUESTION_DIFFICULTY_NONE = 0;
 export const QUESTION_DIFFICULTY_EASY = 1;

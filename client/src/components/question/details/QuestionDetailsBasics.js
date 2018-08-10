@@ -5,6 +5,7 @@ import { List, Icon, Modal, Image, Dropdown, Input } from "semantic-ui-react";
 import utils from "../../../utils";
 
 import FlagLister from "../../misc/FlagLister";
+import EditBelowIcon from "../../misc/EditBelowIcon";
 
 import {
   FLAGS_NONE,
@@ -185,9 +186,13 @@ class QuestionDetailsBasics extends PureComponent {
         </List.Item>
         {(this.props.media || this.props.editMode) &&
         <List.Item>
-          <List.Icon name="picture" size="large" verticalAlign="top" />
+          <List.Icon
+            name={this.props.media ? "image" : "image outline"}
+            size="large"
+            verticalAlign="top"
+          />
           <List.Content>
-            <List.Header>Media</List.Header>
+            <List.Header>Media {this.props.editMode && <EditBelowIcon/>}</List.Header>
             <List.Description>
               <span>
                 /img/question/
