@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { List } from "semantic-ui-react";
+import { List, Icon, Input } from "semantic-ui-react";
 
 import utils from "../../../utils";
 
@@ -13,6 +13,9 @@ import {
 class QuestionDetailsQuestion extends PureComponent {
   constructor(props) {
     super(props);
+
+    // Hack-solving frustrating CSS issues with input widths
+    this.width100 = { width: "100%" };
 
     this.handleTextChange = (e, { value }) => {
       if (this.props.handleQuestionDataChange) {
@@ -36,9 +39,23 @@ class QuestionDetailsQuestion extends PureComponent {
         this.props.type === QUESTION_TYPE_SURVEY) && (this.props.text || this.props.editMode)) &&
         <List.Item>
           <List.Icon name="comment" size="large" verticalAlign="top" />
-          <List.Content>
-            <List.Header>Text</List.Header>
-            <List.Description>&quot;{this.props.text || "..."}&quot;</List.Description>
+          <List.Content style={this.width100}>
+            <List.Header>Text {this.props.editMode && <Icon name="pencil" />}</List.Header>
+            <List.Description>
+              {this.props.editMode ?
+                <div style={this.width100}>
+                  <Input
+                    onChange={this.handleTextChange}
+                    value={this.props.text}
+                    placeholder="..."
+                    transparent
+                    fluid
+                  />
+                </div>
+                :
+                <span>{(this.props.text && `"${this.props.text}"`) || "..."}</span>
+              }
+            </List.Description>
           </List.Content>
         </List.Item>
         }
@@ -46,10 +63,22 @@ class QuestionDetailsQuestion extends PureComponent {
         (this.props.detail || this.props.editMode)) &&
         <List.Item>
           <List.Icon name="comment alternate" size="large" verticalAlign="top" />
-          <List.Content>
-            <List.Header>Detail</List.Header>
+          <List.Content style={this.width100}>
+            <List.Header>Detail {this.props.editMode && <Icon name="pencil" />}</List.Header>
             <List.Description>
-              {(this.props.detail && `"${this.props.detail}"`) || "..."}
+              {this.props.editMode ?
+                <div style={this.width100}>
+                  <Input
+                    onChange={this.handleDetailChange}
+                    value={this.props.detail}
+                    placeholder="..."
+                    transparent
+                    fluid
+                  />
+                </div>
+                :
+                <span>{(this.props.detail && `"${this.props.detail}"`) || "..."}</span>
+              }
             </List.Description>
           </List.Content>
         </List.Item>

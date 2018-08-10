@@ -46,7 +46,7 @@ export const SUBJECT_ICONS = {
   Mass: "balance scale",
   Volume: "cube",
   Temperature: "thermometer three quarters",
-  Velocity: "rocket",
+  Velocity: "location arrow",
   Area: "clone outline",
 };
 
@@ -81,8 +81,8 @@ export const SCALE_ICONS = {
   chemistry: "fire",
   // Velocity
   pedestrian: "bicycle",
-  transit: "car",
-  racing: "motorcycle",
+  transit: "truck",
+  racing: "car",
   air: "plane",
   rocket: "rocket",
   // Area
@@ -140,31 +140,20 @@ export const QUESTION_TYPE_NAMES = [
   "Conversion",
   "Survey",
 ];
-export const QUESTION_TYPE_ICONS = [
-  "bullseye",
-  "calculator",
-  "edit",
-];
-export const QUESTION_TYPE_DROPDOWN_OPTIONS = [
-  { value: QUESTION_TYPE_WRITTEN, text: "Written" },
-  { value: QUESTION_TYPE_CONVERSION, text: "Conversion" },
-  { value: QUESTION_TYPE_SURVEY, text: "Survey" },
+export const QUESTION_TYPE_DROPDOWN = [
+  { value: QUESTION_TYPE_WRITTEN, text: "Written", icon: "bullseye" },
+  { value: QUESTION_TYPE_CONVERSION, text: "Conversion", icon: "calculator" },
+  { value: QUESTION_TYPE_SURVEY, text: "Survey", icon: "edit" },
 ];
 export const QUESTION_STATUS_ACTIVE = 0;
 export const QUESTION_STATUS_INACTIVE = 1;
 export const QUESTION_STATUS_REVIEW_PENDING = 2;
 export const QUESTION_STATUS_REVIEW_REJECTED = 3;
-export const QUESTION_STATUS_NAMES = [
-  "Active",
-  "Inactive",
-  "Review pending",
-  "Review rejected",
-];
-export const QUESTION_STATUS_DROPDOWN_OPTIONS = [
-  { value: QUESTION_STATUS_ACTIVE, text: "Active" },
-  { value: QUESTION_STATUS_INACTIVE, text: "Inactive" },
-  { value: QUESTION_STATUS_REVIEW_PENDING, text: "Review pending" },
-  { value: QUESTION_STATUS_REVIEW_REJECTED, text: "Review rejected" },
+export const QUESTION_STATUS_DROPDOWN = [
+  { value: QUESTION_STATUS_ACTIVE, text: "Active", icon: "play" },
+  { value: QUESTION_STATUS_INACTIVE, text: "Inactive", icon: "stop" },
+  { value: QUESTION_STATUS_REVIEW_PENDING, text: "Review pending", icon: "ellipsis horizontal" },
+  { value: QUESTION_STATUS_REVIEW_REJECTED, text: "Review rejected", icon: "dont" },
 ];
 export const QUESTION_DIFFICULTY_NONE = 0;
 export const QUESTION_DIFFICULTY_EASY = 1;
@@ -172,29 +161,13 @@ export const QUESTION_DIFFICULTY_EASY_MEDIUM = 2;
 export const QUESTION_DIFFICULTY_MEDIUM = 3;
 export const QUESTION_DIFFICULTY_MEDIUM_HARD = 4;
 export const QUESTION_DIFFICULTY_HARD = 5;
-export const QUESTION_DIFFICULTY_NAMES = [
-  "None",
-  "Easy",
-  "Easy/Medium",
-  "Medium",
-  "Medium/Hard",
-  "Hard",
-];
-export const QUESTION_DIFFICULTY_ICONS = [
-  "thermometer empty",
-  "thermometer empty",
-  "thermometer quarter",
-  "thermometer half",
-  "thermometer three quarters",
-  "thermometer full",
-];
-export const QUESTION_DIFFICULTY_DROPDOWN_OPTIONS = [
-  { value: QUESTION_DIFFICULTY_NONE, text: "None" },
-  { value: QUESTION_DIFFICULTY_EASY, text: "Easy" },
-  { value: QUESTION_DIFFICULTY_EASY_MEDIUM, text: "Easy/Medium" },
-  { value: QUESTION_DIFFICULTY_MEDIUM, text: "Medium" },
-  { value: QUESTION_DIFFICULTY_MEDIUM_HARD, text: "Medium/Hard" },
-  { value: QUESTION_DIFFICULTY_HARD, text: "Hard" },
+export const QUESTION_DIFFICULTY_DROPDOWN = [
+  { value: QUESTION_DIFFICULTY_NONE, text: "None", icon: "thermometer empty" },
+  { value: QUESTION_DIFFICULTY_EASY, text: "Easy", icon: "thermometer empty" },
+  { value: QUESTION_DIFFICULTY_EASY_MEDIUM, text: "Easy/Medium", icon: "thermometer quarter" },
+  { value: QUESTION_DIFFICULTY_MEDIUM, text: "Medium", icon: "thermometer half" },
+  { value: QUESTION_DIFFICULTY_MEDIUM_HARD, text: "Medium/Hard", icon: "thermometer three quarters" },
+  { value: QUESTION_DIFFICULTY_HARD, text: "Hard", icon: "thermometer full" },
 ];
 export const QUESTION_FLAG_USER_DETAIL_OPTIONAL = 0x01; // Survey requests user note (optional)
 export const QUESTION_FLAG_USER_DETAIL_REQUIRED = 0x02; // Survey requests user note (required)

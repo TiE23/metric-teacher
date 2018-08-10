@@ -9,13 +9,9 @@ import FlagLister from "../../misc/FlagLister";
 import {
   FLAGS_NONE,
   QUESTION_TYPE_NAMES,
-  QUESTION_TYPE_ICONS,
-  QUESTION_TYPE_DROPDOWN_OPTIONS,
-  QUESTION_DIFFICULTY_NAMES,
-  QUESTION_DIFFICULTY_ICONS,
-  QUESTION_DIFFICULTY_DROPDOWN_OPTIONS,
-  QUESTION_STATUS_NAMES,
-  QUESTION_STATUS_DROPDOWN_OPTIONS,
+  QUESTION_TYPE_DROPDOWN,
+  QUESTION_DIFFICULTY_DROPDOWN,
+  QUESTION_STATUS_DROPDOWN,
   QUESTION_FLAG_NAMES,
   QUESTION_FLAG_DROPDOWN,
 } from "../../../constants";
@@ -71,7 +67,8 @@ class QuestionDetailsBasics extends PureComponent {
         </List.Item>
         <List.Item>
           <List.Icon
-            name={QUESTION_TYPE_ICONS[this.props.type] || "remove"}
+            name={(QUESTION_TYPE_DROPDOWN[this.props.type] &&
+              QUESTION_TYPE_DROPDOWN[this.props.type].icon) || "remove"}
             size="large"
             verticalAlign="top"
           />
@@ -80,7 +77,7 @@ class QuestionDetailsBasics extends PureComponent {
               {this.props.editMode ?
                 <Dropdown
                   onChange={this.handleTypeChange}
-                  options={QUESTION_TYPE_DROPDOWN_OPTIONS}
+                  options={QUESTION_TYPE_DROPDOWN}
                   text="Type"
                   value={this.props.type}
                   inline
@@ -99,7 +96,8 @@ class QuestionDetailsBasics extends PureComponent {
         </List.Item>
         <List.Item>
           <List.Icon
-            name={QUESTION_DIFFICULTY_ICONS[this.props.difficulty] || "remove"}
+            name={(QUESTION_DIFFICULTY_DROPDOWN[this.props.difficulty] &&
+              QUESTION_DIFFICULTY_DROPDOWN[this.props.difficulty].icon) || "remove"}
             size="large"
             verticalAlign="top"
           />
@@ -108,7 +106,7 @@ class QuestionDetailsBasics extends PureComponent {
               {this.props.editMode ?
                 <Dropdown
                   onChange={this.handleDifficultyChange}
-                  options={QUESTION_DIFFICULTY_DROPDOWN_OPTIONS}
+                  options={QUESTION_DIFFICULTY_DROPDOWN}
                   text="Difficulty"
                   value={this.props.difficulty}
                   inline
@@ -119,18 +117,24 @@ class QuestionDetailsBasics extends PureComponent {
             </List.Header>
             <List.Description>
               {this.props.difficulty} {" "}
-              - &quot;{QUESTION_DIFFICULTY_NAMES[this.props.difficulty]}&quot;
+              - &quot;{(QUESTION_DIFFICULTY_DROPDOWN[this.props.difficulty] &&
+              QUESTION_DIFFICULTY_DROPDOWN[this.props.difficulty].text) || "Unknown"}&quot;
             </List.Description>
           </List.Content>
         </List.Item>
         <List.Item>
-          <List.Icon name="certificate" size="large" verticalAlign="top" />
+          <List.Icon
+            name={(QUESTION_STATUS_DROPDOWN[this.props.status] &&
+            QUESTION_STATUS_DROPDOWN[this.props.status].icon) || "remove"}
+            size="large"
+            verticalAlign="top"
+          />
           <List.Content>
             <List.Header>
               {this.props.editMode ?
                 <Dropdown
                   onChange={this.handleStatusChange}
-                  options={QUESTION_STATUS_DROPDOWN_OPTIONS}
+                  options={QUESTION_STATUS_DROPDOWN}
                   text="Status"
                   value={this.props.difficulty}
                   inline
@@ -141,7 +145,8 @@ class QuestionDetailsBasics extends PureComponent {
             </List.Header>
             <List.Description>
               {this.props.status}{" "}
-              - &quot;{QUESTION_STATUS_NAMES[this.props.status]}&quot;
+              - &quot;{(QUESTION_STATUS_DROPDOWN[this.props.status] &&
+              QUESTION_STATUS_DROPDOWN[this.props.status].text) || "Unknown"}&quot;
             </List.Description>
           </List.Content>
         </List.Item>
@@ -197,6 +202,7 @@ class QuestionDetailsBasics extends PureComponent {
                   <b>{this.props.media || "..."}</b>
                 }
               </span>
+              {" "}
               <Modal
                 trigger={<Icon name="search plus" />}
                 header={this.props.media || "No Image"}
