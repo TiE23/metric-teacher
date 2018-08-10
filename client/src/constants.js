@@ -40,6 +40,7 @@ export const EMAIL_SECRET_PREFIXES = [
   "806158031bb277505a058d0e4e07cff9",
 ];
 
+// These are based off DB data so they are subject to change.
 export const SUBJECT_ICONS = {
   Length: "arrows alternate horizontal",
   Mass: "balance scale",
@@ -47,6 +48,49 @@ export const SUBJECT_ICONS = {
   Temperature: "thermometer three quarters",
   Velocity: "rocket",
   Area: "clone outline",
+};
+
+// These are based off DB data so they are subject to change.
+export const SCALE_ICONS = {
+  // Generic
+  hand: "hand paper",
+  human: "male",
+  room: "bed",
+  street: "truck",
+  building: "building",
+  // Length
+  //  hand
+  //  human
+  //  room
+  //  building
+  local: "map signs",
+  geographic: "map",
+  astronomical: "sun",
+  // Mass
+  //  hand
+  //  human
+  //  street
+  //  building
+  // Volume
+  //  hand
+  //  room
+  //  building
+  // Temperature
+  weather: "cloud",
+  cooking: "food",
+  chemistry: "fire",
+  // Velocity
+  pedestrian: "bicycle",
+  transit: "car",
+  racing: "motorcycle",
+  air: "plane",
+  rocket: "rocket",
+  // Area
+  home: "home",
+  commercial: "industry",
+  land: "tree",
+  jurisdiction: "flag",
+  territory: "globe",
 };
 
 // Database Constants

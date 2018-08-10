@@ -10,6 +10,7 @@ import SubSubjectReview from "../../../subsubject/SubSubjectReview";
 
 import {
   SUBJECT_ICONS,
+  SCALE_ICONS,
 } from "../../../../constants";
 
 class QuestionDetailsSubSubjectsSelector extends PureComponent {
@@ -18,7 +19,6 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
     this.state = {
       selectedSubjectId: null,
       selectedSubjectName: null,
-      selectedSubjectsDropdown: null, // TODO - Make this a class var?
       selectedScalesDropdown: null,
       selectedScale: null,
       selectedToMetric: null,
@@ -30,13 +30,13 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
     // dropdown selections the first time that componentDidUpdate() and sees that selectedSubjectId
     // was changed. This single-use state is how I avoid that first-time reset.
     this.firstMount = true;
+    this.selectedSubjectsDropdown = null;
 
     // On first load...
     this.componentDidMount = () => {
       if (this.props.subjectsData) {
-        this.setState({
-          selectedSubjectsDropdown: this.buildSubjectsDropdownSelection(this.props.subjectsData),
-        });
+        this.selectedSubjectsDropdown =
+          this.buildSubjectsDropdownSelection(this.props.subjectsData);
       }
 
       // Knowing only the SubSubject's ID, get the Subject's ID and add it to state right away.
@@ -151,7 +151,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
           scalesDropdown.push({
             text: `${utils.firstLetterCap(subSubject.scale)} Scale`,
             value: subSubject.scale,
-            icon: "minus",  // TODO - I can add nice icons!
+            icon: SCALE_ICONS[subSubject.scale] || "question circle outline",
             key: subSubject.scale,
           });
         }
@@ -167,7 +167,6 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
     const {
       selectedSubjectId,
       selectedSubjectName,
-      selectedSubjectsDropdown,
       selectedScalesDropdown,
       selectedScale,
       selectedToMetric,
@@ -186,7 +185,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
           <Dropdown
             inline
             text="Subject"
-            options={selectedSubjectsDropdown}
+            options={this.selectedSubjectsDropdown}
             value={selectedSubjectId}
             onChange={this.handleSubjectChange}
           />
