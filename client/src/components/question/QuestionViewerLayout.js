@@ -50,6 +50,7 @@ const QuestionViewerLayout = props => (
         <QuestionDetailsAnswer
           type={props.qaFormData.question.basics.type}
           {...props.qaFormData.question.answerData}
+          editMode={props.editorOpen}
         />
       </Grid.Column>
     </Grid.Row>

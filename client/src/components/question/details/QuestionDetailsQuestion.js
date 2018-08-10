@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { List, Input } from "semantic-ui-react";
-import isDecimal from "validator/lib/isDecimal";
 
 import utils from "../../../utils";
 
@@ -33,29 +32,29 @@ class QuestionDetailsQuestion extends PureComponent {
     };
 
     this.handleRangeLowerChange = (e, { value }) => {
-      const val = value === "." ? "0." : value;
+      const val = value === "." ? "0." : value; // Typing a "." will automatically fill to "0."
       if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
-        this.props.handleQuestionDataChange({ range: { lower: val } }); // These are strings!
+        this.props.handleQuestionDataChange({ range: { lower: val } }); // This is a string.
       }
     };
 
     this.handleRangeUpperChange = (e, { value }) => {
       const val = value === "." ? "0." : value;
       if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
-        this.props.handleQuestionDataChange({ range: { upper: val } }); // These are strings!
+        this.props.handleQuestionDataChange({ range: { upper: val } }); // This is a string.
       }
     };
 
     this.handleRangeUnitChange = (e, { value }) => {
       if (this.props.handleQuestionDataChange) {
-        this.props.handleQuestionDataChange({ range: { unit: value } });
+        this.props.handleQuestionDataChange({ range: { unit: value.toLocaleLowerCase() } });
       }
     };
 
     this.handleRangeStepChange = (e, { value }) => {
       const val = value === "." ? "0." : value;
       if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
-        this.props.handleQuestionDataChange({ range: { step: val } }); // These are strings!
+        this.props.handleQuestionDataChange({ range: { step: val } }); // This is a string.
       }
     };
   }
