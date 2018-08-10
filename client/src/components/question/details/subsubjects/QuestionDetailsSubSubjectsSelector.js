@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Dropdown } from "semantic-ui-react";
-import cloneDeep from "lodash/cloneDeep";
 import forEach from "lodash/forEach";
 import find from "lodash/find";
 
@@ -59,7 +58,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
             selectedDirectionToMetric: initialSubSubject.toMetric,
             selectedSubSubjectId: this.props.initialSubSubjectId,
             selectedSubSubjectData: this.buildSubSubjectData(
-              cloneDeep(this.props.subjectsData), // Must make a copy first!
+              this.props.subjectsData,
               this.props.initialSubSubjectId,
             ),
           });
@@ -113,7 +112,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
         // SubSubject object.
         this.setState({
           selectedSubSubjectData: this.buildSubSubjectData(
-            cloneDeep(this.props.subjectsData), // Must make a copy first!
+            this.props.subjectsData,
             this.state.selectedSubSubjectId,
           ),
         });
@@ -145,11 +144,13 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
      */
     this.buildSubSubjectData = (subjectsData, subSubjectId) => {
       const selectedSubSubjectData = utils.cacheGetTarget(subjectsData, subSubjectId);
-      selectedSubSubjectData.parent = utils.rootCopy(utils.cacheGetTarget(
-        subjectsData,
-        selectedSubSubjectData.parent.id,
-      ));
-      return selectedSubSubjectData;
+      return {
+        id: selectedSubSubjectData.id,
+        subjectName: utils.cacheGetTarget(subjectsData, selectedSubSubjectData.parent.id, "name"),
+        scale: selectedSubSubjectData.scale,
+        toMetric: selectedSubSubjectData.toMetric,
+        rarity: selectedSubSubjectData.rarity,
+      };
     };
 
     this.buildSubjectsDropdownSelection = subjects => (
@@ -219,7 +220,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
         />
 
         <SubSubjectReview
-          subSubjectData={this.state.selectedSubSubjectData}
+          {...this.state.selectedSubSubjectData}
         />
       </div>
     );

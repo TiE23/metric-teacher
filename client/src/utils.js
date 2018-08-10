@@ -579,7 +579,7 @@ const rootCopy = (data) => {
  * @returns {string}
  */
 const firstLetterCap = (string) => {
-  if (string.length === 0) return string;
+  if (typeof string !== "string" || string.length === 0) return string;
   return string.slice(0, 1).toLocaleUpperCase() + string.slice(1);
 };
 

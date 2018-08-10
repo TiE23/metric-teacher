@@ -81,6 +81,7 @@ export const SUBJECT_DETAILS_PARENT_ID_QUERY = gql`
         ...SubSubjectDataAll
         parent {
           id
+          name
         }
       }
     }

@@ -36,10 +36,15 @@ const QuestionDetailsSubSubject = props => (
             queryData={queryProps}
             noDataErrorMessage="SubSubject not found."
           >
-            <SubSubjectReview
-              subSubjectData={queryProps.data && queryProps.data.subSubject}
-              queryInfo={{ SUBSUBJECT_DETAILS_QUERY, variables: queryProps.variables }}
-            />
+            {(queryProps.data && queryProps.data.subSubject) ?
+              <SubSubjectReview
+                id={queryProps.data.subSubject.id}
+                subjectName={queryProps.data.subSubject.parent.name}
+                scale={queryProps.data.subSubject.scale}
+                toMetric={queryProps.data.subSubject.toMetric}
+                rarity={queryProps.data.subSubject.rarity}
+              /> : <p>SubSubject not found.</p>
+            }
           </QueryHandler>
         )}
       </Query>
