@@ -82,6 +82,10 @@ class QuestionViewer extends PureComponent {
     this.handleSubSubjectIdChange = (subSubjectId) => {
       this.handleChange({ qaFormData: { subSubjectId } });
     };
+
+    this.handleQuestionDataChange = (questionData) => {
+      this.handleChange({ qaFormData: { question: { questionData } } });
+    };
   }
 
   render() {
@@ -97,6 +101,7 @@ class QuestionViewer extends PureComponent {
         handleChangeFunctions={{
           handleBasicsChange: this.handleBasicsChange,
           handleSubSubjectIdChange: this.handleSubSubjectIdChange,
+          handleQuestionDataChange: this.handleQuestionDataChange,
         }}
       />
     );

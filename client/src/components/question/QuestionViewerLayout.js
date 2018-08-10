@@ -17,7 +17,8 @@ const QuestionViewerLayout = props => (
         <QuestionDetailsBasics
           {...props.qaFormData.question.basics}
           editMode={props.editorOpen}
-          handleBasicsChange={props.handleChangeFunctions.handleBasicsChange}
+          handleBasicsChange={props.handleChangeFunctions &&
+            props.handleChangeFunctions.handleBasicsChange}
         />
       </Grid.Column>
       {/* Quadrant 2 - SubSubject Details */}
@@ -26,7 +27,8 @@ const QuestionViewerLayout = props => (
         <QuestionDetailsSubSubject
           subSubjectId={props.qaFormData.subSubjectId}
           editMode={props.editorOpen}
-          handleSubSubjectIdChange={props.handleChangeFunctions.handleSubSubjectIdChange}
+          handleSubSubjectIdChange={props.handleChangeFunctions &&
+            props.handleChangeFunctions.handleSubSubjectIdChange}
         />
       </Grid.Column>
     </Grid.Row>
@@ -37,6 +39,9 @@ const QuestionViewerLayout = props => (
         <QuestionDetailsQuestion
           type={props.qaFormData.question.basics.type}
           {...props.qaFormData.question.questionData}
+          editMode={props.editorOpen}
+          handleQuestionDataChange={props.handleChangeFunctions &&
+            props.handleChangeFunctions.handleQuestionDataChange}
         />
       </Grid.Column>
       {/* Quadrant 4 - Answer Details */}
@@ -81,6 +86,7 @@ QuestionViewerLayout.propTypes = {
   handleChangeFunctions: PropTypes.shape({
     handleBasicsChange: PropTypes.func.isRequired,
     handleSubSubjectIdChange: PropTypes.func.isRequired,
+    handleQuestionDataChange: PropTypes.func.isRequired,
   }),
 };
 
