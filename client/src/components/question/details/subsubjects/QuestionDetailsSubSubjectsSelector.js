@@ -17,12 +17,13 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
     super(props);
     this.state = {
       selectedSubjectId: null,
-      selectedSubjectsDropdown: null,
+      selectedSubjectName: null,
+      selectedSubjectsDropdown: null, // TODO - Make this a class var?
       selectedScalesDropdown: null,
       selectedScale: null,
-      selectedDirectionToMetric: null,
+      selectedToMetric: null,
+      selectedSubSubjectRarity: null,
       selectedSubSubjectId: null,
-      selectedSubSubjectData: null,
     };
 
     // Because I update selectedSubjectId in componentDidMount() I need to prevent reseting the
@@ -49,17 +50,19 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
         if (initialSubSubject) {
           this.setState({
             selectedSubjectId: initialSubSubject.parent.id,
+            selectedSubjectName: initialSubSubject.parent.name,
             selectedScalesDropdown: this.buildScalesDropdownSelection(utils.cacheGetTarget(
               this.props.subjectsData,
               initialSubSubject.parent.id,
               "subSubjects",
             )),
             selectedScale: initialSubSubject.scale,
-            selectedDirectionToMetric: initialSubSubject.toMetric,
+            selectedToMetric: initialSubSubject.toMetric,
             selectedSubSubjectId: this.props.initialSubSubjectId,
-            selectedSubSubjectData: this.buildSubSubjectData(
+            selectedSubSubjectRarity: utils.cacheGetTarget(
               this.props.subjectsData,
               this.props.initialSubSubjectId,
+              "rarity",
             ),
           });
         }
@@ -68,53 +71,54 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
 
     // On each update...
     this.componentDidUpdate = (prevProps, prevState) => {
-      // Change of Subject means we gotta grab different scales.
+      // Selected Subject was changed, we need to get new scales dropdown.
       if (this.props.subjectsData && !this.firstMount &&
         this.state.selectedSubjectId !== prevState.selectedSubjectId
       ) {
+        const newSubjectData = utils.cacheGetTarget(
+          this.props.subjectsData,
+          this.state.selectedSubjectId,
+        );
+
         this.setState({
-          selectedScalesDropdown: this.buildScalesDropdownSelection(utils.cacheGetTarget(
-            this.props.subjectsData,
-            this.state.selectedSubjectId,
-            "subSubjects",
-          )),
-          selectedScale: null,              // New Subject? No scale!
-          selectedDirectionToMetric: null,  // New Subject? No direction!
+          selectedSubjectName: newSubjectData.name,
+          selectedScalesDropdown: this.buildScalesDropdownSelection(newSubjectData.subSubjects),
+          selectedScale: null,    // New Subject? No scale!
+          selectedToMetric: null, // New Subject? No direction!
         });
       } else if (this.firstMount) {
         this.firstMount = false;
       }
 
-      // A change in scale or direction means we need to re-find our targeted SubSubject.
+      // TODO - There is improved efficiency by else/if'ing these checks and nulling more states.
+      // We lost scale or toMetric. Clear the selected SubSubject's ID and rarity.
+      if ((this.state.selectedScale !== prevState.selectedScale &&
+        this.state.selectedScale === null) ||
+        (this.state.selectedToMetric !== prevState.selectedToMetric &&
+          this.state.selectedToMetric === null)
+      ) {
+        this.setState({
+          selectedSubSubjectId: null,
+          selectedSubSubjectRarity: null,
+        });
+      }
+
+      // A new combo of scale and direction has been made. Get the new selected SubSubject.
       if (this.props.subjectsData && this.state.selectedScale !== null &&
-        this.state.selectedDirectionToMetric !== null &&
+        this.state.selectedToMetric !== null &&
         (this.state.selectedScale !== prevState.selectedScale ||
-        this.state.selectedDirectionToMetric !== prevState.selectedDirectionToMetric)
+          this.state.selectedToMetric !== prevState.selectedToMetric)
       ) {
         const targetSubSubject = find(utils.cacheGetTarget(
           this.props.subjectsData,
           this.state.selectedSubjectId,
           "subSubjects",
         ), o => (o.scale === this.state.selectedScale &&
-          o.toMetric === this.state.selectedDirectionToMetric));
+          o.toMetric === this.state.selectedToMetric));
 
         this.setState({
           selectedSubSubjectId: targetSubSubject.id,
-        });
-      }
-
-      // If the selected SubSubject ID was changed we need to rebuild the selectedSubSubjectData
-      // object.
-      if (this.props.subjectsData &&
-        this.state.selectedSubSubjectId !== prevState.selectedSubSubjectId
-      ) {
-        // Place the content of the Subject object into the parent property of the selected
-        // SubSubject object.
-        this.setState({
-          selectedSubSubjectData: this.buildSubSubjectData(
-            this.props.subjectsData,
-            this.state.selectedSubSubjectId,
-          ),
+          selectedSubSubjectRarity: targetSubSubject.rarity,
         });
       }
     };
@@ -128,29 +132,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
     };
 
     this.handleDirectionChange = (e, { value }) => {
-      this.setState({ selectedDirectionToMetric: value });
-    };
-
-    /**
-     * Build the current SubSubject's data object from the SubjectsData input and the SubSubject's
-     * ID.
-     *
-     * Manipulation of subjectsData is done by reference, so consider sending in a clone if you're
-     * editing a prop or state object!
-     *
-     * @param subjectsData - SEE NOTE ABOVE!!
-     * @param subSubjectId
-     * @returns {*}
-     */
-    this.buildSubSubjectData = (subjectsData, subSubjectId) => {
-      const selectedSubSubjectData = utils.cacheGetTarget(subjectsData, subSubjectId);
-      return {
-        id: selectedSubSubjectData.id,
-        subjectName: utils.cacheGetTarget(subjectsData, selectedSubSubjectData.parent.id, "name"),
-        scale: selectedSubSubjectData.scale,
-        toMetric: selectedSubSubjectData.toMetric,
-        rarity: selectedSubSubjectData.rarity,
-      };
+      this.setState({ selectedToMetric: value });
     };
 
     this.buildSubjectsDropdownSelection = subjects => (
@@ -169,7 +151,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
           scalesDropdown.push({
             text: `${utils.firstLetterCap(subSubject.scale)} Scale`,
             value: subSubject.scale,
-            icon: "minus",
+            icon: "minus",  // TODO - I can add nice icons!
             key: subSubject.scale,
           });
         }
@@ -182,47 +164,54 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
   render() {
     if (!this.props.subjectsData) return null;
 
-    return (
-      <div>
-        <p>
-          Subject: {this.state.selectedSubjectId}
-          <br />
-          SubSubject: {this.state.selectedSubSubjectId}
-        </p>
-        <Dropdown
-          // inline
-          // text="Subject"
-          selection
-          options={this.state.selectedSubjectsDropdown}
-          value={this.state.selectedSubjectId}
-          onChange={this.handleSubjectChange}
-        />
-        <br />
-        <Dropdown
-          // inline
-          // text="Scale"
-          selection
-          options={this.state.selectedScalesDropdown}
-          value={this.state.selectedScale}
-          onChange={this.handleScaleChange}
-        />
-        <br />
-        <Dropdown
-          // inline
-          // text="Direction"
-          selection
-          options={[
-            { value: true, text: "To Metric", icon: "redo alternate" },
-            { value: false, text: "From Metric", icon: "undo alternate" },
-          ]}
-          value={this.state.selectedDirectionToMetric}
-          onChange={this.handleDirectionChange}
-        />
+    const {
+      selectedSubjectId,
+      selectedSubjectName,
+      selectedSubjectsDropdown,
+      selectedScalesDropdown,
+      selectedScale,
+      selectedToMetric,
+      selectedSubSubjectId,
+      selectedSubSubjectRarity,
+    } = this.state;
 
-        <SubSubjectReview
-          {...this.state.selectedSubSubjectData}
-        />
-      </div>
+    return (
+      <SubSubjectReview
+        id={selectedSubSubjectId}
+        subjectName={selectedSubjectName}
+        scale={selectedScale}
+        toMetric={selectedToMetric}
+        rarity={selectedSubSubjectRarity}
+        subjectSelector={
+          <Dropdown
+            inline
+            text="Subject"
+            options={selectedSubjectsDropdown}
+            value={selectedSubjectId}
+            onChange={this.handleSubjectChange}
+          />
+        }
+        scaleSelector={
+          <Dropdown
+            inline
+            text="Scale"
+            options={selectedScalesDropdown}
+            value={selectedScale}
+            onChange={this.handleScaleChange}
+          />
+        }
+        toMetricSelector={
+          <Dropdown
+            text="Direction"
+            options={[
+              { value: true, text: "To Metric", icon: "redo alternate" },
+              { value: false, text: "From Metric", icon: "undo alternate" },
+            ]}
+            value={selectedToMetric}
+            onChange={this.handleDirectionChange}
+          />
+        }
+      />
     );
   }
 }

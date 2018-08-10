@@ -12,47 +12,56 @@ const SubSubjectReview = (props) => {
   return (
     <List divided>
       <List.Item>
-        <List.Icon name="book" size="large" verticalAlign="top" />
-        <List.Content>
-          <List.Header>SubSubject ID</List.Header>
-          <List.Description>{props.id}</List.Description>
-        </List.Content>
-      </List.Item>
-      <List.Item>
         <List.Icon
           name={SUBJECT_ICONS[props.subjectName] || "remove"}
           size="large"
           verticalAlign="top"
         />
         <List.Content>
-          <List.Header>Subject</List.Header>
-          <List.Description>{props.subjectName}</List.Description>
+          <List.Header>{props.subjectSelector || "Subject"}</List.Header>
+          <List.Description>
+            {props.subjectName || "..."}
+          </List.Description>
         </List.Content>
       </List.Item>
       <List.Item>
         <List.Icon name="expand arrows alternate" size="large" verticalAlign="top" />
         <List.Content>
-          <List.Header>Scale</List.Header>
-          <List.Description>{utils.firstLetterCap(props.scale)}</List.Description>
+          <List.Header>{props.scaleSelector || "Scale"}</List.Header>
+          <List.Description>
+            {(props.scale && utils.firstLetterCap(props.scale)) || "..."}
+          </List.Description>
         </List.Content>
       </List.Item>
       <List.Item>
         <List.Icon name="sync alternate" size="large" verticalAlign="top" />
         <List.Content>
-          <List.Header>Direction</List.Header>
+          <List.Header>{props.toMetricSelector || "Direction"}</List.Header>
           <List.Description>
-            {props.toMetric === null ? null : props.toMetric ?
-              <span>Imperial <Icon fitted name="long arrow alternate right" /> Metric</span> :
-              <span>Metric <Icon fitted name="long arrow alternate right" /> Imperial</span>
+            {props.toMetric !== null ?
+              props.toMetric ?
+                <span>Imperial <Icon fitted name="long arrow alternate right" /> Metric</span>
+                :
+                <span>Metric <Icon fitted name="long arrow alternate right" /> Imperial</span>
+              : <span>...</span>
             }
           </List.Description>
+        </List.Content>
+      </List.Item>
+      <List.Item>
+        <List.Icon name="book" size="large" verticalAlign="top" />
+        <List.Content>
+          <List.Header>SubSubject ID</List.Header>
+          <List.Description>{props.id || "..."}</List.Description>
         </List.Content>
       </List.Item>
       <List.Item>
         <List.Icon name="gem" size="large" verticalAlign="top" />
         <List.Content>
           <List.Header>Rarity</List.Header>
-          <List.Description>{props.rarity}</List.Description>
+          <List.Description>
+            {(props.rarity !== null && `${props.rarity}`) || "..."}
+          </List.Description>
         </List.Content>
       </List.Item>
     </List>
@@ -65,6 +74,9 @@ SubSubjectReview.propTypes = {
   scale: PropTypes.string,
   toMetric: PropTypes.bool,
   rarity: PropTypes.number,
+  subjectSelector: PropTypes.node,
+  scaleSelector: PropTypes.node,
+  toMetricSelector: PropTypes.node,
 };
 
 SubSubjectReview.defaultProps = {
@@ -73,6 +85,9 @@ SubSubjectReview.defaultProps = {
   scale: null,
   toMetric: null,
   rarity: null,
+  subjectSelector: null,
+  scaleSelector: null,
+  toMetricSelector: null,
 };
 
 export default SubSubjectReview;
