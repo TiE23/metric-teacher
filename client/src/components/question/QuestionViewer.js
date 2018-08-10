@@ -74,6 +74,14 @@ class QuestionViewer extends PureComponent {
     this.handleChange = (newState) => {
       this.setState(previousState => merge({}, previousState, newState));
     };
+
+    this.handleBasicsChange = (basics) => {
+      this.handleChange({ qaFormData: { question: { basics } } });
+    };
+
+    this.handleSubSubjectIdChange = (subSubjectId) => {
+      this.handleChange({ qaFormData: { subSubjectId } });
+    };
   }
 
   render() {
@@ -86,7 +94,10 @@ class QuestionViewer extends PureComponent {
         editorOpen={this.state.editorOpen}
         openEditor={this.openEditor}
         closeEditor={this.closeEditor}
-        handleChange={this.handleChange}
+        handleChangeFunctions={{
+          handleBasicsChange: this.handleBasicsChange,
+          handleSubSubjectIdChange: this.handleSubSubjectIdChange,
+        }}
       />
     );
   }

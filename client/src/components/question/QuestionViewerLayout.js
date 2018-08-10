@@ -7,63 +7,63 @@ import QuestionDetailsSubSubject from "./details/QuestionDetailsSubSubject";
 import QuestionDetailsQuestion from "./details/QuestionDetailsQuestion";
 import QuestionDetailsAnswer from "./details/QuestionDetailsAnswer";
 
-const QuestionViewerLayout = (props) => {
-  return (
-    <Grid columns="equal" padded>
-      <Grid.Row>
-        {/* Quadrant 1 - Basic Details */}
-        <Grid.Column>
-          <Header size="medium" textAlign="center" dividing>Basic Details</Header>
-          <QuestionDetailsBasics
-            {...props.qaFormData.question.basics}
-            editMode={props.editorOpen}
-            handleChange={props.handleChange}
-          />
-        </Grid.Column>
-        {/* Quadrant 2 - SubSubject Details */}
-        <Grid.Column>
-          <Header size="medium" textAlign="center" dividing>SubSubject Details</Header>
-          <QuestionDetailsSubSubject
-            subSubjectId={props.qaFormData.subSubjectId}
-            editMode={props.editorOpen}
-          />
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        {/* Quadrant 3 - Question Details */}
-        <Grid.Column>
-          <Header size="medium" textAlign="center" dividing>Question Details</Header>
-          <QuestionDetailsQuestion
-            type={props.qaFormData.question.basics.type}
-            {...props.qaFormData.question.questionData}
-          />
-        </Grid.Column>
-        {/* Quadrant 4 - Answer Details */}
-        <Grid.Column>
-          <Header size="medium" textAlign="center" dividing>Answer Details</Header>
-          <QuestionDetailsAnswer
-            type={props.qaFormData.question.basics.type}
-            {...props.qaFormData.question.answerData}
-          />
-        </Grid.Column>
-      </Grid.Row>
-      {props.allowEditor && props.handleChange && props.openEditor &&
-      <Grid.Row>
-        <Grid.Column>
-          <Container textAlign="right">
-            <Button
-              onClick={props.editorOpen ? props.closeEditor : props.openEditor}
-              primary={!props.editorOpen}
-            >
-              {props.editorOpen ? "Close" : "Edit"}
-            </Button>
-          </Container>
-        </Grid.Column>
-      </Grid.Row>
-      }
-    </Grid>
-  );
-};
+const QuestionViewerLayout = props => (
+  // TODO - Consider making PureComponent and splitting up handler funcs before passing to children.
+  <Grid columns="equal" padded>
+    <Grid.Row>
+      {/* Quadrant 1 - Basic Details */}
+      <Grid.Column>
+        <Header size="medium" textAlign="center" dividing>Basic Details</Header>
+        <QuestionDetailsBasics
+          {...props.qaFormData.question.basics}
+          editMode={props.editorOpen}
+          handleBasicsChange={props.handleChangeFunctions.handleBasicsChange}
+        />
+      </Grid.Column>
+      {/* Quadrant 2 - SubSubject Details */}
+      <Grid.Column>
+        <Header size="medium" textAlign="center" dividing>SubSubject Details</Header>
+        <QuestionDetailsSubSubject
+          subSubjectId={props.qaFormData.subSubjectId}
+          editMode={props.editorOpen}
+          handleSubSubjectIdChange={props.handleChangeFunctions.handleSubSubjectIdChange}
+        />
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      {/* Quadrant 3 - Question Details */}
+      <Grid.Column>
+        <Header size="medium" textAlign="center" dividing>Question Details</Header>
+        <QuestionDetailsQuestion
+          type={props.qaFormData.question.basics.type}
+          {...props.qaFormData.question.questionData}
+        />
+      </Grid.Column>
+      {/* Quadrant 4 - Answer Details */}
+      <Grid.Column>
+        <Header size="medium" textAlign="center" dividing>Answer Details</Header>
+        <QuestionDetailsAnswer
+          type={props.qaFormData.question.basics.type}
+          {...props.qaFormData.question.answerData}
+        />
+      </Grid.Column>
+    </Grid.Row>
+    {props.allowEditor && props.handleChangeFunctions && props.openEditor &&
+    <Grid.Row>
+      <Grid.Column>
+        <Container textAlign="right">
+          <Button
+            onClick={props.editorOpen ? props.closeEditor : props.openEditor}
+            primary={!props.editorOpen}
+          >
+            {props.editorOpen ? "Close" : "Edit"}
+          </Button>
+        </Container>
+      </Grid.Column>
+    </Grid.Row>
+    }
+  </Grid>
+);
 
 QuestionViewerLayout.propTypes = {
   qaFormData: PropTypes.shape({
@@ -78,7 +78,10 @@ QuestionViewerLayout.propTypes = {
   editorOpen: PropTypes.bool,
   openEditor: PropTypes.func,
   closeEditor: PropTypes.func,
-  handleChange: PropTypes.func,
+  handleChangeFunctions: PropTypes.shape({
+    handleBasicsChange: PropTypes.func.isRequired,
+    handleSubSubjectIdChange: PropTypes.func.isRequired,
+  }),
 };
 
 QuestionViewerLayout.defaultProps = {
@@ -86,7 +89,7 @@ QuestionViewerLayout.defaultProps = {
   editorOpen: false,
   openEditor: null,
   closeEditor: null,
-  handleChange: null,
+  handleChangeFunctions: null,
 };
 
 export default QuestionViewerLayout;

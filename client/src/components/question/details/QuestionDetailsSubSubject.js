@@ -22,6 +22,7 @@ const QuestionDetailsSubSubject = props => (
             <QuestionDetailsSubSubjectsSelector
               subjectsData={queryProps.data && queryProps.data.allSubjects}
               initialSubSubjectId={props.subSubjectId}
+              handleSubSubjectIdChange={props.handleSubSubjectIdChange}
             />
           </QueryHandler>
         )}
@@ -55,10 +56,12 @@ const QuestionDetailsSubSubject = props => (
 QuestionDetailsSubSubject.propTypes = {
   subSubjectId: PropTypes.string.isRequired,
   editMode: PropTypes.bool,
+  handleSubSubjectIdChange: PropTypes.func,
 };
 
 QuestionDetailsSubSubject.defaultProps = {
   editMode: false,
+  handleSubSubjectIdChange: null,
 };
 
 export default QuestionDetailsSubSubject;

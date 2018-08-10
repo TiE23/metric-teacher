@@ -25,36 +25,36 @@ class QuestionDetailsBasics extends PureComponent {
     super(props);
 
     this.handleTypeChange = (e, { value }) => {
-      if (this.props.handleChange) {
-        this.props.handleChange({ qaFormData: { question: { basics: { type: value } } } });
+      if (this.props.handleBasicsChange) {
+        this.props.handleBasicsChange({ type: value });
       }
     };
 
     this.handleDifficultyChange = (e, { value }) => {
-      if (this.props.handleChange) {
-        this.props.handleChange({ qaFormData: { question: { basics: { difficulty: value } } } });
+      if (this.props.handleBasicsChange) {
+        this.props.handleBasicsChange({ difficulty: value });
       }
     };
 
     this.handleStatusChange = (e, { value }) => {
-      if (this.props.handleChange) {
-        this.props.handleChange({ qaFormData: { question: { basics: { status: value } } } });
+      if (this.props.handleBasicsChange) {
+        this.props.handleBasicsChange({ status: value });
       }
     };
 
     this.handleFlagsChange = (e, { value }) => {
-      if (this.props.handleChange) {
+      if (this.props.handleBasicsChange) {
         let newFlags = 0;
         value.forEach((flag) => {
           newFlags |= flag;
         });
-        this.props.handleChange({ qaFormData: { question: { basics: { flags: newFlags } } } });
+        this.props.handleBasicsChange({ flags: newFlags });
       }
     };
 
     this.handleMediaChange = (e, { value }) => {
-      if (this.props.handleChange) {
-        this.props.handleChange({ qaFormData: { question: { basics: { media: value.trim() } } } });
+      if (this.props.handleBasicsChange) {
+        this.props.handleBasicsChange({ media: value.trim() });
       }
     };
   }
@@ -229,13 +229,13 @@ QuestionDetailsBasics.propTypes = {
   flags: PropTypes.number.isRequired,
   media: PropTypes.string,
   editMode: PropTypes.bool,
-  handleChange: PropTypes.func,
+  handleBasicsChange: PropTypes.func,
 };
 
 QuestionDetailsBasics.defaultProps = {
   media: null,
   editMode: false,
-  handleChange: null,
+  handleBasicsChange: null,
 };
 
 export default QuestionDetailsBasics;

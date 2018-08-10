@@ -83,17 +83,16 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
         this.setState({
           selectedSubjectName: newSubjectData.name,
           selectedScalesDropdown: this.buildScalesDropdownSelection(newSubjectData.subSubjects),
-          selectedScale: null,    // New Subject? No scale!
-          selectedToMetric: null, // New Subject? No direction!
+          selectedScale: null,            // New Subject? No scale!
+          selectedToMetric: null,         // New Subject? No direction!
+          selectedSubSubjectId: null,     // New Subject? No SubSubject!
+          selectedSubSubjectRarity: null, // New Subject? No SubSubject!
         });
-      } else if (this.firstMount) {
-        this.firstMount = false;
-      }
 
-      // TODO - There is improved efficiency by else/if'ing these checks and nulling more states.
       // We lost scale or toMetric. Clear the selected SubSubject's ID and rarity.
-      if ((this.state.selectedScale !== prevState.selectedScale &&
-        this.state.selectedScale === null) ||
+      } else if (
+        (this.state.selectedScale !== prevState.selectedScale &&
+          this.state.selectedScale === null) ||
         (this.state.selectedToMetric !== prevState.selectedToMetric &&
           this.state.selectedToMetric === null)
       ) {
@@ -120,6 +119,17 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
           selectedSubSubjectId: targetSubSubject.id,
           selectedSubSubjectRarity: targetSubSubject.rarity,
         });
+      }
+
+      if (this.state.selectedSubSubjectId !== prevState.selectedSubSubjectId &&
+        this.state.selectedSubSubjectId !== null &&
+        this.props.handleSubSubjectIdChange !== null
+      ) {
+        this.props.handleSubSubjectIdChange(this.state.selectedSubSubjectId);
+      }
+
+      if (this.firstMount) {
+        this.firstMount = false;
       }
     };
 
@@ -225,11 +235,13 @@ QuestionDetailsSubSubjectsSelector.propTypes = {
     })).isRequired,
   })),
   initialSubSubjectId: PropTypes.string,
+  handleSubSubjectIdChange: PropTypes.func,
 };
 
 QuestionDetailsSubSubjectsSelector.defaultProps = {
   subjectsData: null,
   initialSubSubjectId: null,
+  handleSubSubjectIdChange: null,
 };
 
 export default QuestionDetailsSubSubjectsSelector;
