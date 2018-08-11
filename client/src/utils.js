@@ -540,19 +540,31 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
  * @param address
  * @returns {*}
  */
-const navigateObjectDots = (object, address) => {
-  if (address.length === 0) {
+const navigateObjectDots = (object, address = []) => {
+  if (object === null || object === undefined || address.length === 0) {
     return object;
   }
 
   const addresses = typeof address === "string" ? address.split(".") : address;
-  const currentAddress = addresses.shift();
-  const currentObject = object[currentAddress];
-  if (currentObject !== undefined) {
-    return navigateObjectDots(currentObject, addresses);
-  }
-  return currentObject;
+  const nextAddress = addresses.shift();
+  const nextObject = object[nextAddress];
+  return navigateObjectDots(nextObject, addresses);
 };
+
+
+/**
+ * Shortcut to navigateObjectDots().
+ * My intention is that at some point I'll clean up a lot of ugly space-consuming code.
+ * Ex:
+ *    props.data && props.data.question && props.data.question.top && props.data.question.top.value
+ * becomes...
+ *    utils.nod(props.data, "question.top.value")
+ * That's just one example, but
+ * @param input
+ * @param address
+ * @returns {*} // Undefined if the object address doesn't exist.
+ */
+const nod = (input, address) => navigateObjectDots(input, address);
 
 
 /**
@@ -834,6 +846,28 @@ const parseNumber = (input, integer = false) => {
     parseFloat(input);
 };
 
+
+/**
+ * "Truthy Zero".
+ * Makes the number 0 cast to true. Ints and Floats both work.
+ * Because the JSX {value || "Null!"} will return "Null!" on a zero (not null!) I wrote this to
+ * help work around that.
+ * @param input
+ * @returns {boolean}
+ */
+const t0 = input => !!(input || input === 0);
+
+
+/**
+ * "Truthy Zero Ternary".
+ * Because the JSX {(utils.t0(value) ? value : "Null!"} is such a common bit of code I wrote
+ * this to shorten it.
+ * @param input
+ * @param fail
+ * @returns {*}
+ */
+const t0t = (input, fail) => (t0(input) ? input : fail);
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -851,6 +885,7 @@ export default {
   cacheGetTarget,
   findRecursive,
   navigateObjectDots,
+  nod,
   rootCopy,
   firstLetterCap,
   questionTextGrabber,
@@ -865,4 +900,6 @@ export default {
   explodeBits,
   isDecimalTyped,
   parseNumber,
+  t0,
+  t0t,
 };
