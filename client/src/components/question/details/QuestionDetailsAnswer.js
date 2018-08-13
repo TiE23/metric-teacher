@@ -1,12 +1,15 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Input, List } from "semantic-ui-react";
+import { Dropdown, Input, List, Button, Popup } from "semantic-ui-react";
+import range from "lodash/range";
 
 import utils from "../../../utils";
 
 import EditBelowIcon from "../../misc/EditBelowIcon";
 
 import {
+  MAX_CHOICES,
+  MAX_CHOICES_DEFINED,
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
@@ -15,6 +18,15 @@ import {
 const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent {
   constructor(props) {
     super(props);
+
+    // Hack-solving frustrating CSS issues with input widths
+    this.width100 = { width: "100%" };
+
+    this.handleChoicesAvailableChange = (e, { value }) => {
+      if (this.props.handleAnswerDataChange) {
+        this.props.handleAnswerDataChange({ multiple: { choicesOffered: value } });
+      }
+    };
 
     this.handleDetailChange = (e, { value }) => {
       if (this.props.handleAnswerDataChange) {
@@ -36,16 +48,65 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
         this.props.handleAnswerDataChange({ unit: value });
       }
     };
+
+    this.handleFirstChoices = () => {
+      if (this.props.handleAnswerDataChange) {
+        this.props.handleAnswerDataChange({
+          multiple: {
+            choicesOffered: 2,
+            choices: [
+              { unit: "written", mixedValue: "Correct answer", index: 0 },
+              { unit: "written", mixedValue: "Incorrect answer", index: 1 },
+            ],
+          },
+        });
+      }
+    };
+
+    this.handleNewChoice = () => {
+      if (this.props.handleAnswerDataChange) {
+        this.props.handleAnswerDataChange({
+          multiple: {
+            choices: [
+              ...this.props.multiple.choices,
+              {
+                unit: "written",
+                mixedValue: "Incorrect answer",
+                index: this.props.multiple.choices.length,
+              },
+            ],
+          },
+        });
+      }
+    };
   }
 
   render() {
     return (
       <List divided>
-        {this.props.type === QUESTION_TYPE_WRITTEN &&
+        {this.props.type === QUESTION_TYPE_WRITTEN && this.props.multiple &&
         <List.Item>
           <List.Icon name="pencil alternate" size="large" verticalAlign="top" />
           <List.Content>
-            <List.Header>Choices Available</List.Header>
+            <List.Header>
+              <Popup
+                trigger={this.props.editMode ?
+                  <Dropdown
+                    onChange={this.handleChoicesAvailableChange}
+                    options={
+                      range(2, utils.minMax(2, this.props.multiple.choices.length, MAX_CHOICES) + 1)
+                        .map(num => ({ value: num, text: `${num} Choices` }))
+                    }
+                    text="Choices Available"
+                    value={this.props.multiple.choicesOffered || 2}
+                    inline
+                  />
+                  :
+                  <span>Choices Available</span>
+                }
+                content="Sets how many choices the student will see at once. The correct answer will be placed among randomly selected incorrect answers."
+              />
+            </List.Header>
             <List.Description>
               {(this.props.multiple && this.props.multiple.choicesOffered) || "Null"}
             </List.Description>
@@ -57,12 +118,12 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
           <List.Icon name="list" size="large" verticalAlign="top" />
           <List.Content>
             <List.Header>Choices</List.Header>
-            {!this.props.multiple ?
-              <p>No choices!</p>
-              :
+            {this.props.multiple ?
               <List.List>
                 {this.props.multiple.choices.map((choice, index) => (
-                  <List.Item key={`${choice.written || choice.value}_${choice.unit}`}>
+                  <List.Item
+                    key={`${choice.mixedValue}_${choice.unit}_${choice.index}`}
+                  >
                     <List.Icon
                       name={index === 0 ? "check circle" : "remove circle"}
                       color={index === 0 ? "olive" : "red"}
@@ -71,12 +132,49 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                     />
                     <List.Content>
                       <List.Description>
-                        {choice.written || `${choice.value}${utils.unitInitilizer(choice.unit)}`}
+                        {choice.unit === "written" ? choice.mixedValue :
+                          `${choice.mixedValue}${utils.unitInitilizer(choice.unit)}`}
                       </List.Description>
                     </List.Content>
                   </List.Item>
                 ))}
+                {this.props.editMode &&
+                  <List.Item>
+                    <List.Icon
+                      name="plus square outline"
+                      color="purple"
+                      size="large"
+                      verticalAlign="top"
+                    />
+                    <List.Content>
+                      <Button
+                        disabled={this.props.multiple.choices.length >= MAX_CHOICES_DEFINED}
+                        basic
+                        compact
+                        color="purple"
+                        onClick={this.handleNewChoice}
+                      >
+                        {this.props.multiple.choices.length >= MAX_CHOICES_DEFINED ?
+                          `Max entries reached (${MAX_CHOICES_DEFINED})` : "Add another choice"}
+                      </Button>
+                    </List.Content>
+                  </List.Item>
+                }
               </List.List>
+              :
+              <span>
+                {this.props.editMode ?
+                  <Button
+                    compact
+                    color="olive"
+                    onClick={this.handleFirstChoices}
+                  >
+                    Make first choices
+                  </Button>
+                  :
+                  <p>No choices!</p>
+                }
+              </span>
             }
           </List.Content>
         </List.Item>
@@ -85,17 +183,24 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
         (this.props.editMode || this.props.detail)) &&
         <List.Item>
           <List.Icon name="sticky note" size="large" verticalAlign="top" />
-          <List.Content>
-            <List.Header>Detail {this.props.editMode && <EditBelowIcon />}</List.Header>
+          <List.Content style={this.width100}>
+            <List.Header>
+              <Popup
+                trigger={<span>Answer Detail {this.props.editMode && <EditBelowIcon />}</span>}
+                content="Optional detail to explain the answer after it is answered correctly."
+              />
+            </List.Header>
             <List.Description>
               {this.props.editMode ?
-                <Input
-                  onChange={this.handleDetailChange}
-                  value={this.props.detail}
-                  placeholder="..."
-                  transparent
-                  fluid
-                />
+                <div style={this.width100}>
+                  <Input
+                    onChange={this.handleDetailChange}
+                    value={this.props.detail}
+                    placeholder="..."
+                    transparent
+                    fluid
+                  />
+                </div>
                 :
                 <span>{this.props.detail || "..."}</span>
               }
@@ -168,8 +273,8 @@ QuestionDetailsAnswer.propTypes = {
     choicesOffered: PropTypes.number.isRequired,
     choices: PropTypes.arrayOf(PropTypes.shape({
       unit: PropTypes.string.isRequired,
-      written: PropTypes.string,
-      value: PropTypes.number,
+      mixedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      index: PropTypes.number,
     })),
   }),
   editMode: PropTypes.bool,

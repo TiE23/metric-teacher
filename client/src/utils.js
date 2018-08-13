@@ -880,6 +880,20 @@ const t0 = input => !!(input || input === 0);
  */
 const t0t = (input, fail) => (t0(input) ? input : fail);
 
+
+/**
+ * Basic helper function returns a the value gated between a minimum and maxiumum. Very simple.
+ * For example, if your min is 0 and your max is 1000...
+ * Example A: 501 returns 501   (no change)
+ * Example B: 2501 returns 1000 (maxxed out)
+ * Example C: -15 returns 0     (minned in)
+ * @param min
+ * @param value
+ * @param max
+ * @returns {number}
+ */
+const minMax = (min, value, max) => (Math.max(min, Math.min(value, max)))
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -915,4 +929,5 @@ export default {
   decimalHelper,
   t0,
   t0t,
+  minMax,
 };

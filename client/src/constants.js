@@ -40,6 +40,12 @@ export const EMAIL_SECRET_PREFIXES = [
   "806158031bb277505a058d0e4e07cff9",
 ];
 
+// Interface
+// Max multiple choice options we can show (including correct answer).
+export const MAX_CHOICES = 6;
+// Max multiple choice options that can be defined (including correct answer).
+export const MAX_CHOICES_DEFINED = 10;
+
 // These are based off DB data so they are subject to change.
 export const SUBJECT_ICONS = {
   Length: "arrows alternate horizontal",

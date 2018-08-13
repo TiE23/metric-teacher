@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { List, Input } from "semantic-ui-react";
+import { List, Input, TextArea } from "semantic-ui-react";
 
 import utils from "../../../utils";
 
@@ -20,7 +20,7 @@ class QuestionDetailsQuestion extends PureComponent {
     this.width100 = { width: "100%" };
 
     this.handleTextChange = (e, { value }) => {
-      if (this.props.handleQuestionDataChange) {
+      if (this.props.handleQuestionDataChange && !value.includes("\n")) { // No newlines!
         this.props.handleQuestionDataChange({ text: value });
       }
     };
@@ -62,23 +62,20 @@ class QuestionDetailsQuestion extends PureComponent {
   render() {
     return (
       <List divided>
-        {((this.props.type === QUESTION_TYPE_WRITTEN ||
-        this.props.type === QUESTION_TYPE_SURVEY) && (this.props.text || this.props.editMode)) &&
+        {(this.props.type === QUESTION_TYPE_WRITTEN || this.props.type === QUESTION_TYPE_SURVEY) &&
         <List.Item>
           <List.Icon name="comment" size="large" verticalAlign="top" />
           <List.Content style={this.width100}>
             <List.Header>Text {this.props.editMode && <EditBelowIcon />}</List.Header>
             <List.Description>
               {this.props.editMode ?
-                <div style={this.width100}>
-                  <Input
-                    onChange={this.handleTextChange}
-                    value={this.props.text}
-                    placeholder="..."
-                    transparent
-                    fluid
-                  />
-                </div>
+                <TextArea
+                  onChange={this.handleTextChange}
+                  value={this.props.text}
+                  placeholder="This is required..."
+                  style={this.width100}
+                  autoHeight
+                />
                 :
                 <span>{(this.props.text && `"${this.props.text}"`) || "..."}</span>
               }

@@ -51,7 +51,7 @@ function customMerge(object, update) {
 
 
 /**
- * Basic helper function returns a the value gated between a minimum and maxiumum. Very simple.
+ * Basic helper function returns a the value gated between a minimum and maximum. Very simple.
  * For example, if your min is 0 and your max is 1000...
  * Example A: 501 returns 501   (no change)
  * Example B: 2501 returns 1000 (maxxed out)

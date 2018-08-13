@@ -56,7 +56,14 @@ class QuestionViewer extends PureComponent {
             detail: this.props.qaData.answer.detail,
             accuracy: this.props.qaData.answer.data.accuracy,
             unit: this.props.qaData.answer.data.unit,
-            multiple: this.props.qaData.answer.data.multiple,
+            multiple: this.props.qaData.answer.data.multiple ? {
+              choicesOffered: this.props.qaData.answer.data.multiple.choicesOffered,
+              choices: this.props.qaData.answer.data.multiple.choices.map((choice, index) => ({
+                unit: choice.unit,
+                mixedValue: choice.value || choice.written,
+                index,
+              })),
+            } : null,
           },
         },
         subSubjectId: this.props.qaData.subSubjectId,
