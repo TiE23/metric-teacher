@@ -1,7 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Dropdown, Input, List, Button, Popup } from "semantic-ui-react";
+import { Dropdown, Input, List, Icon, Button, Popup } from "semantic-ui-react";
 import range from "lodash/range";
+import cuid from "cuid";
 
 import utils from "../../../utils";
 
@@ -55,8 +56,8 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
           multiple: {
             choicesOffered: 2,
             choices: [
-              { unit: "written", mixedValue: "Correct answer", index: 0 },
-              { unit: "written", mixedValue: "Incorrect answer", index: 1 },
+              { unit: "written", mixedValue: "Correct answer", cuid: cuid.slug() },
+              { unit: "written", mixedValue: "Incorrect answer", cuid: cuid.slug() },
             ],
           },
         });
@@ -72,11 +73,20 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
               {
                 unit: "written",
                 mixedValue: "Incorrect answer",
-                index: this.props.multiple.choices.length,
+                cuid: cuid.slug(),
               },
             ],
           },
         });
+      }
+    };
+
+    this.handleRemoveChoice = (index) => {
+      if (this.props.handleAnswerDataChange) {
+        const { choices } = this.props.multiple;
+        choices.splice(index, 1);
+        const choicesOffered = utils.minMax(2, this.props.multiple.choicesOffered, choices.length);
+        this.props.handleAnswerDataChange({ multiple: { choices, choicesOffered } });
       }
     };
   }
@@ -122,7 +132,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
               <List.List>
                 {this.props.multiple.choices.map((choice, index) => (
                   <List.Item
-                    key={`${choice.mixedValue}_${choice.unit}_${choice.index}`}
+                    key={`${choice.mixedValue}_${choice.unit}_${choice.cuid}`}
                   >
                     <List.Icon
                       name={index === 0 ? "check circle" : "remove circle"}
@@ -134,6 +144,15 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                       <List.Description>
                         {choice.unit === "written" ? choice.mixedValue :
                           `${choice.mixedValue}${utils.unitInitilizer(choice.unit)}`}
+                        {" "}
+                        {index > 1 &&
+                          <Icon
+                            size="large"
+                            name="minus square outline"
+                            color="red"
+                            onClick={() => this.handleRemoveChoice(index)}
+                          />
+                        }
                       </List.Description>
                     </List.Content>
                   </List.Item>
@@ -274,7 +293,7 @@ QuestionDetailsAnswer.propTypes = {
     choices: PropTypes.arrayOf(PropTypes.shape({
       unit: PropTypes.string.isRequired,
       mixedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      index: PropTypes.number,
+      cuid: PropTypes.string.isRequired,
     })),
   }),
   editMode: PropTypes.bool,

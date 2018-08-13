@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import merge from "lodash/merge";
+import cuid from "cuid";
 
 import QuestionViewerLayout from "./QuestionViewerLayout";
 
@@ -58,10 +59,10 @@ class QuestionViewer extends PureComponent {
             unit: this.props.qaData.answer.data.unit,
             multiple: this.props.qaData.answer.data.multiple ? {
               choicesOffered: this.props.qaData.answer.data.multiple.choicesOffered,
-              choices: this.props.qaData.answer.data.multiple.choices.map((choice, index) => ({
+              choices: this.props.qaData.answer.data.multiple.choices.map(choice => ({
                 unit: choice.unit,
                 mixedValue: choice.value || choice.written,
-                index,
+                cuid: cuid.slug(),
               })),
             } : null,
           },
