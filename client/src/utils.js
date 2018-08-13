@@ -848,6 +848,18 @@ const parseNumber = (input, integer = false) => {
 
 
 /**
+ * Input smoothing function automatically updates a user's input of "." to read "0." so that they
+ * can only input "0.5" and not ".5", which would not be accepted on number input forms.
+ * Uses lastIndexOf() to prevent returning "0.0.1" after typing ".0.1".
+ * @param input
+ * @returns {*}
+ */
+const decimalHelper = input => (
+  input.lastIndexOf(".") === 0 ? `0${input}` : input
+);
+
+
+/**
  * "Truthy Zero".
  * Makes the number 0 cast to true. Ints and Floats both work.
  * Because the JSX {value || "Null!"} will return "Null!" on a zero (not null!) I wrote this to
@@ -900,6 +912,7 @@ export default {
   explodeBits,
   isDecimalTyped,
   parseNumber,
+  decimalHelper,
   t0,
   t0t,
 };

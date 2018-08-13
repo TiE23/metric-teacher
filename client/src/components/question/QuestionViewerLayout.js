@@ -51,6 +51,8 @@ const QuestionViewerLayout = props => (
           type={props.qaFormData.question.basics.type}
           {...props.qaFormData.question.answerData}
           editMode={props.editorOpen}
+          handleAnswerDataChange={props.handleChangeFunctions &&
+          props.handleChangeFunctions.handleAnswerDataChange}
         />
       </Grid.Column>
     </Grid.Row>
@@ -88,6 +90,7 @@ QuestionViewerLayout.propTypes = {
     handleBasicsChange: PropTypes.func.isRequired,
     handleSubSubjectIdChange: PropTypes.func.isRequired,
     handleQuestionDataChange: PropTypes.func.isRequired,
+    handleAnswerDataChange: PropTypes.func.isRequired,
   }),
 };
 

@@ -32,14 +32,14 @@ class QuestionDetailsQuestion extends PureComponent {
     };
 
     this.handleRangeLowerChange = (e, { value }) => {
-      const val = value === "." ? "0." : value; // Typing a "." will automatically fill to "0."
+      const val = utils.decimalHelper(value); // Typing a "." will automatically fill to "0."
       if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
         this.props.handleQuestionDataChange({ range: { lower: val } }); // This is a string.
       }
     };
 
     this.handleRangeUpperChange = (e, { value }) => {
-      const val = value === "." ? "0." : value;
+      const val = utils.decimalHelper(value);
       if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
         this.props.handleQuestionDataChange({ range: { upper: val } }); // This is a string.
       }
@@ -52,7 +52,7 @@ class QuestionDetailsQuestion extends PureComponent {
     };
 
     this.handleRangeStepChange = (e, { value }) => {
-      const val = value === "." ? "0." : value;
+      const val = utils.decimalHelper(value);
       if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
         this.props.handleQuestionDataChange({ range: { step: val } }); // This is a string.
       }

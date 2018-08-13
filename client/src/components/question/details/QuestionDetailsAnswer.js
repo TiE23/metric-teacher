@@ -1,8 +1,10 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { List } from "semantic-ui-react";
+import { Input, List } from "semantic-ui-react";
 
 import utils from "../../../utils";
+
+import EditBelowIcon from "../../misc/EditBelowIcon";
 
 import {
   QUESTION_TYPE_WRITTEN,
@@ -14,6 +16,26 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
   constructor(props) {
     super(props);
 
+    this.handleDetailChange = (e, { value }) => {
+      if (this.props.handleAnswerDataChange) {
+        this.props.handleAnswerDataChange({ detail: value });
+      }
+    };
+
+    this.handleAccuracyChange = (e, { value }) => {
+      const val = utils.decimalHelper(value); // Typing a "." will automatically fill to "0."
+      if (this.props.handleAnswerDataChange) {
+        if (this.props.handleAnswerDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
+          this.props.handleAnswerDataChange({ accuracy: val }); // This is a string.
+        }
+      }
+    };
+
+    this.handleUnitChange = (e, { value }) => {
+      if (this.props.handleAnswerDataChange) {
+        this.props.handleAnswerDataChange({ unit: value });
+      }
+    };
   }
 
   render() {
@@ -64,8 +86,20 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
         <List.Item>
           <List.Icon name="sticky note" size="large" verticalAlign="top" />
           <List.Content>
-            <List.Header>Detail</List.Header>
-            <List.Description>{this.props.detail || "..."}</List.Description>
+            <List.Header>Detail {this.props.editMode && <EditBelowIcon />}</List.Header>
+            <List.Description>
+              {this.props.editMode ?
+                <Input
+                  onChange={this.handleDetailChange}
+                  value={this.props.detail}
+                  placeholder="..."
+                  transparent
+                  fluid
+                />
+                :
+                <span>{this.props.detail || "..."}</span>
+              }
+            </List.Description>
           </List.Content>
         </List.Item>
         }
@@ -81,17 +115,39 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
               <List.Item>
                 <List.Icon name="dot circle outline" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>To Unit</List.Header>
+                  <List.Header>To Unit {this.props.editMode && <EditBelowIcon />}</List.Header>
                   <List.Description>
-                    {utils.unitInitilizer(this.props.unit)}
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleUnitChange}
+                        value={this.props.unit}
+                        placeholder="..."
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>{utils.unitInitilizer(this.props.unit) || "..."}</span>
+                    }
                   </List.Description>
                 </List.Content>
               </List.Item>
               <List.Item>
                 <List.Icon name="crosshairs" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>Accuracy</List.Header>
-                  <List.Description>{this.props.accuracy}</List.Description>
+                  <List.Header>Accuracy {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Description>
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleAccuracyChange}
+                        value={this.props.accuracy}
+                        placeholder="Null"
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>{utils.t0t(this.props.accuracy, "Null")}</span>
+                    }
+                  </List.Description>
                 </List.Content>
               </List.Item>
             </List.List>
@@ -117,6 +173,7 @@ QuestionDetailsAnswer.propTypes = {
     })),
   }),
   editMode: PropTypes.bool,
+  handleAnswerDataChange: PropTypes.func,
 };
 
 QuestionDetailsAnswer.defaultProps = {
@@ -125,6 +182,7 @@ QuestionDetailsAnswer.defaultProps = {
   unit: null,
   multiple: null,
   editMode: false,
+  handleAnswerDataChange: null,
 };
 
 export default QuestionDetailsAnswer;
