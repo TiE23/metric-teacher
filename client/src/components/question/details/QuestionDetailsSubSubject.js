@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 
 import QueryHandler from "../../QueryHandler";
-import QuestionDetailsSubSubjectsSelector from "./subsubjects/QuestionDetailsSubSubjectsSelector";
+import QuestionDetailsSubSubjectsSelector from "./QuestionDetailsSubSubjectsSelector";
 import SubSubjectReview from "../../subsubject/SubSubjectReview";
 
 import {
