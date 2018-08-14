@@ -117,6 +117,25 @@ class QuestionDetailsQuestion extends PureComponent {
             </List.Header>
             <List.List>
               <List.Item>
+                <List.Icon name="chevron up" size="large" verticalAlign="top" />
+                <List.Content>
+                  <List.Header>Upper Range {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Description>
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleRangeUpperChange}
+                        value={this.props.range && this.props.range.upper}
+                        placeholder="Null"
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>{(this.props.range && this.props.range.upper) || "Null"}</span>
+                    }
+                  </List.Description>
+                </List.Content>
+              </List.Item>
+              <List.Item>
                 <List.Icon name="chevron down" size="large" verticalAlign="top" />
                 <List.Content>
                   <List.Header>Lower Range {this.props.editMode && <EditBelowIcon />}</List.Header>
@@ -136,20 +155,20 @@ class QuestionDetailsQuestion extends PureComponent {
                 </List.Content>
               </List.Item>
               <List.Item>
-                <List.Icon name="chevron up" size="large" verticalAlign="top" />
+                <List.Icon name="sort" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>Upper Range {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Header>Step {this.props.editMode && <EditBelowIcon />}</List.Header>
                   <List.Description>
                     {this.props.editMode ?
                       <Input
-                        onChange={this.handleRangeUpperChange}
-                        value={this.props.range && this.props.range.upper}
+                        onChange={this.handleRangeStepChange}
+                        value={this.props.range && this.props.range.step}
                         placeholder="Null"
                         transparent
                         fluid
                       />
                       :
-                      <span>{(this.props.range && this.props.range.upper) || "Null"}</span>
+                      <span>{(this.props.range && this.props.range.step) || "Null"}</span>
                     }
                   </List.Description>
                 </List.Content>
@@ -171,25 +190,6 @@ class QuestionDetailsQuestion extends PureComponent {
                       <span>
                         {(this.props.range && utils.unitInitilizer(this.props.range.unit)) || "..."}
                       </span>
-                    }
-                  </List.Description>
-                </List.Content>
-              </List.Item>
-              <List.Item>
-                <List.Icon name="signal" size="large" verticalAlign="top" rotated="clockwise" />
-                <List.Content>
-                  <List.Header>Step {this.props.editMode && <EditBelowIcon />}</List.Header>
-                  <List.Description>
-                    {this.props.editMode ?
-                      <Input
-                        onChange={this.handleRangeStepChange}
-                        value={this.props.range && this.props.range.step}
-                        placeholder="Null"
-                        transparent
-                        fluid
-                      />
-                      :
-                      <span>{(this.props.range && this.props.range.step) || "Null"}</span>
                     }
                   </List.Description>
                 </List.Content>
