@@ -37,10 +37,8 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
 
     this.handleAccuracyChange = (e, { value }) => {
       const val = utils.decimalHelper(value); // Typing a "." will automatically fill to "0."
-      if (this.props.handleAnswerDataChange) {
-        if (this.props.handleAnswerDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
-          this.props.handleAnswerDataChange({ accuracy: val }); // This is a string.
-        }
+      if (this.props.handleAnswerDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
+        this.props.handleAnswerDataChange({ accuracy: val }); // This is a string.
       }
     };
 
@@ -89,6 +87,40 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
         this.props.handleAnswerDataChange({ multiple: { choices, choicesOffered } });
       }
     };
+
+    this.handleChoiceValueChange = (index, value, unit) => {
+      if (this.props.handleAnswerDataChange) {
+        // Handle written input
+        if (unit === "written") {
+          const { choices } = this.props.multiple;
+          choices[index].mixedValue = value;
+          this.props.handleAnswerDataChange({ multiple: { choices } });
+
+        // Handle number input
+        } else {
+          const val = utils.decimalHelper(value);
+          if ((val && utils.isDecimalTyped(val)) || !val) {
+            const { choices } = this.props.multiple;
+            choices[index].mixedValue = val;
+            this.props.handleAnswerDataChange({ multiple: { choices } });
+          }
+        }
+      }
+    };
+
+    this.handleChoiceUnitChange = (index, unit) => {
+      if (this.props.handleAnswerDataChange) {
+        const { choices } = this.props.multiple;
+        choices[index].unit = unit;
+
+        // If the unit isn't written, and the value isn't a decimal, erase it.
+        if (unit !== "written" && !utils.isDecimalTyped(choices[index].mixedValue)) {
+          choices[index].mixedValue = "";
+        }
+
+        this.props.handleAnswerDataChange({ multiple: { choices } });
+      }
+    };
   }
 
   render() {
@@ -114,7 +146,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                   :
                   <span>Choices Available</span>
                 }
-                content="Sets how many choices the student will see at once. The correct answer will be placed among randomly selected incorrect answers."
+                content="Sets how many choices the student will see at once in a question. The correct answer will be placed among randomly selected incorrect answers."
               />
             </List.Header>
             <List.Description>
@@ -132,7 +164,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
               <List.List>
                 {this.props.multiple.choices.map((choice, index) => (
                   <List.Item
-                    key={`${choice.mixedValue}_${choice.unit}_${choice.cuid}`}
+                    key={choice.cuid}
                   >
                     <List.Icon
                       name={index === 0 ? "check circle" : "remove circle"}
@@ -141,19 +173,36 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                       verticalAlign="top"
                     />
                     <List.Content>
-                      <List.Description>
-                        {choice.unit === "written" ? choice.mixedValue :
-                          `${choice.mixedValue}${utils.unitInitilizer(choice.unit)}`}
-                        {" "}
-                        {index > 1 &&
-                          <Icon
-                            size="large"
-                            name="minus square outline"
-                            color="red"
-                            onClick={() => this.handleRemoveChoice(index)}
+                      {this.props.editMode ?
+                        <List.Description>
+                          <Input
+                            value={choice.mixedValue}
+                            placeholder={choice.unit === "written" ? "Text" : "Number"}
+                            transparent
+                            onChange={(e, { value }) =>
+                              this.handleChoiceValueChange(index, value, choice.unit)}
                           />
-                        }
-                      </List.Description>
+                          <Input
+                            value={choice.unit}
+                            placeholder="Unit"
+                            transparent
+                            onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
+                          />
+                          {index > 1 &&
+                            <Icon
+                              size="large"
+                              name="minus square outline"
+                              color="red"
+                              onClick={() => this.handleRemoveChoice(index)}
+                            />
+                          }
+                        </List.Description>
+                        :
+                        <List.Description>
+                          {choice.unit === "written" ? choice.mixedValue :
+                            `${choice.mixedValue}${utils.unitInitilizer(choice.unit)}`}
+                        </List.Description>
+                      }
                     </List.Content>
                   </List.Item>
                 ))}
