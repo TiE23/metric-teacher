@@ -71,10 +71,10 @@ const QuestionViewerLayout = props => (
                   props.resetChanges();
                   props.closeEditor();
                 }}
-                buttonProps={{ color: "red" }}
-                buttonText="Cancel"
-                confirmModal
-                headerContent="Cancel Changes"
+                buttonProps={{ color: props.unsavedChanges ? "orange" : "olive" }}
+                buttonText={props.unsavedChanges ? "Cancel" : "Close"}
+                confirmModal={props.unsavedChanges}
+                modalHeaderContent="Cancel Changes"
                 modalProps={{
                   basic: true,
                   size: "small",
@@ -82,16 +82,19 @@ const QuestionViewerLayout = props => (
               />
               <LoadingButton
                 onClick={() => {
-                  const qaInput = utils.composeQaInputFromFormData(props.qaFormData);
-                  props.onSubmit({ variables: qaInput });
+                  props.onSubmit({
+                    variables: utils.composeQaInputFromFormData(props.qaFormData),
+                  });
                 }}
                 loading={props.onSubmitLoading}
                 error={props.onSubmitError}
-                afterModalSuccess={props.closeEditor}
-                buttonProps={{ primary: true }}
+                buttonProps={{
+                  primary: true,
+                  disabled: !props.unsavedChanges,
+                }}
                 buttonText="Submit"
                 confirmModal
-                headerContent="Submit Changes"
+                modalHeaderContent="Submit Changes"
                 modalProps={{
                   basic: true,
                   size: "small",
@@ -141,6 +144,7 @@ QuestionViewerLayout.propTypes = {
   onSubmit: PropTypes.func,
   onSubmitLoading: PropTypes.bool,
   onSubmitError: PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  unsavedChanges: PropTypes.bool,
 };
 
 QuestionViewerLayout.defaultProps = {
@@ -153,6 +157,7 @@ QuestionViewerLayout.defaultProps = {
   onSubmit: null,
   onSubmitLoading: null,
   onSubmitError: null,
+  unsavedChanges: false,
 };
 
 export default QuestionViewerLayout;

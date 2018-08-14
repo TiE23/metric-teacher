@@ -15,6 +15,7 @@ class QuestionViewer extends PureComponent {
     super(props);
     this.state = {
       editorOpen: false,
+      unsavedChanges: false,
       qaFormData: null,
     };
 
@@ -86,11 +87,21 @@ class QuestionViewer extends PureComponent {
     };
 
     this.resetChanges = () => {
-      this.setState({ qaFormData: this.initialQaFormData });
+      this.setState({
+        qaFormData: this.initialQaFormData,
+        unsavedChanges: false,
+      });
     };
 
+    this.markChangesSaved = () => {
+      this.setState({
+        unsavedChanges: false,
+      });
+    };
+
+    // TODO - This gets hit immediately by subSubjectId when opening edit mode. Try to prevent that.
     this.handleChange = (newState) => {
-      this.setState(previousState => merge({}, previousState, newState));
+      this.setState(previousState => merge({}, previousState, newState, { unsavedChanges: true }));
     };
 
     this.handleBasicsChange = (basics) => {
@@ -119,6 +130,7 @@ class QuestionViewer extends PureComponent {
         onCompleted={() => {
           // Necessary update so that if you edit again and cancel it won't reset to old version.
           this.initialQaFormData = this.state.qaFormData;
+          this.markChangesSaved();  // State changes in render... maybe not kosher? Sorry!
         }}
       >
         {(updateQuestion, { loading, error }) => (
@@ -138,6 +150,7 @@ class QuestionViewer extends PureComponent {
             onSubmit={updateQuestion}
             onSubmitLoading={loading}
             onSubmitError={error}
+            unsavedChanges={this.state.unsavedChanges}
           />
         )}
       </Mutation>

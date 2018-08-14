@@ -30,10 +30,10 @@ class LoadingButton extends PureComponent {
       // Only close the modal if the submit has been fired, it's done loading, and no error.
       if (this.state.submitted && !this.props.loading) {
         if (!this.props.error) {
-          this.closeModal();
           if (this.props.afterModalSuccess) {
             this.props.afterModalSuccess();
           }
+          this.closeModal();
         } else {
           this.setState({ submitted: false });
         }
@@ -48,9 +48,9 @@ class LoadingButton extends PureComponent {
         <Modal
           trigger={
             <Button
+              disabled={this.props.error}
               {...this.props.buttonProps}
               onClick={this.openModal}
-              disabled={this.props.error}
             >
               {this.props.error ? "Error!" : this.props.buttonText}
             </Button>
@@ -59,8 +59,8 @@ class LoadingButton extends PureComponent {
           onClose={this.closeModal}
           {...this.props.modalProps}
         >
-          <Header {...this.props.headerProps}>
-            {this.props.headerContent}
+          <Header {...this.props.modalHeaderProps}>
+            {this.props.modalHeaderContent}
           </Header>
           <Modal.Content>
             <p>
@@ -74,7 +74,7 @@ class LoadingButton extends PureComponent {
               color="red"
               onClick={this.closeModal}
             >
-              <Icon name="remove" /> {this.props.error ? "Close" : this.props.rejectLabel}
+              <Icon name="remove" /> {this.props.error ? "Close" : this.props.modalRejectLabel}
             </Button>
             <Button
               onClick={this.modalConfirmSubmit}
@@ -85,7 +85,7 @@ class LoadingButton extends PureComponent {
               loading={this.props.loading}
             >
               {!this.props.loading && !this.props.error && <Icon name="checkmark" />}
-              {this.props.error ? "Error!" : this.props.acceptLabel}
+              {this.props.error ? "Error!" : this.props.modalAcceptLabel}
             </Button>
           </Modal.Actions>
         </Modal>
@@ -119,11 +119,11 @@ LoadingButton.propTypes = {
   buttonProps: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
   confirmModal: PropTypes.bool,
   modalProps: PropTypes.object,   // eslint-disable-line react/forbid-prop-types
-  headerProps: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
-  headerContent: PropTypes.string,
+  modalHeaderProps: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
+  modalHeaderContent: PropTypes.string,
   modalContent: PropTypes.string,
-  rejectLabel: PropTypes.string,
-  acceptLabel: PropTypes.string,
+  modalRejectLabel: PropTypes.string,
+  modalAcceptLabel: PropTypes.string,
 };
 
 LoadingButton.defaultProps = {
@@ -135,11 +135,11 @@ LoadingButton.defaultProps = {
   modalProps: {
     basic: false,
   },
-  headerProps: null,
-  headerContent: "Confirm",
+  modalHeaderProps: null,
+  modalHeaderContent: "Confirm",
   modalContent: "Are you sure?",
-  rejectLabel: "No",
-  acceptLabel: "Yes",
+  modalRejectLabel: "No",
+  modalAcceptLabel: "Yes",
 };
 
 export default LoadingButton;

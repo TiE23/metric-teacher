@@ -43,7 +43,7 @@ const CourseChangePreference = props => (
         buttonProps={props.buttonProps}
         confirmModal
         modalProps={{ basic: true }}
-        headerContent={`Switch to ${props.courseFlags & COURSE_FLAG_PREFER_METRIC ?
+        modalHeaderContent={`Switch to ${props.courseFlags & COURSE_FLAG_PREFER_METRIC ?
           "Imperial" : "Metric"}?`}
         modalContent={deline`Switching this will change what surveys you are asked. For example,
           if you prefer Imperial, a survey asking you for your height will ask for your answer in
