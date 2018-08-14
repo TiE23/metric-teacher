@@ -21,7 +21,7 @@ class LoadingButton extends PureComponent {
       this.setState({ modalOpen: true });
     };
 
-    this.submit = () => {
+    this.modalConfirmSubmit = () => {
       this.props.onClick();
       this.setState({ submitted: true }); // Mark the submission as fired.
     };
@@ -31,6 +31,9 @@ class LoadingButton extends PureComponent {
       if (this.state.submitted && !this.props.loading) {
         if (!this.props.error) {
           this.closeModal();
+          if (this.props.afterModalSuccess) {
+            this.props.afterModalSuccess();
+          }
         } else {
           this.setState({ submitted: false });
         }
@@ -74,7 +77,7 @@ class LoadingButton extends PureComponent {
               <Icon name="remove" /> {this.props.error ? "Close" : this.props.rejectLabel}
             </Button>
             <Button
-              onClick={this.submit}
+              onClick={this.modalConfirmSubmit}
               basic={this.props.modalProps.basic}
               inverted={this.props.modalProps.basic}
               color="green"
@@ -109,6 +112,7 @@ class LoadingButton extends PureComponent {
 
 LoadingButton.propTypes = {
   onClick: PropTypes.func.isRequired,
+  afterModalSuccess: PropTypes.func,
   buttonText: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   error: PropTypes.any,           // eslint-disable-line react/forbid-prop-types
@@ -123,6 +127,7 @@ LoadingButton.propTypes = {
 };
 
 LoadingButton.defaultProps = {
+  afterModalSuccess: null,
   loading: false,
   error: false,
   buttonProps: null,

@@ -18,6 +18,9 @@ import {
   EMAIL_SECRET_PREFIXES,
   PASSWORD_MINIMUM_LENGTH,
   UNIT_INITIALISMS,
+  QUESTION_TYPE_WRITTEN,
+  QUESTION_TYPE_CONVERSION,
+  QUESTION_TYPE_SURVEY,
 } from "./constants";
 
 // TODO better token management
@@ -893,7 +896,62 @@ const t0t = (input, fail) => (t0(input) ? input : fail);
  * @param max
  * @returns {number}
  */
-const minMax = (min, value, max) => (Math.max(min, Math.min(value, max)))
+const minMax = (min, value, max) => (Math.max(min, Math.min(value, max)));
+
+
+/**
+ * Takes in the qaFormData object found in QuestionViewer.js and outputs an input data object that
+ * is acceptable by the updateQuestion mutation.
+ * @param qaFormData
+ * @returns {*}
+ */
+const composeQaInputFromFormData = (qaFormData) => {
+  const qaInput = {
+    questionid: qaFormData.question.basics.id,
+    subsubjectid: qaFormData.subSubjectId,
+    type: qaFormData.question.basics.type,
+    flags: qaFormData.question.basics.flags,
+    status: qaFormData.question.basics.status,
+    difficulty: qaFormData.question.basics.difficulty,
+    media: qaFormData.question.basics.media,
+    questioninput: {},
+    answerinput: {},
+  };
+
+  if (qaFormData.question.basics.type === QUESTION_TYPE_WRITTEN) {
+    qaInput.questioninput = {
+      text: qaFormData.question.questionData.text,
+    };
+    qaInput.answerinput = {
+      multiplechoiceinput: {
+        choicesoffered: qaFormData.question.answerData.multiple.choicesOffered,
+        choices: qaFormData.question.answerData.multiple.choices.map(choice => ({
+          unit: choice.unit,
+          written: choice.unit === "written" ? choice.mixedValue : undefined,
+          value: choice.unit !== "written" ? choice.mixedValue : undefined,
+        })),
+      },
+      text: qaFormData.question.answerData.detail,
+    };
+  } else if (qaFormData.question.basics.type === QUESTION_TYPE_CONVERSION ||
+    qaFormData.question.basics.type === QUESTION_TYPE_SURVEY) {
+    qaInput.questioninput = {
+      text: qaFormData.question.basics.type === QUESTION_TYPE_SURVEY ?
+        qaFormData.question.questionData.text : qaFormData.question.questionData.detail,
+      rangeinput: qaFormData.question.questionData.range,
+    };
+    qaInput.answerinput = {
+      conversioninput: {
+        accuracy: qaFormData.question.answerData.accuracy,
+        unit: qaFormData.question.answerData.unit,
+      },
+    };
+  } else {
+    return null;
+  }
+
+  return qaInput;
+};
 
 export default {
   writeTokenLocalStorage,
@@ -931,4 +989,5 @@ export default {
   t0,
   t0t,
   minMax,
+  composeQaInputFromFormData,
 };

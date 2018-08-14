@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Header, Container, Button } from "semantic-ui-react";
+import { Grid, Header, Container, Button, Message } from "semantic-ui-react";
+
+import utils from "../../utils";
 
 import QuestionDetailsBasics from "./details/QuestionDetailsBasics";
 import QuestionDetailsSubSubject from "./details/QuestionDetailsSubSubject";
@@ -10,6 +12,7 @@ import LoadingButton from "../misc/LoadingButton";
 
 const QuestionViewerLayout = props => (
   // TODO - Consider making PureComponent and splitting up handler funcs before passing to children.
+  // TODO - Set loading and error to state and reset error state and re-try.
   <Grid columns="equal" padded>
     <Grid.Row>
       {/* Quadrant 1 - Basic Details */}
@@ -79,9 +82,12 @@ const QuestionViewerLayout = props => (
               />
               <LoadingButton
                 onClick={() => {
-                  // TODO - onSubmit function
-                  props.closeEditor();
+                  const qaInput = utils.composeQaInputFromFormData(props.qaFormData);
+                  props.onSubmit({ variables: qaInput });
                 }}
+                loading={props.onSubmitLoading}
+                error={props.onSubmitError}
+                afterModalSuccess={props.closeEditor}
                 buttonProps={{ primary: true }}
                 buttonText="Submit"
                 confirmModal
@@ -96,6 +102,16 @@ const QuestionViewerLayout = props => (
             <Button onClick={props.openEditor} primary >Edit</Button>
           }
         </Container>
+      </Grid.Column>
+    </Grid.Row>
+    }
+    {props.onSubmitError &&
+    <Grid.Row>
+      <Grid.Column>
+        <Message negative>
+          <Message.Header>Error</Message.Header>
+          <p>{props.onSubmitError.message}</p>
+        </Message>
       </Grid.Column>
     </Grid.Row>
     }
@@ -122,6 +138,9 @@ QuestionViewerLayout.propTypes = {
     handleQuestionDataChange: PropTypes.func.isRequired,
     handleAnswerDataChange: PropTypes.func.isRequired,
   }),
+  onSubmit: PropTypes.func,
+  onSubmitLoading: PropTypes.bool,
+  onSubmitError: PropTypes.any, // eslint-disable-line react/forbid-prop-types
 };
 
 QuestionViewerLayout.defaultProps = {
@@ -131,6 +150,9 @@ QuestionViewerLayout.defaultProps = {
   closeEditor: null,
   resetChanges: null,
   handleChangeFunctions: null,
+  onSubmit: null,
+  onSubmitLoading: null,
+  onSubmitError: null,
 };
 
 export default QuestionViewerLayout;

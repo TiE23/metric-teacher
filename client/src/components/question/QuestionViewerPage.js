@@ -34,7 +34,6 @@ const QuestionViewerPage = (props) => {
         >
           <QuestionViewer
             qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
-            queryInfo={{ GET_QA_QUESTIONS_DATA_LIMITED, variables: queryProps.variables }}
             allowEditor
           />
         </QueryHandler>

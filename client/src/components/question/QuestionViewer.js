@@ -1,9 +1,14 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import { Mutation } from "react-apollo";
 import merge from "lodash/merge";
 import cuid from "cuid";
 
 import QuestionViewerLayout from "./QuestionViewerLayout";
+
+import {
+  UPDATE_QA_QUESTION_DATA_LIMITED,
+} from "../../graphql/Mutations";
 
 class QuestionViewer extends PureComponent {
   constructor(props) {
@@ -109,26 +114,40 @@ class QuestionViewer extends PureComponent {
     if (!this.state.qaFormData) return null;
 
     return (
-      <QuestionViewerLayout
-        qaFormData={this.state.qaFormData}
-        allowEditor={this.props.allowEditor}
-        editorOpen={this.state.editorOpen}
-        openEditor={this.openEditor}
-        closeEditor={this.closeEditor}
-        resetChanges={this.resetChanges}
-        handleChangeFunctions={{
-          handleBasicsChange: this.handleBasicsChange,
-          handleSubSubjectIdChange: this.handleSubSubjectIdChange,
-          handleQuestionDataChange: this.handleQuestionDataChange,
-          handleAnswerDataChange: this.handleAnswerDataChange,
+      <Mutation
+        mutation={UPDATE_QA_QUESTION_DATA_LIMITED}
+        onCompleted={() => {
+          // Necessary update so that if you edit again and cancel it won't reset to old version.
+          this.initialQaFormData = this.state.qaFormData;
         }}
-      />
+      >
+        {(updateQuestion, { loading, error }) => (
+          <QuestionViewerLayout
+            qaFormData={this.state.qaFormData}
+            allowEditor={this.props.allowEditor}
+            editorOpen={this.state.editorOpen}
+            openEditor={this.openEditor}
+            closeEditor={this.closeEditor}
+            resetChanges={this.resetChanges}
+            handleChangeFunctions={{
+              handleBasicsChange: this.handleBasicsChange,
+              handleSubSubjectIdChange: this.handleSubSubjectIdChange,
+              handleQuestionDataChange: this.handleQuestionDataChange,
+              handleAnswerDataChange: this.handleAnswerDataChange,
+            }}
+            onSubmit={updateQuestion}
+            onSubmitLoading={loading}
+            onSubmitError={error}
+          />
+        )}
+      </Mutation>
     );
   }
 }
 
 QuestionViewer.propTypes = {
   qaData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     questionId: PropTypes.string.isRequired,
     subSubjectId: PropTypes.string.isRequired,
     flags: PropTypes.number.isRequired,
