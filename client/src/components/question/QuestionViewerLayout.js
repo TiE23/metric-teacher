@@ -60,6 +60,16 @@ const QuestionViewerLayout = props => (
         />
       </Grid.Column>
     </Grid.Row>
+    {props.onSubmitError && props.editorOpen &&
+    <Grid.Row>
+      <Grid.Column>
+        <Message negative>
+          <Message.Header>Error</Message.Header>
+          <p>{props.onSubmitError.message}</p>
+        </Message>
+      </Grid.Column>
+    </Grid.Row>
+    }
     {props.allowEditor && props.handleChangeFunctions && props.openEditor &&
     <Grid.Row>
       <Grid.Column>
@@ -87,7 +97,6 @@ const QuestionViewerLayout = props => (
                   });
                 }}
                 loading={props.onSubmitLoading}
-                error={props.onSubmitError}
                 buttonProps={{
                   primary: true,
                   disabled: !props.unsavedChanges,
@@ -105,16 +114,6 @@ const QuestionViewerLayout = props => (
             <Button onClick={props.openEditor} primary >Edit</Button>
           }
         </Container>
-      </Grid.Column>
-    </Grid.Row>
-    }
-    {props.onSubmitError &&
-    <Grid.Row>
-      <Grid.Column>
-        <Message negative>
-          <Message.Header>Error</Message.Header>
-          <p>{props.onSubmitError.message}</p>
-        </Message>
       </Grid.Column>
     </Grid.Row>
     }
