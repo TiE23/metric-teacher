@@ -147,6 +147,8 @@ describe("qaGenerator", () => {
 
         // Answer Data
         expect(qaFormat.answer.type).toBe(ANSWER_TYPE_CONVERSION);
+        expect(qaFormat.answer.data.accuracy).toBe(1);
+        expect(qaFormat.answer.data.unit).toBe("f");
         expect(qaFormat.answer.data.toUnitWord).toBeDefined();
         expect(qaFormat.answer.data.toUnitWord.singular).toBe("Fahrenheit");
         expect(qaFormat.answer.data.toUnitWord.plural).toBe("Fahrenheit");
@@ -161,7 +163,6 @@ describe("qaGenerator", () => {
         expect(qaFormat.answer.data.conversion.range.top.unit).toBe("f");
         expect(qaFormat.answer.data.conversion.range.bottom.value).toBe(211);
         expect(qaFormat.answer.data.conversion.range.top.value).toBe(213);
-        expect(qaFormat.answer.data.conversion.accuracy).toBe(1);
         expect(qaFormat.answer.data.conversion.choices).toBeDefined();
         expect(qaFormat.answer.data.conversion.choices).toHaveLength(9);
         expect(qaFormat.answer.data.conversion.choices[0].value).toBe(212);
@@ -397,7 +398,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.conversion.exact.value).toBeLessThanOrEqual(6);
 
         // Answer Data
-        expect(qaFormat.answer.data.conversion.accuracy).toBe(3);
+        expect(qaFormat.answer.data.accuracy).toBe(3);
       });
     });
 
@@ -495,7 +496,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("inches");
         expect(qaFormat.question.data.survey).toBeDefined();
         expect(qaFormat.question.data.survey.response).toBeDefined();
-        expect(qaFormat.question.data.survey.response.id).toBe("survey01");
+        expect(qaFormat.question.data.survey.response.surveyId).toBe("survey01");
         expect(qaFormat.question.data.survey.response.status).toBe(SURVEY_STATUS_NORMAL);
         expect(qaFormat.question.data.survey.response.score).toBe(0);
         expect(qaFormat.question.data.survey.response.answer.unit).toBe("in");
@@ -517,7 +518,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.answer.data.toUnitWord.singular).toBe("centimeter");
         expect(qaFormat.answer.data.toUnitWord.plural).toBe("centimeters");
         expect(qaFormat.answer.data.conversion).toBeDefined();
-        expect(qaFormat.answer.data.conversion.accuracy).toBe(1);
+        expect(qaFormat.answer.data.accuracy).toBe(1);
         expect(qaFormat.answer.data.conversion.choices).toBeDefined();
         expect(qaFormat.answer.data.conversion.choices).toHaveLength(9);
         expect(qaFormat.answer.data.conversion.choices[0].value).toBe(177.8);
@@ -561,7 +562,7 @@ describe("qaGenerator", () => {
         expect(qaFormat.question.data.fromUnitWord.plural).toBe("inches");
         expect(qaFormat.question.data.survey).toBeDefined();
         expect(qaFormat.question.data.survey.response).toBeDefined();
-        expect(qaFormat.question.data.survey.response.id).toBe("survey01");
+        expect(qaFormat.question.data.survey.response.surveyId).toBe("survey01");
         expect(qaFormat.question.data.survey.response.status).toBe(SURVEY_STATUS_SKIPPED);
         expect(qaFormat.question.data.survey.response.score).toBe(0);
         expect(qaFormat.question.data.survey.step).toBe(1);

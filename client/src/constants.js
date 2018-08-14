@@ -40,16 +40,71 @@ export const EMAIL_SECRET_PREFIXES = [
   "806158031bb277505a058d0e4e07cff9",
 ];
 
+// Interface
+// Max multiple choice options we can show (including correct answer).
+export const MAX_CHOICES = 6;
+// Max multiple choice options that can be defined (including correct answer).
+export const MAX_CHOICES_DEFINED = 10;
+
+// These are based off DB data so they are subject to change.
+export const SUBJECT_ICONS = {
+  Length: "arrows alternate horizontal",
+  Mass: "balance scale",
+  Volume: "cube",
+  Temperature: "thermometer three quarters",
+  Velocity: "location arrow",
+  Area: "clone outline",
+};
+
+// These are based off DB data so they are subject to change.
+export const SCALE_ICONS = {
+  // Generic
+  hand: "hand paper",
+  human: "male",
+  room: "bed",
+  building: "building",
+  // Length
+  //  hand, human, room, building
+  local: "map signs",
+  geographic: "map",
+  astronomical: "sun",
+  // Mass
+  //  hand, human
+  street: "truck",
+  //  building
+  // Volume
+  //  hand, room, building
+  // Temperature
+  weather: "cloud",
+  cooking: "food",
+  chemistry: "fire",
+  // Velocity
+  pedestrian: "bicycle",
+  transit: "bus",
+  racing: "car",
+  air: "plane",
+  rocket: "rocket",
+  // Area
+  home: "home",
+  commercial: "industry",
+  land: "tree",
+  jurisdiction: "flag",
+  territory: "globe",
+};
+
+// Database Constants
+export const FLAGS_NONE = 0;
+
 // User
 export const USER_TYPE_NAMES = [
-  "student",
-  "teacher",
-  "moderator",
-  "admin",
+  "Student",
+  "Teacher",
+  "Moderator",
+  "Admin",
 ];
 export const USER_STATUS_NAMES = [
-  "normal",
-  "closed",
+  "Normal",
+  "Closed",
 ];
 export const USER_TYPE_STUDENT = 0;
 export const USER_TYPE_TEACHER = 1;
@@ -79,12 +134,57 @@ export const COURSE_FLAG_PREFER_METRIC = 0x01;
 export const QUESTION_TYPE_WRITTEN = 0;
 export const QUESTION_TYPE_CONVERSION = 1;
 export const QUESTION_TYPE_SURVEY = 2;
+export const QUESTION_TYPE_NAMES = [
+  "Written",
+  "Conversion",
+  "Survey",
+];
+export const QUESTION_TYPE_DROPDOWN = [
+  { value: QUESTION_TYPE_WRITTEN, text: "Written", icon: "bullseye" },
+  { value: QUESTION_TYPE_CONVERSION, text: "Conversion", icon: "calculator" },
+  { value: QUESTION_TYPE_SURVEY, text: "Survey", icon: "edit" },
+];
+export const QUESTION_STATUS_ACTIVE = 0;
+export const QUESTION_STATUS_INACTIVE = 1;
+export const QUESTION_STATUS_REVIEW_PENDING = 2;
+export const QUESTION_STATUS_REVIEW_REJECTED = 3;
+export const QUESTION_STATUS_DROPDOWN = [
+  { value: QUESTION_STATUS_ACTIVE, text: "Active", icon: "play" },
+  { value: QUESTION_STATUS_INACTIVE, text: "Inactive", icon: "stop" },
+  { value: QUESTION_STATUS_REVIEW_PENDING, text: "Review pending", icon: "ellipsis horizontal" },
+  { value: QUESTION_STATUS_REVIEW_REJECTED, text: "Review rejected", icon: "ban" },
+];
+export const QUESTION_DIFFICULTY_NONE = 0;
+export const QUESTION_DIFFICULTY_EASY = 1;
+export const QUESTION_DIFFICULTY_EASY_MEDIUM = 2;
+export const QUESTION_DIFFICULTY_MEDIUM = 3;
+export const QUESTION_DIFFICULTY_MEDIUM_HARD = 4;
+export const QUESTION_DIFFICULTY_HARD = 5;
+export const QUESTION_DIFFICULTY_DROPDOWN = [
+  { value: QUESTION_DIFFICULTY_NONE, text: "None", icon: "thermometer empty" },
+  { value: QUESTION_DIFFICULTY_EASY, text: "Easy", icon: "thermometer empty" },
+  { value: QUESTION_DIFFICULTY_EASY_MEDIUM, text: "Easy/Medium", icon: "thermometer quarter" },
+  { value: QUESTION_DIFFICULTY_MEDIUM, text: "Medium", icon: "thermometer half" },
+  { value: QUESTION_DIFFICULTY_MEDIUM_HARD, text: "Medium/Hard", icon: "thermometer three quarters" },
+  { value: QUESTION_DIFFICULTY_HARD, text: "Hard", icon: "thermometer full" },
+];
 export const QUESTION_FLAG_USER_DETAIL_OPTIONAL = 0x01; // Survey requests user note (optional)
 export const QUESTION_FLAG_USER_DETAIL_REQUIRED = 0x02; // Survey requests user note (required)
-export const QUESTION_TYPE_NAMES = [
-  "written",
-  "conversion",
-  "survey",
+export const QUESTION_FLAG_NAMES = {
+  0x01: "User note optional",
+  0x02: "User note required",
+};
+export const QUESTION_FLAG_DROPDOWN = [
+  {
+    value: QUESTION_FLAG_USER_DETAIL_OPTIONAL,
+    text: "0x01 User note optional",
+    key: 0x01,
+  },
+  {
+    value: QUESTION_FLAG_USER_DETAIL_REQUIRED,
+    text: "0x02 User note required",
+    key: 0x02,
+  },
 ];
 
 // Unit initials

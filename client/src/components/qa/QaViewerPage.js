@@ -8,6 +8,7 @@ import QaReview from "./QaReview";
 
 import {
   GET_QA_QUESTIONS_WITH_STUDENT,
+  GET_QA_QUESTIONS_WITHOUT_STUDENT,
 } from "../../graphql/Queries";
 
 import {
@@ -25,14 +26,21 @@ const QaViewerPage = (props) => {
     return (<p>You need to provide a question id!</p>);
   }
 
-  if (props.userTokenData && props.userTokenData.id &&
-    props.userTokenData.type === USER_TYPE_STUDENT) {
+  if(!props.userTokenData) {
+    return (<p>Must be logged in!</p>);
+  }
+
+  const query = props.userTokenData && props.userTokenData.type === USER_TYPE_STUDENT ?
+    GET_QA_QUESTIONS_WITH_STUDENT : GET_QA_QUESTIONS_WITHOUT_STUDENT;
+
+  // Right now this is only viewable by logged in users.
+  if (props.userTokenData && props.userTokenData.id) {
     return (
       <Query
-        query={GET_QA_QUESTIONS_WITH_STUDENT}
+        query={query}
         variables={{
           questionids: [props.match.params.questionId],
-          studentid: props.userTokenData.id,
+          studentid: props.userTokenData && props.userTokenData.id,
         }}
         fetchPolicy="network-only"
       >
@@ -43,16 +51,14 @@ const QaViewerPage = (props) => {
           >
             <QaReview
               qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
+              queryInfo={{ query, variables: queryProps.variables }}
+              studentId={queryProps.variables.studentid}
             />
           </QueryHandler>
         )}
       </Query>
     );
   }
-
-  return (
-    <p>Students only for now!</p>
-  );
 };
 
 QaViewerPage.propTypes = {

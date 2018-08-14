@@ -101,6 +101,7 @@ type Mutation {
 
   # Question Mutations
   submitQuestion(subsubjectid: ID!, type: Int!, flags: Int!, difficulty: Int!, media: String, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Question!
+  updateQuestion(questionid: ID!, subsubjectid: ID, type: Int, flags: Int, status: Int, difficulty: Int, media: String, questioninput: QuestionQuestionInput, answerinput: QuestionAnswerInput): Question!
 
   # Feedback Mutations
   submitFeedback(questionid: ID!, type: Int!, text: String): Feedback!
@@ -134,18 +135,10 @@ input SurveyAnswerInput {
 
 input QuestionQuestionInput {
   text: String
-  conversioninput: ConversionQuestionInput
-  surveyrangeinput: RangeQuestionInput
+  rangeinput: QuestionQuestionRangeInput
 }
 
-input ConversionQuestionInput {
-  lower: Float!
-  upper: Float!
-  unit: String!
-  step: Float
-}
-
-input RangeQuestionInput {
+input QuestionQuestionRangeInput {
   lower: Float!
   upper: Float!
   unit: String!
@@ -154,16 +147,16 @@ input RangeQuestionInput {
 
 input QuestionAnswerInput {
   text: String
-  multiplechoiceinput: MultipleChoiceInput
+  multiplechoiceinput: QuestionAnswerMultipleChoiceInput
   conversioninput: ConversionAnswerInput
 }
 
-input MultipleChoiceInput {
-  choices: [MultipleChoiceInputRow!]!
+input QuestionAnswerMultipleChoiceInput {
+  choices: [ChoiceInputRow!]!
   choicesoffered: Int
 }
 
-input MultipleChoiceInputRow {
+input ChoiceInputRow {
   value: Float
   written: String
   unit: String!
@@ -222,6 +215,7 @@ type QaObject {
   subSubjectId: ID!
   difficulty: Int!
   flags: Int!
+  status: Int!
   media: String
   question: QaQuestionObject!
   answer: QaAnswerObject!
@@ -249,6 +243,8 @@ type QaQuestionData {
 }
 
 type QaAnswerData {
+  accuracy: Float                         # Conversion and Survey Questions Only
+  unit: String                            # Conversion and Survey Questions Only
   toUnitWord: QaUnitWordObject            # Conversion and Survey Questions Only
   multiple: QaMultipleChoiceObject        # Written Questions Only
   conversion: QaConversionObject          # Conversion and Survey Questions Only
@@ -275,7 +271,6 @@ type QaMultipleChoiceObject {
 }
 
 type QaConversionObject {
-  accuracy: Float!
   range: QaRangeObject!
   exact: Float!
   rounded: Float!

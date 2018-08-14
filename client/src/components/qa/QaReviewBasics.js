@@ -19,7 +19,7 @@ import {
 
 const QaReviewBasics = (props) => {
   const { question, answer } = props.qaData;
-  const questionTypeName = utils.firstLetterCap(QUESTION_TYPE_NAMES[question.type]);
+  const questionTypeName = QUESTION_TYPE_NAMES[question.type];
 
   let questionDescription;
   let surveyDetail;
@@ -31,7 +31,7 @@ const QaReviewBasics = (props) => {
       with a random step of
       ${utils.unitWorder(question.data.conversion.step, question.data.fromUnitWord)} to
       ${answer.data.toUnitWord.plural} within an accuracy of
-      ${utils.unitWorder(answer.data.conversion.accuracy, answer.data.toUnitWord)}.
+      ${utils.unitWorder(answer.data.accuracy, answer.data.toUnitWord)}.
     `;
   } else if (question.type === QUESTION_TYPE_SURVEY) {
     questionDescription = question.text;
@@ -65,7 +65,11 @@ const QaReviewBasics = (props) => {
           as={Item.Image}
           minWidth={500}
           size="small"
-          src={props.qaData.media || "/img/placeholder-square.png"}
+          src={
+            (props.qaData.media && `/img/question/${props.qaData.media}`) ||
+              "/img/placeholder-square.png"
+          }
+          rounded
         />
         <Item.Content>
           <Item.Header>{questionTypeName} Question</Item.Header>

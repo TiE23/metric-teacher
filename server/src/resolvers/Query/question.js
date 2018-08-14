@@ -108,24 +108,18 @@ const question = {
    *        type: Int!
    *        questioninput: QuestionQuestionInput {
    *          text: String
-   *            conversioninput: ConversionQuestionInput: {
-   *              lower: Float!
-   *              upper: Float!
-   *              unit: String!
-   *              step: Float
-   *            }
-   *            surveyrangeinput: RangeQuestionInput: {
-   *              lower: Float!
-   *              upper: Float!
-   *              unit: String!
-   *              step: Float
-   *            }
+   *          rangeinput: QuestionQuestionRangeInput: {
+   *            lower: Float!
+   *            upper: Float!
+   *            unit: String!
+   *            step: Float
+   *          }
    *        }!
    *        answerinput: QuestionAnswerInput: {
    *          text: String
-   *          multiplechoiceinput: MultipleChoiceInput: {
+   *          multiplechoiceinput: QuestionAnswerMultipleChoiceInput: {
    *            choices: [
-   *              MultipleChoiceInputRow: {
+   *              ChoiceInputRow: {
    *                value: Float
    *                written: String
    *                unit: String!

@@ -1,4 +1,6 @@
 const round = require("lodash/round");
+const mergeWith = require("lodash/mergeWith");
+const isPlainObject = require("lodash/isPlainObject");
 
 const {
   parseQAStrings,
@@ -8,7 +10,6 @@ const {
   SurveyAnswerUnitInvalid,
   SurveyAnswerValueInvalid,
   QuestionSyntaxError,
-  QuestionGenericError,
   QuestionTextSyntaxError,
   QuestionConversionSyntaxError,
   AnswerGenericError,
@@ -24,9 +25,33 @@ const {
   UNITS,
 } = require("../constants");
 
+/**
+ * Custom alternative function of mergeWith. See https://lodash.com/docs/4.17.10#mergeWith
+ * Recursive trick merges objects together.
+ * This will not merge arrays and NOTE: A mutation named updateQuestion() is counting on that!
+ * Only allow non-null values to overwrite (namely, I wanted to prevent null from squashing "").
+ * @param object
+ * @param update
+ * @returns {*}
+ */
+function customMerge(object, update) {
+  const mergeCustomizer = (objValue, srcValue) => {
+    // The use of isPlainObject should disable merging of arrays, so keep that in mind.
+    if (isPlainObject(objValue) && isPlainObject(srcValue)) {
+      return mergeWith(objValue, srcValue, mergeCustomizer);
+    }
+    if (srcValue !== null && srcValue !== undefined) {
+      return srcValue;
+    }
+    return objValue;
+  };
+
+  return mergeWith(object, update, mergeCustomizer);
+}
+
 
 /**
- * Basic helper function returns a the value gated between a minimum and maxiumum. Very simple.
+ * Basic helper function returns a the value gated between a minimum and maximum. Very simple.
  * For example, if your min is 0 and your max is 1000...
  * Example A: 501 returns 501   (no change)
  * Example B: 2501 returns 1000 (maxxed out)
@@ -179,12 +204,12 @@ function questionSyntaxFormatter(text = null, rangeInput = null) {
   }
 
   if (rangeInput) {
-    const conversionInputErrors = [];
-    if (!rangeInput.lower) conversionInputErrors.push("Lower value not defined.");
-    if (!rangeInput.upper) conversionInputErrors.push("Upper value not defined.");
-    if (!rangeInput.unit) conversionInputErrors.push("Unit not defined.");
-    if (conversionInputErrors.length) {
-      throw new QuestionConversionSyntaxError(conversionInputErrors.join(" "));
+    const rangeInputErrors = [];
+    if (!rangeInput.lower) rangeInputErrors.push("Lower value not defined.");
+    if (!rangeInput.upper) rangeInputErrors.push("Upper value not defined.");
+    if (!rangeInput.unit) rangeInputErrors.push("Unit not defined.");
+    if (rangeInputErrors.length) {
+      throw new QuestionConversionSyntaxError(rangeInputErrors.join(" "));
     }
 
     const stepSyntax = rangeInput.step ? `(${rangeInput.step})s` : "";
@@ -209,10 +234,7 @@ function questionSyntaxFormatter(text = null, rangeInput = null) {
  * @returns {string}
  */
 function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput = null) {
-  if (choicesInput && conversionInput) {
-    throw new AnswerGenericError("Cannot have both multiplechoiceinput AND conversioninput defined");
-  }
-  if (!choicesInput && !conversionInput) {
+  if (!((choicesInput && !conversionInput) || (!choicesInput && conversionInput))) {
     throw new AnswerGenericError("Must have at least multiplechoiceinput OR conversioninput defined");
   }
 
@@ -291,17 +313,10 @@ function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput
  * @returns {{questionSyntaxString: string, answerSyntaxString: string}}
  */
 function checkAndParseQuestionAnswerInputs(type, questionInput, answerInput) {
-  // Make sure that question input doesn't have multiple things in it.
-  if (questionInput &&
-    questionInput.conversioninput &&
-    questionInput.surveyrangeinput) {
-    throw new QuestionGenericError("Cannot have both conversioninput and surveyrangeinput defined");
-  }
-
   // Create the question syntax string.
   const questionSyntaxString = questionSyntaxFormatter(
     questionInput.text,
-    questionInput.conversioninput || questionInput.surveyrangeinput,
+    questionInput.rangeinput,
   );
 
   // Create the answer syntax string.
@@ -324,6 +339,7 @@ function checkAndParseQuestionAnswerInputs(type, questionInput, answerInput) {
 }
 
 module.exports = {
+  customMerge,
   minMax,
   floatSmoother,
   stepSmoother,

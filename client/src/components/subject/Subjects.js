@@ -29,7 +29,7 @@ const Subjects = (props) => {
             <Header size="huge" textAlign="center">
               <Icon name="tasks" />Subjects
             </Header>
-            <SubjectsPageDescription loggedIn={props.studentId} />
+            <SubjectsPageDescription loggedIn={!!props.studentId} />
             <br />
             <SubjectsList
               subjectsData={queryProps.data && queryProps.data.allSubjects}

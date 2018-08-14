@@ -17,6 +17,7 @@ import {
 
 import {
   QaObjectDataEverything,
+  QaObjectQuestionDataLimited,
 } from "./fragments/QaFragments";
 
 export const ME_AUTH_QUERY = gql`
@@ -59,7 +60,7 @@ export const USER_DETAILS_QUERY = gql`
 `;
 
 export const SUBJECT_DETAILS_QUERY = gql`
-  query SubjectDetailsPublicQuery {
+  query SubjectDetailsQuery {
     allSubjects {
       ...SubjectDataAll
       subSubjects {
@@ -69,6 +70,37 @@ export const SUBJECT_DETAILS_QUERY = gql`
   }
   ${SubjectDataAll}
   ${SubSubjectDataAll}
+`;
+
+// Same as SUBJECT_DETAILS_QUERY but also includes a convenient Subject ID inside every SubSubject.
+export const SUBJECT_DETAILS_PARENT_ID_QUERY = gql`
+  query SubjectDetailsParentIdQuery {
+    allSubjects {
+      ...SubjectDataAll
+      subSubjects {
+        ...SubSubjectDataAll
+        parent {
+          id
+          name
+        }
+      }
+    }
+  }
+  ${SubjectDataAll}
+  ${SubSubjectDataAll}
+`;
+
+export const SUBSUBJECT_DETAILS_QUERY = gql`
+  query SubSubjectDetailsQuery ($subsubjectid: ID!) {
+    subSubject(subsubjectid: $subsubjectid) {
+      ...SubSubjectDataAll
+      parent {
+        ...SubjectDataAll
+      }
+    }
+  }
+  ${SubSubjectDataAll}
+  ${SubjectDataAll}
 `;
 
 // "first: 0" on masteries is important work-around to allow client-side manipulation in
@@ -101,4 +133,22 @@ export const GET_QA_QUESTIONS_WITH_STUDENT = gql`
     }
   }
   ${QaObjectDataEverything}
+`;
+
+export const GET_QA_QUESTIONS_WITHOUT_STUDENT = gql`
+  query GetQaQuestionsWithoutStudent ($questionids: [ID!]!) {
+    getQa (questionids: $questionids) {
+      ...QaObjectDataEverything
+    }
+  }
+  ${QaObjectDataEverything}
+`;
+
+export const GET_QA_QUESTIONS_DATA_LIMITED = gql`
+  query GetQaQuestionsDataLimited ($questionids: [ID!]!) {
+    getQa (questionids: $questionids) {
+      ...QaObjectQuestionDataLimited
+    }
+  }
+  ${QaObjectQuestionDataLimited}
 `;

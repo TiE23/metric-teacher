@@ -67,6 +67,7 @@ function qaGenerate(questionData, surveyData = null) {
     subSubjectId: questionData.parent.id,
     difficulty: questionData.difficulty,
     flags: questionData.flags,
+    status: questionData.status,
     media: questionData.media,
     question: generatedQuestion,
     answer: generatedAnswer,
@@ -202,7 +203,7 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
   if (questionPayload.type === QUESTION_TYPE_WRITTEN) {
     generatedAnswer.data.multiple = composeWrittenAnswerData(answerPayload);
 
-    // Get conversion data
+  // Get conversion data
   } else if (questionPayload.type === QUESTION_TYPE_CONVERSION) {
     generatedAnswer.data.conversion = composeConversionAnswerData(
       generatedQuestion.data.conversion.exact.value,
@@ -210,6 +211,9 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
       answerPayload.data.unit,
       answerPayload.data.accuracy,
     );
+
+    generatedAnswer.data.accuracy = answerPayload.data.accuracy;
+    generatedAnswer.data.unit = answerPayload.data.unit;
 
     generatedAnswer.data.toUnitWord = {
       singular: UNITS[answerPayload.data.unit].singular,
@@ -239,15 +243,18 @@ function generateAnswerData(questionPayload, answerPayload, generatedQuestion) {
           UNITS[response.answer.unit].subject === "temperature",
         ),
       };
-
-      generatedAnswer.data.toUnitWord = {
-        singular: UNITS[answerPayload.data.unit].singular,
-        plural: UNITS[answerPayload.data.unit].plural,
-      };
     } else {
       // Otherwise set to null
       generatedAnswer.data.survey = null;
     }
+
+    generatedAnswer.data.accuracy = answerPayload.data.accuracy;
+    generatedAnswer.data.unit = answerPayload.data.unit;
+
+    generatedAnswer.data.toUnitWord = {
+      singular: UNITS[answerPayload.data.unit].singular,
+      plural: UNITS[answerPayload.data.unit].plural,
+    };
 
     // Type not recognized!
   } else {
@@ -317,7 +324,6 @@ function composeConversionAnswerData(fromValue, fromUnit, toUnit, toAccuracy) {
   );
 
   return {
-    accuracy: toAccuracy,
     exact: exactValue,
     rounded: roundedValue,
     friendly: friendlyValue,

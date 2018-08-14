@@ -18,7 +18,6 @@ class QaReview extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      questionEditorOpen: false,
       surveyEditorOpen: false,
     };
 
@@ -68,13 +67,11 @@ QaReview.propTypes = {
     variables: PropTypes.object.isRequired,
   }).isRequired,
   studentId: PropTypes.string.isRequired,
-  allowQuestionEditor: PropTypes.bool,
   allowSurveyEditor: PropTypes.bool,
 };
 
 QaReview.defaultProps = {
   qaData: null,
-  allowQuestionEditor: false,
   allowSurveyEditor: false,
 };
 

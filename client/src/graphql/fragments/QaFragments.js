@@ -1,6 +1,7 @@
 import gql from "graphql-tag";
 
 import {
+  QaObjectDataAll,
   QaObjectDataAllExtra,
 } from "./SimpleFragments";
 
@@ -10,4 +11,58 @@ export const QaObjectDataEverything = gql`
     ...QaObjectDataAllExtra
   }
   ${QaObjectDataAllExtra}
+`;
+
+// Get just the data needed to populate all necessary Question information.
+export const QaObjectQuestionDataLimited = gql`
+  fragment QaObjectQuestionDataLimited on QaObject {
+    ...QaObjectDataAll
+    question {
+      text
+      detail
+      type
+      data {
+        conversion {
+          step
+          range {
+            bottom {
+              value
+            }
+            top {
+              value
+              unit
+            }
+          }
+        }
+        survey {
+          step
+          range {
+            bottom {
+              value
+            }
+            top {
+              value
+              unit
+            }
+          }
+        }
+      }
+    }
+    answer {
+      detail
+      data {
+        accuracy
+        unit
+        multiple {
+          choicesOffered
+          choices {
+            unit
+            written
+            value
+          }
+        }
+      }
+    }
+  }
+  ${QaObjectDataAll}
 `;

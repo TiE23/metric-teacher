@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Icon, Grid, Label, List, Segment } from "semantic-ui-react";
+import { Grid, Icon, Label, Segment } from "semantic-ui-react";
 import cloneDeep from "lodash/cloneDeep";
 
 import utils from "../../utils";
@@ -27,13 +27,7 @@ const QaReviewChoices = (props) => {
               Correct Answer
             </Label>
             <br />
-            <List horizontal>
-              <List.Item>
-                <List.Content>
-                  <Icon fitted name="circle" /> {utils.choiceWorder(correctAnswer)}
-                </List.Content>
-              </List.Item>
-            </List>
+            <Icon fitted name="circle" /> {utils.choiceWorder(correctAnswer)}
           </Segment>
         </Grid.Column>
         <Grid.Column>
@@ -42,18 +36,14 @@ const QaReviewChoices = (props) => {
               Incorrect Answer{choices.length > 1 ? "s" : ""}
             </Label>
             <br />
-            <List horizontal>
-              {choices.map((choice) => {
-                const choiceString = utils.choiceWorder(choice);
-                return (
-                  <List.Item key={choiceString}>
-                    <List.Content>
-                      <Icon fitted name="circle outline" /> {choiceString}
-                    </List.Content>
-                  </List.Item>
-                );
-              })}
-            </List>
+            {choices.map((choice) => {
+              const choiceString = utils.choiceWorder(choice);
+              return (
+                <span key={choiceString}>
+                  <Icon name="circle outline" />{choiceString}{"  "}
+                </span>
+              );
+            })}
           </Segment>
         </Grid.Column>
       </Grid.Row>

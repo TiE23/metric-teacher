@@ -1,0 +1,226 @@
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { List, Input, TextArea } from "semantic-ui-react";
+
+import utils from "../../../utils";
+
+import EditBelowIcon from "../../misc/EditBelowIcon";
+
+import {
+  QUESTION_TYPE_WRITTEN,
+  QUESTION_TYPE_CONVERSION,
+  QUESTION_TYPE_SURVEY,
+} from "../../../constants";
+
+class QuestionDetailsQuestion extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    // Hack-solving frustrating CSS issues with input widths
+    this.width100 = { width: "100%" };
+
+    this.handleTextChange = (e, { value }) => {
+      if (this.props.handleQuestionDataChange && !value.includes("\n")) { // No newlines!
+        this.props.handleQuestionDataChange({ text: value });
+      }
+    };
+
+    this.handleDetailChange = (e, { value }) => {
+      if (this.props.handleQuestionDataChange) {
+        this.props.handleQuestionDataChange({ detail: value });
+      }
+    };
+
+    this.handleRangeLowerChange = (e, { value }) => {
+      const val = utils.decimalHelper(value); // Typing a "." will automatically fill to "0."
+      if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
+        this.props.handleQuestionDataChange({ range: { lower: val } }); // This is a string.
+      }
+    };
+
+    this.handleRangeUpperChange = (e, { value }) => {
+      const val = utils.decimalHelper(value);
+      if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
+        this.props.handleQuestionDataChange({ range: { upper: val } }); // This is a string.
+      }
+    };
+
+    this.handleRangeUnitChange = (e, { value }) => {
+      if (this.props.handleQuestionDataChange) {
+        this.props.handleQuestionDataChange({ range: { unit: value.toLocaleLowerCase() } });
+      }
+    };
+
+    this.handleRangeStepChange = (e, { value }) => {
+      const val = utils.decimalHelper(value);
+      if (this.props.handleQuestionDataChange && ((val && utils.isDecimalTyped(val)) || !val)) {
+        this.props.handleQuestionDataChange({ range: { step: val } }); // This is a string.
+      }
+    };
+  }
+
+  render() {
+    return (
+      <List divided>
+        {(this.props.type === QUESTION_TYPE_WRITTEN || this.props.type === QUESTION_TYPE_SURVEY) &&
+        <List.Item>
+          <List.Icon name="comment" size="large" verticalAlign="top" />
+          <List.Content style={this.width100}>
+            <List.Header>Text {this.props.editMode && <EditBelowIcon />}</List.Header>
+            <List.Description>
+              {this.props.editMode ?
+                <TextArea
+                  onChange={this.handleTextChange}
+                  value={this.props.text}
+                  placeholder="This is required..."
+                  style={this.width100}
+                  autoHeight
+                />
+                :
+                <span>{(this.props.text && `"${this.props.text}"`) || "..."}</span>
+              }
+            </List.Description>
+          </List.Content>
+        </List.Item>
+        }
+        {(this.props.type === QUESTION_TYPE_CONVERSION &&
+        (this.props.detail || this.props.editMode)) &&
+        <List.Item>
+          <List.Icon name="comment alternate" size="large" verticalAlign="top" />
+          <List.Content style={this.width100}>
+            <List.Header>Detail {this.props.editMode && <EditBelowIcon />}</List.Header>
+            <List.Description>
+              {this.props.editMode ?
+                <div style={this.width100}>
+                  <Input
+                    onChange={this.handleDetailChange}
+                    value={this.props.detail}
+                    placeholder="..."
+                    transparent
+                    fluid
+                  />
+                </div>
+                :
+                <span>{(this.props.detail && `"${this.props.detail}"`) || "..."}</span>
+              }
+            </List.Description>
+          </List.Content>
+        </List.Item>
+        }
+        {((this.props.type === QUESTION_TYPE_CONVERSION || this.props.type === QUESTION_TYPE_SURVEY)
+        && (this.props.range || this.props.editMode)) &&
+        <List.Item>
+          <List.Icon name="chart bar" size="large" verticalAlign="top" />
+          <List.Content>
+            <List.Header>
+              {this.props.type === QUESTION_TYPE_CONVERSION ? "Conversion" : "Survey"} Range
+            </List.Header>
+            <List.List>
+              <List.Item>
+                <List.Icon name="chevron up" size="large" verticalAlign="top" />
+                <List.Content>
+                  <List.Header>Upper Range {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Description>
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleRangeUpperChange}
+                        value={this.props.range && this.props.range.upper}
+                        placeholder="Null"
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>{(this.props.range && this.props.range.upper) || "Null"}</span>
+                    }
+                  </List.Description>
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Icon name="chevron down" size="large" verticalAlign="top" />
+                <List.Content>
+                  <List.Header>Lower Range {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Description>
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleRangeLowerChange}
+                        value={this.props.range && this.props.range.lower}
+                        placeholder="Null"
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>{(this.props.range && this.props.range.lower) || "Null"}</span>
+                    }
+                  </List.Description>
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Icon name="sort" size="large" verticalAlign="top" />
+                <List.Content>
+                  <List.Header>Step {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Description>
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleRangeStepChange}
+                        value={this.props.range && this.props.range.step}
+                        placeholder="Null"
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>{(this.props.range && this.props.range.step) || "Null"}</span>
+                    }
+                  </List.Description>
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Icon name="dot circle" size="large" verticalAlign="top" />
+                <List.Content>
+                  <List.Header>From Unit {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Description>
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleRangeUnitChange}
+                        value={this.props.range && this.props.range.unit}
+                        placeholder="..."
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>
+                        {(this.props.range && utils.unitInitilizer(this.props.range.unit)) || "..."}
+                      </span>
+                    }
+                  </List.Description>
+                </List.Content>
+              </List.Item>
+            </List.List>
+          </List.Content>
+        </List.Item>
+        }
+      </List>
+    );
+  }
+}
+
+QuestionDetailsQuestion.propTypes = {
+  text: PropTypes.string.isRequired,
+  detail: PropTypes.string.isRequired,
+  type: PropTypes.number.isRequired,
+  range: PropTypes.shape({
+    upper: PropTypes.number.isRequired,
+    lower: PropTypes.number.isRequired,
+    unit: PropTypes.string.isRequired,
+    step: PropTypes.number.isRequired,
+  }),
+  editMode: PropTypes.bool,
+  handleQuestionDataChange: PropTypes.func,
+};
+
+QuestionDetailsQuestion.defaultProps = {
+  range: null,
+  editMode: false,
+  handleQuestionDataChange: null,
+};
+
+export default QuestionDetailsQuestion;

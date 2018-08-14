@@ -139,8 +139,8 @@ class SurveyAnswerUnitInvalid extends Error {
 }
 
 class SurveyAnswerIncomplete extends Error {
-  constructor(courseid, questionid) {
-    super(`Survey answer for Question ${questionid} and Course ${courseid} incomplete`);
+  constructor(courseId, questionId) {
+    super(`Survey answer for Question ${questionId} and Course ${courseId} incomplete`);
   }
 }
 

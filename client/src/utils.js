@@ -1,6 +1,7 @@
 import md5 from "md5";
 import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
 import isEmail from "validator/lib/isEmail";
+import isDecimal from "validator/lib/isDecimal";
 import mergeWith from "lodash/mergeWith";
 import isPlainObject from "lodash/isPlainObject";
 import isObject from "lodash/isObject";
@@ -17,6 +18,9 @@ import {
   EMAIL_SECRET_PREFIXES,
   PASSWORD_MINIMUM_LENGTH,
   UNIT_INITIALISMS,
+  QUESTION_TYPE_WRITTEN,
+  QUESTION_TYPE_CONVERSION,
+  QUESTION_TYPE_SURVEY,
 } from "./constants";
 
 // TODO better token management
@@ -285,7 +289,7 @@ const mergeCustomizer = (objValue, srcValue) => {
   if (isPlainObject(objValue) && isPlainObject(srcValue)) {
     return mergeWith(objValue, srcValue, mergeCustomizer);
   }
-  if (srcValue !== null) {
+  if (srcValue !== null && srcValue !== undefined) {
     return srcValue;
   }
   return objValue;
@@ -295,6 +299,8 @@ const mergeCustomizer = (objValue, srcValue) => {
 /**
  * Find an object by the parentId and using the targetAddress define a new value (or overwrite an
  * old one).
+ *
+ * All manipulation of data is done by reference, so data objects will be changed.
  *
  * Ex:  const data = { users: [{ id: "user1", fname: "John", lname: "Doe" }] };
  *      cacheNewObject(data, "user1", "lname", "Connor");
@@ -336,6 +342,8 @@ const cacheNewObject = (data, parentId, targetAddress, newValue, safe = false, k
 /**
  * Find an object by the targetId and update the contents of that object with a merge.
  *
+ * All manipulation of data is done by reference, so data objects will be changed.
+ *
  * Ex:  const data = { users: [{ id: "user1", fname: "John" }] }
  *      cacheUpdateObject(data, "user1", { fname: "Sarah", lname: "Connor" })
  *      // data: { users: [{ id: "user1", fname: "Sarah", lname: "Connor" }] }
@@ -364,6 +372,8 @@ const cacheUpdateObject = (data, targetId, updateObject, targetAddress = [], key
  * Find an object by the targetId and delete it from existence.
  * There is a single limitation: Due to strict JavaScript rules the targetId cannot be the root
  * object. I think this isn't such a big problem as I cannot imagine ever needing to do this.
+ *
+ * All manipulation of data is done by reference, so data objects will be changed.
  *
  * Ex:  const data = { user: { id: "user1", fname: "John" } };
  *      cacheDeleteObject(data, "user1");
@@ -398,6 +408,8 @@ const cacheDeleteObject = (data, targetId, key = "id") => {
 /**
  * Add a value to the target object's specific array value by the target object's ID and the key
  * for the intended array.
+ *
+ * All manipulation of data is done by reference, so data objects will be changed.
  *
  * Ex:  const data = { user: { id: "user1", fname: "John", favoriteNumbers: [5, 9, 23] };
  *      cachePushIntoArray(data, "user1", "favoriteNumbers", 99);
@@ -442,6 +454,30 @@ const cacheTargetExists = (data, targetId, targetAddress = [], key = "id") => {
   const targetObject = navigateObjectDots(findResult.target, targetAddress);
   if (!targetObject) return false;  // Object was not found at this address.
   return true;
+};
+
+
+/**
+ * Find and retrieve target object by their ID alone or a child by targetAddress and a parent ID.
+ *
+ * Data is returned by reference, so if you plan to manipulate data be wary if you need to deep
+ * clone it first.
+ *
+ * Ex: const data = { cars: [{ id: "F-150", type: "Truck", make: { id: "make1", name: "Ford"} }] } }
+ *      cacheGetTarget(data, "F-150", "make.name")
+ *      // "Ford"
+ *
+ * @param data
+ * @param targetId
+ * @param targetAddress
+ * @param key
+ * @returns {*}
+ */
+const cacheGetTarget = (data, targetId, targetAddress = [], key = "id") => {
+  const findResult = findRecursive(data, object => object && object[key] === targetId);
+  if (!findResult) return undefined;
+  const targetObject = navigateObjectDots(findResult.target, targetAddress);
+  return targetObject;
 };
 
 
@@ -507,19 +543,31 @@ const findRecursive = (target, predicate, parent = null, targetKey = null) => {
  * @param address
  * @returns {*}
  */
-const navigateObjectDots = (object, address) => {
-  if (address.length === 0) {
+const navigateObjectDots = (object, address = []) => {
+  if (object === null || object === undefined || address.length === 0) {
     return object;
   }
 
   const addresses = typeof address === "string" ? address.split(".") : address;
-  const currentAddress = addresses.shift();
-  const currentObject = object[currentAddress];
-  if (currentObject !== undefined) {
-    return navigateObjectDots(currentObject, addresses);
-  }
-  return currentObject;
+  const nextAddress = addresses.shift();
+  const nextObject = object[nextAddress];
+  return navigateObjectDots(nextObject, addresses);
 };
+
+
+/**
+ * Shortcut to navigateObjectDots().
+ * My intention is that at some point I'll clean up a lot of ugly space-consuming code.
+ * Ex:
+ *    props.data && props.data.question && props.data.question.top && props.data.question.top.value
+ * becomes...
+ *    utils.nod(props.data, "question.top.value")
+ * That's just one example, but
+ * @param input
+ * @param address
+ * @returns {*} // Undefined if the object address doesn't exist.
+ */
+const nod = (input, address) => navigateObjectDots(input, address);
 
 
 /**
@@ -547,7 +595,7 @@ const rootCopy = (data) => {
  * @returns {string}
  */
 const firstLetterCap = (string) => {
-  if (string.length === 0) return string;
+  if (typeof string !== "string" || string.length === 0) return string;
   return string.slice(0, 1).toLocaleUpperCase() + string.slice(1);
 };
 
@@ -743,6 +791,168 @@ const surveyAnswerValidator = (value, rangeTop, rangeBottom, unit, step) => {
   return formErrors;
 };
 
+
+/**
+ * Explodes an integer into individual flags in a list.
+ * Ex: (0) => []; (1) => [1]; (5) => [1, 4]; (7) => [1, 2, 4]
+ * @param bits
+ * @returns {Array}
+ */
+const explodeBits = (bits) => {
+  let bitsCopy = bits;
+  const flags = [];
+
+  let bit = 1;
+  while (bitsCopy > 0) {
+    if (bitsCopy & bit) {
+      flags.push(bit);
+      bitsCopy &= ~bit;
+    }
+    bit <<= 1;
+  }
+
+  return flags;
+};
+
+
+/**
+ * Custom isDecimal function checks a user's input and will determine if it's a decimal number
+ * or not. Unlike just straight isDecimal it won't reject typing a decimal at the end.
+ * That is the worst case scenario: a user can type "5." and possibly submit it, but it's not too
+ * bad since parseInt() and parseFloat() both read it as 5
+ * @param input
+ * @returns {*}
+ */
+const isDecimalTyped = (input) => {
+  const stringInput = typeof input === "string" ? input : String(input);
+  const dots = stringInput.match(/\./g);
+  if (dots && dots.length > 1) {
+    return false;
+  }
+  if (stringInput[stringInput.length - 1] === ".") {
+    return isDecimal(stringInput.slice(0, stringInput.length - 1));
+  } else {
+    return isDecimal(stringInput);
+  }
+};
+
+
+/**
+ * Little helper function wraps up parseFloat() and parseInt() into a little package. The main
+ * difference being that if the input is a blank string it'll return null instead of NaN.
+ * @param input
+ * @param integer - Set to true to parse as integer or input an integer to serve as the base
+ * @returns {*}
+ */
+const parseNumber = (input, integer = false) => {
+  if (input === "") return null;
+  return integer ? parseInt(input, (Number.isInteger(integer) && integer) || 10) :
+    parseFloat(input);
+};
+
+
+/**
+ * Input smoothing function automatically updates a user's input of "." to read "0." so that they
+ * can only input "0.5" and not ".5", which would not be accepted on number input forms.
+ * Uses lastIndexOf() to prevent returning "0.0.1" after typing ".0.1".
+ * @param input
+ * @returns {*}
+ */
+const decimalHelper = input => (
+  input.lastIndexOf(".") === 0 ? `0${input}` : input
+);
+
+
+/**
+ * "Truthy Zero".
+ * Makes the number 0 cast to true. Ints and Floats both work.
+ * Because the JSX {value || "Null!"} will return "Null!" on a zero (not null!) I wrote this to
+ * help work around that.
+ * @param input
+ * @returns {boolean}
+ */
+const t0 = input => !!(input || input === 0);
+
+
+/**
+ * "Truthy Zero Ternary".
+ * Because the JSX {(utils.t0(value) ? value : "Null!"} is such a common bit of code I wrote
+ * this to shorten it.
+ * @param input
+ * @param fail
+ * @returns {*}
+ */
+const t0t = (input, fail) => (t0(input) ? input : fail);
+
+
+/**
+ * Basic helper function returns a the value gated between a minimum and maxiumum. Very simple.
+ * For example, if your min is 0 and your max is 1000...
+ * Example A: 501 returns 501   (no change)
+ * Example B: 2501 returns 1000 (maxxed out)
+ * Example C: -15 returns 0     (minned in)
+ * @param min
+ * @param value
+ * @param max
+ * @returns {number}
+ */
+const minMax = (min, value, max) => (Math.max(min, Math.min(value, max)));
+
+
+/**
+ * Takes in the qaFormData object found in QuestionViewer.js and outputs an input data object that
+ * is acceptable by the updateQuestion mutation.
+ * @param qaFormData
+ * @returns {*}
+ */
+const composeQaInputFromFormData = (qaFormData) => {
+  const qaInput = {
+    questionid: qaFormData.question.basics.id,
+    subsubjectid: qaFormData.subSubjectId,
+    type: qaFormData.question.basics.type,
+    flags: qaFormData.question.basics.flags,
+    status: qaFormData.question.basics.status,
+    difficulty: qaFormData.question.basics.difficulty,
+    media: qaFormData.question.basics.media,
+    questioninput: {},
+    answerinput: {},
+  };
+
+  if (qaFormData.question.basics.type === QUESTION_TYPE_WRITTEN) {
+    qaInput.questioninput = {
+      text: qaFormData.question.questionData.text,
+    };
+    qaInput.answerinput = {
+      multiplechoiceinput: {
+        choicesoffered: qaFormData.question.answerData.multiple.choicesOffered,
+        choices: qaFormData.question.answerData.multiple.choices.map(choice => ({
+          unit: choice.unit,
+          written: choice.unit === "written" ? choice.mixedValue : undefined,
+          value: choice.unit !== "written" ? choice.mixedValue : undefined,
+        })),
+      },
+      text: qaFormData.question.answerData.detail,
+    };
+  } else if (qaFormData.question.basics.type === QUESTION_TYPE_CONVERSION ||
+    qaFormData.question.basics.type === QUESTION_TYPE_SURVEY) {
+    qaInput.questioninput = {
+      text: qaFormData.question.basics.type === QUESTION_TYPE_SURVEY ?
+        qaFormData.question.questionData.text : qaFormData.question.questionData.detail,
+      rangeinput: qaFormData.question.questionData.range,
+    };
+    qaInput.answerinput = {
+      conversioninput: {
+        accuracy: qaFormData.question.answerData.accuracy,
+        unit: qaFormData.question.answerData.unit,
+      },
+    };
+  } else {
+    return null;
+  }
+
+  return qaInput;
+};
+
 export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
@@ -757,8 +967,10 @@ export default {
   cacheDeleteObject,
   cachePushIntoArray,
   cacheTargetExists,
+  cacheGetTarget,
   findRecursive,
   navigateObjectDots,
+  nod,
   rootCopy,
   firstLetterCap,
   questionTextGrabber,
@@ -770,4 +982,12 @@ export default {
   choiceWorder,
   unitInitilizer,
   surveyAnswerValidator,
+  explodeBits,
+  isDecimalTyped,
+  parseNumber,
+  decimalHelper,
+  t0,
+  t0t,
+  minMax,
+  composeQaInputFromFormData,
 };

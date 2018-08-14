@@ -254,7 +254,6 @@ export const QaMultipleChoiceObjectDataAllExtra = gql`
 
 export const QaConversionObjectDataAll = gql`
   fragment QaConversionObjectDataAll on QaConversionObject {
-    accuracy
     exact
     rounded
     friendly
@@ -302,8 +301,15 @@ export const QaQuestionDataDataAllExtra = gql`
   ${QaSurveyQuestionObjectDataAllExtra}
 `;
 
+export const QaAnswerDataDataAll = gql`
+  fragment QaAnswerDataDataAll on QaAnswerData {
+    accuracy
+    unit
+  }
+`;
 export const QaAnswerDataDataAllExtra = gql`
   fragment QaAnswerDataDataAllExtra on QaAnswerData {
+    ...QaAnswerDataDataAll
     toUnitWord {
       ...QaUnitWordObjectDataAll
     }
@@ -317,6 +323,7 @@ export const QaAnswerDataDataAllExtra = gql`
       ...QaSurveyAnswerObjectDataAllExtra
     }
   }
+  ${QaAnswerDataDataAll}
   ${QaUnitWordObjectDataAll}
   ${QaMultipleChoiceObjectDataAllExtra}
   ${QaConversionObjectDataAllExtra}
@@ -366,6 +373,7 @@ export const QaObjectDataAll = gql`
     subSubjectId
     difficulty
     flags
+    status
     media
   }
 `;

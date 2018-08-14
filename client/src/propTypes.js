@@ -46,6 +46,8 @@ export const QA_DATA_ANSWER = PropTypes.shape({
   detail: PropTypes.string,
   type: PropTypes.number.isRequired,
   data: PropTypes.shape({
+    accuracy: PropTypes.number,               // Only if conversion or survey question.
+    unit: PropTypes.string,                   // Only if conversion or survey question.
     multiple: PropTypes.shape({               // Only if written question.
       choices: PropTypes.arrayOf(QA_UNIT_OBJECT_TYPE).isRequired,
       choicesOffered: PropTypes.number.isRequired,
@@ -55,7 +57,6 @@ export const QA_DATA_ANSWER = PropTypes.shape({
       singular: PropTypes.string.isRequired,
     }),
     conversion: PropTypes.shape({             // Only if conversion or survey question.
-      accuracy: PropTypes.number.isRequired,
       range: QA_RANGE_OBJECT_TYPE.isRequired,
       exact: PropTypes.number.isRequired,
       rounded: PropTypes.number.isRequired,

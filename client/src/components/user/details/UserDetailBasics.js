@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Segment, Container, Button, Header, List, Icon } from "semantic-ui-react";
 
-import utils from "../../../utils";
-
 import {
   USER_TYPE_NAMES,
   USER_STATUS_NAMES,
@@ -26,11 +24,11 @@ const UserDetailBasics = (props) => {
         <List.Item icon="mail" content={userData.email} />
         <List.Item
           icon="certificate"
-          content={utils.firstLetterCap(USER_TYPE_NAMES[userData.type]) || "Unknown"}
+          content={USER_TYPE_NAMES[userData.type] || "Unknown"}
         />
         <List.Item
           icon="shield"
-          content={utils.firstLetterCap(USER_STATUS_NAMES[userData.status]) || "Unknown"}
+          content={USER_STATUS_NAMES[userData.status] || "Unknown"}
         />
         <List.Item icon="id card" content={userData.id} />
       </List>
