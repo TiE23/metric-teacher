@@ -821,14 +821,15 @@ const explodeBits = (bits) => {
  * @returns {*}
  */
 const isDecimalTyped = (input) => {
-  const dots = input.match(/\./g);
+  const stringInput = typeof input === "string" ? input : String(input);
+  const dots = stringInput.match(/\./g);
   if (dots && dots.length > 1) {
     return false;
   }
-  if (input[input.length - 1] === ".") {
-    return isDecimal(input.slice(0, input.length - 1));
+  if (stringInput[stringInput.length - 1] === ".") {
+    return isDecimal(stringInput.slice(0, stringInput.length - 1));
   } else {
-    return isDecimal(input);
+    return isDecimal(stringInput);
   }
 };
 

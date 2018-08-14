@@ -15,7 +15,8 @@ class QuestionViewer extends PureComponent {
 
     // On first load
     this.componentDidMount = () => {
-      this.setState({ qaFormData: this.makeQaFormFromQaData() });
+      this.initialQaFormData = this.makeQaFormFromQaData();
+      this.setState({ qaFormData: this.initialQaFormData });
     };
 
     this.makeQaFormFromQaData = () => (
@@ -79,6 +80,10 @@ class QuestionViewer extends PureComponent {
       this.setState({ editorOpen: false });
     };
 
+    this.resetChanges = () => {
+      this.setState({ qaFormData: this.initialQaFormData });
+    };
+
     this.handleChange = (newState) => {
       this.setState(previousState => merge({}, previousState, newState));
     };
@@ -110,6 +115,7 @@ class QuestionViewer extends PureComponent {
         editorOpen={this.state.editorOpen}
         openEditor={this.openEditor}
         closeEditor={this.closeEditor}
+        resetChanges={this.resetChanges}
         handleChangeFunctions={{
           handleBasicsChange: this.handleBasicsChange,
           handleSubSubjectIdChange: this.handleSubSubjectIdChange,

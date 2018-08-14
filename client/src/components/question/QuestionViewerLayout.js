@@ -6,6 +6,7 @@ import QuestionDetailsBasics from "./details/QuestionDetailsBasics";
 import QuestionDetailsSubSubject from "./details/QuestionDetailsSubSubject";
 import QuestionDetailsQuestion from "./details/QuestionDetailsQuestion";
 import QuestionDetailsAnswer from "./details/QuestionDetailsAnswer";
+import LoadingButton from "../misc/LoadingButton";
 
 const QuestionViewerLayout = props => (
   // TODO - Consider making PureComponent and splitting up handler funcs before passing to children.
@@ -60,12 +61,40 @@ const QuestionViewerLayout = props => (
     <Grid.Row>
       <Grid.Column>
         <Container textAlign="right">
-          <Button
-            onClick={props.editorOpen ? props.closeEditor : props.openEditor}
-            primary={!props.editorOpen}
-          >
-            {props.editorOpen ? "Close" : "Edit"}
-          </Button>
+          {props.editorOpen ?
+            <span>
+              <LoadingButton
+                onClick={() => {
+                  props.resetChanges();
+                  props.closeEditor();
+                }}
+                buttonProps={{ color: "red" }}
+                buttonText="Cancel"
+                confirmModal
+                headerContent="Cancel Changes"
+                modalProps={{
+                  basic: true,
+                  size: "small",
+                }}
+              />
+              <LoadingButton
+                onClick={() => {
+                  // TODO - onSubmit function
+                  props.closeEditor();
+                }}
+                buttonProps={{ primary: true }}
+                buttonText="Submit"
+                confirmModal
+                headerContent="Submit Changes"
+                modalProps={{
+                  basic: true,
+                  size: "small",
+                }}
+              />
+            </span>
+            :
+            <Button onClick={props.openEditor} primary >Edit</Button>
+          }
         </Container>
       </Grid.Column>
     </Grid.Row>
@@ -86,6 +115,7 @@ QuestionViewerLayout.propTypes = {
   editorOpen: PropTypes.bool,
   openEditor: PropTypes.func,
   closeEditor: PropTypes.func,
+  resetChanges: PropTypes.func,
   handleChangeFunctions: PropTypes.shape({
     handleBasicsChange: PropTypes.func.isRequired,
     handleSubSubjectIdChange: PropTypes.func.isRequired,
@@ -99,6 +129,7 @@ QuestionViewerLayout.defaultProps = {
   editorOpen: false,
   openEditor: null,
   closeEditor: null,
+  resetChanges: null,
   handleChangeFunctions: null,
 };
 

@@ -53,7 +53,7 @@ class LoadingButton extends PureComponent {
             </Button>
           }
           open={this.state.modalOpen}
-          onClose={this.closeModal}W
+          onClose={this.closeModal}
           {...this.props.modalProps}
         >
           <Header {...this.props.headerProps}>
@@ -110,7 +110,7 @@ class LoadingButton extends PureComponent {
 LoadingButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   buttonText: PropTypes.string.isRequired,
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   error: PropTypes.any,           // eslint-disable-line react/forbid-prop-types
   buttonProps: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
   confirmModal: PropTypes.bool,
@@ -123,6 +123,7 @@ LoadingButton.propTypes = {
 };
 
 LoadingButton.defaultProps = {
+  loading: false,
   error: false,
   buttonProps: null,
   confirmModal: false,
