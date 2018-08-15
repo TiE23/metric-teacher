@@ -116,7 +116,7 @@ const question = {
    *          }
    *        }!
    *        answerinput: QuestionAnswerInput: {
-   *          text: String
+   *          detail: String
    *          multiplechoiceinput: QuestionAnswerMultipleChoiceInput: {
    *            choices: [
    *              ChoiceInputRow: {

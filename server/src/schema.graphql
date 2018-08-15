@@ -146,7 +146,7 @@ input QuestionQuestionRangeInput {
 }
 
 input QuestionAnswerInput {
-  text: String
+  detail: String
   multiplechoiceinput: QuestionAnswerMultipleChoiceInput
   conversioninput: ConversionAnswerInput
 }
