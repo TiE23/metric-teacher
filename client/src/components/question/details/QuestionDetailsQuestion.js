@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { List, Input, TextArea } from "semantic-ui-react";
+import { List, Input, TextArea, Popup, Icon } from "semantic-ui-react";
 
 import utils from "../../../utils";
 
@@ -114,7 +114,16 @@ class QuestionDetailsQuestion extends PureComponent {
           <List.Icon name="chart bar" size="large" verticalAlign="top" />
           <List.Content>
             <List.Header>
-              {this.props.type === QUESTION_TYPE_CONVERSION ? "Conversion" : "Survey"} Range
+              {this.props.type === QUESTION_TYPE_CONVERSION ? "Conversion" : "Survey"} Range {" "}
+              <Popup
+                trigger={<Icon name="info circle" />}
+                content={this.props.type === QUESTION_TYPE_CONVERSION ?
+                  "A conversion question will be generated asking the student to convert a value randomly picked within the range below from one unit to another."
+                  :
+                  "The student will be asked to give their answer in the unit below. Only a value within the range below will be accepted."
+                }
+                basic
+              />
             </List.Header>
             <List.List>
               <List.Item>
@@ -158,7 +167,17 @@ class QuestionDetailsQuestion extends PureComponent {
               <List.Item>
                 <List.Icon name="sort" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>Step {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Header>
+                    Step {this.props.editMode && <EditBelowIcon />} {" "}
+                    <Popup
+                      trigger={<Icon name="info circle" />}
+                      content={this.props.type === QUESTION_TYPE_CONVERSION ?
+                        `The question will randomly pick a multiple of ${(this.props.range && this.props.range.step) || 1} between the upper and lower ranges.`
+                        :
+                        `The survey will expect the student to write their answer as a multiple of ${(this.props.range && this.props.range.step) || 1} between the upper and lower ranges.`
+                      }
+                    />
+                  </List.Header>
                   <List.Description>
                     {this.props.editMode ?
                       <Input
@@ -177,7 +196,16 @@ class QuestionDetailsQuestion extends PureComponent {
               <List.Item>
                 <List.Icon name="dot circle" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>From Unit {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Header>
+                    From Unit {this.props.editMode && <EditBelowIcon />} {" "}
+                    {this.props.editMode &&
+                    <Popup
+                      trigger={<Icon name="info circle" />}
+                      content="If desired you can add a custom unit by typing it in."
+                      basic
+                    />
+                    }
+                  </List.Header>
                   {this.props.editMode ?
                     <List.Description>
                       {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?

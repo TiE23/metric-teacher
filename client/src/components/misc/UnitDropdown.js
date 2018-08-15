@@ -44,7 +44,7 @@ class UnitDropdown extends PureComponent {
       this.setState({
         options: [
           {
-            text: `${utils.unitInitilizer(unit)} - ${UNIT_NAMES[unit]}`,
+            text: `${utils.unitInitilizer(unit)} - ${UNIT_NAMES[unit] || "Unknown Unit"}`,
             value: unit,
           },
           ...this.state.options,

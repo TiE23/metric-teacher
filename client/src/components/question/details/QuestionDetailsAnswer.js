@@ -132,22 +132,25 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
           <List.Icon name="pencil alternate" size="large" verticalAlign="top" />
           <List.Content>
             <List.Header>
+              {this.props.editMode ?
+                <Dropdown
+                  onChange={this.handleChoicesAvailableChange}
+                  options={
+                    range(2, utils.minMax(2, this.props.multiple.choices.length, MAX_CHOICES) + 1)
+                      .map(num => ({ value: num, text: `${num} Choices` }))
+                  }
+                  text="Choices Available"
+                  value={this.props.multiple.choicesOffered || 2}
+                  inline
+                />
+                :
+                <span>Choices Available</span>
+              }
+              {" "}
               <Popup
-                trigger={this.props.editMode ?
-                  <Dropdown
-                    onChange={this.handleChoicesAvailableChange}
-                    options={
-                      range(2, utils.minMax(2, this.props.multiple.choices.length, MAX_CHOICES) + 1)
-                        .map(num => ({ value: num, text: `${num} Choices` }))
-                    }
-                    text="Choices Available"
-                    value={this.props.multiple.choicesOffered || 2}
-                    inline
-                  />
-                  :
-                  <span>Choices Available</span>
-                }
+                trigger={<Icon name="info circle" />}
                 content="Sets how many choices the student will see at once in a question. The correct answer will be placed among randomly selected incorrect answers."
+                basic
               />
             </List.Header>
             <List.Description>
@@ -254,9 +257,11 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
           <List.Icon name="sticky note" size="large" verticalAlign="top" />
           <List.Content style={this.width100}>
             <List.Header>
+              Answer Detail {this.props.editMode && <EditBelowIcon />} {" "}
               <Popup
-                trigger={<span>Answer Detail {this.props.editMode && <EditBelowIcon />}</span>}
-                content="Optional detail to explain the answer after it is answered correctly."
+                trigger={<Icon name="info circle" />}
+                content="Optional detail that will appear after the question is answered correctly. Ideally use this to explain why the answer is that way."
+                basic
               />
             </List.Header>
             <List.Description>
@@ -289,7 +294,14 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
               <List.Item>
                 <List.Icon name="crosshairs" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>Accuracy {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Header>
+                    Accuracy {this.props.editMode && <EditBelowIcon />} {" "}
+                    <Popup
+                      trigger={<Icon name="info circle" />}
+                      content={`The user's answer must be within +/- ${utils.t0t(this.props.accuracy, "the accuracy value")} of the actual conversion value.`}
+                      basic
+                    />
+                  </List.Header>
                   <List.Description>
                     {this.props.editMode ?
                       <Input
@@ -308,7 +320,16 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
               <List.Item>
                 <List.Icon name="dot circle outline" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>To Unit {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  <List.Header>
+                    To Unit {this.props.editMode && <EditBelowIcon />} {" "}
+                    {this.props.editMode &&
+                    <Popup
+                      trigger={<Icon name="info circle" />}
+                      content="If desired you can add a custom unit by typing it in."
+                      basic
+                    />
+                    }
+                  </List.Header>
                   {this.props.editMode ?
                     <List.Description>
                       {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
