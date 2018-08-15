@@ -22,8 +22,9 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
       selectedScalesDropdown: null,
       selectedScale: null,
       selectedToMetric: null,
-      selectedSubSubjectRarity: null,
       selectedSubSubjectId: null,
+      selectedSubSubjectDescription: null,
+      selectedSubSubjectRarity: null,
     };
 
     // Because I update selectedSubjectId in componentDidMount() I need to prevent reseting the
@@ -59,12 +60,22 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
             selectedScale: initialSubSubject.scale,
             selectedToMetric: initialSubSubject.toMetric,
             selectedSubSubjectId: this.props.initialSubSubjectId,
+            selectedSubSubjectDescription: initialSubSubject.description,
             selectedSubSubjectRarity: utils.cacheGetTarget(
               this.props.subjectsData,
               this.props.initialSubSubjectId,
               "rarity",
             ),
           });
+
+          // Update the qaFormData right away.
+          if (this.props.handleSubSubjectChange) {
+            this.props.handleSubSubjectChange(
+              this.props.initialSubSubjectId,
+              initialSubSubject.toMetric,
+              initialSubSubject.parent.name,
+            );
+          }
         }
       }
     };
@@ -83,10 +94,11 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
         this.setState({
           selectedSubjectName: newSubjectData.name,
           selectedScalesDropdown: this.buildScalesDropdownSelection(newSubjectData.subSubjects),
-          selectedScale: null,            // New Subject? No scale!
-          selectedToMetric: null,         // New Subject? No direction!
-          selectedSubSubjectId: null,     // New Subject? No SubSubject!
-          selectedSubSubjectRarity: null, // New Subject? No SubSubject!
+          selectedScale: null,                  // New Subject? No scale!
+          selectedToMetric: null,               // New Subject? No direction!
+          selectedSubSubjectId: null,           // New Subject? No SubSubject!
+          selectedSubSubjectDescription: null,  // New subject? No description!
+          selectedSubSubjectRarity: null,       // New Subject? No SubSubject!
         });
 
       // We lost scale or toMetric. Clear the selected SubSubject's ID and rarity.
@@ -98,6 +110,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
       ) {
         this.setState({
           selectedSubSubjectId: null,
+          selectedSubSubjectDescription: null,
           selectedSubSubjectRarity: null,
         });
       }
@@ -117,15 +130,21 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
 
         this.setState({
           selectedSubSubjectId: targetSubSubject.id,
+          selectedSubSubjectDescription: targetSubSubject.description,
           selectedSubSubjectRarity: targetSubSubject.rarity,
         });
       }
 
+      // Need to communicate SubSubjectID, toMetric, and Subject's name to qaFormData.
       if (this.state.selectedSubSubjectId !== prevState.selectedSubSubjectId &&
         this.state.selectedSubSubjectId !== null &&
-        this.props.handleSubSubjectIdChange !== null
+        this.props.handleSubSubjectChange !== null
       ) {
-        this.props.handleSubSubjectIdChange(this.state.selectedSubSubjectId);
+        this.props.handleSubSubjectChange(
+          this.state.selectedSubSubjectId,
+          this.state.selectedToMetric,
+          this.state.selectedSubjectName,
+        );
       }
 
       if (this.firstMount) {
@@ -174,29 +193,20 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
   render() {
     if (!this.props.subjectsData) return null;
 
-    const {
-      selectedSubjectId,
-      selectedSubjectName,
-      selectedScalesDropdown,
-      selectedScale,
-      selectedToMetric,
-      selectedSubSubjectId,
-      selectedSubSubjectRarity,
-    } = this.state;
-
     return (
       <SubSubjectReview
-        id={selectedSubSubjectId}
-        subjectName={selectedSubjectName}
-        scale={selectedScale}
-        toMetric={selectedToMetric}
-        rarity={selectedSubSubjectRarity}
+        id={this.state.selectedSubSubjectId}
+        subjectName={this.state.selectedSubjectName}
+        scale={this.state.selectedScale}
+        toMetric={this.state.selectedToMetric}
+        description={this.state.selectedSubSubjectDescription}
+        rarity={this.state.selectedSubSubjectRarity}
         subjectSelector={
           <Dropdown
             inline
             text="Subject"
             options={this.selectedSubjectsDropdown}
-            value={selectedSubjectId}
+            value={this.state.selectedSubjectId}
             onChange={this.handleSubjectChange}
           />
         }
@@ -204,8 +214,8 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
           <Dropdown
             inline
             text="Scale"
-            options={selectedScalesDropdown}
-            value={selectedScale}
+            options={this.state.selectedScalesDropdown}
+            value={this.state.selectedScale}
             onChange={this.handleScaleChange}
           />
         }
@@ -216,7 +226,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
               { value: true, text: "To Metric", icon: "redo alternate" },
               { value: false, text: "From Metric", icon: "undo alternate" },
             ]}
-            value={selectedToMetric}
+            value={this.state.selectedToMetric}
             onChange={this.handleDirectionChange}
           />
         }
@@ -229,19 +239,20 @@ QuestionDetailsSubSubjectsSelector.propTypes = {
   subjectsData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     subSubjects: PropTypes.arrayOf(PropTypes.shape({
       scale: PropTypes.string.isRequired,
       toMetric: PropTypes.bool.isRequired,
     })).isRequired,
   })),
   initialSubSubjectId: PropTypes.string,
-  handleSubSubjectIdChange: PropTypes.func,
+  handleSubSubjectChange: PropTypes.func,
 };
 
 QuestionDetailsSubSubjectsSelector.defaultProps = {
   subjectsData: null,
   initialSubSubjectId: null,
-  handleSubSubjectIdChange: null,
+  handleSubSubjectChange: null,
 };
 
 export default QuestionDetailsSubSubjectsSelector;

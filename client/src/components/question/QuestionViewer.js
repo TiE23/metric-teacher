@@ -75,6 +75,8 @@ class QuestionViewer extends PureComponent {
           },
         },
         subSubjectId: this.props.qaData.subSubjectId,
+        subSubjectToMetric: null,
+        subjectName: null,
       } : null
     );
 
@@ -108,8 +110,9 @@ class QuestionViewer extends PureComponent {
       this.handleChange({ qaFormData: { question: { basics } } });
     };
 
-    this.handleSubSubjectIdChange = (subSubjectId) => {
-      this.handleChange({ qaFormData: { subSubjectId } });
+    this.handleSubSubjectChange = (subSubjectId, subSubjectToMetric, subjectName) => {
+      console.log(subSubjectId, subSubjectToMetric, subjectName);
+      this.handleChange({ qaFormData: { subSubjectId, subSubjectToMetric, subjectName } });
     };
 
     this.handleQuestionDataChange = (questionData) => {
@@ -143,7 +146,7 @@ class QuestionViewer extends PureComponent {
             resetChanges={this.resetChanges}
             handleChangeFunctions={{
               handleBasicsChange: this.handleBasicsChange,
-              handleSubSubjectIdChange: this.handleSubSubjectIdChange,
+              handleSubSubjectChange: this.handleSubSubjectChange,
               handleQuestionDataChange: this.handleQuestionDataChange,
               handleAnswerDataChange: this.handleAnswerDataChange,
             }}

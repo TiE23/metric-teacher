@@ -31,8 +31,8 @@ const QuestionViewerLayout = props => (
         <QuestionDetailsSubSubject
           subSubjectId={props.qaFormData.subSubjectId}
           editMode={props.editorOpen}
-          handleSubSubjectIdChange={props.handleChangeFunctions &&
-            props.handleChangeFunctions.handleSubSubjectIdChange}
+          handleSubSubjectChange={props.handleChangeFunctions &&
+            props.handleChangeFunctions.handleSubSubjectChange}
         />
       </Grid.Column>
     </Grid.Row>
@@ -46,6 +46,8 @@ const QuestionViewerLayout = props => (
           editMode={props.editorOpen}
           handleQuestionDataChange={props.handleChangeFunctions &&
             props.handleChangeFunctions.handleQuestionDataChange}
+          subSubjectToMetric={props.qaFormData.subSubjectToMetric}
+          subjectName={props.qaFormData.subjectName}
         />
       </Grid.Column>
       {/* Quadrant 4 - Answer Details */}
@@ -57,6 +59,8 @@ const QuestionViewerLayout = props => (
           editMode={props.editorOpen}
           handleAnswerDataChange={props.handleChangeFunctions &&
           props.handleChangeFunctions.handleAnswerDataChange}
+          subSubjectToMetric={props.qaFormData.subSubjectToMetric}
+          subjectName={props.qaFormData.subjectName}
         />
       </Grid.Column>
     </Grid.Row>
@@ -128,6 +132,8 @@ QuestionViewerLayout.propTypes = {
       answerData: PropTypes.object.isRequired,
     }).isRequired,
     subSubjectId: PropTypes.string.isRequired,
+    subSubjectToMetric: PropTypes.bool,
+    subjectName: PropTypes.string,
   }).isRequired,
   allowEditor: PropTypes.bool,
   editorOpen: PropTypes.bool,
@@ -136,7 +142,7 @@ QuestionViewerLayout.propTypes = {
   resetChanges: PropTypes.func,
   handleChangeFunctions: PropTypes.shape({
     handleBasicsChange: PropTypes.func.isRequired,
-    handleSubSubjectIdChange: PropTypes.func.isRequired,
+    handleSubSubjectChange: PropTypes.func.isRequired,
     handleQuestionDataChange: PropTypes.func.isRequired,
     handleAnswerDataChange: PropTypes.func.isRequired,
   }),

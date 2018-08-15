@@ -321,7 +321,7 @@ function checkAndParseQuestionAnswerInputs(type, questionInput, answerInput) {
 
   // Create the answer syntax string.
   const answerSyntaxString = answerSyntaxFormatter(
-    answerInput.string,
+    answerInput.detail,
     answerInput.multiplechoiceinput,
     answerInput.conversioninput,
   );

@@ -12,7 +12,7 @@ const {
 const {
   USER_STATUS_NORMAL,
   USER_TYPE_STUDENT,
-  USER_STATUS_MODERATOR,
+  USER_TYPE_MODERATOR,
   QUESTION_STATUS_REVIEW_PENDING,
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
@@ -45,7 +45,7 @@ const question = {
    *          }
    *        }!
    *        answerinput: QuestionAnswerInput: {
-   *          text: String
+   *          detail: String
    *          multiplechoiceinput: QuestionAnswerMultipleChoiceInput: {
    *            choices: [
    *              ChoiceInputRow: {
@@ -130,7 +130,7 @@ const question = {
    *          }
    *        }!
    *        answerinput: QuestionAnswerInput: {
-   *          text: String
+   *          detail: String
    *          multiplechoiceinput: QuestionAnswerMultipleChoiceInput: {
    *            choices: [
    *              ChoiceInputRow: {
@@ -152,7 +152,7 @@ const question = {
    */
   async updateQuestion(parent, args, ctx, info) {
     const callingUserData = await checkAuth(ctx, {
-      type: USER_STATUS_MODERATOR,
+      type: USER_TYPE_MODERATOR,
       status: USER_STATUS_NORMAL,
       action: "updateQuestion",
     });
@@ -240,7 +240,7 @@ const question = {
     };
 
     const newAnswerInput = {
-      text: targetQa.answer.detail,
+      detail: targetQa.answer.detail,
       multiplechoiceinput: targetQa.answer.data.multiple ? {
         choices: targetQa.answer.data.multiple.choices.map(choice => ({
           value: choice.value || undefined,

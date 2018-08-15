@@ -931,7 +931,7 @@ const composeQaInputFromFormData = (qaFormData) => {
           value: choice.unit !== "written" ? choice.mixedValue : undefined,
         })),
       },
-      text: qaFormData.question.answerData.detail,
+      detail: qaFormData.question.answerData.detail,
     };
   } else if (qaFormData.question.basics.type === QUESTION_TYPE_CONVERSION ||
     qaFormData.question.basics.type === QUESTION_TYPE_SURVEY) {

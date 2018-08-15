@@ -252,7 +252,7 @@ QuestionQuestionInput {
 #### QuestionAnswerInput
 ```
 QuestionAnswerInput: {
-  text: String
+  detail: String
   multiplechoiceinput: QuestionAnswerMultipleChoiceInput: {
     choices: [
       ChoiceInputRow: {

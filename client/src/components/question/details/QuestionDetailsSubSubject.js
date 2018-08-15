@@ -22,7 +22,7 @@ const QuestionDetailsSubSubject = props => (
             <QuestionDetailsSubSubjectsSelector
               subjectsData={queryProps.data && queryProps.data.allSubjects}
               initialSubSubjectId={props.subSubjectId}
-              handleSubSubjectIdChange={props.handleSubSubjectIdChange}
+              handleSubSubjectChange={props.handleSubSubjectChange}
             />
           </QueryHandler>
         )}
@@ -43,6 +43,7 @@ const QuestionDetailsSubSubject = props => (
                 subjectName={queryProps.data.subSubject.parent.name}
                 scale={queryProps.data.subSubject.scale}
                 toMetric={queryProps.data.subSubject.toMetric}
+                description={queryProps.data.subSubject.description}
                 rarity={queryProps.data.subSubject.rarity}
               /> : <p>SubSubject not found.</p>
             }
@@ -56,12 +57,12 @@ const QuestionDetailsSubSubject = props => (
 QuestionDetailsSubSubject.propTypes = {
   subSubjectId: PropTypes.string.isRequired,
   editMode: PropTypes.bool,
-  handleSubSubjectIdChange: PropTypes.func,
+  handleSubSubjectChange: PropTypes.func,
 };
 
 QuestionDetailsSubSubject.defaultProps = {
   editMode: false,
-  handleSubSubjectIdChange: null,
+  handleSubSubjectChange: null,
 };
 
 export default QuestionDetailsSubSubject;
