@@ -43,6 +43,7 @@ const QuestionDetailsSubSubject = props => (
                 subjectName={queryProps.data.subSubject.parent.name}
                 scale={queryProps.data.subSubject.scale}
                 toMetric={queryProps.data.subSubject.toMetric}
+                description={queryProps.data.subSubject.description}
                 rarity={queryProps.data.subSubject.rarity}
               /> : <p>SubSubject not found.</p>
             }

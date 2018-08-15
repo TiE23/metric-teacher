@@ -75,6 +75,17 @@ const SubSubjectReview = props => (
     </List.Item>
     <List.Item>
       <List.Icon
+        name={props.description ? "comment alternate" : "comment alternate outline"}
+        size="large"
+        verticalAlign="top"
+      />
+      <List.Content>
+        <List.Header>Description</List.Header>
+        <List.Description>{props.description || "..."}</List.Description>
+      </List.Content>
+    </List.Item>
+    <List.Item>
+      <List.Icon
         name={props.rarity !== null ? "gem" : "gem outline"}
         size="large"
         verticalAlign="top"
@@ -94,6 +105,7 @@ SubSubjectReview.propTypes = {
   subjectName: PropTypes.string,
   scale: PropTypes.string,
   toMetric: PropTypes.bool,
+  description: PropTypes.string,
   rarity: PropTypes.number,
   subjectSelector: PropTypes.node,
   scaleSelector: PropTypes.node,
@@ -105,6 +117,7 @@ SubSubjectReview.defaultProps = {
   subjectName: null,
   scale: null,
   toMetric: null,
+  description: null,
   rarity: null,
   subjectSelector: null,
   scaleSelector: null,
