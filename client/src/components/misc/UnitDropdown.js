@@ -40,9 +40,15 @@ class UnitDropdown extends PureComponent {
     };
 
     this.handleAddition = (e, { value }) => {
-      const val = value.toLocaleLowerCase();
+      const unit = value.toLocaleLowerCase();
       this.setState({
-        options: [{ text: utils.unitInitilizer(val), value: val }, ...this.state.options],
+        options: [
+          {
+            text: `${utils.unitInitilizer(unit)} - ${UNIT_NAMES[unit]}`,
+            value: unit,
+          },
+          ...this.state.options,
+        ],
       });
     };
   }
@@ -55,11 +61,11 @@ class UnitDropdown extends PureComponent {
           placeholder="Unit"
           search
           selection
-          // fluid
           allowAdditions
           value={this.props.value}
           onAddItem={this.handleAddition}
           onChange={this.props.onChange}
+          {...this.props.dropdownProps}
         />
       );
     } else {
@@ -75,10 +81,12 @@ UnitDropdown.propTypes = {
   subject: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
+  dropdownProps: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
 };
 
 UnitDropdown.defaultProps = {
   value: null,
+  dropdownProps: null,
 };
 
 export default UnitDropdown;

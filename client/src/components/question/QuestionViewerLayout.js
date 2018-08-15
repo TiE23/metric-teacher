@@ -59,6 +59,8 @@ const QuestionViewerLayout = props => (
           editMode={props.editorOpen}
           handleAnswerDataChange={props.handleChangeFunctions &&
           props.handleChangeFunctions.handleAnswerDataChange}
+          subSubjectToMetric={props.qaFormData.subSubjectToMetric}
+          subjectName={props.qaFormData.subjectName}
         />
       </Grid.Column>
     </Grid.Row>

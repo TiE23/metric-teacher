@@ -7,6 +7,7 @@ import cuid from "cuid";
 import utils from "../../../utils";
 
 import EditBelowIcon from "../../misc/EditBelowIcon";
+import UnitDropdown from "../../misc/UnitDropdown";
 
 import {
   MAX_CHOICES,
@@ -286,25 +287,6 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
             </List.Header>
             <List.List>
               <List.Item>
-                <List.Icon name="dot circle outline" size="large" verticalAlign="top" />
-                <List.Content>
-                  <List.Header>To Unit {this.props.editMode && <EditBelowIcon />}</List.Header>
-                  <List.Description>
-                    {this.props.editMode ?
-                      <Input
-                        onChange={this.handleUnitChange}
-                        value={this.props.unit}
-                        placeholder="..."
-                        transparent
-                        fluid
-                      />
-                      :
-                      <span>{utils.unitInitilizer(this.props.unit) || "..."}</span>
-                    }
-                  </List.Description>
-                </List.Content>
-              </List.Item>
-              <List.Item>
                 <List.Icon name="crosshairs" size="large" verticalAlign="top" />
                 <List.Content>
                   <List.Header>Accuracy {this.props.editMode && <EditBelowIcon />}</List.Header>
@@ -321,6 +303,35 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                       <span>{utils.t0t(this.props.accuracy, "Null")}</span>
                     }
                   </List.Description>
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Icon name="dot circle outline" size="large" verticalAlign="top" />
+                <List.Content>
+                  <List.Header>To Unit {this.props.editMode && <EditBelowIcon />}</List.Header>
+                  {this.props.editMode ?
+                    <List.Description>
+                      {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
+                        <UnitDropdown
+                          onChange={this.handleUnitChange}
+                          family={this.props.subSubjectToMetric ? "metric" : "imperial"}
+                          subject={this.props.subjectName.toLocaleLowerCase()}
+                          value={this.props.unit}
+                          dropdownProps={{ pointing: "bottom" }}
+                        />
+                        :
+                        <Input
+                          onChange={this.handleUnitChange}
+                          value={this.props.unit}
+                          placeholder="..."
+                          transparent
+                          fluid
+                        />
+                      }
+                    </List.Description>
+                    :
+                    <span>{utils.unitInitilizer(this.props.unit) || "..."}</span>
+                  }
                 </List.Content>
               </List.Item>
             </List.List>
@@ -347,6 +358,8 @@ QuestionDetailsAnswer.propTypes = {
   }),
   editMode: PropTypes.bool,
   handleAnswerDataChange: PropTypes.func,
+  subSubjectToMetric: PropTypes.bool,
+  subjectName: PropTypes.string,
 };
 
 QuestionDetailsAnswer.defaultProps = {
@@ -356,6 +369,8 @@ QuestionDetailsAnswer.defaultProps = {
   multiple: null,
   editMode: false,
   handleAnswerDataChange: null,
+  subSubjectToMetric: null,
+  subjectName: null,
 };
 
 export default QuestionDetailsAnswer;

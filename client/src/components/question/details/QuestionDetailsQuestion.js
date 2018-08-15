@@ -177,7 +177,7 @@ class QuestionDetailsQuestion extends PureComponent {
               <List.Item>
                 <List.Icon name="dot circle" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>From Unit</List.Header>
+                  <List.Header>From Unit {this.props.editMode && <EditBelowIcon />}</List.Header>
                   {this.props.editMode ?
                     <List.Description>
                       {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
@@ -186,6 +186,7 @@ class QuestionDetailsQuestion extends PureComponent {
                           family={this.props.subSubjectToMetric ? "imperial" : "metric"}
                           subject={this.props.subjectName.toLocaleLowerCase()}
                           value={this.props.range && this.props.range.unit}
+                          dropdownProps={{ pointing: "bottom" }}
                         />
                         :
                         <Input
