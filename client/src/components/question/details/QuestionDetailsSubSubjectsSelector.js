@@ -65,6 +65,14 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
               "rarity",
             ),
           });
+
+          if (this.props.handleSubSubjectChange) {
+            this.props.handleSubSubjectChange(
+              this.props.initialSubSubjectId,
+              initialSubSubject.toMetric,
+              initialSubSubject.parent.name,
+            );
+          }
         }
       }
     };
@@ -123,9 +131,13 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
 
       if (this.state.selectedSubSubjectId !== prevState.selectedSubSubjectId &&
         this.state.selectedSubSubjectId !== null &&
-        this.props.handleSubSubjectIdChange !== null
+        this.props.handleSubSubjectChange !== null
       ) {
-        this.props.handleSubSubjectIdChange(this.state.selectedSubSubjectId);
+        this.props.handleSubSubjectChange(
+          this.state.selectedSubSubjectId,
+          this.state.selectedToMetric,
+          this.state.selectedSubjectName,
+        );
       }
 
       if (this.firstMount) {
@@ -235,13 +247,13 @@ QuestionDetailsSubSubjectsSelector.propTypes = {
     })).isRequired,
   })),
   initialSubSubjectId: PropTypes.string,
-  handleSubSubjectIdChange: PropTypes.func,
+  handleSubSubjectChange: PropTypes.func,
 };
 
 QuestionDetailsSubSubjectsSelector.defaultProps = {
   subjectsData: null,
   initialSubSubjectId: null,
-  handleSubSubjectIdChange: null,
+  handleSubSubjectChange: null,
 };
 
 export default QuestionDetailsSubSubjectsSelector;

@@ -5,6 +5,7 @@ import { List, Input, TextArea } from "semantic-ui-react";
 import utils from "../../../utils";
 
 import EditBelowIcon from "../../misc/EditBelowIcon";
+import UnitDropdown from "../../misc/UnitDropdown";
 
 import {
   QUESTION_TYPE_WRITTEN,
@@ -176,22 +177,31 @@ class QuestionDetailsQuestion extends PureComponent {
               <List.Item>
                 <List.Icon name="dot circle" size="large" verticalAlign="top" />
                 <List.Content>
-                  <List.Header>From Unit {this.props.editMode && <EditBelowIcon />}</List.Header>
-                  <List.Description>
-                    {this.props.editMode ?
-                      <Input
-                        onChange={this.handleRangeUnitChange}
-                        value={this.props.range && this.props.range.unit}
-                        placeholder="..."
-                        transparent
-                        fluid
-                      />
-                      :
-                      <span>
-                        {(this.props.range && utils.unitInitilizer(this.props.range.unit)) || "..."}
-                      </span>
-                    }
-                  </List.Description>
+                  <List.Header>From Unit</List.Header>
+                  {this.props.editMode ?
+                    <List.Description>
+                      {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
+                        <UnitDropdown
+                          onChange={this.handleRangeUnitChange}
+                          family={this.props.subSubjectToMetric ? "imperial" : "metric"}
+                          subject={this.props.subjectName.toLocaleLowerCase()}
+                          value={this.props.range && this.props.range.unit}
+                        />
+                        :
+                        <Input
+                          onChange={this.handleRangeUnitChange}
+                          value={this.props.range && this.props.range.unit}
+                          placeholder="..."
+                          transparent
+                          fluid
+                        />
+                      }
+                    </List.Description>
+                    :
+                    <List.Description>
+                      {(this.props.range && utils.unitInitilizer(this.props.range.unit)) || "..."}
+                    </List.Description>
+                  }
                 </List.Content>
               </List.Item>
             </List.List>
@@ -215,12 +225,16 @@ QuestionDetailsQuestion.propTypes = {
   }),
   editMode: PropTypes.bool,
   handleQuestionDataChange: PropTypes.func,
+  subSubjectToMetric: PropTypes.bool,
+  subjectName: PropTypes.string,
 };
 
 QuestionDetailsQuestion.defaultProps = {
   range: null,
   editMode: false,
   handleQuestionDataChange: null,
+  subSubjectToMetric: null,
+  subjectName: null,
 };
 
 export default QuestionDetailsQuestion;

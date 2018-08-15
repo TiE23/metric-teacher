@@ -335,7 +335,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
 QuestionDetailsAnswer.propTypes = {
   type: PropTypes.number.isRequired,
   detail: PropTypes.string,
-  accuracy: PropTypes.number,
+  accuracy: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   unit: PropTypes.string,
   multiple: PropTypes.shape({
     choicesOffered: PropTypes.number.isRequired,
