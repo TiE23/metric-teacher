@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Form, Container, Dimmer, Loader, Message, Label } from "semantic-ui-react";
+import { Form, Container, Dimmer, Loader, Message, Label, Button } from "semantic-ui-react";
 import deline from "deline";
 import isDecimal from "validator/lib/isDecimal";
 
@@ -106,6 +106,13 @@ class QaReviewSurveyEditorForm extends PureComponent {
             />
           }
           <Container textAlign="right">
+            {this.props.closeSurveyEditor &&
+            <Button
+              onClick={this.props.closeSurveyEditor}
+            >
+              Close
+            </Button>
+            }
             <LoadingButton
               onClick={this.submit}
               buttonText="Submit"
@@ -145,6 +152,7 @@ QaReviewSurveyEditorForm.propTypes = {
   step: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
   questionFlags: PropTypes.number.isRequired,
+  closeSurveyEditor: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
@@ -152,6 +160,7 @@ QaReviewSurveyEditorForm.propTypes = {
 
 QaReviewSurveyEditorForm.defaultProps = {
   note: null,
+  closeSurveyEditor: null,
   error: null,
 };
 
