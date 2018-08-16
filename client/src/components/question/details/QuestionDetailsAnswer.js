@@ -232,23 +232,23 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                 ))}
                 {this.props.editMode &&
                   <List.Item>
-                    <List.Icon
-                      name="plus square outline"
-                      color="purple"
-                      size="large"
-                      verticalAlign="top"
-                    />
-                    <List.Content>
-                      <Button
-                        disabled={this.props.multiple.choices.length >= MAX_CHOICES_DEFINED}
+                    <List.Content floated="right">
+                      <Popup
+                        trigger={
+                          <Icon
+                            size="large"
+                            name="plus square outline"
+                            color="purple"
+                            onClick={this.handleNewChoice}
+                          />
+                        }
+                        content={this.props.multiple.choices.length >= MAX_CHOICES_DEFINED ?
+                          `Max entries reached (${MAX_CHOICES_DEFINED})`
+                          :
+                          "Add a new choice."
+                        }
                         basic
-                        compact
-                        color="purple"
-                        onClick={this.handleNewChoice}
-                      >
-                        {this.props.multiple.choices.length >= MAX_CHOICES_DEFINED ?
-                          `Max entries reached (${MAX_CHOICES_DEFINED})` : "Add another choice"}
-                      </Button>
+                      />
                     </List.Content>
                   </List.Item>
                 }
