@@ -7,35 +7,44 @@ class LoadingButton extends PureComponent {
     super(props);
     this.state = {
       modalOpen: false,
-      submitted: false,
+      fired: false,
     };
 
-    this.closeModal = () => {
-      this.setState({
-        modalOpen: false,
-        submitted: false, // Reset to false on close.
-      });
+    this.buttonClick = () => {
+      this.props.onClick();
+      this.setState({ fired: true }); // Mark the submission as fired.
     };
 
     this.openModal = () => {
       this.setState({ modalOpen: true });
     };
 
-    this.modalConfirmSubmit = () => {
-      this.props.onClick();
-      this.setState({ submitted: true }); // Mark the submission as fired.
+    this.closeModal = () => {
+      this.setState({
+        modalOpen: false,
+        fired: false, // Reset to false on close.
+      });
     };
 
     this.componentDidUpdate = () => {
-      // Only close the modal if the submit has been fired, it's done loading, and no error.
-      if (this.state.submitted && !this.props.loading) {
-        if (!this.props.error) {
-          if (this.props.afterModalSuccess) {
-            this.props.afterModalSuccess();
-          }
-          this.closeModal();
+      // Actions to perform after the button has fired and is not loading.
+      if (this.state.fired && !this.props.loading) {
+        // If there was an error.
+        if (this.props.error) {
+          this.setState({ fired: false });  // Reset for another fire.
+
+        // If there was no error.
         } else {
-          this.setState({ submitted: false });
+          if (this.props.onSuccess) {
+            this.props.onSuccess();  // Call onSuccess function.
+          }
+
+          // Reset for another fire. How we do it depends on whether there is a modal or not.
+          if (this.props.confirmModal) {
+            this.closeModal();                // Close modal and reset fire.
+          } else {
+            this.setState({ fired: false });  // Just reset fire.
+          }
         }
       }
     };
@@ -74,10 +83,11 @@ class LoadingButton extends PureComponent {
               color="red"
               onClick={this.closeModal}
             >
-              <Icon name="remove" /> {this.props.error ? "Close" : this.props.modalRejectLabel}
+              <Icon name="remove" />
+              {this.props.error ? "Close" : this.props.modalRejectLabel}
             </Button>
             <Button
-              onClick={this.modalConfirmSubmit}
+              onClick={this.buttonClick}
               basic={this.props.modalProps.basic}
               inverted={this.props.modalProps.basic}
               color="green"
@@ -95,10 +105,7 @@ class LoadingButton extends PureComponent {
     } else {
       return (
         <Button
-          onClick={(e) => {
-            e.preventDefault();
-            this.props.onClick();
-          }}
+          onClick={this.buttonClick}
           disabled={this.props.loading || this.props.error}
           loading={this.props.loading}
           {...this.props.buttonProps}
@@ -107,12 +114,12 @@ class LoadingButton extends PureComponent {
         </Button>
       );
     }
-  };
+  }
 }
 
 LoadingButton.propTypes = {
   onClick: PropTypes.func.isRequired,
-  afterModalSuccess: PropTypes.func,
+  onSuccess: PropTypes.func,
   buttonText: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   error: PropTypes.any,           // eslint-disable-line react/forbid-prop-types
@@ -127,7 +134,7 @@ LoadingButton.propTypes = {
 };
 
 LoadingButton.defaultProps = {
-  afterModalSuccess: null,
+  onSuccess: null,
   loading: false,
   error: false,
   buttonProps: null,

@@ -121,6 +121,9 @@ class QaReviewSurveyEditorForm extends PureComponent {
                 primary: true,
                 type: "submit",
               }}
+              confirmModal={this.state.answer !== String(this.props.answer)}
+              modalHeaderContent="Are you sure?"
+              modalContent="Updating your answer will reset your score to zero."
             />
           </Container>
         </Form>
