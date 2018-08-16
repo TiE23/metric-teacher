@@ -111,7 +111,6 @@ class QuestionViewer extends PureComponent {
     };
 
     this.handleSubSubjectChange = (subSubjectId, subSubjectToMetric, subjectName) => {
-      console.log(subSubjectId, subSubjectToMetric, subjectName);
       this.handleChange({ qaFormData: { subSubjectId, subSubjectToMetric, subjectName } });
     };
 

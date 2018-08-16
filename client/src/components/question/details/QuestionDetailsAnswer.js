@@ -163,7 +163,16 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
         <List.Item>
           <List.Icon name="list" size="large" verticalAlign="top" />
           <List.Content>
-            <List.Header>Choices</List.Header>
+            <List.Header>
+              Choices {" "}
+              {this.props.editMode &&
+              <Popup
+                trigger={<Icon name="info circle" />}
+                content="If desired you can add a custom unit by typing it in."
+                basic
+              />
+              }
+            </List.Header>
             {this.props.multiple ?
               <List.List>
                 {this.props.multiple.choices.map((choice, index) => (
@@ -186,12 +195,23 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                             onChange={(e, { value }) =>
                               this.handleChoiceValueChange(index, value, choice.unit)}
                           />
-                          <Input
-                            value={choice.unit}
-                            placeholder="Unit"
-                            transparent
-                            onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
-                          />
+                          {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
+                            <UnitDropdown
+                              onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
+                              family={this.props.subSubjectToMetric ? "metric" : "imperial"}
+                              subject={this.props.subjectName.toLocaleLowerCase()}
+                              value={choice.unit}
+                              addWrittenOption
+                              dropdownProps={{ pointing: "bottom" }}
+                            />
+                            :
+                            <Input
+                              value={choice.unit}
+                              placeholder="Unit"
+                              transparent
+                              onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
+                            />
+                          }
                           {index > 1 &&
                             <Icon
                               size="large"
@@ -212,23 +232,23 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                 ))}
                 {this.props.editMode &&
                   <List.Item>
-                    <List.Icon
-                      name="plus square outline"
-                      color="purple"
-                      size="large"
-                      verticalAlign="top"
-                    />
-                    <List.Content>
-                      <Button
-                        disabled={this.props.multiple.choices.length >= MAX_CHOICES_DEFINED}
+                    <List.Content floated="right">
+                      <Popup
+                        trigger={
+                          <Icon
+                            size="large"
+                            name="plus square outline"
+                            color="purple"
+                            onClick={this.handleNewChoice}
+                          />
+                        }
+                        content={this.props.multiple.choices.length >= MAX_CHOICES_DEFINED ?
+                          `Max entries reached (${MAX_CHOICES_DEFINED})`
+                          :
+                          "Add a new choice."
+                        }
                         basic
-                        compact
-                        color="purple"
-                        onClick={this.handleNewChoice}
-                      >
-                        {this.props.multiple.choices.length >= MAX_CHOICES_DEFINED ?
-                          `Max entries reached (${MAX_CHOICES_DEFINED})` : "Add another choice"}
-                      </Button>
+                      />
                     </List.Content>
                   </List.Item>
                 }
