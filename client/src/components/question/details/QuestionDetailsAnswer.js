@@ -163,7 +163,16 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
         <List.Item>
           <List.Icon name="list" size="large" verticalAlign="top" />
           <List.Content>
-            <List.Header>Choices</List.Header>
+            <List.Header>
+              Choices {" "}
+              {this.props.editMode &&
+              <Popup
+                trigger={<Icon name="info circle" />}
+                content="If desired you can add a custom unit by typing it in."
+                basic
+              />
+              }
+            </List.Header>
             {this.props.multiple ?
               <List.List>
                 {this.props.multiple.choices.map((choice, index) => (
@@ -186,12 +195,23 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                             onChange={(e, { value }) =>
                               this.handleChoiceValueChange(index, value, choice.unit)}
                           />
-                          <Input
-                            value={choice.unit}
-                            placeholder="Unit"
-                            transparent
-                            onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
-                          />
+                          {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
+                            <UnitDropdown
+                              onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
+                              family={this.props.subSubjectToMetric ? "metric" : "imperial"}
+                              subject={this.props.subjectName.toLocaleLowerCase()}
+                              value={choice.unit}
+                              addWrittenOption
+                              dropdownProps={{ pointing: "bottom" }}
+                            />
+                            :
+                            <Input
+                              value={choice.unit}
+                              placeholder="Unit"
+                              transparent
+                              onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
+                            />
+                          }
                           {index > 1 &&
                             <Icon
                               size="large"

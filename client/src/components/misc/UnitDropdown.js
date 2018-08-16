@@ -16,26 +16,48 @@ class UnitDropdown extends PureComponent {
       options: null,
     };
 
-    const buildUnitOptions = (family, subject) => {
+    const buildUnitOptions = (family, subject, addWrittenOption) => {
+      const options = [];
+      if (addWrittenOption) {
+        options.push({
+          text: "Written Answer",
+          value: "written",
+        });
+      }
+
       if (UNIT_FAMILIES[family] && UNIT_FAMILIES[family][subject]) {
-        return UNIT_FAMILIES[family][subject].map(unit => ({
+        const unitOptions = (UNIT_FAMILIES[family][subject].map(unit => ({
           key: unit,
           text: `${utils.unitInitilizer(unit)} - ${UNIT_NAMES[unit]}`,
           value: unit,
-        }));
+        })));
+        options.push(...unitOptions);
       }
-      return null;
+
+      return options;
     };
 
     // On first mount...
     this.componentDidMount = () => {
-      this.setState({ options: buildUnitOptions(this.props.family, this.props.subject) });
+      this.setState({
+        options: buildUnitOptions(
+          this.props.family,
+          this.props.subject,
+          this.props.addWrittenOption,
+        ),
+      });
     };
 
     // On updates...
     this.componentDidUpdate = (prevProps) => {
       if (prevProps.family !== this.props.family || prevProps.subject !== this.props.subject) {
-        this.setState({ options: buildUnitOptions(this.props.family, this.props.subject) });
+        this.setState({
+          options: buildUnitOptions(
+            this.props.family,
+            this.props.subject,
+            this.props.addWrittenOption,
+          ),
+        });
       }
     };
 
@@ -82,11 +104,13 @@ UnitDropdown.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   dropdownProps: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
+  addWrittenOption: PropTypes.bool,
 };
 
 UnitDropdown.defaultProps = {
   value: null,
   dropdownProps: null,
+  addWrittenOption: false,
 };
 
 export default UnitDropdown;
