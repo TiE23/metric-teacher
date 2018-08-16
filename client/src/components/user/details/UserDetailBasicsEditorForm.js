@@ -89,7 +89,7 @@ class UserDetailBasicsEditorForm extends Component {
   render() {
     return (
       <Segment>
-        <Form className="attached fluid segment" >
+        <Form className="attached fluid segment">
           <Dimmer inverted active={this.props.loading}>
             <Loader />
           </Dimmer>
@@ -142,6 +142,13 @@ class UserDetailBasicsEditorForm extends Component {
             />
           }
           <Container textAlign="right">
+            {typeof this.props.closeEditor === "function" &&
+            <Button
+              onClick={this.props.closeEditor}
+            >
+              Close
+            </Button>
+            }
             <LoadingButton
               onClick={this.submit}
               buttonText="Submit"
@@ -151,13 +158,6 @@ class UserDetailBasicsEditorForm extends Component {
               }}
               loading={this.props.loading}
             />
-            {typeof this.props.closeEditor === "function" &&
-              <Button
-                onClick={this.props.closeEditor}
-              >
-                Close
-              </Button>
-            }
           </Container>
         </Form>
         {this.props.error &&
@@ -170,8 +170,7 @@ class UserDetailBasicsEditorForm extends Component {
         <Message attached negative>
           <Message.Header>Form Errors</Message.Header>
           <ul>
-            {this.state.formErrors.map(errorMessage =>
-              <li key={errorMessage}>{errorMessage}</li>)}
+            {this.state.formErrors.map(errorMessage => <li key={errorMessage}>{errorMessage}</li>)}
           </ul>
         </Message>
         }

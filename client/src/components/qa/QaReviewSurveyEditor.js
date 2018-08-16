@@ -34,7 +34,13 @@ const QaReviewSurveyEditor = (props) => {
     >
       {(addSurveyAnswers, { loading, error }) => (
         <QaReviewSurveyEditorForm
-          surveyData={props.surveyData}
+          answer={props.surveyData.response.answer.value}
+          unit={props.surveyData.response.answer.unit}
+          note={props.surveyData.response.detail}
+          top={props.surveyData.range.top.value}
+          bottom={props.surveyData.range.bottom.value}
+          step={props.surveyData.step}
+          score={props.surveyData.response.score}
           questionFlags={props.questionFlags}
           onSubmit={answerInputVariables => addSurveyAnswers({
             variables: {
