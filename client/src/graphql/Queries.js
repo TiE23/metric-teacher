@@ -21,7 +21,7 @@ import {
 } from "./fragments/QaFragments";
 
 import {
-  QuestionDataEverything,
+  QuestionDataEverythingExtra,
 } from "./fragments/QuestionFragments";
 
 export const ME_AUTH_QUERY = gql`
@@ -160,8 +160,8 @@ export const GET_QA_QUESTIONS_DATA_LIMITED = gql`
 export const QUESTION_SEARCH = gql`
   query QuestionSearch ($where: QuestionWhereInput, $orderBy: QuestionOrderByInput, $skip: Int, $after: String, $before: String, $first: Int, $last: Int) {
     questionSearch(where: $where, orderBy: $orderBy, skip: $skip, after: $after, before: $before, first: $first, last: $last) {
-      ...QuestionDataEverything
+      ...QuestionDataEverythingExtra
     }
   }
-  ${QuestionDataEverything}
+  ${QuestionDataEverythingExtra}
 `;

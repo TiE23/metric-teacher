@@ -6,6 +6,7 @@ import {
 } from "../../../graphql/Queries";
 
 import QueryHandler from "../../QueryHandler";
+import QuestionListTable from "./QuestionListTable";
 
 /**
  * This will get Search options. For now, during development, it just shows a hardcoded search.
@@ -36,7 +37,7 @@ class QuestionListPage extends PureComponent {
           <QueryHandler
             queryData={queryProps}
           >
-            <p>QuestionListPage</p>
+            <QuestionListTable questionData={queryProps.data.questionSearch} />
           </QueryHandler>
         )}
       </Query>
