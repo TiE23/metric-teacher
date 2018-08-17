@@ -816,6 +816,25 @@ const explodeBits = (bits) => {
 
 
 /**
+ * Loop through a dictionary of flags and the flags value itself and return an array of the
+ * descriptions of activated flags.
+ * @param flagsDictionary
+ * @param flags
+ * @returns {String}
+ */
+const flagDescriber = (flagsDictionary, flags) => {
+  const flagDescriptions = [];
+  forEach(flagsDictionary, (value, key) => {
+    if (flags & key) {
+      flagDescriptions.push(`0x0${key.toString(16)}: (${value})`);
+    }
+  });
+
+  return flagDescriptions.length ? flagDescriptions.join(", ") : "None";
+};
+
+
+/**
  * Custom isDecimal function checks a user's input and will determine if it's a decimal number
  * or not. Unlike just straight isDecimal it won't reject typing a decimal at the end.
  * That is the worst case scenario: a user can type "5." and possibly submit it, but it's not too
@@ -983,6 +1002,7 @@ export default {
   unitInitilizer,
   surveyAnswerValidator,
   explodeBits,
+  flagDescriber,
   isDecimalTyped,
   parseNumber,
   decimalHelper,
