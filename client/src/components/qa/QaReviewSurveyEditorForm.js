@@ -1,16 +1,12 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Form, Container, Dimmer, Loader, Message, Label } from "semantic-ui-react";
+import { Form, Container, Dimmer, Loader, Message, Label, Button } from "semantic-ui-react";
 import deline from "deline";
 import isDecimal from "validator/lib/isDecimal";
 
 import utils from "../../utils";
 
 import LoadingButton from "../misc/LoadingButton";
-
-import {
-  QA_DATA_QUESTION_SURVEY,
-} from "../../propTypes";
 
 import {
   QUESTION_FLAG_USER_DETAIL_OPTIONAL,
@@ -21,17 +17,23 @@ class QaReviewSurveyEditorForm extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      answer: `${this.props.surveyData.response.answer.value}`,
-      note: this.props.surveyData.response.detail,
+      answer: `${this.props.answer}`,
+      note: this.props.note,
       formErrors: [],
     };
 
-    this.handleChange = (data) => {
-      this.setState(data);
+    this.handleAnswerChange = (e, { value }) => {
+      const val = utils.decimalHelper(value); // Typing a "." will automatically fill to "0."
+      if ((val && utils.isDecimalTyped(val)) || !val) {
+        this.setState({ answer: val });
+      }
+    };
+
+    this.handleNoteChange = (e, { value }) => {
+      this.setState({ note: value });
     };
 
     this.validate = () => {
-      const { surveyData } = this.props;
       const formErrors = [];
 
       const inputValue = this.state.answer.trim();
@@ -43,10 +45,10 @@ class QaReviewSurveyEditorForm extends PureComponent {
       } else {
         formErrors.push(...utils.surveyAnswerValidator(
           parseFloat(inputValue),
-          surveyData.range.top.value,
-          surveyData.range.bottom.value,
-          surveyData.range.top.unit,
-          surveyData.step,
+          this.props.top,
+          this.props.bottom,
+          this.props.unit,
+          this.props.step,
         ));
       }
 
@@ -69,10 +71,10 @@ class QaReviewSurveyEditorForm extends PureComponent {
 
         this.props.onSubmit({
           value: newValue,
-          unit: this.props.surveyData.response.answer.unit,  // Cannot be changed, but is required.
+          unit: this.props.unit,  // Cannot be changed, but is required.
           detail: this.state.note.trim(),
-          score: newValue === this.props.surveyData.response.answer.value ?
-            this.props.surveyData.response.score : null,
+          score: newValue === this.props.answer ?
+            this.props.score : null,
         });
       }
     };
@@ -87,31 +89,43 @@ class QaReviewSurveyEditorForm extends PureComponent {
           </Dimmer>
           <Form.Input
             value={this.state.answer}
-            onChange={e => this.handleChange({ answer: e.target.value })}
+            onChange={this.handleAnswerChange}
             label="Answer - Changes will reset your progress!"
           >
             <input />
             <Label basic>
-              <b>{utils.unitInitilizer(this.props.surveyData.response.answer.unit)}</b>
+              <b>{utils.unitInitilizer(this.props.unit)}</b>
             </Label>
           </Form.Input>
           {(this.state.note || !!(this.props.questionFlags &
             (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED))) &&
             <Form.Input
               value={this.state.note}
-              onChange={e => this.handleChange({ note: e.target.value })}
+              onChange={this.handleNoteChange}
               label="Note"
             />
           }
           <Container textAlign="right">
+            {this.props.closeSurveyEditor &&
+            <Button
+              onClick={this.props.closeSurveyEditor}
+            >
+              Close
+            </Button>
+            }
             <LoadingButton
               onClick={this.submit}
+              onSuccess={this.props.closeSurveyEditor}
               buttonText="Submit"
               loading={this.props.loading}
+              error={this.props.error || this.state.formErrors.length}
               buttonProps={{
                 primary: true,
                 type: "submit",
               }}
+              confirmModal={this.state.answer !== String(this.props.answer)}
+              modalHeaderContent="Are you sure?"
+              modalContent="Updating your answer will reset your score to zero."
             />
           </Container>
         </Form>
@@ -125,8 +139,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
         <Message attached negative>
           <Message.Header>Form Errors</Message.Header>
           <ul>
-            {this.state.formErrors.map(errorMessage =>
-              <li key={errorMessage}>{errorMessage}</li>)}
+            {this.state.formErrors.map(errorMessage => <li key={errorMessage}>{errorMessage}</li>)}
           </ul>
         </Message>
         }
@@ -136,14 +149,23 @@ class QaReviewSurveyEditorForm extends PureComponent {
 }
 
 QaReviewSurveyEditorForm.propTypes = {
-  surveyData: QA_DATA_QUESTION_SURVEY.isRequired,
+  answer: PropTypes.number.isRequired,
+  unit: PropTypes.string.isRequired,
+  note: PropTypes.string,
+  top: PropTypes.number.isRequired,
+  bottom: PropTypes.number.isRequired,
+  step: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
   questionFlags: PropTypes.number.isRequired,
+  closeSurveyEditor: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object,  // eslint-disable-line react/forbid-prop-types
 };
 
 QaReviewSurveyEditorForm.defaultProps = {
+  note: null,
+  closeSurveyEditor: null,
   error: null,
 };
 

@@ -31,14 +31,6 @@ const QaReviewSurvey = props => (
               Update Response
             </Button>
           }
-          {props.closeSurveyEditor && props.surveyEditorOpen &&
-            <Button
-              onClick={props.closeSurveyEditor}
-              floated="right"
-            >
-              Close
-            </Button>
-          }
           {props.surveyEditorOpen ?
             <QaReviewSurveyEditor
               surveyData={props.surveyData}

@@ -14,44 +14,49 @@ import {
   QA_DATA_QUESTION_SURVEY,
 } from "../../propTypes";
 
-const QaReviewSurveyEditor = (props) => {
-  return (
-    <Mutation
-      mutation={SURVEY_ADD_ANSWER_MUTATION}
-      update={(cache, { data: { addSurveyAnswer } }) => {
-        const data = cache.readQuery(props.queryInfo);
-        const newData = {
-          score: addSurveyAnswer.score,
-          detail: addSurveyAnswer.detail,
-          answer: { value: parseFloat(addSurveyAnswer.answer.match(/[.0-9]+/)[0]) },
-        };
-        utils.cacheUpdateObject(data, addSurveyAnswer.id, newData, [], "surveyId");
-        cache.writeQuery({
-          ...props.queryInfo,
-          data,
-        });
-      }}
-    >
-      {(addSurveyAnswers, { loading, error }) => (
-        <QaReviewSurveyEditorForm
-          surveyData={props.surveyData}
-          questionFlags={props.questionFlags}
-          onSubmit={answerInputVariables => addSurveyAnswers({
-            variables: {
-              studentid: props.studentId,
-              answerinput: {
-                questionid: props.questionId,
-                ...answerInputVariables,
-              },
+const QaReviewSurveyEditor = props => (
+  <Mutation
+    mutation={SURVEY_ADD_ANSWER_MUTATION}
+    update={(cache, { data: { addSurveyAnswer } }) => {
+      const data = cache.readQuery(props.queryInfo);
+      const newData = {
+        score: addSurveyAnswer.score,
+        detail: addSurveyAnswer.detail,
+        answer: { value: parseFloat(addSurveyAnswer.answer.match(/[.0-9]+/)[0]) },
+      };
+      utils.cacheUpdateObject(data, addSurveyAnswer.id, newData, [], "surveyId");
+      cache.writeQuery({
+        ...props.queryInfo,
+        data,
+      });
+    }}
+  >
+    {(addSurveyAnswers, { loading, error }) => (
+      <QaReviewSurveyEditorForm
+        answer={props.surveyData.response.answer.value}
+        unit={props.surveyData.response.answer.unit}
+        note={props.surveyData.response.detail}
+        top={props.surveyData.range.top.value}
+        bottom={props.surveyData.range.bottom.value}
+        step={props.surveyData.step}
+        score={props.surveyData.response.score}
+        questionFlags={props.questionFlags}
+        closeSurveyEditor={props.closeSurveyEditor}
+        onSubmit={answerInputVariables => addSurveyAnswers({
+          variables: {
+            studentid: props.studentId,
+            answerinput: {
+              questionid: props.questionId,
+              ...answerInputVariables,
             },
-          })}
-          loading={loading}
-          error={error}
-        />
-      )}
-    </Mutation>
-  );
-};
+          },
+        })}
+        loading={loading}
+        error={error}
+      />
+    )}
+  </Mutation>
+);
 
 QaReviewSurveyEditor.propTypes = {
   surveyData: QA_DATA_QUESTION_SURVEY.isRequired,
@@ -59,6 +64,11 @@ QaReviewSurveyEditor.propTypes = {
   studentId: PropTypes.string.isRequired,
   questionId: PropTypes.string.isRequired,
   questionFlags: PropTypes.number.isRequired,
+  closeSurveyEditor: PropTypes.func,
+};
+
+QaReviewSurveyEditor.defaultProps = {
+  closeSurveyEditor: null,
 };
 
 export default QaReviewSurveyEditor;
