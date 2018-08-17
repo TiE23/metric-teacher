@@ -5,6 +5,8 @@ import sortBy from "lodash/sortBy";
 
 import utils from "../../../utils";
 
+import QuestionQaDetailsModal from "./QuestionQaDetailsModal";
+
 import {
   QUESTION_TYPE_DROPDOWN,
   QUESTION_STATUS_DROPDOWN,
@@ -231,7 +233,9 @@ class QuestionListTable extends PureComponent {
                   wide="very"
                 />
               </Table.Cell>
-              <Table.Cell>Buttons Here</Table.Cell>
+              <Table.Cell>
+                <QuestionQaDetailsModal questionId={question.id} />
+              </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -259,6 +263,7 @@ QuestionListTable.propTypes = {
       }).isRequired,
     }).isRequired,
   })),
+  queryInfo: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 QuestionListTable.defaultProps = {

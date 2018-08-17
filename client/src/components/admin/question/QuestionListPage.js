@@ -37,7 +37,10 @@ class QuestionListPage extends PureComponent {
           <QueryHandler
             queryData={queryProps}
           >
-            <QuestionListTable questionData={queryProps.data.questionSearch} />
+            <QuestionListTable
+              questionData={queryProps.data.questionSearch}
+              queryInfo={{ query: QUESTION_SEARCH, variables: queryProps.variables }}
+            />
           </QueryHandler>
         )}
       </Query>
