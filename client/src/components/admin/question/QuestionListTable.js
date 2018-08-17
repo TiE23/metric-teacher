@@ -1,9 +1,16 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Table } from "semantic-ui-react";
+import { Table, Popup, Icon } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
 import utils from "../../../utils";
+
+import {
+  QUESTION_TYPE_DROPDOWN,
+  QUESTION_STATUS_DROPDOWN,
+  QUESTION_FLAG_NAMES,
+  QUESTION_DIFFICULTY_DROPDOWN,
+} from "../../../constants";
 
 class QuestionListTable extends PureComponent {
   constructor(props) {
@@ -64,7 +71,7 @@ class QuestionListTable extends PureComponent {
               sorted={sortColumn === "direction" ? sortDirection : null}
               onClick={this.handleSort("direction", "parent.direction")}
             >
-              Direction
+              To Metric
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
@@ -111,14 +118,119 @@ class QuestionListTable extends PureComponent {
         <Table.Body>
           {data.map(question => (
             <Table.Row key={question.id}>
-              <Table.Cell>{question.parent.parent.name}</Table.Cell>
-              <Table.Cell>{utils.firstLetterCap(question.parent.scale)}</Table.Cell>
-              <Table.Cell>{question.parent.toMetric ? "To Metric" : "From Metric"}</Table.Cell>
-              <Table.Cell>{question.type}</Table.Cell>
-              <Table.Cell>{question.status}</Table.Cell>
-              <Table.Cell>{question.flags}</Table.Cell>
-              <Table.Cell>{question.difficulty}</Table.Cell>
-              <Table.Cell>{question.question}</Table.Cell>
+              <Table.Cell>
+                <Popup
+                  trigger={(<span style={{ cursor: "help" }}>{question.parent.parent.name}</span>)}
+                  content={(
+                    <span>
+                      <b>{question.parent.parent.name}</b>
+                      <ul>
+                        <li>
+                          <b>Subject ID</b>
+                          {": "}
+                          {question.parent.parent.id}
+                        </li>
+                        <li>
+                          <b>SubSubject ID</b>
+                          {": "}
+                          {question.parent.id}
+                        </li>
+                      </ul>
+                    </span>
+                  )}
+                  position="bottom left"
+                  on="click"
+                  wide="very"
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Popup
+                  trigger={(<span>{utils.firstLetterCap(question.parent.scale)}</span>)}
+                  content={utils.firstLetterCap(question.parent.scale)}
+                  position="left center"
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Popup
+                  trigger={(<span>{question.parent.toMetric ? "To Metric" : "From Metric"}</span>)}
+                  content={question.parent.toMetric ? "To Metric" : "From Metric"}
+                  position="left center"
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Popup
+                  trigger={(<span>{QUESTION_TYPE_DROPDOWN[question.type].text}</span>)}
+                  content={QUESTION_TYPE_DROPDOWN[question.type].text}
+                  position="left center"
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Popup
+                  trigger={(
+                    <span>
+                      <Icon name={QUESTION_STATUS_DROPDOWN[question.status].icon} />
+                      {question.status}
+                    </span>
+                  )}
+                  content={QUESTION_STATUS_DROPDOWN[question.status].text}
+                  position="left center"
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Popup
+                  trigger={(
+                    <span>
+                      <Icon name={question.flags === 0 ? "flag outline" : "flag"} />
+                      {question.flags}
+                    </span>
+                  )}
+                  content={utils.flagDescriber(QUESTION_FLAG_NAMES, question.flags)}
+                  position="left center"
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Popup
+                  trigger={(
+                    <span>
+                      <Icon name={QUESTION_DIFFICULTY_DROPDOWN[question.difficulty].icon} />
+                      {question.difficulty}
+                    </span>
+                  )}
+                  content={QUESTION_DIFFICULTY_DROPDOWN[question.difficulty].text}
+                  position="left center"
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Popup
+                  trigger={(<span style={{ cursor: "help" }}>{question.question}</span>)}
+                  content={(
+                    <span>
+                      <b>Question ID</b>
+                      {": "}
+                      {question.id}
+                      <ul>
+                        <li>
+                          <b>Question</b>
+                          {": "}
+                          &quot;
+                          {question.question}
+                          &quot;
+                        </li>
+                        <li>
+                          <b>Answer</b>
+                          {": "}
+                          &quot;
+                          {question.answer}
+                          &quot;
+                        </li>
+                      </ul>
+                    </span>
+                  )}
+                  position="bottom left"
+                  on="click"
+                  wide="very"
+                />
+              </Table.Cell>
               <Table.Cell>Buttons Here</Table.Cell>
             </Table.Row>
           ))}
@@ -136,6 +248,7 @@ QuestionListTable.propTypes = {
     flags: PropTypes.number.isRequired,
     difficulty: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired,
     parent: PropTypes.shape({   // SubSubject
       id: PropTypes.string.isRequired,
       scale: PropTypes.string.isRequired,
