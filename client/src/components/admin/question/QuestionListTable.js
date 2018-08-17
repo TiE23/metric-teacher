@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Table } from "semantic-ui-react";
+import sortBy from "lodash/sortBy";
 
 import utils from "../../../utils";
 
@@ -12,6 +13,27 @@ class QuestionListTable extends PureComponent {
       data: this.props.questionData,
       sortColumn: null,
       sortDirection: null,
+    };
+
+    // Using double arrows to make prop onClick definition cleaner looking.
+    // The alternative is, ex: onClick={() => this.handleSort("subject", "parent.parent.name")}
+    // If this helps efficiency, I do not know...
+    this.handleSort = (clickedColumn, address) => () => {
+      const { data, sortColumn, sortDirection } = this.state;
+
+      if (sortColumn !== clickedColumn) {
+        const sortedData = sortBy(data, o => utils.navigateObjectDots(o, address));
+        this.setState({
+          sortColumn: clickedColumn,
+          sortDirection: "ascending",
+          data: sortedData,
+        });
+      } else {
+        this.setState({
+          data: data.reverse(),
+          sortDirection: sortDirection === "ascending" ? "descending" : "ascending",
+        });
+      }
     };
   }
 
@@ -26,48 +48,56 @@ class QuestionListTable extends PureComponent {
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "subject" ? sortDirection : null}
+              onClick={this.handleSort("subject", "parent.parent.name")}
             >
               Subject
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "scale" ? sortDirection : null}
+              onClick={this.handleSort("scale", "parent.scale")}
             >
               Scale
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "direction" ? sortDirection : null}
+              onClick={this.handleSort("direction", "parent.direction")}
             >
               Direction
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "type" ? sortDirection : null}
+              onClick={this.handleSort("type", "type")}
             >
               Type
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "status" ? sortDirection : null}
+              onClick={this.handleSort("status", "status")}
             >
               Status
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "flags" ? sortDirection : null}
+              onClick={this.handleSort("flags", "flags")}
             >
               Flags
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "difficulty" ? sortDirection : null}
+              onClick={this.handleSort("difficulty", "difficulty")}
             >
               Difficulty
             </Table.HeaderCell>
             <Table.HeaderCell
               width={7}
               sorted={sortColumn === "question" ? sortDirection : null}
+              onClick={this.handleSort("question", "question")}
             >
               Question
             </Table.HeaderCell>
