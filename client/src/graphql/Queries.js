@@ -20,6 +20,10 @@ import {
   QaObjectQuestionDataLimited,
 } from "./fragments/QaFragments";
 
+import {
+  QuestionDataEverything,
+} from "./fragments/QuestionFragments";
+
 export const ME_AUTH_QUERY = gql`
   query MeAuthQuery {
     me {
@@ -151,4 +155,13 @@ export const GET_QA_QUESTIONS_DATA_LIMITED = gql`
     }
   }
   ${QaObjectQuestionDataLimited}
+`;
+
+export const QUESTION_SEARCH = gql`
+  query QuestionSearch ($where: QuestionWhereInput, $orderBy: QuestionOrderByInput, $skip: Int, $after: String, $before: String, $first: Int, $last: Int) {
+    questionSearch(where: $where, orderBy: $orderBy, skip: $skip, after: $after, before: $before, first: $first, last: $last) {
+      ...QuestionDataEverything
+    }
+  }
+  ${QuestionDataEverything}
 `;

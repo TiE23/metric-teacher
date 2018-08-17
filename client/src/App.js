@@ -14,6 +14,12 @@ import Subjects from "./components/subject/SubjectsPage";
 import Test from "./components/Test";
 import QaViewerPage from "./components/qa/QaViewerPage";
 import QuestionViewerPage from "./components/question/QuestionViewerPage";
+import QuestionListPage from "./components/admin/question/QuestionListPage";
+
+import {
+  USER_TYPE_MODERATOR,
+  USER_TYPE_ADMIN,
+} from "./constants";
 
 const App = () => (
   <div className="App">
@@ -25,6 +31,16 @@ const App = () => (
       <Route exact path="/logout" component={Logout} />
       <Route exact path="/user/:id" component={withAuth(User, { private: true })} />
       <Route exact path="/subjects" component={withAuth(Subjects)} />
+      <Route
+        exact
+        path="/admin/questionlist"
+        component={
+          withAuth(QuestionListPage, {
+            private: true,
+            permissions: { type: USER_TYPE_MODERATOR },
+          })
+        }
+      />
       {/* Below are test paths for development... */}
       <Route exact path="/qaviewer/:questionId" component={withAuth(QaViewerPage, { private: true })} />
       <Route
@@ -39,7 +55,7 @@ const App = () => (
         component={
           withAuth(Test, {
             private: true,
-            permissions: { type: 3 },
+            permissions: { type: USER_TYPE_ADMIN },
           })
         }
       />
