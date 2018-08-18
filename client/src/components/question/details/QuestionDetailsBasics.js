@@ -4,7 +4,6 @@ import { List, Icon, Modal, Image, Dropdown, Input } from "semantic-ui-react";
 
 import utils from "../../../utils";
 
-import FlagLister from "../../misc/FlagLister";
 import EditBelowIcon from "../../misc/EditBelowIcon";
 
 import {
@@ -174,12 +173,10 @@ class QuestionDetailsBasics extends PureComponent {
               }
             </List.Header>
             <List.Description>
-              {this.props.flags} {" - "}
+              {this.props.flags}
+              {" - "}
               &quot;
-              <FlagLister
-                flags={this.props.flags}
-                flagsDictionary={QUESTION_FLAG_NAMES}
-              />
+              {utils.flagDescriber(QUESTION_FLAG_NAMES, this.props.flags)}
               &quot;
             </List.Description>
           </List.Content>

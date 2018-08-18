@@ -43,7 +43,8 @@ class QaReview extends PureComponent {
             choicesOffered={qaData.answer.data.multiple.choicesOffered}
           />
         }
-        {qaData.question.type === QUESTION_TYPE_SURVEY && qaData.question.data.survey.response &&
+        {qaData.question.type === QUESTION_TYPE_SURVEY && this.props.studentId &&
+        qaData.question.data.survey.response &&
           <QaReviewSurvey
             surveyData={qaData.question.data.survey}
             queryInfo={this.props.queryInfo}
@@ -66,12 +67,13 @@ QaReview.propTypes = {
     query: PropTypes.object.isRequired,
     variables: PropTypes.object.isRequired,
   }).isRequired,
-  studentId: PropTypes.string.isRequired,
+  studentId: PropTypes.string,
   allowSurveyEditor: PropTypes.bool,
 };
 
 QaReview.defaultProps = {
   qaData: null,
+  studentId: null,
   allowSurveyEditor: false,
 };
 

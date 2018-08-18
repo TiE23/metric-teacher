@@ -118,7 +118,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
               onSuccess={this.props.closeSurveyEditor}
               buttonText="Submit"
               loading={this.props.loading}
-              error={this.props.error || this.state.formErrors.length}
+              error={this.props.error || !!this.state.formErrors.length}
               buttonProps={{
                 primary: true,
                 type: "submit",

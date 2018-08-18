@@ -152,7 +152,7 @@ type QaObject {
           }!
         }!
         response: QaSurveyResponseObject {      # Only if survey was answered
-          id: ID!
+          surveyId: ID!
           score: Int!
           answer: QaUnitObject {
             value: Float!

@@ -4,10 +4,12 @@ import { Mutation } from "react-apollo";
 import merge from "lodash/merge";
 import cuid from "cuid";
 
+import utils from "../../utils";
+
 import QuestionViewerLayout from "./QuestionViewerLayout";
 
 import {
-  UPDATE_QA_QUESTION_DATA_LIMITED,
+  UPDATE_QA_QUESTION,
 } from "../../graphql/Mutations";
 
 class QuestionViewer extends PureComponent {
@@ -128,7 +130,18 @@ class QuestionViewer extends PureComponent {
 
     return (
       <Mutation
-        mutation={UPDATE_QA_QUESTION_DATA_LIMITED}
+        mutation={UPDATE_QA_QUESTION}
+        update={(cache, { data: { updateQuestion } }) => {
+          // Updating cache's Question row if queryInfo was passed in.
+          if (this.props.queryInfo) {
+            const data = cache.readQuery(this.props.queryInfo);
+            utils.cacheUpdateObject(data, updateQuestion.id, updateQuestion);
+            cache.writeQuery({
+              ...this.props.queryInfo,
+              data,
+            });
+          }
+        }}
         onCompleted={() => {
           // Necessary update so that if you edit again and cancel it won't reset to old version.
           this.initialQaFormData = this.state.qaFormData;
@@ -223,11 +236,13 @@ QuestionViewer.propTypes = {
       }).isRequired,
     }).isRequired,
   }),
+  queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   allowEditor: PropTypes.bool,
 };
 
 QuestionViewer.defaultProps = {
   qaData: null,
+  queryInfo: null,
   allowEditor: false,
 };
 

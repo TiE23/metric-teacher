@@ -27,7 +27,8 @@ const QaReviewChoices = (props) => {
               Correct Answer
             </Label>
             <br />
-            <Icon fitted name="circle" /> {utils.choiceWorder(correctAnswer)}
+            <Icon fitted name="check circle" color="olive" />
+            {utils.choiceWorder(correctAnswer)}
           </Segment>
         </Grid.Column>
         <Grid.Column>
@@ -40,7 +41,9 @@ const QaReviewChoices = (props) => {
               const choiceString = utils.choiceWorder(choice);
               return (
                 <span key={choiceString}>
-                  <Icon name="circle outline" />{choiceString}{"  "}
+                  <Icon name="remove circle" color="red" />
+                  {choiceString}
+                  {"  "}
                 </span>
               );
             })}
@@ -50,7 +53,9 @@ const QaReviewChoices = (props) => {
       <Grid.Row>
         <span>
           <Icon name="info circle" /> {" "}
-          There will be {props.choicesOffered} choices.
+          There will be
+          {props.choicesOffered}
+          choices.
         </span>
       </Grid.Row>
     </Grid>

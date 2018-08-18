@@ -26,7 +26,7 @@ const QaViewerPage = (props) => {
     return (<p>You need to provide a question id!</p>);
   }
 
-  if(!props.userTokenData) {
+  if (!props.userTokenData || !props.userTokenData.id) {
     return (<p>Must be logged in!</p>);
   }
 
@@ -34,31 +34,29 @@ const QaViewerPage = (props) => {
     GET_QA_QUESTIONS_WITH_STUDENT : GET_QA_QUESTIONS_WITHOUT_STUDENT;
 
   // Right now this is only viewable by logged in users.
-  if (props.userTokenData && props.userTokenData.id) {
-    return (
-      <Query
-        query={query}
-        variables={{
-          questionids: [props.match.params.questionId],
-          studentid: props.userTokenData && props.userTokenData.id,
-        }}
-        fetchPolicy="network-only"
-      >
-        {queryProps => (
-          <QueryHandler
-            queryData={queryProps}
-            noDataErrorMessage="Question not found."
-          >
-            <QaReview
-              qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
-              queryInfo={{ query, variables: queryProps.variables }}
-              studentId={queryProps.variables.studentid}
-            />
-          </QueryHandler>
-        )}
-      </Query>
-    );
-  }
+  return (
+    <Query
+      query={query}
+      variables={{
+        questionids: [props.match.params.questionId],
+        studentid: props.userTokenData && props.userTokenData.id,
+      }}
+      fetchPolicy="network-only"
+    >
+      {queryProps => (
+        <QueryHandler
+          queryData={queryProps}
+          noDataErrorMessage="Question not found."
+        >
+          <QaReview
+            qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
+            queryInfo={{ query, variables: queryProps.variables }}
+            studentId={queryProps.variables.studentid}
+          />
+        </QueryHandler>
+      )}
+    </Query>
+  );
 };
 
 QaViewerPage.propTypes = {
