@@ -12,7 +12,7 @@ import {
   GET_QA_QUESTIONS_DATA_LIMITED,
 } from "../../../graphql/Queries";
 
-const QuestionQaDetailsModal = (props) => {
+const QuestionQaDetailsAndEditorModal = (props) => {
   const query = props.editorMode ? GET_QA_QUESTIONS_DATA_LIMITED : GET_QA_QUESTIONS_WITHOUT_STUDENT;
 
   return (
@@ -53,7 +53,7 @@ const QuestionQaDetailsModal = (props) => {
   );
 }
 
-QuestionQaDetailsModal.propTypes = {
+QuestionQaDetailsAndEditorModal.propTypes = {
   questionId: PropTypes.string.isRequired,
   editorMode: PropTypes.bool,
   queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -61,11 +61,11 @@ QuestionQaDetailsModal.propTypes = {
   children: PropTypes.node,
 };
 
-QuestionQaDetailsModal.defaultProps = {
+QuestionQaDetailsAndEditorModal.defaultProps = {
   editorMode: false,
   queryInfo: null,
   modalProps: null,
   children: (<span>Open Modal</span>),
 };
 
-export default QuestionQaDetailsModal;
+export default QuestionQaDetailsAndEditorModal;

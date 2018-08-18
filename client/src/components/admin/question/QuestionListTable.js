@@ -5,7 +5,7 @@ import sortBy from "lodash/sortBy";
 
 import utils from "../../../utils";
 
-import QuestionQaDetailsModal from "./QuestionQaDetailsModal";
+import QuestionQaDetailsAndEditorModal from "./QuestionQaDetailsAndEditorModal";
 
 import {
   QUESTION_TYPE_DROPDOWN,
@@ -281,22 +281,22 @@ class QuestionListTable extends PureComponent {
                 />
               </Table.Cell>
               <Table.Cell>
-                <QuestionQaDetailsModal
+                <QuestionQaDetailsAndEditorModal
                   questionId={question.id}
                   editorMode={false}
                 >
                   <Button>Details</Button>
-                </QuestionQaDetailsModal>
-                <QuestionQaDetailsModal
+                </QuestionQaDetailsAndEditorModal>
+                <QuestionQaDetailsAndEditorModal
                   questionId={question.id}
                   editorMode
                   queryInfo={this.props.queryInfo}
                   modalProps={{
-                    size: "fullscreen"
+                    size: "fullscreen",
                   }}
                 >
                   <Button>Editor</Button>
-                </QuestionQaDetailsModal>
+                </QuestionQaDetailsAndEditorModal>
               </Table.Cell>
             </Table.Row>
           ))}
