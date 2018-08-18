@@ -18,6 +18,8 @@ const QuestionQaDetailsAndEditorModal = (props) => {
   return (
     <Modal
       trigger={props.children}
+      closeIcon
+      {...props.modalProps}
     >
       <Modal.Header>Question Details</Modal.Header>
       <Modal.Content>
@@ -57,7 +59,7 @@ QuestionQaDetailsAndEditorModal.propTypes = {
   questionId: PropTypes.string.isRequired,
   editorMode: PropTypes.bool,
   queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  modalProps: PropTypes.object,
+  modalProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   children: PropTypes.node,
 };
 

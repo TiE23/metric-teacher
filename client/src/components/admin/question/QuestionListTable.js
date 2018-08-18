@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import {Table, Popup, Icon, Button } from "semantic-ui-react";
+import {Table, Popup, Icon } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
 import utils from "../../../utils";
@@ -285,17 +285,15 @@ class QuestionListTable extends PureComponent {
                   questionId={question.id}
                   editorMode={false}
                 >
-                  <Button>Details</Button>
+                  <Icon name="window maximize" style={{ cursor: "pointer" }} />
                 </QuestionQaDetailsAndEditorModal>
                 <QuestionQaDetailsAndEditorModal
                   questionId={question.id}
                   editorMode
                   queryInfo={this.props.queryInfo}
-                  modalProps={{
-                    size: "fullscreen",
-                  }}
+                  modalProps={{ size: "fullscreen" }}
                 >
-                  <Button>Editor</Button>
+                  <Icon name="pencil" style={{ cursor: "pointer" }} />
                 </QuestionQaDetailsAndEditorModal>
               </Table.Cell>
             </Table.Row>
