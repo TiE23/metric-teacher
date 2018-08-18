@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Table, Popup, Icon } from "semantic-ui-react";
+import {Table, Popup, Icon, Button } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
 import utils from "../../../utils";
@@ -22,16 +22,38 @@ class QuestionListTable extends PureComponent {
       data: this.props.questionData,
       sortColumn: null,
       sortDirection: null,
+      sorted: true,
+    };
+
+    // This is a list of addresses that determine the sort direction of a particular column.
+    const addressBook = {
+      subject: "parent.parent.name",
+      scale: "parent.scale",
+      direction: "parent.direction",
+      type: "type",
+      status: "status",
+      flags: "flags",
+      difficulty: "difficulty",
+      question: "question",
+    };
+
+    // Performs the resorting of a complex data structure.
+    const sorter = (data, address, sortDirection) => {
+      const sortedData = sortBy(data, o => utils.navigateObjectDots(o, address));
+      if (sortDirection === "descending") {
+        return sortedData.reverse();
+      }
+      return sortedData;
     };
 
     // Using double arrows to make prop onClick definition cleaner looking.
     // The alternative is, ex: onClick={() => this.handleSort("subject", "parent.parent.name")}
     // If this helps efficiency, I do not know...
-    this.handleSort = (clickedColumn, address) => () => {
+    this.handleSort = clickedColumn => () => {
       const { data, sortColumn, sortDirection } = this.state;
 
       if (sortColumn !== clickedColumn) {
-        const sortedData = sortBy(data, o => utils.navigateObjectDots(o, address));
+        const sortedData = sorter(data, addressBook[clickedColumn], sortDirection);
         this.setState({
           sortColumn: clickedColumn,
           sortDirection: "ascending",
@@ -41,6 +63,31 @@ class QuestionListTable extends PureComponent {
         this.setState({
           data: data.reverse(),
           sortDirection: sortDirection === "ascending" ? "descending" : "ascending",
+        });
+      }
+    };
+
+    // Because the content of the table can be changed in edits, we need to react and then correctly
+    // resort the table when new questionData comes in.
+    this.componentDidUpdate = (prevProps, prevState) => {
+      // New data? Mark the table as not sorted!
+      if (this.props.questionData !== prevProps.questionData) {
+        this.setState({
+          sorted: false,
+        });
+      }
+
+      // The table isn't sorted? Sort it!
+      if (!this.state.sorted) {
+        const sortedData = sorter(
+          this.props.questionData,
+          addressBook[prevState.sortColumn],
+          prevState.sortDirection,
+        );
+
+        this.setState({
+          data: sortedData,
+          sorted: true,
         });
       }
     };
@@ -57,56 +104,56 @@ class QuestionListTable extends PureComponent {
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "subject" ? sortDirection : null}
-              onClick={this.handleSort("subject", "parent.parent.name")}
+              onClick={this.handleSort("subject")}
             >
               Subject
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "scale" ? sortDirection : null}
-              onClick={this.handleSort("scale", "parent.scale")}
+              onClick={this.handleSort("scale")}
             >
               Scale
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "direction" ? sortDirection : null}
-              onClick={this.handleSort("direction", "parent.direction")}
+              onClick={this.handleSort("direction")}
             >
               To Metric
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "type" ? sortDirection : null}
-              onClick={this.handleSort("type", "type")}
+              onClick={this.handleSort("type")}
             >
               Type
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "status" ? sortDirection : null}
-              onClick={this.handleSort("status", "status")}
+              onClick={this.handleSort("status")}
             >
               Status
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "flags" ? sortDirection : null}
-              onClick={this.handleSort("flags", "flags")}
+              onClick={this.handleSort("flags")}
             >
               Flags
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "difficulty" ? sortDirection : null}
-              onClick={this.handleSort("difficulty", "difficulty")}
+              onClick={this.handleSort("difficulty")}
             >
               Difficulty
             </Table.HeaderCell>
             <Table.HeaderCell
               width={7}
               sorted={sortColumn === "question" ? sortDirection : null}
-              onClick={this.handleSort("question", "question")}
+              onClick={this.handleSort("question")}
             >
               Question
             </Table.HeaderCell>
@@ -234,7 +281,22 @@ class QuestionListTable extends PureComponent {
                 />
               </Table.Cell>
               <Table.Cell>
-                <QuestionQaDetailsModal questionId={question.id} />
+                <QuestionQaDetailsModal
+                  questionId={question.id}
+                  editorMode={false}
+                >
+                  <Button>Details</Button>
+                </QuestionQaDetailsModal>
+                <QuestionQaDetailsModal
+                  questionId={question.id}
+                  editorMode
+                  queryInfo={this.props.queryInfo}
+                  modalProps={{
+                    size: "fullscreen"
+                  }}
+                >
+                  <Button>Editor</Button>
+                </QuestionQaDetailsModal>
               </Table.Cell>
             </Table.Row>
           ))}
@@ -263,11 +325,12 @@ QuestionListTable.propTypes = {
       }).isRequired,
     }).isRequired,
   })),
-  queryInfo: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 QuestionListTable.defaultProps = {
   questionData: null,
+  queryInfo: null,
 };
 
 export default QuestionListTable;
