@@ -816,6 +816,22 @@ const explodeBits = (bits) => {
 
 
 /**
+ * Implodes a list of flags into a single flag integer.
+ * Ex: ([1, 2, 4]) => 7
+ * @param bitList
+ * @returns {number}
+ */
+const implodeBits = (bitList) => {
+  let flags = 0;
+  bitList.forEach((bit) => {
+    flags |= bit;
+  });
+
+  return flags;
+};
+
+
+/**
  * Loop through a dictionary of flags and the flags value itself and return an array of the
  * descriptions of activated flags.
  * @param flagsDictionary
@@ -981,6 +997,7 @@ export default {
   checkJWT,
   checkAuth,
   userDetailFormValidator,
+  mergeCustomizer,
   cacheNewObject,
   cacheUpdateObject,
   cacheDeleteObject,
@@ -1002,6 +1019,7 @@ export default {
   unitInitilizer,
   surveyAnswerValidator,
   explodeBits,
+  implodeBits,
   flagDescriber,
   isDecimalTyped,
   parseNumber,

@@ -14,7 +14,7 @@ import Subjects from "./components/subject/SubjectsPage";
 import Test from "./components/Test";
 import QaViewerPage from "./components/qa/QaViewerPage";
 import QuestionViewerPage from "./components/question/QuestionViewerPage";
-import QuestionListPage from "./components/admin/question/QuestionListPage";
+import QuestionSearchPage from "./components/admin/question/QuestionSearchPage";
 
 import {
   USER_TYPE_MODERATOR,
@@ -33,9 +33,9 @@ const App = () => (
       <Route exact path="/subjects" component={withAuth(Subjects)} />
       <Route
         exact
-        path="/admin/questionlist"
+        path="/admin/questionsearch"
         component={
-          withAuth(QuestionListPage, {
+          withAuth(QuestionSearchPage, {
             private: true,
             permissions: { type: USER_TYPE_MODERATOR },
           })

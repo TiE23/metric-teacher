@@ -9,6 +9,7 @@ import utils from "../../../utils";
 import SubSubjectReview from "../../subsubject/SubSubjectReview";
 
 import {
+  DIRECTION_DROPDOWN,
   SUBJECT_ICONS,
   SCALE_ICONS,
 } from "../../../constants";
@@ -222,10 +223,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
         toMetricSelector={
           <Dropdown
             text="Direction"
-            options={[
-              { value: true, text: "To Metric", icon: "redo alternate" },
-              { value: false, text: "From Metric", icon: "undo alternate" },
-            ]}
+            options={DIRECTION_DROPDOWN}
             value={this.state.selectedToMetric}
             onChange={this.handleDirectionChange}
           />

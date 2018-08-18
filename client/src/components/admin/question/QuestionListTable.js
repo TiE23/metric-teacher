@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import {Table, Popup, Icon } from "semantic-ui-react";
+import { Table, Popup, Icon } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
 import utils from "../../../utils";
@@ -47,7 +47,7 @@ class QuestionListTable extends PureComponent {
     };
 
     // Using double arrows to make prop onClick definition cleaner looking.
-    // The alternative is, ex: onClick={() => this.handleSort("subject", "parent.parent.name")}
+    // The alternative is, ex: onClick={() => this.handleSort("subject")}
     // If this helps efficiency, I do not know...
     this.handleSort = clickedColumn => () => {
       const { data, sortColumn, sortDirection } = this.state;
@@ -97,6 +97,8 @@ class QuestionListTable extends PureComponent {
     if (!this.props.questionData) return null;
 
     const { data, sortColumn, sortDirection } = this.state;
+
+    // Column width total != 16. This is on purpose to widen the 1's.
     return (
       <Table sortable celled fixed singleLine compact>
         <Table.Header>
@@ -151,14 +153,14 @@ class QuestionListTable extends PureComponent {
               Difficulty
             </Table.HeaderCell>
             <Table.HeaderCell
-              width={7}
+              width={6}
               sorted={sortColumn === "question" ? sortDirection : null}
               onClick={this.handleSort("question")}
             >
               Question
             </Table.HeaderCell>
             <Table.HeaderCell
-              width={2}
+              width={1}
             >
               Actions
             </Table.HeaderCell>
