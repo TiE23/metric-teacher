@@ -17,6 +17,7 @@ const QuestionListContainer = props => (
     {queryProps => (
       <QueryHandler
         queryData={queryProps}
+        noDataIsAcceptable
       >
         <QuestionListTable
           questionData={queryProps.data.questionSearch}

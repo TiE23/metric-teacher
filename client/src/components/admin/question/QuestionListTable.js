@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Table, Popup, Icon } from "semantic-ui-react";
+import { Table, Popup, Icon, Message } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
 import utils from "../../../utils";
@@ -166,141 +166,152 @@ class QuestionListTable extends PureComponent {
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        <Table.Body>
-          {data.map(question => (
-            <Table.Row key={question.id}>
-              <Table.Cell>
-                <Popup
-                  trigger={(<span style={{ cursor: "help" }}>{question.parent.parent.name}</span>)}
-                  content={(
-                    <span>
-                      <b>{question.parent.parent.name}</b>
-                      <ul>
-                        <li>
-                          <b>Subject ID</b>
-                          {": "}
-                          {question.parent.parent.id}
-                        </li>
-                        <li>
-                          <b>SubSubject ID</b>
-                          {": "}
-                          {question.parent.id}
-                        </li>
-                      </ul>
-                    </span>
-                  )}
-                  position="bottom left"
-                  on="click"
-                  wide="very"
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <Popup
-                  trigger={(<span>{utils.firstLetterCap(question.parent.scale)}</span>)}
-                  content={utils.firstLetterCap(question.parent.scale)}
-                  position="left center"
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <Popup
-                  trigger={(<span>{question.parent.toMetric ? "To Metric" : "From Metric"}</span>)}
-                  content={question.parent.toMetric ? "To Metric" : "From Metric"}
-                  position="left center"
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <Popup
-                  trigger={(<span>{QUESTION_TYPE_DROPDOWN[question.type].text}</span>)}
-                  content={QUESTION_TYPE_DROPDOWN[question.type].text}
-                  position="left center"
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <Popup
-                  trigger={(
-                    <span>
-                      <Icon name={QUESTION_STATUS_DROPDOWN[question.status].icon} />
-                      {question.status}
-                    </span>
-                  )}
-                  content={QUESTION_STATUS_DROPDOWN[question.status].text}
-                  position="left center"
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <Popup
-                  trigger={(
-                    <span>
-                      <Icon name={question.flags === 0 ? "flag outline" : "flag"} />
-                      {question.flags}
-                    </span>
-                  )}
-                  content={utils.flagDescriber(QUESTION_FLAG_NAMES, question.flags)}
-                  position="left center"
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <Popup
-                  trigger={(
-                    <span>
-                      <Icon name={QUESTION_DIFFICULTY_DROPDOWN[question.difficulty].icon} />
-                      {question.difficulty}
-                    </span>
-                  )}
-                  content={QUESTION_DIFFICULTY_DROPDOWN[question.difficulty].text}
-                  position="left center"
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <Popup
-                  trigger={(<span style={{ cursor: "help" }}>{question.question}</span>)}
-                  content={(
-                    <span>
-                      <b>Question ID</b>
-                      {": "}
-                      {question.id}
-                      <ul>
-                        <li>
-                          <b>Question</b>
-                          {": "}
-                          &quot;
-                          {question.question}
-                          &quot;
-                        </li>
-                        <li>
-                          <b>Answer</b>
-                          {": "}
-                          &quot;
-                          {question.answer}
-                          &quot;
-                        </li>
-                      </ul>
-                    </span>
-                  )}
-                  position="bottom left"
-                  on="click"
-                  wide="very"
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <QuestionQaDetailsAndEditorModal
-                  questionId={question.id}
-                  editorMode={false}
-                >
-                  <Icon name="window maximize" style={{ cursor: "pointer" }} />
-                </QuestionQaDetailsAndEditorModal>
-                <QuestionQaDetailsAndEditorModal
-                  questionId={question.id}
-                  editorMode
-                  queryInfo={this.props.queryInfo}
-                  modalProps={{ size: "fullscreen" }}
-                >
-                  <Icon name="pencil" style={{ cursor: "pointer" }} />
-                </QuestionQaDetailsAndEditorModal>
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
+        {data.length ?
+          <Table.Body>
+            {data.map(question => (
+              <Table.Row key={question.id}>
+                <Table.Cell>
+                  <Popup
+                    trigger={(<span style={{ cursor: "help" }}>{question.parent.parent.name}</span>)}
+                    content={(
+                      <span>
+                        <b>{question.parent.parent.name}</b>
+                        <ul>
+                          <li>
+                            <b>Subject ID</b>
+                            {": "}
+                            {question.parent.parent.id}
+                          </li>
+                          <li>
+                            <b>SubSubject ID</b>
+                            {": "}
+                            {question.parent.id}
+                          </li>
+                        </ul>
+                      </span>
+                    )}
+                    position="bottom left"
+                    on="click"
+                    wide="very"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Popup
+                    trigger={(<span>{utils.firstLetterCap(question.parent.scale)}</span>)}
+                    content={utils.firstLetterCap(question.parent.scale)}
+                    position="left center"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Popup
+                    trigger={(<span>{question.parent.toMetric ? "To Metric" : "From Metric"}</span>)}
+                    content={question.parent.toMetric ? "To Metric" : "From Metric"}
+                    position="left center"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Popup
+                    trigger={(<span>{QUESTION_TYPE_DROPDOWN[question.type].text}</span>)}
+                    content={QUESTION_TYPE_DROPDOWN[question.type].text}
+                    position="left center"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Popup
+                    trigger={(
+                      <span>
+                        <Icon name={QUESTION_STATUS_DROPDOWN[question.status].icon} />
+                        {question.status}
+                      </span>
+                    )}
+                    content={QUESTION_STATUS_DROPDOWN[question.status].text}
+                    position="left center"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Popup
+                    trigger={(
+                      <span>
+                        <Icon name={question.flags === 0 ? "flag outline" : "flag"} />
+                        {question.flags}
+                      </span>
+                    )}
+                    content={utils.flagDescriber(QUESTION_FLAG_NAMES, question.flags)}
+                    position="left center"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Popup
+                    trigger={(
+                      <span>
+                        <Icon name={QUESTION_DIFFICULTY_DROPDOWN[question.difficulty].icon} />
+                        {question.difficulty}
+                      </span>
+                    )}
+                    content={QUESTION_DIFFICULTY_DROPDOWN[question.difficulty].text}
+                    position="left center"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Popup
+                    trigger={(<span style={{ cursor: "help" }}>{question.question}</span>)}
+                    content={(
+                      <span>
+                        <b>Question ID</b>
+                        {": "}
+                        {question.id}
+                        <ul>
+                          <li>
+                            <b>Question</b>
+                            {": "}
+                            &quot;
+                            {question.question}
+                            &quot;
+                          </li>
+                          <li>
+                            <b>Answer</b>
+                            {": "}
+                            &quot;
+                            {question.answer}
+                            &quot;
+                          </li>
+                        </ul>
+                      </span>
+                    )}
+                    position="bottom left"
+                    on="click"
+                    wide="very"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <QuestionQaDetailsAndEditorModal
+                    questionId={question.id}
+                    editorMode={false}
+                  >
+                    <Icon name="window maximize" style={{ cursor: "pointer" }} />
+                  </QuestionQaDetailsAndEditorModal>
+                  <QuestionQaDetailsAndEditorModal
+                    questionId={question.id}
+                    editorMode
+                    queryInfo={this.props.queryInfo}
+                    modalProps={{ size: "fullscreen" }}
+                  >
+                    <Icon name="pencil" style={{ cursor: "pointer" }} />
+                  </QuestionQaDetailsAndEditorModal>
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+          :
+          <Table.Footer fullWidth>
+            <Table.HeaderCell colSpan={9}>
+              <Message warning>
+                <Message.Header>No Results</Message.Header>
+                <p>Use a less restrictive search setting to see more questions.</p>
+              </Message>
+            </Table.HeaderCell>
+          </Table.Footer>
+        }
       </Table>
     );
   }

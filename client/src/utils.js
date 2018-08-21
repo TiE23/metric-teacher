@@ -698,13 +698,13 @@ const scoreProgressColor = (currentScore, maxScore) => {
  * the proper string in return.
  * Ex:
  *  utils.unitWorder(1, { singular: "foot", plural: "feet" }) // "1 foot"
- *  utils.unitWorder(1.5, { singluar: "meter", plural: "meters" }) // "1.5 meters"
+ *  utils.unitWorder(1500, { singluar: "meter", plural: "meters" }) // "1,500 meters"
  * @param value
  * @param words
  * @returns {string}
  */
 const unitWorder = (value, words) => (
-  `${value} ${value === 1 ? words.singular : words.plural}`
+  `${value.toLocaleString()} ${value === 1 ? words.singular : words.plural}`
 );
 
 
@@ -720,7 +720,7 @@ const unitWorder = (value, words) => (
  * @returns {string}
  */
 const rangeWorder = (range, words) => (
-  `${range.bottom.value}-${range.top.value} ${range.top.value === 1 ? words.singular : words.plural}`
+  `${range.bottom.value.toLocaleString()}-${range.top.value.toLocaleString()} ${range.top.value === 1 ? words.singular : words.plural}`
 );
 
 
@@ -734,7 +734,7 @@ const rangeWorder = (range, words) => (
  * @returns {string}
  */
 const choiceWorder = choice => (
-  choice.unit === "written" ? `${choice.written}` : `${choice.value}${unitInitilizer(choice.unit)}`
+  choice.unit === "written" ? `${choice.written}` : `${choice.value.toLocaleString()}${unitInitilizer(choice.unit)}`
 );
 
 
