@@ -304,12 +304,14 @@ class QuestionListTable extends PureComponent {
           </Table.Body>
           :
           <Table.Footer fullWidth>
-            <Table.HeaderCell colSpan={9}>
-              <Message warning>
-                <Message.Header>No Results</Message.Header>
-                <p>Use a less restrictive search setting to see more questions.</p>
-              </Message>
-            </Table.HeaderCell>
+            <Table.Row>
+              <Table.HeaderCell colSpan={9}>
+                <Message warning>
+                  <Message.Header>No Results</Message.Header>
+                  <p>Use a less restrictive search setting to see more questions.</p>
+                </Message>
+              </Table.HeaderCell>
+            </Table.Row>
           </Table.Footer>
         }
       </Table>
