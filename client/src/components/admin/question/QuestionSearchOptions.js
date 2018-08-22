@@ -24,6 +24,13 @@ class QuestionSearchOptions extends PureComponent {
       difficulties: [],
     };
 
+    // Add a third option for either direction. This sets undefined value, and as a result must be
+    // given a key property for the Dropdown component to work.
+    this.nullableDirectionDropdown = [
+      ...DIRECTION_DROPDOWN,
+      { key: "either", value: undefined, text: "Either", icon: "sync alternate" },
+    ];
+
     this.handleSubjectsChange = (e, { value }) => {
       this.setState({ subjects: value });
     };
@@ -70,7 +77,7 @@ class QuestionSearchOptions extends PureComponent {
           <Form.Select
             label="Direction"
             placeholder="Any"
-            options={DIRECTION_DROPDOWN}
+            options={this.nullableDirectionDropdown}
             value={this.state.direction}
             onChange={this.handleDirectionChange}
             fluid
@@ -97,7 +104,7 @@ class QuestionSearchOptions extends PureComponent {
             selection
           />
           <Form.Select
-            label="Flag (exact match)"
+            label="Flag (and)"
             placeholder="Any"
             options={QUESTION_FLAG_DROPDOWN}
             value={this.state.flags}

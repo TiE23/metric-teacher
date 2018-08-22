@@ -1,11 +1,15 @@
 import React, { PureComponent } from "react";
-import { Button } from "semantic-ui-react";
+import { Container, Grid, Button } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
 
 import QuestionSearchOptions from "./QuestionSearchOptions";
 import QuestionListContainer from "./QuestionListContainer";
+
+import {
+  FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL,
+} from "../../../constants";
 
 class QuestionSearchPage extends PureComponent {
   constructor(props) {
@@ -87,24 +91,33 @@ class QuestionSearchPage extends PureComponent {
 
   render() {
     return (
-      <div>
-        <QuestionSearchOptions
-          handleChange={this.handleWhereChange}
-        />
-        <Button
-          onClick={this.handleSearch}
-          color="olive"
-        >
-          Search
-        </Button>
-        {utils.isEmptyRecursive(this.state.searchVariables) ?
-          <p>No Search Set</p>
-          :
-          <QuestionListContainer
-            searchVariables={this.state.searchVariables}
-          />
-        }
-      </div>
+      <Grid padded>
+        <Grid.Row centered>
+          <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
+            <Container textAlign="center">
+              <QuestionSearchOptions
+                handleChange={this.handleWhereChange}
+              />
+              <Button
+                onClick={this.handleSearch}
+                color="olive"
+              >
+                Search
+              </Button>
+              {utils.isEmptyRecursive(this.state.searchVariables) ?
+                <p>
+                  <br />
+                  No Search Set
+                </p>
+                :
+                <QuestionListContainer
+                  searchVariables={this.state.searchVariables}
+                />
+              }
+            </Container>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 }
