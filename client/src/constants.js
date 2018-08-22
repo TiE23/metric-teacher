@@ -4,6 +4,7 @@ export const AUTH_TOKEN = "auth-token";
 // Styling
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8, computer: 8 };
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE = { mobile: 16, tablet: 14, computer: 14 };
+export const FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL = { mobile: 16, tablet: 16, computer: 16 };
 
 // Password
 export const PASSWORD_MINIMUM_LENGTH = 6;
@@ -56,6 +57,15 @@ export const SUBJECT_ICONS = {
   Area: "clone outline",
 };
 
+export const SUBJECT_DROPDOWN = [
+  { value: "Length", text: "Length", icon: "arrows alternate horizontal" },
+  { value: "Mass", text: "Mass", icon: "balance scale" },
+  { value: "Volume", text: "Volume", icon: "cube" },
+  { value: "Temperature", text: "Temperature", icon: "thermometer three quarters" },
+  { value: "Velocity", text: "Velocity", icon: "location arrow" },
+  { value: "Area", text: "Area", icon: "clone outline" },
+];
+
 // These are based off DB data so they are subject to change.
 export const SCALE_ICONS = {
   // Generic
@@ -91,6 +101,11 @@ export const SCALE_ICONS = {
   jurisdiction: "flag",
   territory: "globe",
 };
+
+export const DIRECTION_DROPDOWN = [
+  { value: false, text: "From Metric", icon: "undo alternate" },
+  { value: true, text: "To Metric", icon: "redo alternate" },
+];
 
 // Database Constants
 export const FLAGS_NONE = 0;

@@ -24,7 +24,7 @@ const Welcome = () => (
     <br />
     <Link to="/adminOnly">Admin Only</Link>
     <br />
-    <Link to="/admin/questionlist">Admin - Question List</Link>
+    <Link to="/admin/questionsearch">Admin - Question List</Link>
     <br />
     <Link to="/user/cjk1pagik004a0793ur0ov3bq">A student</Link>
     <br />

@@ -34,6 +34,8 @@ import LoadingError from "./LoadingError";
  * If the Query is optional (not required to display on the page), pass the prop `skip`.
  *  When skipped it'll skip this Component (maybe you shouldn't be calling it!)
  * If the Query's success is optional, but you still want to wait, pass the prop `optional`.
+ * If the Query can be expected to return nothing (such as an empty list of results from a search)
+ *  pass the prop noDataIsAcceptable.
  *
  * @param props
  * @returns {*}
