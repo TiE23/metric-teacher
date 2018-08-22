@@ -27,35 +27,37 @@ const QuestionDetailsSubSubject = props => (
           </QueryHandler>
         )}
       </Query>
-      :
-      <Query
-        query={SUBSUBJECT_DETAILS_QUERY}
-        variables={{ subsubjectid: props.subSubjectId }}
-      >
-        {queryProps => (
-          <QueryHandler
-            queryData={queryProps}
-            noDataErrorMessage="SubSubject not found."
-          >
-            {(queryProps.data && queryProps.data.subSubject) ?
-              <SubSubjectReview
-                id={queryProps.data.subSubject.id}
-                subjectName={queryProps.data.subSubject.parent.name}
-                scale={queryProps.data.subSubject.scale}
-                toMetric={queryProps.data.subSubject.toMetric}
-                description={queryProps.data.subSubject.description}
-                rarity={queryProps.data.subSubject.rarity}
-              /> : <p>SubSubject not found.</p>
-            }
-          </QueryHandler>
-        )}
-      </Query>
+      : props.subSubjectId ?
+        <Query
+          query={SUBSUBJECT_DETAILS_QUERY}
+          variables={{ subsubjectid: props.subSubjectId }}
+        >
+          {queryProps => (
+            <QueryHandler
+              queryData={queryProps}
+              noDataErrorMessage="SubSubject not found."
+            >
+              {(queryProps.data && queryProps.data.subSubject) ?
+                <SubSubjectReview
+                  id={queryProps.data.subSubject.id}
+                  subjectName={queryProps.data.subSubject.parent.name}
+                  scale={queryProps.data.subSubject.scale}
+                  toMetric={queryProps.data.subSubject.toMetric}
+                  description={queryProps.data.subSubject.description}
+                  rarity={queryProps.data.subSubject.rarity}
+                /> : <p>SubSubject not found.</p>
+              }
+            </QueryHandler>
+          )}
+        </Query>
+        :
+        <p>No SubSubjectId given.</p>
     }
   </div>
 );
 
 QuestionDetailsSubSubject.propTypes = {
-  subSubjectId: PropTypes.string.isRequired,
+  subSubjectId: PropTypes.string,
   editMode: PropTypes.bool,
   handleSubSubjectChange: PropTypes.func,
 };

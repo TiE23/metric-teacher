@@ -20,7 +20,8 @@ const QuestionViewerLayout = props => (
         <Header size="medium" textAlign="center" dividing>Basic Details</Header>
         <QuestionDetailsBasics
           {...props.qaFormData.question.basics}
-          editMode={props.editorOpen}
+          editMode={props.editorOpen || props.newQuestionMode}
+          newQuestionMode={props.newQuestionMode}
           handleBasicsChange={props.handleChangeFunctions &&
             props.handleChangeFunctions.handleBasicsChange}
         />
@@ -30,7 +31,7 @@ const QuestionViewerLayout = props => (
         <Header size="medium" textAlign="center" dividing>SubSubject Details</Header>
         <QuestionDetailsSubSubject
           subSubjectId={props.qaFormData.subSubjectId}
-          editMode={props.editorOpen}
+          editMode={props.editorOpen || props.newQuestionMode}
           handleSubSubjectChange={props.handleChangeFunctions &&
             props.handleChangeFunctions.handleSubSubjectChange}
         />
@@ -43,7 +44,7 @@ const QuestionViewerLayout = props => (
         <QuestionDetailsQuestion
           type={props.qaFormData.question.basics.type}
           {...props.qaFormData.question.questionData}
-          editMode={props.editorOpen}
+          editMode={props.editorOpen || props.newQuestionMode}
           handleQuestionDataChange={props.handleChangeFunctions &&
             props.handleChangeFunctions.handleQuestionDataChange}
           subSubjectToMetric={props.qaFormData.subSubjectToMetric}
@@ -56,7 +57,7 @@ const QuestionViewerLayout = props => (
         <QuestionDetailsAnswer
           type={props.qaFormData.question.basics.type}
           {...props.qaFormData.question.answerData}
-          editMode={props.editorOpen}
+          editMode={props.editorOpen || props.newQuestionMode}
           handleAnswerDataChange={props.handleChangeFunctions &&
           props.handleChangeFunctions.handleAnswerDataChange}
           subSubjectToMetric={props.qaFormData.subSubjectToMetric}
@@ -74,12 +75,14 @@ const QuestionViewerLayout = props => (
       </Grid.Column>
     </Grid.Row>
     }
-    {props.allowEditor && props.handleChangeFunctions && props.openEditor &&
+    {props.allowEditor && props.handleChangeFunctions &&
+    (props.openEditor || props.newQuestionMode) &&
     <Grid.Row>
       <Grid.Column>
         <Container textAlign="right">
-          {props.editorOpen ?
+          {props.editorOpen || props.newQuestionMode ?
             <span>
+              {!props.newQuestionMode &&
               <LoadingButton
                 onClick={() => {
                   props.resetChanges();
@@ -94,10 +97,12 @@ const QuestionViewerLayout = props => (
                   size: "small",
                 }}
               />
+              }
               <LoadingButton
                 onClick={() => {
                   props.onSubmit({
-                    variables: utils.composeQaInputFromFormData(props.qaFormData),
+                    variables: utils.composeQaInputFromFormData(props.qaFormData,
+                      props.newQuestionMode),
                   });
                 }}
                 loading={props.onSubmitLoading}
@@ -115,7 +120,7 @@ const QuestionViewerLayout = props => (
               />
             </span>
             :
-            <Button onClick={props.openEditor} primary >Edit</Button>
+            <Button onClick={props.openEditor} primary>Edit</Button>
           }
         </Container>
       </Grid.Column>
@@ -131,11 +136,12 @@ QuestionViewerLayout.propTypes = {
       questionData: PropTypes.object.isRequired,
       answerData: PropTypes.object.isRequired,
     }).isRequired,
-    subSubjectId: PropTypes.string.isRequired,
+    subSubjectId: PropTypes.string,
     subSubjectToMetric: PropTypes.bool,
     subjectName: PropTypes.string,
   }).isRequired,
   allowEditor: PropTypes.bool,
+  newQuestionMode: PropTypes.bool,
   editorOpen: PropTypes.bool,
   openEditor: PropTypes.func,
   closeEditor: PropTypes.func,
@@ -154,6 +160,7 @@ QuestionViewerLayout.propTypes = {
 
 QuestionViewerLayout.defaultProps = {
   allowEditor: false,
+  newQuestionMode: false,
   editorOpen: false,
   openEditor: null,
   closeEditor: null,

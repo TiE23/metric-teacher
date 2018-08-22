@@ -22,7 +22,6 @@ class QuestionSearchPage extends PureComponent {
 
     const buildSearchVariables = (whereClause) => {
       const where = buildWhere(whereClause);
-      // TODO other search settings get built.
 
       return mergeWith(
         {},
