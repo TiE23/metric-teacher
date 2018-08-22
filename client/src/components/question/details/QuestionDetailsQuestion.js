@@ -138,29 +138,6 @@ class QuestionDetailsQuestion extends PureComponent {
             </List.Header>
             <List.List>
               <List.Item>
-                <List.Icon name="chevron up" size="large" verticalAlign="top" />
-                <List.Content>
-                  <List.Header>
-                    Upper Range
-                    {" "}
-                    {this.props.editMode && <EditBelowIcon />}
-                  </List.Header>
-                  <List.Description>
-                    {this.props.editMode ?
-                      <Input
-                        onChange={this.handleRangeUpperChange}
-                        value={this.props.range && this.props.range.upper}
-                        placeholder="Null"
-                        transparent
-                        fluid
-                      />
-                      :
-                      <span>{(this.props.range && this.props.range.upper) || "Null"}</span>
-                    }
-                  </List.Description>
-                </List.Content>
-              </List.Item>
-              <List.Item>
                 <List.Icon name="chevron down" size="large" verticalAlign="top" />
                 <List.Content>
                   <List.Header>
@@ -179,6 +156,29 @@ class QuestionDetailsQuestion extends PureComponent {
                       />
                       :
                       <span>{(this.props.range && this.props.range.lower) || "Null"}</span>
+                    }
+                  </List.Description>
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Icon name="chevron up" size="large" verticalAlign="top" />
+                <List.Content>
+                  <List.Header>
+                    Upper Range
+                    {" "}
+                    {this.props.editMode && <EditBelowIcon />}
+                  </List.Header>
+                  <List.Description>
+                    {this.props.editMode ?
+                      <Input
+                        onChange={this.handleRangeUpperChange}
+                        value={this.props.range && this.props.range.upper}
+                        placeholder="Null"
+                        transparent
+                        fluid
+                      />
+                      :
+                      <span>{(this.props.range && this.props.range.upper) || "Null"}</span>
                     }
                   </List.Description>
                 </List.Content>

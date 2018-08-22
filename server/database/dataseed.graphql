@@ -1852,9 +1852,25 @@ mutation {
   }) {
     id
   }
+  question_volume_hand_toMetric_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "An uncommon sign of the metric system making its way into US markets is the oddly-sized 16.9 fluid ounce bottle. It is actually based off a milliliter amount. How many milliliters is it?"
+    answer: "[500ml|400ml|600ml|300ml|250ml|333ml|355ml|750ml|1000ml]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Volume - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # Conversion
-  question_volume_hand_toMetric_002: createQuestion(data: {
+  question_volume_hand_toMetric_003: createQuestion(data: {
     type: 1
     status: 0
     flags: 0
@@ -1878,8 +1894,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "An uncommon sign of the metric system making its way into US markets the oddly-sized 16.9 fluid ounce bottle is actually based off a milliliter amount. How many milliliters is it?"
-    answer: "[500ml|400ml|600ml|300ml|250ml|333ml|355ml|750ml|1000ml]4"
+    question: "Commonly found today in American markets, the 500ml bottle has the oddly specific size of how many fluid ounces?"
+    answer: "[16.9floz|20floz|15floz|16floz|21floz|19.5floz|32floz]4"
     media: ""
     parent: {
       connect: {

@@ -13,6 +13,7 @@ const QuestionListContainer = props => (
   <Query
     query={QUESTION_SEARCH}
     variables={props.searchVariables}
+    fetchPolicy="network-only"  // Fresh data on every search.
   >
     {queryProps => (
       <QueryHandler
