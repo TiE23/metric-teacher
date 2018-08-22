@@ -63,6 +63,7 @@ QuestionDetailsSubSubject.propTypes = {
 };
 
 QuestionDetailsSubSubject.defaultProps = {
+  subSubjectId: null,
   editMode: false,
   handleSubSubjectChange: null,
 };
