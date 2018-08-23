@@ -65,7 +65,7 @@ const QuestionViewerLayout = props => (
         />
       </Grid.Column>
     </Grid.Row>
-    {props.onSubmitError && props.editorOpen &&
+    {props.onSubmitError && (props.openEditor || props.newQuestionMode) &&
     <Grid.Row>
       <Grid.Column>
         <Message negative>

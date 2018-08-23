@@ -108,10 +108,10 @@ class QuestionViewer extends PureComponent {
             unit: null,
             multiple: null,
           },
-          subSubjectId: null,
-          subSubjectToMetric: null,
-          subjectName: null,
         },
+        subSubjectId: null,
+        subSubjectToMetric: null,
+        subjectName: null,
       }
     );
 
@@ -167,8 +167,6 @@ class QuestionViewer extends PureComponent {
         <Mutation
           mutation={SUBMIT_QA_QUESTION}
           onCompleted={() => {
-            // Necessary update so that if you edit again and cancel it won't reset to old version.
-            this.initialQaFormData = this.state.qaFormData;
             this.markChangesSaved();  // State changes in render... maybe not kosher? Sorry!
           }}
         >
