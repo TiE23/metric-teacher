@@ -27,14 +27,15 @@ const QaReviewChoices = (props) => {
               Correct Answer
             </Label>
             <br />
-            <Icon fitted name="check circle" color="olive" />
+            <Icon name="check circle" color="olive" />
             {utils.choiceWorder(correctAnswer)}
           </Segment>
         </Grid.Column>
         <Grid.Column>
           <Segment>
             <Label color="red" ribbon>
-              Incorrect Answer{choices.length > 1 ? "s" : ""}
+              Incorrect Answer
+              {choices.length > 1 ? "s" : ""}
             </Label>
             <br />
             {choices.map((choice) => {
@@ -52,9 +53,12 @@ const QaReviewChoices = (props) => {
       </Grid.Row>
       <Grid.Row>
         <span>
-          <Icon name="info circle" /> {" "}
+          <Icon name="info circle" />
+          {" "}
           There will be
+          {" "}
           {props.choicesOffered}
+          {" "}
           choices.
         </span>
       </Grid.Row>

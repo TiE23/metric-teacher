@@ -119,6 +119,15 @@ export const SURVEY_ADD_ANSWER_MUTATION = gql`
   ${SurveyForUserDetails}
 `;
 
+export const SUBMIT_QA_QUESTION = gql`
+  mutation SubmitQaQuestion($subsubjectid: ID!, $type: Int!, $flags: Int!, $difficulty: Int!, $media: String, $questioninput: QuestionQuestionInput!, $answerinput: QuestionAnswerInput!) {
+    submitQuestion(subsubjectid: $subsubjectid, type: $type, flags: $flags, difficulty: $difficulty, media: $media, questioninput: $questioninput, answerinput: $answerinput) {
+      ...QuestionDataEverythingExtra
+    }
+  }
+  ${QuestionDataEverythingExtra}
+`;
+
 export const UPDATE_QA_QUESTION = gql`
   mutation UpdateQaQuestion($questionid: ID!, $subsubjectid: ID, $type: Int, $flags: Int, $status: Int, $difficulty: Int, $media: String, $questioninput: QuestionQuestionInput, $answerinput: QuestionAnswerInput) {
     updateQuestion(questionid: $questionid, subsubjectid: $subsubjectid, type: $type, flags: $flags, status: $status, difficulty: $difficulty, media: $media, questioninput: $questioninput, answerinput: $answerinput) {

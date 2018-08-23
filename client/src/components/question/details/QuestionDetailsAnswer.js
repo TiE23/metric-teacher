@@ -112,11 +112,39 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
     this.handleChoiceUnitChange = (index, unit) => {
       if (this.props.handleAnswerDataChange) {
         const { choices } = this.props.multiple;
-        choices[index].unit = unit;
+
+        // If we're changing from a number unit to a written answer, make it blank.
+        if (unit === "written" && choices[index].unit !== "written") {
+          choices[index].mixedValue = "";
+        }
 
         // If the unit isn't written, and the value isn't a decimal, erase it.
         if (unit !== "written" && !utils.isDecimalTyped(choices[index].mixedValue)) {
           choices[index].mixedValue = "";
+        }
+
+        choices[index].unit = unit;
+
+        this.props.handleAnswerDataChange({ multiple: { choices } });
+      }
+    };
+
+    this.handleBatchChoiceUnitChange = (unit) => {
+      if (this.props.handleAnswerDataChange) {
+        const { choices } = this.props.multiple;
+
+        for (let index = 0; index < choices.length; ++index) {
+          // If we're changing from a number unit to a written answer, make it blank.
+          if (choices[index].unit !== "written" && unit === "written") {
+            choices[index].mixedValue = "";
+          }
+
+          // If we're changing from written to a number unit make the answer blank if not a number.
+          if (choices[index].unit === "written" && unit !== "written" &&
+            !utils.isDecimalTyped(choices[index].mixedValue)) {
+            choices[index].mixedValue = "";
+          }
+          choices[index].unit = unit;
         }
 
         this.props.handleAnswerDataChange({ multiple: { choices } });
@@ -164,7 +192,8 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
           <List.Icon name="list" size="large" verticalAlign="top" />
           <List.Content>
             <List.Header>
-              Choices {" "}
+              Choices
+              {" "}
               {this.props.editMode &&
               <Popup
                 trigger={<Icon name="info circle" />}
@@ -189,11 +218,11 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                       {this.props.editMode ?
                         <List.Description>
                           <Input
-                            value={choice.mixedValue}
+                            value={choice.mixedValue || ""}
                             placeholder={choice.unit === "written" ? "Text" : "Number"}
                             transparent
-                            onChange={(e, { value }) =>
-                              this.handleChoiceValueChange(index, value, choice.unit)}
+                            onChange={(e, { value }) => this.handleChoiceValueChange(index, value,
+                              choice.unit)}
                           />
                           {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
                             <UnitDropdown
@@ -206,18 +235,38 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                             />
                             :
                             <Input
-                              value={choice.unit}
+                              value={choice.unit || ""}
                               placeholder="Unit"
                               transparent
                               onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
                             />
                           }
+                          {index === 0 &&
+                            <Popup
+                              trigger={
+                                <Icon
+                                  size="large"
+                                  name="copy outline"
+                                  color="blue"
+                                  onClick={() => this.handleBatchChoiceUnitChange(choice.unit)}
+                                />
+                              }
+                              content="Set all answers to the same unit."
+                              basic
+                            />
+                          }
                           {index > 1 &&
-                            <Icon
-                              size="large"
-                              name="minus square outline"
-                              color="red"
-                              onClick={() => this.handleRemoveChoice(index)}
+                            <Popup
+                              trigger={
+                                <Icon
+                                  size="large"
+                                  name="minus square outline"
+                                  color="red"
+                                  onClick={() => this.handleRemoveChoice(index)}
+                                />
+                              }
+                              content="Remove this choice."
+                              basic
                             />
                           }
                         </List.Description>
@@ -277,7 +326,10 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
           <List.Icon name="sticky note" size="large" verticalAlign="top" />
           <List.Content style={this.width100}>
             <List.Header>
-              Answer Detail {this.props.editMode && <EditBelowIcon />} {" "}
+              Answer Detail
+              {" "}
+              {this.props.editMode && <EditBelowIcon />}
+              {" "}
               <Popup
                 trigger={<Icon name="info circle" />}
                 content="Optional detail that will appear after the question is answered correctly. Ideally use this to explain why the answer is that way."
@@ -289,7 +341,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                 <div style={this.width100}>
                   <Input
                     onChange={this.handleDetailChange}
-                    value={this.props.detail}
+                    value={this.props.detail || ""}
                     placeholder="..."
                     transparent
                     fluid
@@ -308,14 +360,19 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
           <List.Icon name="exchange" size="large" verticalAlign="top" />
           <List.Content>
             <List.Header>
-              {this.props.type === QUESTION_TYPE_SURVEY ? "Survey " : ""}Conversion Requirements
+              {this.props.type === QUESTION_TYPE_SURVEY ? "Survey " : ""}
+              {" "}
+              Conversion Requirements
             </List.Header>
             <List.List>
               <List.Item>
                 <List.Icon name="crosshairs" size="large" verticalAlign="top" />
                 <List.Content>
                   <List.Header>
-                    Accuracy {this.props.editMode && <EditBelowIcon />} {" "}
+                    Accuracy
+                    {" "}
+                    {this.props.editMode && <EditBelowIcon />}
+                    {" "}
                     <Popup
                       trigger={<Icon name="info circle" />}
                       content={`The user's answer must be within +/- ${utils.t0t(this.props.accuracy, "the accuracy value")} of the actual conversion value.`}
@@ -326,7 +383,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                     {this.props.editMode ?
                       <Input
                         onChange={this.handleAccuracyChange}
-                        value={this.props.accuracy}
+                        value={this.props.accuracy || ""}
                         placeholder="Null"
                         transparent
                         fluid
@@ -341,7 +398,10 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                 <List.Icon name="dot circle outline" size="large" verticalAlign="top" />
                 <List.Content>
                   <List.Header>
-                    To Unit {this.props.editMode && <EditBelowIcon />} {" "}
+                    To Unit
+                    {" "}
+                    {this.props.editMode && <EditBelowIcon />}
+                    {" "}
                     {this.props.editMode &&
                     <Popup
                       trigger={<Icon name="info circle" />}
@@ -363,7 +423,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                         :
                         <Input
                           onChange={this.handleUnitChange}
-                          value={this.props.unit}
+                          value={this.props.unit || ""}
                           placeholder="..."
                           transparent
                           fluid

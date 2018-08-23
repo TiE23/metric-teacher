@@ -938,11 +938,12 @@ const minMax = (min, value, max) => (Math.max(min, Math.min(value, max)));
  * Takes in the qaFormData object found in QuestionViewer.js and outputs an input data object that
  * is acceptable by the updateQuestion mutation.
  * @param qaFormData
+ * @param newQuestionMode
  * @returns {*}
  */
-const composeQaInputFromFormData = (qaFormData) => {
+const composeQaInputFromFormData = (qaFormData, newQuestionMode) => {
   const qaInput = {
-    questionid: qaFormData.question.basics.id,
+    questionid: newQuestionMode ? undefined : qaFormData.question.basics.id,
     subsubjectid: qaFormData.subSubjectId,
     type: qaFormData.question.basics.type,
     flags: qaFormData.question.basics.flags,
@@ -953,7 +954,8 @@ const composeQaInputFromFormData = (qaFormData) => {
     answerinput: {},
   };
 
-  if (qaFormData.question.basics.type === QUESTION_TYPE_WRITTEN) {
+  if (qaFormData.question.basics.type === QUESTION_TYPE_WRITTEN &&
+    qaFormData.question.answerData.multiple) {
     qaInput.questioninput = {
       text: qaFormData.question.questionData.text,
     };
@@ -981,8 +983,6 @@ const composeQaInputFromFormData = (qaFormData) => {
         unit: qaFormData.question.answerData.unit,
       },
     };
-  } else {
-    return null;
   }
 
   return qaInput;

@@ -20,6 +20,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
     this.state = {
       selectedSubjectId: null,
       selectedSubjectName: null,
+      selectedSubjectsDropdown: null,
       selectedScalesDropdown: null,
       selectedScale: null,
       selectedToMetric: null,
@@ -32,13 +33,13 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
     // dropdown selections the first time that componentDidUpdate() and sees that selectedSubjectId
     // was changed. This single-use state is how I avoid that first-time reset.
     this.firstMount = true;
-    this.selectedSubjectsDropdown = null;
 
     // On first load...
     this.componentDidMount = () => {
       if (this.props.subjectsData) {
-        this.selectedSubjectsDropdown =
-          this.buildSubjectsDropdownSelection(this.props.subjectsData);
+        this.setState({
+          selectedSubjectsDropdown: this.buildSubjectsDropdownSelection(this.props.subjectsData),
+        });
       }
 
       // Knowing only the SubSubject's ID, get the Subject's ID and add it to state right away.
@@ -85,8 +86,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
     this.componentDidUpdate = (prevProps, prevState) => {
       // Selected Subject was changed, we need to get new scales dropdown.
       if (this.props.subjectsData && !this.firstMount &&
-        this.state.selectedSubjectId !== prevState.selectedSubjectId
-      ) {
+      this.state.selectedSubjectId !== prevState.selectedSubjectId) {
         const newSubjectData = utils.cacheGetTarget(
           this.props.subjectsData,
           this.state.selectedSubjectId,
@@ -206,7 +206,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
           <Dropdown
             inline
             text="Subject"
-            options={this.selectedSubjectsDropdown}
+            options={this.state.selectedSubjectsDropdown}
             value={this.state.selectedSubjectId}
             onChange={this.handleSubjectChange}
           />

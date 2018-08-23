@@ -58,6 +58,7 @@ class QuestionDetailsBasics extends PureComponent {
   render() {
     return (
       <List divided>
+        {!this.props.newQuestionMode &&
         <List.Item>
           <List.Icon name="question circle" size="large" verticalAlign="top" />
           <List.Content>
@@ -65,6 +66,7 @@ class QuestionDetailsBasics extends PureComponent {
             <List.Description>{this.props.id}</List.Description>
           </List.Content>
         </List.Item>
+        }
         <List.Item>
           <List.Icon
             name={(QUESTION_TYPE_DROPDOWN[this.props.type] &&
@@ -87,7 +89,8 @@ class QuestionDetailsBasics extends PureComponent {
               }
             </List.Header>
             <List.Description>
-              {this.props.type} {" "}
+              {this.props.type}
+              {" "}
               - &quot;
               {QUESTION_TYPE_NAMES[this.props.type]}
               &quot;
@@ -116,9 +119,12 @@ class QuestionDetailsBasics extends PureComponent {
               }
             </List.Header>
             <List.Description>
-              {this.props.difficulty} {" "}
-              - &quot;{(QUESTION_DIFFICULTY_DROPDOWN[this.props.difficulty] &&
-              QUESTION_DIFFICULTY_DROPDOWN[this.props.difficulty].text) || "Unknown"}&quot;
+              {this.props.difficulty}
+              {" "}
+              - &quot;
+              {(QUESTION_DIFFICULTY_DROPDOWN[this.props.difficulty] &&
+              QUESTION_DIFFICULTY_DROPDOWN[this.props.difficulty].text) || "Unknown"}
+              &quot;
             </List.Description>
           </List.Content>
         </List.Item>
@@ -131,7 +137,7 @@ class QuestionDetailsBasics extends PureComponent {
           />
           <List.Content>
             <List.Header>
-              {this.props.editMode ?
+              {this.props.editMode && !this.props.newQuestionMode ?
                 <Dropdown
                   onChange={this.handleStatusChange}
                   options={QUESTION_STATUS_DROPDOWN}
@@ -144,9 +150,12 @@ class QuestionDetailsBasics extends PureComponent {
               }
             </List.Header>
             <List.Description>
-              {this.props.status}{" "}
-              - &quot;{(QUESTION_STATUS_DROPDOWN[this.props.status] &&
-              QUESTION_STATUS_DROPDOWN[this.props.status].text) || "Unknown"}&quot;
+              {this.props.status}
+              {" "}
+              - &quot;
+              {(QUESTION_STATUS_DROPDOWN[this.props.status] &&
+              QUESTION_STATUS_DROPDOWN[this.props.status].text) || "Unknown"}
+              &quot;
             </List.Description>
           </List.Content>
         </List.Item>
@@ -189,14 +198,17 @@ class QuestionDetailsBasics extends PureComponent {
             verticalAlign="top"
           />
           <List.Content>
-            <List.Header>Media {this.props.editMode && <EditBelowIcon/>}</List.Header>
+            <List.Header>
+              Media
+              {this.props.editMode && <EditBelowIcon />}
+            </List.Header>
             <List.Description>
               <span>
                 /img/question/
                 {this.props.editMode ?
                   <Input
                     onChange={this.handleMediaChange}
-                    value={this.props.media}
+                    value={this.props.media || ""}
                     placeholder="..."
                     transparent
                   />
@@ -230,19 +242,22 @@ class QuestionDetailsBasics extends PureComponent {
 }
 
 QuestionDetailsBasics.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   type: PropTypes.number.isRequired,
   difficulty: PropTypes.number.isRequired,
   status: PropTypes.number.isRequired,
   flags: PropTypes.number.isRequired,
   media: PropTypes.string,
   editMode: PropTypes.bool,
+  newQuestionMode: PropTypes.bool,
   handleBasicsChange: PropTypes.func,
 };
 
 QuestionDetailsBasics.defaultProps = {
-  media: null,
+  id: null, // New question will not have an ID.
+  media: undefined,
   editMode: false,
+  newQuestionMode: false,
   handleBasicsChange: null,
 };
 

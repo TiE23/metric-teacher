@@ -9,8 +9,16 @@ import utils from "../../utils";
 import QuestionViewerLayout from "./QuestionViewerLayout";
 
 import {
+  SUBMIT_QA_QUESTION,
   UPDATE_QA_QUESTION,
 } from "../../graphql/Mutations";
+
+import {
+  FLAGS_NONE,
+  QUESTION_DIFFICULTY_MEDIUM,
+  QUESTION_STATUS_REVIEW_PENDING,
+  QUESTION_TYPE_WRITTEN,
+} from "../../constants";
 
 class QuestionViewer extends PureComponent {
   constructor(props) {
@@ -18,6 +26,7 @@ class QuestionViewer extends PureComponent {
     this.state = {
       editorOpen: false,
       unsavedChanges: false,
+      newQuestionSubmitted: false,
       qaFormData: null,
     };
 
@@ -79,7 +88,32 @@ class QuestionViewer extends PureComponent {
         subSubjectId: this.props.qaData.subSubjectId,
         subSubjectToMetric: null,
         subjectName: null,
-      } : null
+      } : {
+        question: {
+          basics: {
+            id: undefined,
+            type: QUESTION_TYPE_WRITTEN,
+            difficulty: QUESTION_DIFFICULTY_MEDIUM,
+            status: QUESTION_STATUS_REVIEW_PENDING,
+            flags: FLAGS_NONE,
+            media: null,
+          },
+          questionData: {
+            text: null,
+            detail: null,
+            range: null,
+          },
+          answerData: {
+            detail: null,
+            accuracy: null,
+            unit: null,
+            multiple: null,
+          },
+        },
+        subSubjectId: null,
+        subSubjectToMetric: null,
+        subjectName: null,
+      }
     );
 
     this.openEditor = () => {
@@ -100,6 +134,12 @@ class QuestionViewer extends PureComponent {
     this.markChangesSaved = () => {
       this.setState({
         unsavedChanges: false,
+      });
+    };
+
+    this.markQuestionSubmitted = () => {
+      this.setState({
+        newQuestionSubmitted: true,
       });
     };
 
@@ -128,48 +168,85 @@ class QuestionViewer extends PureComponent {
   render() {
     if (!this.state.qaFormData) return null;
 
-    return (
-      <Mutation
-        mutation={UPDATE_QA_QUESTION}
-        update={(cache, { data: { updateQuestion } }) => {
-          // Updating cache's Question row if queryInfo was passed in.
-          if (this.props.queryInfo) {
-            const data = cache.readQuery(this.props.queryInfo);
-            utils.cacheUpdateObject(data, updateQuestion.id, updateQuestion);
-            cache.writeQuery({
-              ...this.props.queryInfo,
-              data,
-            });
-          }
-        }}
-        onCompleted={() => {
-          // Necessary update so that if you edit again and cancel it won't reset to old version.
-          this.initialQaFormData = this.state.qaFormData;
-          this.markChangesSaved();  // State changes in render... maybe not kosher? Sorry!
-        }}
-      >
-        {(updateQuestion, { loading, error }) => (
-          <QuestionViewerLayout
-            qaFormData={this.state.qaFormData}
-            allowEditor={this.props.allowEditor}
-            editorOpen={this.state.editorOpen}
-            openEditor={this.openEditor}
-            closeEditor={this.closeEditor}
-            resetChanges={this.resetChanges}
-            handleChangeFunctions={{
-              handleBasicsChange: this.handleBasicsChange,
-              handleSubSubjectChange: this.handleSubSubjectChange,
-              handleQuestionDataChange: this.handleQuestionDataChange,
-              handleAnswerDataChange: this.handleAnswerDataChange,
-            }}
-            onSubmit={updateQuestion}
-            onSubmitLoading={loading}
-            onSubmitError={error}
-            unsavedChanges={this.state.unsavedChanges}
-          />
-        )}
-      </Mutation>
-    );
+    // New question (submitQuestion) or update question (updateQuestion).
+    if (this.props.newQuestionMode) {
+      return (
+        <Mutation
+          mutation={SUBMIT_QA_QUESTION}
+          onCompleted={() => {
+            this.markChangesSaved();  // State changes in render... maybe not kosher? Sorry!
+            this.markQuestionSubmitted();
+          }}
+        >
+          {(submitQuestion, { loading, error }) => (
+            <QuestionViewerLayout
+              qaFormData={this.state.qaFormData}
+              allowEditor={this.props.allowEditor}
+              newQuestionMode={this.props.newQuestionMode}
+              editorOpen={this.state.editorOpen}
+              openEditor={this.openEditor}
+              closeEditor={this.closeEditor}
+              resetChanges={this.resetChanges}
+              handleChangeFunctions={{
+                handleBasicsChange: this.handleBasicsChange,
+                handleSubSubjectChange: this.handleSubSubjectChange,
+                handleQuestionDataChange: this.handleQuestionDataChange,
+                handleAnswerDataChange: this.handleAnswerDataChange,
+              }}
+              onSubmit={submitQuestion}
+              onSubmitLoading={loading}
+              onSubmitError={error}
+              unsavedChanges={this.state.unsavedChanges}
+              newQuestionSubmitted={this.state.newQuestionSubmitted}
+            />
+          )}
+        </Mutation>
+      );
+    } else {
+      return (
+        <Mutation
+          mutation={UPDATE_QA_QUESTION}
+          update={(cache, { data: { updateQuestion } }) => {
+            // Updating cache's Question row if queryInfo was passed in.
+            if (this.props.queryInfo) {
+              const data = cache.readQuery(this.props.queryInfo);
+              utils.cacheUpdateObject(data, updateQuestion.id, updateQuestion);
+              cache.writeQuery({
+                ...this.props.queryInfo,
+                data,
+              });
+            }
+          }}
+          onCompleted={() => {
+            // Necessary update so that if you edit again and cancel it won't reset to old version.
+            this.initialQaFormData = this.state.qaFormData;
+            this.markChangesSaved();  // State changes in render... maybe not kosher? Sorry!
+          }}
+        >
+          {(updateQuestion, { loading, error }) => (
+            <QuestionViewerLayout
+              qaFormData={this.state.qaFormData}
+              allowEditor={this.props.allowEditor}
+              newQuestionMode={this.props.newQuestionMode}
+              editorOpen={this.state.editorOpen}
+              openEditor={this.openEditor}
+              closeEditor={this.closeEditor}
+              resetChanges={this.resetChanges}
+              handleChangeFunctions={{
+                handleBasicsChange: this.handleBasicsChange,
+                handleSubSubjectChange: this.handleSubSubjectChange,
+                handleQuestionDataChange: this.handleQuestionDataChange,
+                handleAnswerDataChange: this.handleAnswerDataChange,
+              }}
+              onSubmit={updateQuestion}
+              onSubmitLoading={loading}
+              onSubmitError={error}
+              unsavedChanges={this.state.unsavedChanges}
+            />
+          )}
+        </Mutation>
+      );
+    }
   }
 }
 
@@ -238,12 +315,14 @@ QuestionViewer.propTypes = {
   }),
   queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   allowEditor: PropTypes.bool,
+  newQuestionMode: PropTypes.bool,
 };
 
 QuestionViewer.defaultProps = {
   qaData: null,
   queryInfo: null,
   allowEditor: false,
+  newQuestionMode: false,
 };
 
 export default QuestionViewer;
