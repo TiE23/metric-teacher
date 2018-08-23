@@ -112,11 +112,39 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
     this.handleChoiceUnitChange = (index, unit) => {
       if (this.props.handleAnswerDataChange) {
         const { choices } = this.props.multiple;
-        choices[index].unit = unit;
+
+        // If we're changing from a number unit to a written answer, make it blank.
+        if (unit === "written" && choices[index].unit !== "written") {
+          choices[index].mixedValue = "";
+        }
 
         // If the unit isn't written, and the value isn't a decimal, erase it.
         if (unit !== "written" && !utils.isDecimalTyped(choices[index].mixedValue)) {
           choices[index].mixedValue = "";
+        }
+
+        choices[index].unit = unit;
+
+        this.props.handleAnswerDataChange({ multiple: { choices } });
+      }
+    };
+
+    this.handleBatchChoiceUnitChange = (unit) => {
+      if (this.props.handleAnswerDataChange) {
+        const { choices } = this.props.multiple;
+
+        for (let index = 0; index < choices.length; ++index) {
+          // If we're changing from a number unit to a written answer, make it blank.
+          if (choices[index].unit !== "written" && unit === "written") {
+            choices[index].mixedValue = "";
+          }
+
+          // If we're changing from written to a number unit make the answer blank if not a number.
+          if (choices[index].unit === "written" && unit !== "written" &&
+            !utils.isDecimalTyped(choices[index].mixedValue)) {
+            choices[index].mixedValue = "";
+          }
+          choices[index].unit = unit;
         }
 
         this.props.handleAnswerDataChange({ multiple: { choices } });
@@ -213,12 +241,32 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                               onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
                             />
                           }
+                          {index === 0 &&
+                            <Popup
+                              trigger={
+                                <Icon
+                                  size="large"
+                                  name="copy outline"
+                                  color="blue"
+                                  onClick={() => this.handleBatchChoiceUnitChange(choice.unit)}
+                                />
+                              }
+                              content="Set all answers to the same unit."
+                              basic
+                            />
+                          }
                           {index > 1 &&
-                            <Icon
-                              size="large"
-                              name="minus square outline"
-                              color="red"
-                              onClick={() => this.handleRemoveChoice(index)}
+                            <Popup
+                              trigger={
+                                <Icon
+                                  size="large"
+                                  name="minus square outline"
+                                  color="red"
+                                  onClick={() => this.handleRemoveChoice(index)}
+                                />
+                              }
+                              content="Remove this choice."
+                              basic
                             />
                           }
                         </List.Description>
