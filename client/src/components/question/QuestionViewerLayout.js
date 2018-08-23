@@ -108,9 +108,9 @@ const QuestionViewerLayout = props => (
                 loading={props.onSubmitLoading}
                 buttonProps={{
                   primary: true,
-                  disabled: !props.unsavedChanges,
+                  disabled: !props.unsavedChanges || props.newQuestionSubmitted,
                 }}
-                buttonText="Submit"
+                buttonText={props.newQuestionSubmitted ? "New Question Submitted" : "Submit"}
                 confirmModal
                 modalHeaderContent="Submit Changes"
                 modalProps={{
@@ -156,6 +156,7 @@ QuestionViewerLayout.propTypes = {
   onSubmitLoading: PropTypes.bool,
   onSubmitError: PropTypes.any, // eslint-disable-line react/forbid-prop-types
   unsavedChanges: PropTypes.bool,
+  newQuestionSubmitted: PropTypes.bool,
 };
 
 QuestionViewerLayout.defaultProps = {
@@ -170,6 +171,7 @@ QuestionViewerLayout.defaultProps = {
   onSubmitLoading: null,
   onSubmitError: null,
   unsavedChanges: false,
+  newQuestionSubmitted: false,
 };
 
 export default QuestionViewerLayout;

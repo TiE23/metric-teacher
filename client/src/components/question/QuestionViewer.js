@@ -26,6 +26,7 @@ class QuestionViewer extends PureComponent {
     this.state = {
       editorOpen: false,
       unsavedChanges: false,
+      newQuestionSubmitted: false,
       qaFormData: null,
     };
 
@@ -136,6 +137,12 @@ class QuestionViewer extends PureComponent {
       });
     };
 
+    this.markQuestionSubmitted = () => {
+      this.setState({
+        newQuestionSubmitted: true,
+      });
+    };
+
     // TODO - This gets hit immediately by subSubjectId when opening edit mode. Try to prevent that.
     this.handleChange = (newState) => {
       this.setState(previousState => merge({}, previousState, newState, { unsavedChanges: true }));
@@ -168,6 +175,7 @@ class QuestionViewer extends PureComponent {
           mutation={SUBMIT_QA_QUESTION}
           onCompleted={() => {
             this.markChangesSaved();  // State changes in render... maybe not kosher? Sorry!
+            this.markQuestionSubmitted();
           }}
         >
           {(submitQuestion, { loading, error }) => (
@@ -189,6 +197,7 @@ class QuestionViewer extends PureComponent {
               onSubmitLoading={loading}
               onSubmitError={error}
               unsavedChanges={this.state.unsavedChanges}
+              newQuestionSubmitted={this.state.newQuestionSubmitted}
             />
           )}
         </Mutation>

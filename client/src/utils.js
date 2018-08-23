@@ -983,8 +983,6 @@ const composeQaInputFromFormData = (qaFormData, newQuestionMode) => {
         unit: qaFormData.question.answerData.unit,
       },
     };
-  } else {
-    return null;
   }
 
   return qaInput;
