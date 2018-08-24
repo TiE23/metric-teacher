@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 
 import QueryHandler from "../../QueryHandler";
-import QuestionListTable from "./QuestionListTable";
+import UserListTable from "./UserListTable";
 
 import {
-  QUESTION_SEARCH,
+  USER_SEARCH,
 } from "../../../graphql/Queries";
 
-const QuestionListContainer = props => (
+const UserListContainer = props => (
   <Query
-    query={QUESTION_SEARCH}
+    query={USER_SEARCH}
     variables={props.searchVariables}
     fetchPolicy="network-only"  // Fresh data on every search.
   >
@@ -20,19 +20,19 @@ const QuestionListContainer = props => (
         queryData={queryProps}
         noDataIsAcceptable
       >
-        <QuestionListTable
-          questionData={queryProps.data.questionSearch}
-          queryInfo={{ query: QUESTION_SEARCH, variables: queryProps.variables }}
+        <UserListTable
+          userData={queryProps.data.userSearch}
+          queryInfo={{ query: USER_SEARCH, variables: queryProps.variables }}
         />
       </QueryHandler>
     )}
   </Query>
 );
 
-QuestionListContainer.propTypes = {
+UserListContainer.propTypes = {
   searchVariables: PropTypes.shape({
     where: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   }).isRequired,
 };
 
-export default QuestionListContainer;
+export default UserListContainer;

@@ -111,20 +111,34 @@ export const DIRECTION_DROPDOWN = [
 export const FLAGS_NONE = 0;
 
 // User
+export const USER_FLAGS_DROPDOWN = [  // There are no flags, yet.
+];
+export const USER_STATUS_NAMES = [
+  "Normal",
+  "Closed",
+];
+export const USER_STATUS_NORMAL = 0;
+export const USER_STATUS_CLOSED = 1;
+export const USER_STATUS_DROPDOWN = [
+  { value: USER_STATUS_NORMAL, text: "Normal", icon: "check" },
+  { value: USER_STATUS_CLOSED, text: "Closed", icon: "close" },
+];
 export const USER_TYPE_NAMES = [
   "Student",
   "Teacher",
   "Moderator",
   "Admin",
 ];
-export const USER_STATUS_NAMES = [
-  "Normal",
-  "Closed",
-];
 export const USER_TYPE_STUDENT = 0;
 export const USER_TYPE_TEACHER = 1;
 export const USER_TYPE_MODERATOR = 2;
 export const USER_TYPE_ADMIN = 3;
+export const USER_TYPE_DROPDOWN = [
+  { value: USER_TYPE_STUDENT, text: "Student", icon: "users" },
+  { value: USER_TYPE_TEACHER, text: "Teacher", icon: "university" },
+  { value: USER_TYPE_MODERATOR, text: "Moderator", icon: "user secret" },
+  { value: USER_TYPE_ADMIN, text: "Admin", icon: "chess king" },
+];
 
 // Mastery
 export const MASTERY_STATUS_ACTIVE = 0;

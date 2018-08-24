@@ -14,9 +14,10 @@ import Subjects from "./components/subject/SubjectsPage";
 import Test from "./components/Test";
 import QaViewerPage from "./components/qa/QaViewerPage";
 import QuestionViewerPage from "./components/question/QuestionViewerPage";
-import QuestionSearchPage from "./components/admin/question/QuestionSearchPage";
 import QuestionSubmissionPage from "./components/question/QuestionSubmissionPage";
 import AdminToolsPage from "./components/admin/AdminToolsPage";
+import UserSearchPage from "./components/admin/user/UserSearchPage";
+import QuestionSearchPage from "./components/admin/question/QuestionSearchPage";
 
 import {
   USER_TYPE_MODERATOR,
@@ -38,6 +39,16 @@ const App = () => (
         path="/admin/questionsearch"
         component={
           withAuth(QuestionSearchPage, {
+            private: true,
+            permissions: { type: USER_TYPE_MODERATOR },
+          })
+        }
+      />
+      <Route
+        exact
+        path="/admin/usersearch"
+        component={
+          withAuth(UserSearchPage, {
             private: true,
             permissions: { type: USER_TYPE_MODERATOR },
           })

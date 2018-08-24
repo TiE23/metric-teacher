@@ -9,6 +9,10 @@ const AdminToolsPage = () => (
     <Segment>
       <List divided relaxed>
         <List.Item
+          icon="users"
+          content={<Link to="admin/usersearch">User Browser</Link>}
+        />
+        <List.Item
           icon="search"
           content={<Link to="/admin/questionsearch">Question Browser</Link>}
         />
