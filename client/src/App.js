@@ -9,7 +9,7 @@ import LoadingError from "./components/LoadingError";
 import Welcome from "./components/Welcome";
 import Login from "./components/entry/Login";
 import Logout from "./components/entry/Logout";
-import User from "./components/user/UserPage";
+import UserPage from "./components/user/UserPage";
 import Subjects from "./components/subject/SubjectsPage";
 import Test from "./components/Test";
 import QaViewerPage from "./components/qa/QaViewerPage";
@@ -32,7 +32,7 @@ const App = () => (
       <Route exact path="/login" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/signup" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/logout" component={Logout} />
-      <Route exact path="/user/:id" component={withAuth(User, { private: true })} />
+      <Route exact path="/user/:id" component={withAuth(UserPage, { private: true })} />
       <Route exact path="/subjects" component={withAuth(Subjects)} />
       <Route
         exact

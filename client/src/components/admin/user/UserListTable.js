@@ -1,8 +1,9 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Table, Message, Popup, Icon } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Table, Message, Popup, Icon, Modal } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
+
+import UserDetails from "../../user/details/UserDetails";
 
 import {
   USER_STATUS_DROPDOWN,
@@ -188,7 +189,16 @@ class UserListTable extends PureComponent {
                   {user.flags}
                 </Table.Cell>
                 <Table.Cell>
-                  <Link to={`/user/${user.id}`}>View</Link>
+                  <Modal
+                    trigger={(<Icon name="window maximize" style={{ cursor: "pointer" }} />)}
+                    closeIcon
+                    size="fullscreen"
+                  >
+                    <Modal.Header>User Details</Modal.Header>
+                    <Modal.Content>
+                      <UserDetails userId={user.id} />
+                    </Modal.Content>
+                  </Modal>
                 </Table.Cell>
               </Table.Row>
             ))}
