@@ -1,7 +1,13 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Table, Message } from "semantic-ui-react";
+import { Table, Message, Popup, Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import sortBy from "lodash/sortBy";
+
+import {
+  USER_STATUS_DROPDOWN,
+  USER_TYPE_DROPDOWN,
+} from "../../../constants";
 
 class UserListTable extends PureComponent {
   constructor(props) {
@@ -58,6 +64,7 @@ class UserListTable extends PureComponent {
 
     const { data, sortColumn, sortDirection } = this.state;
 
+    // Column width total != 16. This is on purpose.
     return (
       <Table sortable celled fixed singleLine compact>
         <Table.Header>
@@ -104,6 +111,11 @@ class UserListTable extends PureComponent {
             >
               Flags
             </Table.HeaderCell>
+            <Table.HeaderCell
+              width={1}
+            >
+              Actions
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         {data.length ?
@@ -111,7 +123,34 @@ class UserListTable extends PureComponent {
             {data.map(user => (
               <Table.Row key={user.id}>
                 <Table.Cell>
-                  {user.email}
+                  <Popup
+                    trigger={(<span style={{ cursor: "help" }}>{user.email}</span>)}
+                    content={(
+                      <span>
+                        <b>{user.email}</b>
+                        <ul>
+                          <li>
+                            <b>User ID</b>
+                            {": "}
+                            {user.id}
+                          </li>
+                          <li>
+                            <b>User CreatedAt</b>
+                            {": "}
+                            {user.createdAt}
+                          </li>
+                          <li>
+                            <b>User UpdatedAt</b>
+                            {": "}
+                            {user.updatedAt}
+                          </li>
+                        </ul>
+                      </span>
+                    )}
+                    position="bottom left"
+                    on="click"
+                    wide="very"
+                  />
                 </Table.Cell>
                 <Table.Cell>
                   {user.fname}
@@ -120,13 +159,36 @@ class UserListTable extends PureComponent {
                   {user.lname}
                 </Table.Cell>
                 <Table.Cell>
-                  {user.type}
+                  <Popup
+                    trigger={(
+                      <span>
+                        <Icon name={USER_TYPE_DROPDOWN[user.type].icon} />
+                        {" "}
+                        {USER_TYPE_DROPDOWN[user.type].text}
+                      </span>
+                    )}
+                    content={`type: ${user.type}`}
+                    positon="left center"
+                  />
                 </Table.Cell>
                 <Table.Cell>
-                  {user.status}
+                  <Popup
+                    trigger={(
+                      <span>
+                        <Icon name={USER_STATUS_DROPDOWN[user.status].icon} />
+                        {" "}
+                        {USER_STATUS_DROPDOWN[user.status].text}
+                      </span>
+                    )}
+                    content={`status: ${user.status}`}
+                    positon="left center"
+                  />
                 </Table.Cell>
                 <Table.Cell>
                   {user.flags}
+                </Table.Cell>
+                <Table.Cell>
+                  <Link to={`/user/${user.id}`}>View</Link>
                 </Table.Cell>
               </Table.Row>
             ))}
