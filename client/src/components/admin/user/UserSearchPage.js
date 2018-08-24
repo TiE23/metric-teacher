@@ -4,14 +4,14 @@ import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
 
-import QuestionSearchOptions from "./QuestionSearchOptions";
-import QuestionListContainer from "./QuestionListContainer";
+import UserSearchOptions from "./UserSearchOptions";
+import UserListContainer from "./UserListContainer";
 
 import {
   FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL,
 } from "../../../constants";
 
-class QuestionSearchPage extends PureComponent {
+class UserSearchPage extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -31,20 +31,24 @@ class QuestionSearchPage extends PureComponent {
     };
 
     const buildWhere = (where) => {
-      const subjects = where.subjects && where.subjects.length ?
+      const id = where.id ?
         {
-          parent: {
-            parent: {
-              name_in: where.subjects,
-            },
-          },
+          id_in: where.id.replace(/ /, "").split(","),
         } : null;
 
-      const direction = where.direction !== null && where.direction !== undefined ?
+      const email = where.email ?
         {
-          parent: {
-            toMetric: where.direction,
-          },
+          email_contains: where.email,
+        } : null;
+
+      const fname = where.fname ?
+        {
+          fname_contains: where.fname,
+        } : null;
+
+      const lname = where.lname ?
+        {
+          lname_contains: where.lname,
         } : null;
 
       const types = where.types && where.types.length ?
@@ -62,20 +66,15 @@ class QuestionSearchPage extends PureComponent {
           flags: utils.implodeBits(where.flags),
         } : null;
 
-      const difficulties = where.difficulties && where.difficulties.length ?
-        {
-          difficulty_in: where.difficulties,
-        } : null;
-
       return mergeWith(
         {},
-        subjects,
-        direction,
+        id,
+        email,
+        fname,
+        lname,
         types,
         statuses,
         flags,
-        difficulties,
-        utils.mergeCustomizer,
       );
     };
 
@@ -94,7 +93,7 @@ class QuestionSearchPage extends PureComponent {
         <Grid.Row centered>
           <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
             <Container textAlign="center">
-              <QuestionSearchOptions
+              <UserSearchOptions
                 handleChange={this.handleWhereChange}
               />
               <Button
@@ -109,7 +108,7 @@ class QuestionSearchPage extends PureComponent {
                   No Search Set
                 </p>
                 :
-                <QuestionListContainer
+                <UserListContainer
                   searchVariables={this.state.searchVariables}
                 />
               }
@@ -121,4 +120,4 @@ class QuestionSearchPage extends PureComponent {
   }
 }
 
-export default QuestionSearchPage;
+export default UserSearchPage;

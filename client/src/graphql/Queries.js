@@ -165,3 +165,21 @@ export const QUESTION_SEARCH = gql`
   }
   ${QuestionDataEverythingExtra}
 `;
+
+// TODO - Use PrivateUser fragment when issue is fixed someday.
+export const USER_SEARCH = gql`
+  query UserSearch ($where: UserWhereInput, $orderBy: UserOrderByInput, $skip: Int, $after: String, $before: String, $first: Int, $last: Int) {
+    userSearch(where: $where, orderBy: $orderBy, skip: $skip, after: $after, before: $before, first: $first, last: $last) {
+      id
+      createdAt
+      updatedAt
+      email
+      honorific
+      fname
+      lname
+      type
+      status
+      flags
+    }
+  }
+`;
