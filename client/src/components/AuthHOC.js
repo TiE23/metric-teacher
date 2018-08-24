@@ -34,6 +34,10 @@ import utils from "../utils";
  *    };
  *    export default withAuth(MyComponent);
  *
+ * In the wrapped component it will get the prop userTokenData. What that prop contains is really
+ * defined in the server with the mutation signup and login. At last check it is:
+ * { id, type, status, flags }
+ *
  * @param WrappedComponent
  * @param options
  * @returns {*}
