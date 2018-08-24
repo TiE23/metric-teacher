@@ -60,7 +60,7 @@ class UserSearchOptions extends PureComponent {
       <Form>
         <Form.Group inline widths="equal">
           <Form.Input
-            label="ID (exact)"
+            label="ID (comma delim)"
             placeholder="Any"
             value={this.state.id || ""}
             onChange={this.handleIdChange}

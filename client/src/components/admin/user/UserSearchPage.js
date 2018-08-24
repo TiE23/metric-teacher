@@ -33,7 +33,7 @@ class UserSearchPage extends PureComponent {
     const buildWhere = (where) => {
       const id = where.id ?
         {
-          id_contains: where.id,
+          id_in: where.id.replace(/ /, "").split(","),
         } : null;
 
       const email = where.email ?
