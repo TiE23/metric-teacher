@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import { Container, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { compose } from "react-apollo";
+
+import withAuth from "../AuthHOC";
 
 const SubjectsPageDescription = props => (
-  props.loggedIn ?
+  props.userTokenData && props.userTokenData.id ?
     <Container>
       <p>
         Browse available <b>subjects</b> below and assign new <b>sub-subjects</b> that are
@@ -53,7 +56,6 @@ const SubjectsPageDescription = props => (
 );
 
 SubjectsPageDescription.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
@@ -61,6 +63,16 @@ SubjectsPageDescription.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
+  userTokenData: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }),
 };
 
-export default withRouter(SubjectsPageDescription);
+SubjectsPageDescription.defaultProps = {
+  userTokenData: null,
+};
+
+export default compose(
+  withRouter,
+  withAuth,
+)(SubjectsPageDescription);
