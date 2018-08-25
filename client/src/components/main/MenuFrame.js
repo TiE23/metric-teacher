@@ -8,6 +8,7 @@ import { Grid, Sticky } from "semantic-ui-react";
 import withAuth from "../AuthHOC";
 
 import HeaderMenu from "./HeaderMenu";
+import FrameFooter from "./FrameFooter";
 
 import {
   FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL,
@@ -17,31 +18,43 @@ import {
 const MenuFrame = class MenuFrame extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      contextRef: null,
+    };
 
     this.navigateTo = (e, { to }) => this.props.history.push(to);
+
+    this.handleContextRef = contextRef => this.setState({ contextRef });
   }
 
   render() {
     return (
-      <Grid>
-        <Grid.Row>
-          <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
-            <Sticky>
-              <HeaderMenu
-                navigateTo={this.navigateTo}
-                userTokenData={this.props.userTokenData}
-              />
-            </Sticky>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row centered>
-          <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
-            <Switch>
-              {this.props.children}
-            </Switch>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <div ref={this.handleContextRef}>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
+              <Sticky context={this.state.contextRef}>
+                <HeaderMenu
+                  navigateTo={this.navigateTo}
+                  userTokenData={this.props.userTokenData}
+                />
+              </Sticky>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row centered>
+            <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
+              <Switch>
+                {this.props.children}
+              </Switch>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
+              <FrameFooter />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
     );
   }
 };

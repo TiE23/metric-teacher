@@ -9,7 +9,7 @@ const MenuContentBasics = props => (
       to="/"
       onClick={props.navigateTo}
     >
-      <Icon name="bars" />
+      <Icon name="home" />
       {" "}
       Main
     </Menu.Item>,
@@ -23,16 +23,28 @@ const MenuContentBasics = props => (
         {" "}
         Me
       </Menu.Item> : null,
+    props.showAdminLink ?
+      <Menu.Item
+        key="admin"
+        to="/admin"
+        onClick={props.navigateTo}
+      >
+        <Icon name="cog" />
+        {" "}
+        Admin
+      </Menu.Item> : null,
   ]
 );
 
 MenuContentBasics.propTypes = {
   navigateTo: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool,
+  showAdminLink: PropTypes.bool,
 };
 
 MenuContentBasics.defaultProps = {
   loggedIn: false,
+  showAdminLink: false,
 };
 
 export default MenuContentBasics;
