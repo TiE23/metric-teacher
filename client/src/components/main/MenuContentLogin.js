@@ -2,16 +2,26 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Menu } from "semantic-ui-react";
 
+import SimpleConfirm from "../misc/SimpleConfirm";
+
 const MenuContentLogin = props => (
   props.loggedIn ?
     [
-      <Menu.Item
+      <SimpleConfirm
         key="logout"
-        to="/logout"
-        onClick={props.navigateTo}
+        onConfirm={props.navigateTo}
+        confirmProps={{
+          header: "Logout",
+          content: "Are you sure you want to log out now?",
+          size: "tiny",
+        }}
       >
-        Logout
-      </Menu.Item>,
+        <Menu.Item
+          to="/logout"
+        >
+          Logout
+        </Menu.Item>
+      </SimpleConfirm>,
     ]
     :
     [
