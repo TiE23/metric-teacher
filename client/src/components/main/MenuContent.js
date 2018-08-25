@@ -1,45 +1,34 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router";
 import { Menu, Icon } from "semantic-ui-react";
 
-class MenuContent extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.navigateTo = (e, { to }) => this.props.history.push(to);
-  }
-
-  render() {
-    return (
-      [
-        <Menu.Item
-          name="main"
-          key="main"
-          to="/"
-          onClick={this.navigateTo}
-        >
-          <Icon name="bars" />
-          {" "}
-          Main
-        </Menu.Item>,
-        <Menu.Item
-          name="profile"
-          key="profile"
-          to="/user/me"
-          onClick={this.navigateTo}
-        >
-          <Icon name="user" />
-          {" "}
-          Me
-        </Menu.Item>,
-      ]
-    );
-  }
-}
+const MenuContent = props => (
+  [
+    <Menu.Item
+      name="main"
+      key="main"
+      to="/"
+      onClick={props.navigateTo}
+    >
+      <Icon name="bars" />
+      {" "}
+      Main
+    </Menu.Item>,
+    <Menu.Item
+      name="profile"
+      key="profile"
+      to="/user/me"
+      onClick={props.navigateTo}
+    >
+      <Icon name="user" />
+      {" "}
+      Me
+    </Menu.Item>,
+  ]
+);
 
 MenuContent.propTypes = {
-  history: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  navigateTo: PropTypes.func.isRequired,
 };
 
-export default withRouter(MenuContent);
+export default MenuContent;
