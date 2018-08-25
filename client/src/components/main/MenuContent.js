@@ -5,7 +5,6 @@ import { Menu, Icon } from "semantic-ui-react";
 const MenuContent = props => (
   [
     <Menu.Item
-      name="main"
       key="main"
       to="/"
       onClick={props.navigateTo}
@@ -15,7 +14,6 @@ const MenuContent = props => (
       Main
     </Menu.Item>,
     <Menu.Item
-      name="profile"
       key="profile"
       to="/user/me"
       onClick={props.navigateTo}
