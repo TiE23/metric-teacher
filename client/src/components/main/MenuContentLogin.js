@@ -2,10 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Menu } from "semantic-ui-react";
 
-import withAuth from "../AuthHOC";
-
 const MenuContentLogin = props => (
-  props.userTokenData && props.userTokenData.id ?
+  props.loggedIn ?
     [
       <Menu.Item
         key="logout"
@@ -29,9 +27,11 @@ const MenuContentLogin = props => (
 
 MenuContentLogin.propTypes = {
   navigateTo: PropTypes.func.isRequired,
-  userTokenData: PropTypes.shape({
-    id: PropTypes.string,
-  }),
+  loggedIn: PropTypes.bool,
 };
 
-export default withAuth(MenuContentLogin);
+MenuContentLogin.defaultProps = {
+  loggedIn: false,
+};
+
+export default MenuContentLogin;

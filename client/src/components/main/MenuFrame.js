@@ -1,8 +1,11 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
+import { compose } from "react-apollo";
 import { Switch } from "react-router-dom";
 import { Grid, Sticky } from "semantic-ui-react";
+
+import withAuth from "../AuthHOC";
 
 import HeaderMenu from "./HeaderMenu";
 
@@ -26,6 +29,7 @@ const MenuFrame = class MenuFrame extends PureComponent {
             <Sticky>
               <HeaderMenu
                 navigateTo={this.navigateTo}
+                userTokenData={this.props.userTokenData}
               />
             </Sticky>
           </Grid.Column>
@@ -44,11 +48,16 @@ const MenuFrame = class MenuFrame extends PureComponent {
 
 MenuFrame.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node),
-  history: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  userTokenData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 MenuFrame.defaultProps = {
   children: null,
+  userTokenData: null,
 };
 
-export default withRouter(MenuFrame);
+export default compose(
+  withRouter,
+  withAuth,
+)(MenuFrame);

@@ -9,10 +9,12 @@ const HeaderMenu = props => (
   <Menu>
     <MenuContent
       navigateTo={props.navigateTo}
+      loggedIn={!!props.userTokenData}
     />
     <Menu.Menu position="right">
       <MenuContentLogin
         navigateTo={props.navigateTo}
+        loggedIn={!!props.userTokenData}
       />
     </Menu.Menu>
   </Menu>
@@ -20,6 +22,13 @@ const HeaderMenu = props => (
 
 HeaderMenu.propTypes = {
   navigateTo: PropTypes.func.isRequired,
+  userTokenData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
+};
+
+HeaderMenu.defaultProps = {
+  userTokenData: null,
 };
 
 export default HeaderMenu;

@@ -13,20 +13,26 @@ const MenuContent = props => (
       {" "}
       Main
     </Menu.Item>,
-    <Menu.Item
-      key="profile"
-      to="/user/me"
-      onClick={props.navigateTo}
-    >
-      <Icon name="user" />
-      {" "}
-      Me
-    </Menu.Item>,
+    props.loggedIn ?
+      <Menu.Item
+        key="profile"
+        to="/user/me"
+        onClick={props.navigateTo}
+      >
+        <Icon name="user" />
+        {" "}
+        Me
+      </Menu.Item> : null,
   ]
 );
 
 MenuContent.propTypes = {
   navigateTo: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool,
+};
+
+MenuContent.defaultProps = {
+  loggedIn: false,
 };
 
 export default MenuContent;
