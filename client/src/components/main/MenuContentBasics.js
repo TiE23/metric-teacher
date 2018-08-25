@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Menu, Icon } from "semantic-ui-react";
 
-const MenuContent = props => (
+const MenuContentBasics = props => (
   [
     <Menu.Item
       key="main"
@@ -26,13 +26,13 @@ const MenuContent = props => (
   ]
 );
 
-MenuContent.propTypes = {
+MenuContentBasics.propTypes = {
   navigateTo: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool,
 };
 
-MenuContent.defaultProps = {
+MenuContentBasics.defaultProps = {
   loggedIn: false,
 };
 
-export default MenuContent;
+export default MenuContentBasics;

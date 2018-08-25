@@ -27,7 +27,8 @@ const Subjects = (props) => {
         >
           <Segment>
             <Header size="huge" textAlign="center">
-              <Icon name="tasks" />Subjects
+              <Icon name="tasks" />
+              Subjects
             </Header>
             <SubjectsPageDescription />
             <br />

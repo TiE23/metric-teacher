@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Menu } from "semantic-ui-react";
 
-import MenuContent from "./MenuContent";
+import MenuContentBasics from "./MenuContentBasics";
 import MenuContentLogin from "./MenuContentLogin";
 
 const HeaderMenu = props => (
   <Menu>
-    <MenuContent
+    <MenuContentBasics
       navigateTo={props.navigateTo}
       loggedIn={!!props.userTokenData}
     />

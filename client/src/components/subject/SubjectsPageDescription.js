@@ -64,7 +64,7 @@ SubjectsPageDescription.propTypes = {
     pathname: PropTypes.string.isRequired,
   }).isRequired,
   userTokenData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
   }),
 };
 
