@@ -41,7 +41,9 @@ const Welcome = props => (
     <br />
     <Link to="/private">Private Test</Link>
     <br />
-    <Link to="/user/cjk1pagik004a0793ur0ov3bq">A student</Link>
+    <Link to="/user/cjk1paghy0044079340rau9er">Student001</Link>
+    <br />
+    <Link to="/user/cjk1pagik004a0793ur0ov3bq">Student003</Link>
   </div>
 );
 

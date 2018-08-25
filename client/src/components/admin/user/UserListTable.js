@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Table, Message, Popup, Icon, Modal } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
@@ -197,6 +198,10 @@ class UserListTable extends PureComponent {
                     <Modal.Header>User Details</Modal.Header>
                     <Modal.Content>
                       <UserDetails userId={user.id} />
+                      <p>
+                        <br />
+                        <Link to={`/user/${user.id}`}>Go to account page...</Link>
+                      </p>
                     </Modal.Content>
                   </Modal>
                 </Table.Cell>
