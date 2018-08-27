@@ -11,14 +11,15 @@ import {
 
 const SidebarMenu = props => (
   <Sidebar
-    as={Menu}
     animation="push"
     icon="labeled"
     inverted
-    onHide={props.handleSidebarHide}
     vertical
     visible={props.visible}
     width="thin"
+    {...props.sidebarProps}
+    as={Menu}
+    onHide={props.handleSidebarHide}
   >
     <MenuContentBasics
       navigateTo={props.navigateTo}
@@ -40,10 +41,12 @@ SidebarMenu.propTypes = {
   }),
   handleSidebarHide: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
+  sidebarProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 SidebarMenu.defaultProps = {
   userTokenData: null,
+  sidebarProps: null,
 };
 
 export default SidebarMenu;

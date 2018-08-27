@@ -54,7 +54,7 @@ const MenuFrame = class MenuFrame extends PureComponent {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row centered>
-              <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
+              <Grid.Column {...this.props.contentWidth}>
                 <Switch>
                   {this.props.children}
                 </Switch>
@@ -84,7 +84,7 @@ const MenuFrame = class MenuFrame extends PureComponent {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row centered>
-              <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
+              <Grid.Column {...this.props.contentWidth}>
                 <Switch>
                   {this.props.children}
                 </Switch>
@@ -106,11 +106,17 @@ MenuFrame.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node),
   history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   userTokenData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  contentWidth: PropTypes.shape({
+    mobile: PropTypes.number.isRequired,
+    tablet: PropTypes.number.isRequired,
+    computer: PropTypes.number.isRequired,
+  }),
 };
 
 MenuFrame.defaultProps = {
   children: null,
   userTokenData: null,
+  contentWidth: FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE,
 };
 
 export default compose(
