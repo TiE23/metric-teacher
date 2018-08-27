@@ -11,7 +11,7 @@ import {
 
 const SidebarMenu = props => (
   <Sidebar
-    animation="push"
+    animation="overlay"
     icon="labeled"
     inverted
     vertical

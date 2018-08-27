@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import { compose } from "react-apollo";
 import { Switch } from "react-router-dom";
-import { Grid, Sticky } from "semantic-ui-react";
+import { Button, Icon, Grid, Sticky, Responsive } from "semantic-ui-react";
 
 import withAuth from "../AuthHOC";
 
@@ -41,15 +41,26 @@ const MenuFrame = class MenuFrame extends PureComponent {
             <Grid.Row>
               <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
                 <Sticky context={this.state.contextRef}>
-                  <div>
-                    <button onClick={this.handleButtonClick}>Show</button>
+                  <Responsive as="div" {...Responsive.onlyMobile}>
+                    <Button
+                      icon
+                      onClick={this.handleButtonClick}
+                    >
+                      <Icon name="bars" />
+                    </Button>
                     <SidebarMenu
                       navigateTo={this.navigateTo}
                       userTokenData={this.props.userTokenData}
                       handleSidebarHide={this.handleSidebarHide}
                       visible={this.state.sidebarVisible}
                     />
-                  </div>
+                  </Responsive>
+                  <Responsive
+                    as={HeaderMenu}
+                    navigateTo={this.navigateTo}
+                    userTokenData={this.props.userTokenData}
+                    minWidth={Responsive.onlyTablet.minWidth}
+                  />
                 </Sticky>
               </Grid.Column>
             </Grid.Row>
