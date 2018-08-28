@@ -36,82 +36,50 @@ const MenuFrame = class MenuFrame extends PureComponent {
   }
 
   render() {
-    if (true) {
-      return (
-        <div ref={this.handleContextRef}>
-          <Grid>
-            <Grid.Row>
-              <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
-                <Sticky context={this.state.contextRef}>
-                  <Responsive as="div" {...Responsive.onlyMobile}>
-                    <Button
-                      icon
-                      onClick={this.handleButtonClick}
-                    >
-                      <Icon name="bars" />
-                    </Button>
-                    <SidebarMenu
-                      navigateTo={this.navigateTo}
-                      userTokenData={this.props.userTokenData}
-                      handleSidebarHide={this.handleSidebarHide}
-                      visible={this.state.sidebarVisible}
-                    />
-                  </Responsive>
-                  <Responsive
-                    as={HeaderMenu}
+    return (
+      <div ref={this.handleContextRef}>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
+              <Sticky context={this.state.contextRef}>
+                <Responsive as="div" {...Responsive.onlyMobile}>
+                  <Button
+                    icon
+                    onClick={this.handleButtonClick}
+                  >
+                    <Icon name="bars" />
+                  </Button>
+                  <SidebarMenu
                     navigateTo={this.navigateTo}
                     userTokenData={this.props.userTokenData}
-                    minWidth={Responsive.onlyTablet.minWidth}
+                    handleSidebarHide={this.handleSidebarHide}
+                    visible={this.state.sidebarVisible}
                   />
-                </Sticky>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row centered>
-              <Grid.Column {...this.props.contentWidth}>
-                <Switch>
-                  {this.props.children}
-                </Switch>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
-                <FrameFooter />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </div>
-      );
-    } else {
-      // Keep this here for now.
-      return (
-        <div ref={this.handleContextRef}>
-          <Grid>
-            <Grid.Row>
-              <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
-                <Sticky context={this.state.contextRef}>
-                  <HeaderMenu
-                    navigateTo={this.navigateTo}
-                    userTokenData={this.props.userTokenData}
-                  />
-                </Sticky>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row centered>
-              <Grid.Column {...this.props.contentWidth}>
-                <Switch>
-                  {this.props.children}
-                </Switch>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
-                <FrameFooter />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </div>
-      );
-    }
+                </Responsive>
+                <Responsive
+                  as={HeaderMenu}
+                  navigateTo={this.navigateTo}
+                  userTokenData={this.props.userTokenData}
+                  minWidth={Responsive.onlyTablet.minWidth}
+                />
+              </Sticky>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row centered>
+            <Grid.Column {...this.props.contentWidth}>
+              <Switch>
+                {this.props.children}
+              </Switch>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
+              <FrameFooter />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+    );
   }
 };
 
