@@ -47,6 +47,11 @@ export const NAME_FIRST_MAXIMUM_LENGTH = 32;
 export const NAME_LAST_MAXIMUM_LENGTH = 32;
 export const NAME_HONORIFIC_MAXIMUM_LENGTH = 32;
 
+// Question Input
+export const QUESTION_TEXT_MAXIMUM_LENGTH = 300;
+export const QUESTION_ANSWER_DETAIL_MAXIMUM_LENGTH = 300;
+export const QUESTION_ANSWER_CHOICE_MAXIMUM_LENGTH = 64;
+
 // Interface
 // Max multiple choice options we can show (including correct answer).
 export const MAX_CHOICES = 6;
