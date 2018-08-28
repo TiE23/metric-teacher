@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import utils from "../utils";
 
-import LoadingError from "./LoadingError";
+import LoadingError from "./misc/LoadingError";
 
 /**
  * Helpful component contains the LoadingError component and should be placed as the

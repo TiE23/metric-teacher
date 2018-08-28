@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Loader, Message, Segment } from "semantic-ui-react";
 
-import FloatingCenterGrid from "./FloatingCenterGrid";
+import FloatingCenterGrid from "../FloatingCenterGrid";
 
 /**
  * Genericized component that lets you display a simple loading or error notice. When this is
