@@ -16,11 +16,15 @@ import {
   BAD_PASSWORDS,
   EMAIL_NORMALIZE_OPTIONS,
   EMAIL_SECRET_PREFIXES,
+  NAME_FIRST_MAXIMUM_LENGTH,
+  NAME_LAST_MAXIMUM_LENGTH,
+  NAME_HONORIFIC_MAXIMUM_LENGTH,
   PASSWORD_MINIMUM_LENGTH,
+  PASSWORD_MAXIMUM_LENGTH,
   UNIT_INITIALISMS,
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
-  QUESTION_TYPE_SURVEY,
+  QUESTION_TYPE_SURVEY, EMAIL_MAXIMUM_LENGTH,
 } from "./constants";
 
 // TODO better token management
@@ -246,6 +250,16 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
   if (checked.lname && !form.lname.trim()) errors.push("Last name required");
   if (checked.honorific && !form.honorific.trim()) errors.push("Honorific required");
 
+  if (checked.fname && form.fname.trim().length > NAME_FIRST_MAXIMUM_LENGTH) {
+    errors.push(`First name cannot be longer than ${NAME_FIRST_MAXIMUM_LENGTH} characters`);
+  }
+  if (checked.lname && form.lname.trim().length > NAME_LAST_MAXIMUM_LENGTH) {
+    errors.push(`Last name cannot be longer than ${NAME_LAST_MAXIMUM_LENGTH} characters`);
+  }
+  if (checked.honorific && form.honorific.trim().length > NAME_HONORIFIC_MAXIMUM_LENGTH) {
+    errors.push(`Honorific cannot be longer than ${NAME_HONORIFIC_MAXIMUM_LENGTH} characters`);
+  }
+
   // New email requirements
   if (checked.email.new && !form.email.new.trim()) errors.push("Email required");
   else if (checked.email.new && !isEmail(form.email.new)) errors.push("Email invalid");
@@ -253,6 +267,8 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
     const normalizedEmail = customNormalizeEmail(form.email.new);
     if (isEmail(form.email.new) && normalizedEmail !== form.email.new.toLowerCase()) {
       errors.push(`Please normalize your email to "${normalizedEmail}"`);
+    } else if (normalizedEmail.length > EMAIL_MAXIMUM_LENGTH) {
+      errors.push(`Email cannot be longer than ${EMAIL_MAXIMUM_LENGTH} characters`);
     }
   }
 
@@ -262,6 +278,9 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
   // New password requirements
   if (checked.password.new && form.password.new.trim().length < PASSWORD_MINIMUM_LENGTH) {
     errors.push(`Password must be at least ${PASSWORD_MINIMUM_LENGTH} characters long`);
+  }
+  if (checked.password.new && form.password.new.trim().length > PASSWORD_MAXIMUM_LENGTH) {
+    errors.push(`Password cannot be longer than ${PASSWORD_MAXIMUM_LENGTH} characters`);
   }
   if (checked.password.new && BAD_PASSWORDS.includes(form.password.new.toLowerCase())) {
     errors.push("Password is far too common. Please try a better password!");
