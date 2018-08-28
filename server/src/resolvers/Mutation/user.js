@@ -7,11 +7,19 @@ const {
 const {
   AuthError,
   UserNotFound,
+  InputAboveMaximum,
+  InputBelowMinimum,
   ExistingPasswordRequired,
 } = require("../../errors");
 
 const {
   BCRYPT_SALT_LENGTH,
+  PASSWORD_MINIMUM_LENGTH,
+  PASSWORD_MAXIMUM_LENGTH,
+  EMAIL_MAXIMUM_LENGTH,
+  NAME_FIRST_MAXIMUM_LENGTH,
+  NAME_LAST_MAXIMUM_LENGTH,
+  NAME_HONORIFIC_MAXIMUM_LENGTH,
   USER_STATUS_NORMAL,
   USER_TYPE_STUDENT,
   USER_TYPE_TEACHER,
@@ -26,7 +34,7 @@ const user = {
    * other hand, have full power.
    * TODO - Email validity check (it's not just for the client these days!!)
    * TODO - Email confirmations (waaaay in the future no doubt!)
-   * TODO - Password check (min length, complexity requirements?, trimming, easy password blocking)
+   * TODO - Password check (complexity requirements?, trimming, easy password blocking)
    * TODO - Name check (no numerals, no odd punctuation, no emoji, etc)
    * TODO - Honorific check (maybe?)
    * @param parent
@@ -114,6 +122,26 @@ const user = {
     // Only allow honorifics for teachers.
     if (args.honorific !== undefined && targetUserData.type === USER_TYPE_TEACHER) {
       dataPayload.honorific = args.honorific;
+    }
+
+    // Enforce input limits.
+    if (args.email && args.email.length > EMAIL_MAXIMUM_LENGTH) {
+      throw new InputAboveMaximum("email", EMAIL_MAXIMUM_LENGTH);
+    }
+    if (args.password && args.password.new && args.password.new.length < PASSWORD_MINIMUM_LENGTH) {
+      throw new InputBelowMinimum("password", PASSWORD_MINIMUM_LENGTH);
+    }
+    if (args.password && args.password.new && args.password.new.length > PASSWORD_MAXIMUM_LENGTH) {
+      throw new InputAboveMaximum("password", PASSWORD_MAXIMUM_LENGTH);
+    }
+    if (dataPayload.fname && dataPayload.fname.length > NAME_FIRST_MAXIMUM_LENGTH) {
+      throw new InputAboveMaximum("fname", NAME_FIRST_MAXIMUM_LENGTH);
+    }
+    if (dataPayload.lname && dataPayload.lname.length > NAME_LAST_MAXIMUM_LENGTH) {
+      throw new InputAboveMaximum("lname", NAME_LAST_MAXIMUM_LENGTH);
+    }
+    if (dataPayload.honorific && dataPayload.honorific.length > NAME_HONORIFIC_MAXIMUM_LENGTH) {
+      throw new InputAboveMaximum("honorific", NAME_HONORIFIC_MAXIMUM_LENGTH);
     }
 
     // Fire off the mutation!
