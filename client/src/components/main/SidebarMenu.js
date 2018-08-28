@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Icon, Menu, Sidebar } from "semantic-ui-react";
 
@@ -9,37 +9,56 @@ import {
   USER_TYPE_MODERATOR,
 } from "../../constants";
 
-const SidebarMenu = props => (
-  <Sidebar
-    animation="overlay"
-    icon="labeled"
-    inverted
-    vertical
-    visible={props.visible}
-    width="thin"
-    {...props.sidebarProps}
-    as={Menu}
-    onHide={props.handleSidebarHide}
-  >
-    <Menu.Item
-      onClick={props.handleSidebarHide}
-    >
-      <Icon name="close" />
-    </Menu.Item>
-    <MenuContentBasics
-      navigateTo={props.navigateTo}
-      loggedIn={!!props.userTokenData}
-      showAdminLink={props.userTokenData && props.userTokenData.type > USER_TYPE_MODERATOR}
-    />
-    <MenuContentLogin
-      navigateTo={props.navigateTo}
-      loggedIn={!!props.userTokenData}
-    />
-  </Sidebar>
-);
+const SidebarMenu = class SidebarMenu extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleNavigateTo = (event, data) => {
+      this.props.navigateTo(event, data);
+
+      if (this.props.hideOnNavigate) {
+        this.props.handleSidebarHide();
+      }
+    };
+  }
+
+  render() {
+    return (
+      <Sidebar
+        animation="overlay"
+        icon="labeled"
+        inverted
+        vertical
+        visible={this.props.visible}
+        width="thin"
+        {...this.props.sidebarProps}
+        as={Menu}
+        onHide={this.props.handleSidebarHide}
+      >
+        <Menu.Item
+          onClick={this.props.handleSidebarHide}
+        >
+          <Icon name="close" />
+        </Menu.Item>
+        <MenuContentBasics
+          navigateTo={this.handleNavigateTo}
+          loggedIn={!!this.props.userTokenData}
+          showAdminLink={
+            this.props.userTokenData && this.props.userTokenData.type > USER_TYPE_MODERATOR
+          }
+        />
+        <MenuContentLogin
+          navigateTo={this.handleNavigateTo}
+          loggedIn={!!this.props.userTokenData}
+        />
+      </Sidebar>
+    );
+  }
+};
 
 SidebarMenu.propTypes = {
   navigateTo: PropTypes.func.isRequired,
+  hideOnNavigate: PropTypes.bool,
   userTokenData: PropTypes.shape({
     id: PropTypes.string.isRequired,
     type: PropTypes.number.isRequired,
@@ -50,6 +69,7 @@ SidebarMenu.propTypes = {
 };
 
 SidebarMenu.defaultProps = {
+  hideOnNavigate: false,
   userTokenData: null,
   sidebarProps: null,
 };

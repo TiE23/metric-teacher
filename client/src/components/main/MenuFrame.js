@@ -51,6 +51,7 @@ const MenuFrame = class MenuFrame extends PureComponent {
                   </Button>
                   <SidebarMenu
                     navigateTo={this.navigateTo}
+                    hideOnNavigate
                     userTokenData={this.props.userTokenData}
                     handleSidebarHide={this.handleSidebarHide}
                     visible={this.state.sidebarVisible}
