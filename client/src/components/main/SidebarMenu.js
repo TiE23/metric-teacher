@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Menu, Sidebar } from "semantic-ui-react";
+import { Icon, Menu, Sidebar } from "semantic-ui-react";
 
 import MenuContentBasics from "./MenuContentBasics";
 import MenuContentLogin from "./MenuContentLogin";
@@ -21,6 +21,11 @@ const SidebarMenu = props => (
     as={Menu}
     onHide={props.handleSidebarHide}
   >
+    <Menu.Item
+      onClick={props.handleSidebarHide}
+    >
+      <Icon name="close" />
+    </Menu.Item>
     <MenuContentBasics
       navigateTo={props.navigateTo}
       loggedIn={!!props.userTokenData}

@@ -25,9 +25,11 @@ const MenuFrame = class MenuFrame extends PureComponent {
     };
 
     this.navigateTo = (e, { to }) => this.props.history.push(to);
+
     this.handleButtonClick = () => this.setState(prevState => (
       { sidebarVisible: !prevState.sidebarVisible }
     ));
+
     this.handleSidebarHide = () => this.setState({ sidebarVisible: false });
 
     this.handleContextRef = contextRef => this.setState({ contextRef });

@@ -626,7 +626,7 @@ const stringTruncator = (string, length, trunc = "...") => {
   if (length <= trunc.length) return trunc.slice(0, length);
   const trimmedString = string.trim();
   if (trimmedString.length <= length) return trimmedString;
-  return trimmedString.slice(0, length - trunc.length).trimEnd() + trunc;
+  return trimmedString.slice(0, length - trunc.length).trimRight() + trunc;
 };
 
 
