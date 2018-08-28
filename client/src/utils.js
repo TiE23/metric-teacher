@@ -24,7 +24,7 @@ import {
   UNIT_INITIALISMS,
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
-  QUESTION_TYPE_SURVEY, EMAIL_MAXIMUM_LENGTH,
+  QUESTION_TYPE_SURVEY,
 } from "./constants";
 
 // TODO better token management
@@ -267,8 +267,6 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
     const normalizedEmail = customNormalizeEmail(form.email.new);
     if (isEmail(form.email.new) && normalizedEmail !== form.email.new.toLowerCase()) {
       errors.push(`Please normalize your email to "${normalizedEmail}"`);
-    } else if (normalizedEmail.length > EMAIL_MAXIMUM_LENGTH) {
-      errors.push(`Email cannot be longer than ${EMAIL_MAXIMUM_LENGTH} characters`);
     }
   }
 

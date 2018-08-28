@@ -23,7 +23,7 @@ export const BAD_PASSWORDS = [
 ];
 
 // Email
-export const EMAIL_MAXIMUM_LENGTH = 128;
+// export const EMAIL_MAXIMUM_LENGTH = 76; // No need as validator/lib/isEmail enforces this limit.
 export const EMAIL_NORMALIZE_OPTIONS = {
   all_lowercase: true,
   gmail_lowercase: true,
