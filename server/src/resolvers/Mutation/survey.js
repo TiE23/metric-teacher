@@ -11,12 +11,14 @@ const {
 
 const {
   AuthError,
+  InputLengthAboveMaximum,
   StudentNoActiveCourse,
   SurveyAnswerIncomplete,
   SurveyNotFound,
 } = require("../../errors");
 
 const {
+  SURVEY_DETAIL_MAXIMUM_LENGTH,
   USER_TYPE_STUDENT,
   USER_TYPE_MODERATOR,
   USER_TYPE_ADMIN,
@@ -58,6 +60,11 @@ const survey = {
     if (callingUserData.id !== args.studentid &&
       callingUserData.type < USER_TYPE_MODERATOR) {
       throw new AuthError(null, "addSurveyAnswers");
+    }
+
+    // Enforce input limits.
+    if (args.answerinput.detail && args.answerinput.detail.length > SURVEY_DETAIL_MAXIMUM_LENGTH) {
+      throw new InputLengthAboveMaximum("answerInput.detail", SURVEY_DETAIL_MAXIMUM_LENGTH);
     }
 
     // Note: Does not check if the Survey is skipped or not, so it could affect skipped Surveys.

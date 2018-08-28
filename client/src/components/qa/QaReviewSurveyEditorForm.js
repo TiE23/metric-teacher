@@ -9,6 +9,7 @@ import utils from "../../utils";
 import LoadingButton from "../misc/LoadingButton";
 
 import {
+  SURVEY_DETAIL_MAXIMUM_LENGTH,
   QUESTION_FLAG_USER_DETAIL_OPTIONAL,
   QUESTION_FLAG_USER_DETAIL_REQUIRED,
 } from "../../constants";
@@ -30,7 +31,9 @@ class QaReviewSurveyEditorForm extends PureComponent {
     };
 
     this.handleNoteChange = (e, { value }) => {
-      this.setState({ note: value });
+      if (value.length <= SURVEY_DETAIL_MAXIMUM_LENGTH) {
+        this.setState({ note: value });
+      }
     };
 
     this.validate = () => {
