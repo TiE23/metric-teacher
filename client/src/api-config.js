@@ -8,9 +8,11 @@ let API_ROOT;
 // Figure out the full host root.
 if (process.env.METRIC_TEACHER_SERVER_BACKEND_HOST) {
   API_ROOT = `${process.env.METRIC_TEACHER_SERVER_BACKEND_HOST}:${port}`;
-} else if (/amazonaws.com$/.test(hostname)) {
+} else if (/amazonaws.com$/.test(hostname)) { // AWS testing
   API_ROOT = `${hostname}:${port}`;
-} else {
+} else if (/^192\.168\.1\./.test(hostname)) { // Local network testing
+  API_ROOT = `${hostname}:${port}`;
+} else {                                      // Local machine testing
   API_ROOT = `localhost:${port}`;
 }
 

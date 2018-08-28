@@ -1,15 +1,11 @@
 import React, { PureComponent } from "react";
-import { Container, Grid, Button } from "semantic-ui-react";
+import { Container, Button } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
 
 import UserSearchOptions from "./UserSearchOptions";
 import UserListContainer from "./UserListContainer";
-
-import {
-  FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL,
-} from "../../../constants";
 
 class UserSearchPage extends PureComponent {
   constructor(props) {
@@ -89,33 +85,27 @@ class UserSearchPage extends PureComponent {
 
   render() {
     return (
-      <Grid padded>
-        <Grid.Row centered>
-          <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
-            <Container textAlign="center">
-              <UserSearchOptions
-                handleChange={this.handleWhereChange}
-              />
-              <Button
-                onClick={this.handleSearch}
-                color="olive"
-              >
-                Search
-              </Button>
-              {utils.isEmptyRecursive(this.state.searchVariables) ?
-                <p>
-                  <br />
-                  No Search Set
-                </p>
-                :
-                <UserListContainer
-                  searchVariables={this.state.searchVariables}
-                />
-              }
-            </Container>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <Container textAlign="center">
+        <UserSearchOptions
+          handleChange={this.handleWhereChange}
+        />
+        <Button
+          onClick={this.handleSearch}
+          color="olive"
+        >
+          Search
+        </Button>
+        {utils.isEmptyRecursive(this.state.searchVariables) ?
+          <p>
+            <br />
+            No Search Set
+          </p>
+          :
+          <UserListContainer
+            searchVariables={this.state.searchVariables}
+          />
+        }
+      </Container>
     );
   }
 }

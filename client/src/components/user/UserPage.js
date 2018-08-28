@@ -1,22 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
-import { Grid } from "semantic-ui-react";
 
 // eslint-disable-next-line import/no-named-as-default,import/no-named-as-default-member
 import UserDetails from "./details/UserDetails";
 
 const UserPage = props => (
-  <Grid padded stackable columns="equal">
-    <UserDetails
-      userId={props.match.params.id === "me" ? props.userTokenData.id : props.match.params.id}
-    />
-    <Grid.Row>
-      <Grid.Column>
-        <button onClick={props.history.goBack}>Go back</button>
-      </Grid.Column>
-    </Grid.Row>
-  </Grid>
+  <UserDetails
+    userId={props.match.params.id === "me" ? props.userTokenData.id : props.match.params.id}
+  />
 );
 
 UserPage.propTypes = {
