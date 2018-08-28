@@ -10,6 +10,8 @@ import EditBelowIcon from "../../misc/EditBelowIcon";
 import UnitDropdown from "../../misc/UnitDropdown";
 
 import {
+  QUESTION_ANSWER_CHOICE_MAXIMUM_LENGTH,
+  QUESTION_ANSWER_DETAIL_MAXIMUM_LENGTH,
   MAX_CHOICES,
   MAX_CHOICES_DEFINED,
   QUESTION_TYPE_WRITTEN,
@@ -31,7 +33,8 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
     };
 
     this.handleDetailChange = (e, { value }) => {
-      if (this.props.handleAnswerDataChange) {
+      if (this.props.handleAnswerDataChange &&
+      value.length <= QUESTION_ANSWER_DETAIL_MAXIMUM_LENGTH) {
         this.props.handleAnswerDataChange({ detail: value });
       }
     };
@@ -90,7 +93,8 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
     };
 
     this.handleChoiceValueChange = (index, value, unit) => {
-      if (this.props.handleAnswerDataChange) {
+      if (this.props.handleAnswerDataChange &&
+      value.length <= QUESTION_ANSWER_CHOICE_MAXIMUM_LENGTH) {
         // Handle written input
         if (unit === "written") {
           const { choices } = this.props.multiple;

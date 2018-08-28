@@ -3,11 +3,16 @@ const {
 } = require("../../utils");
 
 const {
+  QUESTION_FEEDBACK_MAXIMUM_LENGTH,
   USER_STATUS_NORMAL,
   USER_TYPE_STUDENT,
   USER_TYPE_MODERATOR,
   FEEDBACK_STATUS_UNREVIEWED,
 } = require("../../constants");
+
+const {
+  InputLengthAboveMaximum,
+} = require("../../errors");
 
 const feedback = {
   /**
@@ -27,6 +32,10 @@ const feedback = {
       status: USER_STATUS_NORMAL,
       action: "submitFeedback",
     });
+
+    if (args.text && args.text.length > QUESTION_FEEDBACK_MAXIMUM_LENGTH) {
+      throw new InputLengthAboveMaximum("text", QUESTION_FEEDBACK_MAXIMUM_LENGTH);
+    }
 
     // Fire off the mutation.
     return ctx.db.mutation.createFeedback({

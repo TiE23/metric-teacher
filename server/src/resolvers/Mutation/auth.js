@@ -3,14 +3,29 @@ const jwt = require("jsonwebtoken");
 
 const {
   BCRYPT_SALT_LENGTH,
+  PASSWORD_MINIMUM_LENGTH,
+  PASSWORD_MAXIMUM_LENGTH,
+  NAME_FIRST_MAXIMUM_LENGTH,
+  NAME_LAST_MAXIMUM_LENGTH,
+  EMAIL_MAXIMUM_LENGTH,
   USER_TYPE_STUDENT,
   USER_STATUS_NORMAL,
   FLAGS_NONE,
 } = require("../../constants");
 
+const {
+  InputLengthAboveMaximum,
+  InputLengthBelowMinimum,
+} = require("../../errors");
+
 const auth = {
   /**
    * Sign up for an account. All arguments are required and emails need to be unique.
+   * TODO - Email validity check (it's not just for the client these days!!)
+   * TODO - Email confirmations (waaaay in the future no doubt!)
+   * TODO - Password check (complexity requirements?, trimming, easy password blocking)
+   * TODO - Name check (no numerals, no odd punctuation, no emoji, etc)
+   * TODO - Honorific input support.
    * @param parent
    * @param args
    *        email: String!
@@ -27,6 +42,24 @@ const auth = {
       status: USER_STATUS_NORMAL,
       flags: FLAGS_NONE,
     };
+
+    // Enforce input limits.
+    if (args.email && args.email.length > EMAIL_MAXIMUM_LENGTH) {
+      throw new InputLengthAboveMaximum("email", EMAIL_MAXIMUM_LENGTH);
+    }
+    if (args.password && args.password.length < PASSWORD_MINIMUM_LENGTH) {
+      throw new InputLengthBelowMinimum("password", PASSWORD_MINIMUM_LENGTH);
+    }
+    if (args.password && args.password.length > PASSWORD_MAXIMUM_LENGTH) {
+      throw new InputLengthAboveMaximum("password", PASSWORD_MAXIMUM_LENGTH);
+    }
+    if (args.fname && args.fname.length > NAME_FIRST_MAXIMUM_LENGTH) {
+      throw new InputLengthAboveMaximum("fname", NAME_FIRST_MAXIMUM_LENGTH);
+    }
+    if (args.lname && args.lname.length > NAME_LAST_MAXIMUM_LENGTH) {
+      throw new InputLengthAboveMaximum("lname", NAME_LAST_MAXIMUM_LENGTH);
+    }
+
     const password = await bcrypt.hash(args.password, BCRYPT_SALT_LENGTH);
     const user = await ctx.db.mutation.createUser({
       data: { ...defaultArgs, ...args, password },

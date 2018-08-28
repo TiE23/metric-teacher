@@ -7,6 +7,7 @@ const {
 } = require("./qaSyntax");
 
 const {
+  InputLengthAboveMaximum,
   SurveyAnswerUnitInvalid,
   SurveyAnswerValueInvalid,
   QuestionSyntaxError,
@@ -19,6 +20,11 @@ const {
 } = require("../errors");
 
 const {
+  QUESTION_TEXT_MAXIMUM_LENGTH,
+  QUESTION_ANSWER_DETAIL_MAXIMUM_LENGTH,
+  QUESTION_ANSWER_CHOICE_MAXIMUM_LENGTH,
+  NUMBER_INPUT_MAXIMUM,
+  NUMBER_INPUT_MINIMUM,
   CONVERSION_DECIMAL_ACCURACY,
   QUESTION_DIFFICULTY_RANGES,
   WRITTEN_ANSWER_UNIT,
@@ -264,6 +270,20 @@ function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput
       if (choice.written !== undefined && choice.value !== undefined) {
         choicesInputErrors.push("Must not have written AND value rows defined in any multiple choice options.");
       }
+      // Enforce input limits (do not allow numbers that'll be cast into scientific notation).
+      if (choice.value !== undefined) {
+        const parsedValue = parseFloat(choice.value);
+        if (Math.abs(parsedValue) >= NUMBER_INPUT_MAXIMUM) {
+          choicesInputErrors.push(  // Yes, says "exceed" when it's actually >=. It reads better.
+            `Unit choice '${choice.value}' exceeds maximum value (+/- ${NUMBER_INPUT_MAXIMUM})`,
+          );
+        }
+        if (parsedValue !== 0 && Math.abs(parsedValue) <= NUMBER_INPUT_MINIMUM) {
+          choicesInputErrors.push(
+            `Unit choice '${choice.value}' is smaller than minimum fraction (+/- ${NUMBER_INPUT_MINIMUM})`,
+          );
+        }
+      }
       if (choice.unit !== WRITTEN_ANSWER_UNIT && choice.written !== undefined) {
         choicesInputErrors.push(`Written choice '${choice.written}' must have unit '${WRITTEN_ANSWER_UNIT}'.`);
       }
@@ -272,6 +292,12 @@ function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput
       }
       if (choice.unit === WRITTEN_ANSWER_UNIT && choice.written.trim().length === 0) {
         choicesInputErrors.push("Written choices cannot be blank.");
+      }
+      if (choice.unit === WRITTEN_ANSWER_UNIT &&
+        choice.written.trim().length > QUESTION_ANSWER_CHOICE_MAXIMUM_LENGTH) {
+        choicesInputErrors.push(
+          `Written choices cannot be longer than ${QUESTION_ANSWER_CHOICE_MAXIMUM_LENGTH} characters.`,
+        );
       }
       if (choice.unit === WRITTEN_ANSWER_UNIT && choice.written.search(/[|[\]]/) !== -1) {
         choicesInputErrors.push(`Written choice '${choice.written}' cannot have '|', '[', or ']' in it.`);
@@ -282,9 +308,8 @@ function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput
     }
 
     // eslint-disable-next-line no-confusing-arrow
-    const choicesSyntax = choicesInput.choices.map(choice =>
-      choice.unit === WRITTEN_ANSWER_UNIT ?
-        choice.written : `${choice.value}${choice.unit}`).join("|");
+    const choicesSyntax = choicesInput.choices.map(choice => (choice.unit === WRITTEN_ANSWER_UNIT ?
+      choice.written.trim() : `${choice.value}${choice.unit}`)).join("|");
     const choicesOffered = choicesInput.choicesoffered || "";
 
     answerSyntax += `${spacer}[${choicesSyntax}]${choicesOffered}`;
@@ -313,6 +338,14 @@ function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput
  * @returns {{questionSyntaxString: string, answerSyntaxString: string}}
  */
 function checkAndParseQuestionAnswerInputs(type, questionInput, answerInput) {
+  // Enforce input limits.
+  if (questionInput.text && questionInput.text.length > QUESTION_TEXT_MAXIMUM_LENGTH) {
+    throw new InputLengthAboveMaximum("questionInput.text", QUESTION_TEXT_MAXIMUM_LENGTH);
+  }
+  if (answerInput.detail && answerInput.detail.length > QUESTION_ANSWER_DETAIL_MAXIMUM_LENGTH) {
+    throw new InputLengthAboveMaximum("answerInput.detail", QUESTION_ANSWER_DETAIL_MAXIMUM_LENGTH);
+  }
+
   // Create the question syntax string.
   const questionSyntaxString = questionSyntaxFormatter(
     questionInput.text,

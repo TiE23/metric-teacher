@@ -8,6 +8,7 @@ export const FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL = { mobile: 16, tablet: 16, 
 
 // Password
 export const PASSWORD_MINIMUM_LENGTH = 6;
+export const PASSWORD_MAXIMUM_LENGTH = 128;
 export const BAD_PASSWORDS = [
   "password",
   "letmein",
@@ -22,6 +23,7 @@ export const BAD_PASSWORDS = [
 ];
 
 // Email
+// export const EMAIL_MAXIMUM_LENGTH = 76; // No need as validator/lib/isEmail enforces this limit.
 export const EMAIL_NORMALIZE_OPTIONS = {
   all_lowercase: true,
   gmail_lowercase: true,
@@ -35,11 +37,26 @@ export const EMAIL_NORMALIZE_OPTIONS = {
   icloud_lowercase: true,
   icloud_remove_subaddress: true,
 };
-
 export const EMAIL_SECRET_PREFIXES = [
   "594613e2c5679b0d25e8912b0523b5a9",
   "806158031bb277505a058d0e4e07cff9",
 ];
+
+// User Information
+export const NAME_FIRST_MAXIMUM_LENGTH = 32;
+export const NAME_LAST_MAXIMUM_LENGTH = 32;
+export const NAME_HONORIFIC_MAXIMUM_LENGTH = 32;
+
+// Question Input
+export const QUESTION_TEXT_MAXIMUM_LENGTH = 300;
+export const QUESTION_ANSWER_DETAIL_MAXIMUM_LENGTH = 300;
+export const QUESTION_ANSWER_CHOICE_MAXIMUM_LENGTH = 64;
+
+// Survey Input
+export const SURVEY_DETAIL_MAXIMUM_LENGTH = 128;
+
+// Feedback Input
+export const QUESTION_FEEDBACK_MAXIMUM_LENGTH = 500;
 
 // Interface
 // Max multiple choice options we can show (including correct answer).

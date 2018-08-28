@@ -8,6 +8,7 @@ import EditBelowIcon from "../../misc/EditBelowIcon";
 import UnitDropdown from "../../misc/UnitDropdown";
 
 import {
+  QUESTION_TEXT_MAXIMUM_LENGTH,
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
@@ -21,13 +22,14 @@ class QuestionDetailsQuestion extends PureComponent {
     this.width100 = { width: "100%" };
 
     this.handleTextChange = (e, { value }) => {
-      if (this.props.handleQuestionDataChange && !value.includes("\n")) { // No newlines!
+      if (this.props.handleQuestionDataChange && value.length <= QUESTION_TEXT_MAXIMUM_LENGTH &&
+        !value.includes("\n")) {  // No newlines!
         this.props.handleQuestionDataChange({ text: value });
       }
     };
 
     this.handleDetailChange = (e, { value }) => {
-      if (this.props.handleQuestionDataChange) {
+      if (this.props.handleQuestionDataChange && value.length <= QUESTION_TEXT_MAXIMUM_LENGTH) {
         this.props.handleQuestionDataChange({ detail: value });
       }
     };

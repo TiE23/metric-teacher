@@ -30,6 +30,18 @@ class UserMustBe extends Error {
   }
 }
 
+class InputLengthAboveMaximum extends Error {
+  constructor(inputName, maximum) {
+    super(`Input ${inputName} exceeds maximum character limit (${maximum})`);
+  }
+}
+
+class InputLengthBelowMinimum extends Error {
+  constructor(inputName, minimum) {
+    super(`Input ${inputName} doesn't meet minimum character requirement (${minimum})`);
+  }
+}
+
 class ExistingPasswordRequired extends Error {
   constructor(action) {
     super(`Existing password must be supplied to ${action}`);
@@ -251,6 +263,8 @@ module.exports = {
   GraphQlDumpWarning,
   UserNotFound,
   UserMustBe,
+  InputLengthAboveMaximum,
+  InputLengthBelowMinimum,
   ExistingPasswordRequired,
   CourseNotFound,
   CourseInactive,

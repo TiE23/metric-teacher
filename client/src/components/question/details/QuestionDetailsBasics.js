@@ -49,7 +49,7 @@ class QuestionDetailsBasics extends PureComponent {
     };
 
     this.handleMediaChange = (e, { value }) => {
-      if (this.props.handleBasicsChange) {
+      if (this.props.handleBasicsChange && !value.includes("..")) { // No .. up directory addresses.
         this.props.handleBasicsChange({ media: value.trim() });
       }
     };
