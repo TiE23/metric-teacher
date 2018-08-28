@@ -7,8 +7,8 @@ const {
 const {
   AuthError,
   UserNotFound,
-  InputAboveMaximum,
-  InputBelowMinimum,
+  InputLengthAboveMaximum,
+  InputLengthBelowMinimum,
   ExistingPasswordRequired,
 } = require("../../errors");
 
@@ -126,22 +126,22 @@ const user = {
 
     // Enforce input limits.
     if (args.email && args.email.length > EMAIL_MAXIMUM_LENGTH) {
-      throw new InputAboveMaximum("email", EMAIL_MAXIMUM_LENGTH);
+      throw new InputLengthAboveMaximum("email", EMAIL_MAXIMUM_LENGTH);
     }
     if (args.password && args.password.new && args.password.new.length < PASSWORD_MINIMUM_LENGTH) {
-      throw new InputBelowMinimum("password", PASSWORD_MINIMUM_LENGTH);
+      throw new InputLengthBelowMinimum("password", PASSWORD_MINIMUM_LENGTH);
     }
     if (args.password && args.password.new && args.password.new.length > PASSWORD_MAXIMUM_LENGTH) {
-      throw new InputAboveMaximum("password", PASSWORD_MAXIMUM_LENGTH);
+      throw new InputLengthAboveMaximum("password", PASSWORD_MAXIMUM_LENGTH);
     }
     if (dataPayload.fname && dataPayload.fname.length > NAME_FIRST_MAXIMUM_LENGTH) {
-      throw new InputAboveMaximum("fname", NAME_FIRST_MAXIMUM_LENGTH);
+      throw new InputLengthAboveMaximum("fname", NAME_FIRST_MAXIMUM_LENGTH);
     }
     if (dataPayload.lname && dataPayload.lname.length > NAME_LAST_MAXIMUM_LENGTH) {
-      throw new InputAboveMaximum("lname", NAME_LAST_MAXIMUM_LENGTH);
+      throw new InputLengthAboveMaximum("lname", NAME_LAST_MAXIMUM_LENGTH);
     }
     if (dataPayload.honorific && dataPayload.honorific.length > NAME_HONORIFIC_MAXIMUM_LENGTH) {
-      throw new InputAboveMaximum("honorific", NAME_HONORIFIC_MAXIMUM_LENGTH);
+      throw new InputLengthAboveMaximum("honorific", NAME_HONORIFIC_MAXIMUM_LENGTH);
     }
 
     // Fire off the mutation!
