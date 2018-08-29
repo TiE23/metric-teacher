@@ -63,7 +63,7 @@ class LoginSignupForm extends Component {
     const variables = {
       fname: !this.props.loginPage ? this.state.fname : undefined,
       lname: !this.props.loginPage ? this.state.lname : undefined,
-      email: this.state.email,
+      email: this.state.email.toLocaleLowerCase(),
       password: this.state.password,
     };
     const formErrors = this.validate(variables);

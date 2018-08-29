@@ -41,34 +41,43 @@ class UserDetailBasicsEditorForm extends Component {
     this.validate = (variables) => {
       const { initUserData, userTokenData } = this.props;
 
+      // Keep email lowercase at all times.
+      const lowercaseVariableEmail = variables.email && variables.email.toLocaleLowerCase();
+      const lowercaseStateEmail = this.state.email.toLocaleLowerCase();
+      const lowercaseInitEmail = initUserData.email.toLocaleLowerCase();
+
       // Construct the form checked values.
       return utils.userDetailFormValidator(
-        { ...variables, email: { new: variables.email } },  // Casually switch email to email.new
+        { ...variables, email: { new: lowercaseVariableEmail } }, // Switch .email to .email.new
         {
           fname: this.state.fname !== initUserData.fname,
           lname: this.state.lname !== initUserData.lname,
           email: {
-            new: this.state.email !== initUserData.email,
+            new: lowercaseStateEmail !== lowercaseInitEmail,
           },
           password: {
             new: !!this.state.passwordNew,
             old: (
               userTokenData.type < USER_TYPE_MODERATOR ||
               (initUserData.type === USER_TYPE_MODERATOR && userTokenData.type < USER_TYPE_ADMIN)
-            ) && (!!this.state.passwordNew || this.state.email !== initUserData.email),
+            ) && (!!this.state.passwordNew || lowercaseStateEmail !== lowercaseInitEmail),
           },
         },
       );
     };
 
     this.submit = () => {
+      // Keep email lowercase at all times.
+      const lowercaseStateEmail = this.state.email.toLocaleLowerCase();
+      const lowercaseInitEmail = this.props.initUserData.email.toLocaleLowerCase();
+
       // Construct the variable values.
       const variables = {
         honorific: this.state.honorific !== this.props.initUserData.honorific ?
           this.state.honorific : undefined,
         fname: this.state.fname !== this.props.initUserData.fname ? this.state.fname : undefined,
         lname: this.state.lname !== this.props.initUserData.lname ? this.state.lname : undefined,
-        email: this.state.email !== this.props.initUserData.email ? this.state.email : undefined,
+        email: lowercaseStateEmail !== lowercaseInitEmail ? lowercaseStateEmail : undefined,
         password: this.state.passwordNew || this.state.passwordOld ?
           {
             new: this.state.passwordNew || undefined,
