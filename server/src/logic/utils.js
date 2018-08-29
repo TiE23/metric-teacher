@@ -29,6 +29,7 @@ const {
   QUESTION_DIFFICULTY_RANGES,
   WRITTEN_ANSWER_UNIT,
   UNITS,
+  NEGATIVE_UNITS,
 } = require("../constants");
 
 /**
@@ -275,12 +276,17 @@ function answerSyntaxFormatter(text = null, choicesInput = null, conversionInput
         const parsedValue = parseFloat(choice.value);
         if (Math.abs(parsedValue) >= NUMBER_INPUT_MAXIMUM) {
           choicesInputErrors.push(  // Yes, says "exceed" when it's actually >=. It reads better.
-            `Unit choice '${choice.value}' exceeds maximum value (+/- ${NUMBER_INPUT_MAXIMUM})`,
+            `Choice value '${choice.value}' exceeds maximum value (+/- ${NUMBER_INPUT_MAXIMUM})`,
           );
         }
         if (parsedValue !== 0 && Math.abs(parsedValue) <= NUMBER_INPUT_MINIMUM) {
           choicesInputErrors.push(
-            `Unit choice '${choice.value}' is smaller than minimum fraction (+/- ${NUMBER_INPUT_MINIMUM})`,
+            `Choice value '${choice.value}' is smaller than minimum fraction (+/- ${NUMBER_INPUT_MINIMUM})`,
+          );
+        }
+        if (parsedValue < 0 && !NEGATIVE_UNITS.includes(choice.unit)) {
+          choicesInputErrors.push(
+            `Choice value '${choice.value}' cannot be negative for unit '${choice.unit}'`,
           );
         }
       }

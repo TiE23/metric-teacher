@@ -872,6 +872,8 @@ const flagDescriber = (flagsDictionary, flags) => {
  * or not. Unlike just straight isDecimal it won't reject typing a decimal at the end.
  * That is the worst case scenario: a user can type "5." and possibly submit it, but it's not too
  * bad since parseInt() and parseFloat() both read it as 5
+ * It also accepts a single "-" to prevent a user from being denied the ability to type in a
+ * negative number. Catching input of "-" will need to be handled elsewhere, so BE CAREFUL!
  * @param input
  * @returns {*}
  */
@@ -883,6 +885,8 @@ const isDecimalTyped = (input) => {
   }
   if (stringInput[stringInput.length - 1] === ".") {
     return isDecimal(stringInput.slice(0, stringInput.length - 1));
+  } else if (stringInput === "-") {
+    return true;
   } else {
     return isDecimal(stringInput);
   }

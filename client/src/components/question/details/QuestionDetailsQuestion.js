@@ -244,13 +244,7 @@ class QuestionDetailsQuestion extends PureComponent {
                           dropdownProps={{ pointing: "bottom" }}
                         />
                         :
-                        <Input
-                          onChange={this.handleRangeUnitChange}
-                          value={this.props.range && this.props.range.unit}
-                          placeholder="..."
-                          transparent
-                          fluid
-                        />
+                        <p>Select a SubSubject first!</p>
                       }
                     </List.Description>
                     :
