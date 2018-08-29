@@ -62,7 +62,7 @@ const auth = {
 
     const password = await bcrypt.hash(args.password, BCRYPT_SALT_LENGTH);
     const user = await ctx.db.mutation.createUser({
-      data: { ...defaultArgs, ...args, password },
+      data: { ...defaultArgs, ...args, password, email: args.email.toLocaleLowerCase() },
     });
 
     return {
@@ -88,12 +88,14 @@ const auth = {
    * @returns AuthPayload!
    */
   async login(parent, args, ctx) {
+    const lowercaseEmail = args.email.toLocaleLowerCase();
+
     const user = await ctx.db.query.user(
-      { where: { email: args.email } },
+      { where: { email: lowercaseEmail } },
       "{ id, type, status, flags, password }",
     );
     if (!user) {
-      throw new Error(`No such user found for email: ${args.email}`);
+      throw new Error(`No such user found for email: ${lowercaseEmail}`);
     }
 
     const valid = await bcrypt.compare(args.password, user.password);
