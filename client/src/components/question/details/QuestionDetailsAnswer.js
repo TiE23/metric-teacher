@@ -238,12 +238,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                               dropdownProps={{ pointing: "bottom" }}
                             />
                             :
-                            <Input
-                              value={choice.unit || ""}
-                              placeholder="Unit"
-                              transparent
-                              onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
-                            />
+                            <p>Select a SubSubject first!</p>
                           }
                           {index === 0 &&
                             <Popup
@@ -309,13 +304,19 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
               :
               <span>
                 {this.props.editMode ?
-                  <Button
-                    compact
-                    color="olive"
-                    onClick={this.handleFirstChoices}
-                  >
-                    Make first choices
-                  </Button>
+                  <div>
+                    {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
+                      <Button
+                        compact
+                        color="olive"
+                        onClick={this.handleFirstChoices}
+                      >
+                        Make first choices
+                      </Button>
+                      :
+                      <p>Select a SubSubject first!</p>
+                    }
+                  </div>
                   :
                   <p>No choices!</p>
                 }
@@ -425,13 +426,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                           dropdownProps={{ pointing: "bottom" }}
                         />
                         :
-                        <Input
-                          onChange={this.handleUnitChange}
-                          value={this.props.unit || ""}
-                          placeholder="..."
-                          transparent
-                          fluid
-                        />
+                        <p>Select a SubSubject first!</p>
                       }
                     </List.Description>
                     :

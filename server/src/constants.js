@@ -482,6 +482,12 @@ const constants = {
     velocity: "metresSecond",
   },
 
+  // Define the list of units that negative values are allowed.
+  NEGATIVE_UNITS: [
+    "f",
+    "c",
+  ],
+
 };
 
 module.exports = constants;

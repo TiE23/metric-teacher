@@ -66,7 +66,8 @@ class LoadingButton extends PureComponent {
               {...this.props.buttonProps}
               onClick={this.openModal}
             >
-              {this.props.error ? "Error!" : this.props.buttonText}
+              {(this.props.error && this.props.buttonDisableOnError) ?
+                "Error!" : this.props.buttonText}
             </Button>
           }
           open={this.state.modalOpen}
