@@ -55,7 +55,6 @@ class QaReviewSurveyEditorForm extends PureComponent {
         ));
       }
 
-      // TODO - Limit length of note input.
       // If a note is required, make sure it's filled!
       if ((this.props.questionFlags & QUESTION_FLAG_USER_DETAIL_REQUIRED) &&
         !this.state.note.trim()) {

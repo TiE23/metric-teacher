@@ -4,21 +4,21 @@ import { Switch, Route } from "react-router-dom";
 import "./semantic/dist/semantic.min.css";
 
 import withAuth from "./components/AuthHOC";
-import LoadingError from "./components/LoadingError";
 
-import MenuFrame from "./components/main/MenuFrame";
+import Test from "./components/Test";
 import Welcome from "./components/Welcome";
+import MenuFrame from "./components/main/MenuFrame";
 import Login from "./components/entry/Login";
 import Logout from "./components/entry/Logout";
 import UserPage from "./components/user/UserPage";
 import Subjects from "./components/subject/SubjectsPage";
-import Test from "./components/Test";
 import QaViewerPage from "./components/qa/QaViewerPage";
 import QuestionViewerPage from "./components/question/QuestionViewerPage";
 import QuestionSubmissionPage from "./components/question/QuestionSubmissionPage";
 import AdminToolsPage from "./components/admin/AdminToolsPage";
 import UserSearchPage from "./components/admin/user/UserSearchPage";
 import QuestionSearchPage from "./components/admin/question/QuestionSearchPage";
+import NotFoundPage from "./components/misc/NotFoundPage";
 
 import {
   USER_TYPE_MODERATOR,
@@ -85,16 +85,7 @@ const App = () => (
             component={withAuth(QuestionViewerPage, { private: true })}
           />
           {/* This is the 404 Page */}
-          <Route
-            path="*"
-            render={() => (
-              <LoadingError
-                error
-                errorHeader="404"
-                errorMessage="Page Not Found"
-              />
-            )}
-          />
+          <Route path="*" component={NotFoundPage} />
         </MenuFrame>
       </Route>
     </Switch>

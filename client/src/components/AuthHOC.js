@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import LoadingError from "./LoadingError";
-import ErrorPleaseLogin from "./ErrorPleaseLogin";
+import LoadingError from "./misc/LoadingError";
+import ErrorPleaseLogin from "./misc/ErrorPleaseLogin";
 import utils from "../utils";
 
 /**

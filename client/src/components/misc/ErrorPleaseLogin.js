@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 
 /**
  * Simple component checks incoming error prop for a message with an indicator that tells the
@@ -27,7 +28,7 @@ const ErrorPleaseLogin = props => (
       or <Link to={{ pathname: "/signup", state: { from: props.location } }}>sign-up</Link>.
     </p>
     }
-    <button onClick={props.history.goBack}>Go back</button>
+    <Button onClick={props.history.goBack}>Go back</Button>
   </div>
 );
 
