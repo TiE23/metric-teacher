@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 
 import ChallengeFrame from "./ChallengeFrame";
+import ChallengeContainer from "./ChallengeContainer";
 import ChallengeKickoff from "./kickoff/ChallengeKickoff";
 import LoadingError from "../misc/LoadingError";
 
@@ -17,14 +18,11 @@ class ChallengePage extends PureComponent {
     this.state = {
       selectedSubSubjectIds:
         (this.props.location.state && this.props.location.state.selectedSubSubjectIds) || [],
+      kickedOff: false,
     };
 
     this.updateSubSubjectIds = selectedSubSubjectIds => this.setState({ selectedSubSubjectIds });
-    this.handleKickoff = () => {
-      this.props.history.push("/challenge/loading", {
-        selectedSubSubjectIds: this.state.selectedSubSubjectIds,
-      });
-    };
+    this.handleKickoff = () => this.setState({ kickedOff: true });
   }
 
   render() {
@@ -34,30 +32,23 @@ class ChallengePage extends PureComponent {
     let content;
     if (userTokenData.type === USER_TYPE_STUDENT) {
       if (params.mode === "kickoff") {
-        content = (
-          <ChallengeKickoff
-            studentId={userTokenData.id}
-            selectedSubSubjectIds={this.state.selectedSubSubjectIds}
-            updateSubSubjectIds={this.updateSubSubjectIds}
-            handleKickoff={this.handleKickoff}
-          />
-        );
-      } else if (params.mode === "loading") {
-        content = (
-          <div>
-            <p>
-              Kicked off! Yay.
-            </p>
-            <div>
-              {this.state.selectedSubSubjectIds.map(id => (
-                <span key={id}>
-                  {id}
-                  {" - "}
-                </span>
-              ))}
-            </div>
-          </div>
-        );
+        if (this.state.kickedOff) {
+          content = (
+            <ChallengeContainer
+              studentId={userTokenData.id}
+              selectedSubSubjectIds={this.state.selectedSubSubjectIds}
+            />
+          );
+        } else {
+          content = (
+            <ChallengeKickoff
+              studentId={userTokenData.id}
+              selectedSubSubjectIds={this.state.selectedSubSubjectIds}
+              updateSubSubjectIds={this.updateSubSubjectIds}
+              handleKickoff={this.handleKickoff}
+            />
+          );
+        }
       }
     } else {
       content = (

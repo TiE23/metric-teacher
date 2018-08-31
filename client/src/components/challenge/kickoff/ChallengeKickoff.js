@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import { Button } from "semantic-ui-react";
@@ -10,36 +10,32 @@ import {
   STUDENT_ACTIVE_SUBJECTS,
 } from "../../../graphql/Queries";
 
-class ChallengeKickoff extends PureComponent {
-  render() {
-    return (  // TODO - Handle students with no active masteries.
-      <Query
-        query={STUDENT_ACTIVE_SUBJECTS}
-        variables={{ studentid: this.props.studentId }}
-        fetchPolicy="network-only"
+const ChallengeKickoff = props => ( // TODO - Handle students with no active masteries.
+  <Query
+    query={STUDENT_ACTIVE_SUBJECTS}
+    variables={{ studentid: props.studentId }}
+    fetchPolicy="network-only"
+  >
+    {queryProps => (
+      <QueryHandler
+        queryData={queryProps}
       >
-        {queryProps => (
-          <QueryHandler
-            queryData={queryProps}
-          >
-            <p>ChallengeKickoff</p>
-            <ChallengeKickoffSelector
-              masteriesData={queryProps.data && queryProps.data.activeMasteries}
-              selectedSubSubjectIds={this.props.selectedSubSubjectIds}
-              updateSubSubjectIds={this.props.updateSubSubjectIds}
-            />
-            <Button
-              onClick={this.props.handleKickoff}
-              disabled={!this.props.selectedSubSubjectIds.length}
-            >
-              Kickoff!
-            </Button>
-          </QueryHandler>
-        )}
-      </Query>
-    );
-  }
-}
+        <p>ChallengeKickoff</p>
+        <ChallengeKickoffSelector
+          masteriesData={queryProps.data && queryProps.data.activeMasteries}
+          selectedSubSubjectIds={props.selectedSubSubjectIds}
+          updateSubSubjectIds={props.updateSubSubjectIds}
+        />
+        <Button
+          onClick={props.handleKickoff}
+          disabled={!props.selectedSubSubjectIds.length}
+        >
+          Kickoff!
+        </Button>
+      </QueryHandler>
+    )}
+  </Query>
+);
 
 ChallengeKickoff.propTypes = {
   studentId: PropTypes.string.isRequired,

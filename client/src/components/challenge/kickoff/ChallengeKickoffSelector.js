@@ -49,6 +49,7 @@ class ChallengeKickoffSelector extends PureComponent {
       }
     };
 
+    // TODO - Need to make a check|unchecked|indeterminate system for the Subject checkbox.
     this.handleSubjectCheck = (event, { value, checked }) => {
       const { selectedSubSubjectIds } = this.props;
       const allSubSubjectIds =
@@ -131,6 +132,10 @@ ChallengeKickoffSelector.propTypes = {
   })),
   selectedSubSubjectIds: PropTypes.array.isRequired,  // eslint-disable-line react/forbid-prop-types
   updateSubSubjectIds: PropTypes.func.isRequired,
+};
+
+ChallengeKickoffSelector.defaultProps = {
+  masteriesData: null,
 };
 
 export default ChallengeKickoffSelector;
