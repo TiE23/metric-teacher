@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
+import { Redirect } from "react-router-dom";
 
 import ChallengeFrame from "./ChallengeFrame";
 import ChallengeContainer from "./ChallengeContainer";
@@ -16,17 +17,21 @@ class ChallengePage extends PureComponent {
     super(props);
 
     this.state = {
-      selectedSubSubjectIds:
-        (this.props.location.state && this.props.location.state.selectedSubSubjectIds) || [],
+      selectedSubSubjectIds: [],
       kickedOff: false,
     };
 
-    this.updateSubSubjectIds = selectedSubSubjectIds => this.setState({ selectedSubSubjectIds });
-    this.handleKickoff = () => this.setState({ kickedOff: true });
+    this.updateSubSubjectIds = (selectedSubSubjectIds) => {
+      this.setState({ selectedSubSubjectIds });
+    };
+
+    this.handleKickoff = () => {
+      this.setState({ kickedOff: true });
+    };
   }
 
   render() {
-    const { userTokenData } = this.props;
+    const { userTokenData, location } = this.props;
     const { params } = this.props.match;
 
     let content;
@@ -34,13 +39,13 @@ class ChallengePage extends PureComponent {
       if (params.mode === "kickoff") {
         if (this.state.kickedOff) {
           content = (
-            <ChallengeContainer
-              studentId={userTokenData.id}
-              selectedSubSubjectIds={this.state.selectedSubSubjectIds}
-              listSize={2}
-              ignoreRarity={false}
-              ignoreDifficulty={false}
-              ignorePreference={false}
+            <Redirect
+              to={{
+                pathname: "/challenge/play",
+                state: {
+                  selectedSubSubjectIds: this.state.selectedSubSubjectIds,
+                },
+              }}
             />
           );
         } else {
@@ -53,8 +58,24 @@ class ChallengePage extends PureComponent {
             />
           );
         }
+      } else if (params.mode === "play" &&
+      (location.state && location.state.selectedSubSubjectIds)) {
+        content = (
+          <ChallengeContainer
+            studentId={userTokenData.id}
+            selectedSubSubjectIds={location.state.selectedSubSubjectIds}
+            listSize={2}
+            ignoreRarity={false}
+            ignoreDifficulty={false}
+            ignorePreference={false}
+          />
+        );
+      } else {  // Default to /kickoff
+        content = (
+          <Redirect to="/challenge/kickoff" />
+        );
       }
-    } else {
+    } else {  // Not a student
       content = (
         <LoadingError
           error
@@ -93,8 +114,7 @@ ChallengePage.propTypes = {
   }).isRequired,
   location: PropTypes.shape({
     state: PropTypes.shape({
-      // eslint-disable-next-line react/forbid-prop-types
-      selectedSubSubjectIds: PropTypes.array.isRequired,
+      selectedSubSubjectIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     }),
   }).isRequired,
 };
