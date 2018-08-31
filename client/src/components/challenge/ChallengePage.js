@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 import { Redirect } from "react-router-dom";
 
 import ChallengeFrame from "./ChallengeFrame";
-import ChallengeContainer from "./ChallengeContainer";
+import ChallengeGenerator from "./ChallengeGenerator";
 import ChallengeHandler from "./ChallengeHandler";
 import ChallengeKickoff from "./kickoff/ChallengeKickoff";
 import LoadingError from "../misc/LoadingError";
@@ -12,7 +12,6 @@ import LoadingError from "../misc/LoadingError";
 import {
   USER_TYPE_STUDENT,
 } from "../../constants";
-import QueryHandler from "../QueryHandler";
 
 class ChallengePage extends PureComponent {
   constructor(props) {
@@ -20,11 +19,16 @@ class ChallengePage extends PureComponent {
 
     this.state = {
       selectedSubSubjectIds: [],
+      ignoreDifficulty: true,
       kickedOff: false,
     };
 
     this.updateSubSubjectIds = (selectedSubSubjectIds) => {
       this.setState({ selectedSubSubjectIds });
+    };
+
+    this.updateIgnoreDifficulty = () => {
+      this.setState(prevState => ({ ignoreDifficulty: !prevState.ignoreDifficulty }));
     };
 
     this.handleKickoff = () => {
@@ -46,6 +50,7 @@ class ChallengePage extends PureComponent {
                 pathname: "/challenge/loading",
                 state: {
                   selectedSubSubjectIds: this.state.selectedSubSubjectIds,
+                  ignoreDifficulty: this.state.ignoreDifficulty,
                 },
               }}
               push
@@ -56,7 +61,9 @@ class ChallengePage extends PureComponent {
             <ChallengeKickoff
               studentId={userTokenData.id}
               selectedSubSubjectIds={this.state.selectedSubSubjectIds}
+              ignoreDifficulty={this.state.ignoreDifficulty}
               updateSubSubjectIds={this.updateSubSubjectIds}
+              updateIgnoreDifficulty={this.updateIgnoreDifficulty}
               handleKickoff={this.handleKickoff}
             />
           );
@@ -64,12 +71,12 @@ class ChallengePage extends PureComponent {
       } else if (params.mode === "loading" &&  // Loading mode.
       (location.state && location.state.selectedSubSubjectIds)) {
         content = (
-          <ChallengeContainer
+          <ChallengeGenerator
             studentId={userTokenData.id}
             selectedSubSubjectIds={location.state.selectedSubSubjectIds}
             listSize={2}
             ignoreRarity={false}
-            ignoreDifficulty={false}
+            ignoreDifficulty={location.state.ignoreDifficulty}
             ignorePreference={false}
           />
         );
@@ -125,6 +132,7 @@ ChallengePage.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       selectedSubSubjectIds: PropTypes.arrayOf(PropTypes.string.isRequired),
+      ignoreDifficulty: PropTypes.bool,
       challengeData: PropTypes.arrayOf(PropTypes.object.isRequired),
     }),
   }).isRequired,

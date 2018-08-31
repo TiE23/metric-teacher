@@ -77,13 +77,14 @@ class ChallengeKickoffSelector extends PureComponent {
             <List.Item key={subject.id}>
               <List.Icon name="folder" />
               <List.Content>
-                {subject.name}
+                {subject.name}{" "}
                 <Checkbox
                   label="All"
                   onChange={this.handleSubjectCheck}
                   value={subject.id}
                   checked={false}
                 />
+                {" "}
                 <Checkbox
                   label="None"
                   onChange={this.handleSubjectCheck}
