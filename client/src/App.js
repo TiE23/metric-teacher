@@ -8,6 +8,7 @@ import withAuth from "./components/AuthHOC";
 import Test from "./components/Test";
 import Welcome from "./components/Welcome";
 import MenuFrame from "./components/main/MenuFrame";
+import ChallengePage from "./components/challenge/ChallengePage";
 import Login from "./components/entry/Login";
 import Logout from "./components/entry/Logout";
 import UserPage from "./components/user/UserPage";
@@ -36,6 +37,11 @@ const App = () => (
         <MenuFrame>
           <Route exact path="/user/:id" component={withAuth(UserPage, { private: true })} />
           <Route exact path="/subjects" component={withAuth(Subjects)} />
+          <Route
+            exact
+            path="/challenge/:mode?/:challengeId?"
+            component={withAuth(ChallengePage, { private: true })}
+          />
           {/* Admin Pages */}
           <Route
             exact

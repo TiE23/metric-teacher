@@ -183,7 +183,6 @@ type QaObject {
         }]!
       }
       conversion: QaConversionObject {    # Conversion and Survey Questions Only
-        accuracy: Float!
         range: QaRangeObject {
           bottom: QaUnitObject!
           top: QaUnitObject!

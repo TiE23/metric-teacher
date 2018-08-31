@@ -44,7 +44,7 @@ export const ME_AUTH_QUERY = gql`
 // TODO - Save data by building tailored fragments.
 export const USER_DETAILS_QUERY = gql`
   query UserDetailsQuery ($userid: ID!) {
-    user (userid: $userid) {
+    user(userid: $userid) {
       id
       createdAt
       updatedAt
@@ -61,6 +61,25 @@ export const USER_DETAILS_QUERY = gql`
     }
   }
   ${EnrollmentForUserDetails}
+`;
+
+export const STUDENT_ACTIVE_SUBJECTS = gql`
+  query StudentActiveSubjects ($studentid: ID!) {
+    activeMasteries(studentid: $studentid) {
+      subSubject {
+        id
+        name
+        description
+        scale
+        toMetric
+        parent {
+          id
+          media
+          name
+        }
+      }
+    }
+  }
 `;
 
 export const SUBJECT_DETAILS_QUERY = gql`
