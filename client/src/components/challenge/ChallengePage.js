@@ -37,6 +37,10 @@ class ChallengePage extends PureComponent {
             <ChallengeContainer
               studentId={userTokenData.id}
               selectedSubSubjectIds={this.state.selectedSubSubjectIds}
+              listSize={2}
+              ignoreRarity={false}
+              ignoreDifficulty={false}
+              ignorePreference={false}
             />
           );
         } else {

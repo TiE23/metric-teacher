@@ -130,7 +130,9 @@ ChallengeKickoffSelector.propTypes = {
       }).isRequired,
     }).isRequired,
   })),
-  selectedSubSubjectIds: PropTypes.array.isRequired,  // eslint-disable-line react/forbid-prop-types
+  selectedSubSubjectIds: PropTypes.arrayOf(
+    PropTypes.string.isRequired,
+  ).isRequired,
   updateSubSubjectIds: PropTypes.func.isRequired,
 };
 
