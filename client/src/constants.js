@@ -1,5 +1,6 @@
 // Standard names
 export const AUTH_TOKEN = "auth-token";
+export const CHALLENGE_DATA = "challenge-data";
 
 // Styling
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8, computer: 8 };

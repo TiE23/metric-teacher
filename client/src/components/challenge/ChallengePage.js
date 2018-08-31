@@ -5,12 +5,14 @@ import { Redirect } from "react-router-dom";
 
 import ChallengeFrame from "./ChallengeFrame";
 import ChallengeContainer from "./ChallengeContainer";
+import ChallengeHandler from "./ChallengeHandler";
 import ChallengeKickoff from "./kickoff/ChallengeKickoff";
 import LoadingError from "../misc/LoadingError";
 
 import {
   USER_TYPE_STUDENT,
 } from "../../constants";
+import QueryHandler from "../QueryHandler";
 
 class ChallengePage extends PureComponent {
   constructor(props) {
@@ -36,16 +38,17 @@ class ChallengePage extends PureComponent {
 
     let content;
     if (userTokenData.type === USER_TYPE_STUDENT) {
-      if (params.mode === "kickoff") {
+      if (params.mode === "kickoff") {  // Kickoff mode.
         if (this.state.kickedOff) {
           content = (
             <Redirect
               to={{
-                pathname: "/challenge/play",
+                pathname: "/challenge/loading",
                 state: {
                   selectedSubSubjectIds: this.state.selectedSubSubjectIds,
                 },
               }}
+              push
             />
           );
         } else {
@@ -58,7 +61,7 @@ class ChallengePage extends PureComponent {
             />
           );
         }
-      } else if (params.mode === "play" &&
+      } else if (params.mode === "loading" &&  // Loading mode.
       (location.state && location.state.selectedSubSubjectIds)) {
         content = (
           <ChallengeContainer
@@ -68,6 +71,13 @@ class ChallengePage extends PureComponent {
             ignoreRarity={false}
             ignoreDifficulty={false}
             ignorePreference={false}
+          />
+        );
+      } else if (params.mode === "play" &&  // Play mode.
+      (location.state && location.state.challengeData)) {
+        content = (
+          <ChallengeHandler
+            challengeData={location.state.challengeData}
           />
         );
       } else {  // Default to /kickoff
@@ -114,7 +124,8 @@ ChallengePage.propTypes = {
   }).isRequired,
   location: PropTypes.shape({
     state: PropTypes.shape({
-      selectedSubSubjectIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      selectedSubSubjectIds: PropTypes.arrayOf(PropTypes.string.isRequired),
+      challengeData: PropTypes.arrayOf(PropTypes.object.isRequired),
     }),
   }).isRequired,
 };

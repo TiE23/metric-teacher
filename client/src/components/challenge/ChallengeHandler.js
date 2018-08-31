@@ -19,7 +19,7 @@ class ChallengeHandler extends PureComponent {
       <div>
         <p>ChallengeHandler</p>
         <pre>
-          {JSON.stringify(this.props.challenge, null, 2)}
+          {JSON.stringify(this.props.challengeData, null, 2)}
         </pre>
       </div>
     );
@@ -27,11 +27,11 @@ class ChallengeHandler extends PureComponent {
 }
 
 ChallengeHandler.propTypes = {
-  challenge: PropTypes.arrayOf(QA_DATA_EVERYTHING.isRequired),
+  challengeData: PropTypes.arrayOf(QA_DATA_EVERYTHING.isRequired),
 };
 
 ChallengeHandler.defaultProps = {
-  challenge: null,
+  challengeData: null,
 };
 
 export default ChallengeHandler;

@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
+import { Redirect } from "react-router-dom";
 
 import QueryHandler from "../QueryHandler";
 
 import {
   GENERATE_CHALLENGE,
 } from "../../graphql/Queries";
-
-import ChallengeHandler from "./ChallengeHandler";
 
 const ChallengeContainer = props => (
   <Query
@@ -26,9 +25,18 @@ const ChallengeContainer = props => (
       <QueryHandler
         queryData={queryProps}
       >
-        <ChallengeHandler
-          challenge={queryProps.data && queryProps.data.generateChallenge}
-        />
+        {queryProps.data && queryProps.data.generateChallenge ?
+          <Redirect
+            to={{
+              pathname: "/challenge/play",
+              state: {
+                challengeData: queryProps.data.generateChallenge,
+              },
+            }}
+          />
+          :
+          null
+        }
       </QueryHandler>
     )}
   </Query>
