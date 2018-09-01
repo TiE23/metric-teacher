@@ -128,10 +128,11 @@ const qa = {
         const surveyObjects = userSurveyObject.enrollment.courses[0].surveys;
 
         // Survey responses found! Feed it into qaGenerate and return results
-        return questionObjects.map((questionObject) => {
+        return questionObjects.map((questionObject, index) => {
           const matchingSurvey = find(surveyObjects, survey =>
             survey.question.id === questionObject.id);
-          return qaGenerate(questionObject, matchingSurvey);  // If not found, will be undefined.
+          // If not found, will be undefined.
+          return qaGenerate(questionObject, index, matchingSurvey);
         });
       } catch (e) {
         // In the case that the user has no courses we catch and swallow TypeErrors.
@@ -141,7 +142,7 @@ const qa = {
       }
     }
 
-    return questionObjects.map(questionObject => qaGenerate(questionObject));
+    return questionObjects.map((questionObject, index) => qaGenerate(questionObject, index));
   },
 
 

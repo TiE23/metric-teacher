@@ -113,7 +113,7 @@ type PrivateUser {
 
 #### QaObject
 This is a complexly structured type with many nested types in order to recreate the deeply nested structure of a QA JSON object.
-The id of a QA Object is the Question ID prefixed with `qa_`.
+The id of a QA Object is the Question ID prefixed with `QA_` followed by a three digit number, starting at 000, indicating in which order it was generated whether through the queries `getQa` or `generateChallenge`.
 ```
 type QaObject {
   id: ID!
@@ -706,7 +706,7 @@ Examples:
 **QA Object**
 ```
 {
-  id: QA_<<someQuestionId>>,
+  id: QA_###_<<someQuestionId>>,
   questionId: <<someQuestionId>>,
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
@@ -757,7 +757,7 @@ Examples:
 **QA Object**
 ```
 {
-  id: QA_<<someQuestionId>>,
+  id: QA_###_<<someQuestionId>>,
   questionId: <<someQuestionId>>,
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,
@@ -850,7 +850,7 @@ Examples:
 **QA Object**
 ```
 {
-  id: QA_<<someQuestionId>>,
+  id: QA_###_<<someQuestionId>>,
   questionId: <<someQuestionId>>,
   subSubjectId: <<someSubSubjectId>>,
   difficulty: 3,

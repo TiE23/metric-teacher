@@ -40,10 +40,11 @@ describe("qaGenerator", () => {
       });
 
       it("Should parse a Written question", () => {
-        const qaFormat = qaGenerate(baseWrittenQuestion);
+        const qaFormat = qaGenerate(baseWrittenQuestion, 5);
 
         // Basic Data
         expect(qaFormat).toBeDefined();
+        expect(qaFormat.id).toBe("QA_005_question01");
         expect(qaFormat.questionId).toBe("question01");
         expect(qaFormat.subSubjectId).toBe("someSubSubject");
         expect(qaFormat.difficulty).toBe(QUESTION_DIFFICULTY_MEDIUM);
@@ -66,7 +67,7 @@ describe("qaGenerator", () => {
       it("Should parse a Written question with answer details", () => {
         baseWrittenQuestion.question = "If Jim is 6'1\" and Harry is 195cm, who is taller?";
         baseWrittenQuestion.answer = "195cm is about 6'5\" and 6'1\" is about 185cm. [Harry is taller|Jim is taller|They are about the same height]";
-        const qaFormat = qaGenerate(baseWrittenQuestion);
+        const qaFormat = qaGenerate(baseWrittenQuestion, 0);
 
         // Answer Data
         expect(qaFormat.answer.type).toBe(ANSWER_TYPE_MULTIPLE_CHOICE);
@@ -88,7 +89,7 @@ describe("qaGenerator", () => {
         // Add a 2 to the end of the answer to change the choices offered.
         baseWrittenQuestion.answer = "[0c|32c|100c]2";
 
-        const qaFormat = qaGenerate(baseWrittenQuestion);
+        const qaFormat = qaGenerate(baseWrittenQuestion, 0);
 
         expect(qaFormat.answer.data.multiple.choicesOffered).toBe(2);
         expect(qaFormat.answer.data.multiple.choices).toHaveLength(3);
@@ -115,7 +116,7 @@ describe("qaGenerator", () => {
       });
 
       it("Should parse a Conversion question", () => {
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Basic Data
         expect(qaFormat).toBeDefined();
@@ -188,7 +189,7 @@ describe("qaGenerator", () => {
       it("Should parse a Conversion question and prevent negative range and choices", () => {
         baseConversionQuestion.question = "[0.25,0.25kg]";
         baseConversionQuestion.answer = "[lb]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Answer Data
         expect(qaFormat.answer.data.conversion.exact).toBe(0.5511556555);
@@ -215,7 +216,7 @@ describe("qaGenerator", () => {
       it("Should parse a Conversion question and generate friendly results", () => {
         baseConversionQuestion.question = "[100,100m]";
         baseConversionQuestion.answer = "[in]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Answer Data
         expect(qaFormat.answer.data.conversion.exact).toBe(3937.0078740158);
@@ -242,7 +243,7 @@ describe("qaGenerator", () => {
       it("Should parse a Conversion question and generate custom accuracy choices", () => {
         baseConversionQuestion.question = "[1,1m]";
         baseConversionQuestion.answer = "[in(5)a]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Answer Data
         expect(qaFormat.answer.data.conversion.exact).toBe(39.3700787402);
@@ -269,14 +270,14 @@ describe("qaGenerator", () => {
       it("Should parse a Conversion question with context added", () => {
         baseConversionQuestion.question = "This weight is typical of a 5 year old child. [35,45lb]";
         baseConversionQuestion.answer = "[kg]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         expect(qaFormat.question.detail).toBe("This weight is typical of a 5 year old child.");
       });
 
       it("Should parse a Conversion question with a messy conversion", () => {
         baseConversionQuestion.question = "[5.25,5.25c]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Question Data
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
@@ -303,7 +304,7 @@ describe("qaGenerator", () => {
 
       it("Should parse a Conversion question with a negative temperature degrees", () => {
         baseConversionQuestion.question = "[-40,-40c]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Question Data
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
@@ -330,7 +331,7 @@ describe("qaGenerator", () => {
 
       it("Should parse a Conversion question with -17.78 C to 0 F temperature edge case", () => {
         baseConversionQuestion.question = "[-17.78,-17.78c]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Question Data
         expect(qaFormat.question.type).toBe(QUESTION_TYPE_CONVERSION);
@@ -357,7 +358,7 @@ describe("qaGenerator", () => {
 
       it("Should parse a Conversion question with simple range", () => {
         baseConversionQuestion.question = "[5,10c]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Question Data
         expect(qaFormat.question.data.conversion.step).toBe(1);
@@ -368,7 +369,7 @@ describe("qaGenerator", () => {
       it("Should parse a Conversion question with range smaller than step", () => {
         baseConversionQuestion.question = "[5.1,6m]";
         baseConversionQuestion.answer = "[ft]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Question Data
         expect(qaFormat.question.data.conversion.step).toBe(1);
@@ -379,7 +380,7 @@ describe("qaGenerator", () => {
       it("Should parse a Conversion question with decimal range with decimal step and accuracy", () => {
         baseConversionQuestion.question = "[5.1,6m(0.1)s]";
         baseConversionQuestion.answer = "[ft(0.1)a]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Question Data
         expect(qaFormat.question.data.conversion.step).toBe(0.1);
@@ -390,7 +391,7 @@ describe("qaGenerator", () => {
       it("Should parse a Conversion question with range with >1 step and accuracy", () => {
         baseConversionQuestion.question = "[1,5m(2)s]";
         baseConversionQuestion.answer = "[ft(3)a]";
-        const qaFormat = qaGenerate(baseConversionQuestion);
+        const qaFormat = qaGenerate(baseConversionQuestion, 0);
 
         // Question Data
         expect(qaFormat.question.data.conversion.step).toBe(2);
@@ -437,7 +438,7 @@ describe("qaGenerator", () => {
       });
 
       it("Should parse a survey question with no survey", () => {
-        const qaFormat = qaGenerate(baseSurveyQuestion);
+        const qaFormat = qaGenerate(baseSurveyQuestion, 0);
 
         // Basic Data
         expect(qaFormat).toBeDefined();
@@ -475,7 +476,7 @@ describe("qaGenerator", () => {
       });
 
       it("Should parse a survey question with a survey", () => {
-        const qaFormat = qaGenerate(baseSurveyQuestion, baseSurveyResponse);
+        const qaFormat = qaGenerate(baseSurveyQuestion, 0, baseSurveyResponse);
 
         // Basic Data
         expect(qaFormat).toBeDefined();
@@ -541,7 +542,7 @@ describe("qaGenerator", () => {
       it("Should parse a survey question with a survey that was skipped", () => {
         baseSurveyResponse.answer = "";
         baseSurveyResponse.status = SURVEY_STATUS_SKIPPED;
-        const qaFormat = qaGenerate(baseSurveyQuestion, baseSurveyResponse);
+        const qaFormat = qaGenerate(baseSurveyQuestion, 0, baseSurveyResponse);
 
         // Basic Data
         expect(qaFormat).toBeDefined();
@@ -586,7 +587,7 @@ describe("qaGenerator", () => {
         baseSurveyResponse.detail = "My neighbor Anthony";
         baseSurveyResponse.answer = "[80in]";
 
-        const qaFormat = qaGenerate(baseSurveyQuestion, baseSurveyResponse);
+        const qaFormat = qaGenerate(baseSurveyQuestion, 0, baseSurveyResponse);
 
         // Basic Data
         expect(qaFormat).toBeDefined();
@@ -610,7 +611,7 @@ describe("qaGenerator", () => {
         baseSurveyQuestion.question = "How tall is the last friend you spoke to and what is their name? Give your best guess if you don't know exactly. [24,96in]";
         baseSurveyQuestion.flags = QUESTION_FLAG_USER_DETAIL_REQUIRED;
 
-        const qaFormat = qaGenerate(baseSurveyQuestion);
+        const qaFormat = qaGenerate(baseSurveyQuestion, 0);
 
         // Basic Data
         expect(qaFormat).toBeDefined();

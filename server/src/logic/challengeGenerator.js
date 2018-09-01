@@ -128,10 +128,11 @@ class ChallengeGenerator {
       if (surveyData[questionIds[x]]) {
         qaList.push(qaGenerate(
           questionData[questionIds[x]],
+          x,
           surveyData[questionIds[x]],
         ));
       } else {
-        qaList.push(qaGenerate(questionData[questionIds[x]]));
+        qaList.push(qaGenerate(questionData[questionIds[x]], x));
       }
     }
 
