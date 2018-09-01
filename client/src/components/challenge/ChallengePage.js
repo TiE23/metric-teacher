@@ -7,8 +7,8 @@ import cuid from "cuid";
 import utils from "../../utils";
 
 import ChallengeFrame from "./ChallengeFrame";
-import ChallengeGenerator from "./ChallengeGenerator";
-import ChallengeHandler from "./ChallengeHandler";
+import ChallengeRetriever from "./ChallengeRetriever";
+import ChallengeManager from "./ChallengeManager";
 import ChallengeKickoff from "./kickoff/ChallengeKickoff";
 import LoadingError from "../misc/LoadingError";
 
@@ -79,7 +79,7 @@ class ChallengePage extends PureComponent {
       } else if (params.mode === "loading" &&  // Loading mode.
       (location.state && location.state.selectedSubSubjectIds)) {
         content = (
-          <ChallengeGenerator
+          <ChallengeRetriever
             challengeId={location.state.challengeId}
             studentId={userTokenData.id}
             selectedSubSubjectIds={location.state.selectedSubSubjectIds}
@@ -96,7 +96,7 @@ class ChallengePage extends PureComponent {
           if (localChallengeState && localChallengeState.challengeId === params.challengeId) {
             // Resume challenge from saved state.
             content = (
-              <ChallengeHandler
+              <ChallengeManager
                 challengeState={localChallengeState}
               />
             );
@@ -105,7 +105,7 @@ class ChallengePage extends PureComponent {
             // New challenge.
             utils.removeChallengeStateLocalStorage(); // Delete any state if present.
             content = (
-              <ChallengeHandler
+              <ChallengeManager
                 challengeState={{
                   challengeId: params.challengeId,
                   challengeData: location.state.challengeData,

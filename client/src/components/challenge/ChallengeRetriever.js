@@ -9,7 +9,7 @@ import {
   GENERATE_CHALLENGE,
 } from "../../graphql/Queries";
 
-const ChallengeGenerator = props => (
+const ChallengeRetriever = props => (
   <Query
     query={GENERATE_CHALLENGE}
     variables={{
@@ -43,7 +43,7 @@ const ChallengeGenerator = props => (
   </Query>
 );
 
-ChallengeGenerator.propTypes = {
+ChallengeRetriever.propTypes = {
   challengeId: PropTypes.string.isRequired,
   studentId: PropTypes.string.isRequired,
   selectedSubSubjectIds: PropTypes.arrayOf(
@@ -55,10 +55,10 @@ ChallengeGenerator.propTypes = {
   ignorePreference: PropTypes.bool,
 };
 
-ChallengeGenerator.defaultProps = {
+ChallengeRetriever.defaultProps = {
   ignoreRarity: false,
   ignoreDifficulty: false,
   ignorePreference: false,
 };
 
-export default ChallengeGenerator;
+export default ChallengeRetriever;

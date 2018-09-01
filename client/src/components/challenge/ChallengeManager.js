@@ -7,14 +7,13 @@ import {
   QA_DATA_EVERYTHING,
 } from "../../propTypes";
 
-class ChallengeHandler extends PureComponent {
+class ChallengeManager extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = this.props.challengeState;
 
     this.saveState = () => {
-      console.log("saved");
       utils.writeChallengeStateLocalStorage(this.state);
     };
   }
@@ -22,7 +21,7 @@ class ChallengeHandler extends PureComponent {
   render() {
     return (
       <div>
-        <p>ChallengeHandler</p>
+        <p>ChallengeManager</p>
         <p>ChallengeId: {this.state.challengeId}</p>
         <button type="submit" onClick={this.saveState}>Save State</button>
         <pre>
@@ -33,7 +32,7 @@ class ChallengeHandler extends PureComponent {
   }
 }
 
-ChallengeHandler.propTypes = {
+ChallengeManager.propTypes = {
   challengeState: PropTypes.shape({
     challengeId: PropTypes.string.isRequired,
     challengeData: PropTypes.arrayOf(QA_DATA_EVERYTHING.isRequired),
@@ -42,8 +41,8 @@ ChallengeHandler.propTypes = {
   }),
 };
 
-ChallengeHandler.defaultProps = {
+ChallengeManager.defaultProps = {
   challengeState: {},
 };
 
-export default ChallengeHandler;
+export default ChallengeManager;
