@@ -13,6 +13,7 @@ import normalizeEmail from "validator/lib/normalizeEmail";
 
 import {
   AUTH_TOKEN,
+  CHALLENGE_STATE,
   BAD_PASSWORDS,
   EMAIL_NORMALIZE_OPTIONS,
   EMAIL_SECRET_PREFIXES,
@@ -50,6 +51,28 @@ const removeTokenLocalStorage = () => removeDataLocalStorage(AUTH_TOKEN);
  * @returns {string | null}
  */
 const readTokenLocalStorage = () => readDataLocalStorage(AUTH_TOKEN);
+
+
+/**
+ * Write the challenge to local storage.
+ * @param challenge
+ */
+const writeChallengeLocalStorage = challenge => writeDataLocalStorage(
+  CHALLENGE_STATE, JSON.stringify(challenge),
+);
+
+
+/**
+ * Remove the challenge from local storage.
+ */
+const removeChallengeLocalStorage = () => removeDataLocalStorage(CHALLENGE_STATE);
+
+
+/**
+ * Read the challenge from local storage. If not found, returns null.
+ * @returns {string | null}
+ */
+const readChallengeLocalStorage = () => JSON.parse(readDataLocalStorage(CHALLENGE_STATE));
 
 
 /**
@@ -1038,6 +1061,9 @@ export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
   readTokenLocalStorage,
+  writeChallengeLocalStorage,
+  removeChallengeLocalStorage,
+  readChallengeLocalStorage,
   queryOK,
   customNormalizeEmail,
   checkJWT,

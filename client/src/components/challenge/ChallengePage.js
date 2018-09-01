@@ -2,6 +2,9 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import { Redirect } from "react-router-dom";
+import cuid from "cuid";
+
+import utils from "../../utils";
 
 import ChallengeFrame from "./ChallengeFrame";
 import ChallengeGenerator from "./ChallengeGenerator";
@@ -21,6 +24,7 @@ class ChallengePage extends PureComponent {
       selectedSubSubjectIds: [],
       ignoreDifficulty: true,
       kickedOff: false,
+      challengeId: null,
     };
 
     this.updateSubSubjectIds = (selectedSubSubjectIds) => {
@@ -32,7 +36,10 @@ class ChallengePage extends PureComponent {
     };
 
     this.handleKickoff = () => {
-      this.setState({ kickedOff: true });
+      this.setState({
+        kickedOff: true,
+        challengeId: cuid.slug(),
+      });
     };
   }
 
@@ -49,6 +56,7 @@ class ChallengePage extends PureComponent {
               to={{
                 pathname: "/challenge/loading",
                 state: {
+                  challengeId: this.state.challengeId,
                   selectedSubSubjectIds: this.state.selectedSubSubjectIds,
                   ignoreDifficulty: this.state.ignoreDifficulty,
                 },
@@ -72,6 +80,7 @@ class ChallengePage extends PureComponent {
       (location.state && location.state.selectedSubSubjectIds)) {
         content = (
           <ChallengeGenerator
+            challengeId={location.state.challengeId}
             studentId={userTokenData.id}
             selectedSubSubjectIds={location.state.selectedSubSubjectIds}
             listSize={2}
@@ -80,13 +89,36 @@ class ChallengePage extends PureComponent {
             ignorePreference={false}
           />
         );
-      } else if (params.mode === "play" &&  // Play mode.
-      (location.state && location.state.challengeData)) {
-        content = (
-          <ChallengeHandler
-            challengeData={location.state.challengeData}
-          />
-        );
+      } else if (params.mode === "play") {  // Play mode.
+        if (params.challengeId) {
+          const localChallengeState = utils.readChallengeLocalStorage();
+          // Check that the challenge found in the storage is the correct one.
+          if (localChallengeState && localChallengeState.challengeId === params.challengeId) {
+            // Resume challenge from saved state.
+            content = (
+              <ChallengeHandler
+                challengeState={localChallengeState}
+              />
+            );
+          } else if (location.state && location.state.challengeId === params.challengeId &&
+          location.state.challengeData) {
+            // New challenge.
+            utils.removeChallengeLocalStorage(); // Delete any state if present.
+            content = (
+              <ChallengeHandler
+                challengeState={{
+                  challengeId: params.challengeId,
+                  challengeData: location.state.challengeData,
+                }}
+              />
+            );
+          } else {
+            // Bad challengeId, maybe a user just put it in?
+            content = (<p>Bad challengeId.</p>); // TODO - Nicer component w/link to /kickoff.
+          }
+        } else {
+          content = (<p>You need a challengeId.</p>); // TODO - Nicer component w/link to /kickoff.
+        }
       } else {  // Default to /kickoff
         content = (
           <Redirect to="/challenge/kickoff" />
@@ -133,7 +165,12 @@ ChallengePage.propTypes = {
     state: PropTypes.shape({
       selectedSubSubjectIds: PropTypes.arrayOf(PropTypes.string.isRequired),
       ignoreDifficulty: PropTypes.bool,
-      challengeData: PropTypes.arrayOf(PropTypes.object.isRequired),
+      challengeState: PropTypes.shape({
+        challengeId: PropTypes.string.isRequired,
+        challengeData: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+        challengeProgress: PropTypes.object.isRequired,
+        challengeResults: PropTypes.object.isRequired,
+      }),
     }),
   }).isRequired,
 };

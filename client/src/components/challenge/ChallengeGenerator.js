@@ -28,8 +28,9 @@ const ChallengeGenerator = props => (
         {queryProps.data && queryProps.data.generateChallenge ?
           <Redirect
             to={{
-              pathname: "/challenge/play",
+              pathname: `/challenge/play/${props.challengeId}`,
               state: {
+                challengeId: props.challengeId,
                 challengeData: queryProps.data.generateChallenge,
               },
             }}
@@ -43,6 +44,7 @@ const ChallengeGenerator = props => (
 );
 
 ChallengeGenerator.propTypes = {
+  challengeId: PropTypes.string.isRequired,
   studentId: PropTypes.string.isRequired,
   selectedSubSubjectIds: PropTypes.arrayOf(
     PropTypes.string.isRequired,
