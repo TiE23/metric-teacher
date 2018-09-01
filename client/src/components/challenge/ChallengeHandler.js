@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
+import utils from "../../utils";
+
 import {
   QA_DATA_EVERYTHING,
 } from "../../propTypes";
@@ -10,6 +12,11 @@ class ChallengeHandler extends PureComponent {
     super(props);
 
     this.state = this.props.challengeState;
+
+    this.saveState = () => {
+      console.log("saved");
+      utils.writeChallengeStateLocalStorage(this.state);
+    };
   }
 
   render() {
@@ -17,6 +24,7 @@ class ChallengeHandler extends PureComponent {
       <div>
         <p>ChallengeHandler</p>
         <p>ChallengeId: {this.state.challengeId}</p>
+        <button type="submit" onClick={this.saveState}>Save State</button>
         <pre>
           {JSON.stringify(this.state.challengeData, null, 2)}
         </pre>

@@ -91,7 +91,7 @@ class ChallengePage extends PureComponent {
         );
       } else if (params.mode === "play") {  // Play mode.
         if (params.challengeId) {
-          const localChallengeState = utils.readChallengeLocalStorage();
+          const localChallengeState = utils.readChallengeStateLocalStorage();
           // Check that the challenge found in the storage is the correct one.
           if (localChallengeState && localChallengeState.challengeId === params.challengeId) {
             // Resume challenge from saved state.
@@ -103,7 +103,7 @@ class ChallengePage extends PureComponent {
           } else if (location.state && location.state.challengeId === params.challengeId &&
           location.state.challengeData) {
             // New challenge.
-            utils.removeChallengeLocalStorage(); // Delete any state if present.
+            utils.removeChallengeStateLocalStorage(); // Delete any state if present.
             content = (
               <ChallengeHandler
                 challengeState={{

@@ -57,7 +57,7 @@ const readTokenLocalStorage = () => readDataLocalStorage(AUTH_TOKEN);
  * Write the challenge to local storage.
  * @param challenge
  */
-const writeChallengeLocalStorage = challenge => writeDataLocalStorage(
+const writeChallengeStateLocalStorage = challenge => writeDataLocalStorage(
   CHALLENGE_STATE, JSON.stringify(challenge),
 );
 
@@ -65,14 +65,14 @@ const writeChallengeLocalStorage = challenge => writeDataLocalStorage(
 /**
  * Remove the challenge from local storage.
  */
-const removeChallengeLocalStorage = () => removeDataLocalStorage(CHALLENGE_STATE);
+const removeChallengeStateLocalStorage = () => removeDataLocalStorage(CHALLENGE_STATE);
 
 
 /**
  * Read the challenge from local storage. If not found, returns null.
  * @returns {string | null}
  */
-const readChallengeLocalStorage = () => JSON.parse(readDataLocalStorage(CHALLENGE_STATE));
+const readChallengeStateLocalStorage = () => JSON.parse(readDataLocalStorage(CHALLENGE_STATE));
 
 
 /**
@@ -1061,9 +1061,9 @@ export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
   readTokenLocalStorage,
-  writeChallengeLocalStorage,
-  removeChallengeLocalStorage,
-  readChallengeLocalStorage,
+  writeChallengeStateLocalStorage,
+  removeChallengeStateLocalStorage,
+  readChallengeStateLocalStorage,
   queryOK,
   customNormalizeEmail,
   checkJWT,
