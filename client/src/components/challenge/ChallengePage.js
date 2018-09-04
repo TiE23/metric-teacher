@@ -98,18 +98,19 @@ class ChallengePage extends PureComponent {
             content = (
               <ChallengeManager
                 challengeState={localChallengeState}
+                studentId={userTokenData.id}
               />
             );
           } else if (location.state && location.state.challengeId === params.challengeId &&
           location.state.challengeData) {
             // New challenge.
-            utils.removeChallengeStateLocalStorage(); // Delete any state if present.
             content = (
               <ChallengeManager
                 challengeState={{
                   challengeId: params.challengeId,
                   challengeData: location.state.challengeData,
                 }}
+                studentId={userTokenData.id}
               />
             );
           } else {
@@ -136,12 +137,6 @@ class ChallengePage extends PureComponent {
 
     return (
       <ChallengeFrame>
-        <p>ChallengePage</p>
-        <p>
-          SubSubjects Selected:
-          {" "}
-          {this.state.selectedSubSubjectIds.length}
-        </p>
         {content}
       </ChallengeFrame>
     );

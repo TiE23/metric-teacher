@@ -20,7 +20,6 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
       <QueryHandler
         queryData={queryProps}
       >
-        <p>ChallengeKickoff</p>
         <ChallengeKickoffSelector
           masteriesData={queryProps.data && queryProps.data.activeMasteries}
           selectedSubSubjectIds={props.selectedSubSubjectIds}

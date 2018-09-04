@@ -70,7 +70,6 @@ class ChallengeKickoffSelector extends PureComponent {
   render() {
     return (
       <div>
-        <p>ChallengeKickoffSelector</p>
         {this.state.subjectsData &&
         <List>
           {map(this.state.subjectsData, subject => (

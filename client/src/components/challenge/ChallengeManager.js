@@ -11,7 +11,40 @@ class ChallengeManager extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = this.props.challengeState;
+    this.state = {
+      challengeId: null,      // This gets overwritten immediately.
+      challengeData: null,    // This gets overwritten immediately.
+      challengeProgress: {},  // Begins as empty. Is filled in componentDidMount().
+      challengeResults: {     // Begins as empty. Will be filled as challenge progresses.
+        studentid: this.props.studentId,
+        masteryscoreinput: [],
+        surveyscoreinput: [],
+        surveyanswerinput: [],
+      },
+      ...this.props.challengeState, // Full state or just challengeId and challengeData.
+    };
+
+    this.componentDidMount = () => {
+      if (utils.isEmptyRecursive(this.state.challengeProgress)) {
+        this.setState(prevState => ({
+          challengeProgress: buildInitialChallengeProgress(prevState.challengeData),
+        }));
+      }
+    };
+
+    const buildInitialChallengeProgress = (challengeData) => {
+      const newChallengeProgress = {};
+      challengeData.forEach(({ id }) => {
+        newChallengeProgress[id] = {
+          seen: false,
+          skipped: false,
+          correctlyAnswered: false,
+          failed: false,
+          incorrectAnswerCount: 0,
+        };
+      });
+      return newChallengeProgress;
+    };
 
     this.saveState = () => {
       utils.writeChallengeStateLocalStorage(this.state);
@@ -21,8 +54,6 @@ class ChallengeManager extends PureComponent {
   render() {
     return (
       <div>
-        <p>ChallengeManager</p>
-        <p>ChallengeId: {this.state.challengeId}</p>
         <button type="submit" onClick={this.saveState}>Save State</button>
         <pre>
           {JSON.stringify(this.state.challengeData, null, 2)}
@@ -39,6 +70,7 @@ ChallengeManager.propTypes = {
     challengeProgress: PropTypes.object,
     challengeResults: PropTypes.object,
   }),
+  studentId: PropTypes.string.isRequired,
 };
 
 ChallengeManager.defaultProps = {
