@@ -50,6 +50,15 @@ class ChallengeList extends PureComponent {
       return candidateId;
     };
 
+    this.componentDidMount = () => {
+      // When resuming from saved state the challengeProgress prop will be set immediately.
+      if (!utils.isEmptyRecursive(this.props.challengeProgress)) {
+        this.setState(prevState => ({
+          currentQaId: getNextRandomQaId(this.props.challengeProgress, prevState.currentQaId),
+        }));
+      }
+    };
+
     this.componentDidUpdate = (prevProps, prevState) => {
       if (this.props.challengeProgress !== prevProps.challengeProgress) {
         this.setState({

@@ -69,10 +69,8 @@ class ChallengeManager extends PureComponent {
   }
 
   render() {
-    // TODO - Resuming from state is busted, might have to do with initialized challengeProgress?
-    // Change this step to check challengeProgress and make sure that ChallengeList behaves
-    // correctly with a pre-filled challengeProgress prop (draw next random ID on componentDidMount)
-    if (utils.isEmptyRecursive(this.state.challengeData)) {
+    if (utils.isEmptyRecursive(this.state.challengeData) ||
+    utils.isEmptyRecursive(this.state.challengeProgress)) {
       return (
         <p>Empty</p>
       );
