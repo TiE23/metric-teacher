@@ -1,7 +1,10 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import mergeWith from "lodash/mergeWith";
 
 import utils from "../../utils";
+
+import ChallengeList from "./ChallengeList";
 
 import {
   QA_DATA_EVERYTHING,
@@ -46,20 +49,45 @@ class ChallengeManager extends PureComponent {
       return newChallengeProgress;
     };
 
+    this.updateChallengeProgress = (newProgressData) => {
+      this.setState(prevState => ({
+        challengeProgress: mergeWith(
+          {},
+          prevState.challengeProgress,
+          newProgressData,
+          utils.mergeCustomizer,
+        ),
+      }));
+    };
+
+    /**
+     * TODO - Hook this up to execute on every change.
+     */
     this.saveState = () => {
       utils.writeChallengeStateLocalStorage(this.state);
     };
   }
 
   render() {
-    return (
-      <div>
-        <button type="submit" onClick={this.saveState}>Save State</button>
-        <pre>
-          {JSON.stringify(this.state.challengeData, null, 2)}
-        </pre>
-      </div>
-    );
+    // TODO - Resuming from state is busted, might have to do with initialized challengeProgress?
+    // Change this step to check challengeProgress and make sure that ChallengeList behaves
+    // correctly with a pre-filled challengeProgress prop (draw next random ID on componentDidMount)
+    if (utils.isEmptyRecursive(this.state.challengeData)) {
+      return (
+        <p>Empty</p>
+      );
+    } else {
+      return (
+        <div>
+          <button type="submit" onClick={this.saveState}>Save State</button>
+          <ChallengeList
+            challengeData={this.state.challengeData}
+            challengeProgress={this.state.challengeProgress}
+            updateChallengeProgress={this.updateChallengeProgress}
+          />
+        </div>
+      );
+    }
   }
 }
 

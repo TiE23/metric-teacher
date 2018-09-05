@@ -83,7 +83,7 @@ class ChallengePage extends PureComponent {
             challengeId={location.state.challengeId}
             studentId={userTokenData.id}
             selectedSubSubjectIds={location.state.selectedSubSubjectIds}
-            listSize={2}
+            listSize={10}
             ignoreRarity={false}
             ignoreDifficulty={location.state.ignoreDifficulty}
             ignorePreference={false}

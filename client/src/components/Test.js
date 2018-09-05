@@ -54,16 +54,6 @@ class Test extends PureComponent {
       ],
     };
 
-    this.componentDidMount = () => {
-      this.setState(prevState => ({
-        segmentA: (<TestSubComponent {...prevState.segments[prevState.segment]} seg="A" />),
-      }));
-    };
-
-    this.componentDidUpdate = (prevProps, prevState) => {
-      console.log(this.state);
-    };
-
     this.goForward = () => {
       this.setState(prevState => ({
         segment: prevState.segment + 1,
