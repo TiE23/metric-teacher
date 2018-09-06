@@ -1,16 +1,21 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Transition, Segment } from "semantic-ui-react";
+import { Transition } from "semantic-ui-react";
 import random from "lodash/random";
 import forEach from "lodash/forEach";
 
 import ChallengeMain from "./main/ChallengeMain";
+import ChallengeComplete from "./extra/ChallengeComplete";
 
 import utils from "../../utils";
 
 import {
   QA_DATA_EVERYTHING,
 } from "../../propTypes";
+
+import {
+  CHALLENGE_TRANSITION_PROPS,
+} from "../../constants";
 
 class ChallengeList extends PureComponent {
   constructor(props) {
@@ -79,32 +84,33 @@ class ChallengeList extends PureComponent {
   }
 
   render() {
-    if (this.state.currentQaId) {
-      const currentQaObject =
-        utils.cacheGetTarget(this.props.challengeData, this.state.currentQaId);
+    const currentQaObject = this.state.currentQaId ?
+      utils.cacheGetTarget(this.props.challengeData, this.state.currentQaId) : null;
 
-      return (
-        <div>
-          <p>ChallengeList</p>
-          <Transition.Group animation="fly left" duration={{ show: 500, hide: 0 }}>
-            {[currentQaObject].map(qaObject => (
-              <Segment key={qaObject.id}>
-                <ChallengeMain
-                  qaData={qaObject}
-                  resolveCurrentQA={this.resolveCurrentQA}
-                />
-              </Segment>
-            ))}
-          </Transition.Group>
-        </div>
-      );
-    } else {
-      return (
-        <span>...</span>
-      );
-    }
+    return (
+      <div>
+        <Transition.Group {...CHALLENGE_TRANSITION_PROPS}>
+          {currentQaObject && [currentQaObject].map(qaObject => (
+            <div key={qaObject.id}>
+              <ChallengeMain
+                key={qaObject.id}
+                qaData={qaObject}
+                resolveCurrentQA={this.resolveCurrentQA}
+              />
+            </div>
+          ))}
+        </Transition.Group>
+        <Transition {...CHALLENGE_TRANSITION_PROPS} visible={!currentQaObject}>
+          <div>
+            <ChallengeComplete
+              qaCount={this.props.challengeData.length}
+            />
+          </div>
+        </Transition>
+
+      </div>
+    );
   }
-
 }
 
 ChallengeList.propTypes = {

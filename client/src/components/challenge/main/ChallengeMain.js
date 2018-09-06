@@ -11,7 +11,7 @@ const ChallengeMain = (props) => {
 
   return (
     <div>
-      <p>ChallengeMain - Temp Segment</p>
+      <p>ChallengeMain</p>
       <button onClick={skipQa}>Skip</button>
       <pre>
         {JSON.stringify(props.qaData, null, 2)}
