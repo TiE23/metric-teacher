@@ -95,6 +95,7 @@ class ChallengeList extends PureComponent {
               <ChallengeMain
                 key={qaObject.id}
                 qaData={qaObject}
+                currentQaProgress={this.props.challengeProgress[qaObject.id]}
                 resolveCurrentQA={this.resolveCurrentQA}
               />
             </div>

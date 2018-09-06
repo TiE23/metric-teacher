@@ -26,6 +26,8 @@ import {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
+  QUESTION_FLAG_USER_DETAIL_OPTIONAL,
+  QUESTION_FLAG_USER_DETAIL_REQUIRED,
 } from "./constants";
 
 // TODO better token management
@@ -804,6 +806,61 @@ const choiceWorder = choice => (
 
 
 /**
+ * Process a QA object's data and generate a payload of English text for QA Review (not for
+ * Challenge mode).
+ * Written questions are super basic, it just returns the question text.
+ * But for Conversion and Survey questions there are more steps to generate a sensible human-
+ * friendly sentence question.
+ * @param qaData
+ * @returns {{questionDescription: string, surveyDetail: string}}
+ */
+const qaReviewTextFormatter = (qaData) => {
+  const { question, answer } = qaData;
+
+  const results = {
+    questionDescription: "",
+    surveyDetail: "",
+  };
+
+  // Conversion questions need to be processed into an understandable English description.
+  if (question.type === QUESTION_TYPE_CONVERSION) {
+    results.questionDescription = deline`
+      Convert ${rangeWorder(question.data.conversion.range, question.data.fromUnitWord)}
+      with a random step of
+      ${unitWorder(question.data.conversion.step, question.data.fromUnitWord)} to
+      ${answer.data.toUnitWord.plural} within an accuracy of
+      ${unitWorder(answer.data.accuracy, answer.data.toUnitWord)}.
+    `;
+  } else if (question.type === QUESTION_TYPE_SURVEY) {
+    results.questionDescription = question.text;
+
+    let stepClause = "and must be a whole number (no decimals)";
+    if (question.data.survey.step < 1) {
+      stepClause = `and can be a whole number or a multiple of ${question.data.survey.step}`;
+    } else if (question.data.survey.step > 1) {
+      stepClause = `and must be a multiple of ${question.data.survey.step}`;
+    }
+
+    let noteClause = "";
+    if (qaData.flags &
+      (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED)) {
+      noteClause = deline`For this survey question you are 
+      ${qaData.flags & QUESTION_FLAG_USER_DETAIL_REQUIRED ? "required" : "welcome"}
+      to enter a note to help add context to your answer.`;
+    }
+
+    results.surveyDetail = deline`Accepted survey answer range is
+      ${rangeWorder(question.data.survey.range, question.data.fromUnitWord)}
+      ${stepClause}. ${noteClause}`;
+  } else {  // Written question is the simplest.
+    results.questionDescription = question.text;
+  }
+
+  return results;
+};
+
+
+/**
  * Super simple function. Takes in a standard unit string and returns a slightly better reading
  * unit string in its place. See the constant UNIT_INITIALISMS for more info.
  * @param unit
@@ -1088,6 +1145,7 @@ export default {
   unitWorder,
   rangeWorder,
   choiceWorder,
+  qaReviewTextFormatter,
   unitInitilizer,
   surveyAnswerValidator,
   explodeBits,
