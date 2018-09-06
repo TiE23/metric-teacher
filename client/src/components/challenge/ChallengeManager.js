@@ -35,6 +35,16 @@ class ChallengeManager extends PureComponent {
       }
     };
 
+    this.componentDidUpdate = (prevProps, prevState) => {
+      // When changes to the state of the challenge are detected write the state to localstorage.
+      if (this.state.challengeData !== prevState.challengeData ||
+      this.state.challengeProgress !== prevState.challengeProgress ||
+      this.state.challengeResults !== prevState.challengeResults
+      ) {
+        utils.writeChallengeStateLocalStorage(this.state);
+      }
+    };
+
     const buildInitialChallengeProgress = (challengeData) => {
       const newChallengeProgress = {};
       challengeData.forEach(({ id }) => {
@@ -59,13 +69,6 @@ class ChallengeManager extends PureComponent {
         ),
       }));
     };
-
-    /**
-     * TODO - Hook this up to execute on every change.
-     */
-    this.saveState = () => {
-      utils.writeChallengeStateLocalStorage(this.state);
-    };
   }
 
   render() {
@@ -76,14 +79,11 @@ class ChallengeManager extends PureComponent {
       );
     } else {
       return (
-        <div>
-          <button type="submit" onClick={this.saveState}>Save State</button>
-          <ChallengeList
-            challengeData={this.state.challengeData}
-            challengeProgress={this.state.challengeProgress}
-            updateChallengeProgress={this.updateChallengeProgress}
-          />
-        </div>
+        <ChallengeList
+          challengeData={this.state.challengeData}
+          challengeProgress={this.state.challengeProgress}
+          updateChallengeProgress={this.updateChallengeProgress}
+        />
       );
     }
   }
