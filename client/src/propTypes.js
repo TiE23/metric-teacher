@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 
 export const QA_UNIT_OBJECT_TYPE = PropTypes.shape({
   unit: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,    // Non-written answers.
+  written: PropTypes.string,  // Written answers.
 });
 
 export const QA_RANGE_OBJECT_TYPE = PropTypes.shape({

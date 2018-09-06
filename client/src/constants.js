@@ -1,10 +1,17 @@
 // Standard names
 export const AUTH_TOKEN = "auth-token";
+export const CHALLENGE_STATE = "challenge-state";
 
 // Styling
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8, computer: 8 };
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE = { mobile: 16, tablet: 14, computer: 14 };
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL = { mobile: 16, tablet: 16, computer: 16 };
+
+// Challenge Settings
+export const CHALLENGE_TRANSITION_PROPS = {
+  animation: "fly left",
+  duration: { show: 500, hide: 0 },
+};
 
 // Password
 export const PASSWORD_MINIMUM_LENGTH = 6;

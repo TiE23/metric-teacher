@@ -29,6 +29,7 @@ const {
  * survey row of data. Using smaller functions returns a large constructed object containing
  * data that is intended for consumption by the client.
  * @param questionData
+ * @param serialNumber
  * @param surveyData
  * @returns {{
  *  questionId: *,
@@ -38,7 +39,7 @@ const {
  *  answer: {type: *, data: {detail: *}}
  * }}
  */
-function qaGenerate(questionData, surveyData = null) {
+function qaGenerate(questionData, serialNumber, surveyData = null) {
   if (!questionData) {
     return null;
   }
@@ -62,7 +63,7 @@ function qaGenerate(questionData, surveyData = null) {
   );
 
   return {
-    id: `QA_${questionData.id}`,
+    id: `QA_${String(serialNumber).padStart(3, "0")}_${questionData.id}`,
     questionId: questionData.id,
     subSubjectId: questionData.parent.id,
     difficulty: questionData.difficulty,

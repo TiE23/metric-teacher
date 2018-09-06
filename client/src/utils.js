@@ -13,6 +13,7 @@ import normalizeEmail from "validator/lib/normalizeEmail";
 
 import {
   AUTH_TOKEN,
+  CHALLENGE_STATE,
   BAD_PASSWORDS,
   EMAIL_NORMALIZE_OPTIONS,
   EMAIL_SECRET_PREFIXES,
@@ -36,34 +37,81 @@ import {
  * Write the token string to local storage.
  * @param token
  */
-const writeTokenLocalStorage = (token) => {
-  if (typeof localStorage !== "undefined") {
-    localStorage.setItem(AUTH_TOKEN, token);  // eslint-disable-line no-undef
-    return;
-  }
-  throw new Error("localStorage not available on this browser!");
-};
+const writeTokenLocalStorage = token => writeDataLocalStorage(AUTH_TOKEN, token);
 
 
 /**
  * Remove the token string from local storage.
  */
-const removeTokenLocalStorage = () => {
-  if (typeof localStorage !== "undefined") {
-    localStorage.removeItem(AUTH_TOKEN);  // eslint-disable-line no-undef
-    return;
-  }
-  throw new Error("localStorage not available on this browser!");
-};
+const removeTokenLocalStorage = () => removeDataLocalStorage(AUTH_TOKEN);
 
 
 /**
  * Read the token string from local storage. If not found, returns null
  * @returns {string | null}
  */
-const readTokenLocalStorage = () => {
+const readTokenLocalStorage = () => readDataLocalStorage(AUTH_TOKEN);
+
+
+/**
+ * Write the challenge to local storage.
+ * @param challenge
+ */
+const writeChallengeStateLocalStorage = challenge => writeDataLocalStorage(
+  CHALLENGE_STATE, JSON.stringify(challenge),
+);
+
+
+/**
+ * Remove the challenge from local storage.
+ */
+const removeChallengeStateLocalStorage = () => removeDataLocalStorage(CHALLENGE_STATE);
+
+
+/**
+ * Read the challenge from local storage. If not found, returns null.
+ * @returns {string | null}
+ */
+const readChallengeStateLocalStorage = () => JSON.parse(readDataLocalStorage(CHALLENGE_STATE));
+
+
+/**
+ * Write to local storage the requested data at the requested key.
+ * There is no return data confirmation if the data was written or had to overwrite something.
+ * @param key
+ * @param data
+ */
+const writeDataLocalStorage = (key, data) => {
   if (typeof localStorage !== "undefined") {
-    return localStorage.getItem(AUTH_TOKEN);  // eslint-disable-line no-undef
+    localStorage.setItem(key, data);  // eslint-disable-line no-undef
+    return;
+  }
+  throw new Error("localStorage not available on this browser!");
+};
+
+
+/**
+ * Delete from local storage the requested key.
+ * There is no return data confirmation if the key was there or not.
+ * @param key
+ */
+const removeDataLocalStorage = (key) => {
+  if (typeof localStorage !== "undefined") {
+    localStorage.removeItem(key);  // eslint-disable-line no-undef
+    return;
+  }
+  throw new Error("localStorage not available on this browser!");
+};
+
+
+/**
+ * Read local storage for the requested key.
+ * @param key
+ * @returns {string | null}
+ */
+const readDataLocalStorage = (key) => {
+  if (typeof localStorage !== "undefined") {
+    return localStorage.getItem(key);  // eslint-disable-line no-undef
   }
   throw new Error("localStorage not available on this browser!");
 };
@@ -1013,6 +1061,9 @@ export default {
   writeTokenLocalStorage,
   removeTokenLocalStorage,
   readTokenLocalStorage,
+  writeChallengeStateLocalStorage,
+  removeChallengeStateLocalStorage,
+  readChallengeStateLocalStorage,
   queryOK,
   customNormalizeEmail,
   checkJWT,

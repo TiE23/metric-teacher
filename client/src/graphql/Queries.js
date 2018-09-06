@@ -44,7 +44,7 @@ export const ME_AUTH_QUERY = gql`
 // TODO - Save data by building tailored fragments.
 export const USER_DETAILS_QUERY = gql`
   query UserDetailsQuery ($userid: ID!) {
-    user (userid: $userid) {
+    user(userid: $userid) {
       id
       createdAt
       updatedAt
@@ -61,6 +61,25 @@ export const USER_DETAILS_QUERY = gql`
     }
   }
   ${EnrollmentForUserDetails}
+`;
+
+export const STUDENT_ACTIVE_SUBJECTS = gql`
+  query StudentActiveSubjects ($studentid: ID!) {
+    activeMasteries(studentid: $studentid) {
+      subSubject {
+        id
+        name
+        description
+        scale
+        toMetric
+        parent {
+          id
+          media
+          name
+        }
+      }
+    }
+  }
 `;
 
 export const SUBJECT_DETAILS_QUERY = gql`
@@ -130,9 +149,18 @@ export const SUBJECT_AND_MASTERY_DETAILS_QUERY = gql`
   ${MasteryDataAllExtra}
 `;
 
+export const GENERATE_CHALLENGE = gql`
+  query GenerateChallenge ($studentid: ID!, $subjectids: [ID], $subsubjectids: [ID], $listsize: Int!, $ignorerarity: Boolean, $ignoredifficulty: Boolean, $ignorepreference: Boolean) {
+    generateChallenge(studentid: $studentid, subjectids: $subjectids, subsubjectids: $subsubjectids, listsize: $listsize, ignorerarity: $ignorerarity, ignoredifficulty: $ignoredifficulty, ignorepreference: $ignorepreference) {
+      ...QaObjectDataEverything
+    }
+  }
+  ${QaObjectDataEverything}
+`;
+
 export const GET_QA_QUESTIONS_WITH_STUDENT = gql`
   query GetQaQuestionsWithStudent ($questionids: [ID!]!, $studentid: ID!) {
-    getQa (questionids: $questionids, studentid: $studentid) {
+    getQa(questionids: $questionids, studentid: $studentid) {
       ...QaObjectDataEverything
     }
   }
@@ -141,7 +169,7 @@ export const GET_QA_QUESTIONS_WITH_STUDENT = gql`
 
 export const GET_QA_QUESTIONS_WITHOUT_STUDENT = gql`
   query GetQaQuestionsWithoutStudent ($questionids: [ID!]!) {
-    getQa (questionids: $questionids) {
+    getQa(questionids: $questionids) {
       ...QaObjectDataEverything
     }
   }
@@ -150,7 +178,7 @@ export const GET_QA_QUESTIONS_WITHOUT_STUDENT = gql`
 
 export const GET_QA_QUESTIONS_DATA_LIMITED = gql`
   query GetQaQuestionsDataLimited ($questionids: [ID!]!) {
-    getQa (questionids: $questionids) {
+    getQa(questionids: $questionids) {
       ...QaObjectQuestionDataLimited
     }
   }
