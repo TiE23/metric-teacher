@@ -70,12 +70,19 @@ export const QA_DATA_ANSWER = PropTypes.shape({
   }).isRequired,
 });
 
+export const QA_DATA_SUBJECT = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  scale: PropTypes.string.isRequired,
+  toMetric: PropTypes.bool.isRequired,
+});
+
 export const QA_DATA_EVERYTHING = PropTypes.shape({
   questionId: PropTypes.string.isRequired,
   subSubjectId: PropTypes.string.isRequired,
   difficulty: PropTypes.number.isRequired,
   flags: PropTypes.number.isRequired,
   media: PropTypes.string,
+  subject: QA_DATA_SUBJECT.isRequired,
   question: QA_DATA_QUESTION.isRequired,
   answer: QA_DATA_ANSWER.isRequired,
 });

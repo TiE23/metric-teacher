@@ -70,6 +70,11 @@ function qaGenerate(questionData, serialNumber, surveyData = null) {
     flags: questionData.flags,
     status: questionData.status,
     media: questionData.media,
+    subject: {
+      name: questionData.parent.parent.name,
+      scale: questionData.parent.scale,
+      toMetric: questionData.parent.toMetric,
+    },
     question: generatedQuestion,
     answer: generatedAnswer,
   };

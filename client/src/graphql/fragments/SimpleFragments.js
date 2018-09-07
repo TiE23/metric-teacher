@@ -331,6 +331,14 @@ export const QaAnswerDataDataAllExtra = gql`
 `;
 
 // Children
+export const QaSubjectObjectDataAll = gql`
+  fragment QaSubjectObjectDataAll on QaSubjectObject{
+    name
+    scale
+    toMetric
+  }
+`;
+
 export const QaQuestionObjectDataAll = gql`
   fragment QaQuestionObjectDataAll on QaQuestionObject{
     detail
@@ -380,6 +388,9 @@ export const QaObjectDataAll = gql`
 export const QaObjectDataAllExtra = gql`
   fragment QaObjectDataAllExtra on QaObject {
     ...QaObjectDataAll
+    subject {
+      ...QaSubjectObjectDataAll
+    }
     question {
       ...QaQuestionObjectDataAllExtra
     }
@@ -388,6 +399,7 @@ export const QaObjectDataAllExtra = gql`
     }
   }
   ${QaObjectDataAll}
+  ${QaSubjectObjectDataAll}
   ${QaQuestionObjectDataAllExtra}
   ${QaAnswerObjectDataAllExtra}
 `;
