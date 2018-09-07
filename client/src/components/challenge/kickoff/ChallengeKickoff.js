@@ -32,10 +32,15 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
         />
         <br />
         <Button
-          onClick={props.handleKickoff}
+          onClick={props.handleChallengeModeStart}
           disabled={!props.selectedSubSubjectIds.length}
         >
-          Kickoff!
+          Challenge Start!
+        </Button>
+        <Button
+          onClick={props.handleQuestionModeStart}
+        >
+          Question List Start!
         </Button>
       </QueryHandler>
     )}
@@ -48,7 +53,8 @@ ChallengeKickoff.propTypes = {
   ignoreDifficulty: PropTypes.bool.isRequired,
   updateSubSubjectIds: PropTypes.func.isRequired,
   updateIgnoreDifficulty: PropTypes.func.isRequired,
-  handleKickoff: PropTypes.func.isRequired,
+  handleChallengeModeStart: PropTypes.func.isRequired,
+  handleQuestionModeStart: PropTypes.func.isRequired,
 };
 
 export default ChallengeKickoff;
