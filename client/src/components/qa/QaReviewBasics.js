@@ -13,24 +13,26 @@ import {
 } from "../../constants";
 
 const QaReviewBasics = (props) => {
+  const { questionDescription, surveyDetail } =
+    utils.qaReviewTextFormatter(props.qaData, props.challengeMode);
   const { question } = props.qaData;
   const questionTypeName = QUESTION_TYPE_NAMES[question.type];
-
-  const { questionDescription, surveyDetail } = utils.qaReviewTextFormatter(props.qaData);
 
   return (
     <Item.Group unstackable>
       <Item>
-        <Responsive
-          as={Item.Image}
-          minWidth={500}
-          size="small"
-          src={
-            (props.qaData.media && `/img/question/${props.qaData.media}`) ||
-              "/img/placeholder-square.png"
-          }
-          rounded
-        />
+        {props.qaData.media &&
+          <Responsive
+            as={Item.Image}
+            minWidth={500}
+            size="small"
+            src={
+              (props.qaData.media && `/img/question/${props.qaData.media}`) ||
+                "/img/placeholder-square.png"
+            }
+            rounded
+          />
+        }
         <Item.Content>
           <Item.Header>{questionTypeName} Question</Item.Header>
           <Item.Description>{questionDescription}</Item.Description>
@@ -47,10 +49,12 @@ const QaReviewBasics = (props) => {
 QaReviewBasics.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   children: PropTypes.node,
+  challengeMode: PropTypes.bool,
 };
 
 QaReviewBasics.defaultProps = {
   children: null,
+  challengeMode: false,
 };
 
 export default QaReviewBasics;

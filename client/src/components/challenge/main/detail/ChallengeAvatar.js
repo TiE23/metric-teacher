@@ -1,21 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Header, Image } from "semantic-ui-react";
-
-import {
-  QUESTION_TYPE_NAMES,
-} from "../../../../constants";
+import { Image } from "semantic-ui-react";
 
 
-const ChallengeAvatar = props => (
-  <div>
-    <Image src="/img/challenge/mascot-temp.gif" fluid circular centered />
-    <Header sub textAlign="center">
-      {QUESTION_TYPE_NAMES[props.questionType]} Question
-    </Header>
-  </div>
+const ChallengeAvatar = () => (
+  <Image src="/img/challenge/mascot-temp.gif" fluid circular centered />
 );
 
+// TODO - Use questionType to determine the avatar design
 ChallengeAvatar.propTypes = {
   questionType: PropTypes.number.isRequired,
 };

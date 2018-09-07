@@ -133,6 +133,16 @@ type QaObject {
         singular: String!
       }!
       conversion: QaConversionQuestionObject {  # Conversion Questions Only
+        range: QaRangeObject {
+          top: QaUnitObject! {
+            value: Float!
+            unit: String!
+          }
+          bottom: QaUnitObject {
+            value: Float!
+            unit: String!
+          }
+        }!
         exact: QaUnitObject {
           value: Float!
           unit: String!

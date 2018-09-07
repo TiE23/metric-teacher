@@ -806,15 +806,16 @@ const choiceWorder = choice => (
 
 
 /**
- * Process a QA object's data and generate a payload of English text for QA Review (not for
- * Challenge mode).
+ * Process a QA object's data and generate a payload of English text for QA Review and Challenge
+ * mode (indicated with the param challengeMode being set to true).
  * Written questions are super basic, it just returns the question text.
  * But for Conversion and Survey questions there are more steps to generate a sensible human-
  * friendly sentence question.
  * @param qaData
+ * @param challengeMode
  * @returns {{questionDescription: string, surveyDetail: string}}
  */
-const qaReviewTextFormatter = (qaData) => {
+const qaReviewTextFormatter = (qaData, challengeMode) => {
   const { question, answer } = qaData;
 
   const results = {
@@ -824,13 +825,21 @@ const qaReviewTextFormatter = (qaData) => {
 
   // Conversion questions need to be processed into an understandable English description.
   if (question.type === QUESTION_TYPE_CONVERSION) {
-    results.questionDescription = deline`
-      Convert ${rangeWorder(question.data.conversion.range, question.data.fromUnitWord)}
-      with a random step of
-      ${unitWorder(question.data.conversion.step, question.data.fromUnitWord)} to
-      ${answer.data.toUnitWord.plural} within an accuracy of
-      ${unitWorder(answer.data.accuracy, answer.data.toUnitWord)}.
-    `;
+    if (challengeMode) {
+      results.questionDescription = deline`
+        Convert ${unitWorder(question.data.conversion.exact.value, question.data.fromUnitWord)} to
+        ${answer.data.toUnitWord.plural} within an accuracy of
+        ${unitWorder(answer.data.accuracy, answer.data.toUnitWord)}.
+      `;
+    } else {
+      results.questionDescription = deline`
+        Convert ${rangeWorder(question.data.conversion.range, question.data.fromUnitWord)}
+        with a random step of
+        ${unitWorder(question.data.conversion.step, question.data.fromUnitWord)} to
+        ${answer.data.toUnitWord.plural} within an accuracy of
+        ${unitWorder(answer.data.accuracy, answer.data.toUnitWord)}.
+      `;
+    }
   } else if (question.type === QUESTION_TYPE_SURVEY) {
     results.questionDescription = question.text;
 
