@@ -117,6 +117,16 @@ class Test extends PureComponent {
       console.log(utils.isEmptyRecursive({ a: { b: "boy" } }));                         // False
       console.log(utils.isEmptyRecursive({ a: { b: false } }));                         // False (!)
       console.log(utils.isEmptyRecursive({ alpha: [], a: { id: "a1", b: {} } }));       // False
+
+      console.log(utils.unitReadabilityHelper(12, "in"));
+      console.log(utils.unitReadabilityHelper(52, "in"));
+      console.log(utils.unitReadabilityHelper(12, "oz"));
+      console.log(utils.unitReadabilityHelper(52, "oz"));
+      console.log(utils.unitReadabilityHelper(12, "floz"));
+      console.log(utils.unitReadabilityHelper(52, "floz"));
+      console.log(utils.unitReadabilityHelper(128, "floz"));
+      console.log(utils.unitReadabilityHelper(130, "floz"));
+      console.log(utils.unitReadabilityHelper(200, "floz"));
     };
   }
 

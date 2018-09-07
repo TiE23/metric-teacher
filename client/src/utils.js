@@ -765,15 +765,80 @@ const scoreProgressColor = (currentScore, maxScore) => {
  * the proper string in return.
  * Ex:
  *  utils.unitWorder(1, { singular: "foot", plural: "feet" }) // "1 foot"
- *  utils.unitWorder(1500, { singluar: "meter", plural: "meters" }) // "1,500 meters"
+ *  utils.unitWorder(1500, { singular: "meter", plural: "meters" }) // "1,500 meters"
+ *  utils.unitWorder(45, { singular: "inch", plural: "inches" }) // "45 inches"
+ *  utils.unitWorder(45, { singular: "inch", plural: "inches" }, true) // "3 feet, 9 inches"
  * @param value
  * @param words
+ * @param readabilityHelper
  * @returns {string}
  */
-const unitWorder = (value, words) => (
-  `${value.toLocaleString()} ${value === 1 ? words.singular : words.plural}`
-);
+const unitWorder = (value, words, readabilityHelper = false) => {
+  if (readabilityHelper) {
+    let unit;
+    if (words.singular === "inch") unit = "in";
+    else if (words.singular === "ounce") unit = "oz";
+    else if (words.singular === "fluid ounce") unit = "floz";
 
+    if (unit) {
+      const readableString = unitReadabilityHelper(value, unit);
+      if (readableString) {
+        return readableString;
+      }
+      // If not, will return normally at the end of this function.
+    }
+  }
+
+  return `${value.toLocaleString()} ${value === 1 ? words.singular : words.plural}`;
+};
+
+
+/**
+ * Converts specific units with specific values into more readable strings.
+ * No one says "I'm 68 inches tall", they say "I'm 5 feet, 8 inches tall".
+ * No one says "The package weighs 50 ounces", they say "The package weighs 3 pounds, 2 ounces".
+ * This takes care of that.
+ * It does it for inches (# feet, # inches).
+ * It does it for ounces (# pounds, # ounces).
+ * It does it for fluid ounces (# gallons, # quarts, # ounces).
+ * @param value
+ * @param unit
+ * @returns {*}
+ */
+const unitReadabilityHelper = (value, unit) => {
+  // "30 inches" => "2 feet, 6 inches (30in)" - At least more than 24 in.
+  if (unit === "in" && value > 24) {
+    return deline`${unitWorder(Math.floor(value / 12), { singular: "foot", plural: "feet" })},
+      ${unitWorder(value % 12, { singular: "inch", plural: "inches" })}
+      (${value}${unitInitilizer(unit)})`;
+
+  // "45 ounces" => "2 pounds, 13 ounces (45oz)" - At least more than 16 oz.
+  } else if (unit === "oz" && value > 16) {
+    return deline`${unitWorder(Math.floor(value / 16), { singular: "pound", plural: "pounds" })},
+      ${unitWorder(value % 16, { singluar: "ounce", plural: "ounces" })}
+      (${value}${unitInitilizer(unit)})`;
+
+  // "60 fluid ounces" => "1 quart, 28 ounces (60floz)" - At least more than 40 floz.
+  // "130 fluid ounces" => "1 gallon, 2 ounces"
+  // "200 fluid ounces" => "1 gallon, 2 quarts, 8 ounces"
+  // "256 fluid ounces" => "2 gallons, 0 ounces"
+  // I use "ounces" instead of "fluid ounces" as it can be determined by context and to save space.
+  } else if (unit === "floz" && value > 40) {
+    const gallonValue = Math.floor(value / 128);
+    const quartValue = Math.floor((value - (gallonValue * 128)) / 32);
+    const ounceValue = value % 32;
+
+    const gallonSegment = gallonValue ?
+      `${unitWorder(gallonValue, { singular: "gallon", plural: "gallons" })}, ` : "";
+    const quartSegment = quartValue ?
+      `${unitWorder(quartValue, { singular: "quart", plural: "quarts" })}, ` : "";
+    const ounceSegment = unitWorder(ounceValue, { singular: "ounce", plural: "ounces" });
+
+    return `${gallonSegment}${quartSegment}${ounceSegment} (${value}${unitInitilizer(unit)})`;
+  }
+
+  return null;
+};
 
 /**
  * Super simple function. You put in your bottom/top range object and your fromUnitWord or
@@ -827,7 +892,8 @@ const qaReviewTextFormatter = (qaData, challengeMode) => {
   if (question.type === QUESTION_TYPE_CONVERSION) {
     if (challengeMode) {
       results.questionDescription = deline`
-        Convert ${unitWorder(question.data.conversion.exact.value, question.data.fromUnitWord)} to
+        Convert
+        ${unitWorder(question.data.conversion.exact.value, question.data.fromUnitWord, true)} to
         ${answer.data.toUnitWord.plural} within an accuracy of
         ${unitWorder(answer.data.accuracy, answer.data.toUnitWord)}.
       `;
@@ -1152,6 +1218,7 @@ export default {
   isEmptyRecursive,
   scoreProgressColor,
   unitWorder,
+  unitReadabilityHelper,
   rangeWorder,
   choiceWorder,
   qaReviewTextFormatter,
