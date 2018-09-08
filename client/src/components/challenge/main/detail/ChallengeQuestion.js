@@ -16,6 +16,7 @@ const ChallengeQuestion = props => (
       qaData={props.qaData}
       challengeMode
     />
+    <br />
     <div style={{ position: "absolute", bottom: 5, right: 5 }}>
       <span style={{ color: "grey" }}>
         {props.qaData.subject.name}
