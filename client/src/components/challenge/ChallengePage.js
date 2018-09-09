@@ -49,12 +49,13 @@ class ChallengePage extends PureComponent {
         questionModeStart: true,
         challengeId: cuid.slug(),
         selectedQuestionIds: [
-          "cjk1pagrj007k07933cf9py49",
-          "cjkkls86v021h0893gsthx41f",
-          "cjk1pagkz0050079321fkd6vx",
-          "cjk1pago700680793uvc6i2a2",
-          "cjk1pagpd006o0793yws3ys7n",
-          "cjk1pah7b00f407935bgx9w8z",
+          "cjk1pagrj007k07933cf9py49", // Written (w/ answer detail)
+          "cjkkls86v021h0893gsthx41f", // Written (w/ media)
+          "cjk1pagkz0050079321fkd6vx", // Conversion (simple)
+          "cjk1pago700680793uvc6i2a2", // Conversion (annotated)
+          "cjk1pagpd006o0793yws3ys7n", // Survey (answered by 001)
+          "cjk1pagq800700793jwuow8zp", // Survey (answered by 001, has note)
+          "cjk1pah7b00f407935bgx9w8z", // Survey (not answered by 001)
         ],
       });
     };

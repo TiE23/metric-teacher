@@ -28,6 +28,7 @@ import {
   QUESTION_TYPE_SURVEY,
   QUESTION_FLAG_USER_DETAIL_OPTIONAL,
   QUESTION_FLAG_USER_DETAIL_REQUIRED,
+  SURVEY_STATUS_NORMAL,
 } from "./constants";
 
 // TODO better token management
@@ -909,24 +910,39 @@ const qaReviewTextFormatter = (qaData, challengeMode) => {
   } else if (question.type === QUESTION_TYPE_SURVEY) {
     results.questionDescription = question.text;
 
-    let stepClause = "and must be a whole number (no decimals)";
-    if (question.data.survey.step < 1) {
-      stepClause = `and can be a whole number or a multiple of ${question.data.survey.step}`;
-    } else if (question.data.survey.step > 1) {
-      stepClause = `and must be a multiple of ${question.data.survey.step}`;
+    // In Challenge mode only: If the survey was answered, pose their survey answer as the question.
+    if (challengeMode && question.data.survey.response &&
+    question.data.survey.response.status === SURVEY_STATUS_NORMAL) {
+      results.surveyDetail += deline`
+        Your response was
+        ${unitWorder(question.data.survey.response.answer.value, question.data.fromUnitWord, true)}.
+        ${question.data.survey.response.detail ? `("${question.data.survey.response.detail}")` : ""}
+        Convert it to ${answer.data.toUnitWord.plural} within an accuracy of
+        ${unitWorder(answer.data.accuracy, answer.data.toUnitWord)}.
+      `;
+
+    // Otherwise pose it as the original survey question.
+    } else {
+      let stepClause = "and must be a whole number (no decimals)";
+      if (question.data.survey.step < 1) {
+        stepClause = `and can be a whole number or a multiple of ${question.data.survey.step}`;
+      } else if (question.data.survey.step > 1) {
+        stepClause = `and must be a multiple of ${question.data.survey.step}`;
+      }
+
+      let noteClause = "";
+      if (qaData.flags &
+        (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED)) {
+        noteClause = deline`For this survey question you are 
+        ${qaData.flags & QUESTION_FLAG_USER_DETAIL_REQUIRED ? "required" : "welcome"}
+        to enter a note to help add context to your answer.`;
+      }
+
+      results.surveyDetail = deline`Accepted survey answer range is
+        ${rangeWorder(question.data.survey.range, question.data.fromUnitWord)}
+        ${stepClause}. ${noteClause}`;
     }
 
-    let noteClause = "";
-    if (qaData.flags &
-      (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED)) {
-      noteClause = deline`For this survey question you are 
-      ${qaData.flags & QUESTION_FLAG_USER_DETAIL_REQUIRED ? "required" : "welcome"}
-      to enter a note to help add context to your answer.`;
-    }
-
-    results.surveyDetail = deline`Accepted survey answer range is
-      ${rangeWorder(question.data.survey.range, question.data.fromUnitWord)}
-      ${stepClause}. ${noteClause}`;
   } else {  // Written question is the simplest.
     results.questionDescription = question.text;
   }
