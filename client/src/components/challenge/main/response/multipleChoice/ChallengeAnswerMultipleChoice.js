@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import { Grid } from "semantic-ui-react";
 
 import utils from "../../../../../utils";
 
@@ -8,6 +9,11 @@ import ChallengeAnswerMultipleChoiceOption from "./ChallengeAnswerMultipleChoice
 class ChallengeAnswerMultipleChoice extends PureComponent {
   constructor(props) {
     super(props);
+
+    // TODO - Write this to challenge state so that a student cannot refresh repeatedly to get
+    // new options until they realize the common (correct) answer.
+    this.choicesSelected =
+      utils.choiceSelector(this.props.mode, this.props.choices.length, this.props.choicesOffered);
 
     this.state = {
       selectedAnswer: null,
@@ -19,22 +25,41 @@ class ChallengeAnswerMultipleChoice extends PureComponent {
   }
 
   render() {
-    const choicesSelected =
-      utils.choiceSelector(this.props.mode, this.props.choices.length, this.props.choicesOffered);
-
-    const choiceComponents = choicesSelected.map(choiceNumber => (
+    const choiceComponents = this.choicesSelected.map(choiceNumber => (
       <ChallengeAnswerMultipleChoiceOption
         key={`choice_${choiceNumber}`}
         number={choiceNumber}
         text={this.props.choices[choiceNumber].written}
+        selected={this.state.selectedAnswer === choiceNumber}
+        handleSelect={this.handleAnswerSelect}
       />
     ));
 
+    const gridRows = [];
+    for (let optionNumber = 0; optionNumber < choiceComponents.length; optionNumber += 2) {
+      gridRows.push(
+        <Grid.Row
+          key={`row_${(optionNumber / 2) + 1}`}
+          stretched
+        >
+          <Grid.Column>
+            {choiceComponents[optionNumber] || null}
+          </Grid.Column>
+          <Grid.Column>
+            {choiceComponents[optionNumber + 1] || null}
+          </Grid.Column>
+        </Grid.Row>,
+      );
+    }
+
     return (
-      <div>
-        <p>ChallengeAnswerMultipleChoice</p>
-        {choiceComponents}
-      </div>
+      <Grid
+        stackable
+        columns="equal"
+        padded={false}
+      >
+        {gridRows}
+      </Grid>
     );
   }
 }
