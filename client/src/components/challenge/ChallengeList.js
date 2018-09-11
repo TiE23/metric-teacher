@@ -23,6 +23,7 @@ class ChallengeList extends PureComponent {
 
     this.state = {
       currentQaId: null,
+      qaRemaining: null,
     };
 
     const getNextRandomQaId = (challengeProgress, oldQaId) => {
@@ -34,16 +35,14 @@ class ChallengeList extends PureComponent {
         }
       });
 
-      console.log("Q's remaining", remainingQaIds.length);
-
       // Return null if we're out of QAs.
       if (remainingQaIds.length === 0) {
-        return null;
+        return { currentQaId: null, qaRemaining: remainingQaIds.length };
       }
 
       // We have just one left, return it.
       if (remainingQaIds.length === 1) {
-        return remainingQaIds[0];
+        return { currentQaId: remainingQaIds[0], qaRemaining: remainingQaIds.length };
       }
 
       // If we have more than one left do not repeat the same QA id.
@@ -52,23 +51,23 @@ class ChallengeList extends PureComponent {
         candidateId = remainingQaIds[random(remainingQaIds.length - 1)];
       } while (candidateId === oldQaId);
 
-      return candidateId;
+      return { currentQaId: candidateId, qaRemaining: remainingQaIds.length };
     };
 
     this.componentDidMount = () => {
       // When resuming from saved state the challengeProgress prop will be set immediately.
       if (!utils.isEmptyRecursive(this.props.challengeProgress)) {
-        this.setState(prevState => ({
-          currentQaId: getNextRandomQaId(this.props.challengeProgress, prevState.currentQaId),
-        }));
+        this.setState(prevState => getNextRandomQaId(
+          this.props.challengeProgress, prevState.currentQaId,
+        ));
       }
     };
 
     this.componentDidUpdate = (prevProps, prevState) => {
       if (this.props.challengeProgress !== prevProps.challengeProgress) {
-        this.setState({
-          currentQaId: getNextRandomQaId(this.props.challengeProgress, prevState.currentQaId),
-        });
+        this.setState(
+          getNextRandomQaId(this.props.challengeProgress, prevState.currentQaId),
+        );
       }
     };
 
@@ -93,10 +92,13 @@ class ChallengeList extends PureComponent {
           {currentQaObject && [currentQaObject].map(qaObject => (
             <div key={qaObject.id}>
               <ChallengeMain
-                key={qaObject.id}
                 qaData={qaObject}
                 currentQaProgress={this.props.challengeProgress[qaObject.id]}
                 resolveCurrentQA={this.resolveCurrentQA}
+                challengeProgress={{
+                  total: this.props.challengeData.length,
+                  remaining: this.state.qaRemaining,
+                }}
               />
             </div>
           ))}

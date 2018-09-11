@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Segment, Grid } from "semantic-ui-react";
 
 import ChallengeDetail from "./detail/ChallengeDetail";
+import ChallengeResponse from "./response/ChallengeResponse";
 
 import {
   QA_DATA_EVERYTHING,
@@ -21,6 +22,13 @@ const ChallengeMain = (props) => {
           />
         </Grid.Column>
       </Grid.Row>
+      <Grid.Row>
+        <Grid.Column>
+          <ChallengeResponse
+            challengeProgress={props.challengeProgress}
+          />
+        </Grid.Column>
+      </Grid.Row>
     </Grid>
   );
 };
@@ -35,6 +43,10 @@ ChallengeMain.propTypes = {
     incorrectAnswerCount: PropTypes.number.isRequired,
   }).isRequired,
   resolveCurrentQA: PropTypes.func.isRequired,
+  challengeProgress: PropTypes.shape({
+    total: PropTypes.number.isRequired,
+    remaining: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default ChallengeMain;
