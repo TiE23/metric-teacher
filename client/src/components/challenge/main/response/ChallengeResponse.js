@@ -1,8 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Segment } from "semantic-ui-react";
 
-import ChallengeMultipurposeBar from "./multipurpose/ChallengeMultipurposeBar";
+import ChallengeMultipurposeBar from "./ChallengeMultipurposeBar";
 
 class ChallengeResponse extends PureComponent {
   constructor(props) {
