@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import mergeWith from "lodash/mergeWith";
+import forEach from "lodash/forEach";
+import random from "lodash/random";
 
 import utils from "../../utils";
 
@@ -24,6 +26,7 @@ class ChallengeManager extends PureComponent {
         surveyscoreinput: [],
         surveyanswerinput: [],
       },
+      currentQa: {},
       ...this.props.challengeState, // Full state or just challengeId and challengeData.
     };
 
@@ -39,9 +42,19 @@ class ChallengeManager extends PureComponent {
       // When changes to the state of the challenge are detected write the state to localstorage.
       if (this.state.challengeData !== prevState.challengeData ||
       this.state.challengeProgress !== prevState.challengeProgress ||
-      this.state.challengeResults !== prevState.challengeResults
+      this.state.challengeResults !== prevState.challengeResults ||
+      this.state.currentQa !== prevState.currentQa
       ) {
         utils.writeChallengeStateLocalStorage(this.state);
+      }
+
+      if (this.state.challengeProgress !== prevState.challengeProgress) {
+        const currentQa = getNextRandomQaId(
+          this.state.challengeProgress, // eslint-disable-line react/no-access-state-in-setstate
+          prevState.currentQa.currentQaId,
+        );
+
+        this.setState(prevState2 => ({ currentQa: { ...prevState2.currentQa, ...currentQa } }));
       }
     };
 
@@ -56,7 +69,36 @@ class ChallengeManager extends PureComponent {
           incorrectAnswerCount: 0,
         };
       });
+
       return newChallengeProgress;
+    };
+
+    const getNextRandomQaId = (challengeProgress, oldQaId) => {
+      const remainingQaIds = [];
+
+      forEach(challengeProgress, (row, id) => {
+        if (!row.skipped && !row.correctlyAnswered && !row.failed) {
+          remainingQaIds.push(id);
+        }
+      });
+
+      // Return null if we're out of QAs.
+      if (remainingQaIds.length === 0) {
+        return { currentQaId: null, qaRemaining: remainingQaIds.length };
+      }
+
+      // We have just one left, return it.
+      if (remainingQaIds.length === 1) {
+        return { currentQaId: remainingQaIds[0], qaRemaining: remainingQaIds.length };
+      }
+
+      // If we have more than one left do not repeat the same QA id.
+      let candidateId;
+      do {
+        candidateId = remainingQaIds[random(remainingQaIds.length - 1)];
+      } while (candidateId === oldQaId);
+
+      return { currentQaId: candidateId, qaRemaining: remainingQaIds.length };
     };
 
     this.updateChallengeProgress = (newProgressData) => {
@@ -82,6 +124,7 @@ class ChallengeManager extends PureComponent {
         <ChallengeList
           challengeData={this.state.challengeData}
           challengeProgress={this.state.challengeProgress}
+          currentQa={this.state.currentQa}
           updateChallengeProgress={this.updateChallengeProgress}
         />
       );

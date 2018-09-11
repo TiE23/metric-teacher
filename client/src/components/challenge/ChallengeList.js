@@ -1,8 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Transition } from "semantic-ui-react";
-import random from "lodash/random";
-import forEach from "lodash/forEach";
 
 import ChallengeMain from "./main/ChallengeMain";
 import ChallengeComplete from "./extra/ChallengeComplete";
@@ -21,60 +19,10 @@ class ChallengeList extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      currentQaId: null,
-      qaRemaining: null,
-    };
-
-    const getNextRandomQaId = (challengeProgress, oldQaId) => {
-      const remainingQaIds = [];
-
-      forEach(challengeProgress, (row, id) => {
-        if (!row.skipped && !row.correctlyAnswered && !row.failed) {
-          remainingQaIds.push(id);
-        }
-      });
-
-      // Return null if we're out of QAs.
-      if (remainingQaIds.length === 0) {
-        return { currentQaId: null, qaRemaining: remainingQaIds.length };
-      }
-
-      // We have just one left, return it.
-      if (remainingQaIds.length === 1) {
-        return { currentQaId: remainingQaIds[0], qaRemaining: remainingQaIds.length };
-      }
-
-      // If we have more than one left do not repeat the same QA id.
-      let candidateId;
-      do {
-        candidateId = remainingQaIds[random(remainingQaIds.length - 1)];
-      } while (candidateId === oldQaId);
-
-      return { currentQaId: candidateId, qaRemaining: remainingQaIds.length };
-    };
-
-    this.componentDidMount = () => {
-      // When resuming from saved state the challengeProgress prop will be set immediately.
-      if (!utils.isEmptyRecursive(this.props.challengeProgress)) {
-        this.setState(prevState => getNextRandomQaId(
-          this.props.challengeProgress, prevState.currentQaId,
-        ));
-      }
-    };
-
-    this.componentDidUpdate = (prevProps, prevState) => {
-      if (this.props.challengeProgress !== prevProps.challengeProgress) {
-        this.setState(
-          getNextRandomQaId(this.props.challengeProgress, prevState.currentQaId),
-        );
-      }
-    };
-
     this.resolveCurrentQA = (resolution) => {
       const challengeProgressUpdateFragment = {};
       if (resolution === "skip") {
-        challengeProgressUpdateFragment[this.state.currentQaId] = { skipped: true };
+        challengeProgressUpdateFragment[this.props.currentQa.currentQaId] = { skipped: true };
       }
       // TODO - Other resolutions
 
@@ -83,8 +31,8 @@ class ChallengeList extends PureComponent {
   }
 
   render() {
-    const currentQaObject = this.state.currentQaId ?
-      utils.cacheGetTarget(this.props.challengeData, this.state.currentQaId) : null;
+    const currentQaObject = this.props.currentQa.currentQaId ?
+      utils.cacheGetTarget(this.props.challengeData, this.props.currentQa.currentQaId) : null;
 
     return (
       <div>
@@ -97,7 +45,7 @@ class ChallengeList extends PureComponent {
                 resolveCurrentQA={this.resolveCurrentQA}
                 challengeProgress={{
                   total: this.props.challengeData.length,
-                  remaining: this.state.qaRemaining,
+                  remaining: this.props.currentQa.qaRemaining,
                 }}
               />
             </div>
@@ -119,6 +67,10 @@ class ChallengeList extends PureComponent {
 ChallengeList.propTypes = {
   challengeData: PropTypes.arrayOf(QA_DATA_EVERYTHING.isRequired).isRequired,
   challengeProgress: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  currentQa: PropTypes.shape({
+    currentQaId: PropTypes.string.isRequired,
+    qaRemaining: PropTypes.number.isRequired,
+  }).isRequired,
   updateChallengeProgress: PropTypes.func.isRequired,
 };
 
