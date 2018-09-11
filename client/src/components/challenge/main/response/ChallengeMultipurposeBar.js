@@ -13,7 +13,6 @@ const ChallengeMultipurposeBar = props => (
     >
       <Button
         color="olive"
-        // size="small"
         fluid
       >
         Submit

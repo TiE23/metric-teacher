@@ -16,6 +16,9 @@ export const CHALLENGE_TRANSITION_PROPS = {
   duration: { show: 500, hide: 0 },
 };
 
+export const CHALLENGE_ANSWER_MODE_WRITTEN = "written";
+export const CHALLENGE_ANSWER_MODE_GENERATED = "generated";
+
 // Password
 export const PASSWORD_MINIMUM_LENGTH = 6;
 export const PASSWORD_MAXIMUM_LENGTH = 128;

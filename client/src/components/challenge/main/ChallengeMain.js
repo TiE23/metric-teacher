@@ -25,6 +25,7 @@ const ChallengeMain = (props) => {
       <Grid.Row>
         <Grid.Column>
           <ChallengeResponse
+            qaData={props.qaData}
             challengeProgress={props.challengeProgress}
           />
         </Grid.Column>

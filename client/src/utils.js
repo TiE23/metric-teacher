@@ -3,6 +3,9 @@ import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
 import isEmail from "validator/lib/isEmail";
 import isDecimal from "validator/lib/isDecimal";
 import mergeWith from "lodash/mergeWith";
+import random from "lodash/random";
+import range from "lodash/range";
+import shuffle from "lodash/shuffle";
 import isPlainObject from "lodash/isPlainObject";
 import isObject from "lodash/isObject";
 import forEach from "lodash/forEach";
@@ -14,6 +17,8 @@ import normalizeEmail from "validator/lib/normalizeEmail";
 import {
   AUTH_TOKEN,
   CHALLENGE_STATE,
+  CHALLENGE_ANSWER_MODE_WRITTEN,
+  CHALLENGE_ANSWER_MODE_GENERATED,
   BAD_PASSWORDS,
   EMAIL_NORMALIZE_OPTIONS,
   EMAIL_SECRET_PREFIXES,
@@ -1152,6 +1157,30 @@ const minMax = (min, value, max) => (Math.max(min, Math.min(value, max)));
 
 
 /**
+ * Random choice option selector for Challenge mode.
+ * @param mode
+ * @param available
+ * @param offered
+ * @param difficulty
+ * @returns {*}
+ */
+const choiceSelector = (mode, available, offered, difficulty = null) => {
+  if (mode === CHALLENGE_ANSWER_MODE_WRITTEN) {
+    // Ex: 7 answers available (0-6), 4 offered...
+    const choicesAvailable = shuffle(range(1, available));  // [2, 6, 5, 1, 3, 4] (0 not included)
+    const offeredChoices = choicesAvailable.slice(0, offered + 1);  // [2, 6, 5, 1]
+    offeredChoices[random(0, offeredChoices.length - 1)] = 0; // [2, 6, 0, 1] (0 replaces 5)
+
+    return offeredChoices;
+  } else if (mode === CHALLENGE_ANSWER_MODE_GENERATED) {
+    return [0, 1]; // TODO - Write difficulty algorithm in ISSUE-017
+  }
+
+  return null;
+};
+
+
+/**
  * Takes in the qaFormData object found in QuestionViewer.js and outputs an input data object that
  * is acceptable by the updateQuestion mutation.
  * @param qaFormData
@@ -1249,5 +1278,6 @@ export default {
   t0,
   t0t,
   minMax,
+  choiceSelector,
   composeQaInputFromFormData,
 };
