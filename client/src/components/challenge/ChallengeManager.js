@@ -26,7 +26,11 @@ class ChallengeManager extends PureComponent {
         surveyscoreinput: [],
         surveyanswerinput: [],
       },
-      currentQa: {},
+      currentQa: {
+        currentQaId: null,
+        qaRemaining: 0,
+        answerData: null,
+      },
       ...this.props.challengeState, // Full state or just challengeId and challengeData.
     };
 
@@ -48,13 +52,17 @@ class ChallengeManager extends PureComponent {
         utils.writeChallengeStateLocalStorage(this.state);
       }
 
+      // There was change in the progress.
       if (this.state.challengeProgress !== prevState.challengeProgress) {
-        const currentQa = getNextRandomQaId(
+        // Get the next qaId and an updated count of remaining QAs.
+        const nextQa = getNextRandomQaId(
           this.state.challengeProgress, // eslint-disable-line react/no-access-state-in-setstate
           prevState.currentQa.currentQaId,
         );
 
-        this.setState(prevState2 => ({ currentQa: { ...prevState2.currentQa, ...currentQa } }));
+        this.setState(prevState2 => ({ currentQa: { ...prevState2.currentQa, ...nextQa } }));
+        // This will cause componentDidUpdate() to get run again where it'll see the currentQa
+        // state was updated and immediately write the new state to local storage.
       }
     };
 
@@ -111,6 +119,17 @@ class ChallengeManager extends PureComponent {
         ),
       }));
     };
+
+    this.updateCurrentQaData = (newCurrentQaData) => {
+      this.setState(prevState => ({
+        currentQa: mergeWith(
+          {},
+          prevState.currentQa,
+          newCurrentQaData,
+          // Note: No custom merge function. Null values WILL OVERWRITE existing values.
+        ),
+      }));
+    };
   }
 
   render() {
@@ -126,6 +145,7 @@ class ChallengeManager extends PureComponent {
           challengeProgress={this.state.challengeProgress}
           currentQa={this.state.currentQa}
           updateChallengeProgress={this.updateChallengeProgress}
+          updateCurrentQaData={this.updateCurrentQaData}
         />
       );
     }

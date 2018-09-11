@@ -6,6 +6,7 @@ import utils from "../../../../../utils";
 
 import ChallengeAnswerMultipleChoiceOption from "./ChallengeAnswerMultipleChoiceOption";
 
+// TODO - Switch to functional component
 class ChallengeAnswerMultipleChoice extends PureComponent {
   constructor(props) {
     super(props);
@@ -15,12 +16,8 @@ class ChallengeAnswerMultipleChoice extends PureComponent {
     this.choicesSelected =
       utils.choiceSelector(this.props.mode, this.props.choices.length, this.props.choicesOffered);
 
-    this.state = {
-      selectedAnswer: null,
-    };
-
     this.handleAnswerSelect = (answerNumber) => {
-      this.setState({ selectedAnswer: answerNumber });
+      this.props.updateCurrentQaData({ answerData: { selectedAnswer: answerNumber } });
     };
   }
 
@@ -30,7 +27,7 @@ class ChallengeAnswerMultipleChoice extends PureComponent {
         key={`choice_${choiceNumber}`}
         number={choiceNumber}
         text={this.props.choices[choiceNumber].written}
-        selected={this.state.selectedAnswer === choiceNumber}
+        selected={this.props.selectedAnswer === choiceNumber}
         handleSelect={this.handleAnswerSelect}
       />
     ));
@@ -72,6 +69,12 @@ ChallengeAnswerMultipleChoice.propTypes = {
     written: PropTypes.string,
     unit: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  updateCurrentQaData: PropTypes.func.isRequired,
+  selectedAnswer: PropTypes.number,
+};
+
+ChallengeAnswerMultipleChoice.defaultProps = {
+  selectedAnswer: null,
 };
 
 export default ChallengeAnswerMultipleChoice;

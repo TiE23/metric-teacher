@@ -20,6 +20,10 @@ const ChallengeAnswerArea = (props) => {
         mode={CHALLENGE_ANSWER_MODE_WRITTEN}
         choicesOffered={multiple.choicesOffered}
         choices={multiple.choices}
+        updateCurrentQaData={props.updateCurrentQaData}
+        selectedAnswer={
+          props.currentQa.answerData && props.currentQa.answerData.selectedAnswer
+        }
       />
     );
   }
@@ -32,6 +36,10 @@ const ChallengeAnswerArea = (props) => {
 ChallengeAnswerArea.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   type: PropTypes.string.isRequired,
+  currentQa: PropTypes.shape({
+    answerData: PropTypes.any,
+  }).isRequired,
+  updateCurrentQaData: PropTypes.func.isRequired,
 };
 
 export default ChallengeAnswerArea;

@@ -11,12 +11,15 @@ const ChallengeMultipurposeBar = props => (
       duration={{ show: 400, hide: 0 }}
       unmountOnHide
     >
-      <Button
-        color="olive"
-        fluid
-      >
-        Submit
-      </Button>
+      <div>
+        <Button
+          color="olive"
+          fluid
+        >
+          Submit
+        </Button>
+        <br />
+      </div>
     </Transition>
     <Transition
       animation="vertical flip"

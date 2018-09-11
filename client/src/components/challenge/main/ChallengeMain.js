@@ -26,7 +26,9 @@ const ChallengeMain = (props) => {
         <Grid.Column>
           <ChallengeResponse
             qaData={props.qaData}
+            currentQa={props.currentQa}
             challengeProgress={props.challengeProgress}
+            updateCurrentQaData={props.updateCurrentQaData}
           />
         </Grid.Column>
       </Grid.Row>
@@ -43,11 +45,15 @@ ChallengeMain.propTypes = {
     failed: PropTypes.bool.isRequired,
     incorrectAnswerCount: PropTypes.number.isRequired,
   }).isRequired,
+  currentQa: PropTypes.shape({
+    answerData: PropTypes.any,
+  }).isRequired,
   resolveCurrentQA: PropTypes.func.isRequired,
   challengeProgress: PropTypes.shape({
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
   }).isRequired,
+  updateCurrentQaData: PropTypes.func.isRequired,
 };
 
 export default ChallengeMain;
