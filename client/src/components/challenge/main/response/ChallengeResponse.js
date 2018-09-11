@@ -2,24 +2,31 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Segment } from "semantic-ui-react";
 
+import ChallengeMultipurposeBar from "./multipurpose/ChallengeMultipurposeBar";
+
 class ChallengeResponse extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      foo: null,
+      showSubmitButton: false,
+    };
+
+    this.toggleSubmit = () => {
+      this.setState(prevState => ({ showSubmitButton: !prevState.showSubmitButton }));
     };
   }
 
   render() {
     return (
-      <Segment>
+      <div>
+        <ChallengeMultipurposeBar
+          showSubmitButton={this.state.showSubmitButton}
+          challengeProgress={this.props.challengeProgress}
+        />
         <p>Challenge Response</p>
-        <p>
-          Total: {this.props.challengeProgress.total}
-          Remaining: {this.props.challengeProgress.remaining}
-        </p>
-      </Segment>
+        <button onClick={this.toggleSubmit}>Togg</button>
+      </div>
     );
   }
 }
