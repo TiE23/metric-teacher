@@ -5,7 +5,7 @@ import { Segment, Icon } from "semantic-ui-react";
 const ChallengeAnswerMultipleChoiceOption = props => (
   <Segment
     inverted={props.selected}
-    color={props.selected ? "olive" : null}
+    color={props.selected ? "blue" : null}
     onClick={() => props.handleSelect(props.number)}
   >
     <Icon

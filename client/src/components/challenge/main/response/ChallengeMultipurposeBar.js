@@ -32,7 +32,7 @@ const ChallengeMultipurposeBar = props => (
           ((props.challengeProgress.total - props.challengeProgress.remaining) /
             props.challengeProgress.total) * 100
         }
-        size="small"
+        size="medium"
         indicating
       />
     </Transition>

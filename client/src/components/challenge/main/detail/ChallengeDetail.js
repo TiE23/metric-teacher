@@ -23,7 +23,11 @@ const ChallengeDetail = props => (
           questionType={props.qaData.question.type}
         />
         <Divider />
-        <ChallengeSkip handleSkipQa={props.handleSkipQa} />
+        <ChallengeSkip
+          showClearButton={props.showClearButton}
+          handleSkipQa={props.handleSkipQa}
+          handleClearQa={props.handleClearQa}
+        />
       </Grid.Column>
       <Grid.Column stretched {...CHALLENGE_DETAILS_GRID_COLUMN_RIGHT}>
         <ChallengeQuestion
@@ -36,7 +40,9 @@ const ChallengeDetail = props => (
 
 ChallengeDetail.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
+  showClearButton: PropTypes.bool.isRequired,
   handleSkipQa: PropTypes.func.isRequired,
+  handleClearQa: PropTypes.func.isRequired,
 };
 
 export default ChallengeDetail;

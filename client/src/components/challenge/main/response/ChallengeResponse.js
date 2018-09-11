@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import ChallengeMultipurposeBar from "./ChallengeMultipurposeBar";
@@ -12,35 +12,24 @@ import {
   QUESTION_TYPE_WRITTEN,
 } from "../../../../constants";
 
-// TODO - Switch to functional component
-class ChallengeResponse extends PureComponent {
-  constructor(props) {
-    super(props);
+function ChallengeResponse(props) {
+  const type =
+    props.qaData.question.type === QUESTION_TYPE_WRITTEN ? "multiplechoice" : "foo";
 
-    this.state = {
-      showSubmitButton: false,
-    };
-  }
-
-  render() {
-    const type =
-      this.props.qaData.question.type === QUESTION_TYPE_WRITTEN ? "multiplechoice" : "foo";
-
-    return (
-      <div>
-        <ChallengeMultipurposeBar
-          showSubmitButton={!!this.props.currentQa.answerData}
-          challengeProgress={this.props.challengeProgress}
-        />
-        <ChallengeAnswerArea
-          type={type}
-          qaData={this.props.qaData}
-          currentQa={this.props.currentQa}
-          updateCurrentQaData={this.props.updateCurrentQaData}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <ChallengeMultipurposeBar
+        showSubmitButton={!!props.currentQa.answerData}
+        challengeProgress={props.challengeProgress}
+      />
+      <ChallengeAnswerArea
+        type={type}
+        qaData={props.qaData}
+        currentQa={props.currentQa}
+        updateCurrentQaData={props.updateCurrentQaData}
+      />
+    </div>
+  );
 }
 
 ChallengeResponse.propTypes = {

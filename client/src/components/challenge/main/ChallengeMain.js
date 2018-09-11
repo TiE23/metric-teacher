@@ -11,6 +11,7 @@ import {
 
 const ChallengeMain = (props) => {
   const handleSkipQa = () => props.resolveCurrentQA("skip");
+  const handleClearQa = () => props.updateCurrentQaData({ answerData: null });
 
   return (
     <Grid as={Segment}>
@@ -18,7 +19,9 @@ const ChallengeMain = (props) => {
         <Grid.Column>
           <ChallengeDetail
             qaData={props.qaData}
+            showClearButton={!!props.currentQa.answerData}
             handleSkipQa={handleSkipQa}
+            handleClearQa={handleClearQa}
           />
         </Grid.Column>
       </Grid.Row>
