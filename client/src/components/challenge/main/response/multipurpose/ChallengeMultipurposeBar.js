@@ -1,11 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Progress } from "semantic-ui-react";
+import { Button, Progress, Transition } from "semantic-ui-react";
 
 
 const ChallengeMultipurposeBar = props => (
   <div>
-    {props.showSubmitButton ?
+    <Transition
+      animation="vertical flip"
+      visible={props.showSubmitButton}
+      duration={{ show: 400, hide: 0 }}
+      unmountOnHide
+    >
       <Button
         color="olive"
         // size="small"
@@ -13,7 +18,13 @@ const ChallengeMultipurposeBar = props => (
       >
         Submit
       </Button>
-      :
+    </Transition>
+    <Transition
+      animation="vertical flip"
+      visible={!props.showSubmitButton}
+      duration={{ show: 400, hide: 0 }}
+      unmountOnHide
+    >
       <Progress
         percent={
           ((props.challengeProgress.total - props.challengeProgress.remaining) /
@@ -22,7 +33,7 @@ const ChallengeMultipurposeBar = props => (
         size="small"
         indicating
       />
-    }
+    </Transition>
   </div>
 );
 
