@@ -13,7 +13,7 @@ import {
 
 const ChallengeMain = (props) => {
   const handleSkipQa = () => props.resolveCurrentQA("skip");
-  const handleClearQa = () => props.updateCurrentQaData({ answerData: null });
+  const handleClearQa = () => props.updateCurrentChallengeData({ answerData: null });
 
   return (
     <Grid as={Segment}>
@@ -22,7 +22,8 @@ const ChallengeMain = (props) => {
           <ChallengeDetail
             qaData={props.qaData}
             showClearButton={
-              !!(props.currentQa.answerData && utils.t0(props.currentQa.answerData.selectedAnswer))
+              !!(props.currentChallenge.answerData &&
+              utils.t0(props.currentChallenge.answerData.selectedAnswer))
             }
             handleSkipQa={handleSkipQa}
             handleClearQa={handleClearQa}
@@ -33,9 +34,9 @@ const ChallengeMain = (props) => {
         <Grid.Column>
           <ChallengeResponse
             qaData={props.qaData}
-            currentQa={props.currentQa}
+            currentChallenge={props.currentChallenge}
             challengeCompletion={props.challengeCompletion}
-            updateCurrentQaData={props.updateCurrentQaData}
+            updateCurrentChallengeData={props.updateCurrentChallengeData}
           />
         </Grid.Column>
       </Grid.Row>
@@ -52,7 +53,7 @@ ChallengeMain.propTypes = {
     failed: PropTypes.bool.isRequired,
     incorrectAnswerCount: PropTypes.number.isRequired,
   }).isRequired,
-  currentQa: PropTypes.shape({
+  currentChallenge: PropTypes.shape({
     answerData: PropTypes.any,
   }).isRequired,
   resolveCurrentQA: PropTypes.func.isRequired,
@@ -60,7 +61,7 @@ ChallengeMain.propTypes = {
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
   }).isRequired,
-  updateCurrentQaData: PropTypes.func.isRequired,
+  updateCurrentChallengeData: PropTypes.func.isRequired,
 };
 
 export default ChallengeMain;

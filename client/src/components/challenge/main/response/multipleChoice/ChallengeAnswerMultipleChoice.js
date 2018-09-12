@@ -10,7 +10,7 @@ const ChallengeAnswerMultipleChoice = (props) => {
   }
 
   const handleAnswerSelect = (answerNumber) => {
-    props.updateCurrentQaData({ answerData: { selectedAnswer: answerNumber } });
+    props.updateCurrentChallengeData({ answerData: { selectedAnswer: answerNumber } });
   };
 
   const choiceComponents = props.choicesSelected.map(choiceNumber => (
@@ -57,7 +57,7 @@ ChallengeAnswerMultipleChoice.propTypes = {
     written: PropTypes.string,
     unit: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  updateCurrentQaData: PropTypes.func.isRequired,
+  updateCurrentChallengeData: PropTypes.func.isRequired,
   choicesSelected: PropTypes.arrayOf(PropTypes.number), // This will temporarily be undefined.
   selectedAnswer: PropTypes.number,
 };

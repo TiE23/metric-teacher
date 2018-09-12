@@ -19,17 +19,17 @@ const ChallengeList = (props) => {
   const resolveCurrentQA = (resolution) => {
     const challengeProgressUpdateFragment = {};
     if (resolution === "skip") {
-      challengeProgressUpdateFragment[props.currentQa.currentQaId] = { skipped: true };
+      challengeProgressUpdateFragment[props.currentChallenge.currentQaId] = { skipped: true };
     }
     // TODO - Other resolutions
 
     // Reset to null for the next question.
-    props.updateCurrentQaData({ answerData: null, choices: null });
+    props.updateCurrentChallengeData({ answerData: null, choicesSelected: null });
     props.updateChallengeProgress(challengeProgressUpdateFragment);
   };
 
-  const currentQaObject = props.currentQa.currentQaId ?
-    utils.cacheGetTarget(props.challengeData, props.currentQa.currentQaId) : null;
+  const currentQaObject = props.currentChallenge.currentQaId ?
+    utils.cacheGetTarget(props.challengeData, props.currentChallenge.currentQaId) : null;
 
   return (
     <div>
@@ -39,12 +39,12 @@ const ChallengeList = (props) => {
             <ChallengeMain
               qaData={qaObject}
               currentQaProgress={props.challengeProgress[qaObject.id]}
-              currentQa={props.currentQa}
+              currentChallenge={props.currentChallenge}
               resolveCurrentQA={resolveCurrentQA}
-              updateCurrentQaData={props.updateCurrentQaData}
+              updateCurrentChallengeData={props.updateCurrentChallengeData}
               challengeCompletion={{
                 total: props.challengeData.length,
-                remaining: props.currentQa.qaRemaining,
+                remaining: props.currentChallenge.qaRemaining,
               }}
             />
           </div>
@@ -64,12 +64,12 @@ const ChallengeList = (props) => {
 ChallengeList.propTypes = {
   challengeData: PropTypes.arrayOf(QA_DATA_EVERYTHING.isRequired).isRequired,
   challengeProgress: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  currentQa: PropTypes.shape({
+  currentChallenge: PropTypes.shape({
     currentQaId: PropTypes.string,  // This will be null on mount so we won't require it.
     qaRemaining: PropTypes.number.isRequired,
   }).isRequired,
   updateChallengeProgress: PropTypes.func.isRequired,
-  updateCurrentQaData: PropTypes.func.isRequired,
+  updateCurrentChallengeData: PropTypes.func.isRequired,
 };
 
 export default ChallengeList;

@@ -34,7 +34,7 @@ class ChallengeManager extends PureComponent {
         surveyscoreinput: [],
         surveyanswerinput: [],
       },
-      currentQa: {
+      currentChallenge: {
         currentQaId: null,
         qaRemaining: 0,
         answerData: null,
@@ -55,7 +55,7 @@ class ChallengeManager extends PureComponent {
       if (this.state.challengeData !== prevState.challengeData ||
       this.state.challengeProgress !== prevState.challengeProgress ||
       this.state.challengeResults !== prevState.challengeResults ||
-      this.state.currentQa !== prevState.currentQa
+      this.state.currentChallenge !== prevState.currentChallenge
       ) {
         utils.writeChallengeStateLocalStorage(this.state);
       }
@@ -65,7 +65,7 @@ class ChallengeManager extends PureComponent {
         // Get the next qaId and an updated count of remaining QAs.
         const nextQa = getNextRandomQaId(
           this.state.challengeProgress, // eslint-disable-line react/no-access-state-in-setstate
-          prevState.currentQa.currentQaId,
+          prevState.currentChallenge.currentQaId,
         );
 
         // With a new question let's generate the multiple-choice options now.
@@ -89,19 +89,19 @@ class ChallengeManager extends PureComponent {
           }
           // Unanswered surveys have no choicesSelected option.
 
-          this.setState(prevState2 => ({ currentQa: {
-            ...prevState2.currentQa,
+          this.setState(prevState2 => ({ currentChallenge: {
+            ...prevState2.currentChallenge,
             ...nextQa,
             choicesSelected,
           } }));
         } else {
-          this.setState(prevState2 => ({ currentQa: {
-            ...prevState2.currentQa,
+          this.setState(prevState2 => ({ currentChallenge: {
+            ...prevState2.currentChallenge,
             ...nextQa,
           } }));
         }
-        // This will cause componentDidUpdate() to get run again where it'll see the currentQa
-        // state was updated and immediately write the new state to local storage.
+        // This will cause componentDidUpdate() to get run again where it'll see the
+        // currentChallenge state was updated and immediately write the new state to local storage.
       }
     };
 
@@ -159,11 +159,11 @@ class ChallengeManager extends PureComponent {
       }));
     };
 
-    this.updateCurrentQaData = (newCurrentQaData) => {
+    this.updateCurrentChallengeData = (newCurrentQaData) => {
       this.setState(prevState => ({
-        currentQa: mergeWith(
+        currentChallenge: mergeWith(
           {},
-          prevState.currentQa,
+          prevState.currentChallenge,
           newCurrentQaData,
           // Note: No custom merge function. Null values WILL OVERWRITE existing values.
         ),
@@ -182,9 +182,9 @@ class ChallengeManager extends PureComponent {
         <ChallengeList
           challengeData={this.state.challengeData}
           challengeProgress={this.state.challengeProgress}
-          currentQa={this.state.currentQa}
+          currentChallenge={this.state.currentChallenge}
           updateChallengeProgress={this.updateChallengeProgress}
-          updateCurrentQaData={this.updateCurrentQaData}
+          updateCurrentChallengeData={this.updateCurrentChallengeData}
         />
       );
     }

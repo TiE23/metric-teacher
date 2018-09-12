@@ -22,15 +22,16 @@ function ChallengeResponse(props) {
     <div>
       <ChallengeMultipurposeBar
         showSubmitButton={
-          !!(props.currentQa.answerData && utils.t0(props.currentQa.answerData.selectedAnswer))
+          !!(props.currentChallenge.answerData &&
+          utils.t0(props.currentChallenge.answerData.selectedAnswer))
         }
         challengeCompletion={props.challengeCompletion}
       />
       <ChallengeAnswerArea
         type={type}
         qaData={props.qaData}
-        currentQa={props.currentQa}
-        updateCurrentQaData={props.updateCurrentQaData}
+        currentChallenge={props.currentChallenge}
+        updateCurrentChallengeData={props.updateCurrentChallengeData}
       />
     </div>
   );
@@ -38,14 +39,14 @@ function ChallengeResponse(props) {
 
 ChallengeResponse.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
-  currentQa: PropTypes.shape({
+  currentChallenge: PropTypes.shape({
     answerData: PropTypes.any,
   }).isRequired,
   challengeCompletion: PropTypes.shape({
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
   }).isRequired,
-  updateCurrentQaData: PropTypes.func.isRequired,
+  updateCurrentChallengeData: PropTypes.func.isRequired,
 };
 
 export default ChallengeResponse;
