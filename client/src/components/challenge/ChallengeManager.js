@@ -113,6 +113,7 @@ class ChallengeManager extends PureComponent {
           skipped: false,
           correctlyAnswered: false,
           failed: false,
+          correctAnswerCount: 0,
           incorrectAnswerCount: 0,
         };
       });
@@ -148,7 +149,30 @@ class ChallengeManager extends PureComponent {
       return { currentQaId: candidateId, qaRemaining: remainingQaIds.length };
     };
 
-    this.updateChallengeProgress = (newProgressData) => {
+    this.updateChallengeProgress = (qaId, progressUpdateData) => {
+      const newProgressData = {};
+
+      // The values correctAnswerCount and incorrectAnswerCount are updated by adding to the
+      // existing values.
+      if (utils.t0(progressUpdateData.correctAnswerCount) ||
+      utils.t0(progressUpdateData.incorrectAnswerCount)) {
+        const progressUpdateDataCopy = progressUpdateData;
+
+        if (utils.t0(progressUpdateData.correctAnswerCount)) {
+          progressUpdateDataCopy.correctAnswerCount +=
+            this.state.challengeProgress[qaId].correctAnswerCount;
+        }
+
+        if (utils.t0(progressUpdateData.incorrectAnswerCount)) {
+          progressUpdateDataCopy.incorrectAnswerCount +=
+            this.state.challengeProgress[qaId].incorrectAnswerCount;
+        }
+
+        newProgressData[qaId] = progressUpdateDataCopy;
+      } else {
+        newProgressData[qaId] = progressUpdateData;
+      }
+
       this.setState(prevState => ({
         challengeProgress: mergeWith(
           {},

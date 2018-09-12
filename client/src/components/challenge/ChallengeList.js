@@ -17,15 +17,15 @@ import {
 
 const ChallengeList = (props) => {
   const resolveCurrentQA = (resolution) => {
-    const challengeProgressUpdateFragment = {};
+    let challengeProgressUpdate;
     if (resolution === "skip") {
-      challengeProgressUpdateFragment[props.currentChallenge.currentQaId] = { skipped: true };
+      challengeProgressUpdate = { skipped: true };
     }
     // TODO - Other resolutions
 
     // Reset to null for the next question.
     props.updateCurrentChallengeData({ answerData: null, choicesSelected: null });
-    props.updateChallengeProgress(challengeProgressUpdateFragment);
+    props.updateChallengeProgress(props.currentChallenge.currentQaId, challengeProgressUpdate);
   };
 
   const currentQaObject = props.currentChallenge.currentQaId ?
