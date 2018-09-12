@@ -24,7 +24,7 @@ function ChallengeResponse(props) {
         showSubmitButton={
           !!(props.currentQa.answerData && utils.t0(props.currentQa.answerData.selectedAnswer))
         }
-        challengeProgress={props.challengeProgress}
+        challengeCompletion={props.challengeCompletion}
       />
       <ChallengeAnswerArea
         type={type}
@@ -41,7 +41,7 @@ ChallengeResponse.propTypes = {
   currentQa: PropTypes.shape({
     answerData: PropTypes.any,
   }).isRequired,
-  challengeProgress: PropTypes.shape({
+  challengeCompletion: PropTypes.shape({
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
   }).isRequired,

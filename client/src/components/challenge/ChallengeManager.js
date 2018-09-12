@@ -100,8 +100,6 @@ class ChallengeManager extends PureComponent {
             ...nextQa,
           } }));
         }
-
-
         // This will cause componentDidUpdate() to get run again where it'll see the currentQa
         // state was updated and immediately write the new state to local storage.
       }

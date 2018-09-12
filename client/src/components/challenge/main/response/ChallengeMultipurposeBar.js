@@ -29,8 +29,8 @@ const ChallengeMultipurposeBar = props => (
     >
       <Progress
         percent={
-          ((props.challengeProgress.total - props.challengeProgress.remaining) /
-            props.challengeProgress.total) * 100
+          ((props.challengeCompletion.total - props.challengeCompletion.remaining) /
+            props.challengeCompletion.total) * 100
         }
         size="medium"
         indicating
@@ -42,7 +42,7 @@ const ChallengeMultipurposeBar = props => (
 ChallengeMultipurposeBar.propTypes = {
   showSubmitButton: PropTypes.bool.isRequired,
   // handleSubmit: PropTypes.func.isRequired,
-  challengeProgress: PropTypes.shape({
+  challengeCompletion: PropTypes.shape({
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
   }).isRequired,

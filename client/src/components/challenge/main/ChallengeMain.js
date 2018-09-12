@@ -34,7 +34,7 @@ const ChallengeMain = (props) => {
           <ChallengeResponse
             qaData={props.qaData}
             currentQa={props.currentQa}
-            challengeProgress={props.challengeProgress}
+            challengeCompletion={props.challengeCompletion}
             updateCurrentQaData={props.updateCurrentQaData}
           />
         </Grid.Column>
@@ -56,7 +56,7 @@ ChallengeMain.propTypes = {
     answerData: PropTypes.any,
   }).isRequired,
   resolveCurrentQA: PropTypes.func.isRequired,
-  challengeProgress: PropTypes.shape({
+  challengeCompletion: PropTypes.shape({
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
   }).isRequired,

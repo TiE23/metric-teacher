@@ -42,7 +42,7 @@ const ChallengeList = (props) => {
               currentQa={props.currentQa}
               resolveCurrentQA={resolveCurrentQA}
               updateCurrentQaData={props.updateCurrentQaData}
-              challengeProgress={{
+              challengeCompletion={{
                 total: props.challengeData.length,
                 remaining: props.currentQa.qaRemaining,
               }}
