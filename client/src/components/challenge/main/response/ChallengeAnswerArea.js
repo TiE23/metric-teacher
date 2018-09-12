@@ -21,6 +21,7 @@ const ChallengeAnswerArea = (props) => {
         choicesOffered={multiple.choicesOffered}
         choices={multiple.choices}
         updateCurrentQaData={props.updateCurrentQaData}
+        choicesSelected={props.currentQa.choicesSelected}
         selectedAnswer={
           props.currentQa.answerData && props.currentQa.answerData.selectedAnswer
         }
@@ -37,7 +38,10 @@ ChallengeAnswerArea.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   type: PropTypes.string.isRequired,
   currentQa: PropTypes.shape({
-    answerData: PropTypes.any,
+    answerData: PropTypes.shape({
+      selectedAnswer: PropTypes.number,
+    }), // Won't be set at the beginning.
+    choicesSelected: PropTypes.arrayOf(PropTypes.number), // Isn't set for unanswered surveys.
   }).isRequired,
   updateCurrentQaData: PropTypes.func.isRequired,
 };

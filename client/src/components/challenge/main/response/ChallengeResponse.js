@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import utils from "../../../../utils";
+
 import ChallengeMultipurposeBar from "./ChallengeMultipurposeBar";
 import ChallengeAnswerArea from "./ChallengeAnswerArea";
 
@@ -19,7 +21,9 @@ function ChallengeResponse(props) {
   return (
     <div>
       <ChallengeMultipurposeBar
-        showSubmitButton={!!props.currentQa.answerData}
+        showSubmitButton={
+          !!(props.currentQa.answerData && utils.t0(props.currentQa.answerData.selectedAnswer))
+        }
         challengeProgress={props.challengeProgress}
       />
       <ChallengeAnswerArea

@@ -23,7 +23,8 @@ const ChallengeList = (props) => {
     }
     // TODO - Other resolutions
 
-    props.updateCurrentQaData({ answerData: null }); // Reset to null for the next question.
+    // Reset to null for the next question.
+    props.updateCurrentQaData({ answerData: null, choices: null });
     props.updateChallengeProgress(challengeProgressUpdateFragment);
   };
 

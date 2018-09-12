@@ -12,6 +12,14 @@ import {
   QA_DATA_EVERYTHING,
 } from "../../propTypes";
 
+import {
+  CHALLENGE_ANSWER_MODE_WRITTEN,
+  CHALLENGE_ANSWER_MODE_GENERATED,
+  QUESTION_TYPE_WRITTEN,
+  QUESTION_TYPE_CONVERSION,
+  QUESTION_TYPE_SURVEY,
+} from "../../constants";
+
 class ChallengeManager extends PureComponent {
   constructor(props) {
     super(props);
@@ -52,7 +60,7 @@ class ChallengeManager extends PureComponent {
         utils.writeChallengeStateLocalStorage(this.state);
       }
 
-      // There was change in the progress.
+      // There was change in the progress. That means we need to move to the next question.
       if (this.state.challengeProgress !== prevState.challengeProgress) {
         // Get the next qaId and an updated count of remaining QAs.
         const nextQa = getNextRandomQaId(
@@ -60,7 +68,40 @@ class ChallengeManager extends PureComponent {
           prevState.currentQa.currentQaId,
         );
 
-        this.setState(prevState2 => ({ currentQa: { ...prevState2.currentQa, ...nextQa } }));
+        // With a new question let's generate the multiple-choice options now.
+        if (nextQa.currentQaId) {
+          const currentQaData = utils.cacheGetTarget(this.state.challengeData, nextQa.currentQaId);
+          let choicesSelected = null;
+
+          if (currentQaData.question.type === QUESTION_TYPE_WRITTEN) {
+            choicesSelected = utils.choiceSelector(
+              CHALLENGE_ANSWER_MODE_WRITTEN,
+              currentQaData.answer.data.multiple.choices.length,
+              currentQaData.answer.data.multiple.choicesOffered,
+            );
+          } else if ((currentQaData.question.type === QUESTION_TYPE_CONVERSION ||
+          currentQaData.question.type === QUESTION_TYPE_SURVEY) &&
+          currentQaData.answer.data.conversion) {
+            choicesSelected = utils.choiceSelector(
+              CHALLENGE_ANSWER_MODE_GENERATED,
+              currentQaData.answer.data.conversion.choices.length,
+            );
+          }
+          // Unanswered surveys have no choicesSelected option.
+
+          this.setState(prevState2 => ({ currentQa: {
+            ...prevState2.currentQa,
+            ...nextQa,
+            choicesSelected,
+          } }));
+        } else {
+          this.setState(prevState2 => ({ currentQa: {
+            ...prevState2.currentQa,
+            ...nextQa,
+          } }));
+        }
+
+
         // This will cause componentDidUpdate() to get run again where it'll see the currentQa
         // state was updated and immediately write the new state to local storage.
       }

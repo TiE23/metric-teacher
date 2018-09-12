@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Segment, Grid } from "semantic-ui-react";
 
+import utils from "../../../utils";
+
 import ChallengeDetail from "./detail/ChallengeDetail";
 import ChallengeResponse from "./response/ChallengeResponse";
 
@@ -19,7 +21,9 @@ const ChallengeMain = (props) => {
         <Grid.Column>
           <ChallengeDetail
             qaData={props.qaData}
-            showClearButton={!!props.currentQa.answerData}
+            showClearButton={
+              !!(props.currentQa.answerData && utils.t0(props.currentQa.answerData.selectedAnswer))
+            }
             handleSkipQa={handleSkipQa}
             handleClearQa={handleClearQa}
           />

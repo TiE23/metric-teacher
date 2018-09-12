@@ -1164,7 +1164,7 @@ const minMax = (min, value, max) => (Math.max(min, Math.min(value, max)));
  * @param difficulty
  * @returns {*}
  */
-const choiceSelector = (mode, available, offered, difficulty = null) => {
+const choiceSelector = (mode, available, offered = 2, difficulty = null) => {
   if (mode === CHALLENGE_ANSWER_MODE_WRITTEN) {
     // Ex: 7 answers available (0-6), 4 offered...
     const choicesAvailable = shuffle(range(1, available));  // [2, 6, 5, 1, 3, 4] (0 not included)
