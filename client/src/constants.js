@@ -62,7 +62,7 @@ export const CHALLENGE_SCORES = {
     ],
 
     // Difficulties 0, 1, 2, 3, 4, 5.
-    survey: [0, 0, -20, -60, -50, -60],
+    survey: [0, 0, -20, -80, -75, -60],
   },
 };
 
