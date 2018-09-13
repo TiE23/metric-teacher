@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import mergeWith from "lodash/mergeWith";
 import forEach from "lodash/forEach";
 import random from "lodash/random";
+import findIndex from "lodash/findIndex";
 
 import utils from "../../utils";
 
@@ -38,6 +39,7 @@ class ChallengeManager extends PureComponent {
         currentQaId: null,
         qaRemaining: 0,
         answerData: null,
+        choicesSelected: [],
       },
       ...this.props.challengeState, // Full state or just challengeId and challengeData.
     };
@@ -63,14 +65,15 @@ class ChallengeManager extends PureComponent {
       // There was change in the progress. That means we need to move to the next question.
       if (this.state.challengeProgress !== prevState.challengeProgress) {
         // Get the next qaId and an updated count of remaining QAs.
-        const nextQa = getNextRandomQaId(
+        const { currentQaId, qaRemaining } = getNextRandomQaId(
           this.state.challengeProgress, // eslint-disable-line react/no-access-state-in-setstate
           prevState.currentChallenge.currentQaId,
         );
 
+        // TODO - Simplify this if statement more.
         // With a new question let's generate the multiple-choice options now.
-        if (nextQa.currentQaId) {
-          const currentQaData = utils.cacheGetTarget(this.state.challengeData, nextQa.currentQaId);
+        if (currentQaId) {
+          const currentQaData = utils.cacheGetTarget(this.state.challengeData, currentQaId);
           let choicesSelected = null;
 
           if (currentQaData.question.type === QUESTION_TYPE_WRITTEN) {
@@ -91,13 +94,18 @@ class ChallengeManager extends PureComponent {
 
           this.setState(prevState2 => ({ currentChallenge: {
             ...prevState2.currentChallenge,
-            ...nextQa,
+            currentQaId,
+            qaRemaining,
             choicesSelected,
+            answerData: null,
           } }));
         } else {
           this.setState(prevState2 => ({ currentChallenge: {
             ...prevState2.currentChallenge,
-            ...nextQa,
+            currentQaId,
+            qaRemaining,
+            choicesSelected: null,
+            answerData: null,
           } }));
         }
         // This will cause componentDidUpdate() to get run again where it'll see the
@@ -149,6 +157,16 @@ class ChallengeManager extends PureComponent {
       return { currentQaId: candidateId, qaRemaining: remainingQaIds.length };
     };
 
+
+    /**
+     * Update the challengeProgress data for the current QA.
+     * This can be changing the booleans seen, skipped, correctlyAnswered, and failed.
+     * This can be changing the integers correctAnswerCount and incorrectAnswerCount -- These
+     * values are additive instead of replacing the value - they add to the number.
+     *
+     * @param qaId
+     * @param progressUpdateData
+     */
     this.updateChallengeProgress = (qaId, progressUpdateData) => {
       const newProgressData = {};
 
@@ -183,15 +201,92 @@ class ChallengeManager extends PureComponent {
       }));
     };
 
-    this.updateCurrentChallengeData = (newCurrentQaData) => {
+
+    /**
+     * Update the currentChallengeData directly.
+     * TODO - Consider removing this if it only has one use.
+     * @param newCurrentChallengeData
+     */
+    this.updateCurrentChallengeData = (newCurrentChallengeData) => {
       this.setState(prevState => ({
         currentChallenge: mergeWith(
           {},
           prevState.currentChallenge,
-          newCurrentQaData,
+          newCurrentChallengeData,
           // Note: No custom merge function. Null values WILL OVERWRITE existing values.
         ),
       }));
+    };
+
+
+    /**
+     * Update the challenge's final results payload.
+     *
+     * @param mode - "mastery-score", "survey-score", or "survey-answer"
+     * @param id - the subSubjectId, surveyId, or questionId respectively for each mode
+     * @param payload { score } for modes "mastery-score" and "survey-score"
+     *                { score, skip, value, unit, detail } for mode "survey-answer"
+     */
+    this.updateResultsData = (mode, id, payload) => {
+      const updatedInput = {};
+
+      if (mode === "mastery-score") {
+        const existingMasteryScoreInputIndex = findIndex(
+          this.state.challengeResults.masteryscoreinput,
+          masteryScoreInput => masteryScoreInput.subsubjectid === id,
+        );
+
+        updatedInput.masteryscoreinput = this.state.challengeResults.masteryscoreinput;
+
+        if (existingMasteryScoreInputIndex !== -1) {
+          updatedInput.masteryscoreinput[existingMasteryScoreInputIndex].score += payload.score;
+        } else {
+          updatedInput.masteryscoreinput.push({ subsubjectid: id, score: payload.score });
+        }
+      } else if (mode === "survey-score") {
+        const existingSurveyScoreInputIndex = findIndex(
+          this.state.challengeResults.surveyscoreinput,
+          surveyScoreInput => surveyScoreInput.surveyid === id,
+        );
+
+        updatedInput.surveyscoreinput = this.state.challengeResults.surveyscoreinput;
+
+        if (existingSurveyScoreInputIndex !== -1) {
+          updatedInput.surveyscoreinput[existingSurveyScoreInputIndex].score += payload.score;
+        } else {
+          updatedInput.surveyscoreinput.push({ surveyid: id, score: payload.score });
+        }
+      } else if (mode === "survey-answer") {
+        const existingSurveyAnswerInputIndex = findIndex(
+          this.state.challengeResults.surveyanswerinput,
+          surveyAnswerInput => surveyAnswerInput.questionid === id,
+        );
+
+        updatedInput.surveyanswerinput = this.state.challengeResults.surveyanswerinput;
+
+        if (existingSurveyAnswerInputIndex !== -1) {
+          // Because you won't re-answer a survey in the same single challenge this shouldn't ever
+          // happen. But for completeness I've coded it.
+          updatedInput.surveyanswerinput[existingSurveyAnswerInputIndex].skip = payload.skip;
+          updatedInput.surveyanswerinput[existingSurveyAnswerInputIndex].value = payload.value;
+          updatedInput.surveyanswerinput[existingSurveyAnswerInputIndex].unit = payload.unit;
+          updatedInput.surveyanswerinput[existingSurveyAnswerInputIndex].score += payload.score;
+          updatedInput.surveyanswerinput[existingSurveyAnswerInputIndex].detail = payload.detail;
+        } else {
+          updatedInput.surveyanswerinput.push({ questionid: id, ...payload });
+        }
+      }
+
+      // Update the challengeResults state.
+      if (!utils.isEmptyRecursive(updatedInput)) {
+        this.setState(prevState => ({
+          challengeResults: mergeWith(
+            {},
+            prevState.challengeResults,
+            updatedInput,
+          ),
+        }));
+      }
     };
   }
 
@@ -209,6 +304,7 @@ class ChallengeManager extends PureComponent {
           currentChallenge={this.state.currentChallenge}
           updateChallengeProgress={this.updateChallengeProgress}
           updateCurrentChallengeData={this.updateCurrentChallengeData}
+          updateResultsData={this.updateResultsData}
         />
       );
     }

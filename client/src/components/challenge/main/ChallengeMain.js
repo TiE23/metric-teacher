@@ -12,7 +12,7 @@ import {
 } from "../../../propTypes";
 
 const ChallengeMain = (props) => {
-  const handleSkipQa = () => props.resolveCurrentQA("skip");
+  const handleSkipQa = () => props.resolveCurrentQA(props.qaData.id, "skip");
   const handleClearQa = () => props.updateCurrentChallengeData({ answerData: null });
 
   return (

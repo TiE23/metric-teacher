@@ -19,6 +19,69 @@ export const CHALLENGE_TRANSITION_PROPS = {
 export const CHALLENGE_ANSWER_MODE_WRITTEN = "written";
 export const CHALLENGE_ANSWER_MODE_GENERATED = "generated";
 
+export const CHALLENGE_SCORES = {
+  // Correct answers.
+  // Fully mastered = 1000 points. Repeated correct answers should decrease score.
+  correct: {
+    mastery: [
+      // Difficulties 0, 1, 2, 3, 4, 5.
+      [0, 10, 10, 12, 15, 30],  // Written
+      [0, 10, 10, 12, 15, 30],  // Conversion
+      [0, 10, 10, 12, 15, 30],  // Survey
+    ],
+
+    // Difficulties 0, 1, 2, 3, 4, 5.
+    survey: [0, 125, 100, 90, 75, 60],
+  },
+
+  // Incorrect answers.
+  // Each incorrect answer stacks. So that one wrong damages your gains, two takes slightly,
+  // and three takes a lot.
+  incorrect: {
+    mastery: [
+      // Difficulties 0, 1, 2, 3, 4, 5.
+      [0, -4, -6, -8, -10, -20],  // Written
+      [0, -4, -6, -8, -10, -20],  // Conversion
+      [0, -4, -6, -8, -10, -20],  // Survey
+    ],
+
+    // Difficulties 0, 1, 2, 3, 4, 5.
+    survey: [0, -80, -65, -60, -50, -40],
+  },
+
+  // Question was skipped.
+  // These punishments are only applied when skipping the question at first appearance.
+  // Easy questions can be skipped with little punishment. Difficult questions will be punished
+  // more severely.
+  skipped: {
+    mastery: [
+      // Difficulties 0, 1, 2, 3, 4, 5.
+      [0, 0, -1, -3, -8, -12, -30], // Written
+      [0, 0, -1, -3, -8, -12, -30], // Conversion
+      [0, 0, -1, -3, -8, -12, -30], // Survey
+    ],
+
+    // Difficulties 0, 1, 2, 3, 4, 5.
+    survey: [0, 0, -20, -60, -50, -60],
+  },
+};
+
+export const CHALLENGE_MAX_STRIKES = [
+  // 3 = "3 strikes you're out."
+  // Difficulties 0, 1, 2, 3, 4, 5.
+  [1, 3, 3, 2, 2, 2], // Written
+  [1, 5, 3, 3, 3, 2], // Conversion
+  [1, 4, 3, 3, 2, 2], // Survey
+];
+
+export const CHALLENGE_QUESTION_REPEAT = [
+  // This is a config to determine how many times a question might be asked again even after a
+  // correct answer. Minimum is 1.
+  [1, 3, 2, 2, 2, 2], // Written
+  [1, 2, 2, 2, 1, 1], // Conversion
+  [1, 2, 2, 2, 1, 1], // Survey
+];
+
 // Password
 export const PASSWORD_MINIMUM_LENGTH = 6;
 export const PASSWORD_MAXIMUM_LENGTH = 128;

@@ -12,19 +12,40 @@ import {
 } from "../../propTypes";
 
 import {
+  CHALLENGE_MAX_STRIKES,
   CHALLENGE_TRANSITION_PROPS,
 } from "../../constants";
 
 const ChallengeList = (props) => {
-  const resolveCurrentQA = (resolution) => {
-    let challengeProgressUpdate;
-    if (resolution === "skip") {
-      challengeProgressUpdate = { skipped: true };
-    }
-    // TODO - Other resolutions
+  const resolveCurrentQA = (qaId, resolution, surveyPayload = null) => {
+    const challengeProgressUpdate = { seen: true };
 
-    // Reset to null for the next question.
-    props.updateCurrentChallengeData({ answerData: null, choicesSelected: null });
+    // TODO - Score handling.
+    if (resolution === "skip") {
+      challengeProgressUpdate.skipped = true;
+      // TODO - Only score adjust if skipped on first view.
+    } else if (resolution === "correct") {
+      // TODO - Reduce score gains on repeated correct answers.
+      challengeProgressUpdate.correctlyAnswered = true;
+      challengeProgressUpdate.correctAnswerCount = 1;
+    } else if (resolution === "incorrect") {
+      // TODO - Consider reducing score punishments on repeated incorrect answers.
+      // Check the strike allowance.
+      const currentQaObject = props.currentChallenge.currentQaId ?
+        utils.cacheGetTarget(props.challengeData, props.currentChallenge.currentQaId) : null;
+
+      // Too many strikes? Mark as failed.
+      if (props.challengeProgress[currentQaObject.id].incorrectlyAnsweredCount + 1 >=
+      CHALLENGE_MAX_STRIKES[currentQaObject.question.type][currentQaObject.difficulty]) {
+        challengeProgressUpdate.failed = true;
+      }
+      challengeProgressUpdate.incorrectlyAnsweredCount = 1;
+    } else if (resolution === "survey-answered") {
+      // TODO - Handle surveyPayload.
+      challengeProgressUpdate.correctlyAnswered = true;
+      challengeProgressUpdate.correctAnswerCount = 999; // Big number so we don't see this again.
+    }
+
     props.updateChallengeProgress(props.currentChallenge.currentQaId, challengeProgressUpdate);
   };
 
@@ -70,6 +91,7 @@ ChallengeList.propTypes = {
   }).isRequired,
   updateChallengeProgress: PropTypes.func.isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,
+  updateResultsData: PropTypes.func.isRequired,
 };
 
 export default ChallengeList;
