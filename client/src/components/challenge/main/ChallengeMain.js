@@ -36,6 +36,7 @@ const ChallengeMain = (props) => {
             qaData={props.qaData}
             currentChallenge={props.currentChallenge}
             challengeCompletion={props.challengeCompletion}
+            resolveCurrentQA={props.resolveCurrentQA}
             updateCurrentChallengeData={props.updateCurrentChallengeData}
           />
         </Grid.Column>

@@ -18,6 +18,18 @@ function ChallengeResponse(props) {
   const type =
     props.qaData.question.type === QUESTION_TYPE_WRITTEN ? "multiplechoice" : "foo";
 
+  const handleSubmit = () => {
+    // If the question was presented as multiple choice, then answerData
+    if (type === "multiplechoice" && props.currentChallenge.answerData &&
+    utils.t0(props.currentChallenge.answerData.selectedAnswer)) {
+      if (props.currentChallenge.answerData.selectedAnswer === 0) {
+        props.resolveCurrentQA(props.qaData.id, "correct");
+      } else {
+        props.resolveCurrentQA(props.qaData.id, "incorrect");
+      }
+    }
+  };
+
   return (
     <div>
       <ChallengeMultipurposeBar
@@ -26,6 +38,7 @@ function ChallengeResponse(props) {
           utils.t0(props.currentChallenge.answerData.selectedAnswer))
         }
         challengeCompletion={props.challengeCompletion}
+        handleSubmit={handleSubmit}
       />
       <ChallengeAnswerArea
         type={type}
@@ -46,6 +59,7 @@ ChallengeResponse.propTypes = {
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
   }).isRequired,
+  resolveCurrentQA: PropTypes.func.isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,
 };
 

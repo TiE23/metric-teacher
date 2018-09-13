@@ -27,6 +27,8 @@ const ChallengeList = (props) => {
    *                    { skip, value, unit, score, detail }
    */
   const resolveCurrentQA = (qaId, resolution, surveyPayload = null) => {
+    // TODO - Remove this when done.
+    console.log(resolution, qaId, surveyPayload);
     const challengeProgressUpdate = { seen: true };
     const currentQaObject =
       utils.cacheGetTarget(props.challengeData, props.currentChallenge.currentQaId);
@@ -89,11 +91,11 @@ const ChallengeList = (props) => {
       // Check the strike allowance.
 
       // Too many strikes? Mark as failed.
-      if (props.challengeProgress[currentQaObject.id].incorrectlyAnsweredCount + 1 >=
+      if (props.challengeProgress[currentQaObject.id].incorrectAnswerCount + 1 >=
       CHALLENGE_MAX_STRIKES[currentQaObject.question.type][currentQaObject.difficulty]) {
         challengeProgressUpdate.failed = true;
       }
-      challengeProgressUpdate.incorrectlyAnsweredCount = 1;
+      challengeProgressUpdate.incorrectAnswerCount = 1;
 
       // Punish mastery score for an incorrect answer.
       props.updateResultsData(

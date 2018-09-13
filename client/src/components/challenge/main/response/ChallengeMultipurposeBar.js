@@ -13,6 +13,7 @@ const ChallengeMultipurposeBar = props => (
     >
       <div>
         <Button
+          onClick={props.handleSubmit}
           color="olive"
           fluid
         >
@@ -41,7 +42,7 @@ const ChallengeMultipurposeBar = props => (
 
 ChallengeMultipurposeBar.propTypes = {
   showSubmitButton: PropTypes.bool.isRequired,
-  // handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   challengeCompletion: PropTypes.shape({
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
