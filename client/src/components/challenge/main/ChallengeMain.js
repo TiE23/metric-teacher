@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Dimmer, Grid, Segment, Header, Icon } from "semantic-ui-react";
+import deline from "deline";
 
 import utils from "../../../utils";
 
@@ -9,6 +10,8 @@ import ChallengeResponse from "./response/ChallengeResponse";
 
 import {
   CHALLENGE_DIMMER_TIME,
+  CHALLENGE_MAX_STRIKES,
+  CHALLENGE_QUESTION_REPEAT,
 } from "../../../constants";
 
 import {
@@ -22,6 +25,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
     this.state = {
       dimmed: false,
       dimmerEndFunction: null,
+      dimmerColor: "blue",
       dimmerMessage: "Done",
       dimmerIcon: "check",  // TODO - Replace with an image
     };
@@ -51,10 +55,52 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
 
     this.handleSkipQa = () => {
       this.setState({
+        dimmerColor: "orange",
         dimmerMessage: "Skipped!",
         dimmerIcon: "trash alternate outline",
       });
+
       dimmerStart(() => this.props.resolveCurrentQA(this.props.qaData.id, "skip"));
+    };
+
+    this.handleResolveQa = (resolution, payload = null) => {
+      const { currentQaProgress, qaData } = this.props;
+
+      let dimmerColor;
+      let dimmerMessage;
+      let dimmerIcon;
+
+      if (resolution === "correct") {
+        const repeats =
+          CHALLENGE_QUESTION_REPEAT[qaData.question.type][qaData.difficulty];
+        dimmerColor = "olive";
+        dimmerMessage = repeats > 1 ? deline`
+          ${currentQaProgress.correctAnswerCount + 1 >= repeats ? "Success!" : "Correct!"}
+          ${currentQaProgress.correctAnswerCount + 1} / ${repeats}
+        ` : "Correct!";
+        dimmerIcon = "check";
+      } else if (resolution === "incorrect") {
+        const strikes =
+          CHALLENGE_MAX_STRIKES[qaData.question.type][qaData.difficulty];
+        dimmerColor = "red";
+        dimmerMessage = strikes > 1 ? deline`
+          ${currentQaProgress.incorrectAnswerCount + 1 >= strikes ? "Failed!" : "Incorrect!"}
+          ${currentQaProgress.incorrectAnswerCount + 1} / ${strikes}
+        ` : "Incorrect!";
+        dimmerIcon = "remove";
+      } else if (resolution === "survey-answered") {
+        dimmerColor = "blue";
+        dimmerMessage = "Survey Response Received!";
+        dimmerIcon = "clipboard check";
+      }
+
+      this.setState({
+        dimmerColor,
+        dimmerMessage,
+        dimmerIcon,
+      });
+
+      dimmerStart(() => props.resolveCurrentQA(props.qaData.id, resolution, payload));
     };
 
     this.handleClearQa = () => this.props.updateCurrentChallengeData({ answerData: null });
@@ -83,7 +129,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
                 qaData={this.props.qaData}
                 currentChallenge={this.props.currentChallenge}
                 challengeCompletion={this.props.challengeCompletion}
-                resolveCurrentQA={this.props.resolveCurrentQA}
+                resolveQa={this.handleResolveQa}
                 updateCurrentChallengeData={this.props.updateCurrentChallengeData}
               />
             </Grid.Column>
@@ -95,7 +141,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
           onClickOutside={this.dimmerEnd}
           inverted
         >
-          <Header size="large" icon color="blue">
+          <Header size="large" icon color={this.state.dimmerColor}>
             <Icon name={this.state.dimmerIcon} />
             {this.state.dimmerMessage}
           </Header>
@@ -109,10 +155,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
 ChallengeMain.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   currentQaProgress: PropTypes.shape({
-    seen: PropTypes.bool.isRequired,
-    skipped: PropTypes.bool.isRequired,
-    succeeded: PropTypes.bool.isRequired,
-    failed: PropTypes.bool.isRequired,
+    correctAnswerCount: PropTypes.number.isRequired,
     incorrectAnswerCount: PropTypes.number.isRequired,
   }).isRequired,
   currentChallenge: PropTypes.shape({

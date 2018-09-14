@@ -19,13 +19,13 @@ function ChallengeResponse(props) {
     props.qaData.question.type === QUESTION_TYPE_WRITTEN ? "multiplechoice" : "foo";
 
   const handleSubmit = () => {
-    // If the question was presented as multiple choice, then answerData
+    // If the question was presented as multiple choice then answerData.selectedAnswer should be 0.
     if (type === "multiplechoice" && props.currentChallenge.answerData &&
     utils.t0(props.currentChallenge.answerData.selectedAnswer)) {
       if (props.currentChallenge.answerData.selectedAnswer === 0) {
-        props.resolveCurrentQA(props.qaData.id, "correct");
+        props.resolveQa("correct");
       } else {
-        props.resolveCurrentQA(props.qaData.id, "incorrect");
+        props.resolveQa("incorrect");
       }
     }
   };
@@ -59,7 +59,7 @@ ChallengeResponse.propTypes = {
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
   }).isRequired,
-  resolveCurrentQA: PropTypes.func.isRequired,
+  resolveQa: PropTypes.func.isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,
 };
 
