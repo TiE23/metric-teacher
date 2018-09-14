@@ -17,6 +17,10 @@ export const CHALLENGE_TRANSITION_PROPS = {
 };
 
 export const CHALLENGE_DIMMER_TIME = 1000;
+export const CHALLENGE_DIMMER_TRANSITION_PROPS = {
+  animation: "drop",
+  duration: 500,
+};
 
 export const CHALLENGE_ANSWER_MODE_WRITTEN = "written";
 export const CHALLENGE_ANSWER_MODE_GENERATED = "generated";

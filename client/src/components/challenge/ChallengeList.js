@@ -147,6 +147,7 @@ const ChallengeList = (props) => {
               qaData={qaObject}
               currentQaProgress={props.challengeProgress[qaObject.id]}
               currentChallenge={props.currentChallenge}
+              streak={props.streak}
               resolveCurrentQA={resolveCurrentQA}
               updateCurrentChallengeData={props.updateCurrentChallengeData}
               challengeCompletion={{
@@ -175,6 +176,7 @@ ChallengeList.propTypes = {
     currentQaId: PropTypes.string,  // This will be null on mount so we won't require it.
     qaRemaining: PropTypes.number.isRequired,
   }).isRequired,
+  streak: PropTypes.number.isRequired,
   updateChallengeProgress: PropTypes.func.isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,
   updateResultsData: PropTypes.func.isRequired,

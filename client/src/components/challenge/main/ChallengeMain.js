@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Dimmer, Grid, Segment, Header, Icon } from "semantic-ui-react";
+import { Dimmer, Grid, Header, Icon, Segment, Transition } from "semantic-ui-react";
 import deline from "deline";
 
 import utils from "../../../utils";
@@ -10,6 +10,7 @@ import ChallengeResponse from "./response/ChallengeResponse";
 
 import {
   CHALLENGE_DIMMER_TIME,
+  CHALLENGE_DIMMER_TRANSITION_PROPS,
   CHALLENGE_MAX_STRIKES,
   CHALLENGE_QUESTION_REPEAT,
 } from "../../../constants";
@@ -141,10 +142,15 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
           onClickOutside={this.dimmerEnd}
           inverted
         >
-          <Header size="large" icon color={this.state.dimmerColor}>
-            <Icon name={this.state.dimmerIcon} />
-            {this.state.dimmerMessage}
-          </Header>
+          <Transition
+            visible={this.state.dimmed}
+            {...CHALLENGE_DIMMER_TRANSITION_PROPS}
+          >
+            <Header size="large" icon color={this.state.dimmerColor}>
+              <Icon name={this.state.dimmerIcon} />
+              {this.state.dimmerMessage}
+            </Header>
+          </Transition>
         </Dimmer>
 
       </Dimmer.Dimmable>
@@ -161,6 +167,7 @@ ChallengeMain.propTypes = {
   currentChallenge: PropTypes.shape({
     answerData: PropTypes.any,
   }).isRequired,
+  streak: PropTypes.number.isRequired,  // This is behind by +1 or -1 so adjustments will be needed
   resolveCurrentQA: PropTypes.func.isRequired,
   challengeCompletion: PropTypes.shape({
     total: PropTypes.number.isRequired,

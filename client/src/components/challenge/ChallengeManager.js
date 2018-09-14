@@ -41,6 +41,7 @@ class ChallengeManager extends PureComponent {
         answerData: null,
         choicesSelected: [],
       },
+      streak: 0,
       ...this.props.challengeState, // Full state or just challengeId and challengeData.
     };
 
@@ -169,6 +170,7 @@ class ChallengeManager extends PureComponent {
      */
     this.updateChallengeProgress = (qaId, progressUpdateData) => {
       const newProgressData = {};
+      let newStreak = this.state.streak;
 
       // The values correctAnswerCount and incorrectAnswerCount are updated by adding to the
       // existing values.
@@ -179,11 +181,21 @@ class ChallengeManager extends PureComponent {
         if (utils.t0(progressUpdateData.correctAnswerCount)) {
           progressUpdateDataCopy.correctAnswerCount +=
             this.state.challengeProgress[qaId].correctAnswerCount;
+          if (newStreak < 0) {
+            newStreak = 1;
+          } else {
+            ++newStreak;
+          }
         }
 
         if (utils.t0(progressUpdateData.incorrectAnswerCount)) {
           progressUpdateDataCopy.incorrectAnswerCount +=
             this.state.challengeProgress[qaId].incorrectAnswerCount;
+          if (newStreak > 0) {
+            newStreak = -1;
+          } else {
+            --newStreak;
+          }
         }
 
         newProgressData[qaId] = progressUpdateDataCopy;
@@ -198,6 +210,7 @@ class ChallengeManager extends PureComponent {
           newProgressData,
           utils.mergeCustomizer,
         ),
+        streak: newStreak,
       }));
     };
 
@@ -302,6 +315,7 @@ class ChallengeManager extends PureComponent {
           challengeData={this.state.challengeData}
           challengeProgress={this.state.challengeProgress}
           currentChallenge={this.state.currentChallenge}
+          streak={this.state.streak}
           updateChallengeProgress={this.updateChallengeProgress}
           updateCurrentChallengeData={this.updateCurrentChallengeData}
           updateResultsData={this.updateResultsData}
@@ -317,6 +331,8 @@ ChallengeManager.propTypes = {
     challengeData: PropTypes.arrayOf(QA_DATA_EVERYTHING.isRequired),
     challengeProgress: PropTypes.object,
     challengeResults: PropTypes.object,
+    currentChallenge: PropTypes.object,
+    streak: PropTypes.number,
   }),
   studentId: PropTypes.string.isRequired,
 };
