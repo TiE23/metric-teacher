@@ -77,9 +77,9 @@ export const CHALLENGE_MAX_STRIKES = [
 export const CHALLENGE_QUESTION_REPEAT = [
   // This is a config to determine how many times a question might be asked again even after a
   // correct answer. Minimum is 1.
-  [1, 3, 2, 2, 2, 2], // Written
-  [1, 2, 2, 2, 1, 1], // Conversion
-  [1, 2, 2, 2, 1, 1], // Survey
+  [1, 3, 2, 1, 1, 1], // Written
+  [1, 3, 2, 2, 2, 1], // Conversion
+  [1, 3, 2, 2, 2, 1], // Survey
 ];
 
 // Password

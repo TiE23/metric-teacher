@@ -119,7 +119,7 @@ class ChallengeManager extends PureComponent {
         newChallengeProgress[id] = {
           seen: false,
           skipped: false,
-          correctlyAnswered: false,
+          succeeded: false,
           failed: false,
           correctAnswerCount: 0,
           incorrectAnswerCount: 0,
@@ -133,7 +133,7 @@ class ChallengeManager extends PureComponent {
       const remainingQaIds = [];
 
       forEach(challengeProgress, (row, id) => {
-        if (!row.skipped && !row.correctlyAnswered && !row.failed) {
+        if (!row.skipped && !row.succeeded && !row.failed) {
           remainingQaIds.push(id);
         }
       });
@@ -160,7 +160,7 @@ class ChallengeManager extends PureComponent {
 
     /**
      * Update the challengeProgress data for the current QA.
-     * This can be changing the booleans seen, skipped, correctlyAnswered, and failed.
+     * This can be changing the booleans seen, skipped, succeeded, and failed.
      * This can be changing the integers correctAnswerCount and incorrectAnswerCount -- These
      * values are additive instead of replacing the value - they add to the number.
      *

@@ -50,7 +50,7 @@ ChallengeMain.propTypes = {
   currentQaProgress: PropTypes.shape({
     seen: PropTypes.bool.isRequired,
     skipped: PropTypes.bool.isRequired,
-    correctlyAnswered: PropTypes.bool.isRequired,
+    succeeded: PropTypes.bool.isRequired,
     failed: PropTypes.bool.isRequired,
     incorrectAnswerCount: PropTypes.number.isRequired,
   }).isRequired,

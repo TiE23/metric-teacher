@@ -12,9 +12,10 @@ import {
 } from "../../propTypes";
 
 import {
+  CHALLENGE_TRANSITION_PROPS,
   CHALLENGE_SCORES,
   CHALLENGE_MAX_STRIKES,
-  CHALLENGE_TRANSITION_PROPS,
+  CHALLENGE_QUESTION_REPEAT,
   QUESTION_TYPE_SURVEY,
 } from "../../constants";
 
@@ -61,7 +62,12 @@ const ChallengeList = (props) => {
         }
       }
     } else if (resolution === "correct") {
-      challengeProgressUpdate.correctlyAnswered = true;
+      // Check the question repeat setting. Only mark as "succeeded" when the question has been
+      // answered correctly enough times.
+      if (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1 >=
+      CHALLENGE_QUESTION_REPEAT[currentQaObject.question.type][currentQaObject.difficulty]) {
+        challengeProgressUpdate.succeeded = true;
+      }
       challengeProgressUpdate.correctAnswerCount = 1;
 
       // Award mastery score for a correct answer.
@@ -87,10 +93,7 @@ const ChallengeList = (props) => {
         );
       }
     } else if (resolution === "incorrect") {
-      // TODO - Consider reducing score punishments on repeated incorrect answers.
-      // Check the strike allowance.
-
-      // Too many strikes? Mark as failed.
+      // Check the strike allowance. Too many strikes? Mark as failed.
       if (props.challengeProgress[currentQaObject.id].incorrectAnswerCount + 1 >=
       CHALLENGE_MAX_STRIKES[currentQaObject.question.type][currentQaObject.difficulty]) {
         challengeProgressUpdate.failed = true;
@@ -118,7 +121,7 @@ const ChallengeList = (props) => {
       }
 
     } else if (resolution === "survey-answered") {
-      challengeProgressUpdate.correctlyAnswered = true;
+      challengeProgressUpdate.succeeded = true;
       challengeProgressUpdate.correctAnswerCount = 999; // Big number so we don't see this again.
 
       // Pass the entire surveyPayload object.
