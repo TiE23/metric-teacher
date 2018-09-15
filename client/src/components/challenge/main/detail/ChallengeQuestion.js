@@ -10,6 +10,7 @@ import {
 } from "../../../../propTypes";
 
 // TODO - Need to handle difference between answered and unanswered Survey questions.
+// TODO - Replace QaReviewBasics. It's not a good fit.
 const ChallengeQuestion = props => (
   <Segment>
     <QaReviewBasics
@@ -17,14 +18,14 @@ const ChallengeQuestion = props => (
       challengeMode
     />
     <br />
-    <div style={{ position: "absolute", bottom: 5, right: 5 }}>
-      <span style={{ color: "grey" }}>
+    <div style={{ position: "absolute", bottom: 5, right: 5, textAlign: "right" }}>
+      <p style={{ color: "grey", fontSize: "smaller" }}>
         {props.qaData.subject.name}
         {" - "}
         {utils.firstLetterCap(props.qaData.subject.scale)}
         {" - "}
         {props.qaData.subject.toMetric ? "To Metric" : "From Metric"}
-      </span>
+      </p>
     </div>
   </Segment>
 );
