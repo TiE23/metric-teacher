@@ -16,6 +16,9 @@ import {
 import {
   CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+  CHALLENGE_RESULTS_MASTERY_SCORE,
+  CHALLENGE_RESULTS_SURVEY_ANSWER,
+  CHALLENGE_RESULTS_SURVEY_SCORE,
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
@@ -243,7 +246,7 @@ class ChallengeManager extends PureComponent {
     this.updateResultsData = (mode, id, payload) => {
       const updatedInput = {};
 
-      if (mode === "mastery-score") {
+      if (mode === CHALLENGE_RESULTS_MASTERY_SCORE) {
         const existingMasteryScoreInputIndex = findIndex(
           this.state.challengeResults.masteryscoreinput,
           masteryScoreInput => masteryScoreInput.subsubjectid === id,
@@ -256,7 +259,7 @@ class ChallengeManager extends PureComponent {
         } else {
           updatedInput.masteryscoreinput.push({ subsubjectid: id, score: payload.score });
         }
-      } else if (mode === "survey-score") {
+      } else if (mode === CHALLENGE_RESULTS_SURVEY_SCORE) {
         const existingSurveyScoreInputIndex = findIndex(
           this.state.challengeResults.surveyscoreinput,
           surveyScoreInput => surveyScoreInput.surveyid === id,
@@ -269,7 +272,7 @@ class ChallengeManager extends PureComponent {
         } else {
           updatedInput.surveyscoreinput.push({ surveyid: id, score: payload.score });
         }
-      } else if (mode === "survey-answer") {
+      } else if (mode === CHALLENGE_RESULTS_SURVEY_ANSWER) {
         const existingSurveyAnswerInputIndex = findIndex(
           this.state.challengeResults.surveyanswerinput,
           surveyAnswerInput => surveyAnswerInput.questionid === id,

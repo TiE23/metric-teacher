@@ -549,8 +549,7 @@ const cacheTargetExists = (data, targetId, targetAddress = [], key = "id") => {
 const cacheGetTarget = (data, targetId, targetAddress = [], key = "id") => {
   const findResult = findRecursive(data, object => object && object[key] === targetId);
   if (!findResult) return undefined;
-  const targetObject = navigateObjectDots(findResult.target, targetAddress);
-  return targetObject;
+  return navigateObjectDots(findResult.target, targetAddress);
 };
 
 
@@ -853,12 +852,12 @@ const unitReadabilityHelper = (value, unit) => {
  *  utils.rangeWorder(
  *   { bottom: { value: 1 }, top: { value: 3 }, { singular: "foot", plural: "feet" }}
  *  ) // "1-3 feet"
- * @param range
+ * @param rangeObject
  * @param words
  * @returns {string}
  */
-const rangeWorder = (range, words) => (
-  `${range.bottom.value.toLocaleString()}-${range.top.value.toLocaleString()} ${range.top.value === 1 ? words.singular : words.plural}`
+const rangeWorder = (rangeObject, words) => (
+  `${rangeObject.bottom.value.toLocaleString()}-${rangeObject.top.value.toLocaleString()} ${rangeObject.top.value === 1 ? words.singular : words.plural}`
 );
 
 
@@ -947,7 +946,6 @@ const qaReviewTextFormatter = (qaData, challengeMode) => {
         ${rangeWorder(question.data.survey.range, question.data.fromUnitWord)}
         ${stepClause}. ${noteClause}`;
     }
-
   } else {  // Written question is the simplest.
     results.questionDescription = question.text;
   }

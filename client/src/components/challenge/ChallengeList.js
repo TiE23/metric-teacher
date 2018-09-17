@@ -16,14 +16,21 @@ import {
   CHALLENGE_SCORES,
   CHALLENGE_MAX_STRIKES,
   CHALLENGE_QUESTION_REPEAT,
+  CHALLENGE_RESULTS_MASTERY_SCORE,
+  CHALLENGE_RESULTS_SURVEY_SCORE,
+  CHALLENGE_RESULTS_SURVEY_ANSWER,
   QUESTION_TYPE_SURVEY,
+  CHALLENGE_RESOLUTION_SKIP,
+  CHALLENGE_RESOLUTION_CORRECT,
+  CHALLENGE_RESOLUTION_INCORRECT,
+  CHALLENGE_RESOLUTION_SURVEY_ANSWER,
 } from "../../constants";
 
 const ChallengeList = (props) => {
   /**
    *
    * @param qaId - The QA id
-   * @param resolution - "skip", "correct", "incorrect", or "survey-answered"
+   * @param resolution - Skip, correct, incorrect, or survey answered
    * @param surveyPayload - for "survey-answered", contains the data for the SurveyAnswerInput:
    *                    { skip, value, unit, score, detail }
    */
@@ -35,14 +42,14 @@ const ChallengeList = (props) => {
       utils.cacheGetTarget(props.challengeData, props.currentChallenge.currentQaId);
 
     // Different resolutions getting handled.
-    if (resolution === "skip") {
+    if (resolution === CHALLENGE_RESOLUTION_SKIP) {
       challengeProgressUpdate.skipped = true;
 
       // Only score adjust if skipped on first view (seen === true).
       if (!props.challengeProgress[currentQaObject.id].seen) {
         // Punish student's mastery for skipping.
         props.updateResultsData(
-          "mastery-score",
+          CHALLENGE_RESULTS_MASTERY_SCORE,
           currentQaObject.subSubjectId,
           {
             score: CHALLENGE_SCORES.skipped.mastery[
@@ -55,13 +62,13 @@ const ChallengeList = (props) => {
         if (currentQaObject.question.type === QUESTION_TYPE_SURVEY &&
         currentQaObject.question.data.survey.response) {
           props.updateResultsData(
-            "survey-score",
+            CHALLENGE_RESULTS_SURVEY_SCORE,
             currentQaObject.question.data.survey.response.surveyId,
             { score: CHALLENGE_SCORES.skipped.survey[currentQaObject.difficulty] },
           );
         }
       }
-    } else if (resolution === "correct") {
+    } else if (resolution === CHALLENGE_RESOLUTION_CORRECT) {
       // Check the question repeat setting. Only mark as "succeeded" when the question has been
       // answered correctly enough times.
       if (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1 >=
@@ -72,7 +79,7 @@ const ChallengeList = (props) => {
 
       // Award mastery score for a correct answer.
       props.updateResultsData(
-        "mastery-score",
+        CHALLENGE_RESULTS_MASTERY_SCORE,
         currentQaObject.subSubjectId,
         {
           score: Math.ceil(CHALLENGE_SCORES.correct.mastery[
@@ -87,12 +94,12 @@ const ChallengeList = (props) => {
       // Award survey score for a correct answer.
       if (currentQaObject.question.type === QUESTION_TYPE_SURVEY) {
         props.updateResultsData(
-          "survey-score",
+          CHALLENGE_RESULTS_SURVEY_SCORE,
           currentQaObject.question.data.survey.response.surveyId,
           { score: CHALLENGE_SCORES.correct.survey[currentQaObject.difficulty] },
         );
       }
-    } else if (resolution === "incorrect") {
+    } else if (resolution === CHALLENGE_RESOLUTION_INCORRECT) {
       // Check the strike allowance. Too many strikes? Mark as failed.
       if (props.challengeProgress[currentQaObject.id].incorrectAnswerCount + 1 >=
       CHALLENGE_MAX_STRIKES[currentQaObject.question.type][currentQaObject.difficulty]) {
@@ -102,7 +109,7 @@ const ChallengeList = (props) => {
 
       // Punish mastery score for an incorrect answer.
       props.updateResultsData(
-        "mastery-score",
+        CHALLENGE_RESULTS_MASTERY_SCORE,
         currentQaObject.subSubjectId,
         {
           score: CHALLENGE_SCORES.incorrect.mastery[
@@ -114,19 +121,19 @@ const ChallengeList = (props) => {
       // Punish survey score for an incorrect answer.
       if (currentQaObject.question.type === QUESTION_TYPE_SURVEY) {
         props.updateResultsData(
-          "survey-score",
+          CHALLENGE_RESULTS_SURVEY_SCORE,
           currentQaObject.question.data.survey.response.surveyId,
           { score: CHALLENGE_SCORES.incorrect.survey[currentQaObject.difficulty] },
         );
       }
 
-    } else if (resolution === "survey-answered") {
+    } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_ANSWER) {
       challengeProgressUpdate.succeeded = true;
       challengeProgressUpdate.correctAnswerCount = 999; // Big number so we don't see this again.
 
       // Pass the entire surveyPayload object.
       props.updateResultsData(
-        "survey-answer",
+        CHALLENGE_RESULTS_SURVEY_ANSWER,
         currentQaObject.questionId,
         surveyPayload,
       );

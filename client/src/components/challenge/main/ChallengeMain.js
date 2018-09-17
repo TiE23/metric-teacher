@@ -13,6 +13,10 @@ import {
   CHALLENGE_DIMMER_TRANSITION_PROPS,
   CHALLENGE_MAX_STRIKES,
   CHALLENGE_QUESTION_REPEAT,
+  CHALLENGE_RESOLUTION_SKIP,
+  CHALLENGE_RESOLUTION_CORRECT,
+  CHALLENGE_RESOLUTION_INCORRECT,
+  CHALLENGE_RESOLUTION_SURVEY_ANSWER,
 } from "../../../constants";
 
 import {
@@ -61,7 +65,9 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
         dimmerIcon: "trash alternate outline",
       });
 
-      dimmerStart(() => this.props.resolveCurrentQA(this.props.qaData.id, "skip"));
+      dimmerStart(() => this.props.resolveCurrentQA(
+        this.props.qaData.id, CHALLENGE_RESOLUTION_SKIP,
+      ));
     };
 
     this.handleResolveQa = (resolution, payload = null) => {
@@ -71,7 +77,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
       let dimmerMessage;
       let dimmerIcon;
 
-      if (resolution === "correct") {
+      if (resolution === CHALLENGE_RESOLUTION_CORRECT) {
         const repeats =
           CHALLENGE_QUESTION_REPEAT[qaData.question.type][qaData.difficulty];
         dimmerColor = "olive";
@@ -80,7 +86,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
           ${currentQaProgress.correctAnswerCount + 1} / ${repeats}
         ` : "Correct!";
         dimmerIcon = "check";
-      } else if (resolution === "incorrect") {
+      } else if (resolution === CHALLENGE_RESOLUTION_INCORRECT) {
         const strikes =
           CHALLENGE_MAX_STRIKES[qaData.question.type][qaData.difficulty];
         dimmerColor = "red";
@@ -89,7 +95,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
           ${currentQaProgress.incorrectAnswerCount + 1} / ${strikes}
         ` : "Incorrect!";
         dimmerIcon = "remove";
-      } else if (resolution === "survey-answered") {
+      } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_ANSWER) {
         dimmerColor = "blue";
         dimmerMessage = "Survey Response Received!";
         dimmerIcon = "clipboard check";

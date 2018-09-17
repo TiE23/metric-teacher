@@ -27,6 +27,15 @@ export const CHALLENGE_RESPONSE_MULTIPLE_GENERATED = 1;
 export const CHALLENGE_RESPONSE_INPUT_DIRECT = 2;
 export const CHALLENGE_RESPONSE_INPUT_SLIDER = 3;
 
+export const CHALLENGE_RESULTS_MASTERY_SCORE = 0;
+export const CHALLENGE_RESULTS_SURVEY_SCORE = 1;
+export const CHALLENGE_RESULTS_SURVEY_ANSWER = 2;
+
+export const CHALLENGE_RESOLUTION_SKIP = 0;
+export const CHALLENGE_RESOLUTION_CORRECT = 1;
+export const CHALLENGE_RESOLUTION_INCORRECT = 2;
+export const CHALLENGE_RESOLUTION_SURVEY_ANSWER = 3;
+
 export const CHALLENGE_SCORES = {
   // Correct answers.
   // Fully mastered = 1000 points. Repeated correct answers should decrease score.

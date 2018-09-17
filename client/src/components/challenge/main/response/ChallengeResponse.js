@@ -13,6 +13,8 @@ import {
 import {
   CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+  CHALLENGE_RESOLUTION_CORRECT,
+  CHALLENGE_RESOLUTION_INCORRECT,
   QUESTION_TYPE_WRITTEN,
 } from "../../../../constants";
 
@@ -30,9 +32,9 @@ function ChallengeResponse(props) {
     responseType === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) && props.currentChallenge.answerData &&
     utils.t0(props.currentChallenge.answerData.selectedAnswer)) {
       if (props.currentChallenge.answerData.selectedAnswer === 0) {
-        props.resolveQa("correct");
+        props.resolveQa(CHALLENGE_RESOLUTION_CORRECT);
       } else {
-        props.resolveQa("incorrect");
+        props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT);
       }
     }
   };
