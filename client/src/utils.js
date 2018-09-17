@@ -34,6 +34,7 @@ import {
   QUESTION_FLAG_USER_DETAIL_OPTIONAL,
   QUESTION_FLAG_USER_DETAIL_REQUIRED,
   SURVEY_STATUS_NORMAL,
+  UNIT_WORDS,
 } from "./constants";
 
 // TODO better token management
@@ -207,7 +208,10 @@ const checkAuth = (callingUserData, permissions = {
   action: null,
 }) => {
   if (!callingUserData) {
-    return { approval: false, rejectionReasons: ["User must be logged in. Could not read user token."] };
+    return {
+      approval: false,
+      rejectionReasons: ["User must be logged in. Could not read user token."]
+    };
   }
 
   // This is how we track in what ways the user is rejected if they are rejected.
@@ -781,9 +785,11 @@ const scoreProgressColor = (currentScore, maxScore) => {
 const unitWorder = (value, words, readabilityHelper = false) => {
   if (readabilityHelper) {
     let unit;
-    if (words.singular === "inch") unit = "in";
-    else if (words.singular === "ounce") unit = "oz";
-    else if (words.singular === "fluid ounce") unit = "floz";
+
+    // Only works for inches, ounces, and fluid ounces (determined by word.singular, sorry)
+    if (words.singular.toLocaleLowerCase() === "inch") unit = "in";
+    else if (words.singular.toLocaleLowerCase() === "ounce") unit = "oz";
+    else if (words.singular.toLocaleLowerCase() === "fluid ounce") unit = "floz";
 
     if (unit) {
       const readableString = unitReadabilityHelper(value, unit);
@@ -813,14 +819,14 @@ const unitWorder = (value, words, readabilityHelper = false) => {
 const unitReadabilityHelper = (value, unit) => {
   // "30 inches" => "2 feet, 6 inches (30in)" - At least more than 24 in.
   if (unit === "in" && value > 24) {
-    return deline`${unitWorder(Math.floor(value / 12), { singular: "foot", plural: "feet" })},
-      ${unitWorder(value % 12, { singular: "inch", plural: "inches" })}
+    return deline`${unitWorder(Math.floor(value / 12), UNIT_WORDS.ft).toLocaleLowerCase()},
+      ${unitWorder(value % 12, UNIT_WORDS.in).toLocaleLowerCase()}
       (${value}${unitInitilizer(unit)})`;
 
   // "45 ounces" => "2 pounds, 13 ounces (45oz)" - At least more than 16 oz.
   } else if (unit === "oz" && value > 16) {
-    return deline`${unitWorder(Math.floor(value / 16), { singular: "pound", plural: "pounds" })},
-      ${unitWorder(value % 16, { singluar: "ounce", plural: "ounces" })}
+    return deline`${unitWorder(Math.floor(value / 16), UNIT_WORDS.lb).toLocaleLowerCase()},
+      ${unitWorder(value % 16, UNIT_WORDS.oz).toLocaleLowerCase()}
       (${value}${unitInitilizer(unit)})`;
 
   // "60 fluid ounces" => "1 quart, 28 ounces (60floz)" - At least more than 40 floz.
@@ -834,16 +840,17 @@ const unitReadabilityHelper = (value, unit) => {
     const ounceValue = value % 32;
 
     const gallonSegment = gallonValue ?
-      `${unitWorder(gallonValue, { singular: "gallon", plural: "gallons" })}, ` : "";
+      `${unitWorder(gallonValue, UNIT_WORDS.gal).toLocaleLowerCase()}, ` : "";
     const quartSegment = quartValue ?
-      `${unitWorder(quartValue, { singular: "quart", plural: "quarts" })}, ` : "";
-    const ounceSegment = unitWorder(ounceValue, { singular: "ounce", plural: "ounces" });
+      `${unitWorder(quartValue, UNIT_WORDS.qt).toLocaleLowerCase()}, ` : "";
+    const ounceSegment = unitWorder(ounceValue, UNIT_WORDS.oz).toLocaleLowerCase();
 
     return `${gallonSegment}${quartSegment}${ounceSegment} (${value}${unitInitilizer(unit)})`;
   }
 
   return null;
 };
+
 
 /**
  * Super simple function. You put in your bottom/top range object and your fromUnitWord or

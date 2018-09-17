@@ -16,6 +16,7 @@ import {
 import {
   CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+  CHALLENGE_RESPONSE_INPUT_DIRECT,
   CHALLENGE_RESULTS_MASTERY_SCORE,
   CHALLENGE_RESULTS_SURVEY_ANSWER,
   CHALLENGE_RESULTS_SURVEY_SCORE,
@@ -43,6 +44,7 @@ class ChallengeManager extends PureComponent {
         qaRemaining: 0,
         answerData: null,
         choicesSelected: [],
+        responseMode: null,
       },
       streak: 0,
       ...this.props.challengeState, // Full state or just challengeId and challengeData.
@@ -74,44 +76,53 @@ class ChallengeManager extends PureComponent {
           prevState.currentChallenge.currentQaId,
         );
 
-        // TODO - Simplify this if statement more.
         // With a new question let's generate the multiple-choice options now.
+        let choicesSelected = null;
+        let responseMode = null;
         if (currentQaId) {
           const currentQaData = utils.cacheGetTarget(this.state.challengeData, currentQaId);
-          let choicesSelected = null;
 
           if (currentQaData.question.type === QUESTION_TYPE_WRITTEN) {
+            responseMode = CHALLENGE_RESPONSE_MULTIPLE_WRITTEN;
             choicesSelected = utils.choiceSelector(
               CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
               currentQaData.answer.data.multiple.choices.length,
               currentQaData.answer.data.multiple.choicesOffered,
             );
-          } else if ((currentQaData.question.type === QUESTION_TYPE_CONVERSION ||
-          currentQaData.question.type === QUESTION_TYPE_SURVEY) &&
+          } else if (currentQaData.question.type === QUESTION_TYPE_CONVERSION &&
           currentQaData.answer.data.conversion) {
+            // TODO - Randomly (?) choose between multiple choice, direct input, or slider.
+            responseMode = CHALLENGE_RESPONSE_MULTIPLE_GENERATED;
             choicesSelected = utils.choiceSelector(
               CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
               currentQaData.answer.data.conversion.choices.length,
             );
+          } else if (currentQaData.question.type === QUESTION_TYPE_SURVEY &&
+          currentQaData.answer.data.conversion) {
+            // TODO - Randomly (?) choose between multiple choice, direct input, or slider.
+            // TODO - Randomly (?) make the user re-choose their survey response from
+            // currentQaData.answer.data.survey.choices
+            responseMode = CHALLENGE_RESPONSE_MULTIPLE_GENERATED;
+            choicesSelected = utils.choiceSelector(
+              CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+              currentQaData.answer.data.conversion.choices.length,
+            );
+          } else if (currentQaData.question.type === QUESTION_TYPE_SURVEY &&
+          !currentQaData.answer.data.conversion) {
+            // Unanswered surveys have no possible choicesSelected option.
+            responseMode = CHALLENGE_RESPONSE_INPUT_DIRECT; // TODO - Slider might be better?
           }
-          // Unanswered surveys have no choicesSelected option.
-
-          this.setState(prevState2 => ({ currentChallenge: {
-            ...prevState2.currentChallenge,
-            currentQaId,
-            qaRemaining,
-            choicesSelected,
-            answerData: null,
-          } }));
-        } else {
-          this.setState(prevState2 => ({ currentChallenge: {
-            ...prevState2.currentChallenge,
-            currentQaId,
-            qaRemaining,
-            choicesSelected: null,
-            answerData: null,
-          } }));
         }
+
+        this.setState(prevState2 => ({ currentChallenge: {
+          ...prevState2.currentChallenge,
+          currentQaId,
+          qaRemaining,
+          answerData: null,
+          choicesSelected,
+          responseMode,
+        } }));
+
         // This will cause componentDidUpdate() to get run again where it'll see the
         // currentChallenge state was updated and immediately write the new state to local storage.
       }

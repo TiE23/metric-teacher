@@ -8,22 +8,39 @@ import {
 } from "../../../../propTypes";
 
 import {
+  CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
 } from "../../../../constants";
 
 const ChallengeAnswerArea = (props) => {
-  if (props.responseType === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN) {
-    const { multiple } = props.qaData.answer.data;
+  if (props.responseMode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN) {
+    const { currentChallenge } = props;
 
     return (
       <ChallengeAnswerMultipleChoice
         mode={CHALLENGE_RESPONSE_MULTIPLE_WRITTEN}
-        choicesOffered={multiple.choicesOffered}
-        choices={multiple.choices}
+        choices={props.qaData.answer.data.multiple.choices}
         updateCurrentChallengeData={props.updateCurrentChallengeData}
-        choicesSelected={props.currentChallenge.choicesSelected}
+        choicesSelected={currentChallenge.choicesSelected}
         selectedAnswer={
-          props.currentChallenge.answerData && props.currentChallenge.answerData.selectedAnswer
+          currentChallenge.answerData && currentChallenge.answerData.selectedAnswer
+        }
+      />
+    );
+  }
+
+  if (props.responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) {
+    const { currentChallenge } = props;
+
+    // TODO - choices={props.qaData.answer.data.survey.choices} option
+    return (
+      <ChallengeAnswerMultipleChoice
+        mode={CHALLENGE_RESPONSE_MULTIPLE_GENERATED}
+        choices={props.qaData.answer.data.conversion.choices}
+        updateCurrentChallengeData={props.updateCurrentChallengeData}
+        choicesSelected={currentChallenge.choicesSelected}
+        selectedAnswer={
+          currentChallenge.answerData && currentChallenge.answerData.selectedAnswer
         }
       />
     );
@@ -36,7 +53,7 @@ const ChallengeAnswerArea = (props) => {
 
 ChallengeAnswerArea.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
-  responseType: PropTypes.number.isRequired,
+  responseMode: PropTypes.number.isRequired,
   currentChallenge: PropTypes.shape({
     answerData: PropTypes.shape({
       selectedAnswer: PropTypes.number,

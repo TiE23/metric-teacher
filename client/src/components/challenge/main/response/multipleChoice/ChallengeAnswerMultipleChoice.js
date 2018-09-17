@@ -2,7 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid } from "semantic-ui-react";
 
+import utils from "../../../../../utils";
+
 import ChallengeAnswerMultipleChoiceOption from "./ChallengeAnswerMultipleChoiceOption";
+
+import {
+  UNIT_WORDS,
+} from "../../../../../constants";
 
 const ChallengeAnswerMultipleChoice = (props) => {
   if (!props.choicesSelected) {
@@ -13,11 +19,20 @@ const ChallengeAnswerMultipleChoice = (props) => {
     props.updateCurrentChallengeData({ answerData: { selectedAnswer: answerNumber } });
   };
 
+  const makeText = ({ value, written, unit }) => {
+    if (written) {
+      return written;
+    } else if (utils.t0(value)) {
+      return utils.unitWorder(value, UNIT_WORDS[unit], true);
+    }
+    return "Unknown";
+  };
+
   const choiceComponents = props.choicesSelected.map(choiceNumber => (
     <ChallengeAnswerMultipleChoiceOption
       key={`choice_${choiceNumber}`}
       number={choiceNumber}
-      text={props.choices[choiceNumber].written}
+      text={makeText(props.choices[choiceNumber])}
       selected={props.selectedAnswer === choiceNumber}
       handleSelect={handleAnswerSelect}
     />

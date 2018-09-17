@@ -5,7 +5,7 @@ import { Dropdown } from "semantic-ui-react";
 import utils from "../../utils";
 
 import {
-  UNIT_NAMES,
+  UNIT_WORDS,
   UNIT_FAMILIES,
 } from "../../constants";
 
@@ -28,7 +28,7 @@ class UnitDropdown extends PureComponent {
       if (UNIT_FAMILIES[family] && UNIT_FAMILIES[family][subject]) {
         const unitOptions = (UNIT_FAMILIES[family][subject].map(unit => ({
           key: unit,
-          text: `${utils.unitInitilizer(unit)} - ${UNIT_NAMES[unit]}`,
+          text: `${utils.unitInitilizer(unit)} - ${UNIT_WORDS[unit].singular}`,
           value: unit,
         })));
         options.push(...unitOptions);
@@ -66,7 +66,7 @@ class UnitDropdown extends PureComponent {
       this.setState({
         options: [
           {
-            text: `${utils.unitInitilizer(unit)} - ${UNIT_NAMES[unit] || "Unknown Unit"}`,
+            text: `${utils.unitInitilizer(unit)} - ${UNIT_WORDS[unit].singular || "Unknown Unit"}`,
             value: unit,
           },
           ...this.state.options,

@@ -15,23 +15,17 @@ import {
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
-  QUESTION_TYPE_WRITTEN,
 } from "../../../../constants";
 
 function ChallengeResponse(props) {
-  let responseType;
-  if (props.qaData.question.type === QUESTION_TYPE_WRITTEN) {
-    responseType = CHALLENGE_RESPONSE_MULTIPLE_WRITTEN;
-  } else {
-    responseType = -1;
-  }
-
   const handleSubmit = () => {
+    const { currentChallenge } = props;
+
     // If the question was presented as multiple choice then answerData.selectedAnswer should be 0.
-    if ((responseType === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN ||
-    responseType === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) && props.currentChallenge.answerData &&
-    utils.t0(props.currentChallenge.answerData.selectedAnswer)) {
-      if (props.currentChallenge.answerData.selectedAnswer === 0) {
+    if ((currentChallenge.responseMode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN ||
+    currentChallenge.responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) &&
+    currentChallenge.answerData && utils.t0(currentChallenge.answerData.selectedAnswer)) {
+      if (currentChallenge.answerData.selectedAnswer === 0) {
         props.resolveQa(CHALLENGE_RESOLUTION_CORRECT);
       } else {
         props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT);
@@ -50,8 +44,8 @@ function ChallengeResponse(props) {
         handleSubmit={handleSubmit}
       />
       <ChallengeAnswerArea
-        responseType={responseType}
         qaData={props.qaData}
+        responseMode={props.currentChallenge.responseMode}
         currentChallenge={props.currentChallenge}
         updateCurrentChallengeData={props.updateCurrentChallengeData}
       />
@@ -62,7 +56,10 @@ function ChallengeResponse(props) {
 ChallengeResponse.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   currentChallenge: PropTypes.shape({
-    answerData: PropTypes.any,
+    answerData: PropTypes.shape({
+      selectedAnswer: PropTypes.number,
+    }),
+    responseMode: PropTypes.number,
   }).isRequired,
   challengeCompletion: PropTypes.shape({
     total: PropTypes.number.isRequired,
