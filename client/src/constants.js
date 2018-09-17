@@ -22,8 +22,10 @@ export const CHALLENGE_DIMMER_TRANSITION_PROPS = {
   duration: 500,
 };
 
-export const CHALLENGE_ANSWER_MODE_WRITTEN = "written";
-export const CHALLENGE_ANSWER_MODE_GENERATED = "generated";
+export const CHALLENGE_RESPONSE_MULTIPLE_WRITTEN = 0;
+export const CHALLENGE_RESPONSE_MULTIPLE_GENERATED = 1;
+export const CHALLENGE_RESPONSE_INPUT_DIRECT = 2;
+export const CHALLENGE_RESPONSE_INPUT_SLIDER = 3;
 
 export const CHALLENGE_SCORES = {
   // Correct answers.

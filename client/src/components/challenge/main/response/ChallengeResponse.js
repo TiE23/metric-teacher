@@ -11,16 +11,23 @@ import {
 } from "../../../../propTypes";
 
 import {
+  CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
+  CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   QUESTION_TYPE_WRITTEN,
 } from "../../../../constants";
 
 function ChallengeResponse(props) {
-  const type =
-    props.qaData.question.type === QUESTION_TYPE_WRITTEN ? "multiplechoice" : "foo";
+  let responseType;
+  if (props.qaData.question.type === QUESTION_TYPE_WRITTEN) {
+    responseType = CHALLENGE_RESPONSE_MULTIPLE_WRITTEN;
+  } else {
+    responseType = -1;
+  }
 
   const handleSubmit = () => {
     // If the question was presented as multiple choice then answerData.selectedAnswer should be 0.
-    if (type === "multiplechoice" && props.currentChallenge.answerData &&
+    if ((responseType === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN ||
+    responseType === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) && props.currentChallenge.answerData &&
     utils.t0(props.currentChallenge.answerData.selectedAnswer)) {
       if (props.currentChallenge.answerData.selectedAnswer === 0) {
         props.resolveQa("correct");
@@ -41,7 +48,7 @@ function ChallengeResponse(props) {
         handleSubmit={handleSubmit}
       />
       <ChallengeAnswerArea
-        type={type}
+        responseType={responseType}
         qaData={props.qaData}
         currentChallenge={props.currentChallenge}
         updateCurrentChallengeData={props.updateCurrentChallengeData}

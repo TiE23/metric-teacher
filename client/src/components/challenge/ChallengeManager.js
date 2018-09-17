@@ -14,8 +14,8 @@ import {
 } from "../../propTypes";
 
 import {
-  CHALLENGE_ANSWER_MODE_WRITTEN,
-  CHALLENGE_ANSWER_MODE_GENERATED,
+  CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
+  CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
@@ -79,7 +79,7 @@ class ChallengeManager extends PureComponent {
 
           if (currentQaData.question.type === QUESTION_TYPE_WRITTEN) {
             choicesSelected = utils.choiceSelector(
-              CHALLENGE_ANSWER_MODE_WRITTEN,
+              CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
               currentQaData.answer.data.multiple.choices.length,
               currentQaData.answer.data.multiple.choicesOffered,
             );
@@ -87,7 +87,7 @@ class ChallengeManager extends PureComponent {
           currentQaData.question.type === QUESTION_TYPE_SURVEY) &&
           currentQaData.answer.data.conversion) {
             choicesSelected = utils.choiceSelector(
-              CHALLENGE_ANSWER_MODE_GENERATED,
+              CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
               currentQaData.answer.data.conversion.choices.length,
             );
           }

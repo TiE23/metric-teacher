@@ -8,16 +8,16 @@ import {
 } from "../../../../propTypes";
 
 import {
-  CHALLENGE_ANSWER_MODE_WRITTEN,
+  CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
 } from "../../../../constants";
 
 const ChallengeAnswerArea = (props) => {
-  if (props.type === "multiplechoice") {
+  if (props.responseType === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN) {
     const { multiple } = props.qaData.answer.data;
 
     return (
       <ChallengeAnswerMultipleChoice
-        mode={CHALLENGE_ANSWER_MODE_WRITTEN}
+        mode={CHALLENGE_RESPONSE_MULTIPLE_WRITTEN}
         choicesOffered={multiple.choicesOffered}
         choices={multiple.choices}
         updateCurrentChallengeData={props.updateCurrentChallengeData}
@@ -36,7 +36,7 @@ const ChallengeAnswerArea = (props) => {
 
 ChallengeAnswerArea.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
-  type: PropTypes.string.isRequired,
+  responseType: PropTypes.number.isRequired,
   currentChallenge: PropTypes.shape({
     answerData: PropTypes.shape({
       selectedAnswer: PropTypes.number,
