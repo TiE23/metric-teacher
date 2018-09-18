@@ -2,20 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ChallengeAnswerMultipleChoice from "./multipleChoice/ChallengeAnswerMultipleChoice";
+import ChallengeConversionDirect from "./conversion/ChallengeConversionDirect";
 
 import {
   QA_DATA_EVERYTHING,
 } from "../../../../propTypes";
 
 import {
+  CHALLENGE_RESPONSE_INPUT_DIRECT,
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
 } from "../../../../constants";
 
 const ChallengeAnswerArea = (props) => {
-  if (props.responseMode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN) {
-    const { currentChallenge } = props;
+  const { currentChallenge } = props;
 
+  if (props.responseMode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN) {
     return (
       <ChallengeAnswerMultipleChoice
         mode={CHALLENGE_RESPONSE_MULTIPLE_WRITTEN}
@@ -28,9 +30,6 @@ const ChallengeAnswerArea = (props) => {
   }
 
   if (props.responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) {
-    const { currentChallenge } = props;
-
-    // TODO - choices={props.qaData.answer.data.survey.choices} option
     return (
       <ChallengeAnswerMultipleChoice
         mode={CHALLENGE_RESPONSE_MULTIPLE_GENERATED}
@@ -38,6 +37,16 @@ const ChallengeAnswerArea = (props) => {
         updateCurrentChallengeData={props.updateCurrentChallengeData}
         choicesSelected={currentChallenge.choicesSelected}
         selectedAnswer={currentChallenge.inputData}
+      />
+    );
+  }
+
+  if (props.responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT) {
+    return (
+      <ChallengeConversionDirect
+        updateCurrentChallengeData={props.updateCurrentChallengeData}
+        inputUnit={props.qaData.answer.data.unit}
+        inputtedAnswer={currentChallenge.inputData}
       />
     );
   }

@@ -13,6 +13,7 @@ import {
 import {
   CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+  CHALLENGE_RESPONSE_INPUT_DIRECT,
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
 } from "../../../../constants";
@@ -26,6 +27,16 @@ function ChallengeResponse(props) {
     currentChallenge.responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) &&
     utils.t0(currentChallenge.inputData)) {
       if (currentChallenge.inputData === 0) {
+        props.resolveQa(CHALLENGE_RESOLUTION_CORRECT);
+      } else {
+        props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT);
+      }
+    } else if (currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT &&
+    currentChallenge.inputData) {
+      const inputValue = parseInt(currentChallenge.inputData, 10);
+      if (!Number.isNaN(inputValue) &&
+      inputValue >= props.qaData.answer.data.conversion.range.bottom.value &&
+      inputValue <= props.qaData.answer.data.conversion.range.top.value) {
         props.resolveQa(CHALLENGE_RESOLUTION_CORRECT);
       } else {
         props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT);

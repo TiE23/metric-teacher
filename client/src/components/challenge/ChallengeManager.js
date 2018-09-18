@@ -17,6 +17,7 @@ import {
   CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   CHALLENGE_RESPONSE_INPUT_DIRECT,
+  CHALLENGE_RESPONSE_INPUT_SLIDER,
   CHALLENGE_RESULTS_MASTERY_SCORE,
   CHALLENGE_RESULTS_SURVEY_ANSWER,
   CHALLENGE_RESULTS_SURVEY_SCORE,
@@ -89,28 +90,37 @@ class ChallengeManager extends PureComponent {
               currentQaData.answer.data.multiple.choices.length,
               currentQaData.answer.data.multiple.choicesOffered,
             );
-          } else if (currentQaData.question.type === QUESTION_TYPE_CONVERSION &&
-          currentQaData.answer.data.conversion) {
-            // TODO - Randomly (?) choose between multiple choice, direct input, or slider.
-            responseMode = CHALLENGE_RESPONSE_MULTIPLE_GENERATED;
-            choicesSelected = utils.choiceSelector(
+          } else if (currentQaData.question.type === QUESTION_TYPE_CONVERSION) {
+            // TODO - Choose non-randomly but with some kind of algorithm.
+            const randomChoice = random(2);
+            console.log("randomChoice:", randomChoice);
+            responseMode = [
               CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
-              currentQaData.answer.data.conversion.choices.length,
-            );
-          } else if (currentQaData.question.type === QUESTION_TYPE_SURVEY &&
-          currentQaData.answer.data.conversion) {
-            // TODO - Randomly (?) choose between multiple choice, direct input, or slider.
-            // TODO - Randomly (?) make the user re-choose their survey response from
-            // currentQaData.answer.data.survey.choices
-            responseMode = CHALLENGE_RESPONSE_MULTIPLE_GENERATED;
-            choicesSelected = utils.choiceSelector(
-              CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
-              currentQaData.answer.data.conversion.choices.length,
-            );
-          } else if (currentQaData.question.type === QUESTION_TYPE_SURVEY &&
-          !currentQaData.answer.data.conversion) {
-            // Unanswered surveys have no possible choicesSelected option.
-            responseMode = CHALLENGE_RESPONSE_INPUT_DIRECT; // TODO - Slider might be better?
+              CHALLENGE_RESPONSE_INPUT_DIRECT,
+              CHALLENGE_RESPONSE_INPUT_SLIDER,
+            ][randomChoice];
+            console.log("random:", responseMode);
+
+            if (responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) {
+              choicesSelected = utils.choiceSelector(
+                CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+                currentQaData.answer.data.conversion.choices.length,
+              );
+            }
+          } else if (currentQaData.question.type === QUESTION_TYPE_SURVEY) {
+            if (currentQaData.answer.data.conversion) {
+              // TODO - Randomly (?) choose between multiple choice, direct input, or slider.
+              // TODO - Randomly (?) make the user re-choose their survey response from
+              // currentQaData.answer.data.survey.choices
+              responseMode = CHALLENGE_RESPONSE_MULTIPLE_GENERATED;
+              choicesSelected = utils.choiceSelector(
+                CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+                currentQaData.answer.data.conversion.choices.length,
+              );
+            } else {
+              // Unanswered surveys have no possible choicesSelected option.
+              responseMode = CHALLENGE_RESPONSE_INPUT_DIRECT; // TODO - Slider might be better?
+            }
           }
         }
 
