@@ -16,7 +16,7 @@ const ChallengeAnswerMultipleChoice = (props) => {
   }
 
   const handleAnswerSelect = (answerNumber) => {
-    props.updateCurrentChallengeData({ answerData: { selectedAnswer: answerNumber } });
+    props.updateCurrentChallengeData({ inputData: answerNumber });
   };
 
   const makeText = ({ value, written, unit }) => {

@@ -210,7 +210,7 @@ const checkAuth = (callingUserData, permissions = {
   if (!callingUserData) {
     return {
       approval: false,
-      rejectionReasons: ["User must be logged in. Could not read user token."]
+      rejectionReasons: ["User must be logged in. Could not read user token."],
     };
   }
 

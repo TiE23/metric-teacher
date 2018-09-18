@@ -295,7 +295,7 @@ function composeWrittenAnswerData(answerPayload) {
  * @returns {{
  *  accuracy: *,
  *  exact: *,
- *  rounded:   *,
+ *  rounded: *,
  *  friendly: *,
  *  range: {
  *    bottom: {value, unit: *},

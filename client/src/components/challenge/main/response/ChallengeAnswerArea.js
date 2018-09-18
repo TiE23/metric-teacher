@@ -22,9 +22,7 @@ const ChallengeAnswerArea = (props) => {
         choices={props.qaData.answer.data.multiple.choices}
         updateCurrentChallengeData={props.updateCurrentChallengeData}
         choicesSelected={currentChallenge.choicesSelected}
-        selectedAnswer={
-          currentChallenge.answerData && currentChallenge.answerData.selectedAnswer
-        }
+        selectedAnswer={currentChallenge.inputData}
       />
     );
   }
@@ -39,9 +37,7 @@ const ChallengeAnswerArea = (props) => {
         choices={props.qaData.answer.data.conversion.choices}
         updateCurrentChallengeData={props.updateCurrentChallengeData}
         choicesSelected={currentChallenge.choicesSelected}
-        selectedAnswer={
-          currentChallenge.answerData && currentChallenge.answerData.selectedAnswer
-        }
+        selectedAnswer={currentChallenge.inputData}
       />
     );
   }
@@ -55,9 +51,7 @@ ChallengeAnswerArea.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   responseMode: PropTypes.number.isRequired,
   currentChallenge: PropTypes.shape({
-    answerData: PropTypes.shape({
-      selectedAnswer: PropTypes.number,
-    }), // Won't be set at the beginning.
+    inputData: PropTypes.any, // Won't be set at the beginning.
     choicesSelected: PropTypes.arrayOf(PropTypes.number), // Isn't set for unanswered surveys.
   }).isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,

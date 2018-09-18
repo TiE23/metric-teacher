@@ -21,11 +21,11 @@ function ChallengeResponse(props) {
   const handleSubmit = () => {
     const { currentChallenge } = props;
 
-    // If the question was presented as multiple choice then answerData.selectedAnswer should be 0.
+    // If the question was presented as multiple choice then inputData should be 0.
     if ((currentChallenge.responseMode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN ||
     currentChallenge.responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) &&
-    currentChallenge.answerData && utils.t0(currentChallenge.answerData.selectedAnswer)) {
-      if (currentChallenge.answerData.selectedAnswer === 0) {
+    utils.t0(currentChallenge.inputData)) {
+      if (currentChallenge.inputData === 0) {
         props.resolveQa(CHALLENGE_RESOLUTION_CORRECT);
       } else {
         props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT);
@@ -36,10 +36,7 @@ function ChallengeResponse(props) {
   return (
     <div>
       <ChallengeMultipurposeBar
-        showSubmitButton={
-          !!(props.currentChallenge.answerData &&
-          utils.t0(props.currentChallenge.answerData.selectedAnswer))
-        }
+        showSubmitButton={utils.t0(props.currentChallenge.inputData)}
         challengeCompletion={props.challengeCompletion}
         handleSubmit={handleSubmit}
       />
@@ -56,9 +53,7 @@ function ChallengeResponse(props) {
 ChallengeResponse.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   currentChallenge: PropTypes.shape({
-    answerData: PropTypes.shape({
-      selectedAnswer: PropTypes.number,
-    }),
+    inputData: PropTypes.any,
     responseMode: PropTypes.number,
   }).isRequired,
   challengeCompletion: PropTypes.shape({

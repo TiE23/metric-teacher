@@ -110,7 +110,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
       dimmerStart(() => props.resolveCurrentQA(props.qaData.id, resolution, payload));
     };
 
-    this.handleClearQa = () => this.props.updateCurrentChallengeData({ answerData: null });
+    this.handleClearQa = () => this.props.updateCurrentChallengeData({ inputData: null });
   }
 
   render() {
@@ -121,10 +121,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
             <Grid.Column>
               <ChallengeDetail
                 qaData={this.props.qaData}
-                showClearButton={
-                  !!(this.props.currentChallenge.answerData &&
-                    utils.t0(this.props.currentChallenge.answerData.selectedAnswer))
-                }
+                showClearButton={utils.t0(this.props.currentChallenge.inputData)}
                 handleSkipQa={this.handleSkipQa}
                 handleClearQa={this.handleClearQa}
               />
@@ -171,7 +168,7 @@ ChallengeMain.propTypes = {
     incorrectAnswerCount: PropTypes.number.isRequired,
   }).isRequired,
   currentChallenge: PropTypes.shape({
-    answerData: PropTypes.any,
+    inputData: PropTypes.any,
   }).isRequired,
   streak: PropTypes.number.isRequired,  // This is behind by +1 or -1 so adjustments will be needed
   resolveCurrentQA: PropTypes.func.isRequired,

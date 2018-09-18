@@ -42,7 +42,7 @@ class ChallengeManager extends PureComponent {
       currentChallenge: {
         currentQaId: null,
         qaRemaining: 0,
-        answerData: null,
+        inputData: null,
         choicesSelected: [],
         responseMode: null,
       },
@@ -118,7 +118,7 @@ class ChallengeManager extends PureComponent {
           ...prevState2.currentChallenge,
           currentQaId,
           qaRemaining,
-          answerData: null,
+          inputData: null,
           choicesSelected,
           responseMode,
         } }));
