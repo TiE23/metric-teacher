@@ -126,7 +126,6 @@ const ChallengeList = (props) => {
           { score: CHALLENGE_SCORES.incorrect.survey[currentQaObject.difficulty] },
         );
       }
-
     } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_ANSWER) {
       challengeProgressUpdate.succeeded = true;
       challengeProgressUpdate.correctAnswerCount = 999; // Big number so we don't see this again.

@@ -104,10 +104,13 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
       throw new AnswerUnitMissing();
     }
 
-    const value = makeValueFromRange(
-      questionPayload.data.rangeBottom,
-      questionPayload.data.rangeTop,
-      questionPayload.data.step,
+    const value = round(
+      makeValueFromRange(
+        questionPayload.data.rangeBottom,
+        questionPayload.data.rangeTop,
+        questionPayload.data.step,
+      ),
+      UNITS[questionPayload.data.unit].round,
     );
 
     return {

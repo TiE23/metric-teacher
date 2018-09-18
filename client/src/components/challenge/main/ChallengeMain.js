@@ -69,9 +69,10 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
         dimmerIcon: "trash alternate outline",
       });
 
-      dimmerStart(() => this.props.resolveCurrentQA(
-        this.props.qaData.id, CHALLENGE_RESOLUTION_SKIP,
-      ));
+      dimmerStart(
+        () => this.props.resolveCurrentQA(this.props.qaData.id, CHALLENGE_RESOLUTION_SKIP),
+        CHALLENGE_DIMMER_TIME_NO_EXTRA,
+      );
     };
 
     this.handleResolveQa = (resolution, payload = null) => {
