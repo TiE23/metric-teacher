@@ -16,7 +16,8 @@ export const CHALLENGE_TRANSITION_PROPS = {
   duration: { show: 500, hide: 0 },
 };
 
-export const CHALLENGE_DIMMER_TIME = 1000;
+export const CHALLENGE_DIMMER_TIME_NO_EXTRA = 1000;
+export const CHALLENGE_DIMMER_TIME_EXTRA = 4000;
 export const CHALLENGE_DIMMER_TRANSITION_PROPS = {
   animation: "drop",
   duration: 500,

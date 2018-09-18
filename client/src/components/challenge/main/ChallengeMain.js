@@ -9,7 +9,8 @@ import ChallengeDetail from "./detail/ChallengeDetail";
 import ChallengeResponse from "./response/ChallengeResponse";
 
 import {
-  CHALLENGE_DIMMER_TIME,
+  CHALLENGE_DIMMER_TIME_NO_EXTRA,
+  CHALLENGE_DIMMER_TIME_EXTRA,
   CHALLENGE_DIMMER_TRANSITION_PROPS,
   CHALLENGE_MAX_STRIKES,
   CHALLENGE_QUESTION_REPEAT,
@@ -17,6 +18,8 @@ import {
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
   CHALLENGE_RESOLUTION_SURVEY_ANSWER,
+  CHALLENGE_RESPONSE_INPUT_DIRECT,
+  CHALLENGE_RESPONSE_INPUT_SLIDER,
 } from "../../../constants";
 
 import {
@@ -32,13 +35,14 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
       dimmerEndFunction: null,
       dimmerColor: "blue",
       dimmerMessage: "Done",
+      dimmerExtra: null,
       dimmerIcon: "check",  // TODO - Replace with an image
     };
 
-    const dimmerStart = (dimmerEndFunction) => {
+    const dimmerStart = (dimmerEndFunction, dimmerTime) => {
       showDimmer();
       this.setState({ dimmerEndFunction });
-      this.interval = setInterval(this.dimmerEnd, CHALLENGE_DIMMER_TIME);
+      this.interval = setInterval(this.dimmerEnd, dimmerTime);
     };
 
     this.dimmerEnd = () => {
@@ -72,11 +76,14 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
 
     this.handleResolveQa = (resolution, payload = null) => {
       const { currentQaProgress, qaData } = this.props;
+      const { responseMode } = this.props.currentChallenge;
 
-      let dimmerColor;
-      let dimmerMessage;
-      let dimmerIcon;
+      let dimmerColor = null;
+      let dimmerMessage = null;
+      let dimmerExtra = null;
+      let dimmerIcon = null;
 
+      // Construct different dimmers...
       if (resolution === CHALLENGE_RESOLUTION_CORRECT) {
         const repeats =
           CHALLENGE_QUESTION_REPEAT[qaData.question.type][qaData.difficulty];
@@ -86,6 +93,19 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
           ${currentQaProgress.correctAnswerCount + 1} / ${repeats}
         ` : "Correct!";
         dimmerIcon = "check";
+
+        if (responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
+        responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
+          // TODO - Survey re-remember support
+          const { data } = qaData.answer;
+
+          dimmerExtra = deline`
+            Correct answer is
+            ${utils.unitWorder(data.conversion.friendly, data.toUnitWord, true)}.
+            (Your answer:
+            ${utils.unitWorder(payload.answer, data.toUnitWord, true)}).
+          `;
+        }
       } else if (resolution === CHALLENGE_RESOLUTION_INCORRECT) {
         const strikes =
           CHALLENGE_MAX_STRIKES[qaData.question.type][qaData.difficulty];
@@ -95,6 +115,19 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
           ${currentQaProgress.incorrectAnswerCount + 1} / ${strikes}
         ` : "Incorrect!";
         dimmerIcon = "remove";
+
+        if (responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
+        responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
+          // TODO - Survey re-remember support
+          const { data } = qaData.answer;
+
+          dimmerExtra = deline`
+            The correct answer is
+            ${data.conversion.friendly > payload.answer ? "greater" : "less"}
+            than your answer
+            (${utils.unitWorder(payload.answer, data.toUnitWord, true)}).
+          `;
+        }
       } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_ANSWER) {
         dimmerColor = "blue";
         dimmerMessage = "Survey Response Received!";
@@ -104,10 +137,15 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
       this.setState({
         dimmerColor,
         dimmerMessage,
+        dimmerExtra,
         dimmerIcon,
       });
 
-      dimmerStart(() => props.resolveCurrentQA(props.qaData.id, resolution, payload));
+      dimmerStart(
+        () => props.resolveCurrentQA(props.qaData.id, resolution, payload),
+        dimmerExtra ?
+          CHALLENGE_DIMMER_TIME_EXTRA : CHALLENGE_DIMMER_TIME_NO_EXTRA,
+      );
     };
 
     this.handleClearQa = () => this.props.updateCurrentChallengeData({ inputData: null });
@@ -149,10 +187,17 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
             visible={this.state.dimmed}
             {...CHALLENGE_DIMMER_TRANSITION_PROPS}
           >
-            <Header size="large" icon color={this.state.dimmerColor}>
-              <Icon name={this.state.dimmerIcon} />
-              {this.state.dimmerMessage}
-            </Header>
+            <div>
+              <Header size="large" icon color={this.state.dimmerColor}>
+                <Icon name={this.state.dimmerIcon} />
+                {this.state.dimmerMessage}
+              </Header>
+              {this.state.dimmerExtra &&
+                <p style={{ color: "black", fontSize: "larger" }}>
+                  {this.state.dimmerExtra}
+                </p>
+              }
+            </div>
           </Transition>
         </Dimmer>
 
@@ -169,6 +214,7 @@ ChallengeMain.propTypes = {
   }).isRequired,
   currentChallenge: PropTypes.shape({
     inputData: PropTypes.any,
+    responseMode: PropTypes.number,
   }).isRequired,
   streak: PropTypes.number.isRequired,  // This is behind by +1 or -1 so adjustments will be needed
   resolveCurrentQA: PropTypes.func.isRequired,

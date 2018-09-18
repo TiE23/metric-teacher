@@ -33,14 +33,15 @@ function ChallengeResponse(props) {
       }
     } else if (currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT &&
     currentChallenge.inputData) {
-      const inputValue = parseInt(currentChallenge.inputData, 10);
+      const inputValue = parseFloat(currentChallenge.inputData);
       if (!Number.isNaN(inputValue) &&
       inputValue >= props.qaData.answer.data.conversion.range.bottom.value &&
       inputValue <= props.qaData.answer.data.conversion.range.top.value) {
-        props.resolveQa(CHALLENGE_RESOLUTION_CORRECT);
+        props.resolveQa(CHALLENGE_RESOLUTION_CORRECT, { answer: inputValue });
       } else {
-        props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT);
+        props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT, { answer: inputValue });
       }
+      // TODO - NaN handler? Necessary?
     }
   };
 
