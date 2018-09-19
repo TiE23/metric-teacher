@@ -43,7 +43,7 @@ const ChallengeConversionDirect = (props) => {
       <Grid.Row>
         <Grid.Column>
           <Input
-            label={{ content: utils.unitInitilizer(props.inputUnit) }}
+            label={{ basic: true, content: utils.unitInitilizer(props.inputUnit) }}
             labelPosition="right"
             value={props.inputtedAnswer || ""}
             onChange={handleInputUpdate}

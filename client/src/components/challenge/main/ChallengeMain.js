@@ -100,12 +100,22 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
           // TODO - Survey re-remember support
           const { data } = qaData.answer;
 
-          dimmerExtra = deline`
-            Correct answer is
-            ${utils.unitWorder(data.conversion.friendly, data.toUnitWord, true)}.
-            (Your answer:
-            ${utils.unitWorder(payload.answer, data.toUnitWord, true)}).
-          `;
+          const miss = Math.abs(payload.answer - data.conversion.friendly);
+          if (miss < 0.1) {
+            dimmerExtra = deline`
+              You answer,
+              ${utils.unitWorder(payload.answer, data.toUnitWord, true)},
+              was ${miss === 0 ? "" : "almost "}exactly right!
+            `;
+          } else {
+            dimmerExtra = deline`
+              Correct answer is
+              ${utils.unitWorder(data.conversion.friendly, data.toUnitWord, true)}.
+              Your answer:
+              ${utils.unitWorder(payload.answer, data.toUnitWord, true)}.
+            `;
+          }
+
         }
       } else if (resolution === CHALLENGE_RESOLUTION_INCORRECT) {
         const strikes =
@@ -125,8 +135,8 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
           dimmerExtra = deline`
             The correct answer is
             ${data.conversion.friendly > payload.answer ? "greater" : "less"}
-            than your answer
-            (${utils.unitWorder(payload.answer, data.toUnitWord, true)}).
+            than your answer: 
+            ${utils.unitWorder(payload.answer, data.toUnitWord, true)}.
           `;
         }
       } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_ANSWER) {
