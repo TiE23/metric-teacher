@@ -37,6 +37,8 @@ export const CHALLENGE_RESOLUTION_CORRECT = 1;
 export const CHALLENGE_RESOLUTION_INCORRECT = 2;
 export const CHALLENGE_RESOLUTION_SURVEY_ANSWER = 3;
 
+export const CHALLENGE_RANGE_STEPS = 20;
+
 export const CHALLENGE_SCORES = {
   // Correct answers.
   // Fully mastered = 1000 points. Repeated correct answers should decrease score.

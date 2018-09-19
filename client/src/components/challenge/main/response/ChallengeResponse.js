@@ -14,6 +14,7 @@ import {
   CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   CHALLENGE_RESPONSE_INPUT_DIRECT,
+  CHALLENGE_RESPONSE_INPUT_SLIDER,
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
 } from "../../../../constants";
@@ -31,7 +32,8 @@ function ChallengeResponse(props) {
       } else {
         props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT);
       }
-    } else if (currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT &&
+    } else if ((currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
+      currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) &&
     currentChallenge.inputData) {
       const inputValue = parseFloat(currentChallenge.inputData);
       if (!Number.isNaN(inputValue) &&

@@ -201,7 +201,6 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
             </div>
           </Transition>
         </Dimmer>
-
       </Dimmer.Dimmable>
     );
   }

@@ -45,6 +45,7 @@ class ChallengeManager extends PureComponent {
         qaRemaining: 0,
         inputData: null,
         choicesSelected: [],
+        rangeData: [],
         responseMode: null,
       },
       streak: 0,
@@ -79,6 +80,7 @@ class ChallengeManager extends PureComponent {
 
         // With a new question let's generate the multiple-choice options now.
         let choicesSelected = null;
+        let rangeData = null;
         let responseMode = null;
         if (currentQaId) {
           const currentQaData = utils.cacheGetTarget(this.state.challengeData, currentQaId);
@@ -92,19 +94,22 @@ class ChallengeManager extends PureComponent {
             );
           } else if (currentQaData.question.type === QUESTION_TYPE_CONVERSION) {
             // TODO - Choose non-randomly but with some kind of algorithm.
-            const randomChoice = random(2);
-            console.log("randomChoice:", randomChoice);
             responseMode = [
               CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
               CHALLENGE_RESPONSE_INPUT_DIRECT,
               CHALLENGE_RESPONSE_INPUT_SLIDER,
-            ][randomChoice];
-            console.log("random:", responseMode);
+            ][random(2)];
 
             if (responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) {
               choicesSelected = utils.choiceSelector(
                 CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
                 currentQaData.answer.data.conversion.choices.length,
+              );
+            } else if (responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
+              rangeData = utils.rangeSelector(
+                currentQaData.answer.data.unit,
+                currentQaData.answer.data.accuracy,
+                currentQaData.answer.data.conversion.friendly,
               );
             }
           } else if (currentQaData.question.type === QUESTION_TYPE_SURVEY) {
@@ -119,7 +124,13 @@ class ChallengeManager extends PureComponent {
               );
             } else {
               // Unanswered surveys have no possible choicesSelected option.
-              responseMode = CHALLENGE_RESPONSE_INPUT_DIRECT; // TODO - Slider might be better?
+              responseMode = CHALLENGE_RESPONSE_INPUT_SLIDER;
+
+              rangeData = [
+                currentQaData.question.data.survey.range.bottom.value,
+                currentQaData.question.data.survey.range.top.value,
+                currentQaData.question.data.survey.step,
+              ];
             }
           }
         }
@@ -130,6 +141,7 @@ class ChallengeManager extends PureComponent {
           qaRemaining,
           inputData: null,
           choicesSelected,
+          rangeData,
           responseMode,
         } }));
 

@@ -19,6 +19,7 @@ import {
   CHALLENGE_STATE,
   CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+  CHALLENGE_RANGE_STEPS,
   BAD_PASSWORDS,
   EMAIL_NORMALIZE_OPTIONS,
   EMAIL_SECRET_PREFIXES,
@@ -1186,6 +1187,34 @@ const choiceSelector = (mode, available, offered = 2, difficulty = null) => {
 
 
 /**
+ * For Slider input. So that the correct answer isn't always in the center let's make up a random
+ * center.
+ * @param unit
+ * @param step
+ * @param answer
+ * @returns {[ min, max, step ]}
+ */
+const rangeSelector = (unit, step, answer) => {
+  const lowerSteps = random(0, CHALLENGE_RANGE_STEPS);    // Ex: if steps == 20, randomly pick 5
+  const higherSteps = CHALLENGE_RANGE_STEPS - lowerSteps; // Ex: 15
+
+  const answerRange = [];
+
+  // If temperature unit allow negative values.
+  if (unit === "f" && unit === "c") {
+    answerRange.push(answer - (lowerSteps * step));
+  } else {
+    answerRange.push(Math.max(0, answer - (lowerSteps * step)));
+  }
+
+  answerRange.push(answer + higherSteps * step);
+  answerRange.push(step / 2);
+
+  return answerRange;
+};
+
+
+/**
  * Takes in the qaFormData object found in QuestionViewer.js and outputs an input data object that
  * is acceptable by the updateQuestion mutation.
  * @param qaFormData
@@ -1284,5 +1313,6 @@ export default {
   t0t,
   minMax,
   choiceSelector,
+  rangeSelector,
   composeQaInputFromFormData,
 };
