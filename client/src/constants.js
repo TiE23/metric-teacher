@@ -7,8 +7,15 @@ export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8,
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE = { mobile: 16, tablet: 14, computer: 14 };
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL = { mobile: 16, tablet: 16, computer: 16 };
 
-export const CHALLENGE_DETAILS_GRID_COLUMN_LEFT = { mobile: 6, tablet: 4, computer: 4 };
-export const CHALLENGE_DETAILS_GRID_COLUMN_RIGHT = { mobile: 10, tablet: 12, computer: 12 };
+export const CHALLENGE_DETAILS_GRID_COLUMN_LEFT = { mobile: 5, tablet: 4, computer: 3 };
+export const CHALLENGE_DETAILS_GRID_COLUMN_RIGHT = { mobile: 11, tablet: 12, computer: 13 };
+
+export const CHALLENGE_KEYPAD_LAYOUT = [
+  ["7", "8", "9"],
+  ["4", "5", "6"],
+  ["1", "2", "3"],
+  ["0", ".", "(-)"],
+];
 
 // Challenge Settings
 export const CHALLENGE_TRANSITION_PROPS = {
