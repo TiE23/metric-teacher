@@ -230,8 +230,7 @@ const question = {
         upper: targetQa.question.data.conversion.range.top.value,
         unit: targetQa.question.data.conversion.range.top.unit,
         step: targetQa.question.data.conversion.step,
-      } : undefined,
-      surveyrangeinput: (targetQa.question.data && targetQa.question.data.survey) ? {
+      } : (targetQa.question.data && targetQa.question.data.survey) ? {
         lower: targetQa.question.data.survey.range.bottom.value,
         upper: targetQa.question.data.survey.range.top.value,
         unit: targetQa.question.data.survey.range.top.unit,
@@ -249,7 +248,7 @@ const question = {
         })),
         choicesoffered: targetQa.answer.data.multiple.choicesOffered,
       } : undefined,
-      rangeinput: (
+      conversioninput: (
         targetQa.answer.type === QUESTION_TYPE_CONVERSION ||
         targetQa.answer.type === QUESTION_TYPE_SURVEY) ? {
           unit: targetQa.answer.data.unit,
@@ -268,15 +267,11 @@ const question = {
     switch (newType) {
     case QUESTION_TYPE_WRITTEN:
       if (newQuestionInput.rangeinput) newQuestionInput.rangeinput = undefined;
-      if (newQuestionInput.surveyrangeinput) newQuestionInput.surveyrangeinput = undefined;
-      if (newAnswerInput.rangeinput) newAnswerInput.rangeinput = undefined;
+      if (newAnswerInput.conversioninput) newAnswerInput.conversioninput = undefined;
       break;
+    // eslint-disable-next-line no-fallthrough
     case QUESTION_TYPE_CONVERSION:
-      if (newQuestionInput.surveyrangeinput) newQuestionInput.surveyrangeinput = undefined;
-      if (newAnswerInput.multiplechoiceinput) newAnswerInput.multiplechoiceinput = undefined;
-      break;
     case QUESTION_TYPE_SURVEY:
-      if (newQuestionInput.rangeinput) newQuestionInput.rangeinput = undefined;
       if (newAnswerInput.multiplechoiceinput) newAnswerInput.multiplechoiceinput = undefined;
       break;
     default:
