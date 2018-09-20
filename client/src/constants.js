@@ -418,6 +418,8 @@ export const UNIT_FAMILIES = {
   },
 };
 
+export const NEGATIVE_UNITS = ["f", "c"];
+
 export const SPLIT_UNITS = {
   in: {
     min: 24,
@@ -429,16 +431,18 @@ export const SPLIT_UNITS = {
     ],
     implode: inputs => String((Math.floor(inputs[0]) * 12) + inputs[1]),
   },
-  ft: {
-    min: 1320,  // 0.25 miles
-    units: ["mi"],
-    explode: feet => [
-      String(round(feet / 5280, 2)),  // mi
-      String(0),
-      String(0),
-    ],
-    implode: inputs => String((inputs[0] * 5280) + inputs[1]),
-  },
+  // Commenting this out because I don't think it'll be needed. Also it would make conversions for
+  // tall buildings, mountains, and elevations confusing. If we need miles we'll use kilometers.
+  // ft: {
+  //   min: 1320,  // 0.25 miles
+  //   units: ["mi"],
+  //   explode: feet => [
+  //     String(round(feet / 5280, 2)),  // mi
+  //     String(0),
+  //     String(0),
+  //   ],
+  //   implode: inputs => String((inputs[0] * 5280) + inputs[1]),
+  // },
   oz: {
     min: 16,
     units: ["lb", "oz"],

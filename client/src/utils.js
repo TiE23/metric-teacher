@@ -36,6 +36,7 @@ import {
   QUESTION_FLAG_USER_DETAIL_REQUIRED,
   SURVEY_STATUS_NORMAL,
   UNIT_WORDS,
+  NEGATIVE_UNITS,
   SPLIT_UNITS,
 } from "./constants";
 
@@ -1198,8 +1199,8 @@ const rangeSelector = (unit, step, answer) => {
 
   const answerRange = [];
 
-  // If temperature unit allow negative values.
-  if (unit === "f" && unit === "c") {
+  // If a unit is recognized to allow negative units allow negative return values.
+  if (NEGATIVE_UNITS.includes(unit)) {
     answerRange.push(answer - (lowerSteps * step));
   } else {
     answerRange.push(Math.max(0, answer - (lowerSteps * step)));

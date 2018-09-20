@@ -60,34 +60,30 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
     };
 
     const setActiveInput = inputNumber => this.setState({ activeInput: inputNumber });
+
+    // Defining static functions for performance reasons.
     this.activateInput0 = () => setActiveInput(0);
     this.activateInput1 = () => setActiveInput(1);
     this.activateInput2 = () => setActiveInput(2);
 
-    const updateInputs = (value, inputNumber, keypad) => {
+    const handleKeyInput = (value, inputNumber) => {
       const newInputs = this.state.inputs;
 
-      newInputs[inputNumber] = keypad ?
-        newInputs[inputNumber] ?
-          newInputs[inputNumber] + value : value : value;
+      newInputs[inputNumber] = newInputs[inputNumber] ? newInputs[inputNumber] + value : value;
 
-      this.props.handleInputUpdate(
-        null,
-        { value: calculateFromInputs(newInputs, this.props.inputUnit) },
-        false,
-      );
+      this.props.handleInputUpdate(calculateFromInputs(newInputs, this.props.inputUnit));
     };
 
-    this.updateInput0 = (e, { value }, keypad = false) => updateInputs(value, 0, keypad);
-    this.updateInput1 = (e, { value }, keypad = false) => updateInputs(value, 1, keypad);
-    this.updateInput2 = (e, { value }, keypad = false) => updateInputs(value, 2, keypad);
+    // Defining static functions for performance reasons.
+    this.updateInput0 = (e, { value }) => handleKeyInput(value, 0);
+    this.updateInput1 = (e, { value }) => handleKeyInput(value, 1);
+    this.updateInput2 = (e, { value }) => handleKeyInput(value, 2);
 
     this.handleDelete = () => {
       const { inputs, activeInput } = this.state;
-      const currentInput = inputs[activeInput];
-
-      if (currentInput && currentInput.length > 0) {
-        updateInputs(currentInput.slice(0, currentInput.length - 1), activeInput);
+      if (inputs[activeInput] && inputs[activeInput].length > 0) {
+        inputs[activeInput] = inputs[activeInput].slice(0, inputs[activeInput].length - 1);
+        this.props.handleInputUpdate(calculateFromInputs(inputs, this.props.inputUnit));
       }
     };
 
@@ -132,7 +128,7 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
         <Grid.Row>
           <Grid.Column {...CHALLENGE_KEYPAD_COLUMN_WIDTH}>
             <ChallengeConversionDirectKeypad
-              handleInputUpdate={
+              handleKeyInput={
                 this.state.activeInput === 0 ? this.updateInput0 :
                   this.state.activeInput === 1 ? this.updateInput1 : this.updateInput2
               }

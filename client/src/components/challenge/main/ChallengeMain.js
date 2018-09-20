@@ -97,7 +97,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
 
         if (responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
         responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
-          // TODO - Survey re-remember support
+          // TODO - Survey re-choose support
           const { data } = qaData.answer;
 
           const miss = Math.abs(payload.answer - data.conversion.friendly);
@@ -129,7 +129,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
 
         if (responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
         responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
-          // TODO - Survey re-remember support
+          // TODO - Survey re-choose support
           const { data } = qaData.answer;
 
           dimmerExtra = deline`

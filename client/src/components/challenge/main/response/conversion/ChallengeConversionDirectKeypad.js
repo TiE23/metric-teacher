@@ -9,10 +9,11 @@ import {
 
 const ChallengeConversionDirectKeypad = (props) => {
   const handleButtonPress = (e, { value }) => {
+    // Handle negative button press.
     if (props.handleNegativeFlip && value === CHALLENGE_KEYPAD_NEGATIVE) {
       props.handleNegativeFlip();
     } else {
-      props.handleInputUpdate(e, { value }, true);
+      props.handleKeyInput(e, { value });
     }
   };
 
@@ -48,7 +49,7 @@ const ChallengeConversionDirectKeypad = (props) => {
 };
 
 ChallengeConversionDirectKeypad.propTypes = {
-  handleInputUpdate: PropTypes.func.isRequired,
+  handleKeyInput: PropTypes.func.isRequired,
   handleNegativeFlip: PropTypes.func,
   negativeAvailable: PropTypes.bool.isRequired,
 };
