@@ -54,6 +54,7 @@ class ChallengePage extends PureComponent {
           "cjk1pagkz0050079321fkd6vx", // Conversion (simple)
           "cjk1pago700680793uvc6i2a2", // Conversion (annotated)
           "cjk1pags0007s07935j429s79", // Conversion (annotated, from metric)
+          "cjk1pah3400d00793jhfmbq66", // Conversion (to floz)
           "cjk1pagpd006o0793yws3ys7n", // Survey (answered by 001)
           "cjk1pagq800700793jwuow8zp", // Survey (answered by 001, has note)
           "cjk1pah7b00f407935bgx9w8z", // Survey (not answered by 001)

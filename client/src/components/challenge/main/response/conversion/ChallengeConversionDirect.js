@@ -45,7 +45,7 @@ const ChallengeConversionDirect = (props) => {
         handleInputUpdate={handleInputUpdate}
         inputUnit={props.inputUnit}
         inputValue={props.inputtedAnswer || ""}
-        placeholder="Enter answer..."
+        placeholder="..."
       />
     );
   } else {
@@ -56,7 +56,7 @@ const ChallengeConversionDirect = (props) => {
         handleDelete={handleDelete}
         inputUnit={props.inputUnit}
         inputValue={props.inputtedAnswer || ""}
-        placeholder="Enter answer..."
+        placeholder="..."
       />
     );
   }

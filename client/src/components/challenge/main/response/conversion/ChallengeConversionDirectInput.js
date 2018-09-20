@@ -1,36 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Grid, Input } from "semantic-ui-react";
+import { Grid, Icon } from "semantic-ui-react";
 
 import utils from "../../../../../utils";
 
 import ChallengeConversionDirectKeypad from "./ChallengeConversionDirectKeypad";
+import ChallengeAnswerConversionDisplay from "./display/ChallengeAnswerConversionDisplay";
 
 import {
   FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM,
 } from "../../../../../constants";
 
 const ChallengeConversionDirectInput = props => (
-  <Grid textAlign="center">
+  <Grid padded={false} textAlign="center" verticalAlign="middle">
     <Grid.Row>
-      <Grid.Column>
-        <Input
-          label={{ basic: true, content: utils.unitInitilizer(props.inputUnit) }}
-          labelPosition="right"
-          value={props.inputValue}
-          onChange={props.handleInputUpdate}
+      <Grid.Column width={8}>
+        <ChallengeAnswerConversionDisplay
+          content={props.inputValue || ""}
+          label={utils.unitInitilizer(props.inputUnit)}
+          active
           placeholder={props.placeholder}
-          {...props.inputProps}
         />
-        {" "}
-        <Button
+      </Grid.Column>
+      <Grid.Column width={8}>
+        <Icon
           onClick={props.handleDelete}
-          disabled={!props.inputValue}
+          name="arrow alternate circle left outline"
+          size="big"
           color="red"
-          basic
-        >
-          Delete
-        </Button>
+        />
       </Grid.Column>
     </Grid.Row>
     <Grid.Row>

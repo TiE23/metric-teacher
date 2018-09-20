@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Button, Grid, Input } from "semantic-ui-react";
+import { Grid, Icon } from "semantic-ui-react";
 
 import utils from "../../../../../utils";
 
 import ChallengeConversionDirectKeypad from "./ChallengeConversionDirectKeypad";
+import ChallengeAnswerConversionDisplay from "./display/ChallengeAnswerConversionDisplay";
 
 import {
   FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM,
@@ -131,62 +132,49 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
     };
   }
 
-
   render() {
+    const displayColumnWidth = this.props.inputUnit === "floz" ? 4 : 4;
+    const deleteColumnWidth = this.props.inputUnit === "floz" ? 2 : 2;
+
     return (
-      <Grid textAlign="center">
+      <Grid padded={false} textAlign="center" verticalAlign="middle">
         <Grid.Row>
-          <Grid.Column>
-            <span onClick={this.activateInput0}>
-              <Input
-                label={{
-                  basic: this.state.activeInput !== 0,
-                  content: utils.unitInitilizer(this.units[0]),
-                }}
-                labelPosition="right"
-                value={this.state.inputs[0] || ""}
-                onChange={this.updateInput0}
+          <Grid.Column width={displayColumnWidth}>
+            <ChallengeAnswerConversionDisplay
+              onClick={this.activateInput0}
+              content={this.state.inputs[0] || ""}
+              label={utils.unitInitilizer(this.units[0])}
+              active={this.state.activeInput === 0}
+              placeholder={this.props.placeholder}
+            />
+          </Grid.Column>
+          <Grid.Column width={displayColumnWidth}>
+            <ChallengeAnswerConversionDisplay
+              onClick={this.activateInput1}
+              content={this.state.inputs[1] || ""}
+              label={utils.unitInitilizer(this.units[1])}
+              active={this.state.activeInput === 1}
+              placeholder={this.props.placeholder}
+            />
+          </Grid.Column>
+          {this.props.inputUnit === "floz" &&
+            <Grid.Column width={displayColumnWidth}>
+              <ChallengeAnswerConversionDisplay
+                onClick={this.activateInput2}
+                content={this.state.inputs[2] || ""}
+                label={utils.unitInitilizer(this.units[2])}
+                active={this.state.activeInput === 2}
                 placeholder={this.props.placeholder}
-                {...this.props.inputProps}
               />
-            </span>
-            <span onClick={this.activateInput1}>
-              <Input
-                label={{
-                  basic: this.state.activeInput !== 1,
-                  content: utils.unitInitilizer(this.units[1]),
-                }}
-                labelPosition="right"
-                value={this.state.inputs[1] || ""}
-                onChange={this.updateInput1}
-                placeholder={this.props.placeholder}
-                {...this.props.inputProps}
-              />
-            </span>
-            {this.props.inputUnit === "floz" &&
-              <span onClick={this.activateInput2}>
-                <Input
-                  label={{
-                    basic: this.state.activeInput !== 2,
-                    content: utils.unitInitilizer(this.units[2]),
-                  }}
-                  labelPosition="right"
-                  value={this.state.inputs[2] || ""}
-                  onChange={this.updateInput2}
-                  placeholder={this.props.placeholder}
-                  {...this.props.inputProps}
-                />
-              </span>
-            }
-            {" "}
-            <Button
+            </Grid.Column>
+          }
+          <Grid.Column width={deleteColumnWidth}>
+            <Icon
               onClick={this.handleDelete}
-              disabled={!this.props.inputValue}
+              name="arrow alternate circle left outline"
+              size="big"
               color="red"
-              basic
-            >
-              Delete
-            </Button>
+            />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
