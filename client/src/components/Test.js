@@ -127,6 +127,8 @@ class Test extends PureComponent {
       console.log(utils.unitReadabilityHelper(128, "floz"));
       console.log(utils.unitReadabilityHelper(130, "floz"));
       console.log(utils.unitReadabilityHelper(200, "floz"));
+      console.log(utils.unitReadabilityHelper(1000, "ft"));
+      console.log(utils.unitReadabilityHelper(2000, "ft"));
     };
   }
 

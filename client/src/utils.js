@@ -819,16 +819,16 @@ const unitWorder = (value, words, readabilityHelper = false) => {
  * @returns {*}
  */
 const unitReadabilityHelper = (value, unit) => {
-  // "30 inches" => "2 feet, 6 inches (30in)" - At least more than 24 in.
-  // "45 ounces" => "2 pounds, 13 ounces (45oz)" - At least more than 16 oz.
-  // "60 fluid ounces" => "1 quart, 28 ounces (60floz)" - At least more than 40 floz.
-  // "130 fluid ounces" => "1 gallon, 2 fluid ounces (130floz)"
-  // "256 fluid ounces" => "2 gallons, 0 fluid ounces (256floz)"
-  // "200 fluid ounces" => "1 gallon, 2 quarts, 8 fluid ounces (200floz)"
   if (SPLIT_UNITS[unit] && value > SPLIT_UNITS[unit].min) {
-    const values = SPLIT_UNITS[unit].exploder(value);
+    const values = SPLIT_UNITS[unit].explode(value);
 
-    if (SPLIT_UNITS[unit].units.length === 2) {
+    if (SPLIT_UNITS[unit].units.length === 1) {
+      // One unit reducer (values[0] is the only value shown).
+      return deline`
+        ${unitWorder(values[0], UNIT_WORDS[SPLIT_UNITS[unit].units[0]]).toLocaleLowerCase()}
+        (${value}${unitInitializer(unit)})
+      `;
+    } else if (SPLIT_UNITS[unit].units.length === 2) {
       // Two unit splitter (values[1] is always shown).
       return deline`${parseFloat(values[0]) ?
         `${unitWorder(values[0], UNIT_WORDS[SPLIT_UNITS[unit].units[0]]).toLocaleLowerCase()}, ` :

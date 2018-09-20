@@ -38,7 +38,7 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
       const numberInputs = inputs.map(input => parseFloat(input || 0));
 
       if (SPLIT_UNITS[inputUnit]) {
-        return SPLIT_UNITS[inputUnit].imploder(numberInputs);
+        return SPLIT_UNITS[inputUnit].implode(numberInputs);
       }
 
       return "";
@@ -53,7 +53,7 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
     const calculateToInputs = (input, inputUnit) => {
       const numberInput = parseFloat(input);
       if (!Number.isNaN(numberInput) && SPLIT_UNITS[inputUnit]) {
-        return SPLIT_UNITS[inputUnit].exploder(numberInput);
+        return SPLIT_UNITS[inputUnit].explode(numberInput);
       }
 
       return [null, null, null];

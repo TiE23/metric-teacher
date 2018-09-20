@@ -422,32 +422,42 @@ export const SPLIT_UNITS = {
   in: {
     min: 24,
     units: ["ft", "in"],
-    exploder: inches => [
+    explode: inches => [
       String(Math.floor(inches / 12)), // ft
       String(round(inches % 12, 2)),   // in
       String(0),
     ],
-    imploder: inputs => String((Math.floor(inputs[0]) * 12) + inputs[1]),
+    implode: inputs => String((Math.floor(inputs[0]) * 12) + inputs[1]),
+  },
+  ft: {
+    min: 1320,  // 0.25 miles
+    units: ["mi"],
+    explode: feet => [
+      String(round(feet / 5280, 2)),  // mi
+      String(0),
+      String(0),
+    ],
+    implode: inputs => String((inputs[0] * 5280) + inputs[1]),
   },
   oz: {
     min: 16,
     units: ["lb", "oz"],
-    exploder: ounces => [
+    explode: ounces => [
       String(Math.floor(ounces / 16)), // lbs
       String(round(ounces % 16, 2)),   // oz
       String(0),
     ],
-    imploder: inputs => String((Math.floor(inputs[0]) * 16) + inputs[1]),
+    implode: inputs => String((Math.floor(inputs[0]) * 16) + inputs[1]),
   },
   floz: {
     min: 40,
     units: ["gal", "qt", "floz"],
-    exploder: fluidOunces => [
+    explode: fluidOunces => [
       String(Math.floor(fluidOunces / 128)),        // gal
       String(Math.floor((fluidOunces % 128) / 32)), // qt
       String(round(fluidOunces % 32, 2)),           // floz
     ],
-    imploder: inputs => String((Math.floor(inputs[0]) * 128) +
+    implode: inputs => String((Math.floor(inputs[0]) * 128) +
       (Math.floor(inputs[1]) * 32) + inputs[2]),
   },
 };

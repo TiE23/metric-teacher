@@ -10,7 +10,6 @@ import {
 } from "../../../../propTypes";
 
 // TODO - Need to handle difference between answered and unanswered Survey questions.
-// TODO - Replace QaReviewBasics. It's not a good fit.
 const ChallengeQuestion = props => (
   <Segment>
     <QaReviewBasics
