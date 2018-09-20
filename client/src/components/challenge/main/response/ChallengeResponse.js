@@ -15,18 +15,29 @@ import {
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   CHALLENGE_RESPONSE_INPUT_DIRECT,
   CHALLENGE_RESPONSE_INPUT_SLIDER,
+  CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_ANSWER,
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
+  CHALLENGE_RESOLUTION_SURVEY_ANSWER,
 } from "../../../../constants";
 
 function ChallengeResponse(props) {
-  const handleSubmit = () => {
+  /**
+   * Determines if the user's input was correct or not.
+   *
+   * There is a hierarchy of components and their handlers:
+   * ChallengeManager.updateResultsData() - Deals with recording mastery and survey results data.
+   * ChallengeList.resolveQa() - Deals with calculating mastery and survey scores.
+   * ChallengeMain.resolveQa() - Deals with streaks and dimmer.
+   * >ChallengeResponse.resolveQa() - Deals with determining if user's input is correct or not.
+   */
+  const resolveQa = () => {
     const { currentChallenge } = props;
 
-    // If the question was presented as multiple choice then inputData should be 0.
     if ((currentChallenge.responseMode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN ||
     currentChallenge.responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) &&
     utils.t0(currentChallenge.inputData)) {
+      // Multiple choice answers should be === 0 to be correct.
       if (currentChallenge.inputData === 0) {
         props.resolveQa(CHALLENGE_RESOLUTION_CORRECT);
       } else {
@@ -35,7 +46,9 @@ function ChallengeResponse(props) {
     } else if ((currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
       currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) &&
     currentChallenge.inputData) {
+      // Direct and slider input answers should be within the bottom and top range values.
       const inputValue = parseFloat(currentChallenge.inputData);
+
       if (!Number.isNaN(inputValue) &&
       inputValue >= props.qaData.answer.data.conversion.range.bottom.value &&
       inputValue <= props.qaData.answer.data.conversion.range.top.value) {
@@ -43,16 +56,32 @@ function ChallengeResponse(props) {
       } else {
         props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT, { answer: inputValue });
       }
-      // TODO - NaN handler? Necessary?
+    } else if (currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_ANSWER) {
+      // Filling out a survey is different. The inputData is an object.
+      props.resolveQa(
+        CHALLENGE_RESOLUTION_SURVEY_ANSWER,
+        {
+          skip: false,
+          value: currentChallenge.inputData.value,
+          unit: props.qaData.question.data.survey.range.bottom.unit,
+          score: 0,
+          detail: currentChallenge.inputData.detail,
+        },
+      );
     }
   };
+
+  // TODO - For Survey Answers:
+  // Block submitButton if no note when required.
+  // Block submitButton if no input when there is a note
+  const showSubmitButton = utils.t0(props.currentChallenge.inputData);
 
   return (
     <div>
       <ChallengeMultipurposeBar
-        showSubmitButton={utils.t0(props.currentChallenge.inputData)}
+        showSubmitButton={showSubmitButton}
         challengeCompletion={props.challengeCompletion}
-        handleSubmit={handleSubmit}
+        resolveQa={resolveQa}
       />
       <ChallengeAnswerArea
         qaData={props.qaData}

@@ -18,6 +18,7 @@ import {
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   CHALLENGE_RESPONSE_INPUT_DIRECT,
   CHALLENGE_RESPONSE_INPUT_SLIDER,
+  CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_ANSWER,
   CHALLENGE_RESULTS_MASTERY_SCORE,
   CHALLENGE_RESULTS_SURVEY_ANSWER,
   CHALLENGE_RESULTS_SURVEY_SCORE,
@@ -124,7 +125,7 @@ class ChallengeManager extends PureComponent {
               );
             } else {
               // Unanswered surveys have no possible choicesSelected option.
-              responseMode = CHALLENGE_RESPONSE_INPUT_SLIDER;
+              responseMode = CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_ANSWER;
 
               rangeData = [
                 currentQaData.question.data.survey.range.bottom.value,
@@ -253,7 +254,7 @@ class ChallengeManager extends PureComponent {
 
     /**
      * Update the currentChallengeData directly.
-     * TODO - Consider removing this if it only has one use.
+     * TODO - Consider removing this if it only has one use. ???
      * @param newCurrentChallengeData
      */
     this.updateCurrentChallengeData = (newCurrentChallengeData) => {
@@ -271,6 +272,12 @@ class ChallengeManager extends PureComponent {
     /**
      * Update the challenge's final results payload.
      *
+     * There is a hierarchy of components and their handlers:
+     * >ChallengeManager.updateResultsData() - Deals with recording mastery and survey results data.
+     * ChallengeList.resolveQa() - Deals with calculating mastery and survey scores.
+     * ChallengeMain.resolveQa() - Deals with streaks and dimmer.
+     * ChallengeResponse.resolveQa() - Deals with determining if user's input is correct or not.
+     *
      * @param mode - "mastery-score", "survey-score", or "survey-answer"
      * @param id - the subSubjectId, surveyId, or questionId respectively for each mode
      * @param payload { score } for modes "mastery-score" and "survey-score"
@@ -280,6 +287,7 @@ class ChallengeManager extends PureComponent {
       const updatedInput = {};
 
       if (mode === CHALLENGE_RESULTS_MASTERY_SCORE) {
+        // Any normal question was answered.
         const existingMasteryScoreInputIndex = findIndex(
           this.state.challengeResults.masteryscoreinput,
           masteryScoreInput => masteryScoreInput.subsubjectid === id,
@@ -293,6 +301,7 @@ class ChallengeManager extends PureComponent {
           updatedInput.masteryscoreinput.push({ subsubjectid: id, score: payload.score });
         }
       } else if (mode === CHALLENGE_RESULTS_SURVEY_SCORE) {
+        // A survey question was answered.
         const existingSurveyScoreInputIndex = findIndex(
           this.state.challengeResults.surveyscoreinput,
           surveyScoreInput => surveyScoreInput.surveyid === id,
@@ -306,6 +315,7 @@ class ChallengeManager extends PureComponent {
           updatedInput.surveyscoreinput.push({ surveyid: id, score: payload.score });
         }
       } else if (mode === CHALLENGE_RESULTS_SURVEY_ANSWER) {
+        // A survey was answered.
         const existingSurveyAnswerInputIndex = findIndex(
           this.state.challengeResults.surveyanswerinput,
           surveyAnswerInput => surveyAnswerInput.questionid === id,

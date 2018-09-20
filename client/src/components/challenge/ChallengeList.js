@@ -28,13 +28,20 @@ import {
 
 const ChallengeList = (props) => {
   /**
+   * Deals with calculating mastery and survey scores.
+   *
+   * There is a hierarchy of components and their handlers:
+   * ChallengeManager.updateResultsData() - Deals with recording mastery and survey results data.
+   * >ChallengeList.resolveQa() - Deals with calculating mastery and survey scores.
+   * ChallengeMain.resolveQa() - Deals with streaks and dimmer.
+   * ChallengeResponse.resolveQa() - Deals with determining if user's input is correct or not.
    *
    * @param qaId - The QA id
    * @param resolution - Skip, correct, incorrect, or survey answered
    * @param surveyPayload - for "survey-answered", contains the data for the SurveyAnswerInput:
    *                    { skip, value, unit, score, detail }
    */
-  const resolveCurrentQA = (qaId, resolution, surveyPayload = null) => {
+  const resolveQa = (qaId, resolution, surveyPayload = null) => {
     // TODO - Remove this when done.
     console.log(resolution, qaId, surveyPayload);
     const challengeProgressUpdate = { seen: true };
@@ -75,7 +82,7 @@ const ChallengeList = (props) => {
       CHALLENGE_QUESTION_REPEAT[currentQaObject.question.type][currentQaObject.difficulty]) {
         challengeProgressUpdate.succeeded = true;
       }
-      challengeProgressUpdate.correctAnswerCount = 1;
+      challengeProgressUpdate.correctAnswerCount = 1; // (Additive)
 
       // Award mastery score for a correct answer.
       props.updateResultsData(
@@ -128,13 +135,12 @@ const ChallengeList = (props) => {
       }
     } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_ANSWER) {
       challengeProgressUpdate.succeeded = true;
-      challengeProgressUpdate.correctAnswerCount = 999; // Big number so we don't see this again.
 
       // Pass the entire surveyPayload object.
       props.updateResultsData(
         CHALLENGE_RESULTS_SURVEY_ANSWER,
         currentQaObject.questionId,
-        surveyPayload,
+        surveyPayload,  // Pass through the survey's payload (skip, value, unit, score, detail).
       );
     }
 
@@ -154,7 +160,7 @@ const ChallengeList = (props) => {
               currentQaProgress={props.challengeProgress[qaObject.id]}
               currentChallenge={props.currentChallenge}
               streak={props.streak}
-              resolveCurrentQA={resolveCurrentQA}
+              resolveQa={resolveQa}
               updateCurrentChallengeData={props.updateCurrentChallengeData}
               challengeCompletion={{
                 total: props.challengeData.length,

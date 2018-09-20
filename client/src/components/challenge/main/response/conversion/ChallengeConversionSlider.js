@@ -10,7 +10,12 @@ import {
 
 const ChallengeConversionSlider = (props) => {
   const handleInputUpdate = (e, { value }) => {
-    props.updateCurrentChallengeData({ inputData: parseFloat(value) });
+    // Survey answers have their inputData structured in an object.
+    if (props.surveyAnswerMode) {
+      props.updateCurrentChallengeData({ inputData: { value: parseFloat(value) } });
+    } else {
+      props.updateCurrentChallengeData({ inputData: parseFloat(value) });
+    }
   };
 
   return (
@@ -44,10 +49,12 @@ ChallengeConversionSlider.propTypes = {
   rangeMin: PropTypes.number.isRequired,
   rangeMax: PropTypes.number.isRequired,
   rangeStep: PropTypes.number.isRequired,
+  surveyAnswerMode: PropTypes.bool,
 };
 
 ChallengeConversionSlider.defaultProps = {
-  inputtedAnswer: 0,
+  inputtedAnswer: null,
+  surveyAnswerMode: false,
 };
 
 export default ChallengeConversionSlider;

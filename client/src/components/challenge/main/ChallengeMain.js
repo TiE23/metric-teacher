@@ -70,12 +70,25 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
       });
 
       dimmerStart(
-        () => this.props.resolveCurrentQA(this.props.qaData.id, CHALLENGE_RESOLUTION_SKIP),
+        () => this.props.resolveQa(this.props.qaData.id, CHALLENGE_RESOLUTION_SKIP),
         CHALLENGE_DIMMER_TIME_NO_EXTRA,
       );
     };
 
-    this.handleResolveQa = (resolution, payload = null) => {
+
+    /**
+     * Deals with streak tracking and configuration of the dimmer.
+     *
+     * There is a hierarchy of components and their handlers:
+     * ChallengeManager.updateResultsData() - Deals with recording mastery and survey results data.
+     * ChallengeList.resolveQa() - Deals with calculating mastery and survey scores.
+     * >ChallengeMain.resolveQa() - Deals with streaks and dimmer.
+     * ChallengeResponse.resolveQa() - Deals with determining if user's input is correct or not.
+     *
+     * @param resolution
+     * @param payload
+     */
+    this.resolveQa = (resolution, payload = null) => {
       const { currentQaProgress, qaData } = this.props;
       const { responseMode } = this.props.currentChallenge;
 
@@ -115,7 +128,6 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
               ${utils.unitWorder(payload.answer, data.toUnitWord, true)}.
             `;
           }
-
         }
       } else if (resolution === CHALLENGE_RESOLUTION_INCORRECT) {
         const strikes =
@@ -152,13 +164,15 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
         dimmerIcon,
       });
 
+      // Start the dimmer. When dimmer ends, the resolveQa() function gets called.
       dimmerStart(
-        () => props.resolveCurrentQA(props.qaData.id, resolution, payload),
+        () => props.resolveQa(props.qaData.id, resolution, payload),
         dimmerExtra ?
           CHALLENGE_DIMMER_TIME_EXTRA : CHALLENGE_DIMMER_TIME_NO_EXTRA,
       );
     };
 
+    // Resets the inputData, clearing the user's input.
     this.handleClearQa = () => this.props.updateCurrentChallengeData({ inputData: null });
   }
 
@@ -182,7 +196,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
                 qaData={this.props.qaData}
                 currentChallenge={this.props.currentChallenge}
                 challengeCompletion={this.props.challengeCompletion}
-                resolveQa={this.handleResolveQa}
+                resolveQa={this.resolveQa}
                 updateCurrentChallengeData={this.props.updateCurrentChallengeData}
               />
             </Grid.Column>
@@ -227,7 +241,7 @@ ChallengeMain.propTypes = {
     responseMode: PropTypes.number,
   }).isRequired,
   streak: PropTypes.number.isRequired,  // This is behind by +1 or -1 so adjustments will be needed
-  resolveCurrentQA: PropTypes.func.isRequired,
+  resolveQa: PropTypes.func.isRequired,
   challengeCompletion: PropTypes.shape({
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
