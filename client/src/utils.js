@@ -825,7 +825,7 @@ const unitReadabilityHelper = (value, unit) => {
   // "130 fluid ounces" => "1 gallon, 2 fluid ounces (130floz)"
   // "256 fluid ounces" => "2 gallons, 0 fluid ounces (256floz)"
   // "200 fluid ounces" => "1 gallon, 2 quarts, 8 fluid ounces (200floz)"
-  if (SPLIT_UNITS[unit] && value > SPLIT_UNITS[unit].max) {
+  if (SPLIT_UNITS[unit] && value > SPLIT_UNITS[unit].min) {
     const values = SPLIT_UNITS[unit].exploder(value);
 
     if (SPLIT_UNITS[unit].units.length === 2) {

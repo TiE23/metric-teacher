@@ -1,3 +1,5 @@
+import round from "lodash/round";
+
 // Standard names
 export const AUTH_TOKEN = "auth-token";
 export const CHALLENGE_STATE = "challenge-state";
@@ -418,32 +420,32 @@ export const UNIT_FAMILIES = {
 
 export const SPLIT_UNITS = {
   in: {
-    max: 24,
+    min: 24,
     units: ["ft", "in"],
     exploder: inches => [
       String(Math.floor(inches / 12)), // ft
-      String(inches % 12),             // in
+      String(round(inches % 12, 2)),   // in
       String(0),
     ],
     imploder: inputs => String((Math.floor(inputs[0]) * 12) + inputs[1]),
   },
   oz: {
-    max: 16,
+    min: 16,
     units: ["lb", "oz"],
     exploder: ounces => [
       String(Math.floor(ounces / 16)), // lbs
-      String(ounces % 16),             // oz
+      String(round(ounces % 16, 2)),   // oz
       String(0),
     ],
     imploder: inputs => String((Math.floor(inputs[0]) * 16) + inputs[1]),
   },
   floz: {
-    max: 40,
+    min: 40,
     units: ["gal", "qt", "floz"],
     exploder: fluidOunces => [
       String(Math.floor(fluidOunces / 128)),        // gal
       String(Math.floor((fluidOunces % 128) / 32)), // qt
-      String(fluidOunces % 32),                     // floz
+      String(round(fluidOunces % 32, 2)),           // floz
     ],
     imploder: inputs => String((Math.floor(inputs[0]) * 128) +
       (Math.floor(inputs[1]) * 32) + inputs[2]),
