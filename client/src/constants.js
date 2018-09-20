@@ -2,22 +2,27 @@
 export const AUTH_TOKEN = "auth-token";
 export const CHALLENGE_STATE = "challenge-state";
 
-// Styling
+// Responsive Sizing
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8, computer: 8 };
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE = { mobile: 16, tablet: 14, computer: 14 };
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL = { mobile: 16, tablet: 16, computer: 16 };
-
 export const CHALLENGE_DETAILS_GRID_COLUMN_LEFT = { mobile: 5, tablet: 4, computer: 3 };
 export const CHALLENGE_DETAILS_GRID_COLUMN_RIGHT = { mobile: 11, tablet: 12, computer: 13 };
+export const CHALLENGE_KEYPAD_COLUMN_WIDTH = { mobile: 12, tablet: 6, computer: 5 };
+export const CHALLENGE_DISPLAY_SINGLE_INPUT_COLUMN_WIDTH = { mobile: 8, tablet: 4, computer: 3 };
+export const CHALLENGE_DISPLAY_SINGLE_DELETE_COLUMN_WIDTH = { mobile: 4, tablet: 2, computer: 1 };
+export const CHALLENGE_DISPLAY_SPLIT_INPUT_COLUMN_WIDTH = { mobile: 13, tablet: 10, computer: 7 };
+export const CHALLENGE_DISPLAY_SPLIT_DELETE_COLUMN_WIDTH = { mobile: 2, tablet: 1, computer: 1 };
 
+// Challenge Settings
+export const CHALLENGE_KEYPAD_NEGATIVE = "(-)";
 export const CHALLENGE_KEYPAD_LAYOUT = [
   ["7", "8", "9"],
   ["4", "5", "6"],
   ["1", "2", "3"],
-  ["0", ".", "(-)"],
+  ["0", ".", CHALLENGE_KEYPAD_NEGATIVE],
 ];
 
-// Challenge Settings
 export const CHALLENGE_TRANSITION_PROPS = {
   animation: "fly left",
   duration: { show: 500, hide: 0 },
@@ -412,7 +417,35 @@ export const UNIT_FAMILIES = {
 };
 
 export const SPLIT_UNITS = {
-  in: { max: 24 },
-  oz: { max: 16 },
-  floz: { max: 40 },
+  in: {
+    max: 24,
+    units: ["ft", "in"],
+    exploder: inches => [
+      String(Math.floor(inches / 12)), // ft
+      String(inches % 12),             // in
+      String(0),
+    ],
+    imploder: inputs => String((Math.floor(inputs[0]) * 12) + inputs[1]),
+  },
+  oz: {
+    max: 16,
+    units: ["lb", "oz"],
+    exploder: ounces => [
+      String(Math.floor(ounces / 16)), // lbs
+      String(ounces % 16),             // oz
+      String(0),
+    ],
+    imploder: inputs => String((Math.floor(inputs[0]) * 16) + inputs[1]),
+  },
+  floz: {
+    max: 40,
+    units: ["gal", "qt", "floz"],
+    exploder: fluidOunces => [
+      String(Math.floor(fluidOunces / 128)),        // gal
+      String(Math.floor((fluidOunces % 128) / 32)), // qt
+      String(fluidOunces % 32),                     // floz
+    ],
+    imploder: inputs => String((Math.floor(inputs[0]) * 128) +
+      (Math.floor(inputs[1]) * 32) + inputs[2]),
+  },
 };

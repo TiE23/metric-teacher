@@ -8,21 +8,24 @@ import ChallengeConversionDirectKeypad from "./ChallengeConversionDirectKeypad";
 import ChallengeAnswerConversionDisplay from "./display/ChallengeAnswerConversionDisplay";
 
 import {
-  FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM,
+  CHALLENGE_KEYPAD_COLUMN_WIDTH,
+  CHALLENGE_DISPLAY_SINGLE_INPUT_COLUMN_WIDTH,
+  CHALLENGE_DISPLAY_SINGLE_DELETE_COLUMN_WIDTH,
 } from "../../../../../constants";
 
 const ChallengeConversionDirectInput = props => (
   <Grid padded={false} textAlign="center" verticalAlign="middle">
     <Grid.Row>
-      <Grid.Column width={8}>
+      <Grid.Column {...CHALLENGE_DISPLAY_SINGLE_INPUT_COLUMN_WIDTH}>
         <ChallengeAnswerConversionDisplay
-          content={props.inputValue || ""}
-          label={utils.unitInitilizer(props.inputUnit)}
-          active
+          contents={[props.inputValue || ""]}
+          labels={[utils.unitInitilizer(props.inputUnit)]}
+          activeInput={0}
+          color="blue"
           placeholder={props.placeholder}
         />
       </Grid.Column>
-      <Grid.Column width={8}>
+      <Grid.Column {...CHALLENGE_DISPLAY_SINGLE_DELETE_COLUMN_WIDTH}>
         <Icon
           onClick={props.handleDelete}
           name="arrow alternate circle left outline"
@@ -32,7 +35,7 @@ const ChallengeConversionDirectInput = props => (
       </Grid.Column>
     </Grid.Row>
     <Grid.Row>
-      <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM}>
+      <Grid.Column {...CHALLENGE_KEYPAD_COLUMN_WIDTH}>
         <ChallengeConversionDirectKeypad
           handleInputUpdate={props.handleInputUpdate}
           handleNegativeFlip={props.handleNegativeFlip}

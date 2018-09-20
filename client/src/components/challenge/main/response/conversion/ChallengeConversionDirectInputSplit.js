@@ -9,7 +9,10 @@ import ChallengeConversionDirectKeypad from "./ChallengeConversionDirectKeypad";
 import ChallengeAnswerConversionDisplay from "./display/ChallengeAnswerConversionDisplay";
 
 import {
-  FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM,
+  CHALLENGE_KEYPAD_COLUMN_WIDTH,
+  CHALLENGE_DISPLAY_SPLIT_INPUT_COLUMN_WIDTH,
+  CHALLENGE_DISPLAY_SPLIT_DELETE_COLUMN_WIDTH,
+  SPLIT_UNITS,
 } from "../../../../../constants";
 
 class ChallengeConversionDirectInputSplit extends PureComponent {
@@ -18,16 +21,12 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
 
     this.state = {
       inputs: [null, null, null],
-      activeInput: 0,
+      activeInput: SPLIT_UNITS[this.props.inputUnit] ?
+        SPLIT_UNITS[this.props.inputUnit].units.length - 1 : 0,
     };
 
-    if (this.props.inputUnit === "in") {
-      this.units = ["ft", "in", ""];
-    } else if (this.props.inputUnit === "oz") {
-      this.units = ["lb", "oz", ""];
-    } else if (this.props.inputUnit === "floz") {
-      this.units = ["gal", "qt", "floz"];
-    }
+    this.units = SPLIT_UNITS[this.props.inputUnit] ?
+      SPLIT_UNITS[this.props.inputUnit].units : [this.props.inputUnit];
 
     /**
      * Converts [2, 6, 0] to 30. (2ft 6in to 30in).
@@ -38,13 +37,8 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
     const calculateFromInputs = (inputs, inputUnit) => {
       const numberInputs = inputs.map(input => parseFloat(input || 0));
 
-      if (inputUnit === "in") {
-        return String((Math.floor(numberInputs[0]) * 12) + numberInputs[1]);
-      } else if (inputUnit === "oz") {
-        return String((Math.floor(numberInputs[0]) * 16) + numberInputs[1]);
-      } else if (inputUnit === "floz") {
-        return String((Math.floor(numberInputs[0]) * 128) +
-          (Math.floor(numberInputs[1]) * 32) + numberInputs[2]);
+      if (SPLIT_UNITS[inputUnit]) {
+        return SPLIT_UNITS[inputUnit].imploder(numberInputs);
       }
 
       return "";
@@ -58,28 +52,8 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
      */
     const calculateToInputs = (input, inputUnit) => {
       const numberInput = parseFloat(input);
-      if (Number.isNaN(numberInput)) {
-        return [null, null, null];
-      }
-
-      if (inputUnit === "in") {
-        return [
-          String(Math.floor(numberInput / 12)), // ft
-          String(numberInput % 12),             // in
-          String(0),
-        ];
-      } else if (inputUnit === "oz") {
-        return [
-          String(Math.floor(numberInput / 16)), // lbs
-          String(numberInput % 16),             // oz
-          String(0),
-        ];
-      } else if (inputUnit === "floz") {
-        return [
-          String(Math.floor(numberInput / 128)),        // gal
-          String(Math.floor((numberInput % 128) / 32)), // qt
-          String(numberInput % 32),                     // floz
-        ];
+      if (!Number.isNaN(numberInput) && SPLIT_UNITS[inputUnit]) {
+        return SPLIT_UNITS[inputUnit].exploder(numberInput);
       }
 
       return [null, null, null];
@@ -133,42 +107,20 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
   }
 
   render() {
-    const displayColumnWidth = this.props.inputUnit === "floz" ? 4 : 4;
-    const deleteColumnWidth = this.props.inputUnit === "floz" ? 2 : 2;
-
     return (
       <Grid padded={false} textAlign="center" verticalAlign="middle">
         <Grid.Row>
-          <Grid.Column width={displayColumnWidth}>
+          <Grid.Column {...CHALLENGE_DISPLAY_SPLIT_INPUT_COLUMN_WIDTH}>
             <ChallengeAnswerConversionDisplay
-              onClick={this.activateInput0}
-              content={this.state.inputs[0] || ""}
-              label={utils.unitInitilizer(this.units[0])}
-              active={this.state.activeInput === 0}
+              contents={this.state.inputs}
+              labels={this.units.map(unit => utils.unitInitilizer(unit))}
+              activeInput={this.state.activeInput}
+              onClicks={[this.activateInput0, this.activateInput1, this.activateInput2]}
+              color="blue"
               placeholder={this.props.placeholder}
             />
           </Grid.Column>
-          <Grid.Column width={displayColumnWidth}>
-            <ChallengeAnswerConversionDisplay
-              onClick={this.activateInput1}
-              content={this.state.inputs[1] || ""}
-              label={utils.unitInitilizer(this.units[1])}
-              active={this.state.activeInput === 1}
-              placeholder={this.props.placeholder}
-            />
-          </Grid.Column>
-          {this.props.inputUnit === "floz" &&
-            <Grid.Column width={displayColumnWidth}>
-              <ChallengeAnswerConversionDisplay
-                onClick={this.activateInput2}
-                content={this.state.inputs[2] || ""}
-                label={utils.unitInitilizer(this.units[2])}
-                active={this.state.activeInput === 2}
-                placeholder={this.props.placeholder}
-              />
-            </Grid.Column>
-          }
-          <Grid.Column width={deleteColumnWidth}>
+          <Grid.Column {...CHALLENGE_DISPLAY_SPLIT_DELETE_COLUMN_WIDTH}>
             <Icon
               onClick={this.handleDelete}
               name="arrow alternate circle left outline"
@@ -178,7 +130,7 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM}>
+          <Grid.Column {...CHALLENGE_KEYPAD_COLUMN_WIDTH}>
             <ChallengeConversionDirectKeypad
               handleInputUpdate={
                 this.state.activeInput === 0 ? this.updateInput0 :

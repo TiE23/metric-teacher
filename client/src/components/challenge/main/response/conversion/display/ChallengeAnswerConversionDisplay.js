@@ -2,46 +2,62 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Segment } from "semantic-ui-react";
 
-const ChallengeAnswerConversionDisplay = props => (
-  <Segment.Group
-    onClick={props.onClick}
-    horizontal
-    compact
-    size="mini"
-  >
-    <Segment
+const ChallengeAnswerConversionDisplay = (props) => {
+  const segments = [];
+
+  // Create each Segment element. There are two per unit: the input and the label.
+  props.labels.forEach((label, index) => {
+    segments.push(
+      <Segment
+        key={`input_${label}`}
+        compact
+        color={props.activeInput === index ? props.color : null}
+        onClick={props.onClicks && props.onClicks[index]}
+      >
+        <span style={props.activeInput === index ? null : { color: "grey" }}>
+          {props.contents[index] || props.placeholder}
+        </span>
+      </Segment>,
+    );
+
+    segments.push(
+      <Segment
+        key={`unit_${label}`}
+        compact
+        color={props.activeInput === index ? props.color : null}
+        inverted={props.activeInput === index}
+        onClick={props.onClicks && props.onClicks[index]}
+      >
+        <strong>
+          {label}
+        </strong>
+      </Segment>,
+    );
+  });
+
+  return (
+    <Segment.Group
+      horizontal
       compact
-      color={props.active ? props.color : null}
     >
-      <span style={!props.content ? { color: "grey" } : null}>
-        {props.content || props.placeholder}
-      </span>
-    </Segment>
-    <Segment
-      compact
-      color={props.active ? props.color : null}
-      inverted={props.active}
-    >
-      <strong>
-        {props.label}
-      </strong>
-    </Segment>
-  </Segment.Group>
-);
+      {segments}
+    </Segment.Group>
+  );
+};
 
 ChallengeAnswerConversionDisplay.propTypes = {
-  content: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  active: PropTypes.bool.isRequired,
+  contents: PropTypes.arrayOf(PropTypes.string).isRequired,
+  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  activeInput: PropTypes.number.isRequired,
+  onClicks: PropTypes.arrayOf(PropTypes.func),
   color: PropTypes.string,
   placeholder: PropTypes.string,
-  onClick: PropTypes.func,
 };
 
 ChallengeAnswerConversionDisplay.defaultProps = {
   color: "blue",
   placeholder: "",
-  onClick: null,
+  onClicks: [],
 };
 
 export default ChallengeAnswerConversionDisplay;

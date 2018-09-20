@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import { Button, Grid } from "semantic-ui-react";
 
 import {
+  CHALLENGE_KEYPAD_NEGATIVE,
   CHALLENGE_KEYPAD_LAYOUT,
 } from "../../../../../constants";
 
 const ChallengeConversionDirectKeypad = (props) => {
   const handleButtonPress = (e, { value }) => {
-    if (props.handleNegativeFlip && value === "(-)") {
+    if (props.handleNegativeFlip && value === CHALLENGE_KEYPAD_NEGATIVE) {
       props.handleNegativeFlip();
     } else {
       props.handleInputUpdate(e, { value }, true);
@@ -22,7 +23,7 @@ const ChallengeConversionDirectKeypad = (props) => {
           <Button
             value={button}
             onClick={handleButtonPress}
-            disabled={!props.negativeAvailable && button === "(-)"}
+            disabled={!props.negativeAvailable && button === CHALLENGE_KEYPAD_NEGATIVE}
             fluid
             compact
             color="blue"
