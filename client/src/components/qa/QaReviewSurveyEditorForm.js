@@ -96,7 +96,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
           >
             <input />
             <Label basic>
-              <b>{utils.unitInitilizer(this.props.unit)}</b>
+              <b>{utils.unitInitializer(this.props.unit)}</b>
             </Label>
           </Form.Input>
           {(this.state.note || !!(this.props.questionFlags &

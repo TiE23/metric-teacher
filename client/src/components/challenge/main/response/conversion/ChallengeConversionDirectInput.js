@@ -19,7 +19,7 @@ const ChallengeConversionDirectInput = props => (
       <Grid.Column {...CHALLENGE_DISPLAY_SINGLE_INPUT_COLUMN_WIDTH}>
         <ChallengeAnswerConversionDisplay
           contents={[props.inputValue || ""]}
-          labels={[utils.unitInitilizer(props.inputUnit)]}
+          labels={[utils.unitInitializer(props.inputUnit)]}
           activeInput={0}
           color="blue"
           placeholder={props.placeholder}

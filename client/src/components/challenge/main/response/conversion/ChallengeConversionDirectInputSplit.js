@@ -113,7 +113,7 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
           <Grid.Column {...CHALLENGE_DISPLAY_SPLIT_INPUT_COLUMN_WIDTH}>
             <ChallengeAnswerConversionDisplay
               contents={this.state.inputs}
-              labels={this.units.map(unit => utils.unitInitilizer(unit))}
+              labels={this.units.map(unit => utils.unitInitializer(unit))}
               activeInput={this.state.activeInput}
               onClicks={[this.activateInput0, this.activateInput1, this.activateInput2]}
               color="blue"

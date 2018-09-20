@@ -823,13 +823,13 @@ const unitReadabilityHelper = (value, unit) => {
   if (unit === "in" && value > SPLIT_UNITS.in.max) {
     return deline`${unitWorder(Math.floor(value / 12), UNIT_WORDS.ft).toLocaleLowerCase()},
       ${unitWorder(value % 12, UNIT_WORDS.in).toLocaleLowerCase()}
-      (${value}${unitInitilizer(unit)})`;
+      (${value}${unitInitializer(unit)})`;
 
   // "45 ounces" => "2 pounds, 13 ounces (45oz)" - At least more than 16 oz.
   } else if (unit === "oz" && value > SPLIT_UNITS.oz.max) {
     return deline`${unitWorder(Math.floor(value / 16), UNIT_WORDS.lb).toLocaleLowerCase()},
       ${unitWorder(value % 16, UNIT_WORDS.oz).toLocaleLowerCase()}
-      (${value}${unitInitilizer(unit)})`;
+      (${value}${unitInitializer(unit)})`;
 
   // "60 fluid ounces" => "1 quart, 28 ounces (60floz)" - At least more than 40 floz.
   // "130 fluid ounces" => "1 gallon, 2 ounces"
@@ -847,7 +847,7 @@ const unitReadabilityHelper = (value, unit) => {
       `${unitWorder(quartValue, UNIT_WORDS.qt).toLocaleLowerCase()}, ` : "";
     const ounceSegment = unitWorder(ounceValue, UNIT_WORDS.oz).toLocaleLowerCase();
 
-    return `${gallonSegment}${quartSegment}${ounceSegment} (${value}${unitInitilizer(unit)})`;
+    return `${gallonSegment}${quartSegment}${ounceSegment} (${value}${unitInitializer(unit)})`;
   }
 
   return null;
@@ -880,7 +880,7 @@ const rangeWorder = (rangeObject, words) => (
  * @returns {string}
  */
 const choiceWorder = choice => (
-  choice.unit === "written" ? `${choice.written}` : `${choice.value.toLocaleString()}${unitInitilizer(choice.unit)}`
+  choice.unit === "written" ? `${choice.written}` : `${choice.value.toLocaleString()}${unitInitializer(choice.unit)}`
 );
 
 
@@ -969,7 +969,7 @@ const qaReviewTextFormatter = (qaData, challengeMode) => {
  * @param unit
  * @returns {*}
  */
-const unitInitilizer = unit => (
+const unitInitializer = unit => (
   UNIT_INITIALISMS[unit] ? UNIT_INITIALISMS[unit] : unit
 );
 
@@ -1302,7 +1302,7 @@ export default {
   rangeWorder,
   choiceWorder,
   qaReviewTextFormatter,
-  unitInitilizer,
+  unitInitializer,
   surveyAnswerValidator,
   explodeBits,
   implodeBits,
