@@ -372,7 +372,7 @@ export const UNIT_WORDS = {
   l: { singular: "Liter", plural: "Liters" },
   cum: { singular: "Cubic Meter", plural: "Cubic Meters" },
   cuin: { singular: "Cubic Inch", plural: "Cubic Inches" },
-  floz: { singular: "Fluid ounce", plural: "Fluid Ounces" },
+  floz: { singular: "Fluid Ounce", plural: "Fluid Ounces" },
   cup: { singular: "Cup", plural: "Cups" },
   pt: { singular: "Pint", plural: "Pints" },
   qt: { singular: "Quart", plural: "Quarts" },
@@ -409,4 +409,10 @@ export const UNIT_FAMILIES = {
     area: ["sqft", "acre", "sqmi"],
     velocity: ["fps", "mph", "kn"],
   },
+};
+
+export const SPLIT_UNITS = {
+  in: { max: 24 },
+  oz: { max: 16 },
+  floz: { max: 40 },
 };

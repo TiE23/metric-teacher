@@ -36,6 +36,7 @@ import {
   QUESTION_FLAG_USER_DETAIL_REQUIRED,
   SURVEY_STATUS_NORMAL,
   UNIT_WORDS,
+  SPLIT_UNITS,
 } from "./constants";
 
 // TODO better token management
@@ -819,13 +820,13 @@ const unitWorder = (value, words, readabilityHelper = false) => {
  */
 const unitReadabilityHelper = (value, unit) => {
   // "30 inches" => "2 feet, 6 inches (30in)" - At least more than 24 in.
-  if (unit === "in" && value > 24) {
+  if (unit === "in" && value > SPLIT_UNITS.in.max) {
     return deline`${unitWorder(Math.floor(value / 12), UNIT_WORDS.ft).toLocaleLowerCase()},
       ${unitWorder(value % 12, UNIT_WORDS.in).toLocaleLowerCase()}
       (${value}${unitInitilizer(unit)})`;
 
   // "45 ounces" => "2 pounds, 13 ounces (45oz)" - At least more than 16 oz.
-  } else if (unit === "oz" && value > 16) {
+  } else if (unit === "oz" && value > SPLIT_UNITS.oz.max) {
     return deline`${unitWorder(Math.floor(value / 16), UNIT_WORDS.lb).toLocaleLowerCase()},
       ${unitWorder(value % 16, UNIT_WORDS.oz).toLocaleLowerCase()}
       (${value}${unitInitilizer(unit)})`;
@@ -835,9 +836,9 @@ const unitReadabilityHelper = (value, unit) => {
   // "200 fluid ounces" => "1 gallon, 2 quarts, 8 ounces"
   // "256 fluid ounces" => "2 gallons, 0 ounces"
   // I use "ounces" instead of "fluid ounces" as it can be determined by context and to save space.
-  } else if (unit === "floz" && value > 40) {
+  } else if (unit === "floz" && value > SPLIT_UNITS.floz.max) {
     const gallonValue = Math.floor(value / 128);
-    const quartValue = Math.floor((value - (gallonValue * 128)) / 32);
+    const quartValue = Math.floor((value % 128) / 32);
     const ounceValue = value % 32;
 
     const gallonSegment = gallonValue ?

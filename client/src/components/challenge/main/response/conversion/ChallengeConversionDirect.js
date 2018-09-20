@@ -1,17 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Input, Grid } from "semantic-ui-react";
 
 import utils from "../../../../../utils";
 
-import ChallengeConversionDirectKeypad from "./ChallengeConversionDirectKeypad";
+import ChallengeConversionDirectInput from "./ChallengeConversionDirectInput";
+import ChallengeConversionDirectInputSplit from "./ChallengeConversionDirectInputSplit";
 
 import {
-  FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM,
+  SPLIT_UNITS,
 } from "../../../../../constants";
 
 const ChallengeConversionDirect = (props) => {
   const handleInputUpdate = (e, { value }, keypad = false) => {
+    // If keypad variable is true it'll add to the input instead of replace it.
     const newValue = keypad ? (props.inputtedAnswer ? props.inputtedAnswer + value : value) : value;
 
     const val = utils.decimalHelper(newValue); // Typing a "." will automatically fill to "0."
@@ -38,39 +39,27 @@ const ChallengeConversionDirect = (props) => {
     }
   };
 
-  return (
-    <Grid textAlign="center">
-      <Grid.Row>
-        <Grid.Column>
-          <Input
-            label={{ basic: true, content: utils.unitInitilizer(props.inputUnit) }}
-            labelPosition="right"
-            value={props.inputtedAnswer || ""}
-            onChange={handleInputUpdate}
-            placeholder="Enter answer..."
-          />
-          {" "}
-          <Button
-            onClick={handleDelete}
-            disabled={!props.inputtedAnswer}
-            color="red"
-            basic
-          >
-            Delete
-          </Button>
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM}>
-          <ChallengeConversionDirectKeypad
-            handleInputUpdate={handleInputUpdate}
-            handleNegativeFlip={handleNegativeFlip}
-            negativeAvailable={props.inputUnit === "f" || props.inputUnit === "c"}
-          />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  );
+  if (Object.keys(SPLIT_UNITS).includes(props.inputUnit)) {
+    return (
+      <ChallengeConversionDirectInputSplit
+        handleInputUpdate={handleInputUpdate}
+        inputUnit={props.inputUnit}
+        inputValue={props.inputtedAnswer || ""}
+        placeholder="Enter answer..."
+      />
+    );
+  } else {
+    return (
+      <ChallengeConversionDirectInput
+        handleInputUpdate={handleInputUpdate}
+        handleNegativeFlip={handleNegativeFlip}
+        handleDelete={handleDelete}
+        inputUnit={props.inputUnit}
+        inputValue={props.inputtedAnswer || ""}
+        placeholder="Enter answer..."
+      />
+    );
+  }
 };
 
 ChallengeConversionDirect.propTypes = {
