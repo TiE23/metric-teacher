@@ -779,7 +779,7 @@ const scoreProgressColor = (currentScore, maxScore) => {
  *  utils.unitWorder(1500, { singular: "meter", plural: "meters" }) // "1,500 meters"
  *  utils.unitWorder(45, { singular: "inch", plural: "inches" }) // "45 inches"
  *  utils.unitWorder(45, { singular: "inch", plural: "inches" }, true) // "3 feet, 9 inches"
- * @param value
+ * @param value - Can be number or string
  * @param words
  * @param readabilityHelper
  * @returns {string}
@@ -802,7 +802,7 @@ const unitWorder = (value, words, readabilityHelper = false) => {
     }
   }
 
-  return `${value.toLocaleString()} ${value === 1 ? words.singular : words.plural}`;
+  return `${value.toLocaleString()} ${parseFloat(value) === 1 ? words.singular : words.plural}`;
 };
 
 
@@ -820,34 +820,31 @@ const unitWorder = (value, words, readabilityHelper = false) => {
  */
 const unitReadabilityHelper = (value, unit) => {
   // "30 inches" => "2 feet, 6 inches (30in)" - At least more than 24 in.
-  if (unit === "in" && value > SPLIT_UNITS.in.max) {
-    return deline`${unitWorder(Math.floor(value / 12), UNIT_WORDS.ft).toLocaleLowerCase()},
-      ${unitWorder(value % 12, UNIT_WORDS.in).toLocaleLowerCase()}
-      (${value}${unitInitializer(unit)})`;
-
   // "45 ounces" => "2 pounds, 13 ounces (45oz)" - At least more than 16 oz.
-  } else if (unit === "oz" && value > SPLIT_UNITS.oz.max) {
-    return deline`${unitWorder(Math.floor(value / 16), UNIT_WORDS.lb).toLocaleLowerCase()},
-      ${unitWorder(value % 16, UNIT_WORDS.oz).toLocaleLowerCase()}
-      (${value}${unitInitializer(unit)})`;
-
   // "60 fluid ounces" => "1 quart, 28 ounces (60floz)" - At least more than 40 floz.
-  // "130 fluid ounces" => "1 gallon, 2 ounces"
-  // "200 fluid ounces" => "1 gallon, 2 quarts, 8 ounces"
-  // "256 fluid ounces" => "2 gallons, 0 ounces"
-  // I use "ounces" instead of "fluid ounces" as it can be determined by context and to save space.
-  } else if (unit === "floz" && value > SPLIT_UNITS.floz.max) {
-    const gallonValue = Math.floor(value / 128);
-    const quartValue = Math.floor((value % 128) / 32);
-    const ounceValue = value % 32;
+  // "130 fluid ounces" => "1 gallon, 2 fluid ounces (130floz)"
+  // "256 fluid ounces" => "2 gallons, 0 fluid ounces (256floz)"
+  // "200 fluid ounces" => "1 gallon, 2 quarts, 8 fluid ounces (200floz)"
+  if (SPLIT_UNITS[unit] && value > SPLIT_UNITS[unit].max) {
+    const values = SPLIT_UNITS[unit].exploder(value);
 
-    const gallonSegment = gallonValue ?
-      `${unitWorder(gallonValue, UNIT_WORDS.gal).toLocaleLowerCase()}, ` : "";
-    const quartSegment = quartValue ?
-      `${unitWorder(quartValue, UNIT_WORDS.qt).toLocaleLowerCase()}, ` : "";
-    const ounceSegment = unitWorder(ounceValue, UNIT_WORDS.oz).toLocaleLowerCase();
-
-    return `${gallonSegment}${quartSegment}${ounceSegment} (${value}${unitInitializer(unit)})`;
+    if (SPLIT_UNITS[unit].units.length === 2) {
+      // Two unit splitter (values[1] is always shown).
+      return deline`${parseFloat(values[0]) ?
+        `${unitWorder(values[0], UNIT_WORDS[SPLIT_UNITS[unit].units[0]]).toLocaleLowerCase()}, ` :
+        ""}${unitWorder(values[1], UNIT_WORDS[SPLIT_UNITS[unit].units[1]]).toLocaleLowerCase()}
+      (${value}${unitInitializer(unit)})`;
+    } else if (SPLIT_UNITS[unit].units.length === 3) {
+      // Three unit splitter (values[2] is always shown).
+      return `${parseFloat(values[0]) ?
+        `${unitWorder(values[0], UNIT_WORDS[SPLIT_UNITS[unit].units[0]]).toLocaleLowerCase()}, ` :
+        ""}${parseFloat(values[1]) ?
+        `${unitWorder(values[1], UNIT_WORDS[SPLIT_UNITS[unit].units[1]]).toLocaleLowerCase()}, ` :
+        ""}${unitWorder(  // Weird line break is intentional! (If values[1] is empty it'll newline).
+        values[2],
+        UNIT_WORDS[SPLIT_UNITS[unit].units[2]],
+      ).toLocaleLowerCase()} (${value}${unitInitializer(unit)})`;
+    }
   }
 
   return null;
