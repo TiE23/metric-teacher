@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ChallengeAnswerMultipleChoice from "./multipleChoice/ChallengeAnswerMultipleChoice";
-import ChallengeConversionDirect from "./conversion/ChallengeConversionDirect";
-import ChallengeConversionSlider from "./conversion/ChallengeConversionSlider";
+import ChallengeAnswerConversionDirect from "./conversion/ChallengeAnswerConversionDirect";
+import ChallengeAnswerConversionSlider from "./conversion/ChallengeAnswerConversionSlider";
 import ChallengeSurveyNoteInput from "./ChallengeSurveyNoteInput";
 
 import {
@@ -45,7 +45,7 @@ const ChallengeAnswerArea = (props) => {
     );
   } else if (props.responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT) {
     return (
-      <ChallengeConversionDirect
+      <ChallengeAnswerConversionDirect
         updateCurrentChallengeData={props.updateCurrentChallengeData}
         inputUnit={props.qaData.answer.data.unit}
         inputtedAnswer={currentChallenge.inputData}
@@ -53,7 +53,7 @@ const ChallengeAnswerArea = (props) => {
     );
   } else if (props.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
     return (
-      <ChallengeConversionSlider
+      <ChallengeAnswerConversionSlider
         updateCurrentChallengeData={props.updateCurrentChallengeData}
         inputUnit={props.qaData.answer.data.unit}
         inputtedAnswer={currentChallenge.inputData}
@@ -70,7 +70,7 @@ const ChallengeAnswerArea = (props) => {
 
     return (
       <div>
-        <ChallengeConversionSlider
+        <ChallengeAnswerConversionSlider
           updateCurrentChallengeData={props.updateCurrentChallengeData}
           inputUnit={props.qaData.question.data.survey.range.bottom.unit}
           inputtedAnswer={currentChallenge.inputData && currentChallenge.inputData.value}

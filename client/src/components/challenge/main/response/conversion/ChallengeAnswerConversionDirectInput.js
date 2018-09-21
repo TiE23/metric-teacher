@@ -4,7 +4,7 @@ import { Grid, Icon } from "semantic-ui-react";
 
 import utils from "../../../../../utils";
 
-import ChallengeConversionDirectKeypad from "./ChallengeConversionDirectKeypad";
+import ChallengeAnswerConversionDirectKeypad from "./ChallengeAnswerConversionDirectKeypad";
 import ChallengeAnswerConversionDisplay from "./display/ChallengeAnswerConversionDisplay";
 
 import {
@@ -14,7 +14,7 @@ import {
   NEGATIVE_UNITS,
 } from "../../../../../constants";
 
-const ChallengeConversionDirectInput = (props) => {
+const ChallengeAnswerConversionDirectInput = (props) => {
   const handleKeyInput = (e, { value }) => {
     // If keypad variable is true it'll add to the input instead of replace it.
     const newValue = props.inputValue ? props.inputValue + value : value;
@@ -64,7 +64,7 @@ const ChallengeConversionDirectInput = (props) => {
       </Grid.Row>
       <Grid.Row>
         <Grid.Column {...CHALLENGE_KEYPAD_COLUMN_WIDTH}>
-          <ChallengeConversionDirectKeypad
+          <ChallengeAnswerConversionDirectKeypad
             handleKeyInput={handleKeyInput}
             handleNegativeFlip={handleNegativeFlip}
             negativeAvailable={NEGATIVE_UNITS.includes(props.inputUnit)}
@@ -75,7 +75,7 @@ const ChallengeConversionDirectInput = (props) => {
   );
 };
 
-ChallengeConversionDirectInput.propTypes = {
+ChallengeAnswerConversionDirectInput.propTypes = {
   handleInputUpdate: PropTypes.func.isRequired,
   inputUnit: PropTypes.string.isRequired,
   inputValue: PropTypes.string.isRequired,
@@ -83,8 +83,8 @@ ChallengeConversionDirectInput.propTypes = {
   inputProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
-ChallengeConversionDirectInput.defaultProps = {
+ChallengeAnswerConversionDirectInput.defaultProps = {
   inputProps: null,
 };
 
-export default ChallengeConversionDirectInput;
+export default ChallengeAnswerConversionDirectInput;

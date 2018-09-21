@@ -8,7 +8,7 @@ import {
   UNIT_WORDS,
 } from "../../../../../constants";
 
-const ChallengeConversionSlider = (props) => {
+const ChallengeAnswerConversionSlider = (props) => {
   const handleInputUpdate = (e, { value }) => {
     // Survey answers have their inputData structured in an object.
     if (props.surveyAnswerMode) {
@@ -42,7 +42,7 @@ const ChallengeConversionSlider = (props) => {
   );
 };
 
-ChallengeConversionSlider.propTypes = {
+ChallengeAnswerConversionSlider.propTypes = {
   updateCurrentChallengeData: PropTypes.func.isRequired,
   inputUnit: PropTypes.string.isRequired,
   inputtedAnswer: PropTypes.number,
@@ -52,9 +52,9 @@ ChallengeConversionSlider.propTypes = {
   surveyAnswerMode: PropTypes.bool,
 };
 
-ChallengeConversionSlider.defaultProps = {
+ChallengeAnswerConversionSlider.defaultProps = {
   inputtedAnswer: null,
   surveyAnswerMode: false,
 };
 
-export default ChallengeConversionSlider;
+export default ChallengeAnswerConversionSlider;

@@ -7,7 +7,7 @@ import {
   CHALLENGE_KEYPAD_LAYOUT,
 } from "../../../../../constants";
 
-const ChallengeConversionDirectKeypad = (props) => {
+const ChallengeAnswerConversionDirectKeypad = (props) => {
   const handleButtonPress = (e, { value }) => {
     // Handle negative button press.
     if (props.handleNegativeFlip && value === CHALLENGE_KEYPAD_NEGATIVE) {
@@ -48,14 +48,14 @@ const ChallengeConversionDirectKeypad = (props) => {
   );
 };
 
-ChallengeConversionDirectKeypad.propTypes = {
+ChallengeAnswerConversionDirectKeypad.propTypes = {
   handleKeyInput: PropTypes.func.isRequired,
   handleNegativeFlip: PropTypes.func,
   negativeAvailable: PropTypes.bool.isRequired,
 };
 
-ChallengeConversionDirectKeypad.defaultProps = {
+ChallengeAnswerConversionDirectKeypad.defaultProps = {
   handleNegativeFlip: null,
 };
 
-export default ChallengeConversionDirectKeypad;
+export default ChallengeAnswerConversionDirectKeypad;

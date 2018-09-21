@@ -5,7 +5,7 @@ import { Grid, Icon } from "semantic-ui-react";
 
 import utils from "../../../../../utils";
 
-import ChallengeConversionDirectKeypad from "./ChallengeConversionDirectKeypad";
+import ChallengeAnswerConversionDirectKeypad from "./ChallengeAnswerConversionDirectKeypad";
 import ChallengeAnswerConversionDisplay from "./display/ChallengeAnswerConversionDisplay";
 
 import {
@@ -15,7 +15,7 @@ import {
   SPLIT_UNITS,
 } from "../../../../../constants";
 
-class ChallengeConversionDirectInputSplit extends PureComponent {
+class ChallengeAnswerConversionDirectInputSplit extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -127,7 +127,7 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column {...CHALLENGE_KEYPAD_COLUMN_WIDTH}>
-            <ChallengeConversionDirectKeypad
+            <ChallengeAnswerConversionDirectKeypad
               handleKeyInput={
                 this.state.activeInput === 0 ? this.updateInput0 :
                   this.state.activeInput === 1 ? this.updateInput1 : this.updateInput2
@@ -142,7 +142,7 @@ class ChallengeConversionDirectInputSplit extends PureComponent {
   }
 }
 
-ChallengeConversionDirectInputSplit.propTypes = {
+ChallengeAnswerConversionDirectInputSplit.propTypes = {
   handleInputUpdate: PropTypes.func.isRequired,
   inputUnit: PropTypes.string.isRequired,
   inputValue: PropTypes.string.isRequired,
@@ -150,8 +150,8 @@ ChallengeConversionDirectInputSplit.propTypes = {
   inputProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
-ChallengeConversionDirectInputSplit.defaultProps = {
+ChallengeAnswerConversionDirectInputSplit.defaultProps = {
   inputProps: null,
 };
 
-export default ChallengeConversionDirectInputSplit;
+export default ChallengeAnswerConversionDirectInputSplit;
