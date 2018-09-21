@@ -15,10 +15,10 @@ import {
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   CHALLENGE_RESPONSE_INPUT_DIRECT,
   CHALLENGE_RESPONSE_INPUT_SLIDER,
-  CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_ANSWER,
+  CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER,
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
-  CHALLENGE_RESOLUTION_SURVEY_ANSWER,
+  CHALLENGE_RESOLUTION_SURVEY_FILLED,
   QUESTION_FLAG_USER_DETAIL_REQUIRED,
 } from "../../../../constants";
 
@@ -57,10 +57,10 @@ function ChallengeResponse(props) {
       } else {
         props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT, { answer: inputValue });
       }
-    } else if (currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_ANSWER) {
+    } else if (currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER) {
       // Filling out a survey is different. The inputData is an object.
       props.resolveQa(
-        CHALLENGE_RESOLUTION_SURVEY_ANSWER,
+        CHALLENGE_RESOLUTION_SURVEY_FILLED,
         {
           skip: false,
           value: currentChallenge.inputData.value,
@@ -75,11 +75,11 @@ function ChallengeResponse(props) {
   const { currentChallenge, qaData } = props;
   let showSubmitButton;
 
-  // Determine if the submit button should be shown. In the case of a Survey question being answered
-  // it needs to be determined that in the case where a user note is required that it be filled out
-  // in addition to the value. Otherwise just the value. And if not a Survey answer, just inputData.
+  // Determine if the submit button should be shown. In the case of a Survey question being filled
+  // it needs to be determined that in the case where a user note is required that it be written
+  // in addition to the value. Otherwise just the value. And if not a Survey fill, just inputData.
   if (currentChallenge.inputData &&
-  currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_ANSWER) {
+  currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER) {
     if (qaData.flags & QUESTION_FLAG_USER_DETAIL_REQUIRED) {
       // User note is required.
       showSubmitButton = !!(

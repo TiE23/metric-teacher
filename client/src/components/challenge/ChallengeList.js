@@ -18,12 +18,13 @@ import {
   CHALLENGE_QUESTION_REPEAT,
   CHALLENGE_RESULTS_MASTERY_SCORE,
   CHALLENGE_RESULTS_SURVEY_SCORE,
-  CHALLENGE_RESULTS_SURVEY_ANSWER,
+  CHALLENGE_RESULTS_SURVEY_FILLED,
+  CHALLENGE_RESULTS_SURVEY_FILL_SKIPPED,
   QUESTION_TYPE_SURVEY,
   CHALLENGE_RESOLUTION_SKIP,
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
-  CHALLENGE_RESOLUTION_SURVEY_ANSWER,
+  CHALLENGE_RESOLUTION_SURVEY_FILLED,
 } from "../../constants";
 
 const ChallengeList = (props) => {
@@ -65,14 +66,25 @@ const ChallengeList = (props) => {
           },
         );
 
-        // Punish student's survey score for skipping.
-        if (currentQaObject.question.type === QUESTION_TYPE_SURVEY &&
-        currentQaObject.question.data.survey.response) {
-          props.updateResultsData(
-            CHALLENGE_RESULTS_SURVEY_SCORE,
-            currentQaObject.question.data.survey.response.surveyId,
-            { score: CHALLENGE_SCORES.skipped.survey[currentQaObject.difficulty] },
-          );
+        // The skipped question was a Survey...
+        if (currentQaObject.question.type === QUESTION_TYPE_SURVEY) {
+          // The survey was filled previously. So punish student's survey score for skipping.
+          if (currentQaObject.question.data.survey.response) {
+            props.updateResultsData(
+              CHALLENGE_RESULTS_SURVEY_SCORE,
+              currentQaObject.question.data.survey.response.surveyId,
+              {
+                score: CHALLENGE_SCORES.skipped.survey[currentQaObject.difficulty],
+              },
+            );
+          } else {
+            // The user just skipped filling the survey. Mark it as skipped.
+            props.updateResultsData(
+              CHALLENGE_RESULTS_SURVEY_FILL_SKIPPED,
+              currentQaObject.questionId,
+              null, // No need for a payload, the mode takes care of it.
+            );
+          }
         }
       }
     } else if (resolution === CHALLENGE_RESOLUTION_CORRECT) {
@@ -103,7 +115,9 @@ const ChallengeList = (props) => {
         props.updateResultsData(
           CHALLENGE_RESULTS_SURVEY_SCORE,
           currentQaObject.question.data.survey.response.surveyId,
-          { score: CHALLENGE_SCORES.correct.survey[currentQaObject.difficulty] },
+          {
+            score: CHALLENGE_SCORES.correct.survey[currentQaObject.difficulty],
+          },
         );
       }
     } else if (resolution === CHALLENGE_RESOLUTION_INCORRECT) {
@@ -130,15 +144,17 @@ const ChallengeList = (props) => {
         props.updateResultsData(
           CHALLENGE_RESULTS_SURVEY_SCORE,
           currentQaObject.question.data.survey.response.surveyId,
-          { score: CHALLENGE_SCORES.incorrect.survey[currentQaObject.difficulty] },
+          {
+            score: CHALLENGE_SCORES.incorrect.survey[currentQaObject.difficulty],
+          },
         );
       }
-    } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_ANSWER) {
+    } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_FILLED) {
       challengeProgressUpdate.succeeded = true;
 
       // Pass the entire surveyPayload object.
       props.updateResultsData(
-        CHALLENGE_RESULTS_SURVEY_ANSWER,
+        CHALLENGE_RESULTS_SURVEY_FILLED,
         currentQaObject.questionId,
         surveyPayload,  // Pass through the survey's payload (skip, value, unit, score, detail).
       );

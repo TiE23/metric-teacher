@@ -17,7 +17,7 @@ import {
   CHALLENGE_RESOLUTION_SKIP,
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
-  CHALLENGE_RESOLUTION_SURVEY_ANSWER,
+  CHALLENGE_RESOLUTION_SURVEY_FILLED,
   CHALLENGE_RESPONSE_INPUT_DIRECT,
   CHALLENGE_RESPONSE_INPUT_SLIDER,
 } from "../../../constants";
@@ -151,7 +151,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
             ${utils.unitWorder(payload.answer, data.toUnitWord, true)}.
           `;
         }
-      } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_ANSWER) {
+      } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_FILLED) {
         dimmerColor = "blue";
         dimmerMessage = "Survey Response Received!";
         dimmerIcon = "clipboard check";

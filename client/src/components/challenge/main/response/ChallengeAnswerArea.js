@@ -15,7 +15,7 @@ import {
   CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
   CHALLENGE_RESPONSE_INPUT_DIRECT,
   CHALLENGE_RESPONSE_INPUT_SLIDER,
-  CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_ANSWER,
+  CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER,
   QUESTION_FLAG_USER_DETAIL_OPTIONAL,
   QUESTION_FLAG_USER_DETAIL_REQUIRED,
 } from "../../../../constants";
@@ -62,9 +62,8 @@ const ChallengeAnswerArea = (props) => {
         rangeStep={currentChallenge.rangeData[2]}
       />
     );
-  } else if (props.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_ANSWER) {
-    // Handle unanswered Survey questions. Its unit is based on question data.
-
+  } else if (props.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER) {
+    // Handle unfilled Survey questions. Its unit is based on question data.
     const showSurveyNoteInput = props.qaData.flags & (
       QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED
     );
