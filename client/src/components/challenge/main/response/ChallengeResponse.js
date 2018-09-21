@@ -19,6 +19,7 @@ import {
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
   CHALLENGE_RESOLUTION_SURVEY_ANSWER,
+  QUESTION_FLAG_USER_DETAIL_REQUIRED,
 } from "../../../../constants";
 
 function ChallengeResponse(props) {
@@ -71,10 +72,27 @@ function ChallengeResponse(props) {
     }
   };
 
-  // TODO - For Survey Answers:
-  // Block submitButton if no note when required.
-  // Block submitButton if no input when there is a note
-  const showSubmitButton = utils.t0(props.currentChallenge.inputData);
+  const { currentChallenge, qaData } = props;
+  let showSubmitButton;
+
+  // Determine if the submit button should be shown. In the case of a Survey question being answered
+  // it needs to be determined that in the case where a user note is required that it be filled out
+  // in addition to the value. Otherwise just the value. And if not a Survey answer, just inputData.
+  if (currentChallenge.inputData &&
+  currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_ANSWER) {
+    if (qaData.flags & QUESTION_FLAG_USER_DETAIL_REQUIRED) {
+      // User note is required.
+      showSubmitButton = !!(
+        utils.t0(currentChallenge.inputData.value) &&
+        (currentChallenge.inputData.detail && currentChallenge.inputData.detail.trim())
+      );
+    } else {
+      // Not required, we only care if the value is set.
+      showSubmitButton = utils.t0(currentChallenge.inputData.value);
+    }
+  } else {
+    showSubmitButton = utils.t0(currentChallenge.inputData);
+  }
 
   return (
     <div>

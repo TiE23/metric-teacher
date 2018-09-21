@@ -85,6 +85,7 @@ const ChallengeAnswerArea = (props) => {
             updateCurrentChallengeData={props.updateCurrentChallengeData}
             noteRequired={!!(props.qaData.flags & QUESTION_FLAG_USER_DETAIL_REQUIRED)}
             surveyNote={currentChallenge.inputData && currentChallenge.inputData.detail}
+            placeholder="Write your note here..."
           />
         }
       </div>

@@ -1,42 +1,47 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Input } from "semantic-ui-react";
+import { Icon, Input, Label, Segment } from "semantic-ui-react";
 
-class ChallengeSurveyNoteInput extends PureComponent {
-  constructor(props) {
-    super(props);
+import {
+  SURVEY_DETAIL_MAXIMUM_LENGTH,
+} from "../../../../constants";
 
-    this.state = {
+const ChallengeSurveyNoteInput = (props) => {
+  const updateNote = (e, { value }) => {
+    if (value.length <= SURVEY_DETAIL_MAXIMUM_LENGTH) {
+      props.updateCurrentChallengeData({ inputData: { detail: value } });
+    }
+  };
 
-    };
-
-    this.updateNote = (e, { value }) => {
-      this.props.updateCurrentChallengeData({ inputData: { detail: value } });
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        <p>ChallengeSurveyNoteInput</p>
-        <Input
-          value={this.props.surveyNote || ""}
-          onChange={this.updateNote}
-        />
-        {!!this.props.noteRequired && <p>Note Required</p>}
-      </div>
-    );
-  }
-}
+  return (
+    <Segment>
+      <Label
+        attached="top left"
+        color={props.noteRequired ? "orange" : "olive"}
+      >
+        <Icon name="clipboard check" />
+        Custom Note ({props.noteRequired ? "Required" : "Optional"})
+      </Label>
+      <Input
+        fluid
+        value={props.surveyNote || ""}
+        onChange={updateNote}
+        placeholder={props.placeholder}
+      />
+    </Segment>
+  );
+};
 
 ChallengeSurveyNoteInput.propTypes = {
   updateCurrentChallengeData: PropTypes.func.isRequired,
   noteRequired: PropTypes.bool.isRequired,
   surveyNote: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 ChallengeSurveyNoteInput.defaultProps = {
   surveyNote: null,
+  placeholder: "",
 };
 
 export default ChallengeSurveyNoteInput;
