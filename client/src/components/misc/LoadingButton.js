@@ -86,7 +86,7 @@ class LoadingButton extends PureComponent {
             <Button
               basic={this.props.modalProps.basic}
               inverted={this.props.modalProps.basic}
-              color="red"
+              color={this.props.modalRejectColor}
               onClick={this.closeModal}
             >
               <Icon name="remove" />
@@ -96,7 +96,7 @@ class LoadingButton extends PureComponent {
               onClick={this.buttonClick}
               basic={this.props.modalProps.basic}
               inverted={this.props.modalProps.basic}
-              color="green"
+              color={this.props.modalAcceptColor}
               disabled={this.props.loading || (this.props.error &&
                 this.props.buttonDisableOnError && this.props.modalStayOpenOnError)}
               loading={this.props.loading}
@@ -140,7 +140,9 @@ LoadingButton.propTypes = {
   modalHeaderContent: PropTypes.string,
   modalContent: PropTypes.string,
   modalRejectLabel: PropTypes.string,
+  modalRejectColor: PropTypes.string,
   modalAcceptLabel: PropTypes.string,
+  modalAcceptColor: PropTypes.string,
   modalStayOpenOnError: PropTypes.bool,
 };
 
@@ -158,7 +160,9 @@ LoadingButton.defaultProps = {
   modalHeaderContent: "Confirm",
   modalContent: "Are you sure?",
   modalRejectLabel: "No",
+  modalRejectColor: "red",
   modalAcceptLabel: "Yes",
+  modalAcceptColor: "green",
   modalStayOpenOnError: false,
 };
 

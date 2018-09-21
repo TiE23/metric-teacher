@@ -1,24 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "semantic-ui-react";
+
+import LoadingButton from "../../../misc/LoadingButton";
 
 const ChallengeSkip = props => (
-  // TODO - Make skip have a confirm dialog.
-  <Button
+  <LoadingButton
+    buttonText={props.showClearButton ? "Clear" : "Skip"}
     onClick={props.showClearButton ? props.handleClearQa : props.handleSkipQa}
-    color={props.showClearButton ? "yellow" : "orange"}
-    size="small"
-    compact
-    fluid
-  >
-    {props.showClearButton ? "Clear" : "Skip"}
-  </Button>
+    buttonProps={{
+      color: props.showClearButton ? "yellow" : "orange",
+      size: "small",
+      compact: true,
+      fluid: true,
+    }}
+    confirmModal={props.showSurveySkipConfirm}
+    modalContent="Are you sure you want to skip filling out this survey? You won't be asked again. If you change your mind you can find the survey in your My Details page."
+    modalRejectLabel="Reconsider"
+    modalRejectColor="teal"
+    modalAcceptLabel="Skip Survey"
+    modalAcceptColor="orange"
+  />
 );
 
 ChallengeSkip.propTypes = {
   showClearButton: PropTypes.bool.isRequired,
+  showSurveySkipConfirm: PropTypes.bool,
   handleSkipQa: PropTypes.func.isRequired,
   handleClearQa: PropTypes.func.isRequired,
+};
+
+ChallengeSkip.defaultProps = {
+  showSurveySkipConfirm: false,
 };
 
 export default ChallengeSkip;

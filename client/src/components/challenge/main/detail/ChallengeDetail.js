@@ -9,6 +9,7 @@ import ChallengeQuestion from "./ChallengeQuestion";
 import {
   CHALLENGE_DETAILS_GRID_COLUMN_LEFT,
   CHALLENGE_DETAILS_GRID_COLUMN_RIGHT,
+  CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER,
 } from "../../../../constants";
 
 import {
@@ -25,6 +26,8 @@ const ChallengeDetail = props => (
         <Divider />
         <ChallengeSkip
           showClearButton={props.showClearButton}
+          showSurveySkipConfirm={props.responseMode ===
+            CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER}
           handleSkipQa={props.handleSkipQa}
           handleClearQa={props.handleClearQa}
         />
@@ -41,6 +44,7 @@ const ChallengeDetail = props => (
 ChallengeDetail.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   showClearButton: PropTypes.bool.isRequired,
+  responseMode: PropTypes.number.isRequired,
   handleSkipQa: PropTypes.func.isRequired,
   handleClearQa: PropTypes.func.isRequired,
 };

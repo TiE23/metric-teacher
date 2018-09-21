@@ -185,6 +185,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
               <ChallengeDetail
                 qaData={this.props.qaData}
                 showClearButton={utils.t0(this.props.currentChallenge.inputData)}
+                responseMode={this.props.currentChallenge.responseMode}
                 handleSkipQa={this.handleSkipQa}
                 handleClearQa={this.handleClearQa}
               />
