@@ -3,6 +3,9 @@ import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
 import isEmail from "validator/lib/isEmail";
 import isDecimal from "validator/lib/isDecimal";
 import mergeWith from "lodash/mergeWith";
+import random from "lodash/random";
+import range from "lodash/range";
+import shuffle from "lodash/shuffle";
 import isPlainObject from "lodash/isPlainObject";
 import isObject from "lodash/isObject";
 import forEach from "lodash/forEach";
@@ -14,6 +17,9 @@ import normalizeEmail from "validator/lib/normalizeEmail";
 import {
   AUTH_TOKEN,
   CHALLENGE_STATE,
+  CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
+  CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+  CHALLENGE_RANGE_STEPS,
   BAD_PASSWORDS,
   EMAIL_NORMALIZE_OPTIONS,
   EMAIL_SECRET_PREFIXES,
@@ -26,6 +32,12 @@ import {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
+  QUESTION_FLAG_USER_DETAIL_OPTIONAL,
+  QUESTION_FLAG_USER_DETAIL_REQUIRED,
+  SURVEY_STATUS_NORMAL,
+  UNIT_WORDS,
+  NEGATIVE_UNITS,
+  SPLIT_UNITS,
 } from "./constants";
 
 // TODO better token management
@@ -199,7 +211,10 @@ const checkAuth = (callingUserData, permissions = {
   action: null,
 }) => {
   if (!callingUserData) {
-    return { approval: false, rejectionReasons: ["User must be logged in. Could not read user token."] };
+    return {
+      approval: false,
+      rejectionReasons: ["User must be logged in. Could not read user token."],
+    };
   }
 
   // This is how we track in what ways the user is rejected if they are rejected.
@@ -541,8 +556,7 @@ const cacheTargetExists = (data, targetId, targetAddress = [], key = "id") => {
 const cacheGetTarget = (data, targetId, targetAddress = [], key = "id") => {
   const findResult = findRecursive(data, object => object && object[key] === targetId);
   if (!findResult) return undefined;
-  const targetObject = navigateObjectDots(findResult.target, targetAddress);
-  return targetObject;
+  return navigateObjectDots(findResult.target, targetAddress);
 };
 
 
@@ -763,14 +777,79 @@ const scoreProgressColor = (currentScore, maxScore) => {
  * the proper string in return.
  * Ex:
  *  utils.unitWorder(1, { singular: "foot", plural: "feet" }) // "1 foot"
- *  utils.unitWorder(1500, { singluar: "meter", plural: "meters" }) // "1,500 meters"
- * @param value
+ *  utils.unitWorder(1500, { singular: "meter", plural: "meters" }) // "1,500 meters"
+ *  utils.unitWorder(45, { singular: "inch", plural: "inches" }) // "45 inches"
+ *  utils.unitWorder(45, { singular: "inch", plural: "inches" }, true) // "3 feet, 9 inches"
+ * @param value - Can be number or string
  * @param words
+ * @param readabilityHelper
  * @returns {string}
  */
-const unitWorder = (value, words) => (
-  `${value.toLocaleString()} ${value === 1 ? words.singular : words.plural}`
-);
+const unitWorder = (value, words, readabilityHelper = false) => {
+  if (readabilityHelper) {
+    let unit;
+
+    // Only works for inches, ounces, and fluid ounces (determined by word.singular, sorry)
+    if (words.singular.toLocaleLowerCase() === "inch") unit = "in";
+    else if (words.singular.toLocaleLowerCase() === "ounce") unit = "oz";
+    else if (words.singular.toLocaleLowerCase() === "fluid ounce") unit = "floz";
+
+    if (unit) {
+      const readableString = unitReadabilityHelper(value, unit);
+      if (readableString) {
+        return readableString;
+      }
+      // If not, will return normally at the end of this function.
+    }
+  }
+
+  return `${value.toLocaleString()} ${parseFloat(value) === 1 ? words.singular : words.plural}`;
+};
+
+
+/**
+ * Converts specific units with specific values into more readable strings.
+ * No one says "I'm 68 inches tall", they say "I'm 5 feet, 8 inches tall".
+ * No one says "The package weighs 50 ounces", they say "The package weighs 3 pounds, 2 ounces".
+ * This takes care of that.
+ * It does it for inches (# feet, # inches).
+ * It does it for ounces (# pounds, # ounces).
+ * It does it for fluid ounces (# gallons, # quarts, # ounces).
+ * @param value
+ * @param unit
+ * @returns {*}
+ */
+const unitReadabilityHelper = (value, unit) => {
+  if (SPLIT_UNITS[unit] && value > SPLIT_UNITS[unit].min) {
+    const values = SPLIT_UNITS[unit].explode(value);
+
+    if (SPLIT_UNITS[unit].units.length === 1) {
+      // One unit reducer (values[0] is the only value shown).
+      return deline`
+        ${unitWorder(values[0], UNIT_WORDS[SPLIT_UNITS[unit].units[0]]).toLocaleLowerCase()}
+        (${value}${unitInitializer(unit)})
+      `;
+    } else if (SPLIT_UNITS[unit].units.length === 2) {
+      // Two unit splitter (values[1] is always shown).
+      return deline`${parseFloat(values[0]) ?
+        `${unitWorder(values[0], UNIT_WORDS[SPLIT_UNITS[unit].units[0]]).toLocaleLowerCase()}, ` :
+        ""}${unitWorder(values[1], UNIT_WORDS[SPLIT_UNITS[unit].units[1]]).toLocaleLowerCase()}
+      (${value}${unitInitializer(unit)})`;
+    } else if (SPLIT_UNITS[unit].units.length === 3) {
+      // Three unit splitter (values[2] is always shown).
+      return `${parseFloat(values[0]) ?
+        `${unitWorder(values[0], UNIT_WORDS[SPLIT_UNITS[unit].units[0]]).toLocaleLowerCase()}, ` :
+        ""}${parseFloat(values[1]) ?
+        `${unitWorder(values[1], UNIT_WORDS[SPLIT_UNITS[unit].units[1]]).toLocaleLowerCase()}, ` :
+        ""}${unitWorder(  // Weird line break is intentional! (If values[1] is empty it'll newline).
+        values[2],
+        UNIT_WORDS[SPLIT_UNITS[unit].units[2]],
+      ).toLocaleLowerCase()} (${value}${unitInitializer(unit)})`;
+    }
+  }
+
+  return null;
+};
 
 
 /**
@@ -780,12 +859,12 @@ const unitWorder = (value, words) => (
  *  utils.rangeWorder(
  *   { bottom: { value: 1 }, top: { value: 3 }, { singular: "foot", plural: "feet" }}
  *  ) // "1-3 feet"
- * @param range
+ * @param rangeObject
  * @param words
  * @returns {string}
  */
-const rangeWorder = (range, words) => (
-  `${range.bottom.value.toLocaleString()}-${range.top.value.toLocaleString()} ${range.top.value === 1 ? words.singular : words.plural}`
+const rangeWorder = (rangeObject, words) => (
+  `${rangeObject.bottom.value.toLocaleString()}-${rangeObject.top.value.toLocaleString()} ${rangeObject.top.value === 1 ? words.singular : words.plural}`
 );
 
 
@@ -799,8 +878,87 @@ const rangeWorder = (range, words) => (
  * @returns {string}
  */
 const choiceWorder = choice => (
-  choice.unit === "written" ? `${choice.written}` : `${choice.value.toLocaleString()}${unitInitilizer(choice.unit)}`
+  choice.unit === "written" ? `${choice.written}` : `${choice.value.toLocaleString()}${unitInitializer(choice.unit)}`
 );
+
+
+/**
+ * Process a QA object's data and generate a payload of English text for QA Review and Challenge
+ * mode (indicated with the param challengeMode being set to true).
+ * Written questions are super basic, it just returns the question text.
+ * But for Conversion and Survey questions there are more steps to generate a sensible human-
+ * friendly sentence question.
+ * @param qaData
+ * @param challengeMode
+ * @returns {{questionDescription: string, surveyDetail: string}}
+ */
+const qaReviewTextFormatter = (qaData, challengeMode) => {
+  const { question, answer } = qaData;
+
+  const results = {
+    questionDescription: "",
+    surveyDetail: "",
+  };
+
+  // Conversion questions need to be processed into an understandable English description.
+  if (question.type === QUESTION_TYPE_CONVERSION) {
+    if (challengeMode) {
+      results.questionDescription = deline`
+        Convert
+        ${unitWorder(question.data.conversion.exact.value, question.data.fromUnitWord, true)} to
+        ${answer.data.toUnitWord.plural} within an accuracy of
+        ${unitWorder(answer.data.accuracy, answer.data.toUnitWord)}.
+      `;
+    } else {
+      results.questionDescription = deline`
+        Convert ${rangeWorder(question.data.conversion.range, question.data.fromUnitWord)}
+        with a random step of
+        ${unitWorder(question.data.conversion.step, question.data.fromUnitWord)} to
+        ${answer.data.toUnitWord.plural} within an accuracy of
+        ${unitWorder(answer.data.accuracy, answer.data.toUnitWord)}.
+      `;
+    }
+  } else if (question.type === QUESTION_TYPE_SURVEY) {
+    results.questionDescription = question.text;
+
+    // In Challenge mode only: If the survey was answered, pose their survey answer as the question.
+    if (challengeMode && question.data.survey.response &&
+    question.data.survey.response.status === SURVEY_STATUS_NORMAL) {
+      results.surveyDetail += deline`
+        Your response was
+        ${unitWorder(question.data.survey.response.answer.value, question.data.fromUnitWord, true)}.
+        ${question.data.survey.response.detail ? `("${question.data.survey.response.detail}")` : ""}
+        Convert it to ${answer.data.toUnitWord.plural} within an accuracy of
+        ${unitWorder(answer.data.accuracy, answer.data.toUnitWord)}.
+      `;
+
+    // Otherwise pose it as the original survey question.
+    } else {
+      let stepClause = "and must be a whole number (no decimals)";
+      if (question.data.survey.step < 1) {
+        stepClause = `and can be a whole number or a multiple of ${question.data.survey.step}`;
+      } else if (question.data.survey.step > 1) {
+        stepClause = `and must be a multiple of ${question.data.survey.step}`;
+      }
+
+      let noteClause = "";
+      if (qaData.flags &
+        (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED)) {
+        noteClause = deline`For this survey question you are 
+        ${qaData.flags & QUESTION_FLAG_USER_DETAIL_REQUIRED ? "required" : "welcome"}
+        to enter a note to help add context to your answer.`;
+      }
+
+      results.surveyDetail = deline`Accepted survey answer range is
+        ${rangeWorder(question.data.survey.range, question.data.fromUnitWord)}
+        ${stepClause}. ${noteClause}`;
+    }
+  } else {  // Written question is the simplest.
+    results.questionDescription = question.text;
+  }
+
+  return results;
+};
 
 
 /**
@@ -809,7 +967,7 @@ const choiceWorder = choice => (
  * @param unit
  * @returns {*}
  */
-const unitInitilizer = unit => (
+const unitInitializer = unit => (
   UNIT_INITIALISMS[unit] ? UNIT_INITIALISMS[unit] : unit
 );
 
@@ -1004,6 +1162,58 @@ const minMax = (min, value, max) => (Math.max(min, Math.min(value, max)));
 
 
 /**
+ * Random choice option selector for Challenge mode.
+ * @param mode
+ * @param available
+ * @param offered
+ * @param difficulty
+ * @returns {*}
+ */
+const choiceSelector = (mode, available, offered = 2, difficulty = null) => {
+  if (mode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN) {
+    // Ex: 7 answers available (0-6), 4 offered...
+    const choicesAvailable = shuffle(range(1, available));  // [2, 6, 5, 1, 3, 4] (0 not included)
+    const offeredChoices = choicesAvailable.slice(0, offered + 1);  // [2, 6, 5, 1]
+    offeredChoices[random(0, offeredChoices.length - 1)] = 0; // [2, 6, 0, 1] (0 replaces 5)
+
+    return offeredChoices;
+  } else if (mode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) {
+    return [0, 1]; // TODO - Write difficulty algorithm in ISSUE-017
+  }
+
+  return null;
+};
+
+
+/**
+ * For Slider input. So that the correct answer isn't always in the center let's make up a random
+ * center.
+ * @param unit
+ * @param step
+ * @param answer
+ * @returns {[ min, max, step ]}
+ */
+const rangeSelector = (unit, step, answer) => {
+  const lowerSteps = random(0, CHALLENGE_RANGE_STEPS);    // Ex: if steps == 20, randomly pick 5
+  const higherSteps = CHALLENGE_RANGE_STEPS - lowerSteps; // Ex: 15
+
+  const answerRange = [];
+
+  // If a unit is recognized to allow negative units allow negative return values.
+  if (NEGATIVE_UNITS.includes(unit)) {
+    answerRange.push(answer - (lowerSteps * step));
+  } else {
+    answerRange.push(Math.max(0, answer - (lowerSteps * step)));
+  }
+
+  answerRange.push(answer + higherSteps * step);
+  answerRange.push(step / 2);
+
+  return answerRange;
+};
+
+
+/**
  * Takes in the qaFormData object found in QuestionViewer.js and outputs an input data object that
  * is acceptable by the updateQuestion mutation.
  * @param qaFormData
@@ -1086,9 +1296,11 @@ export default {
   isEmptyRecursive,
   scoreProgressColor,
   unitWorder,
+  unitReadabilityHelper,
   rangeWorder,
   choiceWorder,
-  unitInitilizer,
+  qaReviewTextFormatter,
+  unitInitializer,
   surveyAnswerValidator,
   explodeBits,
   implodeBits,
@@ -1099,5 +1311,7 @@ export default {
   t0,
   t0t,
   minMax,
+  choiceSelector,
+  rangeSelector,
   composeQaInputFromFormData,
 };

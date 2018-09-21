@@ -249,7 +249,7 @@ class QuestionDetailsQuestion extends PureComponent {
                     </List.Description>
                     :
                     <List.Description>
-                      {(this.props.range && utils.unitInitilizer(this.props.range.unit)) || "..."}
+                      {(this.props.range && utils.unitInitializer(this.props.range.unit)) || "..."}
                     </List.Description>
                   }
                 </List.Content>

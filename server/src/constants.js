@@ -176,7 +176,7 @@ const constants = {
       singular: "inch",
       plural: "inches",
       preset: "inch",
-      round: 3, // 1 cm = 0.394 in, 1 mm = 0.039 in
+      round: 2, // 1 cm = 0.39 in, 1 mm = 0.04 in
     },
     ft: {
       family: "imperial",

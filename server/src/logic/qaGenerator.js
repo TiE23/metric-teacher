@@ -70,6 +70,11 @@ function qaGenerate(questionData, serialNumber, surveyData = null) {
     flags: questionData.flags,
     status: questionData.status,
     media: questionData.media,
+    subject: {
+      name: questionData.parent.parent.name,
+      scale: questionData.parent.scale,
+      toMetric: questionData.parent.toMetric,
+    },
     question: generatedQuestion,
     answer: generatedAnswer,
   };
@@ -99,10 +104,13 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
       throw new AnswerUnitMissing();
     }
 
-    const value = makeValueFromRange(
-      questionPayload.data.rangeBottom,
-      questionPayload.data.rangeTop,
-      questionPayload.data.step,
+    const value = round(
+      makeValueFromRange(
+        questionPayload.data.rangeBottom,
+        questionPayload.data.rangeTop,
+        questionPayload.data.step,
+      ),
+      UNITS[questionPayload.data.unit].round,
     );
 
     return {
@@ -290,7 +298,7 @@ function composeWrittenAnswerData(answerPayload) {
  * @returns {{
  *  accuracy: *,
  *  exact: *,
- *  rounded:   *,
+ *  rounded: *,
  *  friendly: *,
  *  range: {
  *    bottom: {value, unit: *},

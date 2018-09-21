@@ -1,17 +1,122 @@
+import round from "lodash/round";
+
 // Standard names
 export const AUTH_TOKEN = "auth-token";
 export const CHALLENGE_STATE = "challenge-state";
 
-// Styling
+// Responsive Sizing
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8, computer: 8 };
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE = { mobile: 16, tablet: 14, computer: 14 };
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL = { mobile: 16, tablet: 16, computer: 16 };
+export const CHALLENGE_DETAILS_GRID_COLUMN_LEFT = { mobile: 5, tablet: 4, computer: 3 };
+export const CHALLENGE_DETAILS_GRID_COLUMN_RIGHT = { mobile: 11, tablet: 12, computer: 13 };
+export const CHALLENGE_KEYPAD_COLUMN_WIDTH = { mobile: 12, tablet: 6, computer: 5 };
+export const CHALLENGE_DISPLAY_SINGLE_INPUT_COLUMN_WIDTH = { mobile: 8, tablet: 4, computer: 3 };
+export const CHALLENGE_DISPLAY_SINGLE_DELETE_COLUMN_WIDTH = { mobile: 4, tablet: 2, computer: 1 };
+export const CHALLENGE_DISPLAY_SPLIT_INPUT_COLUMN_WIDTH = { mobile: 13, tablet: 10, computer: 7 };
+export const CHALLENGE_DISPLAY_SPLIT_DELETE_COLUMN_WIDTH = { mobile: 2, tablet: 1, computer: 1 };
 
 // Challenge Settings
+export const CHALLENGE_KEYPAD_NEGATIVE = "(-)";
+export const CHALLENGE_KEYPAD_LAYOUT = [
+  ["7", "8", "9"],
+  ["4", "5", "6"],
+  ["1", "2", "3"],
+  ["0", ".", CHALLENGE_KEYPAD_NEGATIVE],
+];
+
 export const CHALLENGE_TRANSITION_PROPS = {
   animation: "fly left",
   duration: { show: 500, hide: 0 },
 };
+
+export const CHALLENGE_DIMMER_TIME_NO_EXTRA = 1000;
+export const CHALLENGE_DIMMER_TIME_EXTRA = 5000;
+export const CHALLENGE_DIMMER_TRANSITION_PROPS = {
+  animation: "drop",
+  duration: 500,
+};
+
+export const CHALLENGE_RESPONSE_MULTIPLE_WRITTEN = 0;
+export const CHALLENGE_RESPONSE_MULTIPLE_GENERATED = 1;
+export const CHALLENGE_RESPONSE_INPUT_DIRECT = 2;
+export const CHALLENGE_RESPONSE_INPUT_SLIDER = 3;
+export const CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER = 4;
+
+export const CHALLENGE_RESULTS_MASTERY_SCORE = 0;
+export const CHALLENGE_RESULTS_SURVEY_SCORE = 1;
+export const CHALLENGE_RESULTS_SURVEY_FILLED = 2;
+export const CHALLENGE_RESULTS_SURVEY_FILL_SKIPPED = 3;
+
+export const CHALLENGE_RESOLUTION_SKIP = 0;
+export const CHALLENGE_RESOLUTION_CORRECT = 1;
+export const CHALLENGE_RESOLUTION_INCORRECT = 2;
+export const CHALLENGE_RESOLUTION_SURVEY_FILLED = 3;
+
+export const CHALLENGE_RANGE_STEPS = 20;
+
+export const CHALLENGE_SCORES = {
+  // Correct answers.
+  // Fully mastered = 1000 points. Repeated correct answers should decrease score.
+  correct: {
+    mastery: [
+      // Difficulties 0, 1, 2, 3, 4, 5.
+      [0, 10, 10, 12, 15, 30],  // Written
+      [0, 10, 10, 12, 15, 30],  // Conversion
+      [0, 10, 10, 12, 15, 30],  // Survey
+    ],
+
+    // Difficulties 0, 1, 2, 3, 4, 5.
+    survey: [0, 125, 100, 90, 75, 60],
+  },
+
+  // Incorrect answers.
+  // Each incorrect answer stacks. So that one wrong damages your gains, two takes slightly,
+  // and three takes a lot.
+  incorrect: {
+    mastery: [
+      // Difficulties 0, 1, 2, 3, 4, 5.
+      [0, -4, -6, -8, -10, -20],  // Written
+      [0, -4, -6, -8, -10, -20],  // Conversion
+      [0, -4, -6, -8, -10, -20],  // Survey
+    ],
+
+    // Difficulties 0, 1, 2, 3, 4, 5.
+    survey: [0, -80, -65, -60, -50, -40],
+  },
+
+  // Question was skipped.
+  // These punishments are only applied when skipping the question at first appearance.
+  // Easy questions can be skipped with little punishment. Difficult questions will be punished
+  // more severely.
+  skipped: {
+    mastery: [
+      // Difficulties 0, 1, 2, 3, 4, 5.
+      [0, 0, -1, -3, -8, -12, -30], // Written
+      [0, 0, -1, -3, -8, -12, -30], // Conversion
+      [0, 0, -1, -3, -8, -12, -30], // Survey
+    ],
+
+    // Difficulties 0, 1, 2, 3, 4, 5.
+    survey: [0, 0, -20, -80, -75, -60],
+  },
+};
+
+export const CHALLENGE_MAX_STRIKES = [
+  // 3 = "3 strikes you're out."
+  // Difficulties 0, 1, 2, 3, 4, 5.
+  [1, 3, 3, 2, 2, 2], // Written
+  [1, 5, 3, 3, 3, 2], // Conversion
+  [1, 4, 3, 3, 2, 2], // Survey
+];
+
+export const CHALLENGE_QUESTION_REPEAT = [
+  // This is a config to determine how many times a question might be asked again even after a
+  // correct answer. Minimum is 1.
+  [1, 3, 2, 1, 1, 1], // Written
+  [1, 3, 2, 2, 2, 1], // Conversion
+  [1, 3, 2, 2, 2, 1], // Survey
+];
 
 // Password
 export const PASSWORD_MINIMUM_LENGTH = 6;
@@ -253,47 +358,47 @@ export const UNIT_INITIALISMS = {
   kmph: "km/h",
 };
 
-export const UNIT_NAMES = {
-  mm: "Millimeters",
-  cm: "Centimeters",
-  m: "Meters",
-  km: "Kilometers",
-  in: "Inches",
-  ft: "Feet",
-  yd: "Yards",
-  mi: "Miles",
-  nmi: "Nautical Miles",
-  mg: "Milligrams",
-  g: "Grams",
-  kg: "Kilograms",
-  tonne: "Tonnes",
-  oz: "Ounces",
-  lb: "Pounds",
-  ton: "Short tons",
-  lton: "Long tons",
-  st: "Stone",
-  ml: "Milliliters",
-  l: "Liters",
-  cum: "Cubic Meters",
-  cuin: "Cubic Inches",
-  floz: "Fluid Ounces",
-  cup: "Cups",
-  pt: "Pints",
-  qt: "Quarts",
-  gal: "Gallons",
-  c: "Celsius",
-  f: "Fahrenheit",
-  sqm: "Square Meters",
-  ha: "Hectares",
-  sqkm: "Square Kilometers",
-  sqft: "Square Feet",
-  acre: "Acres",
-  sqmi: "Square Miles",
-  ms: "Meters per Second",
-  kmph: "Kilometers per Hour",
-  fps: "Feet per Second",
-  mph: "Miles per Hour",
-  kn: "Knots",
+export const UNIT_WORDS = {
+  mm: { singular: "Millimeter", plural: "Millimeters" },
+  cm: { singular: "Centimeter", plural: "Centimeters" },
+  m: { singular: "Meter", plural: "Meters" },
+  km: { singular: "Kilometer", plural: "Kilometers" },
+  in: { singular: "Inch", plural: "Inches" },
+  ft: { singular: "Foot", plural: "Feet" },
+  yd: { singular: "Yard", plural: "Yards" },
+  mi: { singular: "Mile", plural: "Miles" },
+  nmi: { singular: "Nautical Mile", plural: "Nautical Miles" },
+  mg: { singular: "Milligram", plural: "Milligrams" },
+  g: { singular: "Gram", plural: "Grams" },
+  kg: { singular: "Kilogram", plural: "Kilograms" },
+  tonne: { singular: "Tonne", plural: "Tonnes" },
+  oz: { singular: "Ounce", plural: "Ounces" },
+  lb: { singular: "Pound", plural: "Pounds" },
+  ton: { singular: "Short Ton", plural: "Short Tons" },
+  lton: { singular: "Long Ton", plural: "Long Tons" },
+  st: { singular: "Stone", plural: "Stone" },
+  ml: { singular: "Milliliter", plural: "Milliliters" },
+  l: { singular: "Liter", plural: "Liters" },
+  cum: { singular: "Cubic Meter", plural: "Cubic Meters" },
+  cuin: { singular: "Cubic Inch", plural: "Cubic Inches" },
+  floz: { singular: "Fluid Ounce", plural: "Fluid Ounces" },
+  cup: { singular: "Cup", plural: "Cups" },
+  pt: { singular: "Pint", plural: "Pints" },
+  qt: { singular: "Quart", plural: "Quarts" },
+  gal: { singular: "Gallon", plural: "Gallons" },
+  c: { singular: "Celsius", plural: "Celsius" },
+  f: { singular: "Fahrenheit", plural: "Fahrenheit" },
+  sqm: { singular: "Square Meter", plural: "Square Meters" },
+  ha: { singular: "Hectare", plural: "Hectares" },
+  sqkm: { singular: "Square Kilometer", plural: "Square Kilometers" },
+  sqft: { singular: "Square Foot", plural: "Square Feet" },
+  acre: { singular: "Acre", plural: "Acres" },
+  sqmi: { singular: "Square Mile", plural: "Square Miles" },
+  ms: { singular: "Meter per Second", plural: "Meters per Second" },
+  kmph: { singular: "Kilometer per Hour", plural: "Kilometers per Hour" },
+  fps: { singular: "Foot per Second", plural: "Feet per Second" },
+  mph: { singular: "Mile per Hour", plural: "Miles per Hour" },
+  kn: { singular: "Knot", plural: "Knots" },
 };
 
 export const UNIT_FAMILIES = {
@@ -312,5 +417,53 @@ export const UNIT_FAMILIES = {
     temperature: ["f"],
     area: ["sqft", "acre", "sqmi"],
     velocity: ["fps", "mph", "kn"],
+  },
+};
+
+export const NEGATIVE_UNITS = ["f", "c"];
+
+export const SPLIT_UNITS = {
+  in: {
+    min: 24,
+    units: ["ft", "in"],
+    explode: inches => [
+      String(Math.floor(inches / 12)), // ft
+      String(round(inches % 12, 2)),   // in
+      String(0),
+    ],
+    implode: inputs => String((Math.floor(inputs[0]) * 12) + inputs[1]),
+  },
+  // Commenting this out because I don't think it'll be needed. Also it would make conversions for
+  // tall buildings, mountains, and elevations confusing. If we need miles we'll use kilometers.
+  // ft: {
+  //   min: 1320,  // 0.25 miles
+  //   units: ["mi"],
+  //   explode: feet => [
+  //     String(round(feet / 5280, 2)),  // mi
+  //     String(0),
+  //     String(0),
+  //   ],
+  //   implode: inputs => String((inputs[0] * 5280) + inputs[1]),
+  // },
+  oz: {
+    min: 16,
+    units: ["lb", "oz"],
+    explode: ounces => [
+      String(Math.floor(ounces / 16)), // lbs
+      String(round(ounces % 16, 2)),   // oz
+      String(0),
+    ],
+    implode: inputs => String((Math.floor(inputs[0]) * 16) + inputs[1]),
+  },
+  floz: {
+    min: 40,
+    units: ["gal", "qt", "floz"],
+    explode: fluidOunces => [
+      String(Math.floor(fluidOunces / 128)),        // gal
+      String(Math.floor((fluidOunces % 128) / 32)), // qt
+      String(round(fluidOunces % 32, 2)),           // floz
+    ],
+    implode: inputs => String((Math.floor(inputs[0]) * 128) +
+      (Math.floor(inputs[1]) * 32) + inputs[2]),
   },
 };

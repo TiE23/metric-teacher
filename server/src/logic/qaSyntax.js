@@ -237,7 +237,7 @@ function parseQuestionString(type, question) {
   } else {  // eslint-disable-line no-else-return
     throw new QuestionSyntaxError(
       question,
-      `Question type '${type}' was not expected with question '${question}'`,
+      `Question type '${type}' was not expected`,
     );
   }
 }
@@ -299,8 +299,9 @@ function parseAnswerString(questionType, answerSyntax) {
     answerPayload.data.choicesOffered = choicesOffered;
 
     // Parse the choices for values and units.
-    const parsedMultipleChoiceAnswers = multipleChoiceAnswers.map(singleAnswer =>
-      parseSingleAnswer(singleAnswer, answerSyntax));
+    const parsedMultipleChoiceAnswers = multipleChoiceAnswers.map(
+      singleAnswer => parseSingleAnswer(singleAnswer, answerSyntax),
+    );
 
     const dedupedParsedMultipleChoiceAnswers =
       removeDuplicateAnswers(answerSyntax, parsedMultipleChoiceAnswers, choicesOffered);

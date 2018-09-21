@@ -1,8 +1,6 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Transition } from "semantic-ui-react";
-import random from "lodash/random";
-import forEach from "lodash/forEach";
 
 import ChallengeMain from "./main/ChallengeMain";
 import ChallengeComplete from "./extra/ChallengeComplete";
@@ -15,108 +13,210 @@ import {
 
 import {
   CHALLENGE_TRANSITION_PROPS,
+  CHALLENGE_SCORES,
+  CHALLENGE_MAX_STRIKES,
+  CHALLENGE_QUESTION_REPEAT,
+  CHALLENGE_RESULTS_MASTERY_SCORE,
+  CHALLENGE_RESULTS_SURVEY_SCORE,
+  CHALLENGE_RESULTS_SURVEY_FILLED,
+  CHALLENGE_RESULTS_SURVEY_FILL_SKIPPED,
+  QUESTION_TYPE_SURVEY,
+  CHALLENGE_RESOLUTION_SKIP,
+  CHALLENGE_RESOLUTION_CORRECT,
+  CHALLENGE_RESOLUTION_INCORRECT,
+  CHALLENGE_RESOLUTION_SURVEY_FILLED,
 } from "../../constants";
 
-class ChallengeList extends PureComponent {
-  constructor(props) {
-    super(props);
+const ChallengeList = (props) => {
+  /**
+   * Deals with calculating mastery and survey scores.
+   *
+   * There is a hierarchy of components and their handlers:
+   * ChallengeManager.updateResultsData() - Deals with recording mastery and survey results data.
+   * >ChallengeList.resolveQa() - Deals with calculating mastery and survey scores.
+   * ChallengeMain.resolveQa() - Deals with streaks and dimmer.
+   * ChallengeResponse.resolveQa() - Deals with determining if user's input is correct or not.
+   *
+   * @param qaId - The QA id
+   * @param resolution - Skip, correct, incorrect, or survey answered
+   * @param surveyPayload - for "survey-answered", contains the data for the SurveyAnswerInput:
+   *                    { skip, value, unit, score, detail }
+   */
+  const resolveQa = (qaId, resolution, surveyPayload = null) => {
+    // TODO - Remove this when done.
+    console.log(resolution, qaId, surveyPayload);
+    const challengeProgressUpdate = { seen: true };
+    const currentQaObject =
+      utils.cacheGetTarget(props.challengeData, props.currentChallenge.currentQaId);
 
-    this.state = {
-      currentQaId: null,
-    };
+    // Different resolutions getting handled.
+    if (resolution === CHALLENGE_RESOLUTION_SKIP) {
+      challengeProgressUpdate.skipped = true;
 
-    const getNextRandomQaId = (challengeProgress, oldQaId) => {
-      const remainingQaIds = [];
+      // Only score adjust if skipped on first view (seen === true).
+      if (!props.challengeProgress[currentQaObject.id].seen) {
+        // Punish student's mastery for skipping.
+        props.updateResultsData(
+          CHALLENGE_RESULTS_MASTERY_SCORE,
+          currentQaObject.subSubjectId,
+          {
+            score: CHALLENGE_SCORES.skipped.mastery[
+              currentQaObject.question.type
+            ][currentQaObject.difficulty],
+          },
+        );
 
-      forEach(challengeProgress, (row, id) => {
-        if (!row.skipped && !row.correctlyAnswered && !row.failed) {
-          remainingQaIds.push(id);
+        // The skipped question was a Survey...
+        if (currentQaObject.question.type === QUESTION_TYPE_SURVEY) {
+          // The survey was filled previously. So punish student's survey score for skipping.
+          if (currentQaObject.question.data.survey.response) {
+            props.updateResultsData(
+              CHALLENGE_RESULTS_SURVEY_SCORE,
+              currentQaObject.question.data.survey.response.surveyId,
+              {
+                score: CHALLENGE_SCORES.skipped.survey[currentQaObject.difficulty],
+              },
+            );
+          } else {
+            // The user just skipped filling the survey. Mark it as skipped.
+            props.updateResultsData(
+              CHALLENGE_RESULTS_SURVEY_FILL_SKIPPED,
+              currentQaObject.questionId,
+              null, // No need for a payload, the mode takes care of it.
+            );
+          }
         }
-      });
-
-      console.log("Q's remaining", remainingQaIds.length);
-
-      // Return null if we're out of QAs.
-      if (remainingQaIds.length === 0) {
-        return null;
       }
-
-      // We have just one left, return it.
-      if (remainingQaIds.length === 1) {
-        return remainingQaIds[0];
+    } else if (resolution === CHALLENGE_RESOLUTION_CORRECT) {
+      // Check the question repeat setting. Only mark as "succeeded" when the question has been
+      // answered correctly enough times.
+      if (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1 >=
+      CHALLENGE_QUESTION_REPEAT[currentQaObject.question.type][currentQaObject.difficulty]) {
+        challengeProgressUpdate.succeeded = true;
       }
+      challengeProgressUpdate.correctAnswerCount = 1; // (Additive)
 
-      // If we have more than one left do not repeat the same QA id.
-      let candidateId;
-      do {
-        candidateId = remainingQaIds[random(remainingQaIds.length - 1)];
-      } while (candidateId === oldQaId);
+      // Award mastery score for a correct answer.
+      props.updateResultsData(
+        CHALLENGE_RESULTS_MASTERY_SCORE,
+        currentQaObject.subSubjectId,
+        {
+          // Each successive correct answer decreases score.
+          score: Math.ceil(CHALLENGE_SCORES.correct.mastery[
+            currentQaObject.question.type
+          ][currentQaObject.difficulty] /
+          (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1)),
+        },
+        // 1st answer: 100% score. 2nd: 50% score. 3rd: 33% score. etc...
+        // Score is rounded up, so always worth at least 1 point.
+      );
 
-      return candidateId;
-    };
-
-    this.componentDidMount = () => {
-      // When resuming from saved state the challengeProgress prop will be set immediately.
-      if (!utils.isEmptyRecursive(this.props.challengeProgress)) {
-        this.setState(prevState => ({
-          currentQaId: getNextRandomQaId(this.props.challengeProgress, prevState.currentQaId),
-        }));
+      // Award survey score for a correct answer.
+      if (currentQaObject.question.type === QUESTION_TYPE_SURVEY) {
+        props.updateResultsData(
+          CHALLENGE_RESULTS_SURVEY_SCORE,
+          currentQaObject.question.data.survey.response.surveyId,
+          {
+            // Each successive correct answer decreases score.
+            score: CHALLENGE_SCORES.correct.survey[currentQaObject.difficulty] /
+              (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1),
+          },
+        );
       }
-    };
-
-    this.componentDidUpdate = (prevProps, prevState) => {
-      if (this.props.challengeProgress !== prevProps.challengeProgress) {
-        this.setState({
-          currentQaId: getNextRandomQaId(this.props.challengeProgress, prevState.currentQaId),
-        });
+    } else if (resolution === CHALLENGE_RESOLUTION_INCORRECT) {
+      // Check the strike allowance. Too many strikes? Mark as failed.
+      if (props.challengeProgress[currentQaObject.id].incorrectAnswerCount + 1 >=
+      CHALLENGE_MAX_STRIKES[currentQaObject.question.type][currentQaObject.difficulty]) {
+        challengeProgressUpdate.failed = true;
       }
-    };
+      challengeProgressUpdate.incorrectAnswerCount = 1;
 
-    this.resolveCurrentQA = (resolution) => {
-      const challengeProgressUpdateFragment = {};
-      if (resolution === "skip") {
-        challengeProgressUpdateFragment[this.state.currentQaId] = { skipped: true };
+      // Punish mastery score for an incorrect answer.
+      props.updateResultsData(
+        CHALLENGE_RESULTS_MASTERY_SCORE,
+        currentQaObject.subSubjectId,
+        {
+          score: CHALLENGE_SCORES.incorrect.mastery[
+            currentQaObject.question.type
+          ][currentQaObject.difficulty],
+        },
+      );
+
+      // Punish survey score for an incorrect answer.
+      if (currentQaObject.question.type === QUESTION_TYPE_SURVEY) {
+        props.updateResultsData(
+          CHALLENGE_RESULTS_SURVEY_SCORE,
+          currentQaObject.question.data.survey.response.surveyId,
+          {
+            score: CHALLENGE_SCORES.incorrect.survey[currentQaObject.difficulty],
+          },
+        );
       }
-      // TODO - Other resolutions
+    } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_FILLED) {
+      challengeProgressUpdate.succeeded = true;
 
-      this.props.updateChallengeProgress(challengeProgressUpdateFragment);
-    };
-  }
+      // Pass the entire surveyPayload object.
+      props.updateResultsData(
+        CHALLENGE_RESULTS_SURVEY_FILLED,
+        currentQaObject.questionId,
+        surveyPayload,  // Pass through the survey's payload (skip, value, unit, score, detail).
+      );
+    }
 
-  render() {
-    const currentQaObject = this.state.currentQaId ?
-      utils.cacheGetTarget(this.props.challengeData, this.state.currentQaId) : null;
+    props.updateChallengeProgress(props.currentChallenge.currentQaId, challengeProgressUpdate);
+  };
 
-    return (
-      <div>
-        <Transition.Group {...CHALLENGE_TRANSITION_PROPS}>
-          {currentQaObject && [currentQaObject].map(qaObject => (
-            <div key={qaObject.id}>
-              <ChallengeMain
-                key={qaObject.id}
-                qaData={qaObject}
-                resolveCurrentQA={this.resolveCurrentQA}
-              />
-            </div>
-          ))}
-        </Transition.Group>
-        <Transition {...CHALLENGE_TRANSITION_PROPS} visible={!currentQaObject}>
-          <div>
-            <ChallengeComplete
-              qaCount={this.props.challengeData.length}
+  const currentQaObject = props.currentChallenge.currentQaId ?
+    utils.cacheGetTarget(props.challengeData, props.currentChallenge.currentQaId) : null;
+
+  return (
+    <div>
+      <Transition.Group {...CHALLENGE_TRANSITION_PROPS}>
+        {currentQaObject && [currentQaObject].map(qaObject => (
+          <div key={qaObject.id}>
+            <ChallengeMain
+              qaData={qaObject}
+              currentQaProgress={props.challengeProgress[qaObject.id]}
+              currentChallenge={props.currentChallenge}
+              streak={props.streak}
+              resolveQa={resolveQa}
+              updateCurrentChallengeData={props.updateCurrentChallengeData}
+              challengeCompletion={{
+                total: props.challengeData.length,
+                remaining: props.currentChallenge.qaRemaining,
+              }}
             />
           </div>
-        </Transition>
-
-      </div>
-    );
-  }
-}
+        ))}
+      </Transition.Group>
+      <Transition {...CHALLENGE_TRANSITION_PROPS} visible={!currentQaObject}>
+        <div>
+          <ChallengeComplete
+            qaCount={props.challengeData.length}
+            challengeResults={props.challengeResults}
+            challengeSubmitted={props.challengeSubmitted}
+            markChallengeResultsSubmitted={props.markChallengeResultsSubmitted}
+          />
+        </div>
+      </Transition>
+    </div>
+  );
+};
 
 ChallengeList.propTypes = {
   challengeData: PropTypes.arrayOf(QA_DATA_EVERYTHING.isRequired).isRequired,
   challengeProgress: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  challengeResults: PropTypes.object.isRequired,  // eslint-disable-line react/forbid-prop-types
+  challengeSubmitted: PropTypes.bool.isRequired,
+  currentChallenge: PropTypes.shape({
+    currentQaId: PropTypes.string,  // This will be null on mount so we won't require it.
+    qaRemaining: PropTypes.number.isRequired,
+  }).isRequired,
+  streak: PropTypes.number.isRequired,
   updateChallengeProgress: PropTypes.func.isRequired,
+  updateCurrentChallengeData: PropTypes.func.isRequired,
+  updateResultsData: PropTypes.func.isRequired,
+  markChallengeResultsSubmitted: PropTypes.func.isRequired,
 };
 
 export default ChallengeList;

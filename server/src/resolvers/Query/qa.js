@@ -67,6 +67,11 @@ const qa = {
         media
         parent {
           id
+          scale
+          toMetric
+          parent {
+            name
+          }
         }
       }`,
     );

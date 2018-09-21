@@ -217,11 +217,18 @@ type QaObject {
   flags: Int!
   status: Int!
   media: String
+  subject: QaSubjectObject!
   question: QaQuestionObject!
   answer: QaAnswerObject!
 }
 
 ## Child Objects
+type QaSubjectObject {
+  name: String!
+  scale: String!
+  toMetric: Boolean!
+}
+
 type QaQuestionObject {
   detail: String!
   text: String!

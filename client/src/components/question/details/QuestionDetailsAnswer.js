@@ -272,7 +272,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                         :
                         <List.Description>
                           {choice.unit === "written" ? choice.mixedValue :
-                            `${choice.mixedValue}${utils.unitInitilizer(choice.unit)}`}
+                            `${choice.mixedValue}${utils.unitInitializer(choice.unit)}`}
                         </List.Description>
                       }
                     </List.Content>
@@ -430,7 +430,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                       }
                     </List.Description>
                     :
-                    <span>{utils.unitInitilizer(this.props.unit) || "..."}</span>
+                    <span>{utils.unitInitializer(this.props.unit) || "..."}</span>
                   }
                 </List.Content>
               </List.Item>

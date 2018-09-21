@@ -146,7 +146,9 @@ class ChallengeGenerator {
    * @param questionIds
    * @returns {{ questionId: {
    *               id, type, status, flags, difficulty, question, answer, media, parent: {
-   *                id
+   *                id, scale, toMetric, parent: {
+   *                  name
+   *                }
    *               }
    *             }
    *          }}
@@ -173,6 +175,11 @@ class ChallengeGenerator {
         media
         parent {
           id
+          scale
+          toMetric
+          parent {
+            name
+          }
         }
       }`,
     );

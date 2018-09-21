@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
-import mergeWith from "lodash/mergeWith";
+import merge from "lodash/merge";
 import cuid from "cuid";
 
 import utils from "../../utils";
@@ -145,9 +145,7 @@ class QuestionViewer extends PureComponent {
 
     // TODO - This gets hit immediately by subSubjectId when opening edit mode. Try to prevent that.
     this.handleChange = (newState) => {
-      this.setState(prevState => mergeWith(
-        {}, prevState, newState, { unsavedChanges: true }, utils.mergeCustomizer,
-      ));
+      this.setState(previousState => merge({}, previousState, newState, { unsavedChanges: true }));
     };
 
     this.handleBasicsChange = (basics) => {

@@ -123,6 +123,11 @@ type QaObject {
   flags: Int!
   status: Int!
   media: String
+  subject: QaSubjectObject {
+    name: String!
+    scale: String!
+    toMetric: Boolean!
+  }
   question: QaQuestionObject {
     detail: String!
     text: String!
@@ -133,6 +138,16 @@ type QaObject {
         singular: String!
       }!
       conversion: QaConversionQuestionObject {  # Conversion Questions Only
+        range: QaRangeObject {
+          top: QaUnitObject! {
+            value: Float!
+            unit: String!
+          }
+          bottom: QaUnitObject {
+            value: Float!
+            unit: String!
+          }
+        }!
         exact: QaUnitObject {
           value: Float!
           unit: String!
@@ -714,6 +729,12 @@ Examples:
   status: 0,
   media: "someMedia",
 
+  subject: {
+    name: "Length",
+    scale: "human",
+    toMetric: true,
+  },
+
   question: {
     data: null,
     detail: "",
@@ -764,6 +785,12 @@ Examples:
   flags: 0,
   status: 0,
   media: "someMedia",
+
+  subject: {
+    name: "Mass",
+    scale: "human",
+    toMetric: true,
+  },
 
   question: {
     detail: "This weight is typical of a 5 year old child.",
@@ -857,6 +884,12 @@ Examples:
   flags: 2,
   status: 0,
   media: "someMedia",
+
+  subject: {
+    name: "Length",
+    scale: "human",
+    toMetric: true,
+  },
 
   question: {
     detail: "",

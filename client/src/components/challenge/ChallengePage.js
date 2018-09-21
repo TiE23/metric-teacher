@@ -22,8 +22,10 @@ class ChallengePage extends PureComponent {
 
     this.state = {
       selectedSubSubjectIds: [],
+      selectedQuestionIds: [],
       ignoreDifficulty: true,
-      kickedOff: false,
+      challengeModeStart: false,
+      questionModeStart: false,
       challengeId: null,
     };
 
@@ -35,10 +37,28 @@ class ChallengePage extends PureComponent {
       this.setState(prevState => ({ ignoreDifficulty: !prevState.ignoreDifficulty }));
     };
 
-    this.handleKickoff = () => {
+    this.handleChallengeModeStart = () => {
       this.setState({
-        kickedOff: true,
+        challengeModeStart: true,
         challengeId: cuid.slug(),
+      });
+    };
+
+    this.handleQuestionModeStart = () => {
+      this.setState({
+        questionModeStart: true,
+        challengeId: cuid.slug(),
+        selectedQuestionIds: [
+          "cjk1pagrj007k07933cf9py49", // Written (w/ answer detail)
+          "cjkkls86v021h0893gsthx41f", // Written (w/ media)
+          "cjk1pagkz0050079321fkd6vx", // Conversion (simple)
+          "cjk1pago700680793uvc6i2a2", // Conversion (annotated)
+          "cjk1pags0007s07935j429s79", // Conversion (annotated, from metric)
+          "cjk1pah3400d00793jhfmbq66", // Conversion (to floz)
+          "cjk1pagpd006o0793yws3ys7n", // Survey (answered by 001)
+          "cjk1pagq800700793jwuow8zp", // Survey (answered by 001, has note)
+          "cjk1pah7b00f407935bgx9w8z", // Survey (not answered by 001)
+        ],
       });
     };
   }
@@ -50,15 +70,28 @@ class ChallengePage extends PureComponent {
     let content;
     if (userTokenData.type === USER_TYPE_STUDENT) {
       if (params.mode === "kickoff") {  // Kickoff mode.
-        if (this.state.kickedOff) {
+        if (this.state.challengeModeStart) {
           content = (
             <Redirect
               to={{
-                pathname: "/challenge/loading",
+                pathname: "/challenge/challengeload",
                 state: {
                   challengeId: this.state.challengeId,
                   selectedSubSubjectIds: this.state.selectedSubSubjectIds,
                   ignoreDifficulty: this.state.ignoreDifficulty,
+                },
+              }}
+              push
+            />
+          );
+        } else if (this.state.questionModeStart) {
+          content = (
+            <Redirect
+              to={{
+                pathname: "/challenge/questionload",
+                state: {
+                  challengeId: this.state.challengeId,
+                  selectedQuestionIds: this.state.selectedQuestionIds,
                 },
               }}
               push
@@ -72,21 +105,35 @@ class ChallengePage extends PureComponent {
               ignoreDifficulty={this.state.ignoreDifficulty}
               updateSubSubjectIds={this.updateSubSubjectIds}
               updateIgnoreDifficulty={this.updateIgnoreDifficulty}
-              handleKickoff={this.handleKickoff}
+              handleChallengeModeStart={this.handleChallengeModeStart}
+              handleQuestionModeStart={this.handleQuestionModeStart}
             />
           );
         }
-      } else if (params.mode === "loading" &&  // Loading mode.
+      } else if (params.mode === "challengeload" &&  // Challenge mode load.
       (location.state && location.state.selectedSubSubjectIds)) {
         content = (
           <ChallengeRetriever
-            challengeId={location.state.challengeId}
             studentId={userTokenData.id}
-            selectedSubSubjectIds={location.state.selectedSubSubjectIds}
-            listSize={10}
-            ignoreRarity={false}
-            ignoreDifficulty={location.state.ignoreDifficulty}
-            ignorePreference={false}
+            challengeId={location.state.challengeId}
+            challengeConfig={{
+              selectedSubSubjectIds: location.state.selectedSubSubjectIds,
+              listSize: 10,
+              ignoreRarity: false,
+              ignoreDifficulty: location.state.ignoreDifficulty,
+              ignorePreference: false,
+            }}
+          />
+        );
+      } else if (params.mode === "questionload" &&  // Question mode load.
+      (location.state && location.state.selectedQuestionIds)) {
+        content = (
+          <ChallengeRetriever
+            studentId={userTokenData.id}
+            challengeId={location.state.challengeId}
+            questionListConfig={{
+              questionIds: location.state.selectedQuestionIds,
+            }}
           />
         );
       } else if (params.mode === "play") {  // Play mode.
