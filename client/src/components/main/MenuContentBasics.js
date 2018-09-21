@@ -15,6 +15,25 @@ const MenuContentBasics = props => (
     </Menu.Item>,
     props.loggedIn ?
       <Menu.Item
+        key="challenge"
+        to="/challenge"
+        onClick={props.navigateTo}
+      >
+        <Icon name="bolt" />
+        {" "}
+        Challenge
+      </Menu.Item> : null,
+    <Menu.Item
+      key="subjects"
+      to="/subjects"
+      onClick={props.navigateTo}
+    >
+      <Icon name="tasks" />
+      {" "}
+      Subjects
+    </Menu.Item>,
+    props.loggedIn ?
+      <Menu.Item
         key="profile"
         to="/user/me"
         onClick={props.navigateTo}
