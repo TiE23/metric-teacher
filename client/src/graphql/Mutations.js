@@ -136,3 +136,11 @@ export const UPDATE_QA_QUESTION = gql`
   }
   ${QuestionDataEverythingExtra}
 `;
+
+export const ADD_CHALLENGE_RESULTS = gql`
+  mutation AddChallengeResults($studentid: ID!, $masteryscoreinput: [MasteryScoreInput]!, $surveyscoreinput: [SurveyScoreInput]!, $surveyanswerinput: [SurveyAnswerInput]!) {
+    addChallengeResults(studentid: $studentid, masteryscoreinput: $masteryscoreinput, surveyscoreinput: $surveyscoreinput, surveyanswerinput: $surveyanswerinput) {
+      id
+    }
+  }
+`;

@@ -101,10 +101,11 @@ const ChallengeList = (props) => {
         CHALLENGE_RESULTS_MASTERY_SCORE,
         currentQaObject.subSubjectId,
         {
+          // Each successive correct answer decreases score.
           score: Math.ceil(CHALLENGE_SCORES.correct.mastery[
             currentQaObject.question.type
-          ][currentQaObject.difficulty] / // Each successive correct answer decreases score.
-          props.challengeProgress[currentQaObject.id].correctAnswerCount + 1),
+          ][currentQaObject.difficulty] /
+          (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1)),
         },
         // 1st answer: 100% score. 2nd: 50% score. 3rd: 33% score. etc...
         // Score is rounded up, so always worth at least 1 point.
@@ -116,7 +117,9 @@ const ChallengeList = (props) => {
           CHALLENGE_RESULTS_SURVEY_SCORE,
           currentQaObject.question.data.survey.response.surveyId,
           {
-            score: CHALLENGE_SCORES.correct.survey[currentQaObject.difficulty],
+            // Each successive correct answer decreases score.
+            score: CHALLENGE_SCORES.correct.survey[currentQaObject.difficulty] /
+              (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1),
           },
         );
       }
@@ -190,6 +193,9 @@ const ChallengeList = (props) => {
         <div>
           <ChallengeComplete
             qaCount={props.challengeData.length}
+            challengeResults={props.challengeResults}
+            challengeSubmitted={props.challengeSubmitted}
+            markChallengeResultsSubmitted={props.markChallengeResultsSubmitted}
           />
         </div>
       </Transition>
@@ -200,6 +206,8 @@ const ChallengeList = (props) => {
 ChallengeList.propTypes = {
   challengeData: PropTypes.arrayOf(QA_DATA_EVERYTHING.isRequired).isRequired,
   challengeProgress: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  challengeResults: PropTypes.object.isRequired,  // eslint-disable-line react/forbid-prop-types
+  challengeSubmitted: PropTypes.bool.isRequired,
   currentChallenge: PropTypes.shape({
     currentQaId: PropTypes.string,  // This will be null on mount so we won't require it.
     qaRemaining: PropTypes.number.isRequired,
@@ -208,6 +216,7 @@ ChallengeList.propTypes = {
   updateChallengeProgress: PropTypes.func.isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,
   updateResultsData: PropTypes.func.isRequired,
+  markChallengeResultsSubmitted: PropTypes.func.isRequired,
 };
 
 export default ChallengeList;

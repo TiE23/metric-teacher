@@ -42,6 +42,7 @@ class ChallengeManager extends PureComponent {
         surveyscoreinput: [],
         surveyanswerinput: [],
       },
+      challengeSubmitted: false,
       currentChallenge: {
         currentQaId: null,
         qaRemaining: 0,
@@ -67,7 +68,8 @@ class ChallengeManager extends PureComponent {
       if (this.state.challengeData !== prevState.challengeData ||
       this.state.challengeProgress !== prevState.challengeProgress ||
       this.state.challengeResults !== prevState.challengeResults ||
-      this.state.currentChallenge !== prevState.currentChallenge
+      this.state.currentChallenge !== prevState.currentChallenge ||
+      this.state.challengeSubmitted !== prevState.challengeSubmitted
       ) {
         utils.writeChallengeStateLocalStorage(this.state);
       }
@@ -157,7 +159,7 @@ class ChallengeManager extends PureComponent {
       challengeData.forEach(({ id }) => {
         newChallengeProgress[id] = {
           seen: false,
-          skipped: false,
+          skip: false,
           succeeded: false,
           failed: false,
           correctAnswerCount: 0,
@@ -341,7 +343,7 @@ class ChallengeManager extends PureComponent {
       } else if (mode === CHALLENGE_RESULTS_SURVEY_FILL_SKIPPED) {
         // Survey filling was skipped.
         updatedInput.surveyanswerinput = this.state.challengeResults.surveyanswerinput;
-        updatedInput.surveyanswerinput.push({ questionid: id, skipped: true });
+        updatedInput.surveyanswerinput.push({ questionid: id, skip: true });
       }
 
       // Update the challengeResults state.
@@ -355,6 +357,8 @@ class ChallengeManager extends PureComponent {
         }));
       }
     };
+
+    this.markChallengeResultsSubmitted = () => this.setState({ challengeSubmitted: true });
   }
 
   render() {
@@ -368,11 +372,14 @@ class ChallengeManager extends PureComponent {
         <ChallengeList
           challengeData={this.state.challengeData}
           challengeProgress={this.state.challengeProgress}
+          challengeResults={this.state.challengeResults}
+          challengeSubmitted={this.state.challengeSubmitted}
           currentChallenge={this.state.currentChallenge}
           streak={this.state.streak}
           updateChallengeProgress={this.updateChallengeProgress}
           updateCurrentChallengeData={this.updateCurrentChallengeData}
           updateResultsData={this.updateResultsData}
+          markChallengeResultsSubmitted={this.markChallengeResultsSubmitted}
         />
       );
     }
