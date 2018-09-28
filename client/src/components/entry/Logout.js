@@ -19,6 +19,13 @@ const Logout = (props) => {
     console.log(e.message); // eslint-disable-line no-console
   }
 
+  // Clear out the challenge state (this is a precaution).
+  try {
+    utils.removeChallengeStateLocalStorage();
+  } catch (e) {
+    console.log(e.message); // eslint-disable-line no-console
+  }
+
   // Clear out the Apollo cache.
   try {
     props.client.resetStore();
