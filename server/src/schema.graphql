@@ -294,7 +294,7 @@ type QaSurveyResponseObject {
   surveyId: ID!
   status: Int!
   score: Int!
-  answer: QaUnitObject!
+  answer: QaUnitObject
   detail: String
 }
 

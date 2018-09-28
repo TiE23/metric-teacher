@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Wed Jul 25 2018 21:15:19 GMT-0700 (Pacific Daylight Time)
+# timestamp: Fri Sep 28 2018 11:22:34 GMT-0700 (Pacific Daylight Time)
 
 type AggregateClassroom {
   count: Int!
@@ -3718,7 +3718,7 @@ type Survey implements Node {
   updatedAt: DateTime!
   status: Int!
   score: Int!
-  answer: String!
+  answer: String
   detail: String
   parent(where: CourseWhereInput): Course!
   question(where: QuestionWhereInput): Question!
@@ -3737,7 +3737,7 @@ type SurveyConnection {
 input SurveyCreateInput {
   status: Int!
   score: Int!
-  answer: String!
+  answer: String
   detail: String
   parent: CourseCreateOneWithoutSurveysInput!
   question: QuestionCreateOneInput!
@@ -3751,7 +3751,7 @@ input SurveyCreateManyWithoutParentInput {
 input SurveyCreateWithoutParentInput {
   status: Int!
   score: Int!
-  answer: String!
+  answer: String
   detail: String
   question: QuestionCreateOneInput!
 }
@@ -3788,7 +3788,7 @@ type SurveyPreviousValues {
   updatedAt: DateTime!
   status: Int!
   score: Int!
-  answer: String!
+  answer: String
   detail: String
 }
 

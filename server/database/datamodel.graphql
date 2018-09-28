@@ -85,7 +85,7 @@ type Survey {
   updatedAt: DateTime!
   status: Int!
   score: Int!
-  answer: String!
+  answer: String
   detail: String
   parent: Course! @relation(name: "CourseToSurvey")
   question: Question! @relation(name: "SurveyToQuestion")
