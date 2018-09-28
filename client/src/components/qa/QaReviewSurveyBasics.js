@@ -12,7 +12,7 @@ import {
 const QaReviewSurveyBasics = props => (
   <List>
     <List.Item>
-      <b>Answer</b>: {utils.choiceWorder(props.answer)}
+      <b>Answer</b>: {props.answer ? utils.choiceWorder(props.answer) : "None"}
     </List.Item>
     {(props.detail || !!(props.questionFlags &
       (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED))
@@ -33,12 +33,13 @@ QaReviewSurveyBasics.propTypes = {
   answer: PropTypes.shape({
     value: PropTypes.number.isRequired,
     unit: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
   detail: PropTypes.string,
   questionFlags: PropTypes.number,
 };
 
 QaReviewSurveyBasics.defaultProps = {
+  answer: null,
   detail: null,
   questionFlags: 0,
 };

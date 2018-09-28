@@ -18,7 +18,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      answer: `${this.props.answer}`,
+      answer: String(utils.t0t(this.props.answer, "")),
       note: this.props.note,
       formErrors: [],
     };
@@ -151,7 +151,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
 }
 
 QaReviewSurveyEditorForm.propTypes = {
-  answer: PropTypes.number.isRequired,
+  answer: PropTypes.number,
   unit: PropTypes.string.isRequired,
   note: PropTypes.string,
   top: PropTypes.number.isRequired,
@@ -166,6 +166,7 @@ QaReviewSurveyEditorForm.propTypes = {
 };
 
 QaReviewSurveyEditorForm.defaultProps = {
+  answer: null,
   note: null,
   closeSurveyEditor: null,
   error: null,
