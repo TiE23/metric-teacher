@@ -22,7 +22,10 @@ const QaReviewSurveyEditor = props => (
       const newData = {
         score: addSurveyAnswer.score,
         detail: addSurveyAnswer.detail,
-        answer: { value: parseFloat(addSurveyAnswer.answer.match(/[.0-9]+/)[0]) },
+        answer: {
+          value: parseFloat(addSurveyAnswer.answer.match(/[.0-9]+/)[0]),
+          unit: props.surveyData.range.top.unit,  // Borrowing this unit if updating skipped survey.
+        },
       };
       utils.cacheUpdateObject(data, addSurveyAnswer.id, newData, [], "surveyId");
       cache.writeQuery({
@@ -33,8 +36,8 @@ const QaReviewSurveyEditor = props => (
   >
     {(addSurveyAnswers, { loading, error }) => (
       <QaReviewSurveyEditorForm
-        answer={props.surveyData.response.answer.value}
-        unit={props.surveyData.response.answer.unit}
+        answer={props.surveyData.response.answer && props.surveyData.response.answer.value}
+        unit={props.surveyData.range.top.unit}
         note={props.surveyData.response.detail}
         top={props.surveyData.range.top.value}
         bottom={props.surveyData.range.bottom.value}
