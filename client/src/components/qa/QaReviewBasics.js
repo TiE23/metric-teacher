@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Item, Responsive } from "semantic-ui-react";
+import { Icon, Image, Item, Modal, Responsive } from "semantic-ui-react";
 
 import utils from "../../utils";
 
@@ -9,6 +9,7 @@ import {
 } from "../../propTypes";
 
 import {
+  CHALLENGE_MEDIA_MIN_WIDTH,
   QUESTION_TYPE_NAMES,
 } from "../../constants";
 
@@ -24,12 +25,9 @@ const QaReviewBasics = (props) => {
         {props.qaData.media &&
           <Responsive
             as={Item.Image}
-            minWidth={500}
+            minWidth={CHALLENGE_MEDIA_MIN_WIDTH}
             size="small"
-            src={
-              (props.qaData.media && `/img/question/${props.qaData.media}`) ||
-                "/img/placeholder-square.png"
-            }
+            src={`/img/question/${props.qaData.media}`}
             rounded
           />
         }
@@ -40,6 +38,30 @@ const QaReviewBasics = (props) => {
             <Item.Extra>{question.detail || surveyDetail}</Item.Extra>
           }
           {props.children}
+          {props.qaData.media &&
+            <Responsive
+              as={Modal}
+              maxWidth={CHALLENGE_MEDIA_MIN_WIDTH - 1}
+              trigger={
+                <span>
+                  <br />
+                  <Icon name="image outline" size="large" color="grey" />
+                  {" "}
+                  <b>View Media</b>
+                </span>
+              }
+              content={
+                <Image
+                  src={`/img/question/${props.qaData.media}`}
+                  rounded
+                  size="large"
+                  centered
+                />
+              }
+              actions={["Close"]}
+              basic
+            />
+          }
         </Item.Content>
       </Item>
     </Item.Group>
