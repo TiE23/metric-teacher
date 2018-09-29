@@ -15,6 +15,7 @@ export const CHALLENGE_DISPLAY_SINGLE_INPUT_COLUMN_WIDTH = { mobile: 8, tablet: 
 export const CHALLENGE_DISPLAY_SINGLE_DELETE_COLUMN_WIDTH = { mobile: 4, tablet: 2, computer: 1 };
 export const CHALLENGE_DISPLAY_SPLIT_INPUT_COLUMN_WIDTH = { mobile: 13, tablet: 10, computer: 7 };
 export const CHALLENGE_DISPLAY_SPLIT_DELETE_COLUMN_WIDTH = { mobile: 2, tablet: 1, computer: 1 };
+export const CHALLENGE_MEDIA_MIN_WIDTH = 575;
 
 // Challenge Settings
 export const CHALLENGE_KEYPAD_NEGATIVE = "(-)";
