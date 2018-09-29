@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Form, Container, Dimmer, Loader, Message, Label, Button } from "semantic-ui-react";
+import { Form, Dimmer, Loader, Message, Label, Button } from "semantic-ui-react";
 import deline from "deline";
 import isDecimal from "validator/lib/isDecimal";
 
@@ -107,7 +107,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
               label="Note"
             />
           }
-          <Container textAlign="right">
+          <div align="right">
             {this.props.closeSurveyEditor &&
             <Button
               onClick={this.props.closeSurveyEditor}
@@ -129,7 +129,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
               modalHeaderContent="Are you sure?"
               modalContent="Updating your answer will reset your score to zero."
             />
-          </Container>
+          </div>
         </Form>
         {this.props.error &&
           <Message negative>

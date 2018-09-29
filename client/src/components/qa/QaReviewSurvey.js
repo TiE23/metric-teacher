@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Segment, Label, Button } from "semantic-ui-react";
+import { Segment, Label, Button } from "semantic-ui-react";
 
 import {
   QA_DATA_QUESTION_SURVEY,
@@ -10,47 +10,36 @@ import QaReviewSurveyBasics from "./QaReviewSurveyBasics";
 import QaReviewSurveyEditor from "./QaReviewSurveyEditor";
 
 const QaReviewSurvey = props => (
-  <Grid
-    stackable
-    stretched
-    padded
-    columns="equal"
-  >
-    <Grid.Row>
-      <Grid.Column>
-        <Segment>
-          <Label color="olive" ribbon>
-            Survey Response
-          </Label>
-          {props.openSurveyEditor && !props.surveyEditorOpen &&
-            <Button
-              onClick={props.openSurveyEditor}
-              primary
-              floated="right"
-            >
-              Update Response
-            </Button>
-          }
-          {props.surveyEditorOpen ?
-            <QaReviewSurveyEditor
-              surveyData={props.surveyData}
-              queryInfo={props.queryInfo}
-              studentId={props.studentId}
-              questionId={props.questionId}
-              questionFlags={props.questionFlags}
-              closeSurveyEditor={props.closeSurveyEditor}
-            />
-            :
-            <QaReviewSurveyBasics
-              answer={props.surveyData.response.answer}
-              detail={props.surveyData.response.detail}
-              questionFlags={props.questionFlags}
-            />
-          }
-        </Segment>
-      </Grid.Column>
-    </Grid.Row>
-  </Grid>
+  <Segment>
+    <Label color="olive" ribbon>
+      Survey Response
+    </Label>
+    {props.openSurveyEditor && !props.surveyEditorOpen &&
+      <Button
+        onClick={props.openSurveyEditor}
+        primary
+        floated="right"
+      >
+        Update Response
+      </Button>
+    }
+    {props.surveyEditorOpen ?
+      <QaReviewSurveyEditor
+        surveyData={props.surveyData}
+        queryInfo={props.queryInfo}
+        studentId={props.studentId}
+        questionId={props.questionId}
+        questionFlags={props.questionFlags}
+        closeSurveyEditor={props.closeSurveyEditor}
+      />
+      :
+      <QaReviewSurveyBasics
+        answer={props.surveyData.response.answer}
+        detail={props.surveyData.response.detail}
+        questionFlags={props.questionFlags}
+      />
+    }
+  </Segment>
 );
 
 QaReviewSurvey.propTypes = {
