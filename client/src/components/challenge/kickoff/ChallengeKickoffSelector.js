@@ -1,13 +1,17 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { List, Checkbox } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import map from "lodash/map";
 import filter from "lodash/filter";
 import uniq from "lodash/uniq";
 import cloneDeep from "lodash/cloneDeep";
 import forEach from "lodash/forEach";
+import size from "lodash/size";
 
 import utils from "../../../utils";
+
+import ChallengeKickoffSelectorSubject from "./ChallengeKickoffSelectorSubject";
 
 class ChallengeKickoffSelector extends PureComponent {
   constructor(props) {
@@ -123,42 +127,52 @@ class ChallengeKickoffSelector extends PureComponent {
   }
 
   render() {
+    const subjectsDataLength = size(this.state.subjectsData);
+
+    if (subjectsDataLength) {
+      const subjectSelectorComponents = map(this.state.subjectsData, subjectData => (
+        <ChallengeKickoffSelectorSubject
+          subjectData={subjectData}
+          handleSubjectCheck={this.handleSubjectCheck}
+          handleSubSubjectCheck={this.handleSubSubjectCheck}
+          selectedSubSubjectIds={this.props.selectedSubSubjectIds}
+        />
+      ));
+
+      const gridRows = [];
+      for (let subjectNumber = 0; subjectNumber < subjectsDataLength; subjectNumber += 2) {
+        gridRows.push(
+          <Grid.Row
+            key={`row_${(subjectNumber / 2) + 1}`}
+          >
+            <Grid.Column>
+              {subjectSelectorComponents[subjectNumber] || null}
+            </Grid.Column>
+            <Grid.Column>
+              {subjectSelectorComponents[subjectNumber + 1] || null}
+            </Grid.Column>
+          </Grid.Row>,
+        );
+      }
+      return (
+        <Grid
+          stackable
+          columns="equal"
+          padded={false}
+        >
+          {gridRows}
+        </Grid>
+      );
+    }
+
     return (
-      <div>
-        {this.state.subjectsData &&
-        <List>
-          {map(this.state.subjectsData, subject => (
-            <List.Item key={subject.id}>
-              <List.Icon name="folder" />
-              <List.Content>
-                <Checkbox
-                  label={subject.name}
-                  onChange={this.handleSubjectCheck}
-                  value={subject.id}
-                  checked={subject.checkState === 1}
-                  indeterminate={subject.checkState === 0}
-                />
-                <List.List>
-                  {map(subject.subSubjects, subSubject => (
-                    <List.Item key={subSubject.id}>
-                      <List.Icon name="file" />
-                      <List.Content>
-                        <Checkbox
-                          label={subSubject.name}
-                          onChange={this.handleSubSubjectCheck}
-                          value={subSubject.id}
-                          checked={this.props.selectedSubSubjectIds.includes(subSubject.id)}
-                        />
-                      </List.Content>
-                    </List.Item>
-                  ))}
-                </List.List>
-              </List.Content>
-            </List.Item>
-          ))}
-        </List>
-        }
-      </div>
+      <p>
+        You have no SubSubjects to choose from.
+        Activate your Masteries in your
+        <Link to="/me">User Profile</Link>
+        or assign new Subjects to your account by visiting the
+        <Link to="/subjects">Subjects Page</Link>.
+      </p>
     );
   }
 }
@@ -178,9 +192,7 @@ ChallengeKickoffSelector.propTypes = {
       }).isRequired,
     }).isRequired,
   })),
-  selectedSubSubjectIds: PropTypes.arrayOf(
-    PropTypes.string.isRequired,
-  ).isRequired,
+  selectedSubSubjectIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   updateSubSubjectIds: PropTypes.func.isRequired,
 };
 
