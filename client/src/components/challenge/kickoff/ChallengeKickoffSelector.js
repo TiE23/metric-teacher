@@ -4,6 +4,8 @@ import { List, Checkbox } from "semantic-ui-react";
 import map from "lodash/map";
 import filter from "lodash/filter";
 import uniq from "lodash/uniq";
+import cloneDeep from "lodash/cloneDeep";
+import forEach from "lodash/forEach";
 
 import utils from "../../../utils";
 
@@ -15,16 +17,24 @@ class ChallengeKickoffSelector extends PureComponent {
       subjectsData: {},
     };
 
+
+    /**
+     * Initializing function that runs on Component mount. Constructs the state for subjectsData
+     * that contains the data needed to build the checkboxes.
+     * @param masteriesData
+     */
     const buildSubjectsData = (masteriesData) => {
       const subjectsData = {};
 
       masteriesData.forEach(({ subSubject }) => {
         if (!subjectsData[subSubject.parent.id]) {
           subjectsData[subSubject.parent.id] = {
+            checkState: -1,  // -1 unchecked, 0 indeterminate, 1 checked
             ...utils.rootCopy(subSubject.parent),
             subSubjects: {},
           };
         }
+
         // Use utils.rootCopy() to copy only one level of the object (no children objects).
         subjectsData[subSubject.parent.id].subSubjects[subSubject.id] = utils.rootCopy(subSubject);
       });
@@ -32,38 +42,83 @@ class ChallengeKickoffSelector extends PureComponent {
       this.setState({ subjectsData });
     };
 
+
+    /**
+     * Scans through all Subjects and their SubSubjects to determine if the checkbox for the
+     * SubjectData's state should be checked, unchecked, or indeterminate (a mix of
+     * checked and unchecked SubSubjects).
+     * @param subjectsData
+     * @param selectedSubSubjectIds
+     */
+    const determineSubjectCheckStates = (subjectsData, selectedSubSubjectIds) => {
+      const newSubjectsData = cloneDeep(subjectsData);
+
+      // Loop through each Subject
+      forEach(subjectsData, (subjectData, subjectId) => {
+        let allChecked = true;
+        let noneChecked = true;
+
+        // Loop through each Subject's SubSubjects.
+        forEach(subjectData.subSubjects, (subSubject, subSubjectId) => {
+          if (selectedSubSubjectIds.includes(subSubjectId)) {
+            noneChecked = false; // One was checked, this is now false!
+          } else {
+            allChecked = false; // One was unchecked, this is now false!
+          }
+        });
+
+        if (allChecked && !noneChecked) {
+          newSubjectsData[subjectId].checkState = 1;
+        } else if (!allChecked && noneChecked) {
+          newSubjectsData[subjectId].checkState = -1;
+        } else {  // Both are false = indeterminate (or true - true: the Subject had no SubSubjects)
+          newSubjectsData[subjectId].checkState = 0;
+        }
+      });
+
+      this.setState({ subjectsData: newSubjectsData });
+    };
+
     this.componentDidMount = () => {
       buildSubjectsData(this.props.masteriesData);
     };
 
     this.handleSubSubjectCheck = (event, { value, checked }) => {
-      const { selectedSubSubjectIds } = this.props;
+      let updatedSelectedSubSubjectIds = cloneDeep(this.props.selectedSubSubjectIds);
+
       if (checked) {
-        selectedSubSubjectIds.push(value);
-        this.props.updateSubSubjectIds(uniq(selectedSubSubjectIds));
+        // Add the ID.
+        updatedSelectedSubSubjectIds.push(value);
       } else {
-        this.props.updateSubSubjectIds(uniq(filter(
-          selectedSubSubjectIds,
+        // Remove the ID.
+        updatedSelectedSubSubjectIds = filter(
+          updatedSelectedSubSubjectIds,
           subSubjectId => subSubjectId !== value,
-        )));
+        );
       }
+
+      this.props.updateSubSubjectIds(uniq(updatedSelectedSubSubjectIds));
+      determineSubjectCheckStates(this.state.subjectsData, updatedSelectedSubSubjectIds);
     };
 
-    // TODO - Need to make a check|unchecked|indeterminate system for the Subject checkbox.
     this.handleSubjectCheck = (event, { value, checked }) => {
-      const { selectedSubSubjectIds } = this.props;
-      const allSubSubjectIds =
+      let updatedSelectedSubSubjectIds = cloneDeep(this.props.selectedSubSubjectIds);
+      const allTargetedSubSubjectIds =
         map(this.state.subjectsData[value].subSubjects, subSubject => subSubject.id);
 
       if (checked) {
-        selectedSubSubjectIds.push(...allSubSubjectIds);
-        this.props.updateSubSubjectIds(uniq(selectedSubSubjectIds));
+        // Add the IDs.
+        updatedSelectedSubSubjectIds.push(...allTargetedSubSubjectIds);
       } else {
-        this.props.updateSubSubjectIds(uniq(filter(
-          selectedSubSubjectIds,
-          subSubjectId => !allSubSubjectIds.includes(subSubjectId),
-        )));
+        // Remove the IDs.
+        updatedSelectedSubSubjectIds = filter(
+          updatedSelectedSubSubjectIds,
+          subSubjectId => !allTargetedSubSubjectIds.includes(subSubjectId),
+        );
       }
+
+      this.props.updateSubSubjectIds(uniq(updatedSelectedSubSubjectIds));
+      determineSubjectCheckStates(this.state.subjectsData, updatedSelectedSubSubjectIds);
     };
   }
 
@@ -76,19 +131,12 @@ class ChallengeKickoffSelector extends PureComponent {
             <List.Item key={subject.id}>
               <List.Icon name="folder" />
               <List.Content>
-                {subject.name}{" "}
                 <Checkbox
-                  label="All"
+                  label={subject.name}
                   onChange={this.handleSubjectCheck}
                   value={subject.id}
-                  checked={false}
-                />
-                {" "}
-                <Checkbox
-                  label="None"
-                  onChange={this.handleSubjectCheck}
-                  value={subject.id}
-                  checked
+                  checked={subject.checkState === 1}
+                  indeterminate={subject.checkState === 0}
                 />
                 <List.List>
                   {map(subject.subSubjects, subSubject => (
