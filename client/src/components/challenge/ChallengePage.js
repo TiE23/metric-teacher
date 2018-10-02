@@ -13,6 +13,8 @@ import ChallengeKickoff from "./kickoff/ChallengeKickoff";
 import LoadingError from "../misc/LoadingError";
 
 import {
+  CHALLENGE_KICKOFF_IGNORE_DIFFICULTY_DEFAULT,
+  CHALLENGE_KICKOFF_LENGTH_DEFAULT,
   USER_TYPE_STUDENT,
 } from "../../constants";
 
@@ -23,7 +25,8 @@ class ChallengePage extends PureComponent {
     this.state = {
       selectedSubSubjectIds: [],
       selectedQuestionIds: [],
-      ignoreDifficulty: true,
+      challengeLength: CHALLENGE_KICKOFF_LENGTH_DEFAULT,
+      ignoreDifficulty: CHALLENGE_KICKOFF_IGNORE_DIFFICULTY_DEFAULT,
       challengeModeStart: false,
       questionModeStart: false,
       challengeId: null,
@@ -31,6 +34,10 @@ class ChallengePage extends PureComponent {
 
     this.updateSubSubjectIds = (selectedSubSubjectIds) => {
       this.setState({ selectedSubSubjectIds });
+    };
+
+    this.updateChallengeLength = (e, { value }) => {
+      this.setState({ challengeLength: value });
     };
 
     this.updateIgnoreDifficulty = () => {
@@ -78,6 +85,7 @@ class ChallengePage extends PureComponent {
                 state: {
                   challengeId: this.state.challengeId,
                   selectedSubSubjectIds: this.state.selectedSubSubjectIds,
+                  challengeLength: this.state.challengeLength,
                   ignoreDifficulty: this.state.ignoreDifficulty,
                 },
               }}
@@ -102,9 +110,11 @@ class ChallengePage extends PureComponent {
             <ChallengeKickoff
               studentId={userTokenData.id}
               selectedSubSubjectIds={this.state.selectedSubSubjectIds}
+              challengeLength={this.state.challengeLength}
               ignoreDifficulty={this.state.ignoreDifficulty}
               updateSubSubjectIds={this.updateSubSubjectIds}
               updateIgnoreDifficulty={this.updateIgnoreDifficulty}
+              updateChallengeLength={this.updateChallengeLength}
               handleChallengeModeStart={this.handleChallengeModeStart}
               handleQuestionModeStart={this.handleQuestionModeStart}
             />
@@ -118,7 +128,7 @@ class ChallengePage extends PureComponent {
             challengeId={location.state.challengeId}
             challengeConfig={{
               selectedSubSubjectIds: location.state.selectedSubSubjectIds,
-              listSize: 10,
+              challengeLength: location.state.challengeLength,
               ignoreRarity: false,
               ignoreDifficulty: location.state.ignoreDifficulty,
               ignorePreference: false,
@@ -206,6 +216,7 @@ ChallengePage.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       selectedSubSubjectIds: PropTypes.arrayOf(PropTypes.string.isRequired),
+      challengeLength: PropTypes.number,
       ignoreDifficulty: PropTypes.bool,
       challengeState: PropTypes.shape({
         challengeId: PropTypes.string.isRequired,

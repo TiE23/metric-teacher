@@ -33,7 +33,7 @@ const ChallengeKickoffSelectorSubject = (props) => {
         <Header.Content>
           {props.subjectData.name}
           <Header.Subheader>
-            Click to include this subject
+            Click to include this subject.
           </Header.Subheader>
         </Header.Content>
       </Header>

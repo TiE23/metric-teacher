@@ -22,7 +22,7 @@ const ChallengeRetriever = (props) => {
     } : {
       studentid: props.studentId,
       subsubjectids: props.challengeConfig.selectedSubSubjectIds,
-      listsize: props.challengeConfig.listSize,
+      listsize: props.challengeConfig.challengeLength,
       ignorerarity: props.challengeConfig.ignoreRarity,
       ignoredifficulty: props.challengeConfig.ignoreDifficulty,
       ignorepreference: props.challengeConfig.ignorePreference,
@@ -64,7 +64,7 @@ ChallengeRetriever.propTypes = {
     selectedSubSubjectIds: PropTypes.arrayOf(
       PropTypes.string.isRequired,
     ).isRequired,
-    listSize: PropTypes.number.isRequired,
+    challengeLength: PropTypes.number.isRequired,
     ignoreRarity: PropTypes.bool,
     ignoreDifficulty: PropTypes.bool,
     ignorePreference: PropTypes.bool,
