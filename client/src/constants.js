@@ -19,7 +19,7 @@ export const CHALLENGE_MEDIA_MIN_WIDTH = 575;
 
 // Challenge Settings
 export const CHALLENGE_KICKOFF_IGNORE_DIFFICULTY_DEFAULT = false;
-export const CHALLENGE_KICKOFF_LENGTH_DEFAULT = 20;
+export const CHALLENGE_KICKOFF_LENGTH_DEFAULT = 15;
 export const CHALLENGE_KICKOFF_LENGTH_OPTIONS = [
   {
     key: 1,

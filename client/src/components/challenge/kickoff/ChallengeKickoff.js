@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
-import { Button, Checkbox, Dropdown, Grid, Header, Icon, Segment } from "semantic-ui-react";
+import { Button, Checkbox, Dropdown, Grid, Header, Icon, Popup, Segment } from "semantic-ui-react";
 
 import QueryHandler from "../../QueryHandler";
 import ChallengeKickoffSelector from "./ChallengeKickoffSelector";
@@ -29,7 +29,7 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
           selectedSubSubjectIds={props.selectedSubSubjectIds}
           updateSubSubjectIds={props.updateSubSubjectIds}
         />
-        <Segment>
+        <Segment attached="top">
           <Grid stackable columns="equal" verticalAlign="middle">
             <Grid.Row>
               <Grid.Column>
@@ -60,22 +60,31 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
                   onChange={props.updateIgnoreDifficulty}
                   checked={props.ignoreDifficulty}
                 />
+                {" "}
+                <Popup
+                  trigger={(<Icon name="info circle" />)}
+                  content="When new to a SubSubject you'll be given easier questions. With experience you'll be challenged by more difficult questions. Check this box to show all questions no matter your mastery score on a SubSubject."
+                />
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Segment>
-        <br />
         <Button
+          primary
+          attached="bottom"
           onClick={props.handleChallengeModeStart}
           disabled={!props.selectedSubSubjectIds.length}
         >
-          Challenge Start!
+          Start Challenge!
         </Button>
-        <Button
+
+        {/* TODO - Remove this */}
+        <br />
+        <button
           onClick={props.handleQuestionModeStart}
         >
-          Question List Start!
-        </Button>
+          Question List Start! (Dev)
+        </button>
       </QueryHandler>
     )}
   </Query>
