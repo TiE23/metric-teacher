@@ -629,8 +629,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "How long is a 30 centimeter ruler in inches?"
-    answer: "[11.8in|12in|11in|11.5in|12.54in]4"
+    question: "The iPhone 6, 7, and 8 have a screen size of 120 millimeters diagonally. How large is that in inches?"
+    answer: "[4.7in|5.4in|4in|5.8in|3.7in]4"
     media: ""
     parent: {
       connect: {
@@ -763,7 +763,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "In 2014 the averge height of an American woman was 5 foot, 3.5 inches. How many centimeters is that?"
+    question: "In 2014 the average height of an American woman was 5 foot, 3.5 inches. How many centimeters is that?"
     answer: "[162cm|160cm|154cm|166cm|152cm]4"
     media: ""
     parent: {

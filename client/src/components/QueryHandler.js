@@ -83,15 +83,16 @@ QueryHandler.propTypes = {
   loadingErrorProps: PropTypes.shape({
     errorHeader: PropTypes.node,
     errorMessage: PropTypes.node,
-    loadingMessage: PropTypes.string,
+    loadingMessage: PropTypes.node,
   }),
   noDataIsAcceptable: PropTypes.bool,
-  noDataErrorMessage: PropTypes.string,
+  noDataErrorMessage: PropTypes.node,
 };
 
 QueryHandler.defaultProps = {
   skip: false,
   optional: false,
+  loadingErrorProps: null,
   noDataIsAcceptable: false,
   noDataErrorMessage: "No data was returned from the server.",
 };

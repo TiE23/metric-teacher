@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
+import { Link } from "react-router-dom";
 import { Button, Checkbox, Dropdown, Grid, Header, Icon, Popup, Segment } from "semantic-ui-react";
 
 import QueryHandler from "../../QueryHandler";
@@ -23,6 +24,16 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
     {queryProps => (
       <QueryHandler
         queryData={queryProps}
+        loadingErrorProps={{
+          errorHeader: "You have no Subjects assigned yet!",
+          errorMessage: (
+            <p>
+              Review your <Link to="/user/me">User Profile</Link> and make sure you have Enrolled,
+              joined a Course, and assigned yourself <Link to="/subjects">Subjects</Link> first.
+              Do not worry, this process takes only a few seconds.
+            </p>
+          ),
+        }}
       >
         <ChallengeKickoffSelector
           masteriesData={queryProps.data && queryProps.data.activeMasteries}
@@ -64,6 +75,9 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
                 <Popup
                   trigger={(<Icon name="info circle" />)}
                   content="When new to a SubSubject you'll be given easier questions. With experience you'll be challenged by more difficult questions. Check this box to show all questions no matter your mastery score on a SubSubject."
+                  position="top center"
+                  inverted
+                  hideOnScroll
                 />
               </Grid.Column>
             </Grid.Row>
