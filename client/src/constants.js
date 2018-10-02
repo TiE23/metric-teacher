@@ -18,6 +18,31 @@ export const CHALLENGE_DISPLAY_SPLIT_DELETE_COLUMN_WIDTH = { mobile: 2, tablet: 
 export const CHALLENGE_MEDIA_MIN_WIDTH = 575;
 
 // Challenge Settings
+export const CHALLENGE_KICKOFF_IGNORE_DIFFICULTY_DEFAULT = false;
+export const CHALLENGE_KICKOFF_LENGTH_DEFAULT = 15;
+export const CHALLENGE_KICKOFF_LENGTH_OPTIONS = [
+  {
+    key: 1,
+    value: CHALLENGE_KICKOFF_LENGTH_DEFAULT,
+    text: `Regular (${CHALLENGE_KICKOFF_LENGTH_DEFAULT} questions)`,
+  },
+  {
+    key: 2,
+    value: Math.ceil(CHALLENGE_KICKOFF_LENGTH_DEFAULT / 2),
+    text: `Short (${Math.ceil(CHALLENGE_KICKOFF_LENGTH_DEFAULT / 2)} questions)`,
+  },
+  {
+    key: 3,
+    value: Math.floor(CHALLENGE_KICKOFF_LENGTH_DEFAULT * 1.5),
+    text: `Long (${Math.floor(CHALLENGE_KICKOFF_LENGTH_DEFAULT * 1.5)} questions)`,
+  },
+  {
+    key: 4,
+    value: CHALLENGE_KICKOFF_LENGTH_DEFAULT * 2,
+    text: `Extra Long (${CHALLENGE_KICKOFF_LENGTH_DEFAULT * 2} questions)`,
+  },
+];
+
 export const CHALLENGE_KEYPAD_NEGATIVE = "(-)";
 export const CHALLENGE_KEYPAD_LAYOUT = [
   ["7", "8", "9"],
@@ -114,7 +139,7 @@ export const CHALLENGE_MAX_STRIKES = [
 export const CHALLENGE_QUESTION_REPEAT = [
   // This is a config to determine how many times a question might be asked again even after a
   // correct answer. Minimum is 1.
-  [1, 3, 2, 1, 1, 1], // Written
+  [1, 2, 2, 1, 1, 1], // Written
   [1, 3, 2, 2, 2, 1], // Conversion
   [1, 3, 2, 2, 2, 1], // Survey
 ];
