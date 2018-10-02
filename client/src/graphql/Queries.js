@@ -211,3 +211,49 @@ export const USER_SEARCH = gql`
     }
   }
 `;
+
+export const CHALLENGE_COMPLETE_SUBSUBJECTS = gql`
+  query ChallengeCompleteSubSubjects ($studentId: ID!, $subSubjectIds: [ID!]!) {
+    subSubjects(subsubjectids: $subSubjectIds) {
+      id
+      name
+      masteries (
+        where: {
+          status: 0,
+          parent: {
+            status: 0,
+            parent: {
+              student: {
+                id: $studentId
+              }
+            }
+          }
+        }
+      ) {
+        id
+        score
+      }
+    }
+  }
+`;
+
+export const CHALLENGE_COMPLETE_SURVEYS = gql`
+  query ChallengeCompleteSurveys ($surveyIds: [ID!]!) {
+    surveys(surveyids: $surveyIds) {
+      id
+      score
+      question {
+        question
+      }
+    }
+  }
+`;
+
+export const CHALLENGE_COMPLETE_QUESTIONS = gql`
+  query ChallengeCompleteQuestions ($questionIds: [ID!]!) {
+    questions(questionids: $questionIds) {
+      id
+      question
+    }
+  }
+`;

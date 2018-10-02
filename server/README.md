@@ -355,9 +355,9 @@ QuestionAnswerInput: {
 
 #### Question Queries
 * `question(questionid: ID!): Question`
-    * Get a Question by ID. For teachers and better only.
+    * Get a Question by ID. For normal users only.
 * `questions(questionids: [ID!]!): [Question]!`
-    * Get a list of Questions by a list of IDs. For teachers and better only.
+    * Get a list of Questions by a list of IDs. For normal users only.
 * `questionSearch(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!`
     * Get a list of Questions by Prisma query search parameters. For teachers and better only.
 * `checkSubmitQuestion(type: Int!, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Boolean!`
