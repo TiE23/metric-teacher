@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Transition } from "semantic-ui-react";
 
 import ChallengeMain from "./main/ChallengeMain";
-import ChallengeComplete from "./extra/ChallengeComplete";
+import ChallengeComplete from "./complete/ChallengeComplete";
 
 import utils from "../../utils";
 
