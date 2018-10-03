@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 
 import SimpleConfirm from "../misc/SimpleConfirm";
@@ -27,6 +28,7 @@ const MenuContentLogin = props => (
     [
       <Menu.Item
         key="signup"
+        as={Link}
         to="/signup"
         onClick={props.navigateTo}
       >

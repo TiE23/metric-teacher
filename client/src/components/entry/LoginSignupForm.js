@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import {
-  Header,
-  Segment,
-  Form,
   Container,
   Dimmer,
+  Form,
+  Header,
+  Icon,
   Loader,
   Message,
+  Segment,
 } from "semantic-ui-react";
 
 import utils from "../../utils";
@@ -17,7 +18,7 @@ import {
   PASSWORD_MINIMUM_LENGTH,
 } from "../../constants";
 
-import LoadingButton from "..//misc/LoadingButton";
+import LoadingButton from "../misc/LoadingButton";
 
 class LoginSignupForm extends Component {
   constructor(props) {
@@ -77,11 +78,12 @@ class LoginSignupForm extends Component {
 
   render() {
     return (
-      <Segment textAlign="left" >
+      <Segment textAlign="left">
         <Dimmer inverted active={this.props.loading}>
           <Loader />
         </Dimmer>
         <Header size="huge" textAlign="center">
+          <Icon name={this.props.loginPage ? "sign in" : "signup"} size="large" />
           Please {this.props.loginPage ? "login" : "sign-up"} below!
         </Header>
         <Form>
@@ -154,8 +156,9 @@ class LoginSignupForm extends Component {
         <Message attached negative>
           <Message.Header>Form Errors</Message.Header>
           <ul>
-            {this.state.formErrors.map(errorMessage =>
-              <li key={errorMessage}>{errorMessage}</li>)}
+            {this.state.formErrors.map(errorMessage => (
+              <li key={errorMessage}>{errorMessage}</li>
+            ))}
           </ul>
         </Message>
         }
