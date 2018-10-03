@@ -1,0 +1,49 @@
+import React from "react";
+import PropTypes from "prop-types";
+import { List, Progress } from "semantic-ui-react";
+
+import utils from "../../../utils";
+
+const ChallengeCompleteDetailScores = props => (
+  <List>
+    {props.scoreUpdates.map(row => (
+      <List.Item
+        key={row.id}
+      >
+        <Progress
+          percent={
+            (utils.minMax(
+              0,
+              row.existingScore + (props.showScoreUpdate ? row.scoreChange : 0),
+              props.maxScore,
+            )) / (props.maxScore / 100)
+          }
+          size="small"
+          indicating={props.showScoreUpdate && row.scoreChange > 0}
+          active={props.showScoreUpdate}
+          color={row.scoreChange < 0 ? "red" : "grey"}
+        >
+          {row.label} {" "}
+          ({row.existingScore}
+          {props.showScoreUpdate ?
+            row.scoreChange >= 0 ?
+              ` + ${row.scoreChange}` : ` - ${row.scoreChange}`
+            : " + ?"})
+        </Progress>
+      </List.Item>
+    ))}
+  </List>
+);
+
+ChallengeCompleteDetailScores.propTypes = {
+  showScoreUpdate: PropTypes.bool.isRequired,
+  maxScore: PropTypes.number.isRequired,
+  scoreUpdates: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    existingScore: PropTypes.number.isRequired,
+    scoreChange: PropTypes.number.isRequired,
+  })).isRequired,
+};
+
+export default ChallengeCompleteDetailScores;
