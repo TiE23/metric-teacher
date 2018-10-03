@@ -18,7 +18,7 @@ const {
 
 const question = {
   /**
-   * Get a Question by ID. For teachers and better only.
+   * Get a Question by ID. For normal users only.
    * @param parent
    * @param args
    *        questionid: ID!
@@ -27,9 +27,9 @@ const question = {
    * @returns Question
    */
   async question(parent, args, ctx, info) {
-    // Need to be teacher or better and normal.
+    // Need to be normal.
     await checkAuth(ctx, {
-      type: USER_TYPE_TEACHER,
+      type: USER_TYPE_STUDENT,
       status: USER_STATUS_NORMAL,
       action: "question",
     });
@@ -43,7 +43,7 @@ const question = {
 
 
   /**
-   * Get a list of Questions by a list of IDs. For teachers and better only.
+   * Get a list of Questions by a list of IDs. For normal users only.
    * @param parent
    * @param args
    *        questionids: [ID!]!
@@ -52,9 +52,9 @@ const question = {
    * @returns [Question]!
    */
   async questions(parent, args, ctx, info) {
-    // Need to be teacher or better and normal.
+    // Need to be normal.
     await checkAuth(ctx, {
-      type: USER_TYPE_TEACHER,
+      type: USER_TYPE_STUDENT,
       status: USER_STATUS_NORMAL,
       action: "questions",
     });

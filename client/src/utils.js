@@ -1148,11 +1148,11 @@ const t0t = (input, fail) => (t0(input) ? input : fail);
 
 
 /**
- * Basic helper function returns a the value gated between a minimum and maxiumum. Very simple.
+ * Basic helper function returns a the value gated between a minimum and maximum. Very simple.
  * For example, if your min is 0 and your max is 1000...
- * Example A: 501 returns 501   (no change)
- * Example B: 2501 returns 1000 (maxxed out)
- * Example C: -15 returns 0     (minned in)
+ * Example A: (0, 501, 1000)  returns 501  (no change)
+ * Example B: (0, 2501, 1000) returns 1000 (maxxed out)
+ * Example C: (0, -15, 1000)  returns 0    (minned in)
  * @param min
  * @param value
  * @param max

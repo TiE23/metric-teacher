@@ -13,12 +13,12 @@ const ChallengeKickoffSelectorSubject = (props) => {
 
   const selectionIcon = props.subjectData.checkState === 0 ?
     "dot circle outline" : props.subjectData.checkState === 1 ?
-      "circle" : "circle outline";
+      "check circle outline" : "circle outline";
 
   const clickSubjectHeader = () => {
     props.handleSubjectCheck(null, {
       value: props.subjectData.id,
-      checked: props.subjectData.checkState <= 0,
+      checked: props.subjectData.checkState <= 0, // Emulate Checkbox behavior.
     });
   };
 
