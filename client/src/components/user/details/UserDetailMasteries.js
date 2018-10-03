@@ -11,12 +11,12 @@ const UserDetailMasteries = (props) => {
   if (props.masteriesData.length) {
     if (props.organizeBySubject) {
       // Sort Subjects by ID, ascending.
-      const subjectsTree = sortBy(reverseMasteriesData(props.masteriesData), ["id"]);
+      const subjectsTree = sortBy(reverseMasteriesData(props.masteriesData), "id");
 
       // Sort SubSubjects by ID, ascending.
       subjectsTree.forEach((subject) => {
         // eslint-disable-next-line no-param-reassign
-        subject.subSubjects = sortBy(subject.subSubjects, ["id"]);
+        subject.subSubjects = sortBy(subject.subSubjects, "id");
       });
 
       return (

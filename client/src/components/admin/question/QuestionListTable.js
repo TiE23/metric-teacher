@@ -25,7 +25,7 @@ class QuestionListTable extends PureComponent {
       sorted: true,
     };
 
-    // This is a list of addresses that determine the sort direction of a particular column.
+    // This is a list of iteratee addresses that determine the sort direction of a specific column.
     const addressBook = {
       subject: "parent.parent.name",
       scale: "parent.scale",
@@ -39,7 +39,7 @@ class QuestionListTable extends PureComponent {
 
     // Performs the resorting of a complex data structure.
     const sorter = (data, address, sortDirection) => {
-      const sortedData = sortBy(data, o => utils.navigateObjectDots(o, address));
+      const sortedData = sortBy(data, address);
       if (sortDirection === "descending") {
         return sortedData.reverse();
       }

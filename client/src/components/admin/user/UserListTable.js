@@ -29,7 +29,7 @@ class UserListTable extends PureComponent {
         this.setState({
           sortColumn: clickedColumn,
           sortDirection: "ascending",
-          data: sortBy(data, [clickedColumn]),
+          data: sortBy(data, clickedColumn),
         });
 
         return;
@@ -54,7 +54,7 @@ class UserListTable extends PureComponent {
       // The table isn't sorted? Sort it!
       if (!this.state.sorted) {
         this.setState({
-          data: sortBy(prevState.data, [prevState.sortColumn]),
+          data: sortBy(prevState.data, prevState.sortColumn),
           sorted: true,
         });
       }
