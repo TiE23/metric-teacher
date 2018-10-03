@@ -7,6 +7,7 @@ import utils from "../../../utils";
 
 import QueryHandler from "../../QueryHandler";
 import ChallengeCompleteDetailScores from "./ChallengeCompleteDetailScores";
+import ChallengeCompleteDetailAnswers from "./ChallengeCompleteDetailAnswers";
 
 import {
   CHALLENGE_COMPLETE_QUESTIONS,
@@ -124,7 +125,7 @@ const ChallengeCompleteDetails = props => (
       <Grid.Column>
         <Segment>
           <Header size="large">
-            Survey Answers
+            Survey Responses
           </Header>
           {props.challengeResults.surveyanswerinput.length ?
             <Query
@@ -138,9 +139,19 @@ const ChallengeCompleteDetails = props => (
                   queryData={queryProps}
                 >
                   {queryProps.data && queryProps.data.questions ?
-                    <pre>
-                      {JSON.stringify(queryProps.data.questions, null, 2)}
-                    </pre>
+                    <ChallengeCompleteDetailAnswers
+                      surveyQuestionAnswers={queryProps.data.questions.map(row => (
+                        {
+                          ...utils.cacheGetTarget(
+                            props.challengeResults.surveyanswerinput,
+                            row.id,
+                            [],
+                            "questionid",
+                          ),
+                          question: utils.questionTextGrabber(row.question),
+                        }
+                      ))}
+                    />
                     :
                     <span>&nbsp;</span>
                   }

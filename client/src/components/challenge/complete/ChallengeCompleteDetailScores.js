@@ -7,9 +7,7 @@ import utils from "../../../utils";
 const ChallengeCompleteDetailScores = props => (
   <List>
     {props.scoreUpdates.map(row => (
-      <List.Item
-        key={row.id}
-      >
+      <List.Item key={row.id}>
         <Progress
           value={(utils.minMax(
             0,

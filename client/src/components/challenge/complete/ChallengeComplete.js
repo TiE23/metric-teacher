@@ -80,8 +80,8 @@ const ChallengeComplete = (props) => {
             <Divider />
             <Button
               as={Link}
-              color="green"
-              to="/challenge/kickoff"
+              to="/challenge"
+              color="teal"
               fluid
             >
               <Icon name="bolt" />

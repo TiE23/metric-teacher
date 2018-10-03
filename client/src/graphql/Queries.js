@@ -230,7 +230,6 @@ export const CHALLENGE_COMPLETE_SUBSUBJECTS = gql`
           }
         }
       ) {
-        id
         score
       }
     }
