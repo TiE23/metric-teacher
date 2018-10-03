@@ -43,6 +43,8 @@ export const CHALLENGE_KICKOFF_LENGTH_OPTIONS = [
   },
 ];
 
+export const CHALLENGE_COMPLETE_SMALL_SCORE_COUNT_MINIMUM = 5;
+
 export const CHALLENGE_KEYPAD_NEGATIVE = "(-)";
 export const CHALLENGE_KEYPAD_LAYOUT = [
   ["7", "8", "9"],

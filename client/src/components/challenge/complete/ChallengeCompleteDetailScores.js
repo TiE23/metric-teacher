@@ -4,6 +4,10 @@ import { List, Progress } from "semantic-ui-react";
 
 import utils from "../../../utils";
 
+import {
+  CHALLENGE_COMPLETE_SMALL_SCORE_COUNT_MINIMUM,
+} from "../../../constants";
+
 const ChallengeCompleteDetailScores = props => (
   <List>
     {props.scoreUpdates.map(row => (
@@ -16,7 +20,8 @@ const ChallengeCompleteDetailScores = props => (
           ))}
           total={props.maxScore}
           progress="value"
-          size="small"
+          size={props.scoreUpdates.length >= CHALLENGE_COMPLETE_SMALL_SCORE_COUNT_MINIMUM ?
+            "small" : "medium"}
           indicating={props.showScoreUpdate && row.scoreChange > 0}
           active={props.showScoreUpdate}
           color={row.scoreChange < 0 ? "red" : "grey"}
