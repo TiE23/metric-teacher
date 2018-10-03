@@ -35,6 +35,16 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
           ),
         }}
       >
+        <Header size="large" textAlign="center">
+          <Header.Content>
+            <Icon name="bolt" />
+            Challenge Kickoff
+            <Header.Subheader>
+              Customize your next Challenge.
+            </Header.Subheader>
+          </Header.Content>
+        </Header>
+        <br />
         <ChallengeKickoffSelector
           masteriesData={queryProps.data && queryProps.data.activeMasteries}
           selectedSubSubjectIds={props.selectedSubSubjectIds}
