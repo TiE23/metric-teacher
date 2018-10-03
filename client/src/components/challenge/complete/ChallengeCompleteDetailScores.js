@@ -11,24 +11,24 @@ const ChallengeCompleteDetailScores = props => (
         key={row.id}
       >
         <Progress
-          percent={
-            (utils.minMax(
-              0,
-              row.existingScore + (props.showScoreUpdate ? row.scoreChange : 0),
-              props.maxScore,
-            )) / (props.maxScore / 100)
-          }
+          value={(utils.minMax(
+            0,
+            row.existingScore + (props.showScoreUpdate ? row.scoreChange : 0),
+            props.maxScore,
+          ))}
+          total={props.maxScore}
+          progress="value"
           size="small"
           indicating={props.showScoreUpdate && row.scoreChange > 0}
           active={props.showScoreUpdate}
           color={row.scoreChange < 0 ? "red" : "grey"}
         >
-          {row.label} {" "}
-          ({row.existingScore}
-          {props.showScoreUpdate ?
+          {row.label}
+          {" "}
+          ({props.showScoreUpdate ?
             row.scoreChange >= 0 ?
-              ` + ${row.scoreChange}` : ` - ${row.scoreChange}`
-            : " + ?"})
+              `+${row.scoreChange}` : `${row.scoreChange}`
+            : "+ ?"})
         </Progress>
       </List.Item>
     ))}

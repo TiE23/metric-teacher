@@ -2248,7 +2248,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "Personally, what temperature would you consider the perfect room temperature? [64,82f]"
+    question: "What temperature would you consider the perfect room temperature? [64,82f]"
     answer: "[c]"
     media: ""
     parent: {
@@ -2264,7 +2264,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "Personally, starting at what temperature would you consider wearing shorts or a skirt? [50,100f]"
+    question: "Starting at what temperature would you consider wearing shorts or a skirt? [50,100f]"
     answer: "[c]"
     media: ""
     parent: {
@@ -2447,7 +2447,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "Personally, what temperature would you consider the perfect room temperature? [18,28c]"
+    question: "What temperature would you consider the perfect room temperature? [18,28c]"
     answer: "[f]"
     media: ""
     parent: {
@@ -2463,7 +2463,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "Personally, starting at what temperature would you consider wearing shorts or a skirt? [10,38c]"
+    question: "Starting at what temperature would you consider wearing shorts or a skirt? [10,38c]"
     answer: "[f]"
     media: ""
     parent: {

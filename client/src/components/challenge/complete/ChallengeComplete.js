@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Mutation } from "react-apollo";
-import { Grid, Header, Icon } from "semantic-ui-react";
+import { Button, Container, Divider, Grid, Header, Icon } from "semantic-ui-react";
 
 import LoadingButton from "../../misc/LoadingButton";
 import ChallengeCompleteDetails from "./ChallengeCompleteDetails";
@@ -67,13 +68,28 @@ const ChallengeComplete = (props) => {
           </Mutation>
         }
       </Grid.Row>
-      <Grid.Row>
-        <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL}>
-          <pre>
-            {JSON.stringify(props.challengeResults, null, 2)}
-          </pre>
-        </Grid.Column>
-      </Grid.Row>
+
+      {props.challengeSubmitted &&
+        <Grid.Row>
+          <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM}>
+            <Container textAlign="center">
+              Think you can do better?
+              <br />
+              Drive right back into it with another Challenge!
+            </Container>
+            <Divider />
+            <Button
+              as={Link}
+              color="green"
+              to="/challenge/kickoff"
+              fluid
+            >
+              <Icon name="bolt" />
+              Rematch!
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
+      }
     </Grid>
   );
 };

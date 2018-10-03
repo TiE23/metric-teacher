@@ -95,7 +95,7 @@ const ChallengeCompleteDetails = props => (
                           id: row.id,
                           label: utils.stringTruncator(
                             utils.questionTextGrabber(row.question.question),
-                            50,
+                            45,
                           ),
                           existingScore: row.score,
                           scoreChange: utils.cacheGetTarget(
