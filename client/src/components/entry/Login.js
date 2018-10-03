@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Mutation, compose } from "react-apollo";
 import { Redirect } from "react-router-dom";
 import { withRouter } from "react-router";
+import { Grid } from "semantic-ui-react";
 
 import AlreadyLoggedIn from "./AlreadyLoggedIn";
 import LoginSignupForm from "./LoginSignupForm";
@@ -14,6 +15,10 @@ import {
   SIGNUP_MUTATION,
   LOGIN_MUTATION,
 } from "../../graphql/Mutations";
+
+import {
+  FLOATING_CENTER_GRID_COLUMN_WIDTH_LARGE,
+} from "../../constants";
 
 class Login extends PureComponent {
   constructor(props) {
@@ -52,12 +57,19 @@ class Login extends PureComponent {
         }}
       >
         {(login, { loading, error }) => (
-          <LoginSignupForm
-            loginPage={loginPage}
-            onSubmit={variables => login({ variables })}
-            loading={loading}
-            error={error}
-          />
+          <Grid centered>
+            <Grid.Row>
+              <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_LARGE}>
+                <br />
+                <LoginSignupForm
+                  loginPage={loginPage}
+                  onSubmit={variables => login({ variables })}
+                  loading={loading}
+                  error={error}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         )}
       </Mutation>
     );
