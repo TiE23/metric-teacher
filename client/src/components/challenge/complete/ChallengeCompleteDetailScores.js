@@ -22,8 +22,8 @@ const ChallengeCompleteDetailScores = props => (
           progress="value"
           size={props.scoreUpdates.length >= CHALLENGE_COMPLETE_SMALL_SCORE_COUNT_MINIMUM ?
             "small" : "medium"}
-          indicating={props.showScoreUpdate && row.scoreChange > 0}
-          color="grey"
+          active={props.showScoreUpdate && row.scoreChange > 0}
+          color={row.scoreChange > 0 ? "olive" : "red"}
         >
           {row.label}
           {" "}
