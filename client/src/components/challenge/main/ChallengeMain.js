@@ -26,7 +26,7 @@ import {
   QA_DATA_EVERYTHING,
 } from "../../../propTypes";
 
-const ChallengeMain = class ChallengeMain extends PureComponent {
+class ChallengeMain extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -90,7 +90,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
      */
     this.resolveQa = (resolution, payload = null) => {
       const { currentQaProgress, qaData } = this.props;
-      const { responseMode } = this.props.currentChallenge;
+      const { responseMode } = this.props.currentQaProgress;
 
       let dimmerColor = null;
       let dimmerMessage = null;
@@ -134,8 +134,8 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
           CHALLENGE_MAX_STRIKES[qaData.question.type][qaData.difficulty];
         dimmerColor = "red";
         dimmerMessage = strikes > 1 ? deline`
-          ${currentQaProgress.incorrectAnswerCount + 1 >= strikes ? "Failed!" : "Incorrect!"}
-          ${currentQaProgress.incorrectAnswerCount + 1} / ${strikes}
+          ${currentQaProgress.incorrectAnswers.length + 1 >= strikes ? "Failed!" : "Incorrect!"}
+          ${currentQaProgress.incorrectAnswers.length + 1} / ${strikes}
         ` : "Incorrect!";
         dimmerIcon = "remove";
 
@@ -185,7 +185,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
               <ChallengeDetail
                 qaData={this.props.qaData}
                 showClearButton={utils.t0(this.props.currentChallenge.inputData)}
-                responseMode={this.props.currentChallenge.responseMode}
+                responseMode={this.props.currentQaProgress.responseMode}
                 handleSkipQa={this.handleSkipQa}
                 handleClearQa={this.handleClearQa}
               />
@@ -196,6 +196,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
               <ChallengeResponse
                 qaData={this.props.qaData}
                 currentChallenge={this.props.currentChallenge}
+                currentQaProgress={this.props.currentQaProgress}
                 challengeCompletion={this.props.challengeCompletion}
                 resolveQa={this.resolveQa}
                 updateCurrentChallengeData={this.props.updateCurrentChallengeData}
@@ -229,17 +230,17 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
       </Dimmer.Dimmable>
     );
   }
-};
+}
 
 ChallengeMain.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   currentQaProgress: PropTypes.shape({
     correctAnswerCount: PropTypes.number.isRequired,
-    incorrectAnswerCount: PropTypes.number.isRequired,
+    incorrectAnswers: PropTypes.arrayOf(PropTypes.number).isRequired,
+    responseMode: PropTypes.number,
   }).isRequired,
   currentChallenge: PropTypes.shape({
     inputData: PropTypes.any,
-    responseMode: PropTypes.number,
   }).isRequired,
   streak: PropTypes.number.isRequired,  // This is behind by +1 or -1 so adjustments will be needed
   resolveQa: PropTypes.func.isRequired,

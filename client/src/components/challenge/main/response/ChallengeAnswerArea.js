@@ -21,29 +21,32 @@ import {
 } from "../../../../constants";
 
 const ChallengeAnswerArea = (props) => {
-  const { currentChallenge } = props;
+  const { currentChallenge, currentQaProgress } = props;
+  const { responseMode } = props.currentQaProgress;
 
-  if (props.responseMode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN) {
+  if (responseMode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN) {
     return (
       <ChallengeAnswerMultipleChoice
-        mode={props.responseMode}
+        mode={responseMode}
         choices={props.qaData.answer.data.multiple.choices}
         updateCurrentChallengeData={props.updateCurrentChallengeData}
-        choicesSelected={currentChallenge.choicesSelected}
+        choicesSelected={currentQaProgress.choicesSelected}
+        incorrectAnswers={props.incorrectAnswers}
         selectedAnswer={currentChallenge.inputData}
       />
     );
-  } else if (props.responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) {
+  } else if (responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) {
     return (
       <ChallengeAnswerMultipleChoice
-        mode={props.responseMode}
+        mode={responseMode}
         choices={props.qaData.answer.data.conversion.choices}
         updateCurrentChallengeData={props.updateCurrentChallengeData}
-        choicesSelected={currentChallenge.choicesSelected}
+        choicesSelected={currentQaProgress.choicesSelected}
+        incorrectAnswers={props.incorrectAnswers}
         selectedAnswer={currentChallenge.inputData}
       />
     );
-  } else if (props.responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT) {
+  } else if (responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT) {
     return (
       <ChallengeAnswerConversionDirect
         updateCurrentChallengeData={props.updateCurrentChallengeData}
@@ -51,18 +54,18 @@ const ChallengeAnswerArea = (props) => {
         inputtedAnswer={currentChallenge.inputData}
       />
     );
-  } else if (props.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
+  } else if (responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
     return (
       <ChallengeAnswerConversionSlider
         updateCurrentChallengeData={props.updateCurrentChallengeData}
         inputUnit={props.qaData.answer.data.unit}
         inputtedAnswer={currentChallenge.inputData}
-        rangeMin={currentChallenge.rangeData[0]}
-        rangeMax={currentChallenge.rangeData[1]}
-        rangeStep={currentChallenge.rangeData[2]}
+        rangeMin={currentQaProgress.rangeData[0]}
+        rangeMax={currentQaProgress.rangeData[1]}
+        rangeStep={currentQaProgress.rangeData[2]}
       />
     );
-  } else if (props.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER) {
+  } else if (responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER) {
     // Handle unfilled Survey questions. Its unit is based on question data.
     const showSurveyNoteInput = props.qaData.flags & (
       QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED
@@ -74,9 +77,9 @@ const ChallengeAnswerArea = (props) => {
           updateCurrentChallengeData={props.updateCurrentChallengeData}
           inputUnit={props.qaData.question.data.survey.range.bottom.unit}
           inputtedAnswer={currentChallenge.inputData && currentChallenge.inputData.value}
-          rangeMin={currentChallenge.rangeData[0]}
-          rangeMax={currentChallenge.rangeData[1]}
-          rangeStep={currentChallenge.rangeData[2]}
+          rangeMin={currentQaProgress.rangeData[0]}
+          rangeMax={currentQaProgress.rangeData[1]}
+          rangeStep={currentQaProgress.rangeData[2]}
           surveyAnswerMode
         />
         {!!showSurveyNoteInput &&
@@ -98,13 +101,16 @@ const ChallengeAnswerArea = (props) => {
 
 ChallengeAnswerArea.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
-  responseMode: PropTypes.number.isRequired,
   currentChallenge: PropTypes.shape({
     inputData: PropTypes.any, // Won't be set at the beginning.
+  }).isRequired,
+  currentQaProgress: PropTypes.shape({
     choicesSelected: PropTypes.arrayOf(PropTypes.number), // Isn't set for unanswered surveys.
     rangeData: PropTypes.arrayOf(PropTypes.number),
+    responseMode: PropTypes.number.isRequired,
   }).isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,
+  incorrectAnswers: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default ChallengeAnswerArea;

@@ -25,6 +25,7 @@ import {
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
   CHALLENGE_RESOLUTION_SURVEY_FILLED,
+  CHALLENGE_CLEAR_INCORRECT_ANSWERS_ON_CORRECT,
 } from "../../constants";
 
 const ChallengeList = (props) => {
@@ -39,22 +40,24 @@ const ChallengeList = (props) => {
    *
    * @param qaId - The QA id
    * @param resolution - Skip, correct, incorrect, or survey answered
-   * @param surveyPayload - for "survey-answered", contains the data for the SurveyAnswerInput:
+   * @param payload - Contains additional detail for the response.
+   *                  For "survey-answered", contains the data for the SurveyAnswerInput:
    *                    { skip, value, unit, score, detail }
+   *                  For multiple choice and input responses, contains the user's input:
+   *                    { answer }
    */
-  const resolveQa = (qaId, resolution, surveyPayload = null) => {
-    // TODO - Remove this when done.
-    console.log(resolution, qaId, surveyPayload);
+  const resolveQa = (qaId, resolution, payload = null) => {
     const challengeProgressUpdate = { seen: true };
     const currentQaObject =
       utils.cacheGetTarget(props.challengeData, props.currentChallenge.currentQaId);
+    const currentChallengeProgress = props.challengeProgress[currentQaObject.id];
 
     // Different resolutions getting handled.
     if (resolution === CHALLENGE_RESOLUTION_SKIP) {
       challengeProgressUpdate.skipped = true;
 
       // Only score adjust if skipped on first view (seen === true).
-      if (!props.challengeProgress[currentQaObject.id].seen) {
+      if (!currentChallengeProgress.seen) {
         // Punish student's mastery for skipping.
         props.updateResultsData(
           CHALLENGE_RESULTS_MASTERY_SCORE,
@@ -90,11 +93,20 @@ const ChallengeList = (props) => {
     } else if (resolution === CHALLENGE_RESOLUTION_CORRECT) {
       // Check the question repeat setting. Only mark as "succeeded" when the question has been
       // answered correctly enough times.
-      if (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1 >=
+      if (currentChallengeProgress.correctAnswerCount + 1 >=
       CHALLENGE_QUESTION_REPEAT[currentQaObject.question.type][currentQaObject.difficulty]) {
         challengeProgressUpdate.succeeded = true;
       }
       challengeProgressUpdate.correctAnswerCount = 1; // (Additive)
+
+      if (CHALLENGE_CLEAR_INCORRECT_ANSWERS_ON_CORRECT &&
+      currentChallengeProgress.incorrectAnswers.length) {
+        // Update incorrectAnswers with null values so no longer are incorrect answers greyed-out.
+        // Take note that that this counts on specific if/else behavior in
+        // ChallengeManager.updateChallengeProgress(), so be aware of that when modifying.
+        challengeProgressUpdate.incorrectAnswers =
+          currentChallengeProgress.incorrectAnswers.map(() => null);
+      }
 
       // Award mastery score for a correct answer.
       props.updateResultsData(
@@ -105,7 +117,7 @@ const ChallengeList = (props) => {
           score: Math.ceil(CHALLENGE_SCORES.correct.mastery[
             currentQaObject.question.type
           ][currentQaObject.difficulty] /
-          (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1)),
+          (currentChallengeProgress.correctAnswerCount + 1)),
         },
         // 1st answer: 100% score. 2nd: 50% score. 3rd: 33% score. etc...
         // Score is rounded up, so always worth at least 1 point.
@@ -119,17 +131,18 @@ const ChallengeList = (props) => {
           {
             // Each successive correct answer decreases score.
             score: CHALLENGE_SCORES.correct.survey[currentQaObject.difficulty] /
-              (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1),
+              (currentChallengeProgress.correctAnswerCount + 1),
           },
         );
       }
     } else if (resolution === CHALLENGE_RESOLUTION_INCORRECT) {
       // Check the strike allowance. Too many strikes? Mark as failed.
-      if (props.challengeProgress[currentQaObject.id].incorrectAnswerCount + 1 >=
+      if (currentChallengeProgress.incorrectAnswers.length + 1 >=
       CHALLENGE_MAX_STRIKES[currentQaObject.question.type][currentQaObject.difficulty]) {
         challengeProgressUpdate.failed = true;
       }
-      challengeProgressUpdate.incorrectAnswerCount = 1;
+      challengeProgressUpdate.incorrectAnswers =
+        currentChallengeProgress.incorrectAnswers.concat(payload.answer);
 
       // Punish mastery score for an incorrect answer.
       props.updateResultsData(
@@ -155,11 +168,11 @@ const ChallengeList = (props) => {
     } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_FILLED) {
       challengeProgressUpdate.succeeded = true;
 
-      // Pass the entire surveyPayload object.
+      // Pass the entire payload object.
       props.updateResultsData(
         CHALLENGE_RESULTS_SURVEY_FILLED,
         currentQaObject.questionId,
-        surveyPayload,  // Pass through the survey's payload (skip, value, unit, score, detail).
+        payload,  // Pass through the survey's payload (skip, value, unit, score, detail).
       );
     }
 

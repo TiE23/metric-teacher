@@ -26,6 +26,10 @@ import {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
+  CHALLENGE_REPEATS_WRITTEN_CHOICES,
+  CHALLENGE_REPEATS_CONVERSION_MODE,
+  CHALLENGE_REPEATS_CONVERSION_CHOICES,
+  CHALLENGE_REPEATS_CONVERSION_RANGE,
 } from "../../constants";
 
 class ChallengeManager extends PureComponent {
@@ -47,11 +51,9 @@ class ChallengeManager extends PureComponent {
         currentQaId: null,
         qaRemaining: 0,
         inputData: null,
-        choicesSelected: [],
-        rangeData: [],
-        responseMode: null,
       },
       streak: 0,
+      counter: 0, // Trigger for challenge progress (skips or submits).
       ...this.props.challengeState, // Full state or just challengeId and challengeData.
     };
 
@@ -59,6 +61,7 @@ class ChallengeManager extends PureComponent {
       if (utils.isEmptyRecursive(this.state.challengeProgress)) {
         this.setState(prevState => ({
           challengeProgress: buildInitialChallengeProgress(prevState.challengeData),
+          counter: 1, // Trigger the first question to get loaded.
         }));
       }
     };
@@ -74,8 +77,8 @@ class ChallengeManager extends PureComponent {
         utils.writeChallengeStateLocalStorage(this.state);
       }
 
-      // There was change in the progress. That means we need to move to the next question.
-      if (this.state.challengeProgress !== prevState.challengeProgress) {
+      // The counter was changed, that means we need to move to the next question.
+      if (this.state.counter !== prevState.counter) {
         // Get the next qaId and an updated count of remaining QAs.
         const { currentQaId, qaRemaining } = getNextRandomQaId(
           this.state.challengeProgress, // eslint-disable-line react/no-access-state-in-setstate
@@ -86,50 +89,73 @@ class ChallengeManager extends PureComponent {
         let choicesSelected = null;
         let rangeData = null;
         let responseMode = null;
+
         if (currentQaId) {
           const currentQaData = utils.cacheGetTarget(this.state.challengeData, currentQaId);
+          const currentChallengeProgress = this.state.challengeProgress[currentQaId];
 
           if (currentQaData.question.type === QUESTION_TYPE_WRITTEN) {
             responseMode = CHALLENGE_RESPONSE_MULTIPLE_WRITTEN;
-            choicesSelected = utils.choiceSelector(
-              CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
-              currentQaData.answer.data.multiple.choices.length,
-              currentQaData.answer.data.multiple.choicesOffered,
-            );
+
+            choicesSelected =
+              currentChallengeProgress.choicesSelected.length && CHALLENGE_REPEATS_WRITTEN_CHOICES ?
+                currentChallengeProgress.choicesSelected  // Repeat same choices.
+                :
+                utils.choiceSelector(                     // New choices.
+                  CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
+                  currentQaData.answer.data.multiple.choices.length,
+                  currentQaData.answer.data.multiple.choicesOffered,
+                );
           } else if (currentQaData.question.type === QUESTION_TYPE_CONVERSION) {
             // TODO - Choose non-randomly but with some kind of algorithm.
-            responseMode = [
-              CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
-              CHALLENGE_RESPONSE_INPUT_DIRECT,
-              CHALLENGE_RESPONSE_INPUT_SLIDER,
-            ][random(2)];
+            responseMode =
+              currentChallengeProgress.responseMode && CHALLENGE_REPEATS_CONVERSION_MODE ?
+                currentChallengeProgress.responseMode
+                :
+                [
+                  CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+                  CHALLENGE_RESPONSE_INPUT_DIRECT,
+                  CHALLENGE_RESPONSE_INPUT_SLIDER,
+                ][random(2)];
 
-            if (responseMode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) {
-              choicesSelected = utils.choiceSelector(
-                CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
-                currentQaData.answer.data.conversion.choices.length,
-              );
-            } else if (responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
-              rangeData = utils.rangeSelector(
-                currentQaData.answer.data.unit,
-                currentQaData.answer.data.accuracy,
-                currentQaData.answer.data.conversion.friendly,
-              );
-            }
+            choicesSelected =
+              currentChallengeProgress.choicesSelected.length &&
+              CHALLENGE_REPEATS_CONVERSION_CHOICES ?
+                currentChallengeProgress.choicesSelected  // Repeat same choices.
+                :
+                utils.choiceSelector(                     // New choices.
+                  CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+                  currentQaData.answer.data.conversion.choices.length,
+                );
+
+            rangeData =
+              currentChallengeProgress.rangeData.length && CHALLENGE_REPEATS_CONVERSION_RANGE ?
+                currentChallengeProgress.rangeData  // Repeat same range.
+                :
+                utils.rangeSelector(                // New range.
+                  currentQaData.answer.data.unit,
+                  currentQaData.answer.data.accuracy,
+                  currentQaData.answer.data.conversion.friendly,
+                );
           } else if (currentQaData.question.type === QUESTION_TYPE_SURVEY) {
             if (currentQaData.answer.data.conversion) {
               // TODO - Randomly (?) choose between multiple choice, direct input, or slider.
               // TODO - Randomly (?) make the user re-choose their survey response from
               // currentQaData.answer.data.survey.choices
               responseMode = CHALLENGE_RESPONSE_MULTIPLE_GENERATED;
-              choicesSelected = utils.choiceSelector(
-                CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
-                currentQaData.answer.data.conversion.choices.length,
-              );
-            } else {
-              // Unanswered surveys have no possible choicesSelected option.
-              responseMode = CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER;
 
+              choicesSelected =
+                currentChallengeProgress.choicesSelected.length &&
+                CHALLENGE_REPEATS_CONVERSION_CHOICES ?
+                  currentChallengeProgress.choicesSelected  // Repeat same choices.
+                  :
+                  utils.choiceSelector(                     // New choices.
+                    CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+                    currentQaData.answer.data.conversion.choices.length,
+                  );
+            } else {
+              // Mode and range are always the same. No randomness when filling a survey.
+              responseMode = CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER;
               rangeData = [
                 currentQaData.question.data.survey.range.bottom.value,
                 currentQaData.question.data.survey.range.top.value,
@@ -144,10 +170,17 @@ class ChallengeManager extends PureComponent {
           currentQaId,
           qaRemaining,
           inputData: null,
-          choicesSelected,
-          rangeData,
-          responseMode,
         } }));
+
+        this.updateChallengeProgress(
+          currentQaId,
+          {
+            choicesSelected,
+            rangeData,
+            responseMode,
+          },
+          false,
+        );
 
         // This will cause componentDidUpdate() to get run again where it'll see the
         // currentChallenge state was updated and immediately write the new state to local storage.
@@ -159,11 +192,13 @@ class ChallengeManager extends PureComponent {
       challengeData.forEach(({ id }) => {
         newChallengeProgress[id] = {
           seen: false,
-          skip: false,
+          skipped: false,
           succeeded: false,
           failed: false,
+          choicesSelected: [],
+          rangeData: [],
           correctAnswerCount: 0,
-          incorrectAnswerCount: 0,
+          incorrectAnswers: [],
         };
       });
 
@@ -202,43 +237,40 @@ class ChallengeManager extends PureComponent {
     /**
      * Update the challengeProgress data for the current QA.
      * This can be changing the booleans seen, skipped, succeeded, and failed.
-     * This can be changing the integers correctAnswerCount and incorrectAnswerCount -- These
-     * values are additive instead of replacing the value - they add to the number.
+     * This can be changing the integers correctAnswerCount which are additive instead of replacing
+     * the value - it adds to the number. Hacky, yes, but it works.
      *
      * @param qaId
      * @param progressUpdateData
+     * @param increaseCounter
      */
-    this.updateChallengeProgress = (qaId, progressUpdateData) => {
+    this.updateChallengeProgress = (qaId, progressUpdateData, increaseCounter = true) => {
       const newProgressData = {};
       let newStreak = this.state.streak;
 
-      // The values correctAnswerCount and incorrectAnswerCount are updated by adding to the
-      // existing values.
-      if (utils.t0(progressUpdateData.correctAnswerCount) ||
-      utils.t0(progressUpdateData.incorrectAnswerCount)) {
+      // The values correctAnswerCount is updated by adding to the existing value.
+      if (utils.t0(progressUpdateData.correctAnswerCount)) {
         const progressUpdateDataCopy = progressUpdateData;
+        progressUpdateDataCopy.correctAnswerCount +=
+          this.state.challengeProgress[qaId].correctAnswerCount;
 
-        if (utils.t0(progressUpdateData.correctAnswerCount)) {
-          progressUpdateDataCopy.correctAnswerCount +=
-            this.state.challengeProgress[qaId].correctAnswerCount;
-          if (newStreak < 0) {
-            newStreak = 1;
-          } else {
-            ++newStreak;
-          }
-        }
-
-        if (utils.t0(progressUpdateData.incorrectAnswerCount)) {
-          progressUpdateDataCopy.incorrectAnswerCount +=
-            this.state.challengeProgress[qaId].incorrectAnswerCount;
-          if (newStreak > 0) {
-            newStreak = -1;
-          } else {
-            --newStreak;
-          }
+        // Correct answer, update streak!
+        if (newStreak < 0) {
+          newStreak = 1;
+        } else {
+          ++newStreak;
         }
 
         newProgressData[qaId] = progressUpdateDataCopy;
+      } else if (progressUpdateData.incorrectAnswers) {
+        // Incorrect answer, update streak!
+        if (newStreak > 0) {
+          newStreak = -1;
+        } else {
+          --newStreak;
+        }
+
+        newProgressData[qaId] = progressUpdateData;
       } else {
         newProgressData[qaId] = progressUpdateData;
       }
@@ -251,13 +283,14 @@ class ChallengeManager extends PureComponent {
           utils.mergeCustomizer,
         ),
         streak: newStreak,
+        counter: prevState.counter + (increaseCounter | 0),
       }));
     };
 
 
     /**
      * Update the currentChallengeData directly.
-     * TODO - Consider removing this if it only has one use. ???
+     *
      * @param newCurrentChallengeData
      */
     this.updateCurrentChallengeData = (newCurrentChallengeData) => {
