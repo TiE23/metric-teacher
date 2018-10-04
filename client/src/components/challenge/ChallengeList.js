@@ -49,13 +49,14 @@ const ChallengeList = (props) => {
     const challengeProgressUpdate = { seen: true };
     const currentQaObject =
       utils.cacheGetTarget(props.challengeData, props.currentChallenge.currentQaId);
+    const currentChallengeProgress = props.challengeProgress[currentQaObject.id];
 
     // Different resolutions getting handled.
     if (resolution === CHALLENGE_RESOLUTION_SKIP) {
       challengeProgressUpdate.skipped = true;
 
       // Only score adjust if skipped on first view (seen === true).
-      if (!props.challengeProgress[currentQaObject.id].seen) {
+      if (!currentChallengeProgress.seen) {
         // Punish student's mastery for skipping.
         props.updateResultsData(
           CHALLENGE_RESULTS_MASTERY_SCORE,
@@ -91,7 +92,7 @@ const ChallengeList = (props) => {
     } else if (resolution === CHALLENGE_RESOLUTION_CORRECT) {
       // Check the question repeat setting. Only mark as "succeeded" when the question has been
       // answered correctly enough times.
-      if (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1 >=
+      if (currentChallengeProgress.correctAnswerCount + 1 >=
       CHALLENGE_QUESTION_REPEAT[currentQaObject.question.type][currentQaObject.difficulty]) {
         challengeProgressUpdate.succeeded = true;
       }
@@ -106,7 +107,7 @@ const ChallengeList = (props) => {
           score: Math.ceil(CHALLENGE_SCORES.correct.mastery[
             currentQaObject.question.type
           ][currentQaObject.difficulty] /
-          (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1)),
+          (currentChallengeProgress.correctAnswerCount + 1)),
         },
         // 1st answer: 100% score. 2nd: 50% score. 3rd: 33% score. etc...
         // Score is rounded up, so always worth at least 1 point.
@@ -120,18 +121,18 @@ const ChallengeList = (props) => {
           {
             // Each successive correct answer decreases score.
             score: CHALLENGE_SCORES.correct.survey[currentQaObject.difficulty] /
-              (props.challengeProgress[currentQaObject.id].correctAnswerCount + 1),
+              (currentChallengeProgress.correctAnswerCount + 1),
           },
         );
       }
     } else if (resolution === CHALLENGE_RESOLUTION_INCORRECT) {
       // Check the strike allowance. Too many strikes? Mark as failed.
-      if (props.challengeProgress[currentQaObject.id].incorrectAnswers.length + 1 >=
+      if (currentChallengeProgress.incorrectAnswers.length + 1 >=
       CHALLENGE_MAX_STRIKES[currentQaObject.question.type][currentQaObject.difficulty]) {
         challengeProgressUpdate.failed = true;
       }
       challengeProgressUpdate.incorrectAnswers =
-        props.challengeProgress[currentQaObject.id].incorrectAnswers.concat(payload.answer);
+        currentChallengeProgress.incorrectAnswers.concat(payload.answer);
 
       // Punish mastery score for an incorrect answer.
       props.updateResultsData(
