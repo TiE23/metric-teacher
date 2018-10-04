@@ -5,6 +5,7 @@ import { Segment, Icon } from "semantic-ui-react";
 const ChallengeAnswerMultipleChoiceOption = props => (
   <Segment
     inverted={props.selected}
+    secondary={props.wrong}
     color={props.selected ? "blue" : null}
     onClick={() => props.handleSelect(props.number)}
   >
@@ -19,6 +20,7 @@ const ChallengeAnswerMultipleChoiceOption = props => (
 ChallengeAnswerMultipleChoiceOption.propTypes = {
   number: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
+  wrong: PropTypes.bool.isRequired,
   selected: PropTypes.bool.isRequired,
   handleSelect: PropTypes.func.isRequired,
 };

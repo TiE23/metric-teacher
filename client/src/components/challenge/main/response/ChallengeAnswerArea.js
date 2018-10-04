@@ -30,6 +30,7 @@ const ChallengeAnswerArea = (props) => {
         choices={props.qaData.answer.data.multiple.choices}
         updateCurrentChallengeData={props.updateCurrentChallengeData}
         choicesSelected={currentChallenge.choicesSelected}
+        incorrectAnswers={props.incorrectAnswers}
         selectedAnswer={currentChallenge.inputData}
       />
     );
@@ -40,6 +41,7 @@ const ChallengeAnswerArea = (props) => {
         choices={props.qaData.answer.data.conversion.choices}
         updateCurrentChallengeData={props.updateCurrentChallengeData}
         choicesSelected={currentChallenge.choicesSelected}
+        incorrectAnswers={props.incorrectAnswers}
         selectedAnswer={currentChallenge.inputData}
       />
     );
@@ -105,6 +107,7 @@ ChallengeAnswerArea.propTypes = {
     rangeData: PropTypes.arrayOf(PropTypes.number),
   }).isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,
+  incorrectAnswers: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default ChallengeAnswerArea;

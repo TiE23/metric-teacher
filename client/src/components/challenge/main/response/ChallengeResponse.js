@@ -40,9 +40,9 @@ function ChallengeResponse(props) {
     utils.t0(currentChallenge.inputData)) {
       // Multiple choice answers should be === 0 to be correct.
       if (currentChallenge.inputData === 0) {
-        props.resolveQa(CHALLENGE_RESOLUTION_CORRECT);
+        props.resolveQa(CHALLENGE_RESOLUTION_CORRECT, { answer: currentChallenge.inputData });
       } else {
-        props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT);
+        props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT, { answer: currentChallenge.inputData });
       }
     } else if ((currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
       currentChallenge.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) &&
@@ -106,6 +106,7 @@ function ChallengeResponse(props) {
         responseMode={props.currentChallenge.responseMode}
         currentChallenge={props.currentChallenge}
         updateCurrentChallengeData={props.updateCurrentChallengeData}
+        incorrectAnswers={props.currentQaProgress.incorrectAnswers}
       />
     </div>
   );
@@ -116,6 +117,9 @@ ChallengeResponse.propTypes = {
   currentChallenge: PropTypes.shape({
     inputData: PropTypes.any,
     responseMode: PropTypes.number,
+  }).isRequired,
+  currentQaProgress: PropTypes.shape({
+    incorrectAnswers: PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,
   challengeCompletion: PropTypes.shape({
     total: PropTypes.number.isRequired,

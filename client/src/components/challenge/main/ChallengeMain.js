@@ -26,7 +26,7 @@ import {
   QA_DATA_EVERYTHING,
 } from "../../../propTypes";
 
-const ChallengeMain = class ChallengeMain extends PureComponent {
+class ChallengeMain extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -134,8 +134,8 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
           CHALLENGE_MAX_STRIKES[qaData.question.type][qaData.difficulty];
         dimmerColor = "red";
         dimmerMessage = strikes > 1 ? deline`
-          ${currentQaProgress.incorrectAnswerCount + 1 >= strikes ? "Failed!" : "Incorrect!"}
-          ${currentQaProgress.incorrectAnswerCount + 1} / ${strikes}
+          ${currentQaProgress.incorrectAnswers.length + 1 >= strikes ? "Failed!" : "Incorrect!"}
+          ${currentQaProgress.incorrectAnswers.length + 1} / ${strikes}
         ` : "Incorrect!";
         dimmerIcon = "remove";
 
@@ -196,6 +196,7 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
               <ChallengeResponse
                 qaData={this.props.qaData}
                 currentChallenge={this.props.currentChallenge}
+                currentQaProgress={this.props.currentQaProgress}
                 challengeCompletion={this.props.challengeCompletion}
                 resolveQa={this.resolveQa}
                 updateCurrentChallengeData={this.props.updateCurrentChallengeData}
@@ -229,13 +230,13 @@ const ChallengeMain = class ChallengeMain extends PureComponent {
       </Dimmer.Dimmable>
     );
   }
-};
+}
 
 ChallengeMain.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   currentQaProgress: PropTypes.shape({
     correctAnswerCount: PropTypes.number.isRequired,
-    incorrectAnswerCount: PropTypes.number.isRequired,
+    incorrectAnswers: PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,
   currentChallenge: PropTypes.shape({
     inputData: PropTypes.any,

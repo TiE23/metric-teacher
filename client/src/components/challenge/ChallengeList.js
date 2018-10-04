@@ -39,12 +39,13 @@ const ChallengeList = (props) => {
    *
    * @param qaId - The QA id
    * @param resolution - Skip, correct, incorrect, or survey answered
-   * @param surveyPayload - for "survey-answered", contains the data for the SurveyAnswerInput:
+   * @param payload - Contains additional detail for the response.
+   *                  For "survey-answered", contains the data for the SurveyAnswerInput:
    *                    { skip, value, unit, score, detail }
+   *                  For multiple choice and input responses, contains the user's input:
+   *                    { answer }
    */
-  const resolveQa = (qaId, resolution, surveyPayload = null) => {
-    // TODO - Remove this when done.
-    console.log(resolution, qaId, surveyPayload);
+  const resolveQa = (qaId, resolution, payload = null) => {
     const challengeProgressUpdate = { seen: true };
     const currentQaObject =
       utils.cacheGetTarget(props.challengeData, props.currentChallenge.currentQaId);
@@ -125,11 +126,12 @@ const ChallengeList = (props) => {
       }
     } else if (resolution === CHALLENGE_RESOLUTION_INCORRECT) {
       // Check the strike allowance. Too many strikes? Mark as failed.
-      if (props.challengeProgress[currentQaObject.id].incorrectAnswerCount + 1 >=
+      if (props.challengeProgress[currentQaObject.id].incorrectAnswers.length + 1 >=
       CHALLENGE_MAX_STRIKES[currentQaObject.question.type][currentQaObject.difficulty]) {
         challengeProgressUpdate.failed = true;
       }
-      challengeProgressUpdate.incorrectAnswerCount = 1;
+      challengeProgressUpdate.incorrectAnswers =
+        props.challengeProgress[currentQaObject.id].incorrectAnswers.concat(payload.answer);
 
       // Punish mastery score for an incorrect answer.
       props.updateResultsData(
@@ -155,11 +157,11 @@ const ChallengeList = (props) => {
     } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_FILLED) {
       challengeProgressUpdate.succeeded = true;
 
-      // Pass the entire surveyPayload object.
+      // Pass the entire payload object.
       props.updateResultsData(
         CHALLENGE_RESULTS_SURVEY_FILLED,
         currentQaObject.questionId,
-        surveyPayload,  // Pass through the survey's payload (skip, value, unit, score, detail).
+        payload,  // Pass through the survey's payload (skip, value, unit, score, detail).
       );
     }
 

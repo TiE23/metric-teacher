@@ -159,11 +159,11 @@ class ChallengeManager extends PureComponent {
       challengeData.forEach(({ id }) => {
         newChallengeProgress[id] = {
           seen: false,
-          skip: false,
+          skipped: false,
           succeeded: false,
           failed: false,
           correctAnswerCount: 0,
-          incorrectAnswerCount: 0,
+          incorrectAnswers: [],
         };
       });
 
@@ -202,8 +202,8 @@ class ChallengeManager extends PureComponent {
     /**
      * Update the challengeProgress data for the current QA.
      * This can be changing the booleans seen, skipped, succeeded, and failed.
-     * This can be changing the integers correctAnswerCount and incorrectAnswerCount -- These
-     * values are additive instead of replacing the value - they add to the number.
+     * This can be changing the integers correctAnswerCount which are additive instead of replacing
+     * the value - it adds to the number. Hacky, yes, but it works.
      *
      * @param qaId
      * @param progressUpdateData
@@ -212,33 +212,29 @@ class ChallengeManager extends PureComponent {
       const newProgressData = {};
       let newStreak = this.state.streak;
 
-      // The values correctAnswerCount and incorrectAnswerCount are updated by adding to the
-      // existing values.
-      if (utils.t0(progressUpdateData.correctAnswerCount) ||
-      utils.t0(progressUpdateData.incorrectAnswerCount)) {
+      // The values correctAnswerCount is updated by adding to the existing value.
+      if (utils.t0(progressUpdateData.correctAnswerCount)) {
         const progressUpdateDataCopy = progressUpdateData;
+        progressUpdateDataCopy.correctAnswerCount +=
+          this.state.challengeProgress[qaId].correctAnswerCount;
 
-        if (utils.t0(progressUpdateData.correctAnswerCount)) {
-          progressUpdateDataCopy.correctAnswerCount +=
-            this.state.challengeProgress[qaId].correctAnswerCount;
-          if (newStreak < 0) {
-            newStreak = 1;
-          } else {
-            ++newStreak;
-          }
-        }
-
-        if (utils.t0(progressUpdateData.incorrectAnswerCount)) {
-          progressUpdateDataCopy.incorrectAnswerCount +=
-            this.state.challengeProgress[qaId].incorrectAnswerCount;
-          if (newStreak > 0) {
-            newStreak = -1;
-          } else {
-            --newStreak;
-          }
+        // Correct answer, update streak!
+        if (newStreak < 0) {
+          newStreak = 1;
+        } else {
+          ++newStreak;
         }
 
         newProgressData[qaId] = progressUpdateDataCopy;
+      } else if (progressUpdateData.incorrectAnswers) {
+        // Incorrect answer, update streak!
+        if (newStreak > 0) {
+          newStreak = -1;
+        } else {
+          --newStreak;
+        }
+
+        newProgressData[qaId] = progressUpdateData;
       } else {
         newProgressData[qaId] = progressUpdateData;
       }
