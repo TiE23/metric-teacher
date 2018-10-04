@@ -25,6 +25,7 @@ import {
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
   CHALLENGE_RESOLUTION_SURVEY_FILLED,
+  CHALLENGE_CLEAR_INCORRECT_ANSWERS_ON_CORRECT,
 } from "../../constants";
 
 const ChallengeList = (props) => {
@@ -97,6 +98,15 @@ const ChallengeList = (props) => {
         challengeProgressUpdate.succeeded = true;
       }
       challengeProgressUpdate.correctAnswerCount = 1; // (Additive)
+
+      if (CHALLENGE_CLEAR_INCORRECT_ANSWERS_ON_CORRECT &&
+      currentChallengeProgress.incorrectAnswers.length) {
+        // Update incorrectAnswers with null values so no longer are incorrect answers greyed-out.
+        // Take note that that this counts on specific if/else behavior in
+        // ChallengeManager.updateChallengeProgress(), so be aware of that when modifying.
+        challengeProgressUpdate.incorrectAnswers =
+          currentChallengeProgress.incorrectAnswers.map(() => null);
+      }
 
       // Award mastery score for a correct answer.
       props.updateResultsData(
