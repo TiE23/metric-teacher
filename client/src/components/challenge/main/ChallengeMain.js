@@ -90,7 +90,7 @@ class ChallengeMain extends PureComponent {
      */
     this.resolveQa = (resolution, payload = null) => {
       const { currentQaProgress, qaData } = this.props;
-      const { responseMode } = this.props.currentChallenge;
+      const { responseMode } = this.props.currentQaProgress;
 
       let dimmerColor = null;
       let dimmerMessage = null;
@@ -185,7 +185,7 @@ class ChallengeMain extends PureComponent {
               <ChallengeDetail
                 qaData={this.props.qaData}
                 showClearButton={utils.t0(this.props.currentChallenge.inputData)}
-                responseMode={this.props.currentChallenge.responseMode}
+                responseMode={this.props.currentQaProgress.responseMode}
                 handleSkipQa={this.handleSkipQa}
                 handleClearQa={this.handleClearQa}
               />
@@ -237,10 +237,10 @@ ChallengeMain.propTypes = {
   currentQaProgress: PropTypes.shape({
     correctAnswerCount: PropTypes.number.isRequired,
     incorrectAnswers: PropTypes.arrayOf(PropTypes.number).isRequired,
+    responseMode: PropTypes.number,
   }).isRequired,
   currentChallenge: PropTypes.shape({
     inputData: PropTypes.any,
-    responseMode: PropTypes.number,
   }).isRequired,
   streak: PropTypes.number.isRequired,  // This is behind by +1 or -1 so adjustments will be needed
   resolveQa: PropTypes.func.isRequired,
