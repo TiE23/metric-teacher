@@ -101,8 +101,7 @@ class ChallengeManager extends PureComponent {
               currentChallengeProgress.choicesSelected.length && CHALLENGE_REPEATS_WRITTEN_CHOICES ?
                 currentChallengeProgress.choicesSelected  // Repeat same choices.
                 :
-                utils.choiceSelector(                     // New choices.
-                  CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
+                utils.writtenChoiceSelector(             // New choices.
                   currentQaData.answer.data.multiple.choices.length,
                   currentQaData.answer.data.multiple.choicesOffered,
                 );
@@ -123,10 +122,7 @@ class ChallengeManager extends PureComponent {
               CHALLENGE_REPEATS_CONVERSION_CHOICES ?
                 currentChallengeProgress.choicesSelected  // Repeat same choices.
                 :
-                utils.choiceSelector(                     // New choices.
-                  CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
-                  currentQaData.answer.data.conversion.choices.length,
-                );
+                utils.conversionChoiceSelector();         // New choices.
 
             rangeData =
               currentChallengeProgress.rangeData.length && CHALLENGE_REPEATS_CONVERSION_RANGE ?
@@ -149,10 +145,7 @@ class ChallengeManager extends PureComponent {
                 CHALLENGE_REPEATS_CONVERSION_CHOICES ?
                   currentChallengeProgress.choicesSelected  // Repeat same choices.
                   :
-                  utils.choiceSelector(                     // New choices.
-                    CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
-                    currentQaData.answer.data.conversion.choices.length,
-                  );
+                  utils.conversionChoiceSelector();         // New choices.
             } else {
               // Mode and range are always the same. No randomness when filling a survey.
               responseMode = CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER;

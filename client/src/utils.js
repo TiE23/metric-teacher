@@ -17,8 +17,7 @@ import normalizeEmail from "validator/lib/normalizeEmail";
 import {
   AUTH_TOKEN,
   CHALLENGE_STATE,
-  CHALLENGE_RESPONSE_MULTIPLE_WRITTEN,
-  CHALLENGE_RESPONSE_MULTIPLE_GENERATED,
+  CHALLENGE_CHOICES_MULTIPLE_GENERATED_LIBRARIES,
   CHALLENGE_RANGE_STEPS,
   BAD_PASSWORDS,
   EMAIL_NORMALIZE_OPTIONS,
@@ -1162,26 +1161,49 @@ const minMax = (min, value, max) => (Math.max(min, Math.min(value, max)));
 
 
 /**
- * Random choice option selector for Challenge mode.
- * @param mode
+ * Random choice option selector for Challenge mode for Written questions.
+ *
  * @param available
  * @param offered
- * @param difficulty
- * @returns {*}
+ * @returns {Array}
  */
-const choiceSelector = (mode, available, offered = 2, difficulty = null) => {
-  if (mode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN) {
-    // Ex: 7 answers available (0-6), 4 offered...
-    const choicesAvailable = shuffle(range(1, available));  // [2, 6, 5, 1, 3, 4] (0 not included)
-    const offeredChoices = choicesAvailable.slice(0, offered + 1);  // [2, 6, 5, 1]
-    offeredChoices[random(0, offeredChoices.length - 1)] = 0; // [2, 6, 0, 1] (0 replaces 5)
+const writtenChoiceSelector = (available, offered = 2) => {
+  // Ex: 7 answers available (0-6), 4 offered...
+  const choicesAvailable = shuffle(range(1, available));  // [2, 6, 5, 1, 3, 4] (0 not included)
+  const offeredChoices = choicesAvailable.slice(0, offered);  // [2, 6, 5, 1]
+  offeredChoices[random(0, offeredChoices.length - 1)] = 0; // [2, 6, 0, 1] (0 replaces 5)
 
-    return offeredChoices;
-  } else if (mode === CHALLENGE_RESPONSE_MULTIPLE_GENERATED) {
-    return [0, 1]; // TODO - Write difficulty algorithm in ISSUE-017
+  return offeredChoices;
+};
+
+
+/**
+ * Random choice option selector for Challenge mode for Conversion questions.
+ *
+ * The library is a set selection that'll guarantee that the correct answer will be placed
+ * randomly in the final choices when sorted by value.
+ * From the library, which determines if the choice is "even" or "odd", we push the choices
+ * into the choices array. So an "even", "even", "even", "even" library will give you
+ * [2, 4, 6, 8], which as a result will make the correct answer the lowest value among the
+ * choices.
+ *
+ * @returns {Array}
+ */
+const conversionChoiceSelector = () => {
+  const library = shuffle(CHALLENGE_CHOICES_MULTIPLE_GENERATED_LIBRARIES[random(4)]);
+  const offeredChoices = [];
+
+  for (let x = 1; x <= 4; ++x) {
+    if (library[x - 1]) {
+      offeredChoices.push(x * 2);        // Even choices: 2, 4, 6, 8
+    } else {
+      offeredChoices.push((x * 2) - 1);  // Odd choices: 1, 3, 5, 7
+    }
   }
 
-  return null;
+  offeredChoices[random(0, offeredChoices.length - 1)] = 0; // Places 0 randomly.
+
+  return shuffle(offeredChoices); // Final shuffle to mix things up.
 };
 
 
@@ -1311,7 +1333,8 @@ export default {
   t0,
   t0t,
   minMax,
-  choiceSelector,
+  writtenChoiceSelector,
+  conversionChoiceSelector,
   rangeSelector,
   composeQaInputFromFormData,
 };
