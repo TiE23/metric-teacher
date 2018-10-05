@@ -25,7 +25,7 @@ export const CHALLENGE_REPEATS_WRITTEN_CHOICES = true;
 export const CHALLENGE_REPEATS_CONVERSION_MODE = false;
 export const CHALLENGE_REPEATS_CONVERSION_CHOICES = false;
 export const CHALLENGE_REPEATS_CONVERSION_RANGE = false;
-export const CHALLENGE_KICKOFF_LENGTH_DEFAULT = 15;
+export const CHALLENGE_KICKOFF_LENGTH_DEFAULT = 12;
 export const CHALLENGE_KICKOFF_LENGTH_OPTIONS = [
   {
     key: 1,
@@ -50,6 +50,17 @@ export const CHALLENGE_KICKOFF_LENGTH_OPTIONS = [
 ];
 
 export const CHALLENGE_COMPLETE_SMALL_SCORE_COUNT_MINIMUM = 5;
+
+export const CHALLENGE_CHOICES_MULTIPLE_GENERATED_LIBRARIES = [
+  // true = even, false = odd
+  // Close <------------> Distant
+  // 1/2   3/4   5/6   7/8
+  [true, true, true, true],     // Correct answer is lowest.
+  [false, true, true, true],    // Correct answer is second lowest.
+  [false, false, true, true],   // Correct answer is in the middle.
+  [false, false, false, true],  // Correct answer is second highest.
+  [false, false, false, false], // Correct answer is highest.
+];
 
 export const CHALLENGE_KEYPAD_NEGATIVE = "(-)";
 export const CHALLENGE_KEYPAD_LAYOUT = [
