@@ -117,7 +117,7 @@ describe("qaGenerator", () => {
           parent: {
             id: "someSubSubject",
             scale: "someScale",
-            toMetric: true,
+            toMetric: false,
             parent: {
               name: "someSubject",
             },
