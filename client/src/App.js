@@ -38,7 +38,7 @@ const App = () => (
         <MenuFrame>
           <Route exact path="/user/:id" component={withAuth(UserPage, { private: true })} />
           <Route exact path="/subjects" component={withAuth(SubjectsPage)} />
-          <Route exact path="/docs" component={DocumentationPage} />
+          <Route exact path="/docs(.*)" component={DocumentationPage} />
           <Route
             exact
             path="/challenge/:mode?/:challengeId?"
