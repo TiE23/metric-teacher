@@ -235,7 +235,7 @@ const constants = {
       preset: "kilogram",
       round: 2, // Accurate to 10 g
     },
-    tonne: {
+    t: {
       family: "metric",
       subject: "mass",
       singular: "tonne",
@@ -260,6 +260,14 @@ const constants = {
       preset: "pound",
       round: 3, // 125 g = 0.276 lb, 1 oz = 0.125 lb
     },
+    st: {
+      family: "imperial",
+      subject: "mass",
+      singular: "stone",
+      plural: "stone",
+      preset: "stone",
+      round: 2, // Accurate to 2.24 oz or 0.14 lb, 1 lb = 0.07 st
+    },
     ton: {
       family: "imperial",
       subject: "mass",
@@ -275,14 +283,6 @@ const constants = {
       plural: "long tons",
       preset: "longTon",
       round: 3, // Accurate to 2.24 lb
-    },
-    st: {
-      family: "imperial",
-      subject: "mass",
-      singular: "stone",
-      plural: "stone",
-      preset: "stone",
-      round: 2, // Accurate to 2.24 oz or 0.14 lb, 1 lb = 0.07 st
     },
     // Volume - Metric
     ml: {
@@ -309,7 +309,7 @@ const constants = {
       preset: "cubicMetre",
       round: 3, // Accurate to 1 l
     },
-    // Volume - Imperial (Well, US...)
+    // Volume - US Customary
     // No teaspoons (5 ml) or tablespoons (15 ml)
     cuin: {
       family: "imperial",
@@ -412,13 +412,13 @@ const constants = {
       preset: "squareFoot",
       round: 2, // 1 sqm = 10.76 sqft
     },
-    acre: {
+    ac: {
       family: "imperial",
       subject: "area",
       singular: "acre",
       plural: "acres",
       preset: "acre",
-      round: 2, // 1000 sqm = 0.25 acre, 10,000 sqft = 0.23 acre
+      round: 2, // 1000 sqm = 0.25 ac, 10,000 sqft = 0.23 ac
     },
     sqmi: {
       family: "imperial",
@@ -429,14 +429,6 @@ const constants = {
       round: 2, // Accurate to 10 acres (0.02 sqmi), 1 sqkm = 0.39 sqmi
     },
     // Velocity - Metric
-    ms: {
-      family: "metric",
-      subject: "velocity",
-      singular: "meter per second",
-      plural: "meters per second",
-      preset: "metresSecond",
-      round: 2, // 1 mph = 0.45 ms, 1 fps = 0.30 ms
-    },
     kmph: {
       family: "metric",
       subject: "velocity",
@@ -444,6 +436,14 @@ const constants = {
       plural: "kilometers per hour",
       preset: "kilometresHour",
       round: 1, // 10 mph = 16.1 kmph. Daily use wouldn't need any more detail.
+    },
+    ms: {
+      family: "metric",
+      subject: "velocity",
+      singular: "meter per second",
+      plural: "meters per second",
+      preset: "metresSecond",
+      round: 2, // 1 mph = 0.45 ms, 1 fps = 0.30 ms
     },
     // Velocity - Imperial
     fps: {

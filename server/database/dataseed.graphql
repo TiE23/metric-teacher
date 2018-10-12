@@ -1765,7 +1765,7 @@ mutation {
     flags: 0
     difficulty: 2
     question: "The Boeing 737-800 is considered an average sized airliner. Without fuel it weighs 45 short-tons. How heavy is that in metric tonnes?"
-    answer: "[40.8tonne|45tonne|45.2tonne|38.6tonne|44.4tonne|42tonne|4.5tonne|22.5tonne]4"
+    answer: "[40.8t|45t|45.2t|38.6t|44.4t|42t|4.5t|22.5t]4"
     media: ""
     parent: {
       connect: {
@@ -1783,7 +1783,7 @@ mutation {
     flags: 0
     difficulty: 2
     question: "This is a mass typical of an empty passenger airliner. [45,200ton(5)s]"
-    answer: "[tonne(2)a]"
+    answer: "[t(2)a]"
     media: ""
     parent: {
       connect: {
@@ -1819,7 +1819,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "This is a mass typical of a main battle tank. [25,65tonne(5)s]"
+    question: "This is a mass typical of a main battle tank. [25,65t(5)s]"
     answer: "[ton(2)a]"
     media: ""
     parent: {
@@ -3244,7 +3244,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "[50,250acre(50)s]"
+    question: "[50,250ac(50)s]"
     answer: "[ha(2)a]"
     media: ""
     parent: {
@@ -3264,7 +3264,7 @@ mutation {
     flags: 0
     difficulty: 3
     question: "Beneath the Eiffel Tower is a large public park named the \"Champ de Mars\" (\"Field of Mars\"). It is approximately 24.5 hectares in size. What is that size in acres?"
-    answer: "[60.5acre|71acre|80acre|86.5acre|90.5acre|55.5acre|48acre|44.5acre]4"
+    answer: "[60.5ac|71ac|80ac|86.5ac|90.5ac|55.5ac|48ac|44.5ac]4"
     media: ""
     parent: {
       connect: {
@@ -3282,7 +3282,7 @@ mutation {
     flags: 0
     difficulty: 2
     question: "[20,100ha(20)s]"
-    answer: "[acre(5)a]"
+    answer: "[ac(5)a]"
     media: ""
     parent: {
       connect: {
