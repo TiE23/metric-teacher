@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Redirect, Route } from "react-router-dom";
 
 import "./semantic/dist/semantic.min.css";
 
@@ -38,6 +38,7 @@ const App = () => (
         <MenuFrame>
           <Route exact path="/user/:id" component={withAuth(UserPage, { private: true })} />
           <Route exact path="/subjects" component={withAuth(SubjectsPage)} />
+          <Route exact path="/docs" render={() => <Redirect to="docs/all" />} />
           <Route exact path="/docs(.*)" component={DocumentationPage} />
           <Route
             exact

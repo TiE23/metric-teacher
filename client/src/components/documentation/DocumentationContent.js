@@ -8,11 +8,11 @@ import XLink from "../misc/ExternalLink";
 export default {
   // Mission Statement
   missionStatement: {
-    header: (
-      <Header as="h1" dividing>
-        Mission Statement
-      </Header>
-    ),
+    header: {
+      content: "Mission Statement",
+      as: "h1",
+      dividing: true,
+    },
     content: (
       <div>
         <p>
@@ -38,11 +38,11 @@ export default {
     ),
 
     whyMetric: {
-      header: (
-        <Header as="h2" dividing>
-          Why learn the Metric System
-        </Header>
-      ),
+      header: {
+        content: "Why learn the Metric System",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -71,11 +71,11 @@ export default {
     },
 
     whyImperial: {
-      header: (
-        <Header as="h2" dividing>
-          Why learn the Imperial System
-        </Header>
-      ),
+      header: {
+        content: "Why learn the Imperial System",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -111,11 +111,11 @@ export default {
 
   // Imperial Details
   imperialDetails: {
-    header: (
-      <Header as="h1" dividing>
-        The Imperial Perspective
-      </Header>
-    ),
+    header: {
+      content: "The Imperial Perspective",
+      as: "h1",
+      dividing: true,
+    },
     content: (
       <div>
         <p>
@@ -149,11 +149,11 @@ export default {
     ),
 
     liquidDifferences: {
-      header: (
-        <Header as="h2" dividing>
-          Imperial vs US Customary Liquid Volume Units
-        </Header>
-      ),
+      header: {
+        content: "Imperial vs US Customary Liquid Volume Units",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -181,11 +181,10 @@ export default {
       ),
 
       summary: {
-        header: (
-          <Header as="h3">
-            Imperial vs US Volume Summary
-          </Header>
-        ),
+        header: {
+          content: "Imperial vs US Volume Summary",
+          as: "h3",
+        },
         content: (
           <div>
             <List bulleted>
@@ -236,11 +235,11 @@ export default {
 
   // Metric Details
   metricDetails: {
-    header: (
-      <Header as="h1" dividing>
-        The Metric Perspective
-      </Header>
-    ),
+    header: {
+      content: "The Metric Perspective",
+      as: "h1",
+      dividing: true,
+    },
     content: (
       <div>
         <p>
@@ -273,11 +272,11 @@ export default {
       </div>
     ),
     metricPrefixes: {
-      header: (
-        <Header as="h2" dividing>
-          Metric Prefixes
-        </Header>
-      ),
+      header: {
+        content: "Metric Prefixes",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -293,19 +292,19 @@ export default {
 
   // Conversion Guides
   conversionGuides: {
-    header: (
-      <Header as="h1" dividing>
-        Conversion Guides
-      </Header>
-    ),
+    header: {
+      content: "Conversion Guides",
+      as: "h1",
+      dividing: true,
+    },
     content: null,
 
     mentalMath: {
-      header: (
-        <Header as="h2" dividing>
-          A Word on Mental Math
-        </Header>
-      ),
+      header: {
+        content: "A Word on Mental Math",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -324,11 +323,11 @@ export default {
     },
 
     percentageTips: {
-      header: (
-        <Header as="h2" dividing>
-          Tips for Adding and Subtracting Percentages
-        </Header>
-      ),
+      header: {
+        content: "Tips for Adding and Subtracting Percentages",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -368,11 +367,11 @@ export default {
 
     // Subject: Length
     length: {
-      header: (
-        <Header as="h2" dividing>
-          Length
-        </Header>
-      ),
+      header: {
+        content: "Length",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -382,19 +381,17 @@ export default {
       ),
 
       toMetric: {
-        header: (
-          <Header as="h3">
-            To Metric
-          </Header>
-        ),
+        header: {
+          content: "To Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the units you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the units you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -405,11 +402,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Chart
-            </Header>
-          ),
+          header: {
+            content: "Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.length.toMetric}
@@ -418,11 +414,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <List bulleted>
@@ -472,19 +467,17 @@ export default {
       },
 
       fromMetric: {
-        header: (
-          <Header as="h3">
-            From Metric
-          </Header>
-        ),
+        header: {
+          content: "From Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the units you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the units you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -495,11 +488,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Chart
-            </Header>
-          ),
+          header: {
+            content: "Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.length.fromMetric}
@@ -508,11 +500,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <List bulleted>
@@ -568,11 +559,11 @@ export default {
 
     // Subject: Mass
     mass: {
-      header: (
-        <Header as="h2" dividing>
-          Mass
-        </Header>
-      ),
+      header: {
+        content: "Mass",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -582,19 +573,17 @@ export default {
       ),
 
       toMetric: {
-        header: (
-          <Header as="h3">
-            To Metric
-          </Header>
-        ),
+        header: {
+          content: "To Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the units you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the units you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -605,11 +594,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Chart
-            </Header>
-          ),
+          header: {
+            content: "Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.mass.toMetric}
@@ -618,11 +606,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <List bulleted>
@@ -657,19 +644,17 @@ export default {
       },
 
       fromMetric: {
-        header: (
-          <Header as="h3">
-            From Metric
-          </Header>
-        ),
+        header: {
+          content: "From Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the units you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the units you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -680,11 +665,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Chart
-            </Header>
-          ),
+          header: {
+            content: "Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.mass.fromMetric}
@@ -693,11 +677,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <List bulleted>
@@ -735,11 +718,11 @@ export default {
 
     // Subject: Volume
     volume: {
-      header: (
-        <Header as="h2" dividing>
-          Volume
-        </Header>
-      ),
+      header: {
+        content: "Volume",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -749,19 +732,17 @@ export default {
       ),
 
       toMetric: {
-        header: (
-          <Header as="h3">
-            To Metric
-          </Header>
-        ),
+        header: {
+          content: "To Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the units you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the units you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -786,11 +767,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Chart
-            </Header>
-          ),
+          header: {
+            content: "Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.volume.toMetric}
@@ -799,11 +779,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <List bulleted>
@@ -860,19 +839,17 @@ export default {
       },
 
       fromMetric: {
-        header: (
-          <Header as="h3">
-            From Metric
-          </Header>
-        ),
+        header: {
+          content: "From Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the units you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the units you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -907,11 +884,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Chart
-            </Header>
-          ),
+          header: {
+            content: "Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.volume.fromMetric}
@@ -921,11 +897,10 @@ export default {
 
         // This is a special additional chart.
         relationsChart: {
-          header: (
-            <Header as="h4">
-              US Customary Unit Relations Chart
-            </Header>
-          ),
+          header: {
+            content: "US Customary Unit Relations Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.volume.usCustomaryUnitRelations}
@@ -934,11 +909,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <List bulleted>
@@ -976,11 +950,11 @@ export default {
 
     // Subject: Temperature
     temperature: {
-      header: (
-        <Header as="h2" dividing>
-          Temperature
-        </Header>
-      ),
+      header: {
+        content: "Temperature",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -990,19 +964,17 @@ export default {
       ),
 
       toMetric: {
-        header: (
-          <Header as="h3">
-            To Metric
-          </Header>
-        ),
+        header: {
+          content: "To Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the unit you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the unit you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -1013,11 +985,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Conversion Formulae
-            </Header>
-          ),
+          header: {
+            content: "Conversion Formulae",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.temperature.toMetric}
@@ -1029,11 +1000,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -1061,19 +1031,17 @@ export default {
       },
 
       fromMetric: {
-        header: (
-          <Header as="h3">
-            From Metric
-          </Header>
-        ),
+        header: {
+          content: "From Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the unit you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the unit you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -1084,11 +1052,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Conversion Formulae
-            </Header>
-          ),
+          header: {
+            content: "Conversion Formulae",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.temperature.fromMetric}
@@ -1100,11 +1067,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -1133,11 +1099,11 @@ export default {
 
     // Subject: Velocity
     velocity: {
-      header: (
-        <Header as="h2" dividing>
-          Velocity
-        </Header>
-      ),
+      header: {
+        content: "Velocity",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -1147,19 +1113,17 @@ export default {
       ),
 
       toMetric: {
-        header: (
-          <Header as="h3">
-            To Metric
-          </Header>
-        ),
+        header: {
+          content: "To Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the unit you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the unit you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -1174,11 +1138,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Chart
-            </Header>
-          ),
+          header: {
+            content: "Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.velocity.toMetric}
@@ -1187,11 +1150,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <List bulleted>
@@ -1217,19 +1179,17 @@ export default {
       },
 
       fromMetric: {
-        header: (
-          <Header as="h3">
-            From Metric
-          </Header>
-        ),
+        header: {
+          content: "From Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the unit you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the unit you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -1240,11 +1200,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Chart
-            </Header>
-          ),
+          header: {
+            content: "Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.velocity.fromMetric}
@@ -1253,11 +1212,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <List bulleted>
@@ -1282,11 +1240,11 @@ export default {
 
     // Subject: Area
     area: {
-      header: (
-        <Header as="h2" dividing>
-          Area
-        </Header>
-      ),
+      header: {
+        content: "Area",
+        as: "h2",
+        dividing: true,
+      },
       content: (
         <div>
           <p>
@@ -1296,19 +1254,17 @@ export default {
       ),
 
       toMetric: {
-        header: (
-          <Header as="h3">
-            To Metric
-          </Header>
-        ),
+        header: {
+          content: "To Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the units you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the units you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -1323,11 +1279,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Chart
-            </Header>
-          ),
+          header: {
+            content: "Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.area.toMetric}
@@ -1336,11 +1291,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <List bulleted>
@@ -1378,19 +1332,17 @@ export default {
       },
 
       fromMetric: {
-        header: (
-          <Header as="h3">
-            From Metric
-          </Header>
-        ),
+        header: {
+          content: "From Metric",
+          as: "h3",
+        },
         content: null,
 
         description: {
-          header: (
-            <Header as="h4">
-              Description of the units you'll be converting to
-            </Header>
-          ),
+          header: {
+            content: "Description of the units you'll be converting to",
+            as: "h4",
+          },
           content: (
             <div>
               <p>
@@ -1401,11 +1353,10 @@ export default {
         },
 
         chart: {
-          header: (
-            <Header as="h4">
-              Chart
-            </Header>
-          ),
+          header: {
+            content: "Chart",
+            as: "h4",
+          },
           content: (
             <div>
               {Tables.area.fromMetric}
@@ -1414,11 +1365,10 @@ export default {
         },
 
         tips: {
-          header: (
-            <Header as="h4">
-              Helpful Conversion Tips
-            </Header>
-          ),
+          header: {
+            content: "Helpful Conversion Tips",
+            as: "h4",
+          },
           content: (
             <div>
               <List bulleted>
