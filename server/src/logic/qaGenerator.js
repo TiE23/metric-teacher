@@ -104,14 +104,19 @@ function generateQuestionData(questionPayload, answerUnit = null, surveyData = n
       throw new AnswerUnitMissing();
     }
 
-    const value = round(
-      makeValueFromRange(
-        questionPayload.data.rangeBottom,
-        questionPayload.data.rangeTop,
-        questionPayload.data.step,
-      ),
-      UNITS[questionPayload.data.unit].round,
-    );
+    // If the range is actually just a single number, do not generate from the range or round it.
+    const value =
+      questionPayload.data.rangeBottom === questionPayload.data.rangeTop ?
+        questionPayload.data.rangeBottom
+        :
+        round(
+          makeValueFromRange(
+            questionPayload.data.rangeBottom,
+            questionPayload.data.rangeTop,
+            questionPayload.data.step,
+          ),
+          UNITS[questionPayload.data.unit].round,
+        );
 
     return {
       type: questionPayload.type,

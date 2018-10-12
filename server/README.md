@@ -639,29 +639,60 @@ QuestionAnswerInput: {
 Because questions and answers can be a little more nuanced than something simple like "What is freezing temperature in Celsius?" with the answer "0", I had to define a special string formatting language so I could express complex questions and answers into single strings.
 
 *Units*
-* Metric (regular)
-    * `m` - meter
-    * `kg` - kilogram
-    * `l` - liter
-    * `c` - Celsius
-    * `kmph` - kilometers per hour
-    * `sqm` - square meter
-* Metric (irregular)
-    * `ha` - hectare (area), 1 to 10,000 square meters
-    * `sqkm` - square kilometer (area), 1 to 100 hectares
-* Imperial (regular)
-    * `ft` - foot
-    * `lb` - pound
-    * `gal` - gallon
-    * `f` - Fahrenheit
-    * `mph` - miles per hour
-    * `sqft` - square foot
-* Imperial (irregular)
-    * `in` - inch, 12 per 1 foot
-    * `oz` - ounces (mass), 16 per 1 pound
-    * `floz` - ounces (volume), 128 per 1 gallon
-    * `acre` - acre (area), 1 to 43,560 square feet
-    * `sqmi` - square mile (area), 1 to 640 acres
+* Metric
+    * Length
+        * `mm` - millimeter
+        * `cm` - centimeter
+        * `m` - meter
+        * `km` - kilometer
+    * Mass
+        * `mg` - milligram
+        * `g` - gram
+        * `kg` - kilogram
+        * `t` - metric ton / tonne
+    * Volume
+        * `ml` - milliliter
+        * `l` - liter
+        * `cum` - cubic meter
+    * Temperature
+        * `c` - Celsius
+    * Velocity
+        * `kmph` - kilometers per hour
+        * `ms` - meters per second
+    * Area
+        * `sqm` - square meter
+        * `ha` - hectare
+        * `sqkm` - square kilometer
+* Imperial
+    * Length
+        * `in` - inch
+        * `ft` - foot
+        * `yd` - yard
+        * `mi` - mile
+        * `nmi` - nautical mile
+    * Mass
+        * `oz` - ounce
+        * `lb` - pound
+        * `st` - stone
+        * `ton` - short ton / US ton
+        * `lton` - long ton / imperial ton
+    * Volume
+        * `cuin` - cubic inches
+        * `floz` - US fluid ounce
+        * `cup` - US cup (customary)
+        * `pt` - US pint
+        * `qt` - US quart
+        * `gal` - US gallon
+    * Temperature
+        * `f` - Fahrenheit
+    * Velocity
+        * `fps` - feet per second
+        * `mph` - miles per hour
+        * `kn` - knot
+    * Area
+        * `sqft` - square foot
+        * `ac` - acre
+        * `sqmi` - square mile
 
 *Multiple Choice Syntax*
 * Multiple Choice Question
