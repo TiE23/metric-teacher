@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import { Motion, spring } from "react-motion";
 
 import ScrollToY from "./ScrollToY";
 
@@ -33,7 +34,6 @@ class ScrollTo extends PureComponent {
           );
         }
       } else {
-        console.log("None");
         this.setState(
           {
             top: 0,
@@ -72,13 +72,16 @@ class ScrollTo extends PureComponent {
   }
 
   render() {
-    if (this.state.mounted && !this.state.inMotion) {
-      return (
-        <ScrollToY yPos={this.state.top} />
-      );
-    }
+    const { mounted, inMotion, top } = this.state;
+    const yPos = !mounted || inMotion ? top : spring(top);
 
-    return null;
+    return (
+      <Motion style={{ y: yPos }}>
+        {springValue => (
+          <ScrollToY yPos={Math.round(springValue.y)} />
+        )}
+      </Motion>
+    );
   }
 }
 
