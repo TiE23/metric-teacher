@@ -86,12 +86,14 @@ const explodeDocs = (docs) => {
 };
 
 const DocumentationPage = props => (
-  <div id="all">
+  <React.Fragment>
     <ScrollTo paramSlug={props.match.params[0].slice(1)} />
-    <Container>
+    <Container id="all">
       {explodeDocs(Docs).map(({ node, id }) => <React.Fragment key={id}>{node}</React.Fragment>)}
+      <br />
+      <Link to="/docs" replace>Back to top.</Link>
     </Container>
-  </div>
+  </React.Fragment>
 );
 
 DocumentationPage.propTypes = {

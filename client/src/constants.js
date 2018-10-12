@@ -18,6 +18,9 @@ export const CHALLENGE_DISPLAY_SPLIT_INPUT_COLUMN_WIDTH = { mobile: 13, tablet: 
 export const CHALLENGE_DISPLAY_SPLIT_DELETE_COLUMN_WIDTH = { mobile: 2, tablet: 1, computer: 1 };
 export const CHALLENGE_MEDIA_MIN_WIDTH = 575;
 
+// Documentation Settings
+export const DOCUMENTATION_HEADER_OFFSET = -90;
+
 // Challenge Settings
 export const CHALLENGE_KICKOFF_IGNORE_DIFFICULTY_DEFAULT = false;
 export const CHALLENGE_CLEAR_INCORRECT_ANSWERS_ON_CORRECT = true;
@@ -394,6 +397,7 @@ export const QUESTION_FLAG_DROPDOWN = [
 export const UNIT_INITIALISMS = {
   cum: "m³",
   cuin: "in³",
+  floz: "fl oz",  // Uses non-breaking space 00A0.
   c: "°C",
   f: "°F",
   sqm: "m²",

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { PureComponent } from "react";
 import PropTypes from "prop-types";
 
@@ -27,6 +28,10 @@ class ScrollToY extends PureComponent {
 
 ScrollToY.propTypes = {
   yPos: PropTypes.number,
+};
+
+ScrollToY.defaultProps = {
+  yPos: 0,
 };
 
 export default ScrollToY;

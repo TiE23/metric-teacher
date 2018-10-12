@@ -1,8 +1,13 @@
+/* eslint-disable no-undef */
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Motion, spring } from "react-motion";
 
 import ScrollToY from "./ScrollToY";
+
+import {
+  DOCUMENTATION_HEADER_OFFSET,
+} from "../../constants";
 
 class ScrollTo extends PureComponent {
   constructor(props) {
@@ -27,7 +32,8 @@ class ScrollTo extends PureComponent {
             },
             () => {
               this.setState({
-                top: window.scrollY + element.getBoundingClientRect().top - 100,
+                top: window.scrollY + element.getBoundingClientRect().top +
+                  DOCUMENTATION_HEADER_OFFSET,
                 inMotion: false,
               });
             },
