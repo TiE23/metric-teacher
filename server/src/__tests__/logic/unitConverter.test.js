@@ -27,72 +27,72 @@ describe("unitConverter", () => {
     it("Should convert 1 meter to 1 meter (same)", () => {
       const result = convertValue(1, "m", "m");
       expect(result.exactValue).toBe(1);
-      expect(result.roundedValue).toBe(1);
       expect(result.roundingLevel).toBe(2); // Meter rounding
+      expect(result.roundedValue).toBe(1);
       expect(result.friendlyValue).toBe(1);
     });
 
     it("Should convert 0.0000000001 meter to 0.0000000001 meter (same)", () => {
       const result = convertValue(0.0000000001, "m", "m");
       expect(result.exactValue).toBe(0.0000000001);
-      expect(result.roundedValue).toBe(0.0000000001);
       expect(result.roundingLevel).toBe(10); // Rounding level determined by decimal places
+      expect(result.roundedValue).toBe(0.0000000001);
       expect(result.friendlyValue).toBe(0.0000000001);
     });
 
     it("Should convert 0.0001 millimeters to 1e-10 kilometers rounded", () => {
       const result = convertValue(0.0001, "mm", "km");
       expect(result.exactValue).toBe(1e-10);
-      expect(result.roundedValue).toBe(1e-10);
       expect(result.roundingLevel).toBe(10);  // Ten decimal places
+      expect(result.roundedValue).toBe(1e-10);
       expect(result.friendlyValue).toBe(1e-10);
     });
 
     it("Should convert 0.00001 millimeters to 0 kilometers (expected data-loss)", () => {
       const result = convertValue(0.00001, "mm", "km");
       expect(result.exactValue).toBe(0);    // Data-loss due to floatSmoothing
-      expect(result.roundedValue).toBe(0);  // Data-loss
       expect(result.roundingLevel).toBe(3); // Kilometer rounding
+      expect(result.roundedValue).toBe(0);  // Data-loss
       expect(result.friendlyValue).toBe(0);
     });
 
     it("Should convert 1 km to friendly 39400000000 inches", () => {
       const result = convertValue(1, "km", "in");
       expect(result.exactValue).toBe(39370.0787401575);
-      expect(result.roundedValue).toBe(39370.079);
-      expect(result.roundingLevel).toBe(3);
+      expect(result.roundingLevel).toBe(2);
+      expect(result.roundedValue).toBe(39370.08);
       expect(result.friendlyValue).toBe(39400);
     });
 
     it("Should convert 0.1001 km to friendly 100.1 m", () => {
       const result = convertValue(0.1001, "km", "m");
       expect(result.exactValue).toBe(100.1);
-      expect(result.roundedValue).toBe(100.1);
       expect(result.roundingLevel).toBe(2);
+      expect(result.roundedValue).toBe(100.1);
       expect(result.friendlyValue).toBe(100.1);
     });
 
     it("Should convert 1.1001 km to friendly 1100 m", () => {
       const result = convertValue(1.1001, "km", "m");
       expect(result.exactValue).toBe(1100.1);
-      expect(result.roundedValue).toBe(1100.1);
       expect(result.roundingLevel).toBe(2);
+      expect(result.roundedValue).toBe(1100.1);
       expect(result.friendlyValue).toBe(1100);
     });
 
     it("Should convert 11.001 km to friendly 11000 m", () => {
       const result = convertValue(11.001, "km", "m");
       expect(result.exactValue).toBe(11001);
-      expect(result.roundedValue).toBe(11001);
       expect(result.roundingLevel).toBe(2);
+      expect(result.roundedValue).toBe(11001);
       expect(result.friendlyValue).toBe(11000);
     });
 
     it("Should convert -1000.1 c to friendly -1770 f", () => {
       const result = convertValue(-1000.1, "c", "f");
       expect(result.exactValue).toBe(-1768.18);
-      expect(result.roundedValue).toBe(-1768.2);
       expect(result.roundingLevel).toBe(1);
+      expect(result.roundedValue).toBe(-1768.2);
       expect(result.friendlyValue).toBe(-1770);
     });
 
@@ -384,7 +384,7 @@ describe("unitConverter", () => {
 
       // Other to other
       it("Should convert 43560 square feet to 1 acre", () => {
-        const result = convertValue(43560, "sqft", "acre");
+        const result = convertValue(43560, "sqft", "ac");
         expect(result.exactValue).toBe(1);
         expect(result.roundedValue).toBe(1);
         expect(result.friendlyValue).toBe(1);

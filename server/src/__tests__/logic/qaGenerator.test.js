@@ -35,6 +35,11 @@ describe("qaGenerator", () => {
           media: "someMedia",
           parent: {
             id: "someSubSubject",
+            scale: "someScale",
+            toMetric: true,
+            parent: {
+              name: "someSubject",
+            },
           },
         };
       });
@@ -111,6 +116,11 @@ describe("qaGenerator", () => {
           media: "someMedia",
           parent: {
             id: "someSubSubject",
+            scale: "someScale",
+            toMetric: true,
+            parent: {
+              name: "someSubject",
+            },
           },
         };
       });
@@ -220,7 +230,7 @@ describe("qaGenerator", () => {
 
         // Answer Data
         expect(qaFormat.answer.data.conversion.exact).toBe(3937.0078740158);
-        expect(qaFormat.answer.data.conversion.rounded).toBe(3937.008);
+        expect(qaFormat.answer.data.conversion.rounded).toBe(3937.01);
         expect(qaFormat.answer.data.conversion.friendly).toBe(3940);
         expect(qaFormat.answer.data.conversion.range).toBeDefined();
         expect(qaFormat.answer.data.conversion.range.bottom).toBeDefined();
@@ -419,6 +429,11 @@ describe("qaGenerator", () => {
           media: "someMedia",
           parent: {
             id: "someSubSubject",
+            scale: "someScale",
+            toMetric: true,
+            parent: {
+              name: "someSubject",
+            },
           },
         };
 
