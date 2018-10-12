@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Redirect, Route } from "react-router-dom";
 
 import "./semantic/dist/semantic.min.css";
 
@@ -12,7 +12,8 @@ import ChallengePage from "./components/challenge/ChallengePage";
 import Login from "./components/entry/Login";
 import Logout from "./components/entry/Logout";
 import UserPage from "./components/user/UserPage";
-import Subjects from "./components/subject/SubjectsPage";
+import SubjectsPage from "./components/subject/SubjectsPage";
+import DocumentationPage from "./components/documentation/DocumentationPage";
 import QaViewerPage from "./components/qa/QaViewerPage";
 import QuestionViewerPage from "./components/question/QuestionViewerPage";
 import QuestionSubmissionPage from "./components/question/QuestionSubmissionPage";
@@ -36,7 +37,9 @@ const App = () => (
       <Route path="/">
         <MenuFrame>
           <Route exact path="/user/:id" component={withAuth(UserPage, { private: true })} />
-          <Route exact path="/subjects" component={withAuth(Subjects)} />
+          <Route exact path="/subjects" component={withAuth(SubjectsPage)} />
+          <Route exact path="/docs" render={() => <Redirect to="docs/all" />} />
+          <Route exact path="/docs(.*)" component={DocumentationPage} />
           <Route
             exact
             path="/challenge/:mode?/:challengeId?"

@@ -39,6 +39,8 @@ const Welcome = props => (
     <br />
     <Link to="/subjects">Subjects</Link>
     <br />
+    <Link to="/docs">Docs</Link>
+    <br />
     <Link to="/test">Test</Link>
     <br />
     <Link to="/user/cjk1paghy0044079340rau9er">Student001</Link>
