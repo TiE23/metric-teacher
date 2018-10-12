@@ -1,9 +1,10 @@
 import React from "react";
-import { Segment } from "semantic-ui-react";
+import { Icon, Segment } from "semantic-ui-react";
 
 import utils from "../../../../utils";
 
 import QaReviewBasics from "../../../qa/QaReviewBasics";
+import DocumentationSubjectModal from "../../../documentation/DocumentationSubjectModal";
 
 import {
   QA_DATA_EVERYTHING,
@@ -18,13 +19,26 @@ const ChallengeQuestion = props => (
     />
     <br />
     <div style={{ position: "absolute", bottom: 5, right: 5, textAlign: "right" }}>
-      <p style={{ color: "grey", fontSize: "smaller" }}>
-        {props.qaData.subject.name}
-        {" - "}
-        {utils.firstLetterCap(props.qaData.subject.scale)}
-        {" - "}
-        {props.qaData.subject.toMetric ? "To Metric" : "From Metric"}
-      </p>
+      <DocumentationSubjectModal
+        subject={props.qaData.subject.name}
+        toMetric={props.qaData.subject.toMetric}
+      >
+        <p
+          style={{
+            color: "teal",
+            fontSize: "smaller",
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+        >
+          {props.qaData.subject.name}
+          {" - "}
+          {utils.firstLetterCap(props.qaData.subject.scale)}
+          {" - "}
+          {props.qaData.subject.toMetric ? "To Metric" : "From Metric"}
+          <Icon name="book" />
+        </p>
+      </DocumentationSubjectModal>
     </div>
   </Segment>
 );
