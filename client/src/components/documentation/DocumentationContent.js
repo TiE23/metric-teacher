@@ -391,12 +391,10 @@ export default {
         header: {
           content: "To Metric",
           as: "h3",
+          subheader: "Description of the units you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the units you'll be converting to...
-            </p>
             <p>
               The base metric unit is the meter. Common prefixes of the meter are the kilometer (1000 meters), centimeter (1/100 of a meter) and millimeter (1/1000 of a meter).
             </p>
@@ -472,12 +470,10 @@ export default {
         header: {
           content: "From Metric",
           as: "h3",
+          subheader: "Description of the units you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the units you'll be converting to...
-            </p>
             <p>
               The more ubiquitous unit is the foot. Common derivative units are the inch (1/12th of a foot), the yard (3 feet), and the mile (5280 feet).
             </p>
@@ -573,12 +569,10 @@ export default {
         header: {
           content: "To Metric",
           as: "h3",
+          subheader: "Description of the units you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the units you'll be converting to...
-            </p>
             <p>
               The base unit is the kilogram (the gram alone was considered too small to be practical). Common prefixes are the kilogram (1000 grams), and milligram (1/1000 of a gram). Additionally, there is the tonne / metric ton (1000 kilograms).
             </p>
@@ -639,12 +633,10 @@ export default {
         header: {
           content: "From Metric",
           as: "h3",
+          subheader: "Description of the units you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the units you'll be converting to...
-            </p>
             <p>
               The most ubiquitous unit is the pound. Common derivative units are the ounce (1/16 of a pound) and the US ton / short ton (2000 pounds). The grain unit is not taught on this website as it is of uncommon use, effectively replaced with the metric gram.
             </p>
@@ -722,12 +714,10 @@ export default {
         header: {
           content: "To Metric",
           as: "h3",
+          subheader: "Description of the units you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the units you'll be converting to...
-            </p>
             <p>
               The base unit is the liter. The most common prefix is the milliliter (1/1000 of a liter). Additionally,
               the cubic meter (exactly equivalent to 1000 liters) can also be used for much larger volumes.
@@ -824,12 +814,10 @@ export default {
         header: {
           content: "From Metric",
           as: "h3",
+          subheader: "Description of the units you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the units you'll be converting to...
-            </p>
             <p>
               It is difficult to choose the most common unit for volume among US customary units. The smallest common unit is the fluid ounce, then the cup (8 fluid ounces), the pint (2 cups), the quart (2 pints), and finally the gallon (4 quarts).
             </p>
@@ -933,12 +921,10 @@ export default {
         header: {
           content: "To Metric",
           as: "h3",
+          subheader: "Description of the unit you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the unit you'll be converting to...
-            </p>
             <p>
               Celsius is a scale of 100 degrees between the temperatures of water freezing and boiling. Freezing is defined as 0°C and boiling at 100°C. Originally named centigrade, its name was changed to Celsius in 1948 to honor a Swedish astronomer whose pioneering temperature scale, conceived in 1742, predated the Metric system by half a century.
             </p>
@@ -995,12 +981,10 @@ export default {
         header: {
           content: "From Metric",
           as: "h3",
+          subheader: "Description of the unit you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the unit you'll be converting to...
-            </p>
             <p>
               Fahrenheit is a scale of 180 degrees between the temperatures of water freezing and boiling. Freezing is defined as 32°F and boiling at 212°F. The original 1724 foundation of the scale was afflicted with poorly reasoned, irresponsibly arbitrary, and inaccurately measured reference points.
             </p>
@@ -1072,12 +1056,10 @@ export default {
         header: {
           content: "To Metric",
           as: "h3",
+          subheader: "Description of the unit you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the unit you'll be converting to...
-            </p>
             <p>
               While not the only metric unit for velocity, kilometers per hour is by far the most common. The most commonly used symbol is "km/h" with all lowercase letters. Though discouraged, it may appear written as "km/hr", "kmh", "kmph","kph", or another similar way with varied capitalization.
             </p>
@@ -1133,12 +1115,10 @@ export default {
         header: {
           content: "From Metric",
           as: "h3",
+          subheader: "Description of the unit you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the unit you'll be converting to...
-            </p>
             <p>
               While not the only imperial unit for velocity, miles per hour is by far the most common. The most commonly used symbol is "mph", though all capitals "MPH" is also acceptable. You may see "mi/h", though it is less common.
             </p>
@@ -1203,12 +1183,10 @@ export default {
         header: {
           content: "To Metric",
           as: "h3",
+          subheader: "Description of the units you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the units you'll be converting to...
-            </p>
             <p>
               The base unit is the square meter (m²). In addition, the square kilometer (km²) and the hectare (ha) will also be used.
             </p>
@@ -1276,12 +1254,10 @@ export default {
         header: {
           content: "From Metric",
           as: "h3",
+          subheader: "Description of the units you'll be converting to...",
         },
         content: (
           <div>
-            <p>
-              Description of the units you'll be converting to...
-            </p>
             <p>
               Like it is for Imperial units and length there is no "base unit" for area. But we can use square feet for this purpose. The acre is used for plots of land and square miles are for much larger areas up to and including countries and continents.
             </p>
