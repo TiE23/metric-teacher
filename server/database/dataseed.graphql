@@ -381,29 +381,43 @@ mutation {
     subSubjects: {
       create: [
         {
+          name: "Area - Hand-scale - To Metric"
+          description: "Convert from values under 100 square feet. A scale concerned with areas typical of flat objects, cloth, surfaces, small rooms, etc."
+          toMetric: true
+          rarity: 0
+          scale: "hand"
+        },
+        {
+          name: "Area - Hand-scale - From Metric"
+          description: "Convert from values under 9 square meters. A scale concerned with areas typical of flat objects, cloth, surfaces, small rooms, etc.."
+          toMetric: false
+          rarity: 0
+          scale: "hand"
+        },
+        {
           name: "Area - Home-scale - To Metric"
-          description: "Convert from values ranging 40 to 4300 square-feet. A scale concerned with areas typical of homes. Such as rooms, apartments, houses, etc."
+          description: "Convert from values ranging 100 to 4300 square feet. A scale concerned with areas typical of homes. Such as rooms, apartments, houses, etc."
           toMetric: true
           rarity: 0
           scale: "home"
         },
         {
           name: "Area - Home-scale - From Metric"
-          description: "Convert from values ranging 4 to 400 square-meters. A scale concerned with areas typical of homes. Such as rooms, apartments, houses, etc."
+          description: "Convert from values ranging 9 to 400 square meters. A scale concerned with areas typical of homes. Such as rooms, apartments, houses, etc."
           toMetric: false
           rarity: 0
           scale: "home"
         },
         {
           name: "Area - Commercial-scale - To Metric"
-          description: "Convert from values ranging 4300 to 215,000 square-feet. A scale concerned with areas typical of commercial real-estate. Such as offices, retail space, warehouses, etc."
+          description: "Convert from values ranging 4300 to 215,000 square feet. A scale concerned with areas typical of commercial real estate. Such as offices, retail space, warehouses, etc."
           toMetric: true
           rarity: 0
           scale: "commercial"
         },
         {
           name: "Area - Commercial-scale - From Metric"
-          description: "Convert from values ranging 400 to 20,000 square-meters. A scale concerned with areas typical of commercial real-estate. Such as offices, retail space, warehouses, etc."
+          description: "Convert from values ranging 400 to 20,000 square meters. A scale concerned with areas typical of commercial real estate. Such as offices, retail space, warehouses, etc."
           toMetric: false
           rarity: 0
           scale: "commercial"
@@ -3068,6 +3082,63 @@ mutation {
 
 
   ####### Area
+  ### Hand
+  ## To Metric
+  # Written
+  question_area_hand_toMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A small bathroom with only a toilet and sink is 30 square feet. How many square meters is that?"
+    answer: "[2.8sqm|4sqm|6.3sqm|6.7sqm|2.2sqm|1.9sqm|1.4sqm|1.1sqm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # Conversion
+  question_area_hand_toMetric_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "This is a square footage commonly found in a two person camping tent. [30,40sqft(2)s]"
+    answer: "[sqm(0.25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  ## From Metric
+  # Written
+  question_area_hand_fromMetric_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The IKEA ÅDUM rug is sized to provide floor coverage around a coffee table and is just over 4 square meters in size. What is that in square feet?"
+    answer: "[43sqft|50sqft|53sqft|59sqft|39sqft|30sqft|20sqft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
   ### Home
   ## To Metric
   # Written
