@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Fri Sep 28 2018 11:22:34 GMT-0700 (Pacific Daylight Time)
+# timestamp: Tue Oct 16 2018 12:55:24 GMT-0700 (Pacific Daylight Time)
 
 type AggregateClassroom {
   count: Int!
@@ -2746,6 +2746,7 @@ type Subject implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  index: Int!
   name: String!
   description: String!
   media: String
@@ -2764,6 +2765,7 @@ type SubjectConnection {
 }
 
 input SubjectCreateInput {
+  index: Int!
   name: String!
   description: String!
   media: String
@@ -2777,6 +2779,7 @@ input SubjectCreateOneWithoutSubSubjectsInput {
 }
 
 input SubjectCreateWithoutSubSubjectsInput {
+  index: Int!
   name: String!
   description: String!
   media: String
@@ -2799,6 +2802,8 @@ enum SubjectOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  index_ASC
+  index_DESC
   name_ASC
   name_DESC
   description_ASC
@@ -2813,6 +2818,7 @@ type SubjectPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  index: Int!
   name: String!
   description: String!
   media: String
@@ -2859,6 +2865,7 @@ input SubjectSubscriptionWhereInput {
 }
 
 input SubjectUpdateInput {
+  index: Int
   name: String
   description: String
   media: String
@@ -2875,6 +2882,7 @@ input SubjectUpdateOneWithoutSubSubjectsInput {
 }
 
 input SubjectUpdateWithoutSubSubjectsDataInput {
+  index: Int
   name: String
   description: String
   media: String
@@ -2979,6 +2987,28 @@ input SubjectWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  index: Int
+
+  """All values that are not equal to given value."""
+  index_not: Int
+
+  """All values that are contained in given list."""
+  index_in: [Int!]
+
+  """All values that are not contained in given list."""
+  index_not_in: [Int!]
+
+  """All values less than the given value."""
+  index_lt: Int
+
+  """All values less than or equal the given value."""
+  index_lte: Int
+
+  """All values greater than the given value."""
+  index_gt: Int
+
+  """All values greater than or equal the given value."""
+  index_gte: Int
   name: String
 
   """All values that are not equal to given value."""
@@ -3166,6 +3196,7 @@ type SubSubject implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  index: Int!
   name: String!
   description: String!
   media: String
@@ -3188,6 +3219,7 @@ type SubSubjectConnection {
 }
 
 input SubSubjectCreateInput {
+  index: Int!
   name: String!
   description: String!
   media: String
@@ -3215,6 +3247,7 @@ input SubSubjectCreateOneWithoutQuestionsInput {
 }
 
 input SubSubjectCreateWithoutMasteriesInput {
+  index: Int!
   name: String!
   description: String!
   media: String
@@ -3226,6 +3259,7 @@ input SubSubjectCreateWithoutMasteriesInput {
 }
 
 input SubSubjectCreateWithoutParentInput {
+  index: Int!
   name: String!
   description: String!
   media: String
@@ -3237,6 +3271,7 @@ input SubSubjectCreateWithoutParentInput {
 }
 
 input SubSubjectCreateWithoutQuestionsInput {
+  index: Int!
   name: String!
   description: String!
   media: String
@@ -3263,6 +3298,8 @@ enum SubSubjectOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  index_ASC
+  index_DESC
   name_ASC
   name_DESC
   description_ASC
@@ -3281,6 +3318,7 @@ type SubSubjectPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  index: Int!
   name: String!
   description: String!
   media: String
@@ -3329,6 +3367,7 @@ input SubSubjectSubscriptionWhereInput {
 }
 
 input SubSubjectUpdateInput {
+  index: Int
   name: String
   description: String
   media: String
@@ -3366,6 +3405,7 @@ input SubSubjectUpdateOneWithoutQuestionsInput {
 }
 
 input SubSubjectUpdateWithoutMasteriesDataInput {
+  index: Int
   name: String
   description: String
   media: String
@@ -3377,6 +3417,7 @@ input SubSubjectUpdateWithoutMasteriesDataInput {
 }
 
 input SubSubjectUpdateWithoutParentDataInput {
+  index: Int
   name: String
   description: String
   media: String
@@ -3388,6 +3429,7 @@ input SubSubjectUpdateWithoutParentDataInput {
 }
 
 input SubSubjectUpdateWithoutQuestionsDataInput {
+  index: Int
   name: String
   description: String
   media: String
@@ -3512,6 +3554,28 @@ input SubSubjectWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  index: Int
+
+  """All values that are not equal to given value."""
+  index_not: Int
+
+  """All values that are contained in given list."""
+  index_in: [Int!]
+
+  """All values that are not contained in given list."""
+  index_not_in: [Int!]
+
+  """All values less than the given value."""
+  index_lt: Int
+
+  """All values less than or equal the given value."""
+  index_lte: Int
+
+  """All values greater than the given value."""
+  index_gt: Int
+
+  """All values greater than or equal the given value."""
+  index_gte: Int
   name: String
 
   """All values that are not equal to given value."""
