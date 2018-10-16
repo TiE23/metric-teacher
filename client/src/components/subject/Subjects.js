@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import { Segment, Header, Icon } from "semantic-ui-react";
+import sortBy from "lodash/sortBy";
 
 import QueryHandler from "../QueryHandler";
 import SubjectsList from "./SubjectsList";
@@ -33,7 +34,7 @@ const Subjects = (props) => {
             <SubjectsPageDescription />
             <br />
             <SubjectsList
-              subjectsData={queryProps.data && queryProps.data.allSubjects}
+              subjectsData={queryProps.data && sortBy(queryProps.data.allSubjects, "index")}
               masteriesData={queryProps.data && queryProps.data.activeMasteries}
               queryInfo={{ query, variables: queryProps.variables }}
               compactView={false}

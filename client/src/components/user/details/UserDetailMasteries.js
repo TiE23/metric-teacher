@@ -11,12 +11,12 @@ const UserDetailMasteries = (props) => {
   if (props.masteriesData.length) {
     if (props.organizeBySubject) {
       // Sort Subjects by ID, ascending.
-      const subjectsTree = sortBy(reverseMasteriesData(props.masteriesData), "id");
+      const subjectsTree = sortBy(invertMasteriesData(props.masteriesData), "id");
 
       // Sort SubSubjects by ID, ascending.
       subjectsTree.forEach((subject) => {
         // eslint-disable-next-line no-param-reassign
-        subject.subSubjects = sortBy(subject.subSubjects, "id");
+        subject.subSubjects = sortBy(subject.subSubjects, "index");
       });
 
       return (
@@ -49,7 +49,7 @@ const UserDetailMasteries = (props) => {
  * @param masteriesData
  * @returns {Array}
  */
-const reverseMasteriesData = (masteriesData) => {
+const invertMasteriesData = (masteriesData) => {
   const temp = {
     id: "root",
     subjects: [],
@@ -65,12 +65,16 @@ const reverseMasteriesData = (masteriesData) => {
       utils.cachePushIntoArray(temp, "root", "subjects", subjectRootData);
     }
     if (!utils.cacheTargetExists(temp, subSubjectRootData.id)) {
-      if (!utils.cacheNewObject(temp, subjectRootData.id, "subSubjects", [subSubjectRootData], true)) {
+      if (
+        !utils.cacheNewObject(temp, subjectRootData.id, "subSubjects", [subSubjectRootData], true)
+      ) {
         utils.cachePushIntoArray(temp, subjectRootData.id, "subSubjects", subSubjectRootData);
       }
     }
     if (!utils.cacheTargetExists(temp, masteryRootData.id)) {
-      if (!utils.cacheNewObject(temp, subSubjectRootData.id, "masteries", [masteryRootData], true)) {
+      if (
+        !utils.cacheNewObject(temp, subSubjectRootData.id, "masteries", [masteryRootData], true)
+      ) {
         utils.cachePushIntoArray(temp, subSubjectRootData.id, "masteries", masteryRootData);
       }
     }
