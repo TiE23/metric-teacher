@@ -96,6 +96,7 @@ type Subject {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
+  index: Int!
   name: String! @unique
   description: String!
   media: String
@@ -114,6 +115,7 @@ type SubSubject {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
+  index: Int!
   name: String! @unique
   description: String!
   media: String
