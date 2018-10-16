@@ -14,7 +14,7 @@ import MasteryAndSubSubject from "./MasteryAndSubSubject";
 const MasteriesList = (props) => {
   const { masteriesData } = props;
 
-  const masteryPanels = sortBy(masteriesData, "subSubject.id").map(masteryData => (
+  const masteryPanels = sortBy(masteriesData, "subSubject.index").map(masteryData => (
     {
       key: masteryData.id,
       title: deline`

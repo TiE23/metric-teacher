@@ -44,7 +44,7 @@ const ChallengeKickoffSelectorSubject = (props) => {
           content: {
             content: (
               <ul>
-                {map(sortBy(props.subjectData.subSubjects, "id"), subSubject => (
+                {map(sortBy(props.subjectData.subSubjects, "index"), subSubject => (
                   <li key={subSubject.id}>
                     <Checkbox
                       label={`${utils.firstLetterCap(subSubject.scale)}-scale - ${subSubject.toMetric ? "To Metric" : "From Metric"}`}
