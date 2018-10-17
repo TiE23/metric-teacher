@@ -85,6 +85,12 @@ export const CHALLENGE_DIMMER_TRANSITION_PROPS = {
   duration: 500,
 };
 
+export const CHALLENGE_IMAGES_MODE = [
+  "challenge/m-written.gif",
+  "challenge/m-conversion.gif",
+  "challenge/m-survey.gif",
+];
+
 export const CHALLENGE_RESPONSE_MULTIPLE_WRITTEN = 0;
 export const CHALLENGE_RESPONSE_MULTIPLE_GENERATED = 1;
 export const CHALLENGE_RESPONSE_INPUT_DIRECT = 2;
