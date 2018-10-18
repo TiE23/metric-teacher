@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Dimmer, Grid, Header, Icon, Segment, Transition } from "semantic-ui-react";
+import { Container, Dimmer, Grid, Header, Icon, Image, Transition } from "semantic-ui-react";
 import deline from "deline";
 
 import utils from "../../../utils";
@@ -20,6 +20,10 @@ import {
   CHALLENGE_RESOLUTION_SURVEY_FILLED,
   CHALLENGE_RESPONSE_INPUT_DIRECT,
   CHALLENGE_RESPONSE_INPUT_SLIDER,
+  CHALLENGE_IMAGES_DIMMER_SKIPPED,
+  CHALLENGE_IMAGES_DIMMER_SURVEY_FILLED,
+  CHALLENGE_IMAGES_DIMMER_CORRECT_STREAK,
+  CHALLENGE_IMAGES_DIMMER_INCORRECT_STREAK,
 } from "../../../constants";
 
 import {
@@ -36,7 +40,8 @@ class ChallengeMain extends PureComponent {
       dimmerColor: "blue",
       dimmerMessage: "Done",
       dimmerExtra: null,
-      dimmerIcon: "check",  // TODO - Replace with an image
+      dimmerIcon: "check",
+      dimmerImage: "mascot/clipboard.gif",
     };
 
     const dimmerStart = (dimmerEndFunction, dimmerTime) => {
@@ -67,6 +72,7 @@ class ChallengeMain extends PureComponent {
         dimmerColor: "orange",
         dimmerMessage: "Skipped!",
         dimmerIcon: "trash alternate outline",
+        dimmerImage: CHALLENGE_IMAGES_DIMMER_SKIPPED,
       });
 
       dimmerStart(
@@ -89,13 +95,14 @@ class ChallengeMain extends PureComponent {
      * @param payload
      */
     this.resolveQa = (resolution, payload = null) => {
-      const { currentQaProgress, qaData } = this.props;
+      const { currentQaProgress, qaData, streak } = this.props;
       const { responseMode } = this.props.currentQaProgress;
 
       let dimmerColor = null;
       let dimmerMessage = null;
       let dimmerExtra = null;
       let dimmerIcon = null;
+      let dimmerImage = null;
 
       // Construct different dimmers...
       if (resolution === CHALLENGE_RESOLUTION_CORRECT) {
@@ -107,6 +114,7 @@ class ChallengeMain extends PureComponent {
           ${currentQaProgress.correctAnswerCount + 1} / ${repeats}
         ` : "Correct!";
         dimmerIcon = "check";
+        dimmerImage = CHALLENGE_IMAGES_DIMMER_CORRECT_STREAK(streak > 0 ? streak + 1 : 1);
 
         if (responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
         responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
@@ -138,6 +146,7 @@ class ChallengeMain extends PureComponent {
           ${currentQaProgress.incorrectAnswers.length + 1} / ${strikes}
         ` : "Incorrect!";
         dimmerIcon = "remove";
+        dimmerImage = CHALLENGE_IMAGES_DIMMER_INCORRECT_STREAK(streak > 0 ? -1 : streak - 1);
 
         if (responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
         responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
@@ -155,6 +164,7 @@ class ChallengeMain extends PureComponent {
         dimmerColor = "blue";
         dimmerMessage = "Survey Response Received!";
         dimmerIcon = "clipboard check";
+        dimmerImage = CHALLENGE_IMAGES_DIMMER_SURVEY_FILLED;
       }
 
       this.setState({
@@ -162,6 +172,7 @@ class ChallengeMain extends PureComponent {
         dimmerMessage,
         dimmerExtra,
         dimmerIcon,
+        dimmerImage,
       });
 
       // Start the dimmer. When dimmer ends, the resolveQa() function gets called.
@@ -178,7 +189,7 @@ class ChallengeMain extends PureComponent {
 
   render() {
     return (
-      <Dimmer.Dimmable as={Segment} dimmed={this.state.dimmed}>
+      <Dimmer.Dimmable as={Container} dimmed={this.state.dimmed}>
         <Grid>
           <Grid.Row>
             <Grid.Column>
@@ -214,17 +225,28 @@ class ChallengeMain extends PureComponent {
             visible={this.state.dimmed}
             {...CHALLENGE_DIMMER_TRANSITION_PROPS}
           >
-            <div>
-              <Header size="large" icon color={this.state.dimmerColor}>
-                <Icon name={this.state.dimmerIcon} />
-                {this.state.dimmerMessage}
-              </Header>
-              {this.state.dimmerExtra &&
-                <p style={{ color: "black", fontSize: "larger" }}>
-                  {this.state.dimmerExtra}
-                </p>
-              }
-            </div>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column>
+                  <Image src={`/img/${this.state.dimmerImage}`} size="medium" centered />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Header size="large" color={this.state.dimmerColor} textAlign="center">
+                    <Header.Content>
+                      <Icon name={this.state.dimmerIcon} />
+                      {this.state.dimmerMessage}
+                    </Header.Content>
+                    {this.state.dimmerExtra &&
+                      <Header.Subheader>
+                        {this.state.dimmerExtra}
+                      </Header.Subheader>
+                    }
+                  </Header>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </Transition>
         </Dimmer>
       </Dimmer.Dimmable>

@@ -56,16 +56,15 @@ class ChallengePage extends PureComponent {
         questionModeStart: true,
         challengeId: cuid.slug(),
         selectedQuestionIds: [
-          "cjk1pagr1007c07938z7pnh2x",
-          "cjk1pagrj007k07933cf9py49", // Written (w/ answer detail)
+          "cjnc5d7jr007p0832lip756qg", // Written (w/ answer detail)
           // "cjkkls86v021h0893gsthx41f", // Written (w/ media)
-          // "cjk1pagkz0050079321fkd6vx", // Conversion (simple)
-          // "cjk1pago700680793uvc6i2a2", // Conversion (annotated)
-          // "cjk1pags0007s07935j429s79", // Conversion (annotated, from metric)
-          // "cjk1pah3400d00793jhfmbq66", // Conversion (to floz)
-          // "cjk1pagpd006o0793yws3ys7n", // Survey (answered by 001)
-          // "cjk1pagq800700793jwuow8zp", // Survey (answered by 001, has note)
-          // "cjk1pah7b00f407935bgx9w8z", // Survey (not answered by 001)
+          // "cjnc5d7ni008x08328owwcpu6", // Conversion (simple)
+          // "cjnc5d7gt006p08321j01wxe3", // Conversion (annotated)
+          // "cjnc5d7kx00850832k6z2tflg", // Conversion (annotated, from metric)
+          // "cjnc5d7yl00d90832r5tvircn", // Conversion (to floz)
+          // "cjnc5d7hh006x0832s0ysl0t6", // Survey (note not required)
+          // "cjnc5d7hs00710832zvfun2vo", // Survey (note optional)
+          // "cjnc5d7i300750832c5h15pch", // Survey (note required)
         ],
       });
     };
