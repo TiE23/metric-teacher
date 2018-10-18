@@ -30,7 +30,7 @@ const SubSubjectsList = (props) => {
     }
 
     const title = `${utils.firstLetterCap(subSubjectData.scale)}-scale - ${subSubjectData.toMetric ?
-      "To Metric" : "To Imperial"}${masteryTitleString ? ` - ${masteryTitleString}` : ""}`;
+      "To Metric" : "From Metric"}${masteryTitleString ? ` - ${masteryTitleString}` : ""}`;
 
     return ({
       key: subSubjectData.id,

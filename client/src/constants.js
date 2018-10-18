@@ -1,4 +1,5 @@
 import round from "lodash/round";
+import random from "lodash/random";
 
 // Standard names
 export const AUTH_TOKEN = "auth-token";
@@ -78,8 +79,8 @@ export const CHALLENGE_TRANSITION_PROPS = {
   duration: { show: 500, hide: 0 },
 };
 
-export const CHALLENGE_DIMMER_TIME_NO_EXTRA = 1000;
-export const CHALLENGE_DIMMER_TIME_EXTRA = 5000;
+export const CHALLENGE_DIMMER_TIME_NO_EXTRA = 1000000;
+export const CHALLENGE_DIMMER_TIME_EXTRA = 1000000;
 export const CHALLENGE_DIMMER_TRANSITION_PROPS = {
   animation: "drop",
   duration: 500,
@@ -90,6 +91,41 @@ export const CHALLENGE_IMAGES_MODE = [
   "challenge/m-conversion.gif",
   "challenge/m-survey.gif",
 ];
+
+export const CHALLENGE_STREAK_HOT = 10;
+export const CHALLENGE_STREAK_WARM = 5;
+export const CHALLENGE_STREAK_COOL = -2;
+export const CHALLENGE_STREAK_COLD = -3;
+
+export const CHALLENGE_IMAGES_DIMMER_SURVEY_FILLED = "challenge/r-surveyfilled.gif";
+export const CHALLENGE_IMAGES_DIMMER_SKIPPED = "challenge/r-skipped.gif";
+export const CHALLENGE_IMAGES_DIMMER_CORRECT_STREAK = (streak) => {
+  if (streak > CHALLENGE_STREAK_HOT) {
+    return [
+      "challenge/r-correct-a1.gif",
+      "challenge/r-correct-b1.gif",
+    ][random(1)];
+  } else if (streak === CHALLENGE_STREAK_HOT) {
+    return "challenge/r-correct-d.gif";
+  } else if (streak === CHALLENGE_STREAK_WARM) {
+    return "challenge/r-correct-c.gif";
+  } else {
+    return [
+      "challenge/r-correct-a.gif",
+      "challenge/r-correct-b.gif",
+    ][random(1)];
+  }
+};
+
+export const CHALLENGE_IMAGES_DIMMER_INCORRECT_STREAK = (streak) => {
+  if (streak <= CHALLENGE_STREAK_COLD) {
+    return "challenge/r-incorrect-c.gif";
+  } else if (streak <= CHALLENGE_STREAK_COOL) {
+    return "challenge/r-incorrect-b.gif";
+  } else {
+    return "challenge/r-incorrect-a.gif";
+  }
+};
 
 export const CHALLENGE_RESPONSE_MULTIPLE_WRITTEN = 0;
 export const CHALLENGE_RESPONSE_MULTIPLE_GENERATED = 1;
