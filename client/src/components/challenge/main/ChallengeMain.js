@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Dimmer, Grid, Header, Icon, Image, Segment, Transition } from "semantic-ui-react";
+import { Container, Dimmer, Grid, Header, Icon, Image, Transition } from "semantic-ui-react";
 import deline from "deline";
 
 import utils from "../../../utils";
@@ -189,7 +189,7 @@ class ChallengeMain extends PureComponent {
 
   render() {
     return (
-      <Dimmer.Dimmable as={Segment} dimmed={this.state.dimmed}>
+      <Dimmer.Dimmable as={Container} dimmed={this.state.dimmed}>
         <Grid>
           <Grid.Row>
             <Grid.Column>
@@ -225,20 +225,28 @@ class ChallengeMain extends PureComponent {
             visible={this.state.dimmed}
             {...CHALLENGE_DIMMER_TRANSITION_PROPS}
           >
-            <div>
-              <Image src={`/img/${this.state.dimmerImage}`} size="medium" centered />
-              <Header size="large" color={this.state.dimmerColor}>
-                <Icon name={this.state.dimmerIcon} />
-                <Header.Content>
-                  {this.state.dimmerMessage}
-                </Header.Content>
-                {this.state.dimmerExtra &&
-                  <Header.Subheader>
-                    {this.state.dimmerExtra}
-                  </Header.Subheader>
-                }
-              </Header>
-            </div>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column>
+                  <Image src={`/img/${this.state.dimmerImage}`} size="medium" centered />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Header size="large" color={this.state.dimmerColor} textAlign="center">
+                    <Header.Content>
+                      <Icon name={this.state.dimmerIcon} />
+                      {this.state.dimmerMessage}
+                    </Header.Content>
+                    {this.state.dimmerExtra &&
+                      <Header.Subheader>
+                        {this.state.dimmerExtra}
+                      </Header.Subheader>
+                    }
+                  </Header>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </Transition>
         </Dimmer>
       </Dimmer.Dimmable>

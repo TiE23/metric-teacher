@@ -29,7 +29,7 @@ export const CHALLENGE_REPEATS_WRITTEN_CHOICES = true;
 export const CHALLENGE_REPEATS_CONVERSION_MODE = false;
 export const CHALLENGE_REPEATS_CONVERSION_CHOICES = false;
 export const CHALLENGE_REPEATS_CONVERSION_RANGE = false;
-export const CHALLENGE_KICKOFF_LENGTH_DEFAULT = 12;
+export const CHALLENGE_KICKOFF_LENGTH_DEFAULT = 8;
 export const CHALLENGE_KICKOFF_LENGTH_OPTIONS = [
   {
     key: 1,
@@ -79,8 +79,8 @@ export const CHALLENGE_TRANSITION_PROPS = {
   duration: { show: 500, hide: 0 },
 };
 
-export const CHALLENGE_DIMMER_TIME_NO_EXTRA = 1000000;
-export const CHALLENGE_DIMMER_TIME_EXTRA = 1000000;
+export const CHALLENGE_DIMMER_TIME_NO_EXTRA = 1000;
+export const CHALLENGE_DIMMER_TIME_EXTRA = 5000;
 export const CHALLENGE_DIMMER_TRANSITION_PROPS = {
   animation: "drop",
   duration: 500,
