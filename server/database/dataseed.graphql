@@ -1186,7 +1186,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "Starting at what height would you describe an adult man to be 'very tall'? [180,305cm]"
+    question: "Starting at what height would you describe an adult man to be 'very tall'? [180,205cm]"
     answer: "[in]"
     media: ""
     parent: {

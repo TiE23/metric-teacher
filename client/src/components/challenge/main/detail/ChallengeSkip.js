@@ -13,7 +13,7 @@ const ChallengeSkip = props => (
       compact: true,
       fluid: true,
     }}
-    confirmModal={props.showSurveySkipConfirm}
+    confirmModal={props.showSurveySkipConfirm && !props.showClearButton}
     modalContent="Are you sure you want to skip filling out this survey? You won't be asked again. If you change your mind you can find the survey in your My Details page."
     modalRejectLabel="Reconsider"
     modalRejectColor="teal"
