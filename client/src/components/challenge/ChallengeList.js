@@ -193,6 +193,7 @@ const ChallengeList = (props) => {
               currentChallenge={props.currentChallenge}
               streak={props.streak}
               resolveQa={resolveQa}
+              lockAnswer={props.lockAnswer}
               updateCurrentChallengeData={props.updateCurrentChallengeData}
               challengeCompletion={{
                 total: props.challengeData.length,
@@ -229,6 +230,7 @@ ChallengeList.propTypes = {
   updateChallengeProgress: PropTypes.func.isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,
   updateResultsData: PropTypes.func.isRequired,
+  lockAnswer: PropTypes.func.isRequired,
   markChallengeResultsSubmitted: PropTypes.func.isRequired,
 };
 

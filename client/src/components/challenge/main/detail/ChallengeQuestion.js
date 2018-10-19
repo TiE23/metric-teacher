@@ -10,7 +10,6 @@ import {
   QA_DATA_EVERYTHING,
 } from "../../../../propTypes";
 
-// TODO - Need to handle difference between answered and unanswered Survey questions.
 const ChallengeQuestion = props => (
   <Segment>
     <QaReviewBasics

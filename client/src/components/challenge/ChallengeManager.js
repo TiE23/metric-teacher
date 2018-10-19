@@ -46,6 +46,7 @@ class ChallengeManager extends PureComponent {
         surveyscoreinput: [],
         surveyanswerinput: [],
       },
+      answerLocked: false,  // Locks in an answer so a user cannot refresh the page to cheat.
       challengeSubmitted: false,
       currentChallenge: {
         currentQaId: null,
@@ -72,6 +73,7 @@ class ChallengeManager extends PureComponent {
       this.state.challengeProgress !== prevState.challengeProgress ||
       this.state.challengeResults !== prevState.challengeResults ||
       this.state.currentChallenge !== prevState.currentChallenge ||
+      this.state.answerLocked !== prevState.answerLocked ||
       this.state.challengeSubmitted !== prevState.challengeSubmitted
       ) {
         utils.writeChallengeStateLocalStorage(this.state);
@@ -158,12 +160,15 @@ class ChallengeManager extends PureComponent {
           }
         }
 
-        this.setState(prevState2 => ({ currentChallenge: {
-          ...prevState2.currentChallenge,
-          currentQaId,
-          qaRemaining,
-          inputData: null,
-        } }));
+        this.setState(prevState2 => ({
+          currentChallenge: {
+            ...prevState2.currentChallenge,
+            currentQaId,
+            qaRemaining,
+            inputData: null,
+          },
+          answerLocked: false,  // Disable answer lock.
+        }));
 
         this.updateChallengeProgress(
           currentQaId,
@@ -287,14 +292,17 @@ class ChallengeManager extends PureComponent {
      * @param newCurrentChallengeData
      */
     this.updateCurrentChallengeData = (newCurrentChallengeData) => {
-      this.setState(prevState => ({
-        currentChallenge: mergeWith(
-          {},
-          prevState.currentChallenge,
-          newCurrentChallengeData,
-          // Note: No custom merge function. Null values WILL OVERWRITE existing values.
-        ),
-      }));
+      // Do not allow an update if the answer is locked.
+      if (!this.state.answerLocked) {
+        this.setState(prevState => ({
+          currentChallenge: mergeWith(
+            {},
+            prevState.currentChallenge,
+            newCurrentChallengeData,
+            // Note: No custom merge function. Null values WILL OVERWRITE existing values.
+          ),
+        }));
+      }
     };
 
 
@@ -384,6 +392,22 @@ class ChallengeManager extends PureComponent {
       }
     };
 
+    /**
+     * Mark the answer as locked. This is to solve a potential cheating scheme where if you input
+     * a wrong answer and the Dimmer says so, the answer will not be recorded if you refresh the
+     * page before the Dimmer disappears and the next QA appears. This lock is set to true when the
+     * submit button is pressed. So that when the page refreshes the answer is fixed and cannot be
+     * changed with clicks nor the clear button. Submitting is the only way forward.
+     */
+    this.lockAnswer = () => this.setState({ answerLocked: true });
+
+    /**
+     * Marks the Challenge's results as sent to the server. This is to solve a potential cheating
+     * scheme where refreshing the page quickly after submitting results to the server might
+     * otherwise allow one to submit the questions again. Because the submission method has no
+     * unique identifiers, one could simply repeatedly submit their results over and over again,
+     * duplicating their experience.
+     */
     this.markChallengeResultsSubmitted = () => this.setState({ challengeSubmitted: true });
   }
 
@@ -405,6 +429,7 @@ class ChallengeManager extends PureComponent {
           updateChallengeProgress={this.updateChallengeProgress}
           updateCurrentChallengeData={this.updateCurrentChallengeData}
           updateResultsData={this.updateResultsData}
+          lockAnswer={this.lockAnswer}
           markChallengeResultsSubmitted={this.markChallengeResultsSubmitted}
         />
       );
