@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import SurveysList from "../../survey/SurveysList";
+import SurveysList from "../survey/SurveysList";
 
 const UserDetailSurveys = (props) => {
   if (props.surveys.length) {

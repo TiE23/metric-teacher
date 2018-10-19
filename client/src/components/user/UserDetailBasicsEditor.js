@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 import { Segment, Header } from "semantic-ui-react";
 
-import utils from "../../../utils";
+import utils from "../../utils";
 
 import UserDetailBasicsEditorForm from "./UserDetailBasicsEditorForm";
 
 import {
   UPDATE_USER_PROFILE_MUTATION,
-} from "../../../graphql/Mutations";
+} from "../../graphql/Mutations";
 
 const UserDetailBasicsEditor = (props) => {
   if (!props.userData) return null;

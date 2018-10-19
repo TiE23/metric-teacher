@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import withAuth from "../../AuthHOC";
+import withAuth from "../AuthHOC";
 
 import {
   USER_TYPE_MODERATOR,
-} from "../../../constants";
+} from "../../constants";
 
-import CourseAndMasteriesAndSurveys from "../../course/CourseAndMasteriesAndSurveys";
-import CourseNoneActive from "../../course/CourseNoneActive";
+import CourseAndMasteriesAndSurveys from "../course/CourseAndMasteriesAndSurveys";
+import CourseNoneActive from "../course/CourseNoneActive";
 
 const UserDetailCourse = (props) => {
   if (props.coursesData.length) {

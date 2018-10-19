@@ -3,16 +3,16 @@ import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import { Grid } from "semantic-ui-react";
 
-import QueryHandler from "../../QueryHandler";
+import QueryHandler from "../QueryHandler";
 import UserDetailBasics from "./UserDetailBasics";
 import UserDetailBasicsEditor from "./UserDetailBasicsEditor";
 import UserDetailEnrollment from "./UserDetailEnrollment";
 
 import {
   FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE,
-} from "../../../constants";
+} from "../../constants";
 
-import { USER_DETAILS_QUERY } from "../../../graphql/Queries";
+import { USER_DETAILS_QUERY } from "../../graphql/Queries";
 
 class UserDetails extends PureComponent {
   constructor(props) {

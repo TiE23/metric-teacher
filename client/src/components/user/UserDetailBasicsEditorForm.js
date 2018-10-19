@@ -10,16 +10,16 @@ import {
   Message,
 } from "semantic-ui-react";
 
-import withAuth from "../../AuthHOC";
-import utils from "../../../utils";
+import withAuth from "../AuthHOC";
+import utils from "../../utils";
 
 import {
   PASSWORD_MINIMUM_LENGTH,
   USER_TYPE_MODERATOR,
   USER_TYPE_ADMIN,
-} from "../../../constants";
+} from "../../constants";
 
-import LoadingButton from "../../misc/LoadingButton";
+import LoadingButton from "../misc/LoadingButton";
 
 class UserDetailBasicsEditorForm extends Component {
   constructor(props) {

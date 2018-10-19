@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 import { Form, Radio, Container } from "semantic-ui-react";
 
-import utils from "../../../utils";
+import utils from "../../utils";
 
-import LoadingButton from "../../misc/LoadingButton";
+import LoadingButton from "../misc/LoadingButton";
 
 import {
   COURSE_ASSIGN_MUTATION,
-} from "../../../graphql/Mutations";
+} from "../../graphql/Mutations";
 
 class UserDetailCourseAssign extends PureComponent {
   constructor(props) {

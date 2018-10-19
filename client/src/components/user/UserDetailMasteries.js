@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import sortBy from "lodash/sortBy";
 
-import utils from "../../../utils";
+import utils from "../../utils";
 
-import MasteriesList from "../../mastery/MasteriesList";
-import SubjectsList from "../../subject/SubjectsList";
+import MasteriesList from "../mastery/MasteriesList";
+import SubjectsList from "../subject/SubjectsList";
 
 const UserDetailMasteries = (props) => {
   if (props.masteriesData.length) {

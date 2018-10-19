@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 
-import utils from "../../../utils";
+import utils from "../../utils";
 
-import LoadingButton from "../../misc/LoadingButton";
+import LoadingButton from "../misc/LoadingButton";
 
 import {
   ENROLL_STUDENT_MUTATION,
-} from "../../../graphql/Mutations";
+} from "../../graphql/Mutations";
 
 const UserDetailEnroll = props => (
   <Mutation

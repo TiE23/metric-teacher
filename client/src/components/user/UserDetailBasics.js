@@ -5,7 +5,7 @@ import { Segment, Container, Button, Header, List, Icon } from "semantic-ui-reac
 import {
   USER_TYPE_NAMES,
   USER_STATUS_NAMES,
-} from "../../../constants";
+} from "../../constants";
 
 const UserDetailBasics = (props) => {
   if (!props.userData) return null;

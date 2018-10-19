@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Message } from "semantic-ui-react";
 
 // eslint-disable-next-line import/no-named-as-default,import/no-named-as-default-member
-import UserDetailCourseAssign from "../user/details/UserDetailCourseAssign";
+import UserDetailCourseAssign from "../user/UserDetailCourseAssign";
 
 const CourseNoneActive = props => (
   <Message attached >

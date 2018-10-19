@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Message, Container } from "semantic-ui-react";
 
-import withAuth from "../../AuthHOC";
+import withAuth from "../AuthHOC";
 
 import {
   USER_TYPE_MODERATOR,
-} from "../../../constants";
+} from "../../constants";
 
 import UserDetailCourse from "./UserDetailCourse";
-import Enrollment from "../../enrollment/Enrollment";
+import Enrollment from "../enrollment/Enrollment";
 import UserDetailEnroll from "./UserDetailEnroll";
 
 const UserDetailEnrollment = (props) => {

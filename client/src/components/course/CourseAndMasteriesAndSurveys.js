@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Segment, Message, Header, Icon, Checkbox, Container } from "semantic-ui-react";
 
-import UserDetailMasteries from "../user/details/UserDetailMasteries";
-import UserDetailSurveys from "../user/details/UserDetailSurveys";
+import UserDetailMasteries from "../user/UserDetailMasteries";
+import UserDetailSurveys from "../user/UserDetailSurveys";
 import CourseChangePreference from "./CourseChangePreference";
 
 import {

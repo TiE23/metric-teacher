@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 
 // eslint-disable-next-line import/no-named-as-default,import/no-named-as-default-member
-import UserDetails from "./details/UserDetails";
+import UserDetails from "./UserDetails";
 
 const UserPage = props => (
   <UserDetails

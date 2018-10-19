@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Table, Message, Popup, Icon, Modal } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
-import UserDetails from "../../user/details/UserDetails";
+import UserDetails from "../../user/UserDetails";
 
 import {
   USER_STATUS_DROPDOWN,
