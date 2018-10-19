@@ -2,9 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button, Progress, Transition } from "semantic-ui-react";
 
-// TODO - Add confirm modal for skip button.
-// Make it a prop option, perhaps only show it when skipping a survey answer?
-
 const ChallengeMultipurposeBar = props => (
   <div>
     <Transition

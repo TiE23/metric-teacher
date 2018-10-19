@@ -96,6 +96,9 @@ class ChallengeMain extends PureComponent {
      * @param payload
      */
     this.resolveQa = (resolution, payload = null) => {
+      // Immediately lock the user's answer input.
+      this.props.lockAnswer();
+
       const { currentQaProgress, qaData, streak } = this.props;
       const { responseMode } = this.props.currentQaProgress;
 
@@ -277,6 +280,7 @@ ChallengeMain.propTypes = {
   }).isRequired,
   streak: PropTypes.number.isRequired,  // This is behind by +1 or -1 so adjustments will be needed
   resolveQa: PropTypes.func.isRequired,
+  lockAnswer: PropTypes.func.isRequired,
   challengeCompletion: PropTypes.shape({
     total: PropTypes.number.isRequired,
     remaining: PropTypes.number.isRequired,
