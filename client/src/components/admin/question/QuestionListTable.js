@@ -29,7 +29,7 @@ class QuestionListTable extends PureComponent {
     const addressBook = {
       subject: "parent.parent.name",
       scale: "parent.scale",
-      direction: "parent.direction",
+      direction: "parent.toMetric",
       type: "type",
       status: "status",
       flags: "flags",
