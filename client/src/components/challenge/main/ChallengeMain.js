@@ -40,6 +40,7 @@ class ChallengeMain extends PureComponent {
       dimmerColor: "blue",
       dimmerMessage: "Done",
       dimmerExtra: null,
+      dimmerAnswerDetail: null,
       dimmerIcon: "check",
       dimmerImage: "mascot/clipboard.gif",
     };
@@ -101,6 +102,7 @@ class ChallengeMain extends PureComponent {
       let dimmerColor = null;
       let dimmerMessage = null;
       let dimmerExtra = null;
+      let dimmerAnswerDetail = null;
       let dimmerIcon = null;
       let dimmerImage = null;
 
@@ -115,6 +117,10 @@ class ChallengeMain extends PureComponent {
         ` : "Correct!";
         dimmerIcon = "check";
         dimmerImage = CHALLENGE_IMAGES_DIMMER_CORRECT_STREAK(streak > 0 ? streak + 1 : 1);
+
+        if (qaData.answer.detail) {
+          dimmerAnswerDetail = qaData.answer.detail;
+        }
 
         if (responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
         responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
@@ -171,6 +177,7 @@ class ChallengeMain extends PureComponent {
         dimmerColor,
         dimmerMessage,
         dimmerExtra,
+        dimmerAnswerDetail,
         dimmerIcon,
         dimmerImage,
       });
@@ -178,7 +185,7 @@ class ChallengeMain extends PureComponent {
       // Start the dimmer. When dimmer ends, the resolveQa() function gets called.
       dimmerStart(
         () => props.resolveQa(props.qaData.id, resolution, payload),
-        dimmerExtra ?
+        (dimmerExtra || dimmerAnswerDetail) ?
           CHALLENGE_DIMMER_TIME_EXTRA : CHALLENGE_DIMMER_TIME_NO_EXTRA,
       );
     };
@@ -238,9 +245,13 @@ class ChallengeMain extends PureComponent {
                       <Icon name={this.state.dimmerIcon} />
                       {this.state.dimmerMessage}
                     </Header.Content>
-                    {this.state.dimmerExtra &&
+                    {(this.state.dimmerExtra || this.state.dimmerAnswerDetail) &&
                       <Header.Subheader>
                         {this.state.dimmerExtra}
+                        {this.state.dimmerExtra && this.state.dimmerAnswerDetail &&
+                          <br />
+                        }
+                        <i>{this.state.dimmerAnswerDetail}</i>
                       </Header.Subheader>
                     }
                   </Header>
