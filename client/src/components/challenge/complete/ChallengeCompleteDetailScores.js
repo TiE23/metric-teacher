@@ -15,7 +15,7 @@ const ChallengeCompleteDetailScores = props => (
         <Progress
           value={(utils.minMax(
             0,
-            row.existingScore + (props.showScoreUpdate ? row.scoreChange : 0),
+            row.currentScore - (props.showScoreUpdate ? 0 : row.scoreChange),
             props.maxScore,
           ))}
           total={props.maxScore}
@@ -43,7 +43,7 @@ ChallengeCompleteDetailScores.propTypes = {
   scoreUpdates: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    existingScore: PropTypes.number.isRequired,
+    currentScore: PropTypes.number.isRequired,
     scoreChange: PropTypes.number.isRequired,
   })).isRequired,
 };

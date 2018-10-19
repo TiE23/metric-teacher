@@ -49,7 +49,7 @@ const ChallengeCompleteDetails = props => (
                         {
                           id: row.id,
                           label: row.name,
-                          existingScore: (row.masteries.length && row.masteries[0].score) || 0,
+                          currentScore: (row.masteries.length && row.masteries[0].score) || 0,
                           scoreChange: utils.cacheGetTarget(
                             props.challengeResults.masteryscoreinput,
                             row.id,
@@ -98,7 +98,7 @@ const ChallengeCompleteDetails = props => (
                             utils.questionTextGrabber(row.question.question),
                             45,
                           ),
-                          existingScore: row.score,
+                          currentScore: row.score,
                           scoreChange: utils.cacheGetTarget(
                             props.challengeResults.surveyscoreinput,
                             row.id,
