@@ -43,7 +43,7 @@ mutation {
         {
           index: 1003000
           name: "Length - Room-scale - To Metric"
-          description: "Convert from values ranging 3 to 16 feet. A scale concerned with lengths and objects that could fit into a room. Such as furniture, appliances, etc."
+          description: "Convert from values ranging 6 to 32 feet. A scale concerned with lengths and objects that could fit into a room. Such as furniture, appliances, etc."
           toMetric: true
           rarity: 0
           scale: "room"
@@ -51,7 +51,7 @@ mutation {
         {
           index: 1003001
           name: "Length - Room-scale - From Metric"
-          description: "Convert from values ranging 1 to 5 meters. A scale concerned with lengths and objects that could fit into a room. Such as furniture, appliances, etc."
+          description: "Convert from values ranging 2 to 10 meters. A scale concerned with lengths and objects that could fit into a room. Such as furniture, appliances, etc."
           toMetric: false
           rarity: 0
           scale: "room"
@@ -59,7 +59,7 @@ mutation {
         {
           index: 1004000
           name: "Length - Building-scale - To Metric"
-          description: "Convert from values ranging 10 to 1600 feet. A scale concerned with lengths and objects that could be compared to a city block. Such as houses, office buildings, stadiums, cruise-liners, sky-scrapers, etc."
+          description: "Convert from values ranging 32 to 1600 feet. A scale concerned with lengths and objects that could be compared to a city block. Such as houses, office buildings, stadiums, cruise-liners, sky-scrapers, etc."
           toMetric: true
           rarity: 0
           scale: "building"
@@ -67,7 +67,7 @@ mutation {
         {
           index: 1004001
           name: "Length - Building-scale - From Metric"
-          description: "Convert from values ranging 3 to 500 meters. A scale concerned with lengths and objects that could be compared to a city block. Such as houses, office buildings, stadiums, cruise-liners, sky-scrapers, etc."
+          description: "Convert from values ranging 10 to 500 meters. A scale concerned with lengths and objects that could be compared to a city block. Such as houses, office buildings, stadiums, cruise-liners, sky-scrapers, etc."
           toMetric: false
           rarity: 0
           scale: "building"
@@ -1408,7 +1408,7 @@ mutation {
     flags: 0
     difficulty: 4
     question: "In your estimation how wide is the palm of your hand? [5,15cm(0.5)s]"
-    answer: "[in(0.6)a]"
+    answer: "[in(0.5)a]"
     media: ""
     parent: {
       connect: {
@@ -1491,8 +1491,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "A doorway in an American home can be 7 feet tall. How long is that?"
-    answer: "[213cm|205cm|200cm|194cm|219cm]4"
+    question: "In 2014 the average height of an American man was 5 foot, 9 inches (69 inches). How tall is that?"
+    answer: "[175cm|172cm|168cm|162cm|179cm|181cm|185cm]4"
     media: ""
     parent: {
       connect: {
@@ -1507,7 +1507,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "In 2014 the average height of an American woman was 5 foot, 3.5 inches. How long is that?"
+    question: "In 2014 the average height of an American woman was 5 foot, 3.5 inches (63.5 inches). How tall is that?"
     answer: "[162cm|160cm|154cm|166cm|152cm]4"
     media: ""
     parent: {
@@ -1607,8 +1607,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "How tall are you? [40,90in]"
-    answer: "[cm]"
+    question: "How tall are you? [40,90in(1)s]"
+    answer: "[cm(2.5)a]"
     media: ""
     parent: {
       connect: {
@@ -1817,8 +1817,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "The 2017 Dodge Grand Caravan van stands at 68 inches tall. How tall is that?"
-    answer: "[173cm|170cm|168cm|165cm|164cm|175cm|178cm|180.5cm]4"
+    question: "The actor Tom Cruise is 5 feet, 7 inches (67 inches) tall. How tall is that?"
+    answer: "[170cm|169cm|167cm|166cm|172cm|173cm|175.5cm]4"
     media: ""
     parent: {
       connect: {
@@ -1997,8 +1997,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "In your estimation how high is the ceiling in your bedroom? [6,14ft(0.5)s]"
-    answer: "[m(0.5)a]"
+    question: "In your estimation how long is your leg from ankle to hip? [12,48in(1)s]"
+    answer: "[cm(5)a]"
     media: ""
     parent: {
       connect: {
@@ -2029,8 +2029,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "In your estimation in showers how high up are shower heads from the floor? [48,80in(1)s]"
-    answer: "[cm(2.5)a]"
+    question: "In your estimation how high are the top of your shoulders from the floor when standing? [40,90in(1)s]"
+    answer: "[cm(2)a]"
     media: ""
     parent: {
       connect: {
@@ -2045,8 +2045,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 5
-    question: "In your estimation how wide is the door to your bedroom? [24,84in(1)s]"
-    answer: "[cm(2)a]"
+    question: "In your estimation how wide are your shoulders? [12,30in(1)s]"
+    answer: "[cm(1.5)a]"
     media: ""
     parent: {
       connect: {
@@ -2309,8 +2309,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "How tall are you? [100,230cm]"
-    answer: "[in]"
+    question: "How tall are you? [100,230cm(1)s]"
+    answer: "[in(1)a]"
     media: ""
     parent: {
       connect: {
@@ -2715,8 +2715,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "In your estimation how high is the ceiling in your bedroom? [1.8,4.2m(0.2)s]"
-    answer: "[ft(1.5)a]"
+    question: "In your estimation how long is your leg from ankle to hip? [30,120cm(2)s]"
+    answer: "[in(2)a]"
     media: ""
     parent: {
       connect: {
@@ -2747,7 +2747,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "In your estimation in showers how high up are shower heads from the floor? [120,200cm(2)s]"
+    question: "In your estimation how high are the top of your shoulders from the floor when standing? [100,230(2)s]"
     answer: "[in(1)a]"
     media: ""
     parent: {
@@ -2763,8 +2763,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 5
-    question: "In your estimation how wide is the door to your bedroom? [60,210cm(2)s]"
-    answer: "[in(0.8)a]"
+    question: "In your estimation how wide are your shoulders? [30,76cm(2)s]"
+    answer: "[in(0.5)a]"
     media: ""
     parent: {
       connect: {
@@ -2893,6 +2893,269 @@ mutation {
   }) {
     id
   }
+
+  # -> Mixed Written
+  question_length_room_toMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "20 feet is roughly equal to what?"
+    answer: "[6m|5m|4m|3m|7m|8m|9m]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The recommended minimum length for a one car garage is 22 feet. How long is that?"
+    answer: "[6.7m|6m|5.5m|4.9m|7.2m|7.9m|8.5m|9m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A doorway in an American home can be 7 feet tall. How tall is that?"
+    answer: "[213cm|205cm|200cm|194cm|219cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The 2017 Dodge Grand Caravan family van stands at 68 inches tall. How tall is that?"
+    answer: "[173cm|170cm|168cm|165cm|164cm|175cm|178cm|180.5cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The original Volkswagen Beetle is 160.6 inches. How long is that?"
+    answer: "[4079mm|3955mm|3826mm|3788mm|4211mm|4398mm|4500mm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_written_006: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The FIFA standard association football goal is 8 yards wide. How wide is that?"
+    answer: "[7.3m|7m|6.5m|5.9m|8m|8.9m|9.1m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_room_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[10,30ft(5)s]"
+    answer: "[m(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[10,30ft(2)s]"
+    answer: "[m(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[10,30ft(1)s]"
+    answer: "[m(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[10,30ft(0.5)s]"
+    answer: "[m(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[10,30ft(0.25)s]"
+    answer: "[m(0.2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  question_length_room_toMetric_survey_001: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "In your estimation how tall is a single story in a typical multi-story office building? [8,16ft(1)s]"
+    answer: "[m(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In your estimation how high is the ceiling in your bedroom? [6,14ft(0.5)s]"
+    answer: "[m(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how wide is a single lane for car traffic on a street? [7,15ft(0.5)s]"
+    answer: "[m(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_survey_004: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In your estimation in showers how high up are shower heads from the floor? [48,80in(1)s]"
+    answer: "[cm(2.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_toMetric_survey_005: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "In your estimation how wide is the door to your bedroom? [24,84in(1)s]"
+    answer: "[cm(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
 
   ## From Metric
   # Written
