@@ -1738,7 +1738,7 @@ mutation {
     flags: 0
     difficulty: 5
     question: "The actor Peter Dinklage stands at 4 feet, 5 inches. How tall is he?"
-    answer: "[134.6cm|132.1cm|130.2cm|136cm|137.5cm|139cm]4"
+    answer: "[134.6cm|133.5cm|132.6cm|135cm|136.5cm|137cm]4"
     media: ""
     parent: {
       connect: {
@@ -1942,12 +1942,28 @@ mutation {
   }) {
     id
   }
-  question_length_human_toMetric_conversion_005: createQuestion(data: {
+  question_length_human_toMetric_conversion_005a: createQuestion(data: {
     type: 1
     status: 0
     flags: 0
     difficulty: 5
-    question: "[3.25,8.75ft(0.5)s]"
+    question: "[36,108in(0.5)s]"
+    answer: "[cm(2.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_conversion_005b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[3,9ft(0.1)s]"
     answer: "[m(0.05)a]"
     media: ""
     parent: {
@@ -1965,7 +1981,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 1
-    question: "In your estimation how far is your hip to the floor when standing? [20,45in(1)s]"
+    question: "In your estimation what height is your hip from the ground when standing? [20,45in(1)s]"
     answer: "[cm(10)a]"
     media: ""
     parent: {
@@ -2013,7 +2029,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "In your estimation how high up is the water spout in your shower from the floor? [24,80in(1)s]"
+    question: "In your estimation in showers how high up are shower heads from the floor? [48,80in(1)s]"
     answer: "[cm(2.5)a]"
     media: ""
     parent: {
@@ -2031,6 +2047,86 @@ mutation {
     difficulty: 5
     question: "In your estimation how wide is the door to your bedroom? [24,84in(1)s]"
     answer: "[cm(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_survey_006: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 2
+    difficulty: 3
+    question: "In your estimation how tall is your shortest friend? What is their name? [24,84in(1)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_survey_007: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 1
+    difficulty: 3
+    question: "In your estimation how tall is your mother? (You may, of course, skip this question or answer with someone you consider most like a mother). [24,84in(1)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_survey_008: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 1
+    difficulty: 3
+    question: "In your estimation how tall is your father? (You may, of course, skip this question or answer with someone you consider most like a father). [24,84in(1)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_survey_009: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 1
+    difficulty: 3
+    question: "In your estimation how tall is your oldest sibling? (You may, of course, skip this question or answer with someone you consider most like a sibling). [24,84in(1)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_survey_010: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 2
+    difficulty: 3
+    question: "In your estimation how tall is your tallest relative? What is their name? [24,84in(1)s]"
+    answer: "[cm(3)a]"
     media: ""
     parent: {
       connect: {
@@ -2097,8 +2193,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "LeBron James is 2.03 meters tall. How tall is he in inches?"
-    answer: "[80in|78in|81in|79in|82in]3"
+    question: "Michael Jordan is 198 centimeters tall. How tall is he in inches?"
+    answer: "[78in|76in|74in|73in|81in|82in]3"
     media: ""
     parent: {
       connect: {
@@ -2272,6 +2368,493 @@ mutation {
   }) {
     id
   }
+
+  # -> Mixed Written
+  question_length_human_fromMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "The yard (3 feet) is slightly shorter than a meter. How does a yard compare?"
+    answer: "[It is 9% shorter|It is 3% shorter|It is 33% shorter|It is about the same length|It is 9% longer]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The 2019 Toyota Camry is 6 feet (72 inches) wide. How wide is that?"
+    answer: "[183cm|168cm|150cm|205cm|220cm]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The IKEA NORRÅKER dining table at 125 centimeters in length is long enough to seat two people shoulder-to-shoulder. How long is that?"
+    answer: "[49in|45in|40in|38in|53in|59in|62in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "Swiss tennis champion Roger Federer is 185 centimeters tall. How tall is that?"
+    answer: "[73in|72in|71in|70in|74in|75in|76.5in|77in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The Vespa GTS 300 scooter can seat two people and is 1375 millimeters long. How long is that?"
+    answer: "[54.1in|53in|52.2in|51.6in|50in|55in|55.9in|60.5in|61in|70in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_written_006: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "An example of an umbrella suitable for two people has a diameter of around 104 centimeters. How wide is that?"
+    answer: "[41in|39.5in|38.5in|36.5in|43in|45in|46.5in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_written_007: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The IKEA INGABRITTA knitted throw blanket is 130 centimeters wide. How wide is that?"
+    answer: "[51in|49in|46.5in|44in|53in|55in|56.5in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_written_008: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The IKEA BILLY bookcase is 202 centimeters tall. How tall is that?"
+    answer: "[67.5in|66in|64.5in|62in|69.5in|71in|73in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_written_009: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A popular size for a large artificial Christmas tree is about 230 centimeters tall. About how tall is that?"
+    answer: "[7.5ft|7.25ft|7ft|6.75ft|7.75ft|8ft|8.25ft|9ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_written_010: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "Standard ISO shipping containers used in international trade are 2.59m tall. How tall is that?"
+    answer: "[8.5ft|8.25ft|8ft|7.9ft|8.8ft|9ft|9.2ft|9.5ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_human_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[100,300cm(50)s]"
+    answer: "[in(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_conversion_002a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1,3m(0.30)s]"
+    answer: "[ft(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_conversion_002b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[100,300cm(30)s]"
+    answer: "[in(6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_conversion_002c: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1,3m(0.2)s]"
+    answer: "[yd(0.1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[100,300cm(10)s]"
+    answer: "[in(4)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,3m(0.1)s]"
+    answer: "[ft(0.3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[100,300cm(10)s]"
+    answer: "[in(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[1,3m(0.1)s]"
+    answer: "[ft(0.25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_conversion_005a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[100,300cm(0.5)s]"
+    answer: "[in(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_conversion_005b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[1,3m(0.05)s]"
+    answer: "[ft(0.1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  question_length_human_fromMetric_survey_001: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "In your estimation what height is your hip from the ground when standing? [50,115cm(2)s]"
+    answer: "[in(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In your estimation how high is the ceiling in your bedroom? [1.8,4.2m(0.2)s]"
+    answer: "[ft(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "How tall is your best friend and what is their name? You can estimate if you're not sure. [100,230cm(2)s]"
+    answer: "[in(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_survey_004: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In your estimation in showers how high up are shower heads from the floor? [120,200cm(2)s]"
+    answer: "[in(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_survey_005: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "In your estimation how wide is the door to your bedroom? [60,210cm(2)s]"
+    answer: "[in(0.8)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_survey_006: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 2
+    difficulty: 3
+    question: "In your estimation how tall is your shortest friend? What is their name? [60,215cm(2)s]"
+    answer: "[in(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_survey_007: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 1
+    difficulty: 3
+    question: "In your estimation how tall is your mother? (You may, of course, skip this question or answer with someone you consider most like a mother). [60,215cm(2)s]"
+    answer: "[in(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_survey_008: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 1
+    difficulty: 3
+    question: "In your estimation how tall is your father? (You may, of course, skip this question or answer with someone you consider most like a father). [60,215cm(2)s]"
+    answer: "[in(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_survey_009: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 1
+    difficulty: 3
+    question: "In your estimation how tall is your oldest sibling? (You may, of course, skip this question or answer with someone you consider most like a sibling). [60,215cm(2)s]"
+    answer: "[in(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_fromMetric_survey_010: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 2
+    difficulty: 3
+    question: "In your estimation how tall is your tallest relative? What is their name? [60,215cm(2)s]"
+    answer: "[in(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
 
   ### Room
   ## To Metric
