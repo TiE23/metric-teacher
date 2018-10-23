@@ -668,7 +668,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The average adult man's foot is about 11 inches. How many centimeters is that?"
+    question: "The average adult man's foot is about 11 inches. How long is that?"
     answer: "[28cm|30cm|26cm|25cm|31cm]4"
     media: ""
     parent: {
@@ -705,7 +705,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The iPhone 6, 7, and 8 have a screen size of 120 millimeters diagonally. How large is that in inches?"
+    question: "The iPhone 6, 7, and 8 have a screen size of 120 millimeters diagonally. How large is that?"
     answer: "[4.7in|5.4in|4in|5.8in|3.7in]4"
     media: ""
     parent: {
@@ -737,7 +737,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The standard size 5 soccer ball is 22 centimeters in diameter. How many inches is that?"
+    question: "The standard size 5 soccer ball is 22 centimeters in diameter. How wide is that?"
     answer: "[8.7in|9.9in|7.1in|11in]"
     media: ""
     parent: {
@@ -807,7 +807,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "Typically a height of 6 feet for a man is considered tall. How many centimeters is that?"
+    question: "Typically a height of 6 feet for a man is considered tall. How long is that?"
     answer: "[183cm|180cm|177cm|200cm|191cm|188cm]4"
     media: ""
     parent: {
@@ -823,7 +823,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "A doorway in an American home can be 7 feet tall. How many centimeters is that?"
+    question: "A doorway in an American home can be 7 feet tall. How long is that?"
     answer: "[213cm|205cm|200cm|194cm|219cm]4"
     media: ""
     parent: {
@@ -839,7 +839,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "In 2014 the average height of an American woman was 5 foot, 3.5 inches. How many centimeters is that?"
+    question: "In 2014 the average height of an American woman was 5 foot, 3.5 inches. How long is that?"
     answer: "[162cm|160cm|154cm|166cm|152cm]4"
     media: ""
     parent: {
@@ -1022,7 +1022,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "A queen size mattress in America is 152 centimeters wide. How many inches is that?"
+    question: "A queen size mattress in America is 152 centimeters wide. How wide is that?"
     answer: "[60in|70in|80in|90in|100in|50in]4"
     media: ""
     parent: {
@@ -1038,7 +1038,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "A queen size mattress in America is 203 centimeters long. How many inches is that?"
+    question: "A queen size mattress in America is 203 centimeters long. How long is that?"
     answer: "[80in|70in|60in|90in|100in|110in]4"
     media: ""
     parent: {
@@ -1313,7 +1313,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The standard utility/telephone pole in the United States is about 40 feet. How many meters is that?"
+    question: "The standard utility/telephone pole in the United States is about 40 feet tall. How tall is that?"
     answer: "[12m|11m|10.5m|14m|15m|14.5m]4"
     media: ""
     parent: {
@@ -1350,7 +1350,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "The height of the Eiffel Tower is 324 meters. How many feet is that?"
+    question: "The height of the Eiffel Tower is 324 meters. How tall is that?"
     answer: "[1063ft|1004ft|972ft|1199ft|1300ft|1101ft]4"
     media: ""
     parent: {
@@ -1575,7 +1575,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "The distance from the Earth to the Moon is 384,400 kilometers. How many miles is that?"
+    question: "The distance from the Earth to the Moon is 384,400 kilometers. How far is that?"
     answer: "[238900mi|294200mi|206400mi|780215mi|190230mi|180600mi]4"
     media: ""
     parent: {
@@ -1615,7 +1615,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The iPhone 8 weighs 5.2 ounces, a typical weight for a smart phone. How many grams is that?"
+    question: "The iPhone 8 weighs 5.2 ounces, a typical weight for a smart phone. How heavy is that?"
     answer: "[147g|65g|122g|100g]"
     media: ""
     parent: {
@@ -2008,7 +2008,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "The average bathtub holds around 80 gallons of water. How many liters is that?"
+    question: "The average bathtub holds around 80 gallons of water. How much is that?"
     answer: "[302l|210l|240l|248l|320l|284l|346l|360l|368l]4"
     media: ""
     parent: {
@@ -2045,7 +2045,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "A hot tub for six people can contain around 1300 liters of water. How many gallons is that?"
+    question: "A hot tub for six people can contain around 1300 liters of water. How much is that?"
     answer: "[343gal|306gal|288gal|409gal|320gal|440gal]4"
     media: ""
     parent: {
@@ -2083,7 +2083,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "Olympic-sized swimming pools are very large and contain at a minimum 660,000 gallons. How many liters is that?"
+    question: "Olympic-sized swimming pools are very large and contain at a minimum 660,000 gallons. How much is that?"
     answer: "[2500000l|2250000l|2750000l|3000000l|3250000l|3500000l|3750000l]4"
     media: ""
     parent: {
@@ -2120,7 +2120,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "In the US, a circular, above-ground pool that one could buy at a store is commonly 16 feet wide, 4.5 feet deep, and can hold around 25,000 liters of water. How many gallons is that?"
+    question: "In the US, a circular, above-ground pool that one could buy at a store is commonly 16 feet wide, 4.5 feet deep, and can hold around 25,000 liters of water. How much is that?"
     answer: "[6600gal|6000gal|5700gal|5400gal|5000gal|3900gal|2000gal]4"
     media: ""
     parent: {
@@ -3152,7 +3152,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "A small bathroom with only a toilet and sink is 30 square feet. How many square meters is that?"
+    question: "A small bathroom with only a toilet and sink has 30 square feet. How much is that?"
     answer: "[2.8sqm|4sqm|6.3sqm|6.7sqm|2.2sqm|1.9sqm|1.4sqm|1.1sqm]4"
     media: ""
     parent: {
@@ -3209,7 +3209,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "An apartment with two bedrooms and 1.5 baths advertizes it is 950 square feet. How many square meters is that?"
+    question: "An apartment with two bedrooms and 1.5 baths advertizes it is 950 square feet. How much is that?"
     answer: "[88sqm|95sqm|100sqm|108sqm|112sqm|82sqm|80sqm|76sqm|72sqm]4"
     media: ""
     parent: {
@@ -3246,7 +3246,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "A single family home with 4 beds and 2.5 baths advertizes it is 2100 square feet. How many square meters is that?"
+    question: "A single family home with 4 beds and 2.5 baths advertizes it is 2100 square feet. How much is that?"
     answer: "[195sqm|200sqm|209sqm|215sqm|220sqm|188sqm|174sqm|170sqm]4"
     media: ""
     parent: {
