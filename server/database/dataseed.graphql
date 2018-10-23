@@ -882,7 +882,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "[1,10in(1)s]"
+    question: "[1,20in(1)s]"
     answer: "[cm(4)a]"
     media: ""
     parent: {
@@ -930,7 +930,7 @@ mutation {
     flags: 0
     difficulty: 5
     question: "[1,30in(0.25)s]"
-    answer: "[cm(1)a]"
+    answer: "[cm(1.5)a]"
     media: ""
     parent: {
       connect: {
@@ -996,7 +996,7 @@ mutation {
     flags: 0
     difficulty: 4
     question: "In your estimation how wide is the palm of your hand? [2,6in(0.25)s]"
-    answer: "[cm(2)a]"
+    answer: "[cm(1.5)a]"
     media: ""
     parent: {
       connect: {
@@ -1083,6 +1083,348 @@ mutation {
     difficulty: 4
     question: "[2,25cm(2)s]"
     answer: "[in]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Written
+  question_length_hand_fromMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "How long is 100 millimeters?"
+    answer: "[3.9in|2.5in|2.0in|1.9in|4.9in|5.5in|6.2in|7in]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A toothbrush is typically around 180 millimeters long. How long is that?"
+    answer: "[7.1in|5.4in|5.3in|8.9in|9.1in|10in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A Wii Remote is 160 millimeters long. How long is that?"
+    answer: "[6.3in|5.3in|4.9in|3in|7.2in|8.3in|9in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "A piece of A4 paper is 297 millimeters long. How long is that?"
+    answer: "[11.7in|11in|10.5in|8.5in|12.7in|13.3in|15.1in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The 1 Euro coin is 2.33 millimeters thick. How thick is that?"
+    answer: "[0.09in|0.07in|0.05in|0.03in|0.11in|0.13in|0.15in|0.17in|0.19in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_written_006: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A CD is 120 millimeters in diameter. How wide is that?"
+    answer: "[4.7in|4in|3.5in|3in|6in|6.9in|7.5in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_written_007: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A CD's center hole is 15 millimeters across. How wide is that?"
+    answer: "[0.6in|0.4in|0.2in|0.9in|1in|1.3in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_written_008: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The 8 millimeter wrench/spanner is roughly equivalent to what?"
+    answer: "[5/16 inch|7/16 inch|1/2 inch|3/4 inch|1/4 inch|3/16 inch]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_written_009: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "If you purchased a 0.9 meter USB cable how long would you expect it roughly to be?"
+    answer: "[3ft|2ft|18in|12in|3.5ft|4ft]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_written_010: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The IKEA HEMNES nightstand is 66 centimeters tall. How tall is that?"
+    answer: "[26in|22in|20in|18in|28in|31in|33in|36in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_hand_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[20,100cm(20)s]"
+    answer: "[in(4)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[25,100cm(25)s]"
+    answer: "[in(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[2,20cm(2)s]"
+    answer: "[in(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[20,100cm(5)s]"
+    answer: "[ft(0.2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[1,50cm(1)s]"
+    answer: "[in(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[0.25,10cm(0.25)s]"
+    answer: "[in(0.75)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_hand_fromMetric_survey_001: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "In your estimation how wide do you think an average chair's seat is? [30,50cm(5)s]"
+    answer: "[in(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In your estimation how far is your knee above the ground when standing? [30,72cm(2)s]"
+    answer: "[in(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how wide do you think an average round donut is? [7,13cm(1)s]"
+    answer: "[in(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_survey_004: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In your estimation how wide is the palm of your hand? [5,15cm(0.5)s]"
+    answer: "[in(0.6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_fromMetric_survey_005: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "In your estimation how large of a pizza could you eat by yourself? [10,36cm(2)s]"
+    answer: "[in(0.4)a]"
     media: ""
     parent: {
       connect: {
