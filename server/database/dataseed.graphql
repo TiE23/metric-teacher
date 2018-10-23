@@ -3128,7 +3128,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "In your estimation in showers how high up are shower heads from the floor? [48,80in(1)s]"
+    question: "In your estimation how high up are shower heads from the floor in a shower? [48,80in(1)s]"
     answer: "[cm(2.5)a]"
     media: ""
     parent: {
@@ -3163,7 +3163,7 @@ mutation {
     type: 0
     status: 0
     flags: 0
-    difficulty: 1
+    difficulty: 2
     question: "The ceiling in a room of a typical American home is about 2.4 meters. How high is that?"
     answer: "[8ft|9ft|10ft|10.5ft]"
     media: ""
@@ -3193,6 +3193,269 @@ mutation {
   }) {
     id
   }
+
+  # -> Mixed Written
+  question_length_room_fromMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "10 meters is roughly equal to what?"
+    answer: "[33ft|30ft|26ft|36ft|42ft|50ft]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The world record for the long jump for men is 8.95 meters set in 1991 by Mike Powell. How long is that?"
+    answer: "[29.4ft|25.1ft|22.3ft|33ft|35.5ft|40.9ft]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The bore diameter of the Channel Tunnel between the UK and France is 7.6 meters in both directions. How wide is that?"
+    answer: "[25ft|23ft|21ft|19ft|26ft|28ft|29ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The 2017 Ferrari SF70H Formula One race car is 4000mm in length. How long is that?"
+    answer: "[13.1ft|12.7ft|12ft|11.8ft|13.9ft|14.1ft|15ft|15.2ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The world record pole vault for women is 5.06m set in 2009 by Yelena Isinbayeva. How tall is that?"
+    answer: "[199in|196in|194in|190in|202in|204in|207in]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_written_006: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The distance from the basket to the three-point line in FIBA basketball is 6.75 meters. How far is that?"
+    answer: "[22.2ft|20.5ft|18.3ft|17.9ft|24ft|25.1ft|26.6ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_room_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[3,9m(3)s]"
+    answer: "[ft(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[2,10m(1)s]"
+    answer: "[ft(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[2,10m(0.5)s]"
+    answer: "[ft(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[2,10m(0.25)s]"
+    answer: "[ft(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[2,10m(0.1)s]"
+    answer: "[ft(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  question_length_room_fromMetric_survey_001: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "In your estimation how tall is a single story in a typical multi-story office building? [2.4,5m(0.5)s]"
+    answer: "[ft(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In your estimation how high is the ceiling in your bedroom? [2,4.30m(0.1)s]"
+    answer: "[ft(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how wide is a single lane for car traffic on a street? [2,4.5(0.2)s]"
+    answer: "[ft(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_survey_004: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In your estimation how high up are shower heads from the floor in a shower? [120,200cm(2)s]"
+    answer: "[in(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_room_fromMetric_survey_005: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "In your estimation how wide is the door to your bedroom? [60,210cm(2)s]"
+    answer: "[in(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Room-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
 
   ### Building
   ## To Metric
