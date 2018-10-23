@@ -1288,7 +1288,7 @@ mutation {
   }) {
     id
   }
-  question_length_hand_fromMetric_conversion_003: createQuestion(data: {
+  question_length_hand_fromMetric_conversion_003a: createQuestion(data: {
     type: 1
     status: 0
     flags: 0
@@ -1353,7 +1353,7 @@ mutation {
     id
   }
 
-  # -> Mixed Conversion
+  # -> Mixed Survey
   question_length_hand_fromMetric_survey_001: createQuestion(data: {
     type: 2
     status: 0
@@ -1443,8 +1443,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 1
-    question: "Which is the longest?"
-    answer: "[A meter|A yard|36in]"
+    question: "Which one is longer?"
+    answer: "[A meter|A yard]"
     media: ""
     parent: {
       connect: {
@@ -1475,7 +1475,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "Typically a height of 6 feet for a man is considered tall. How long is that?"
+    question: "Typically a height of 6 feet for a man is considered tall. How tall is that?"
     answer: "[183cm|180cm|177cm|200cm|191cm|188cm]4"
     media: ""
     parent: {
@@ -1655,8 +1655,8 @@ mutation {
     status: 0
     flags: 2
     difficulty: 3
-    question: "How tall is the last friend you spoke to and what is their name? Give your best guess if you don't know exactly. [24,96in]"
-    answer: "[cm]"
+    question: "How tall is the last friend you spoke to and what is their name? You can estimate if you're not sure. [40,90in]"
+    answer: "[cm(2)a]"
     media: ""
     parent: {
       connect: {
@@ -1666,6 +1666,381 @@ mutation {
   }) {
     id
   }
+
+  # -> Mixed Written
+  question_length_human_toMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "A meter is similar in length to a yard. How does a meter compare?"
+    answer: "[It is 9% longer|It is 3% longer|It is about the same length|It is 9% shorter|It is 20% longer|It is 42% longer]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "How many inches longer is 3 meters than 3 yards?"
+    answer: "[10in|6in|3in|15in|20in]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In the US homes doorknobs are typically fitted to doors 36 inches from the floor. How tall is that?"
+    answer: "[91cm|88cm|83cm|80cm|95cm|100cm|105cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "Yao Ming of the Houston Rockets NBA team retired as the tallest active player in 2011. He stood 7 feet, 6 inches tall (90 inches). How tall was he?"
+    answer: "[229cm|225cm|215cm|212cm|237cm|240cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The actor Peter Dinklage stands at 4 feet, 5 inches. How tall is he?"
+    answer: "[134.6cm|132.1cm|130.2cm|136cm|137.5cm|139cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_written_006: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The 2019 Toyota Camry has a height of about 4 feet, 9 inches (57 inches). How tall is that?"
+    answer: "[145cm|140cm|135cm|130cm|125cm|120cm|150cm|152.5cm|155cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_written_007: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The standard height of a basketball rim in the NBA is 10 feet. How high is that?"
+    answer: "[3.05m|2.9m|2.55m|3.15m|3.35m|3.5m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_written_008: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The FIFA standard association football goal is 8 feet tall. How tall is that?"
+    answer: "[2.44m|2.0m|1.6m|2.82m|3.1m]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_written_009: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "Edward is 170 centimeters tall. Gordon is 5 feet, 9 inches tall (69 inches) tall. Who is taller?"
+    answer: "170cm is 5'6\". 5'9\" is 175cm. [Gordon|Edward|They are about the same height]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_written_010: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The 2017 Dodge Grand Caravan van stands at 68 inches tall. How tall is that?"
+    answer: "[173cm|170cm|168cm|165cm|164cm|175cm|178cm|180.5cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_human_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[3,9ft(1)s]"
+    answer: "[cm(30)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_conversion_002a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[36,108in(12)s]"
+    answer: "[cm(15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_conversion_002b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[3,9ft(1)s]"
+    answer: "[m(0.15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[36,108in(6)s]"
+    answer: "[cm(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[3,9ft(0.5)s]"
+    answer: "[m(0.1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[36,108in(4)s]"
+    answer: "[cm(7.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[3,9ft(0.25)s]"
+    answer: "[m(0.075)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[3.25,8.75ft(0.5)s]"
+    answer: "[m(0.05)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  question_length_human_toMetric_survey_001: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "In your estimation how far is your hip to the floor when standing? [20,45in(1)s]"
+    answer: "[cm(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In your estimation how high is the ceiling in your bedroom? [6,14ft(0.5)s]"
+    answer: "[m(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 2
+    difficulty: 3
+    question: "How tall is your best friend and what is their name? You can estimate if you're not sure. [40,90in(1)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_survey_004: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In your estimation how high up is the water spout in your shower from the floor? [24,80in(1)s]"
+    answer: "[cm(2.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_human_toMetric_survey_005: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "In your estimation how wide is the door to your bedroom? [24,84in(1)s]"
+    answer: "[cm(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
 
   ## From Metric
   # Written
@@ -1738,8 +2113,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "The Prime Minister of Canada, Justin Trudeau, is 1.88 meters tall. The President of the United States, Donald Trump, is 6 feet, 3 inches. Who is taller?"
-    answer: "1.88m is 6'2\". 6'3\" is 1.91m. [Donald Trump|Justin Trudeau|They are about the same height]"
+    question: "The Prime Minister of Canada, Justin Trudeau, is 188 centimeters tall. The President of the United States, Donald Trump, is 6 feet, 3 inches. Who is taller?"
+    answer: "188cm is 6'2\". 6'3\" is 191cm. [Donald Trump|Justin Trudeau|They are about the same height]"
     media: ""
     parent: {
       connect: {
@@ -1870,7 +2245,7 @@ mutation {
     status: 0
     flags: 1
     difficulty: 3
-    question: "How tall is the tallest person you personally know? Give your best guess if you don't know exactly. [178,240cm]"
+    question: "How tall is the tallest person you personally know? Give your best guess if you don't know exactly. [150,240cm]"
     answer: "[in]"
     media: ""
     parent: {
