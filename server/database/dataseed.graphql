@@ -698,6 +698,332 @@ mutation {
     id
   }
 
+  # -> Mixed Written
+  question_length_hand_toMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "A 12 fluid ounce can of soda is about 5 inches tall. How long is that?"
+    answer: "[12.5cm|11cm|10.25cm|9.5cm|8cm|14cm|15cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A US dollar bill is 6.1 inches wide. How long is that?"
+    answer: "[15.6cm|12.2cm|10.3cm|17.5cm|18.8cm|20cm|23.3cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A standard business card in the US is 3.5 inches long. How many long is that?"
+    answer: "[89mm|60mm|35mm|81mm|100mm|120mm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A US quarter is 0.96 inches in diameter. How wide is that?"
+    answer: "[24.3mm|21.9mm|20.1mm|17.3mm|15.0mm|27.9mm|30mm|30.5mm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "A US quarter coin is 0.069 inches thick. How thick is that?"
+    answer: "[1.75mm|1.6mm|1.3mm|1.25mm|2.0mm|2.2mm|2.5mm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_written_006: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "A US quarter coin is 0.069 inches thick. How thick is that?"
+    answer: "[1.75mm|1.25mm|0.5mm|0.1mm|2.2mm|2.5mm|3.2mm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_written_007: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The original size square Post-it® note is 3 x 3 inches. How long is that?"
+    answer: "[76.2mm|70.1mm|65mm|59.4mm|83.3mm|96mm|109mm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_written_008: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A US dollar bill is 2.6 inches tall. How tall is that?"
+    answer: "[66mm|60mm|54mm|50mm|73mm|79mm|90.1mm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_written_009: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A wooden pencil is typically 1/4 of an inch thick. How thick is that?"
+    answer: "[6mm|5mm|4mm|3mm|7mm|8mm|9mm|10mm|12.7mm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_written_010: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A 12 inch ruler is how long?"
+    answer: "[30.5cm|28.8cm|25.4cm|24cm|36cm|40cm]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_hand_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[10,30in(10)s]"
+    answer: "[cm(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1,10in(1)s]"
+    answer: "[cm(4)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1.5,10.5in(1)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  question_length_hand_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[1.25,10.25in(1)s]"
+    answer: "[cm(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[1,30in(0.25)s]"
+    answer: "[cm(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  question_length_hand_toMetric_survey_001: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "In your estimation how wide do you think an average chair's seat is? [12,20in(2)s]"
+    answer: "[cm(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In your estimation how far is your knee above the ground when standing? [12,28in(1)s]"
+    answer: "[cm(4)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how wide do you think an average round donut is? [3,5in(0.5)s]"
+    answer: "[cm(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_survey_004: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In your estimation how wide is the palm of your hand? [2,6in(0.25)s]"
+    answer: "[cm(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_hand_toMetric_survey_005: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "In your estimation how large of a pizza could you eat by yourself? [4,14in(1)s]"
+    answer: "[cm(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
   ## From Metric
   # Written
   question_length_hand_fromMetric_001: createQuestion(data: {
