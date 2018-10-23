@@ -736,7 +736,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "A standard business card in the US is 3.5 inches long. How many long is that?"
+    question: "A standard business card in the US is 3.5 inches long. How long is that?"
     answer: "[89mm|60mm|35mm|81mm|100mm|120mm]4"
     media: ""
     parent: {
@@ -1047,7 +1047,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "School rulers in Metric countries are typically 30 centimeters in length. How long is that in inches?"
+    question: "School rulers in Metric countries are typically 30 centimeters in length. How long is that?"
     answer: "[11.8in|12in|12.4in|11.2in|11.5in]4"
     media: ""
     parent: {
@@ -1564,7 +1564,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "A mid-size car such as an Accord, Camry, Fusion, or Malibu is typically 16 feet long. How long is that in meters?"
+    question: "A mid-size car such as an Accord, Camry, Fusion, or Malibu is typically 16 feet long. How long is that?"
     answer: "[4.9m|3.9m|4m|5.5m|4.4m]4"
     media: ""
     parent: {
@@ -1601,7 +1601,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 1
-    question: "The ceiling in a room of a typical American home is about 2.4 meters. How high is that in feet?"
+    question: "The ceiling in a room of a typical American home is about 2.4 meters. How high is that?"
     answer: "[8ft|9ft|10ft|10.5ft]"
     media: ""
     parent: {
@@ -1714,7 +1714,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The Burj Khalifa skyscraper is 1918 feet tall. How tall is that in meters?"
+    question: "The Burj Khalifa skyscraper is 1918 feet tall. How tall is that?"
     answer: "[584.5m|630m|530.5m|719m|801.2m|900m|994m]4"
     media: ""
     parent: {
@@ -1789,7 +1789,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The state of California is approximately 720 miles \"long\" from north to south. How far is that in kilometers?"
+    question: "The state of California is approximately 720 miles \"long\" from north to south. How far is that?"
     answer: "[1158km|1053km|1289km|1422km|998km|1440km]4"
     media: ""
     parent: {
@@ -1826,7 +1826,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "Between England and France lies the Straight of Dover, the narrowest part of the English Channel. It is about 33 kilometers wide. How far is that distance in miles?"
+    question: "Between England and France lies the Straight of Dover, the narrowest part of the English Channel. It is about 33 kilometers wide. How far is that?"
     answer: "[20.5mi|20mi|18.5mi|19mi|17mi|16mi|22mi]4"
     media: ""
     parent: {
@@ -1864,7 +1864,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "The Earth's circumference is 24,901 miles. What is that distance in kilometers?"
+    question: "The Earth's circumference is 24,901 miles. How far is that?"
     answer: "[40074km|39022km|37009km|41095km|42015km|43053km|44012km]4"
     media: ""
     parent: {
@@ -2016,7 +2016,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "The average adult American woman weighs 166 pounds. What is that in kilograms?"
+    question: "The average adult American woman weighs 166 pounds. How heavy is that?"
     answer: "[75kg|71kg|68kg|64kg|62kg|78kg|81kg|84kg|88kg]4"
     media: ""
     parent: {
@@ -2128,7 +2128,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "A standard 40 foot shipping container used in international trade weighs 3,800 kilograms when empty. How heavy is that in pounds?"
+    question: "A standard 40 foot shipping container used in international trade weighs 3,800 kilograms when empty. How heavy is that?"
     answer: "[8380lb|8040lb|8560lb|8880lb|7800lb|6600lb|7620lb|8000lb]4"
     media: ""
     parent: {
@@ -2166,7 +2166,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "The Boeing 737-800 is considered an average sized airliner. Without fuel it weighs 45 short-tons. How heavy is that in metric tonnes?"
+    question: "The Boeing 737-800 is considered an average sized airliner. Without fuel it weighs 45 short-tons. How heavy is that?"
     answer: "[40.8t|45t|45.2t|38.6t|44.4t|42t|4.5t|22.5t]4"
     media: ""
     parent: {
@@ -2685,7 +2685,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "In Toronto, Canada the average low in January is -6.7 degrees Celsius. What is that in Fahrenheit?"
+    question: "In Toronto, Canada the average low in January is -6.7 degrees Celsius. What temperature is that?"
     answer: "[19.9f|22.3f|25.3f|28f|30f|18.1f|17.7f|15.2f]4"
     media: ""
     parent: {
@@ -2701,7 +2701,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The daily year-round mean temperature in Lagos, Nigeria is approximately 27 degrees Celsius. What is that in Fahrenheit?"
+    question: "The daily year-round mean temperature in Lagos, Nigeria is approximately 27 degrees Celsius. What temperature is that?"
     answer: "[81f|79f|77f|75.6f|72.1f|83.3f|85.5f|87f]4"
     media: ""
     parent: {
@@ -2717,7 +2717,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "The record lowest temperature in Moscow, Russia was -42 degrees Celsius. What is the equivalent in Fahrenheit?"
+    question: "The record lowest temperature in Moscow, Russia was -42 degrees Celsius. What temperature is that?"
     answer: "[-43.6f|-42f|-40.4f|-39.1f|-45f|-47.1f|-48.2f]4"
     media: ""
     parent: {
@@ -2733,7 +2733,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "In July the mean temperature in Johannesburg, South Africa is 10 degrees Celsius. How cool is that in Fahrenheit?"
+    question: "In July the mean temperature in Johannesburg, South Africa is 10 degrees Celsius. How cool is that?"
     answer: "[50f|49f|48f|47f|46.2f|51.5f|52f|53f|60f]4"
     media: ""
     parent: {
@@ -2749,7 +2749,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "In October the average high in Seoul, South Korea reaches about 20 degrees Celsius. What is that in Fahrenheit?"
+    question: "In October the average high in Seoul, South Korea reaches about 20 degrees Celsius. How warm is that?"
     answer: "[68f|69f|70f|72f|74f|66f|64f|62f|60f]4"
     media: ""
     parent: {
@@ -3037,7 +3037,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "Jogging is generally considered to be around 5 miles per hour. What is that in kilometers per hour?"
+    question: "Jogging is generally considered to be around 5 miles per hour. How fast is that?"
     answer: "[8kmph|9kmph|10kmph|11.2kmph|7.4kmph|7kmph|6kmph|5kmph|4kmph|3kmph|2kmph|1kmph]4"
     media: ""
     parent: {
@@ -3106,7 +3106,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "Running is typically considered to be 10 kilometers per hour and faster. How fast is that in miles per hour?"
+    question: "Running is typically considered to be 10 kilometers per hour and faster. How fast is that?"
     answer: "[6mph|7mph|8mph|9mph|5mph|4mph|3mph]4"
     media: ""
     parent: {
@@ -3176,7 +3176,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "On a road a school zone typically restricts vehicle speeds to 25 miles per hour. What is that in kilometers per hour?"
+    question: "On a road a school zone typically restricts vehicle speeds to 25 miles per hour. How fast is that?"
     answer: "[40kmph|42kmph|45kmph|50kmph|38kmph|36kmph|34kmph]4"
     media: ""
     parent: {
@@ -3213,7 +3213,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "100 kilometers per hour is pretty typical speed for highway travel. What is that in miles per hour?"
+    question: "100 kilometers per hour is pretty typical speed for highway travel. How fast is that?"
     answer: "[62mph|60mph|59mph|55mph|66mph|69mph|70mph|75mph|80mph]4"
     media: ""
     parent: {
@@ -3251,7 +3251,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "Top level stock cars like those in NASCAR can surpass 200 miles per hour. What is that in kilometers per hour?"
+    question: "Top level stock cars like those in NASCAR can surpass 200 miles per hour. How fast is that?"
     answer: "[322kmph|300kmph|302kmph|290kmph|334kmph|346kmph|351kmph]4"
     media: ""
     parent: {
@@ -3288,7 +3288,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The cars in Formula One can surpass 340 kilometers per hour. How fast is that in miles per hour?"
+    question: "The cars in Formula One can surpass 340 kilometers per hour. How fast is that?"
     answer: "[211mph|222mph|230mph|244mph|202mph|194mph|188mph|185mph]4"
     media: ""
     parent: {
@@ -3326,7 +3326,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The high-subsonic cruising speed of a Boeing 747 is up to 570 miles per hour. What is that in kilometers per hour?"
+    question: "The high-subsonic cruising speed of a Boeing 747 is up to 570 miles per hour. How fast is that?"
     answer: "[920kmph|900kmph|865kmph|840kmph|800kmph|950kmph|1000kmph|1040kmph|1140kmph]4"
     media: ""
     parent: {
@@ -3438,7 +3438,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "Rifle bullets fly at speeds exceeding 3000 kilometers per hour. How fast is that in miles per hour?"
+    question: "Rifle bullets fly at speeds exceeding 3000 kilometers per hour. How fast is that?"
     answer: "[1864mph|1990mph|2022mph|2204mph|2300mph|1804mph|1750mph|1400mph|1210mph]4"
     media: ""
     parent: {
@@ -3515,7 +3515,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "The IKEA ÅDUM rug is sized to provide floor coverage around a coffee table and is just over 4 square meters in size. What is that in square feet?"
+    question: "The IKEA ÅDUM rug is sized to provide floor coverage around a coffee table and is just over 4 square meters in size. How much is that?"
     answer: "[43sqft|50sqft|53sqft|59sqft|39sqft|30sqft|20sqft]4"
     media: ""
     parent: {
@@ -3610,7 +3610,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The average size of a Walmart store is 105,000 square feet. What is that in square meters?"
+    question: "The average size of a Walmart store is 105,000 square feet. How much is that?"
     answer: "[9800sqm|10600sqm|11200sqm|12000sqm|12800sqm|13400sqm|15050sqm|9100sqm|7900sqm]4"
     media: ""
     parent: {
@@ -3647,7 +3647,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The area of a soccer field is 7140 square meters. Approximately what is that in square feet?"
+    question: "The area of a soccer field is 7140 square meters. Approximately how much is that?"
     answer: "[76800sqft|80200sqft|82000sqft|84600sqft|88100sqft|75100sqft|74000sqft|70500sqft]4"
     media: ""
     parent: {
@@ -3685,7 +3685,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The famous Lincoln Memorial Reflecting pool in Washington DC is 2029 feet by 167 feet, equaling approximately 7.75 acres. What is that area in hectares?"
+    question: "The famous Lincoln Memorial Reflecting pool in Washington DC is 2029 feet by 167 feet, equaling approximately 7.75 acres. How much area is that?"
     answer: "[3.1ha|3.6ha|4ha|4.6ha|5.3ha|2.6ha|2ha|1.8ha|1.5ha]4"
     media: ""
     parent: {
@@ -3722,7 +3722,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "Beneath the Eiffel Tower is a large public park named the \"Champ de Mars\" (\"Field of Mars\"). It is approximately 24.5 hectares in size. What is that size in acres?"
+    question: "Beneath the Eiffel Tower is a large public park named the \"Champ de Mars\" (\"Field of Mars\"). It is approximately 24.5 hectares in size. How much area is that?"
     answer: "[60.5ac|71ac|80ac|86.5ac|90.5ac|55.5ac|48ac|44.5ac]4"
     media: ""
     parent: {
@@ -3835,7 +3835,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The state of Colorado is approximately 104,000 square miles in area. What is that approximately in square kilometers?"
+    question: "The state of Colorado is approximately 104,000 square miles in area. How much area is that?"
     answer: "[270000sqkm|300000sqkm|324000sqkm|349000sqkm|250500sqkm|224000sqkm|215000sqkm]4"
     media: ""
     parent: {
@@ -3872,7 +3872,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The island of Ireland is approximately 84,000 square kilometers. What is that approximately in square miles?"
+    question: "The island of Ireland is approximately 84,000 square kilometers. How much area is that?"
     answer: "[32000sqmi|35000sqmi|38000sqmi|41000sqmi|44500sqmi|29000sqmi|25500sqmi]4"
     media: ""
     parent: {
