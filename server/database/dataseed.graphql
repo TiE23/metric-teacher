@@ -5063,6 +5063,128 @@ mutation {
     id
   }
 
+  # -> Mixed Written
+  question_length_astronomical_toMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "How long is 10,000 miles?"
+    answer: "[16093km|16000km|14993km|18012km|20009km]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  # No difficulty 2
+  question_length_astronomical_toMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The diameter of earth is about 7920 miles. About how wide is that?"
+    answer: "[12700km|12000km|11300km|10900km|13100km|14000km|14300km]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  # No difficulty 4 or 5
+
+  # -> Mixed Conversion
+  question_length_astronomical_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[20000,100000mi(20000)s]"
+    answer: "[km(30000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_astronomical_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[10000,100000mi(10000)s]"
+    answer: "[km(10000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_astronomical_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[10000,100000mi(5000)s]"
+    answer: "[km(10000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_astronomical_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[10000,100000mi(5000)s]"
+    answer: "[km(5000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_astronomical_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[10000,100000mi(1000)s]"
+    answer: "[km(2500)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  # No surveys
+
+
   ## From Metric
   # Written
   question_length_astronomical_fromMetric_001: createQuestion(data: {
