@@ -4759,7 +4759,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "In your estimation how far could you travel in a car before needing to take a bathroom break? [50,500mi(50)s]"
+    question: "In your estimation how far could you travel in a car before needing to take a bathroom break? [50,500mi(25)s]"
     answer: "[km(40)a]"
     media: ""
     parent: {
@@ -4775,7 +4775,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "In your estimation how far can a typical passenger car travel before needing to refuel? [200,600mi(50)s]"
+    question: "In your estimation how far can a typical passenger car travel before needing to refuel? [200,700mi(50)s]"
     answer: "[km(40)a]"
     media: ""
     parent: {
@@ -4824,6 +4824,206 @@ mutation {
   }) {
     id
   }
+
+  # -> Mixed Written
+  question_length_geographic_fromMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "1000 kilometers is how long?"
+    answer: "[621mi|600mi|550mi|700mi|730mi]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_fromMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The continent of Africa is approximately 8000 kilometers \"tall\" from north to south. How far is that?"
+    answer: "[4970mi|4510mi|4050mi|5400mi|6000mi]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_fromMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The Italian peninsula is approximately 1100 kilometers \"long\" from north to south. How far is that?"
+    answer: "[684mi|660mi|631mi|600mi|710mi|742mi|783mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_fromMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The island of Great Britain is approximately 900 kilometers \"long\" from north to south. How far is that?"
+    answer: "[559mi|540mi|505mi|481mi|609mi|636mi|698mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_fromMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The narrowest point of the country of Panama is approximately 61 kilometers. How wide is that?"
+    answer: "[37.9mi|36.2mi|35.1mi|33mi|39.8mi|40.7mi|41.1mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_geographic_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[2000,10000km(2000)s]"
+    answer: "[mi(2000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1000,16000km(1000)s]"
+    answer: "[mi(1000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1000,16000km(500)s]"
+    answer: "[mi(600)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[1000,16000km(500)s]"
+    answer: "[mi(300)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[1000,16000km(200)s]"
+    answer: "[mi(150)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  # Only 3 difficulty
+  question_length_geographic_fromMetric_survey_003a: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how far could you travel in a car before needing to take a bathroom break? [50,800km(50)s]"
+    answer: "[mi(25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_fromMetric_survey_003b: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how far can a typical passenger car travel before needing to refuel? [300,1100km(100)s]"
+    answer: "[mi(25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
 
   ### Astronomical
   ## To Metric
