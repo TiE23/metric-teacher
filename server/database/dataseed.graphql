@@ -3780,6 +3780,254 @@ mutation {
     id
   }
 
+  # -> Mixed Written
+  question_length_building_fromMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "How long is 50 meters?"
+    answer: "[164ft|150ft|126ft|190ft|211ft]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Located in Rio de Janeiro, Brazil, Christ the Redeemer is a 30 meter tall statue. How tall is that?"
+    answer: "[98ft|93ft|90ft|82ft|106ft|111ft|119ft]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The London Eye is a giant Ferris wheel in London, England, that stands 135 meters tall. How tall is that?"
+    answer: "[443ft|438ft|430ft|426ft|450ft|455ft|460ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The Shard tower in London, England, is 309.7 meters tall. How tall is that?"
+    answer: "[1016ft|999ft|969ft|916ft|1066ft|1111ft|1179ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The Pont du Gard in southern France is an ancient Roman aqueduct with a span of 275 meters. How long is that?"
+    answer: "[902ft|896ft|890ft|879ft|915ft|922ft|930ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_written_006: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The preferred length of a FIFA football pitch is 105 meters. How long is that?"
+    answer: "[115yd|110.5yd|105yd|100yd|120yd|124yd|130yd]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_building_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[100,500m(100)s]"
+    answer: "[ft(300)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[50,500m(50)s]"
+    answer: "[ft(150)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[50,500m(20)s]"
+    answer: "[ft(60)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[50,500m(20)s]"
+    answer: "[ft(30)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[30,500m(5)s]"
+    answer: "[ft(15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  # No 1 difficulty!
+  question_length_building_fromMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Regardless if you can swim, in your estimation how far would you be willing to fall into a satisfactorily deep swimming pool before the impact became too risky to be fun? [1,30m(1)s]"
+    answer: "[ft(15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how far can you throw a baseball? [3,135m(3)s]"
+    answer: "[ft(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_survey_004: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In your estimation how far could you kick a soccer ball? [3,75m(3)s]"
+    answer: "[ft(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_fromMetric_survey_005: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "In your estimation how far is the world record longest paper airplane throw? [30,100m(3)s]"
+    answer: "[ft(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
   ### Local
   ## To Metric
   # Written
