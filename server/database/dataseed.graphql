@@ -3495,6 +3495,254 @@ mutation {
     id
   }
 
+  # -> Mixed Written
+  question_length_building_toMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "A two-story home is typically 25 feet tall. How tall is that?"
+    answer: "[7.62m|5.22m|4.55m|9.12m|10.99m]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Semi-trucks with a trailer are typically 61 feet long. How long is that?"
+    answer: "[18.6m|16m|15.2m|14.4m|20m|21.1m|25m]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The US Capitol building in Washington D.C. is 288 feet tall. How tall is that?"
+    answer: "[88m|82m|80m|76m|92m|95m|97m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The Freedom Tower in New York City is 1776 feet tall. How tall is that?"
+    answer: "[541m|530m|515m|511m|555m|569m|601m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The Space Needle in Seattle is 605 feet tall. How tall is that?"
+    answer: "[184m|180m|177m|175m|187m|189m|199m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_written_006: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "An American Football field has a play area 100 yards in length. How long is that?"
+    answer: "[91.4m|86.5m|82.3m|80.8m|95m|99.1m|100.9m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_building_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[100,1600ft(300)s]"
+    answer: "[m(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[100,1600ft(100)s]"
+    answer: "[m(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[100,1600ft(50)s]"
+    answer: "[m(20)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[100,1600ft(50)s]"
+    answer: "[m(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[100,1600ft(10)s]"
+    answer: "[m(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  # No 1 difficulty!
+  question_length_building_toMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Regardless if you can swim, in your estimation how far would you be willing to fall into a satisfactorily deep swimming pool before the impact became too risky to be fun? [3,100ft(3)s]"
+    answer: "[m(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how far can you throw a baseball? [10,450ft(10)s]"
+    answer: "[m(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_survey_004: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In your estimation how far could you kick a soccer ball? [10,250ft(10)s]"
+    answer: "[m(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_building_toMetric_survey_005: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "In your estimation how far is the world record longest paper airplane throw? [105,305ft(10)s]"
+    answer: "[m(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
   ## From Metric
   # Written
   question_length_building_fromMetric_001: createQuestion(data: {
