@@ -5033,8 +5033,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "The Earth's circumference is 24,901 miles. How far is that?"
-    answer: "[40074km|39022km|37009km|41095km|42015km|43053km|44012km]4"
+    question: "The Earth's circumference along the equator is 24,901 miles. How far is that?"
+    answer: "[40075km|39022km|37009km|41095km|42015km|43053km|44012km]4"
     media: ""
     parent: {
       connect: {
@@ -5221,6 +5221,127 @@ mutation {
   }) {
     id
   }
+
+  # -> Mixed Written
+  question_length_astronomical_fromMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "How long is 10,000 kilometers?"
+    answer: "[6213mi|6000mi|5432mi|6600mi|7103mi]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  # No difficulty 2
+  question_length_astronomical_fromMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The distance between the Earth's north and south pole is 20,004 kilometers. How far is that?"
+    answer: "[12430mi|12004mi|11600mi|11208mi|13005mi|13660mi|15010mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  # No difficulty 4 or 5
+
+  # -> Mixed Conversion
+  question_length_astronomical_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[20000,160000km(40000)s]"
+    answer: "[mi(15000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_astronomical_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[20000,160000km(20000)s]"
+    answer: "[mi(6000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_astronomical_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[16000,160000km(8000)s]"
+    answer: "[mi(6000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_astronomical_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[16000,160000km(8000)s]"
+    answer: "[mi(3000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_astronomical_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[16000,160000km(1000)s]"
+    answer: "[mi(1500)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Astronomical-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  # No surveys
 
 
   ####### Mass
