@@ -3533,7 +3533,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The US Capitol building in Washington D.C. is 288 feet tall. How tall is that?"
+    question: "The US Capitol building in Washington, D.C., USA is 288 feet tall. How tall is that?"
     answer: "[88m|82m|80m|76m|92m|95m|97m]4"
     media: ""
     parent: {
@@ -4066,6 +4066,221 @@ mutation {
     id
   }
 
+  # -> Mixed Written
+  question_length_local_toMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "One mile is how long?"
+    answer: "[1.61km|1.2km|0.62km|2km|2.54km]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_toMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Central Park in New York, New York, USA, is 2.5 miles long. How long is that?"
+    answer: "[4km|3.5km|3km|2.5km|4.5km|5km|5.5km]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_toMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The Lincoln Memorial Reflecting Pool in Washington, D.C., USA is 0.38 miles (2029 feet) long. How long is that?"
+    answer: "[0.62km|0.55km|0.5km|0.45km|0.71km|0.79km|0.83km]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_toMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "One lap of the race track Circuit of the Americas in Austin, Texas, USA is 3.427 miles. How long is that?"
+    answer: "[5.513km|5.312km|4.911km|4.644km|5.892km|6.144km|6.403km]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_toMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The longest ship ever built was the Seawise Giant at 1504 feet long. How long is that?"
+    answer: "[458m|448m|438m|428m|468m|478m|488m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_local_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[1,6mi(2)s]"
+    answer: "[km(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1,6mi(1)s]"
+    answer: "[km(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[0.5,6mi(0.5)s]"
+    answer: "[km(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[0.5,6mi(0.5)s]"
+    answer: "[km(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[0.3,6mi(0.1)s]"
+    answer: "[km(0.25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  question_length_local_toMetric_survey_001: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "By your estimation how far away is the nearest grocery store to your home? [0.1,30mi(0.1)s]"
+    answer: "[km(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_toMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "By your estimation how far away is the nearest gas station to your home? [0.1,30mi(0.1)s]"
+    answer: "[km(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_toMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "By your estimation how far away is the nearest post office to your home? [0.1,30mi(0.1)s]"
+    answer: "[km(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  # No difficulty 4 or 5
+
   ## From Metric
   # Written
   question_length_local_fromMetric_001: createQuestion(data: {
@@ -4525,7 +4740,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "Olympic-class ferries found in Seattle can carry 1500 passengers and 144 vehicles. Its displacement (weight of the vessel itself) is 4450 metric tonnes. Convert that to US tons."
+    question: "Olympic-class ferries found in Seattle, WA, USA can carry 1500 passengers and 144 vehicles. Its displacement (weight of the vessel itself) is 4450 metric tonnes. Convert that to US tons."
     answer: "[4905ton|5005ton|5105ton|5205ton|4805ton|4705ton|4605ton|4505ton|4450ton]4"
     media: ""
     parent: {
@@ -6007,7 +6222,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "The famous Lincoln Memorial Reflecting pool in Washington DC is 2029 feet by 167 feet, equaling approximately 7.75 acres. How much area is that?"
+    question: "The famous Lincoln Memorial Reflecting pool in Washington, D.C., USA is 2029 feet by 167 feet, equaling approximately 7.75 acres. How much area is that?"
     answer: "[3.1ha|3.6ha|4ha|4.6ha|5.3ha|2.6ha|2ha|1.8ha|1.5ha]4"
     media: ""
     parent: {
