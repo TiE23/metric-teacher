@@ -4147,6 +4147,22 @@ mutation {
   }) {
     id
   }
+  question_length_local_toMetric_written_006: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "Mount Everest has an elevation of 29,029 feet. How high is that?"
+    answer: "[8848m|8818m|8764m|8703m|8909m|8987m|9009m]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Conversion
   question_length_local_toMetric_conversion_001: createQuestion(data: {
@@ -4253,7 +4269,7 @@ mutation {
     flags: 0
     difficulty: 2
     question: "By your estimation how far away is the nearest gas station to your home? [0.1,30mi(0.1)s]"
-    answer: "[km(1)a]"
+    answer: "[km(1.5)a]"
     media: ""
     parent: {
       connect: {
@@ -4317,6 +4333,222 @@ mutation {
   }) {
     id
   }
+
+  # -> Mixed Written
+  question_length_local_fromMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "One kilometer is how long?"
+    answer: "[0.62mi|0.5mi|0.25mi|0.8mi|1.6mi]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_fromMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A 5 kilometer run is how long?"
+    answer: "[3.1mi|2.54mi|2mi|4.5mi|6mi]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_fromMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The Three Gorges Dam in Hubei, China, has a length of 2.3 kilometers. How long is that?"
+    answer: "[1.4mi|1.2mi|1mi|0.9mi|1.5mi|1.7mi|1.8mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_fromMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "One lap of the race track Circuit de Spa-Francorchamps in Spa, Belgium is 7.004 kilometers. How long is that?"
+    answer: "[4.352mi|4.211mi|4.101mi|3.994mi|4.591mi|4.881|5.113mi]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_fromMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The mountain K2 on the Pakistani/Chinese border has an elevation of 8611 meters. How high is that?"
+    answer: "[28251ft|28004ft|27603ft|27145ft|28699ft|28994ft|29131ft]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_local_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[1,10km(2)s]"
+    answer: "[mi(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1,10km(1)s]"
+    answer: "[mi(0.6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[0.5,10km(0.5)s]"
+    answer: "[mi(0.6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[0.5,10km(0.5)s]"
+    answer: "[mi(0.3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[0.5,10km(0.1)s]"
+    answer: "[mi(0.15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  question_length_local_fromMetric_survey_001: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "By your estimation how far away is the nearest grocery store to your home? [0.1,90km(0.25)s]"
+    answer: "[mi(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_fromMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "By your estimation how far away is the nearest gas station to your home? [0.1,90km(0.25)s]"
+    answer: "[mi(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_local_fromMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "By your estimation how far away is the nearest post office to your home? [0.1,90km(0.25)s]"
+    answer: "[mi(0.6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Local-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  # No difficulty 4 or 5
+
 
   ### Geographic
   ## To Metric
