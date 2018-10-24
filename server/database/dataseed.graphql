@@ -4588,6 +4588,206 @@ mutation {
     id
   }
 
+  # -> Mixed Written
+  question_length_geographic_toMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "1000 miles is how long?"
+    answer: "[1609km|1600km|1500km|1700km|1850km]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_toMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "The Florida peninsula is approximately 400 miles \"long\" from north to south. How far is that?"
+    answer: "[640km|500km|450km|800km|925km]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_toMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "The distance from Chicago to New York City is approximately 700 miles. How far is that?"
+    answer: "[1130km|1050km|1000km|920km|1230km|1310km|1510km]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_toMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "The distance from Los Angeles to San Francisco is approximately 350 miles. How far is that?"
+    answer: "[560km|520km|480km|460km|600km|610km|700km]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_toMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "The distance between Los Angeles and New York City is approximately 2450 miles. How far is that?"
+    answer: "[3940km|3830km|3790km|3660km|4090km|4100km|4160km]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_length_geographic_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[2000,10000mi(2000)s]"
+    answer: "[km(3000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1000,10000mi(1000)s]"
+    answer: "[km(1000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1000,10000mi(500)s]"
+    answer: "[km(1000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[1000,10000mi(500)s]"
+    answer: "[km(500)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[1000,10000mi(100)s]"
+    answer: "[km(250)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  # Only 3 difficulty
+  question_length_geographic_toMetric_survey_003a: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how far could you travel in a car before needing to take a bathroom break? [50,500mi(50)s]"
+    answer: "[km(40)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_length_geographic_toMetric_survey_003b: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how far can a typical passenger car travel before needing to refuel? [200,600mi(50)s]"
+    answer: "[km(40)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Length - Geographic-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
   ## From Metric
   # Written
   question_length_geographic_fromMetric_001: createQuestion(data: {
