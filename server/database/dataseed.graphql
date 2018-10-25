@@ -3676,7 +3676,22 @@ mutation {
   }
 
   # -> Mixed Survey
-  # No 1 difficulty!
+  # question_length_building_toMetric_survey_001: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 1
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Building-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
   question_length_building_toMetric_survey_002: createQuestion(data: {
     type: 2
     status: 0
@@ -3961,7 +3976,22 @@ mutation {
   }
 
   # -> Mixed Survey
-  # No 1 difficulty!
+  # question_length_building_fromMetric_survey_001: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 1
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Building-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
   question_length_building_fromMetric_survey_002: createQuestion(data: {
     type: 2
     status: 0
@@ -4295,7 +4325,38 @@ mutation {
   }) {
     id
   }
-  # No difficulty 4 or 5
+  # question_length_local_toMetric_survey_004: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 4
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Local-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_local_toMetric_survey_005: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 5
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Local-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
 
   ## From Metric
   # Written
@@ -4531,23 +4592,38 @@ mutation {
   }) {
     id
   }
-  question_length_local_fromMetric_survey_003: createQuestion(data: {
-    type: 2
-    status: 0
-    flags: 0
-    difficulty: 3
-    question: "By your estimation how far away is the nearest post office to your home? [0.1,90km(0.25)s]"
-    answer: "[mi(0.6)a]"
-    media: ""
-    parent: {
-      connect: {
-        name: "Length - Local-scale - From Metric"
-      }
-    }
-  }) {
-    id
-  }
-  # No difficulty 4 or 5
+  # question_length_local_fromMetric_survey_004: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 4
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Local-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_local_fromMetric_survey_005: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 5
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Local-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
 
 
   ### Geographic
@@ -4753,7 +4829,38 @@ mutation {
   }
 
   # -> Mixed Survey
-  # Only 3 difficulty
+  # question_length_geographic_toMetric_written_001: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 1
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Geographic-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_geographic_toMetric_written_002: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 2
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Geographic-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
   question_length_geographic_toMetric_survey_003a: createQuestion(data: {
     type: 2
     status: 0
@@ -4786,6 +4893,38 @@ mutation {
   }) {
     id
   }
+  # question_length_geographic_toMetric_written_004: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 4
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Geographic-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_geographic_toMetric_written_005: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 5
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Geographic-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
 
 
   ## From Metric
@@ -4990,7 +5129,38 @@ mutation {
   }
 
   # -> Mixed Survey
-  # Only 3 difficulty
+  # question_length_geographic_fromMetric_survey_001: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 1
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Geographic-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_geographic_fromMetric_survey_001: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 1
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Geographic-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
   question_length_geographic_fromMetric_survey_003a: createQuestion(data: {
     type: 2
     status: 0
@@ -5023,6 +5193,38 @@ mutation {
   }) {
     id
   }
+  # question_length_geographic_fromMetric_survey_004: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 4
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Geographic-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_geographic_fromMetric_survey_005: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 5
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Geographic-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
 
 
   ### Astronomical
@@ -5080,7 +5282,22 @@ mutation {
   }) {
     id
   }
-  # No difficulty 2
+  # question_length_astronomical_toMetric_written_002: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 2
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
   question_length_astronomical_toMetric_written_003: createQuestion(data: {
     type: 0
     status: 0
@@ -5097,7 +5314,38 @@ mutation {
   }) {
     id
   }
-  # No difficulty 4 or 5
+  # question_length_astronomical_toMetric_written_004: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 4
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_astronomical_toMetric_written_005: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 5
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
 
   # -> Mixed Conversion
   question_length_astronomical_toMetric_conversion_001: createQuestion(data: {
@@ -5182,7 +5430,86 @@ mutation {
   }
 
   # -> Mixed Survey
-  # No surveys
+  # question_length_astronomical_toMetric_survey_001: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 1
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_astronomical_toMetric_survey_002: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 2
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_astronomical_toMetric_survey_003: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 3
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_astronomical_toMetric_survey_004: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 4
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_astronomical_toMetric_survey_005: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 5
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - To Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
 
 
   ## From Metric
@@ -5239,7 +5566,22 @@ mutation {
   }) {
     id
   }
-  # No difficulty 2
+  # question_length_astronomical_fromMetric_written_002: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 2
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
   question_length_astronomical_fromMetric_written_003: createQuestion(data: {
     type: 0
     status: 0
@@ -5256,7 +5598,38 @@ mutation {
   }) {
     id
   }
-  # No difficulty 4 or 5
+  # question_length_astronomical_fromMetric_written_004: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 4
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_astronomical_fromMetric_written_005: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 5
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
 
   # -> Mixed Conversion
   question_length_astronomical_fromMetric_conversion_001: createQuestion(data: {
@@ -5341,7 +5714,86 @@ mutation {
   }
 
   # -> Mixed Survey
-  # No surveys
+  # question_length_astronomical_fromMetric_survey_001: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 1
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_astronomical_fromMetric_survey_002: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 2
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_astronomical_fromMetric_survey_003: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 3
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_astronomical_fromMetric_survey_004: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 4
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  # question_length_astronomical_fromMetric_survey_005: createQuestion(data: {
+  #   type: 2
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 5
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Length - Astronomical-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
 
 
   ####### Mass
@@ -5372,7 +5824,7 @@ mutation {
     flags: 0
     difficulty: 3
     question: "[1,16oz]"
-    answer: "[g(15)a]"
+    answer: "[g(30)a]"
     media: ""
     parent: {
       connect: {
@@ -5553,7 +6005,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 1
-    question: "In your estimation how much does an average red building brick weigh? [1,10lbs(1)s]"
+    question: "In your estimation how much does an average red building brick weigh? [1,10lb(1)s]"
     answer: "[kg(1)a]"
     media: ""
     parent: {
@@ -5569,8 +6021,8 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "In your estimation how much do a pair of blue jeans your size weigh? [4,24oz(4)s]"
-    answer: "[g(200)a]"
+    question: "In your estimation how much do a pair of blue jeans your size weigh? [4,32oz(4)s]"
+    answer: "[g(150)a]"
     media: ""
     parent: {
       connect: {
@@ -5637,7 +6089,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "In countries that use the metric system it is common to report calorie counts per 100 grams of food. How many ounces is 100 grams?"
+    question: "In countries that use the metric system it is common to report calorie counts per 100 grams of food. How uch is that?"
     answer: "[3.5oz|3oz|2.5oz|2oz|1.5oz|1oz|4oz|4.5oz|5oz|5.5oz]4"
     media: ""
     parent: {
@@ -5666,6 +6118,253 @@ mutation {
   }) {
     id
   }
+
+  # -> Mixed Written
+  question_mass_hand_fromMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "50 grams weighs how much?"
+    answer: "[1.8oz|1.1oz|0.5oz|2.5oz|3oz]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_fromMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "A typical smartphone can weigh 150g. How much is that?"
+    answer: "[5.3oz|4.8oz|4.2oz|5.9oz|6.4oz]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_fromMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A Nintendo Wii game console weighs 1.2 kilograms. How much is that?"
+    answer: "[2.7lb|2.2lb|2lb|1.8lb|3lb|3.3lb|3.9lb]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  # question_mass_hand_fromMetric_written_004: createQuestion(data: {
+  #   type: 0
+  #   status: 0
+  #   flags: 0
+  #   difficulty: 4
+  #   question: ""
+  #   answer: ""
+  #   media: ""
+  #   parent: {
+  #     connect: {
+  #       name: "Mass - Hand-scale - From Metric"
+  #     }
+  #   }
+  # }) {
+  #   id
+  # }
+  question_mass_hand_fromMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "A third of a kilogram weighs how much?"
+    answer: "[0.73lb|0.66lb|0.63lb|0.59lb|0.77lb|0.8lb|0.84lb]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_mass_hand_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[100,500g(100)s]"
+    answer: "[oz(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[100,500g(100)s]"
+    answer: "[oz(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[50,500g(50)s]"
+    answer: "[oz(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[25,500g(25)s]"
+    answer: "[oz(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[25,500g(50)s]"
+    answer: "[oz(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  question_mass_hand_fromMetric_survey_001: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "In your estimation how much does an average red building brick weigh? [0.5,5kg(0.5)s]"
+    answer: "[lb(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_fromMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In your estimation how much do a pair of blue jeans your size weigh? [100,900g(100)s]"
+    answer: "[oz(6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_fromMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how much does a normal sized house cat weigh? [3,6kg(0.25)s]"
+    answer: "[lb(0.4)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_fromMetric_survey_004: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In your estimation how much do your shoes weigh? [100,2200g(100)s]"
+    answer: "[oz(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_fromMetric_survey_005: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "In your estimation how much does a single chicken egg weigh? [30,160g(10)s]"
+    answer: "[oz(0.6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+
 
   ### Human
   ## To Metric
