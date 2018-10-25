@@ -6487,86 +6487,134 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_mass_human_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Human-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_human_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Human-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_human_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Human-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_human_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Human-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_human_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Human-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_mass_human_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "This can be the weight of a healthy 10 year old boy. [50,100lb(10)s]"
+    answer: "[kg(7.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "This can be the weight of a healthy 6 year old girl. [35,60lb(5)s]"
+    answer: "[kg(4)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_toMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This can be the weight of a healthy 20 year old man. [125,210lb(5)s]"
+    answer: "[kg(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_toMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This can be the weight of a healthy 20 year old woman. [100,180lb(5)s]"
+    answer: "[kg(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_toMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "This can be the weight of a healthy 20 year old man [124,210lb(2)s]"
+    answer: "[kg(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_toMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "This can be the weight of a healthy 20 year old woman [100,180lb(2)s]"
+    answer: "[kg(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_toMetric_conversion_005a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "This can be the weight of a healthy 20 year old man [125,210lb(0.5)s]"
+    answer: "[kg(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_toMetric_conversion_005b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "This can be the weight of a healthy 20 year old woman [100,180lb(0.5)s]"
+    answer: "[kg(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_mass_human_toMetric_survey_001: createQuestion(data: {
@@ -6771,86 +6819,134 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_mass_human_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Human-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_human_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Human-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_human_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Human-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_human_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Human-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_human_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Human-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_mass_human_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "This can be the weight of a healthy 10 year old boy. [20,50kg(10)s]"
+    answer: "[lb(15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "This can be the weight of a healthy 6 year old girl. [15,30kg(2.5)s]"
+    answer: "[lb(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_fromMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This can be the weight of a healthy 20 year old man. [55,95kg(2.5)s]"
+    answer: "[lb(6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_fromMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This can be the weight of a healthy 20 year old woman. [45,80kg(2.5)s]"
+    answer: "[lb(6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_fromMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "This can be the weight of a healthy 20 year old man. [55,95kg(1)s]"
+    answer: "[lb(4)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_fromMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "This can be the weight of a healthy 20 year old woman. [45,80kg(1)s]"
+    answer: "[lb(4)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_fromMetric_conversion_005a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "This can be the weight of a healthy 20 year old man. [55,95kg(0.25)s]"
+    answer: "[lb(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_human_fromMetric_conversion_005b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "This can be the weight of a healthy 20 year old woman. [45,80kg(0.25)s]"
+    answer: "[lb(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Human-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_mass_human_fromMetric_survey_001: createQuestion(data: {
@@ -7056,86 +7152,118 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_mass_street_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Street-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_street_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Street-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_street_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Street-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_street_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Street-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_street_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Street-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_mass_street_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[1000,4000lb(1000)s]"
+    answer: "[kg(200)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[500,4000lb(500)s]"
+    answer: "[kg(125)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_toMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This could be the weight of a fairly small car. [1500,2500lb(250)s]"
+    answer: "[kg(75)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_toMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This could be the weight of a normal sized car. [2750,4250lb(250)s]"
+    answer: "[kg(75)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_toMetric_conversion_003c: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This could be the weight of a large SUV or truck. [4000,6500lb(250)s]"
+    answer: "[kg(75)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "This could be the weight of an empty medium-size delivery or parcel truck. [8000,10000lb(125)s]"
+    answer: "[kg(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "This could be the weight of an empty city or school bus. [10000,15000lb(50)s]"
+    answer: "[kg(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_mass_street_toMetric_survey_001: createQuestion(data: {
@@ -7340,86 +7468,118 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_mass_street_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Street-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_street_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Street-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_street_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Street-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_street_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Street-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_street_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Street-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_mass_street_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[500,2000kg(500)s]"
+    answer: "[lb(400)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[250,2000kg(250)s]"
+    answer: "[lb(250)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_fromMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This could be the weight of a fairly small car. [700,1100kg(100)s]"
+    answer: "[lb(160)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_fromMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This could be the weight of a normal sized car. [1200,2000kg(100)s]"
+    answer: "[lb(160)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_fromMetric_conversion_003c: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This could be the weight of a large SUV or truck. [1800,3000kg(100)s]"
+    answer: "[lb(160)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "This could be the weight of an empty medium-size delivery or parcel truck. [3500,4500kg(75)s]"
+    answer: "[lb(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_street_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "This could be the weight of an empty city or school bus. [4500,6800kg(25)s]"
+    answer: "[lb(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Street-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_mass_street_fromMetric_survey_001: createQuestion(data: {
@@ -7625,86 +7785,86 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_mass_building_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Building-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_building_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Building-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_building_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Building-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_building_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Building-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_building_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Building-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_mass_building_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "This is what a semi-truck and no trailer might weigh. [9-11ton(1)s]"
+    answer: "[t(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_building_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "This is what a semi-truck with an empty trailer might weigh. [15-20ton(1)s]"
+    answer: "[t(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_building_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is what a semi-truck with a fully loaded trailer might weigh. [35,40ton(0.5)s]"
+    answer: "[t(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_building_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "This is what a semi-truck with a fully loaded trailer might weigh. [35,40ton(0.25)s]"
+    answer: "[t(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_building_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "This is what a tank used in the army might weigh. [50-100ton(0.25)s]"
+    answer: "[t(0.3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_mass_building_toMetric_survey_001: createQuestion(data: {
@@ -7909,86 +8069,86 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_mass_building_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Building-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_building_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Building-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_building_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Building-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_building_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Building-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_mass_building_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Mass - Building-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_mass_building_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "This is what a semi-truck and no trailer might weigh. [8,10t(1)s]"
+    answer: "[ton(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_building_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "This is what a semi-truck with an empty trailer might weigh. [13-18t(1)s]"
+    answer: "[ton(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_building_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "This is what a semi-truck with a fully loaded trailer might weigh. [31,36t(0.5)s]"
+    answer: "[ton(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_building_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "This is what a semi-truck with a fully loaded trailer might weigh. [31,36t(0.25)s]"
+    answer: "[ton(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_building_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "This is what a tank used in the army might weigh. [45-90t(0.25)s]"
+    answer: "[ton(0.3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Building-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_mass_building_fromMetric_survey_001: createQuestion(data: {
