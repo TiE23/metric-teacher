@@ -5383,6 +5383,253 @@ mutation {
     id
   }
 
+  # -> Mixed Written
+  question_mass_hand_toMetric_written_001: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "An ounce weighs how much?"
+    answer: "[28.3g|25g|23.4g|30g|33.3g]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_written_002: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "Your hamburger comes with quarter pound (4 ounce) patty. How much is that?"
+    answer: "[113g|100g|95g|122g|131g]3"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_written_003: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "A 2018 13 inch Macbook Pro laptop weighs about 3 pounds. How much is that?"
+    answer: "[1.37kg|1.21kg|1.1kg|0.8kg|1.48kg|1.55kg|1.67kg]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_written_004: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "An original XBOX 360 game console weighs approximately 7.7 pounds. How much is that?"
+    answer: "[3.5kg|3.4kg|3.3kg|3.2kg|3.6kg|3.8kg|3.9kg]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_written_005: createQuestion(data: {
+    type: 0
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "A third of a pound weighs how much?"
+    answer: "[151g|149g|147g|146g|154g|159g|160g]4"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Conversion
+  question_mass_hand_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[2,16oz(2)s]"
+    answer: "[g(70)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1,16oz(1)s]"
+    answer: "[g(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,16oz(1)s]"
+    answer: "[g(30)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[0.5,15.5oz(0.5)s]"
+    answer: "[g(30)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[0.5,15.5oz(1)s]"
+    answer: "[g(15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+  # -> Mixed Survey
+  question_mass_hand_toMetric_survey_001: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "In your estimation how much does an average red building brick weigh? [1,10lbs(1)s]"
+    answer: "[kg(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_survey_002: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "In your estimation how much do a pair of blue jeans your size weigh? [4,24oz(4)s]"
+    answer: "[g(200)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_survey_003: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "In your estimation how much does a grown chihuahua dog weigh? [2.5,8lb(0.5)s]"
+    answer: "[kg(0.15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_survey_004: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "In your estimation how much do your shoes weigh? [4,80oz(4)s]"
+    answer: "[g(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_mass_hand_toMetric_survey_005: createQuestion(data: {
+    type: 2
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "In your estimation how much does a single chicken egg weigh? [1,4oz(0.25)s]"
+    answer: "[g(20)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Mass - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+
+
   ## From Metric
   # Written
   question_mass_hand_fromMetric_001: createQuestion(data: {
