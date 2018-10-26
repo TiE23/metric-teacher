@@ -10243,86 +10243,134 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_temperature_weather_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Weather-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_weather_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Weather-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_weather_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Weather-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_weather_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Weather-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_weather_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Weather-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_temperature_weather_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[40,80f(10)s]"
+    answer: "[c(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[32,100f(4)s]"
+    answer: "[c(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[32,100f(1)s]"
+    answer: "[c(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[50,85f(1)s]"
+    answer: "[c(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[0,32f(1)s]"
+    answer: "[c(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[95,122f(1)s]"
+    answer: "[c(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_conversion_005a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[-30,0f(1)s]"
+    answer: "[c(0.75)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_toMetric_conversion_005b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[100,130f(1)s]"
+    answer: "[c(0.75)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_temperature_weather_toMetric_survey_001: createQuestion(data: {
@@ -10689,86 +10737,134 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_temperature_weather_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Weather-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_weather_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Weather-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_weather_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Weather-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_weather_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Weather-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_weather_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Weather-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_temperature_weather_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[5,25c(5)s]"
+    answer: "[f(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[0,38c(2)s]"
+    answer: "[f(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[0,38c(1)s]"
+    answer: "[f(2.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[10,30c(1)s]"
+    answer: "[f(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[-20,0c(1)s]"
+    answer: "[f(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[35,50c(1)s]"
+    answer: "[f(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_conversion_005a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[-35,-15c(1)s]"
+    answer: "[f(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_weather_fromMetric_conversion_005b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[35,55c(1)s]"
+    answer: "[f(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Weather-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_temperature_weather_fromMetric_survey_001: createQuestion(data: {
@@ -10974,86 +11070,86 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_temperature_cooking_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Cooking-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_cooking_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Cooking-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_cooking_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Cooking-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_cooking_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Cooking-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_cooking_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Cooking-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_temperature_cooking_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[200,500f(100)s]"
+    answer: "[c(30)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_cooking_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[150,500f(50)s]"
+    answer: "[c(20)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_cooking_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[150,500(25)s]"
+    answer: "[c(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_cooking_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[150,500f(10)s]"
+    answer: "[c(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_cooking_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[150,500f(5)s]"
+    answer: "[c(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_temperature_cooking_toMetric_survey_001: createQuestion(data: {
@@ -11258,86 +11354,86 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_temperature_cooking_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Cooking-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_cooking_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Cooking-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_cooking_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Cooking-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_cooking_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Cooking-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_cooking_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Cooking-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_temperature_cooking_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[100,250c(50)s]"
+    answer: "[f(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_cooking_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[100,250c(25)s]"
+    answer: "[f(40)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_cooking_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[100,250c(10)s]"
+    answer: "[f(25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_cooking_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[100,250c(5)s]"
+    answer: "[f(20)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_cooking_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[100,250c(5)s]"
+    answer: "[f(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Cooking-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_temperature_cooking_fromMetric_survey_001: createQuestion(data: {
@@ -11543,86 +11639,86 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_temperature_chemistry_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Chemistry-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_chemistry_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Chemistry-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_chemistry_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Chemistry-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_chemistry_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Chemistry-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_chemistry_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Chemistry-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_temperature_chemistry_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[1000,5000f(1000)s]"
+    answer: "[c(300)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_chemistry_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1000,5000f(500)s]"
+    answer: "[c(200)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_chemistry_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[500,5000f(250)s]"
+    answer: "[c(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_chemistry_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[500,5000f(100)s]"
+    answer: "[c(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_chemistry_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[500,5000f(50)s]"
+    answer: "[c(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_temperature_chemistry_toMetric_survey_001: createQuestion(data: {
@@ -11827,86 +11923,86 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_temperature_chemistry_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Chemistry-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_chemistry_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Chemistry-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_chemistry_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Chemistry-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_chemistry_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Chemistry-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_temperature_chemistry_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Temperature - Chemistry-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_temperature_chemistry_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[500,2500c(500)s]"
+    answer: "[f(500)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_chemistry_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[500,2500c(250)s]"
+    answer: "[f(400)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_chemistry_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[250,2500c(125)s]"
+    answer: "[f(200)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_chemistry_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[250,2500c(50)s]"
+    answer: "[f(200)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_temperature_chemistry_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[250,2500c(25)s]"
+    answer: "[f(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Temperature - Chemistry-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_temperature_chemistry_fromMetric_survey_001: createQuestion(data: {
