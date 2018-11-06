@@ -2747,7 +2747,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "In your estimation how high are the top of your shoulders from the floor when standing? [100,230(2)s]"
+    question: "In your estimation how high are the top of your shoulders from the floor when standing? [100,230cm(2)s]"
     answer: "[in(1)a]"
     media: ""
     parent: {
@@ -3412,7 +3412,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "In your estimation how wide is a single lane for car traffic on a street? [2,4.5(0.2)s]"
+    question: "In your estimation how wide is a single lane for car traffic on a street? [2,4.5m(0.2)s]"
     answer: "[ft(1.5)a]"
     media: ""
     parent: {
@@ -8978,7 +8978,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "[10,250(5)s]"
+    question: "[10,250gal(5)s]"
     answer: "[l(20)a]"
     media: ""
     parent: {
@@ -8994,7 +8994,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 4
-    question: "[10,250(1)s]"
+    question: "[10,250gal(1)s]"
     answer: "[l(20)a]"
     media: ""
     parent: {
@@ -9010,7 +9010,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 5
-    question: "[10,500(1)s]"
+    question: "[10,500gal(1)s]"
     answer: "[l(15)a]"
     media: ""
     parent: {
@@ -11107,7 +11107,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 3
-    question: "[150,500(25)s]"
+    question: "[150,500f(25)s]"
     answer: "[c(10)a]"
     media: ""
     parent: {
@@ -15119,86 +15119,118 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_hand_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Hand-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_hand_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Hand-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_hand_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Hand-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_hand_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Hand-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_hand_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Hand-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_hand_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[10,100sqft(20)s]"
+    answer: "[sqm(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[10,100sqft(10)s]"
+    answer: "[sqm(0.3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_toMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[10,100sqft(5)s]"
+    answer: "[sqm(0.25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_toMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,10sqft(1)s]"
+    answer: "[sqm(0.1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_toMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[1,100sqft(1)s]"
+    answer: "[sqm(0.1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_toMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[1,10sqft(0.5)s]"
+    answer: "[sqm(0.05)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[1,100sqft(0.5)s]"
+    answer: "[sqm(0.05)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_hand_toMetric_survey_001: createQuestion(data: {
@@ -15385,86 +15417,118 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_hand_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Hand-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_hand_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Hand-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_hand_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Hand-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_hand_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Hand-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_hand_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Hand-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_hand_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[1,9sqm(2)s]"
+    answer: "[sqft(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1,9sqm(1)s]"
+    answer: "[sqft(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_fromMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1,9sqm(0.5)s]"
+    answer: "[sqft(2.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_fromMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[0.1,1sqm(0.1)s]"
+    answer: "[sqft(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_fromMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[0.1,9sqm(0.1)s]"
+    answer: "[sqft(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_fromMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[0.1,1sqm(0.05)s]"
+    answer: "[sqft(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_hand_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[0.1,9sqm(0.05)s]"
+    answer: "[sqft(0.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Hand-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_hand_fromMetric_survey_001: createQuestion(data: {
@@ -15670,86 +15734,118 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_home_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Home-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_home_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Home-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_home_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Home-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_home_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Home-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_home_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Home-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_home_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[1000,4000sqft(1000)s]"
+    answer: "[sqm(30)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1000,4000sqft(500)s]"
+    answer: "[sqm(15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_toMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[500,4000sqft(250)s]"
+    answer: "[sqm(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_toMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[100,1000sqft(100)s]"
+    answer: "[sqm(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_toMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[100,4000sqft(50)s]"
+    answer: "[sqm(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_toMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[100,1000sqft(25)s]"
+    answer: "[sqm(2.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[100,1000sqft(10)s]"
+    answer: "[sqm(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_home_toMetric_survey_001: createQuestion(data: {
@@ -15954,86 +16050,118 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_home_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Home-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_home_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Home-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_home_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Home-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_home_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Home-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_home_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Home-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_home_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[100,400sqm(100)s]"
+    answer: "[sqft(300)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[100,400sqm(50)s]"
+    answer: "[sqft(150)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_fromMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[100,400sqm(20)s]"
+    answer: "[sqft(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_fromMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[9,90sqm(1)s]"
+    answer: "[sqft(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_fromMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[9,400sqm(5)s]"
+    answer: "[sqft(50)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_fromMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[9,90sqm(0.5)s]"
+    answer: "[sqft(25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_home_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[9,500sqm(0.5)s]"
+    answer: "[sqft(20)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Home-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_home_fromMetric_survey_001: createQuestion(data: {
@@ -16239,86 +16367,86 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_commercial_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Commercial-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_commercial_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Commercial-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_commercial_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Commercial-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_commercial_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Commercial-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_commercial_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Commercial-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_commercial_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[50000,200000sqft(50000)s]"
+    answer: "[sqm(3000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_commercial_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[50000,200000sqft(20000)s]"
+    answer: "[sqm(1500)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_commercial_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[10000,200000sqft(10000)s]"
+    answer: "[sqm(1000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_commercial_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[5000,200000sqft(5000)s]"
+    answer: "[sqm(500)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_commercial_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[4000,215000sqft(1000)s]"
+    answer: "[sqm(250)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_commercial_toMetric_survey_001: createQuestion(data: {
@@ -16523,86 +16651,86 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_commercial_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Commercial-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_commercial_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Commercial-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_commercial_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Commercial-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_commercial_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Commercial-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_commercial_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Commercial-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_commercial_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[5000,20000sqm(5000)s]"
+    answer: "[sqft(30000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_commercial_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[5000,20000sqm(2000)s]"
+    answer: "[sqft(15000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_commercial_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1000,20000sqm(1000)s]"
+    answer: "[sqft(10000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_commercial_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[500,20000sqm(500)s]"
+    answer: "[sqft(5000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_commercial_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[400,20000sqm(100)s]"
+    answer: "[sqft(2500)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Commercial-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_commercial_fromMetric_survey_001: createQuestion(data: {
@@ -16808,86 +16936,118 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_land_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Land-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_land_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Land-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_land_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Land-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_land_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Land-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_land_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Land-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_land_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[50,250ac(50)s]"
+    answer: "[ha(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[10,250ac(10)s]"
+    answer: "[ha(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_toMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[10,250ac(10)s]"
+    answer: "[ha(3)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_toMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[6,20ac(2)s]"
+    answer: "[ha(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_toMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[5,250ac(5)s]"
+    answer: "[ha(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_toMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[5,20ac(1)s]"
+    answer: "[ha(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[20,250ac(1)s]"
+    answer: "[ha(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_land_toMetric_survey_001: createQuestion(data: {
@@ -17092,86 +17252,118 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_land_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Land-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_land_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Land-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_land_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Land-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_land_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Land-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_land_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Land-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_land_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[20,100ha(20)s]"
+    answer: "[ac(25)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[10,100ha(10)s]"
+    answer: "[ac(15)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_fromMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[5,100ha(5)s]"
+    answer: "[ac(7.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_fromMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[2,10ha(2)s]"
+    answer: "[ac(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_fromMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[2,100ha(2)s]"
+    answer: "[ac(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_fromMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[2,8ha(0.5)s]"
+    answer: "[ac(2.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_land_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[8,100ha(0.5)s]"
+    answer: "[ac(5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Land-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_land_fromMetric_survey_001: createQuestion(data: {
@@ -17377,86 +17569,134 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_jurisdictional_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Jurisdictional-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_jurisdictional_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Jurisdictional-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_jurisdictional_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Jurisdictional-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_jurisdictional_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Jurisdictional-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_jurisdictional_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Jurisdictional-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_jurisdictional_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[1000,7000sqmi(1000)s]"
+    answer: "[sqkm(500)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[1000,7000sqmi(500)s]"
+    answer: "[sqkm(250)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_toMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[500,7000sqmi(500)s]"
+    answer: "[sqkm(150)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_toMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[5,40sqmi(5)s]"
+    answer: "[sqkm(10)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_toMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[500,7000sqmi(100)s]"
+    answer: "[sqkm(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_toMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[2,44sqmi(2)s]"
+    answer: "[sqkm(2)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_toMetric_conversion_005a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[100,7000sqmi(50)s]"
+    answer: "[sqkm(75)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_toMetric_conversion_005b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[0.5,100sqmi(0.5)s]"
+    answer: "[sqkm(1.5)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_jurisdictional_toMetric_survey_001: createQuestion(data: {
@@ -17661,86 +17901,134 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_jurisdictional_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Jurisdictional-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_jurisdictional_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Jurisdictional-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_jurisdictional_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Jurisdictional-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_jurisdictional_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Jurisdictional-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_jurisdictional_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Jurisdictional-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_jurisdictional_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[2000,20000sqkm(2000)s]"
+    answer: "[sqmi(200)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[2000,20000sqkm(1000)s]"
+    answer: "[sqmi(100)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_fromMetric_conversion_003a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[1000,20000sqkm(1000)s]"
+    answer: "[sqmi(60)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_fromMetric_conversion_003b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[10,100sqkm(10)s]"
+    answer: "[sqmi(4)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_fromMetric_conversion_004a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[1000,20000sqkm(200)s]"
+    answer: "[sqmi(40)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_fromMetric_conversion_004b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[5,110sqkm(5)s]"
+    answer: "[sqmi(1)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_fromMetric_conversion_005a: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[250,20000sqkm(100)s]"
+    answer: "[sqmi(30)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_jurisdictional_fromMetric_conversion_005b: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[1,250sqkm(1)s]"
+    answer: "[sqmi(0.6)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Jurisdictional-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_jurisdictional_fromMetric_survey_001: createQuestion(data: {
@@ -17946,86 +18234,86 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_territory_toMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Territory-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_territory_toMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Territory-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_territory_toMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Territory-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_territory_toMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Territory-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_territory_toMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Territory-scale - To Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_territory_toMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[100000,500000sqmi(100000)s]"
+    answer: "[sqkm(50000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_territory_toMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[100000,700000sqmi(500000)s]"
+    answer: "[sqkm(25000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_territory_toMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[50000,1000000sqmi(50000)s]"
+    answer: "[sqkm(15000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_territory_toMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[50000,1000000sqmi(10000)s]"
+    answer: "[sqkm(10000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_territory_toMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[10000,1000000sqmi(5000)s]"
+    answer: "[sqkm(7500)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - To Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_territory_toMetric_survey_001: createQuestion(data: {
@@ -18230,86 +18518,86 @@ mutation {
   # }
 
   # -> Mixed Conversion
-  # question_area_territory_fromMetric_conversion_001: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 1
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Territory-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_territory_fromMetric_conversion_002: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 2
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Territory-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_territory_fromMetric_conversion_003: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 3
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Territory-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_territory_fromMetric_conversion_004: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 4
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Territory-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
-  # question_area_territory_fromMetric_conversion_005: createQuestion(data: {
-  #   type: 1
-  #   status: 0
-  #   flags: 0
-  #   difficulty: 5
-  #   question: ""
-  #   answer: ""
-  #   media: ""
-  #   parent: {
-  #     connect: {
-  #       name: "Area - Territory-scale - From Metric"
-  #     }
-  #   }
-  # }) {
-  #   id
-  # }
+  question_area_territory_fromMetric_conversion_001: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 1
+    question: "[200000,2000000sqkm(200000)s]"
+    answer: "[sqmi(20000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_territory_fromMetric_conversion_002: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 2
+    question: "[200000,2000000sqkm(100000)s]"
+    answer: "[sqmi(10000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_territory_fromMetric_conversion_003: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 3
+    question: "[100000,2000000sqkm(100000)s]"
+    answer: "[sqmi(6000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_territory_fromMetric_conversion_004: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 4
+    question: "[100000,2000000sqkm(200)s]"
+    answer: "[sqmi(4000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
+  question_area_territory_fromMetric_conversion_005: createQuestion(data: {
+    type: 1
+    status: 0
+    flags: 0
+    difficulty: 5
+    question: "[25000,2000000sqkm(10000)s]"
+    answer: "[sqmi(3000)a]"
+    media: ""
+    parent: {
+      connect: {
+        name: "Area - Territory-scale - From Metric"
+      }
+    }
+  }) {
+    id
+  }
 
   # -> Mixed Survey
   # question_area_territory_fromMetric_survey_001: createQuestion(data: {
