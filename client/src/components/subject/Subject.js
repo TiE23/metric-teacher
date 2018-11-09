@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Item } from "semantic-ui-react";
+import { Icon, Item } from "semantic-ui-react";
+
+import DocumentationSubjectModal from "../documentation/DocumentationSubjectModal";
 
 const Subject = props =>  (
   <Item.Group>
@@ -9,7 +11,21 @@ const Subject = props =>  (
       <Item.Content>
         <Item.Header>{props.subjectData.name}</Item.Header>
         <Item.Description>
-          {props.subjectData.description}
+          <p>{props.subjectData.description}</p>
+          <p style={{ color: "teal" }}>
+            <Icon name="book" /> {" "}
+            <DocumentationSubjectModal subject={props.subjectData.name} toMetric>
+              <span style={{ textDecoration: "underline", cursor: "pointer" }}>
+                To Metric
+              </span>
+            </DocumentationSubjectModal>
+            {" | "}
+            <DocumentationSubjectModal subject={props.subjectData.name} toMetric={false}>
+              <span style={{ textDecoration: "underline", cursor: "pointer" }}>
+                From Metric
+              </span>
+            </DocumentationSubjectModal>
+          </p>
         </Item.Description>
         <Item.Extra>
           <b>Did you know?</b>{props.subjectData.measurementDescription}
