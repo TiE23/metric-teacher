@@ -102,6 +102,8 @@ const ChallengeList = (props) => {
       if (CHALLENGE_CLEAR_INCORRECT_ANSWERS_ON_CORRECT &&
       currentChallengeProgress.incorrectAnswers.length) {
         // Update incorrectAnswers with null values so no longer are incorrect answers greyed-out.
+        // These are made into null values so that we don't lose the length of the array to track
+        // the number of incorrect answers.
         // Take note that that this counts on specific if/else behavior in
         // ChallengeManager.updateChallengeProgress(), so be aware of that when modifying.
         challengeProgressUpdate.incorrectAnswers =

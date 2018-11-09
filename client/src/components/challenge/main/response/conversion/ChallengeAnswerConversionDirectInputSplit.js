@@ -125,6 +125,13 @@ class ChallengeAnswerConversionDirectInputSplit extends PureComponent {
             />
           </Grid.Column>
         </Grid.Row>
+        {this.props.incorrectAnswerHint &&
+          <Grid.Row>
+            <Grid.Column>
+              <p>{this.props.incorrectAnswerHint}</p>
+            </Grid.Column>
+          </Grid.Row>
+        }
         <Grid.Row>
           <Grid.Column {...CHALLENGE_KEYPAD_COLUMN_WIDTH}>
             <ChallengeAnswerConversionDirectKeypad
@@ -147,11 +154,13 @@ ChallengeAnswerConversionDirectInputSplit.propTypes = {
   inputUnit: PropTypes.string.isRequired,
   inputValue: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+  incorrectAnswerHint: PropTypes.string,
   inputProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 ChallengeAnswerConversionDirectInputSplit.defaultProps = {
   inputProps: null,
+  incorrectAnswerHint: null,
 };
 
 export default ChallengeAnswerConversionDirectInputSplit;

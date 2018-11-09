@@ -2,6 +2,7 @@ import md5 from "md5";
 import jwt_decode from "jwt-decode";  // eslint-disable-line camelcase
 import isEmail from "validator/lib/isEmail";
 import isDecimal from "validator/lib/isDecimal";
+import findLast from "lodash/findLast";
 import mergeWith from "lodash/mergeWith";
 import random from "lodash/random";
 import range from "lodash/range";
@@ -772,6 +773,34 @@ const scoreProgressColor = (currentScore, maxScore) => {
 
 
 /**
+ * Generates the incorrect answer hint helper for slider and direct input.
+ * @param incorrectAnswers
+ * @param inputUnit
+ * @param correctAnswer
+ * @returns {*}
+ */
+const challengeIncorrectAnswerHinter = (incorrectAnswers, inputUnit, correctAnswer) => {
+  if (incorrectAnswers.length) {
+    const lastInputAnswer = findLast(incorrectAnswers, (answer) => {
+      if (typeof answer === "string") {
+        return answer.includes("i_");
+      }
+      return false;
+    });
+
+    if (lastInputAnswer) {
+      const lastAnswerNumber = parseFloat(lastInputAnswer.slice(2));
+      return deline`
+      Hint: Your previous input,
+      ${unitWorder(lastAnswerNumber, UNIT_WORDS[inputUnit], true)},
+      was too ${lastAnswerNumber > correctAnswer ? "high" : "low"}.`;
+    }
+  }
+  return null;
+};
+
+
+/**
  * Super simple function. You put in your value and your fromUnitWord or toUnitWord object and get
  * the proper string in return.
  * Ex:
@@ -1317,6 +1346,7 @@ export default {
   stringTruncator,
   isEmptyRecursive,
   scoreProgressColor,
+  challengeIncorrectAnswerHinter,
   unitWorder,
   unitReadabilityHelper,
   rangeWorder,

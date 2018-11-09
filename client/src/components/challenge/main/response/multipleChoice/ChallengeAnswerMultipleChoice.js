@@ -33,7 +33,7 @@ const ChallengeAnswerMultipleChoice = (props) => {
       key={`choice_${choiceNumber}`}
       number={choiceNumber}
       text={makeText(props.choices[choiceNumber])}
-      wrong={props.incorrectAnswers.includes(choiceNumber)}
+      wrong={props.incorrectAnswers.includes(`c_${choiceNumber}`)}
       selected={props.selectedAnswer === choiceNumber}
       handleSelect={handleAnswerSelect}
     />
@@ -75,7 +75,7 @@ ChallengeAnswerMultipleChoice.propTypes = {
   }).isRequired).isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,
   choicesSelected: PropTypes.arrayOf(PropTypes.number), // This will temporarily be undefined.
-  incorrectAnswers: PropTypes.arrayOf(PropTypes.number).isRequired,
+  incorrectAnswers: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectedAnswer: PropTypes.number,
 };
 

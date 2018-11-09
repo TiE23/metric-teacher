@@ -6,6 +6,8 @@ import ChallengeAnswerConversionDirect from "./conversion/ChallengeAnswerConvers
 import ChallengeAnswerConversionSlider from "./conversion/ChallengeAnswerConversionSlider";
 import ChallengeSurveyNoteInput from "./ChallengeSurveyNoteInput";
 
+import utils from "../../../../utils";
+
 import {
   QA_DATA_EVERYTHING,
 } from "../../../../propTypes";
@@ -23,6 +25,14 @@ import {
 const ChallengeAnswerArea = (props) => {
   const { currentChallenge, currentQaProgress } = props;
   const { responseMode } = props.currentQaProgress;
+
+  const incorrectAnswerHint = responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
+  responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER ?
+    utils.challengeIncorrectAnswerHinter(
+      props.incorrectAnswers,
+      props.qaData.answer.data.unit,
+      props.qaData.answer.data.conversion.exact,
+    ) : null;
 
   if (responseMode === CHALLENGE_RESPONSE_MULTIPLE_WRITTEN) {
     return (
@@ -52,6 +62,7 @@ const ChallengeAnswerArea = (props) => {
         updateCurrentChallengeData={props.updateCurrentChallengeData}
         inputUnit={props.qaData.answer.data.unit}
         inputtedAnswer={currentChallenge.inputData}
+        incorrectAnswerHint={incorrectAnswerHint}
       />
     );
   } else if (responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
@@ -63,6 +74,7 @@ const ChallengeAnswerArea = (props) => {
         rangeMin={currentQaProgress.rangeData[0]}
         rangeMax={currentQaProgress.rangeData[1]}
         rangeStep={currentQaProgress.rangeData[2]}
+        incorrectAnswerHint={incorrectAnswerHint}
       />
     );
   } else if (responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER) {
@@ -110,7 +122,7 @@ ChallengeAnswerArea.propTypes = {
     responseMode: PropTypes.number.isRequired,
   }).isRequired,
   updateCurrentChallengeData: PropTypes.func.isRequired,
-  incorrectAnswers: PropTypes.arrayOf(PropTypes.number).isRequired,
+  incorrectAnswers: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default ChallengeAnswerArea;
