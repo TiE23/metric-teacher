@@ -38,6 +38,13 @@ const ChallengeAnswerConversionSlider = (props) => {
           />
         </Grid.Column>
       </Grid.Row>
+      {props.incorrectAnswerHint &&
+        <Grid.Row>
+          <Grid.Column>
+            <p>{props.incorrectAnswerHint}</p>
+          </Grid.Column>
+        </Grid.Row>
+      }
     </Grid>
   );
 };
@@ -50,11 +57,13 @@ ChallengeAnswerConversionSlider.propTypes = {
   rangeMax: PropTypes.number.isRequired,
   rangeStep: PropTypes.number.isRequired,
   surveyAnswerMode: PropTypes.bool,
+  incorrectAnswerHint: PropTypes.string,
 };
 
 ChallengeAnswerConversionSlider.defaultProps = {
   inputtedAnswer: null,
   surveyAnswerMode: false,
+  incorrectAnswerHint: null,
 };
 
 export default ChallengeAnswerConversionSlider;

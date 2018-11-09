@@ -20,6 +20,7 @@ const ChallengeAnswerConversionDirect = (props) => {
         inputUnit={props.inputUnit}
         inputValue={props.inputtedAnswer || ""}
         placeholder="..."
+        incorrectAnswerHint={props.incorrectAnswerHint}
       />
     );
   } else {
@@ -29,6 +30,7 @@ const ChallengeAnswerConversionDirect = (props) => {
         inputUnit={props.inputUnit}
         inputValue={props.inputtedAnswer || ""}
         placeholder="..."
+        incorrectAnswerHint={props.incorrectAnswerHint}
       />
     );
   }
@@ -38,10 +40,12 @@ ChallengeAnswerConversionDirect.propTypes = {
   updateCurrentChallengeData: PropTypes.func.isRequired,
   inputUnit: PropTypes.string.isRequired,
   inputtedAnswer: PropTypes.string,
+  incorrectAnswerHint: PropTypes.string,
 };
 
 ChallengeAnswerConversionDirect.defaultProps = {
   inputtedAnswer: null,
+  incorrectAnswerHint: null,
 };
 
 export default ChallengeAnswerConversionDirect;

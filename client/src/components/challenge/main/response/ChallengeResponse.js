@@ -40,9 +40,9 @@ function ChallengeResponse(props) {
     utils.t0(currentChallenge.inputData)) {
       // Multiple choice answers should be === 0 to be correct.
       if (currentChallenge.inputData === 0) {
-        props.resolveQa(CHALLENGE_RESOLUTION_CORRECT, { answer: currentChallenge.inputData });
+        props.resolveQa(CHALLENGE_RESOLUTION_CORRECT, { answer: `c_${currentChallenge.inputData}` });
       } else {
-        props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT, { answer: currentChallenge.inputData });
+        props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT, { answer: `c_${currentChallenge.inputData}` });
       }
     } else if ((currentQaProgress.responseMode === CHALLENGE_RESPONSE_INPUT_DIRECT ||
       currentQaProgress.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) &&
@@ -53,9 +53,9 @@ function ChallengeResponse(props) {
       if (!Number.isNaN(inputValue) &&
       inputValue >= props.qaData.answer.data.conversion.range.bottom.value &&
       inputValue <= props.qaData.answer.data.conversion.range.top.value) {
-        props.resolveQa(CHALLENGE_RESOLUTION_CORRECT, { answer: inputValue });
+        props.resolveQa(CHALLENGE_RESOLUTION_CORRECT, { answer: `i_${inputValue}` });
       } else {
-        props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT, { answer: inputValue });
+        props.resolveQa(CHALLENGE_RESOLUTION_INCORRECT, { answer: `i_${inputValue}` });
       }
     } else if (currentQaProgress.responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER) {
       // Filling out a survey is different. The inputData is an object.
@@ -118,7 +118,7 @@ ChallengeResponse.propTypes = {
     inputData: PropTypes.any,
   }).isRequired,
   currentQaProgress: PropTypes.shape({
-    incorrectAnswers: PropTypes.arrayOf(PropTypes.number).isRequired,
+    incorrectAnswers: PropTypes.arrayOf(PropTypes.string).isRequired,
     responseMode: PropTypes.number,
   }).isRequired,
   challengeCompletion: PropTypes.shape({

@@ -62,6 +62,13 @@ const ChallengeAnswerConversionDirectInput = (props) => {
           />
         </Grid.Column>
       </Grid.Row>
+      {props.incorrectAnswerHint &&
+      <Grid.Row>
+        <Grid.Column>
+          <p>{props.incorrectAnswerHint}</p>
+        </Grid.Column>
+      </Grid.Row>
+      }
       <Grid.Row>
         <Grid.Column {...CHALLENGE_KEYPAD_COLUMN_WIDTH}>
           <ChallengeAnswerConversionDirectKeypad
@@ -80,11 +87,13 @@ ChallengeAnswerConversionDirectInput.propTypes = {
   inputUnit: PropTypes.string.isRequired,
   inputValue: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+  incorrectAnswerHint: PropTypes.string,
   inputProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 ChallengeAnswerConversionDirectInput.defaultProps = {
   inputProps: null,
+  incorrectAnswerHint: null,
 };
 
 export default ChallengeAnswerConversionDirectInput;

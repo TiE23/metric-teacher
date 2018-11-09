@@ -129,12 +129,13 @@ class ChallengeMain extends PureComponent {
         responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
           // TODO - Survey re-choose support
           const { data } = qaData.answer;
+          const payloadAnswer = parseFloat(payload.answer.slice(2));
 
-          const miss = Math.abs(payload.answer - data.conversion.friendly);
+          const miss = Math.abs(payloadAnswer - data.conversion.friendly);
           if (miss < 0.1) {
             dimmerExtra = deline`
               You answer,
-              ${utils.unitWorder(payload.answer, data.toUnitWord, true)},
+              ${utils.unitWorder(payloadAnswer, data.toUnitWord, true)},
               was ${miss === 0 ? "" : "almost "}exactly right!
             `;
           } else {
@@ -142,7 +143,7 @@ class ChallengeMain extends PureComponent {
               Correct answer is
               ${utils.unitWorder(data.conversion.friendly, data.toUnitWord, true)}.
               Your answer:
-              ${utils.unitWorder(payload.answer, data.toUnitWord, true)}.
+              ${utils.unitWorder(payloadAnswer, data.toUnitWord, true)}.
             `;
           }
         }
@@ -161,12 +162,13 @@ class ChallengeMain extends PureComponent {
         responseMode === CHALLENGE_RESPONSE_INPUT_SLIDER) {
           // TODO - Survey re-choose support
           const { data } = qaData.answer;
+          const payloadAnswer = parseFloat(payload.answer.slice(2));
 
           dimmerExtra = deline`
             The correct answer is
-            ${data.conversion.friendly > payload.answer ? "greater" : "less"}
+            ${data.conversion.friendly > payloadAnswer ? "greater" : "less"}
             than your answer: 
-            ${utils.unitWorder(payload.answer, data.toUnitWord, true)}.
+            ${utils.unitWorder(payloadAnswer, data.toUnitWord, true)}.
           `;
         }
       } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_FILLED) {
@@ -272,7 +274,7 @@ ChallengeMain.propTypes = {
   qaData: QA_DATA_EVERYTHING.isRequired,
   currentQaProgress: PropTypes.shape({
     correctAnswerCount: PropTypes.number.isRequired,
-    incorrectAnswers: PropTypes.arrayOf(PropTypes.number).isRequired,
+    incorrectAnswers: PropTypes.arrayOf(PropTypes.string).isRequired,
     responseMode: PropTypes.number,
   }).isRequired,
   currentChallenge: PropTypes.shape({
