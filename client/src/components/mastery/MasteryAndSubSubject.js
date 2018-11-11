@@ -9,7 +9,9 @@ const MasteryAndSubSubject = props => (
   <div>
     {props.subSubjectData &&
     <SubSubject
-      subSubjectData={props.subSubjectData}
+      description={props.subSubjectData.description}
+      subjectName={props.subSubjectData.parent.name}
+      toMetric={props.subSubjectData.toMetric}
     />
     }
     {props.masteryData &&
@@ -36,6 +38,11 @@ const MasteryAndSubSubject = props => (
 MasteryAndSubSubject.propTypes = {
   subSubjectData: PropTypes.shape({
     id: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    parent: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+    toMetric: PropTypes.bool.isRequired,
   }),
   masteryData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   queryInfo: PropTypes.shape({

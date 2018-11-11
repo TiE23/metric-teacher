@@ -88,20 +88,6 @@ export const SUBJECT_DETAILS_QUERY = gql`
       ...SubjectDataAll
       subSubjects {
         ...SubSubjectDataAll
-      }
-    }
-  }
-  ${SubjectDataAll}
-  ${SubSubjectDataAll}
-`;
-
-// Same as SUBJECT_DETAILS_QUERY but also includes a convenient Subject ID inside every SubSubject.
-export const SUBJECT_DETAILS_PARENT_ID_QUERY = gql`
-  query SubjectDetailsParentIdQuery {
-    allSubjects {
-      ...SubjectDataAll
-      subSubjects {
-        ...SubSubjectDataAll
         parent {
           id
           name
@@ -130,11 +116,15 @@ export const SUBSUBJECT_DETAILS_QUERY = gql`
 // SubjectsList component where a student's active Masteries are added before the page is rendered.
 // Limiting to zero lets me have an empty array to later fill with a single Mastery.
 export const SUBJECT_AND_MASTERY_DETAILS_QUERY = gql`
-  query StudentActiveMasteriesQuery ($studentid: ID!) {
+  query SubjectAndMasteryDetailsQuery ($studentid: ID!) {
     allSubjects {
       ...SubjectDataAll
       subSubjects {
         ...SubSubjectDataAll
+        parent {
+          id
+          name
+        }
         masteries (first: 0) {
           ...MasteryDataAllExtra
         }

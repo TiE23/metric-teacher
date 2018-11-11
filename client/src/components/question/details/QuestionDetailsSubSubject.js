@@ -7,7 +7,7 @@ import QuestionDetailsSubSubjectsSelector from "./QuestionDetailsSubSubjectsSele
 import SubSubjectReview from "../../subsubject/SubSubjectReview";
 
 import {
-  SUBJECT_DETAILS_PARENT_ID_QUERY,
+  SUBJECT_DETAILS_QUERY,
   SUBSUBJECT_DETAILS_QUERY,
 } from "../../../graphql/Queries";
 
@@ -15,7 +15,7 @@ const QuestionDetailsSubSubject = props => (
   <div>
     {props.editMode ?
       <Query
-        query={SUBJECT_DETAILS_PARENT_ID_QUERY}
+        query={SUBJECT_DETAILS_QUERY}
       >
         {queryProps => (
           <QueryHandler queryData={queryProps}>

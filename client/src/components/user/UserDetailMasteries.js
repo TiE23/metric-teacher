@@ -59,6 +59,7 @@ const invertMasteriesData = (masteriesData) => {
     // Make root (no child objects) copies of each object.
     const subjectRootData = utils.rootCopy(masteryData.subSubject.parent);
     const subSubjectRootData = utils.rootCopy(masteryData.subSubject);
+    subSubjectRootData.parent = masteryData.subSubject.parent; // For MasteryAndSubSubject.
     const masteryRootData = utils.rootCopy(masteryData);
 
     if (!utils.cacheTargetExists(temp, subjectRootData.id)) {

@@ -68,6 +68,10 @@ export const MasteryDataAllExtra = gql`
     }
     subSubject {
       id
+      parent {
+        id
+        name
+      }
     }
   }
   ${MasteryDataAll}
