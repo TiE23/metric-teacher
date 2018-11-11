@@ -10,10 +10,10 @@ import SubjectsList from "../subject/SubjectsList";
 const UserDetailMasteries = (props) => {
   if (props.masteriesData.length) {
     if (props.organizeBySubject) {
-      // Sort Subjects by ID, ascending.
-      const subjectsTree = sortBy(invertMasteriesData(props.masteriesData), "id");
+      // Sort Subjects by index, ascending.
+      const subjectsTree = sortBy(invertMasteriesData(props.masteriesData), "index");
 
-      // Sort SubSubjects by ID, ascending.
+      // Sort SubSubjects by index, ascending.
       subjectsTree.forEach((subject) => {
         // eslint-disable-next-line no-param-reassign
         subject.subSubjects = sortBy(subject.subSubjects, "index");
@@ -59,6 +59,7 @@ const invertMasteriesData = (masteriesData) => {
     // Make root (no child objects) copies of each object.
     const subjectRootData = utils.rootCopy(masteryData.subSubject.parent);
     const subSubjectRootData = utils.rootCopy(masteryData.subSubject);
+    subSubjectRootData.parent = masteryData.subSubject.parent; // For MasteryAndSubSubject.
     const masteryRootData = utils.rootCopy(masteryData);
 
     if (!utils.cacheTargetExists(temp, subjectRootData.id)) {

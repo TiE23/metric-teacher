@@ -68,6 +68,10 @@ export const MasteryDataAllExtra = gql`
     }
     subSubject {
       id
+      parent {
+        id
+        name
+      }
     }
   }
   ${MasteryDataAll}
@@ -114,6 +118,7 @@ export const QuestionDataAll = gql`
 export const SubjectDataAll = gql`
   fragment SubjectDataAll on Subject {
     id
+    index
     createdAt
     updatedAt
     name
@@ -125,6 +130,7 @@ export const SubjectDataAll = gql`
 export const SubSubjectDataAll = gql`
   fragment SubSubjectDataAll on SubSubject {
     id
+    index
     createdAt
     updatedAt
     name
