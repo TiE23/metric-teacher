@@ -28,7 +28,7 @@ const {
 } = require("../errors");
 
 const PREFERENCE_NONE = "none";
-const PREFERENCE_IMPERIAL = "imperial";
+const PREFERENCE_US_CUSTOMARY = "uscustomary";
 const PREFERENCE_METRIC = "metric";
 
 class ChallengeGenerator {
@@ -250,7 +250,7 @@ class ChallengeGenerator {
     if (courseData.flags & COURSE_FLAG_PREFER_METRIC) {
       return PREFERENCE_METRIC;
     }
-    return PREFERENCE_IMPERIAL;
+    return PREFERENCE_US_CUSTOMARY;
   }
 
 
@@ -457,10 +457,11 @@ function buildQuestionList(subSubjectQuestions, listSize, preference, ignoreRari
 
     // Check preference option for Survey type questions.
     // Users with metric preference will not get "toMetric" Survey questions.
-    // Users with imperial preference will not get !"toMetric" (i.e. "toImperial") Survey questions.
+    // Users with US Customary preference will not get !"toMetric" (i.e. "fromMetric") Survey
+    // questions.
     if ((winnerQuestion.type === QUESTION_TYPE_SURVEY) &&
       ((preference === PREFERENCE_METRIC && winnerQuestion.toMetric) ||
-        (preference === PREFERENCE_IMPERIAL && !winnerQuestion.toMetric))
+        (preference === PREFERENCE_US_CUSTOMARY && !winnerQuestion.toMetric))
     ) {
       continue; // eslint-disable-line no-continue
     }

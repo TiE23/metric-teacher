@@ -238,7 +238,7 @@ class QuestionDetailsQuestion extends PureComponent {
                       {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
                         <UnitDropdown
                           onChange={this.handleRangeUnitChange}
-                          family={this.props.subSubjectToMetric ? "imperial" : "metric"}
+                          family={this.props.subSubjectToMetric ? "uscustomary" : "metric"}
                           subject={this.props.subjectName.toLocaleLowerCase()}
                           value={this.props.range && this.props.range.unit}
                           dropdownProps={{ pointing: "bottom" }}

@@ -501,7 +501,7 @@ export const UNIT_FAMILIES = {
     area: ["sqm", "ha", "sqkm"],
     velocity: ["ms", "kmph"],
   },
-  imperial: {
+  uscustomary: {
     length: ["in", "ft", "yd", "mi", "nmi"],
     mass: ["oz", "lb", "ton", "lton", "st"],
     volume: ["cuin", "floz", "cup", "pt", "qt", "gal"],

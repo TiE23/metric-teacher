@@ -15,15 +15,15 @@ class UserDetailCourseAssign extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      preference: "imperial",
+      preference: "uscustomary",
     };
 
     this.setMetricPreference = () => {
       this.setState({ preference: "metric" });
     };
 
-    this.setImperialPreference = () => {
-      this.setState({ preference: "imperial" });
+    this.setUSCustomaryPreference = () => {
+      this.setState({ preference: "uscustomary" });
     };
   }
 
@@ -58,15 +58,15 @@ class UserDetailCourseAssign extends PureComponent {
             </Form.Field>
             <Form.Field>
               <Radio
-                label="I am more familiar with the Imperial system."
-                name="preferImperial"
+                label="I am more familiar with the US Customary Unit system."
+                name="preferUSCustomary"
                 value="metric"
-                checked={this.state.preference === "imperial"}
-                onChange={this.setImperialPreference}
+                checked={this.state.preference === "uscustomary"}
+                onChange={this.setUSCustomaryPreference}
               />
             </Form.Field>
             <Form.Field>
-              <Container textAlign="right" >
+              <Container textAlign="right">
                 <LoadingButton
                   onClick={() => assignStudentNewCourse({
                     variables: {

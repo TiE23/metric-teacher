@@ -29,7 +29,7 @@ class CourseAndMasteriesAndSurveys extends PureComponent {
           <Message.Content>
             &quot;I am more familiar with the {" "}
             {this.props.courseData.flags & COURSE_FLAG_PREFER_METRIC ?
-              "Metric" : "Imperial"} system.&quot;
+              "Metric" : "US Customary Unit"} system.&quot;
             <Container textAlign="right">
               <CourseChangePreference
                 courseId={this.props.courseData.id}

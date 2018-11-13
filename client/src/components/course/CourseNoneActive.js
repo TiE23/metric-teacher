@@ -6,13 +6,13 @@ import { Message } from "semantic-ui-react";
 import UserDetailCourseAssign from "../user/UserDetailCourseAssign";
 
 const CourseNoneActive = props => (
-  <Message attached >
+  <Message attached>
     <Message.Header>
       There is no Course assigned to this account!
     </Message.Header>
     <p>
       A Course tracks a student&apos;s progress as they learn more about converting between Metric
-      and Imperial systems.
+      and US Customary Unit systems.
       {props.assignAvailable &&
         <span>
           <br />
