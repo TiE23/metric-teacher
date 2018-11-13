@@ -169,9 +169,9 @@ const constants = {
       preset: "kilometre",
       round: 3, // Accurate to 1 m
     },
-    // Length - Imperial
+    // Length - US Customary
     in: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "length",
       singular: "inch",
       plural: "inches",
@@ -179,7 +179,7 @@ const constants = {
       round: 2, // 1 cm = 0.39 in, 1 mm = 0.04 in
     },
     ft: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "length",
       singular: "foot",
       plural: "feet",
@@ -187,7 +187,7 @@ const constants = {
       round: 2, // 30 cm = 0.98 ft, 1 m = 3.28 ft
     },
     yd: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "length",
       singular: "yard",
       plural: "yards",
@@ -195,7 +195,7 @@ const constants = {
       round: 2, // 1 m = 1.09 yd
     },
     mi: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "length",
       singular: "mile",
       plural: "miles",
@@ -203,7 +203,7 @@ const constants = {
       round: 2, // 1 km = 0.62 mi, 100 m = 0.062 mi
     },
     nmi: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "length",
       singular: "nautical mile",
       plural: "nautical miles",
@@ -243,9 +243,9 @@ const constants = {
       preset: "metricTon",
       round: 3, // Accurate to 1 kg
     },
-    // Mass - Imperial
+    // Mass - US Customary
     oz: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "mass",
       singular: "ounce",
       plural: "ounces",
@@ -253,7 +253,7 @@ const constants = {
       round: 3, // 1 g = 0.035 oz
     },
     lb: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "mass",
       singular: "pound",
       plural: "pounds",
@@ -261,7 +261,7 @@ const constants = {
       round: 3, // 125 g = 0.276 lb, 1 oz = 0.125 lb
     },
     st: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "mass",
       singular: "stone",
       plural: "stone",
@@ -269,7 +269,7 @@ const constants = {
       round: 2, // Accurate to 2.24 oz or 0.14 lb, 1 lb = 0.07 st
     },
     ton: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "mass",
       singular: "short ton",
       plural: "short tons",
@@ -277,7 +277,7 @@ const constants = {
       round: 3, // Accurate to 2 lb
     },
     lton: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "mass",
       singular: "long ton",
       plural: "long tons",
@@ -312,7 +312,7 @@ const constants = {
     // Volume - US Customary
     // No teaspoons (5 ml) or tablespoons (15 ml)
     cuin: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "volume",
       singular: "cubic inch",
       plural: "cubic inches",
@@ -320,7 +320,7 @@ const constants = {
       round: 2, // 1 ml = 0.06 cuin
     },
     floz: { // US fluid ounce
-      family: "imperial",
+      family: "uscustomary",
       subject: "volume",
       singular: "fluid ounce",
       plural: "fluid ounces",
@@ -328,7 +328,7 @@ const constants = {
       round: 2, // 1 ml = 0.03 floz
     },
     cup: {  // US Customary Cup
-      family: "imperial",
+      family: "uscustomary",
       subject: "volume",
       singular: "cup",
       plural: "cups",
@@ -336,7 +336,7 @@ const constants = {
       round: 3, // 1 floz = 0.125 cup
     },
     pt: { // US Customary Pint
-      family: "imperial",
+      family: "uscustomary",
       subject: "volume",
       singular: "pint",
       plural: "pints",
@@ -344,7 +344,7 @@ const constants = {
       round: 2, // 1 floz = 0.06 pt, 1 l = 2.11 pt
     },
     qt: { // US Customary quart
-      family: "imperial",
+      family: "uscustomary",
       subject: "volume",
       singular: "quart",
       plural: "quarts",
@@ -352,7 +352,7 @@ const constants = {
       round: 2, // 1 floz = 0.03 qt, 1 l = 1.06 qt
     },
     gal: {  // US Customary Gallon
-      family: "imperial",
+      family: "uscustomary",
       subject: "volume",
       singular: "gallon",
       plural: "gallons",
@@ -368,9 +368,9 @@ const constants = {
       preset: "celsius",
       round: 1, // Tenth of a degree is plenty accurate
     },
-    // Temperature - Imperial
+    // Temperature - US Customary
     f: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "temperature",
       singular: "Fahrenheit",
       plural: "Fahrenheit",
@@ -403,9 +403,9 @@ const constants = {
       preset: "squareKilometre",
       round: 2, // Accurate to 10,000 sqm or 1 ha, 1 sqmi = 2.59 sqkm
     },
-    // Area - Imperial
+    // Area - US Customary
     sqft: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "area",
       singular: "square foot",
       plural: "square feet",
@@ -413,7 +413,7 @@ const constants = {
       round: 2, // 1 sqm = 10.76 sqft
     },
     ac: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "area",
       singular: "acre",
       plural: "acres",
@@ -421,7 +421,7 @@ const constants = {
       round: 2, // 1000 sqm = 0.25 ac, 10,000 sqft = 0.23 ac
     },
     sqmi: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "area",
       singular: "square mile",
       plural: "square miles",
@@ -445,9 +445,9 @@ const constants = {
       preset: "metresSecond",
       round: 2, // 1 mph = 0.45 ms, 1 fps = 0.30 ms
     },
-    // Velocity - Imperial
+    // Velocity - US Customary
     fps: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "velocity",
       singular: "foot per second",
       plural: "feet per second",
@@ -455,7 +455,7 @@ const constants = {
       round: 2, // 1 kmph = 0.91 fps, 1 ms = 3.28 fps
     },
     mph: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "velocity",
       singular: "mile per hour",
       plural: "miles per hour",
@@ -463,7 +463,7 @@ const constants = {
       round: 1, // 10 kmph = 6.2 mph. Daily use wouldn't need any more detail.
     },
     kn: {
-      family: "imperial",
+      family: "uscustomary",
       subject: "velocity",
       singular: "knot",
       plural: "knots",

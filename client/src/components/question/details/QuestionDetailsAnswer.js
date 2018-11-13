@@ -231,7 +231,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                           {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
                             <UnitDropdown
                               onChange={(e, { value }) => this.handleChoiceUnitChange(index, value)}
-                              family={this.props.subSubjectToMetric ? "metric" : "imperial"}
+                              family={this.props.subSubjectToMetric ? "metric" : "uscustomary"}
                               subject={this.props.subjectName.toLocaleLowerCase()}
                               value={choice.unit}
                               addWrittenOption
@@ -420,7 +420,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
                       {(this.props.subjectName && this.props.subSubjectToMetric !== null) ?
                         <UnitDropdown
                           onChange={this.handleUnitChange}
-                          family={this.props.subSubjectToMetric ? "metric" : "imperial"}
+                          family={this.props.subSubjectToMetric ? "metric" : "uscustomary"}
                           subject={this.props.subjectName.toLocaleLowerCase()}
                           value={this.props.unit}
                           dropdownProps={{ pointing: "bottom" }}

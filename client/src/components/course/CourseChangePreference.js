@@ -43,11 +43,11 @@ const CourseChangePreference = props => (
         buttonProps={props.buttonProps}
         confirmModal
         modalProps={{ basic: true }}
-        modalHeaderContent={`Switch to ${props.courseFlags & COURSE_FLAG_PREFER_METRIC ?
-          "Imperial" : "Metric"}?`}
+        modalHeaderContent={`Switch to the ${props.courseFlags & COURSE_FLAG_PREFER_METRIC ?
+          "US Customary Unit" : "Metric"} System?`}
         modalContent={deline`Switching this will change what surveys you are asked. For example,
-          if you prefer Imperial, a survey asking you for your height will ask for your answer in
-          feet and inches. On the other hand, if you prefer Metric, it'll instead ask for your
+          if you prefer US Customary Units, a survey asking you for your height will ask for your answer
+          in feet and inches. On the other hand, if you prefer Metric, it'll instead ask for your
           answer in centimeters. This is the only difference - how often you are asked to convert
           to or from your preferred system is not affected.`}
       />

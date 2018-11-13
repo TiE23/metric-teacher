@@ -28,7 +28,7 @@ export default {
         </p>
 
         <p>
-          Whether a student wishes to learn the Metric system or the Imperial system they will find what they need here all on one convenient, mobile-friendly website.
+          Whether a student wishes to learn the Metric system or the US Customary Unit system they will find what they need here all on one convenient, mobile-friendly website.
         </p>
 
         <p>
@@ -70,16 +70,16 @@ export default {
       ),
     },
 
-    whyImperial: {
+    whyUSCustomary: {
       header: {
-        content: "Why learn the Imperial System",
+        content: "Why learn the US Customary Unit System",
         as: "h2",
         dividing: true,
       },
       content: (
         <div>
           <p>
-            If you're moving to America or to some parts of the English-speaking world you're going to encounter Imperial units. Knowing what your new coworker means when say they live 15 miles away, or what to wear when the TV weather forecast for tomorrow is going to be 50 degrees Fahrenheit, or how to react when your classmate bemoans the 5 pounds they gained over the holiday break is a small but invaluable ability.
+            If you're moving to America or to some parts of the English-speaking world you're going to encounter US Customary Units. Knowing what your new coworker means when say they live 15 miles away, or what to wear when the TV weather forecast for tomorrow is going to be 50 degrees Fahrenheit, or how to react when your classmate bemoans the 5 pounds they gained over the holiday break is a small but invaluable ability.
           </p>
 
           <p>
@@ -87,15 +87,15 @@ export default {
           </p>
 
           <p>
-            The Imperial system involves a large library of units and sub units that you'll have to contend with and grow familiar with. In addition, you'll need to grasp when to switch from one unit to another depending on the amount or context.
+            The US Customary Unit system involves a large library of units and sub units that you'll have to contend with and grow familiar with. In addition, you'll need to grasp when to switch from one unit to another depending on the amount or context.
           </p>
 
           <p>
-            The Imperial system may be outdated and confusing, but in reality there is practical use to it given context. While this website was conceived and built to help students learn the metric system it can be used just as effectively in reverse.
+            The US Customary Unit system may be outdated and confusing, but in reality there is practical use to it given context. While this website was conceived and built to help students learn the metric system it can be used just as effectively in reverse.
           </p>
 
           <p>
-            The goal of Metric-Teacher is to make the imperial system feel natural:
+            The goal of Metric-Teacher is to make the US Customary Unit system feel natural:
             <br />
             The same mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall…
           </p>
@@ -109,33 +109,29 @@ export default {
   },
 
 
-  // Imperial Details
-  imperial: {
+  // US Customary Details
+  uscustomary: {
     header: {
-      content: "The Imperial Perspective",
+      content: "The US Customary Unit Perspective",
       as: "h1",
       dividing: true,
     },
     content: (
       <div>
         <p>
-          The history of the <XLink to="https://en.wikipedia.org/wiki/Imperial_units">Imperial Units</XLink> is a clouded one. Because this website was made by Americans primarily for Americans the actual units in use are the <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units">US Customary Units</XLink>. The functional <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">differences</XLink> are limited to liquid volume where actual Imperial units are greater in size than US units. So take note that on this website all measures of liquid volume are in US customary units of gallons, quarts, pints, cups, and fluid ounces.
+          The history of <XLink to="https://en.wikipedia.org/wiki/Imperial_units">Imperial units</XLink> is a clouded one. Because this website was made by Americans primarily for Americans the actual units taught are the <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units">US Customary Units</XLink>. The functional <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">differences</XLink> are limited to liquid volume. Imperial units are greater in size than US units. So take note that on this website all measures of liquid volume are in US customary units of gallons, quarts, pints, cups, and fluid ounces.
         </p>
 
         <p>
-          When choosing the name to describe the non-Metric unit system we decided to use the colloquial name "imperial units" instead of the specific "US customary units." Considering that there are five standard definitions of <XLink to="https://en.wikipedia.org/wiki/Cup_(unit)">the cup</XLink> you can begin to see how the confusion can bog one down.
+          US Customary Units are derived from the British Imperial System, a system <XLink to="https://en.wikipedia.org/wiki/Weights_and_Measures_Acts_(UK)">standardized in 1824</XLink> to establish a common measurement system in the British Empire. The Imperial System itself is an evolution of earlier English units.
         </p>
 
         <p>
-          US Customary Units are derived from the British Imperial System, a system <XLink to="https://en.wikipedia.org/wiki/Weights_and_Measures_Acts_(UK)">standardized in 1824</XLink> to settle a common measurement system in the British Empire. The Imperial System itself is an evolution of earlier English units.
+          Fahrenheit, it is worth mentioning, technically isn't an Imperial unit. It was developed by a Dutch-German-Polish physicist. But it is <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units#Units_of_temperature">considered a member</XLink> of the US Customary Units system.
         </p>
 
         <p>
-          Fahrenheit, it is worth mentioning, isn't an Imperial unit, it is just a similarly outdated and problematic early unit of measurement. It is <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units#Units_of_temperature">considered a member</XLink> of the US Customary Units system.
-        </p>
-
-        <p>
-          The United States is only major country in the world that hasn't adopted the Metric system as their standard system of measurements. The US failed to adopt the newly defined Metric system in its infancy due to a lost shipment requested by Thomas Jefferson in 1793.
+          The United States is only major country in the world that hasn't adopted the Metric system as their standard system of measurements. The story goes that the US failed to adopt the newly defined Metric system in its infancy due to a fatefully lost shipment requested by Thomas Jefferson in 1793.
         </p>
 
         <p>
@@ -143,7 +139,7 @@ export default {
         </p>
 
         <p>
-          Many sectors of industry, the government, the military, science, and medicine use the Metric system as their standard. But in daily life, both individual and publicly, the Imperial system of units is the one that the population has the strongest grasp.
+          Many sectors of industry, the government, the military, science, and medicine use the Metric system as their standard. But in daily life, both individual and publicly, the US Customary system is the one that the population has the strongest grasp.
         </p>
       </div>
     ),
@@ -157,15 +153,7 @@ export default {
       content: (
         <div>
           <p>
-            Metric-Teacher uses an admittedly misleading name "Imperial" for the family of non-metric units as the website actually teaches the US Customary units.
-          </p>
-
-          <p>
-            Because this website is America-centric in its design and intention whenever there is a difference between US Customary units and proper Imperial units the US Customary units are used instead.
-          </p>
-
-          <p>
-            We wanted to avoid the confusion between unit differences and naming. For this reason a lot of website verbiage refers to "To Metric" and "From Metric" instead of "To Metric" and "To Imperial". But for the purposes of this written guide we decided to stick with the term "Imperial" as the shortest and most identifiable name and sweep the problematic use of it under the rug.
+            Metric-Teacher teaches the US Customary Unit system, also known as the United States customary system (USCS). Despite the shared history, there are a distinct differences between the unit system used in the United States and the Imperial unit system used in greatly varying levels in the currently and historically British-influenced world.
           </p>
 
           <p>
@@ -182,7 +170,7 @@ export default {
 
       summary: {
         header: {
-          content: "Imperial vs US Volume Summary",
+          content: "Imperial vs US Customary Volume Units Summary",
           as: "h3",
         },
         content: (
@@ -733,7 +721,7 @@ export default {
             </Header>
 
             <p>
-              <i>Metric-Teacher uses the US Customary units for volume. A further distinction to note is the US Customary Cup. It is equal to 8 fluid ounces or 236.6 milliliters. The US Legal Cup is slightly larger at 240 milliliters and is used in nutrition labelling as a half-baked metrification by the US. As a result, it is often errantly understood that "a cup" is both 240 milliliters and 8 ounces when this is not the case. To add confusion, converting cups to milliliters using Google will use the US Legal Cup.</i>
+              <i>Metric-Teacher uses the US Customary Units for volume. A further distinction to note is the US Customary Cup. It is equal to 8 fluid ounces or 236.6 milliliters. The US Legal Cup is slightly larger at 240 milliliters and is used in nutrition labelling as a half-baked metrification by the US. As a result, it is often errantly understood that "a cup" is both 240 milliliters and 8 ounces when this is not the case. To add confusion, converting cups to milliliters using Google will use the US Legal Cup.</i>
             </p>
           </div>
         ),
@@ -819,7 +807,7 @@ export default {
         content: (
           <div>
             <p>
-              It is difficult to choose the most common unit for volume among US customary units. The smallest common unit is the fluid ounce, then the cup (8 fluid ounces), the pint (2 cups), the quart (2 pints), and finally the gallon (4 quarts).
+              It is difficult to choose the most common unit for volume among US Customary Units. The smallest common unit is the fluid ounce, then the cup (8 fluid ounces), the pint (2 cups), the quart (2 pints), and finally the gallon (4 quarts).
             </p>
 
             <Header as="h5">
@@ -1126,7 +1114,7 @@ export default {
         content: (
           <div>
             <p>
-              While not the only imperial unit for velocity, miles per hour is by far the most common. The most commonly used symbol is "mph", though all capitals "MPH" is also acceptable. You may see "mi/h", though it is less common.
+              While not the only US Customary Unit for velocity, miles per hour is by far the most common. The most commonly used symbol is "mph", though all caps "MPH" is also acceptable. You may see "mi/h", though it is less common.
             </p>
           </div>
         ),
@@ -1198,7 +1186,7 @@ export default {
             </p>
 
             <p>
-              The hectare is a rare departure from form but is used because it is somewhat comparable to the Imperial acre. It is the only named unit that is accepted for use with the SI. A hectare is a square area with 100 meter sides (10,000m², or 0.01km²).
+              The hectare is a rare departure from form but is used because it is somewhat comparable to the US acre. It is the only named unit that is accepted for use with the SI. A hectare is a square area with 100 meter sides (10,000m², or 0.01km²).
             </p>
           </div>
         ),
@@ -1265,7 +1253,7 @@ export default {
         content: (
           <div>
             <p>
-              Like it is for Imperial units and length there is no "base unit" for area. But we can use square feet for this purpose. The acre is used for plots of land and square miles are for much larger areas up to and including countries and continents.
+              Like it is for length there is no US Customary "base unit" for area. But we can use square feet for this purpose. The acre is used for plots of land and square miles are for much larger areas up to and including countries and continents.
             </p>
           </div>
         ),

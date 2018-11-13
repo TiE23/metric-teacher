@@ -405,8 +405,8 @@ function parseSingleAnswer(singleAnswer, answerSyntax = "") {
 /**
  * Helper function that, for conversion and survey questions compares question and answer payloads
  * and makes sure that the combination exhibits the desired combination of the units being under
- * the same subject (length, temperature, etc) and are of different families (Metric to Imperial
- * and Imperial to Metric).
+ * the same subject (length, temperature, etc) and are of different families (Metric to US Customary
+ * and US Customary to Metric).
  * For written questions it makes sure that any detected units are of the same subject
  * @param questionPayload
  * @param answerPayload
