@@ -83,8 +83,9 @@ const mastery = {
 
     const queryClause = {
       where: {
-        OR: studentData.enrollment.courses[0].masteries.map(masteryObject =>
-          ({ id: masteryObject.id })),
+        OR: studentData.enrollment.courses[0].masteries.map(
+          masteryObject => ({ id: masteryObject.id }),
+        ),
       },
     };
 
@@ -190,9 +191,10 @@ const mastery = {
 
       // Throw an error if some Masteries were owned by other students.
       // We'll need to check every Mastery to be sure that each one is owned by the calling student.
-      const wrongOwnerMasteries = masteriesData.filter(masteryObject =>
-        masteryObject.parent.parent.student.id !== callingUserData.id).map(wrongMasteryObject =>
-        wrongMasteryObject.id);
+      const wrongOwnerMasteries = masteriesData.filter(
+        masteryObject => masteryObject.parent.parent.student.id !== callingUserData.id,
+      ).map(wrongMasteryObject => wrongMasteryObject.id);
+
       if (wrongOwnerMasteries.length > 0) {
         throw new StudentNotOwner(callingUserData.id, wrongOwnerMasteries.join(", "), "Mastery");
       }

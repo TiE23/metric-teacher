@@ -134,8 +134,10 @@ const qa = {
 
         // Survey responses found! Feed it into qaGenerate and return results
         return questionObjects.map((questionObject, index) => {
-          const matchingSurvey = find(surveyObjects, survey =>
-            survey.question.id === questionObject.id);
+          const matchingSurvey = find(
+            surveyObjects, survey => survey.question.id === questionObject.id,
+          );
+
           // If not found, will be undefined.
           return qaGenerate(questionObject, index, matchingSurvey);
         });

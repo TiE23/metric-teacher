@@ -33,7 +33,7 @@ const UserDetailBasics = (props) => {
         <List.Item icon="id card" content={userData.id} />
       </List>
       {typeof props.openEditor === "function" &&
-        <Container textAlign="right" >
+        <Container textAlign="right">
           <Button
             onClick={props.openEditor}
             primary

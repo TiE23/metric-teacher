@@ -39,7 +39,7 @@ const UserDetailEnrollment = (props) => {
           Not enrolled!
         </Message.Header>
         {(userData.id === userTokenData.id || userTokenData.type >= USER_TYPE_MODERATOR) &&
-          <Container textAlign="right" >
+          <Container textAlign="right">
             <UserDetailEnroll
               studentId={userData.id}
               queryInfo={props.queryInfo}

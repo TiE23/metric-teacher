@@ -79,8 +79,9 @@ const survey = {
 
     const queryClause = {
       where: {
-        OR: studentData.enrollment.courses[0].surveys.map(surveyObject =>
-          ({ id: surveyObject.id })),
+        OR: studentData.enrollment.courses[0].surveys.map(
+          surveyObject => ({ id: surveyObject.id }),
+        ),
       },
     };
 
@@ -185,9 +186,10 @@ const survey = {
 
       // A student can get their active course and moderators or better can as well.
       // We'll need to check every Survey to be sure that each one is owned by the calling student.
-      const wrongOwnerSurveys = surveysData.filter(surveyObject =>
-        surveyObject.parent.parent.student.id !== callingUserData.id).map(wrongSurveyObject =>
-        wrongSurveyObject.id);
+      const wrongOwnerSurveys = surveysData.filter(
+        surveyObject => surveyObject.parent.parent.student.id !== callingUserData.id,
+      ).map(wrongSurveyObject => wrongSurveyObject.id);
+
       if (wrongOwnerSurveys.length > 0) {
         throw new StudentNotOwner(callingUserData.id, wrongOwnerSurveys.join(", "), "Survey");
       }

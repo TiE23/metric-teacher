@@ -315,9 +315,11 @@ class ChallengeGenerator {
 
     // Simplify to a basic array of SubSubject IDs.
     const subSubjectIds = [];
-    subjectsData.forEach(subjectData =>
-      subjectData.subSubjects.forEach(subSubject =>
-        subSubjectIds.push(subSubject.id)));
+    subjectsData.forEach(
+      subjectData => subjectData.subSubjects.forEach(
+        subSubject => subSubjectIds.push(subSubject.id),
+      ),
+    );
 
     return subSubjectIds;
   }
@@ -347,17 +349,15 @@ class ChallengeGenerator {
       // Find questions by their difficulty AND their parent SubSubject ID.
       // Note: If the user's Mastery score was out of bounds, difficulty will be [], returning
       // no questions.
-      orClauses.OR = subSubjectIds.map(subSubjectId =>
-        ({
-          AND: [
-            { difficulty_in: difficulties[subSubjectId] },
-            { parent: { id: subSubjectId } },
-          ],
-        }));
+      orClauses.OR = subSubjectIds.map(subSubjectId => ({
+        AND: [
+          { difficulty_in: difficulties[subSubjectId] },
+          { parent: { id: subSubjectId } },
+        ],
+      }));
     } else {
       // We're not doing difficulty filtering. Find only by parent SubSubject ID.
-      orClauses.OR = subSubjectIds.map(subSubjectId =>
-        ({ parent: { id: subSubjectId } }));
+      orClauses.OR = subSubjectIds.map(subSubjectId => ({ parent: { id: subSubjectId } }));
     }
 
     const questionData = await this.ctx.db.query.questions(

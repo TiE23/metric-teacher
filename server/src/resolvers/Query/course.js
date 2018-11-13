@@ -167,9 +167,10 @@ const course = {
       );
 
       // Notify if some Courses were owned by others.
-      const wrongOwnerCourses = coursesData.filter(courseObject =>
-        courseObject.parent.student.id !== callingUserData.id).map(wrongSurveyObject =>
-        wrongSurveyObject.id);
+      const wrongOwnerCourses = coursesData.filter(
+        courseObject => courseObject.parent.student.id !== callingUserData.id,
+      ).map(wrongSurveyObject => wrongSurveyObject.id);
+
       if (wrongOwnerCourses.length > 0) {
         throw new StudentNotOwner(callingUserData.id, wrongOwnerCourses.join(", "), "Course");
       }

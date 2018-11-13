@@ -53,7 +53,7 @@ const QuestionQaDetailsAndEditorModal = (props) => {
       </Modal.Content>
     </Modal>
   );
-}
+};
 
 QuestionQaDetailsAndEditorModal.propTypes = {
   questionId: PropTypes.string.isRequired,

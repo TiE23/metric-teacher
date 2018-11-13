@@ -152,8 +152,8 @@ async function changeClassroomMembers(parent, args, ctx, info, addUsers, actionN
   }
   // Grab the existing teachers and students.
   const classroomTeachers = targetClassroomData.teachers.map(teacher => teacher.id);
-  const classroomStudents = targetClassroomData.studentCourses.map(course =>
-    course.parent.student.id);
+  const classroomStudents =
+    targetClassroomData.studentCourses.map(course => course.parent.student.id);
 
   // A teacher of the classroom can change a Classroom and moderators or better can as well.
   if (!classroomTeachers.includes(callingUserData.id) &&
@@ -164,12 +164,14 @@ async function changeClassroomMembers(parent, args, ctx, info, addUsers, actionN
   let targetUserIds = null;
   if (addUsers) {
     // Don't attempt to add any teachers/students a second time.
-    targetUserIds = args.userids.filter(userId =>
-      !classroomTeachers.includes(userId) && !classroomStudents.includes(userId));
+    targetUserIds = args.userids.filter(
+      userId => !classroomTeachers.includes(userId) && !classroomStudents.includes(userId),
+    );
   } else {
     // Don't attempt to remove any teachers/students not in the Classroom.
-    targetUserIds = args.userids.filter(userId =>
-      classroomTeachers.includes(userId) || classroomStudents.includes(userId));
+    targetUserIds = args.userids.filter(
+      userId => classroomTeachers.includes(userId) || classroomStudents.includes(userId),
+    );
   }
 
   // If no Users are being added/removed throw an error. Common situation might be where this
@@ -200,13 +202,12 @@ async function changeClassroomMembers(parent, args, ctx, info, addUsers, actionN
   );
 
   // Grab the course IDs
-  const targetCourses = targetUsersData.map(user =>
-    (user.enrollment && user.enrollment.courses &&
+  const targetCourses = targetUsersData.map(user => (user.enrollment && user.enrollment.courses &&
       user.enrollment.courses.length && user.enrollment.courses[0].id)).filter(id => id !== false);
 
   // Grab the teacher IDs
-  const targetTeachers = targetUsersData.filter(user =>
-    user.type === USER_TYPE_TEACHER).map(user => user.id);
+  const targetTeachers =
+    targetUsersData.filter(user => user.type === USER_TYPE_TEACHER).map(user => user.id);
 
   // Construct connect statements for each targeted User
   const targetCoursesIdList = targetCourses.map(id => ({ id }));

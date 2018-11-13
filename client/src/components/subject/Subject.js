@@ -4,7 +4,7 @@ import { Icon, Item } from "semantic-ui-react";
 
 import DocumentationSubjectModal from "../documentation/DocumentationSubjectModal";
 
-const Subject = props =>  (
+const Subject = props => (
   <Item.Group>
     <Item>
       <Item.Image size="small" src={props.subjectData.media || "/img/placeholder.png"} />

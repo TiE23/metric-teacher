@@ -42,7 +42,7 @@ class CourseAndMasteriesAndSurveys extends PureComponent {
             </Container>
           </Message.Content>
         </Message>
-        <Segment attached >
+        <Segment attached>
           <Header size="medium" textAlign="center">
             Masteries
           </Header>
@@ -71,7 +71,7 @@ class CourseAndMasteriesAndSurveys extends PureComponent {
             </Link>.
           </p>
         </Segment>
-        <Segment attached >
+        <Segment attached>
           <Header size="medium" textAlign="center">
             Surveys
           </Header>

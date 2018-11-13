@@ -861,8 +861,9 @@ function surveysAnswerUpdatePayloadGenerator(targetCourseData, answerInput) {
     };
 
     // Find if there is an existing survey for this question...
-    const existingSurveyQuestionAnswer = existingSurveyQuestionAnswers.find(existingObject =>
-      existingObject.questionid === answerInputRow.questionid);
+    const existingSurveyQuestionAnswer = existingSurveyQuestionAnswers.find(
+      existingObject => existingObject.questionid === answerInputRow.questionid,
+    );
 
     // Was it found?
     if (existingSurveyQuestionAnswer) {
@@ -904,8 +905,9 @@ function createMasteriesForCourse(existingCourse, newSubSubjectIds) {
   // Only act on SubSubjects that are not already listed in Masteries.
   const existingSubSubjectIds =
     existingCourse.masteries.map(mastery => mastery.subSubject.id);
-  const filteredNewSubSubjectIds = newSubSubjectIds.filter(newSubSubjectId =>
-    !existingSubSubjectIds.includes(newSubSubjectId));
+  const filteredNewSubSubjectIds = newSubSubjectIds.filter(
+    newSubSubjectId => !existingSubSubjectIds.includes(newSubSubjectId),
+  );
 
   // If no SubSubjects are being added throw an error. Common situation might be where this
   // mutation is run twice by accident.

@@ -41,8 +41,8 @@ const customFetch = (uri, options) => {
     const jsonified = JSON.parse(text);
 
     // If there was an error we need to attempt to handle it...
-    if (jsonified.errors && jsonified.errors.findIndex(error =>
-      error.message.includes("Not authorized")) !== -1
+    if (jsonified.errors &&
+      jsonified.errors.findIndex(error => error.message.includes("Not authorized")) !== -1
     ) {
       // Attempt to re-grab the token from local storage
       this.token = utils.readTokenLocalStorage();
@@ -106,8 +106,8 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
-  </BrowserRouter>
+  </BrowserRouter>,
   // eslint-disable-next-line no-undef
-  , document.getElementById("root"),
+  document.getElementById("root"),
 );
 registerServiceWorker();

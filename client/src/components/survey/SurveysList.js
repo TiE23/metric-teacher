@@ -64,7 +64,7 @@ class SurveysList extends PureComponent {
       />
     );
   }
-};
+}
 
 SurveysList.propTypes = {
   surveysData: PropTypes.arrayOf(PropTypes.shape({
