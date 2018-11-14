@@ -6,7 +6,7 @@ import "./semantic/dist/semantic.min.css";
 import withAuth from "./components/AuthHOC";
 
 import Test from "./components/Test";
-import Welcome from "./components/Welcome";
+import Welcome from "./components/landing/Welcome";
 import MenuFrame from "./components/main/MenuFrame";
 import ChallengePage from "./components/challenge/ChallengePage";
 import Login from "./components/entry/Login";
@@ -30,7 +30,8 @@ import {
 const App = () => (
   <div className="App">
     <Switch>
-      <Route exact path="/" component={withAuth(Welcome)} />
+      <Route exact path="/" render={() => <Redirect to="welcome" />} />
+      <Route exact path="/welcome" component={withAuth(Welcome)} />
       <Route exact path="/login" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/signup" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/logout" component={Logout} />

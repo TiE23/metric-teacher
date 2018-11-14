@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
-import { Container, Button } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { compose } from "react-apollo";
+
+import LoginSignupButtons from "../misc/LoginSignupButtons";
 
 import withAuth from "../AuthHOC";
 
@@ -36,21 +38,7 @@ const SubjectsPageDescription = props => (
         Have fun and start learning right away with a free student account!
       </p>
       <Container textAlign="center">
-        <Button.Group>
-          <Button
-            color="olive"
-            onClick={() => props.history.push("/login", { from: props.location })}
-          >
-            Login
-          </Button>
-          <Button.Or />
-          <Button
-            primary
-            onClick={() => props.history.push("/signup", { from: props.location })}
-          >
-            Sign Up
-          </Button>
-        </Button.Group>
+        <LoginSignupButtons from={props.location} />
       </Container>
     </Container>
 );
