@@ -1,10 +1,15 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
-import { Container, Grid, Header, Image, List } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Container, Grid, Header, Icon, Image, List } from "semantic-ui-react";
 
 import SignupLoginButtons from "../misc/SignupLoginButtons";
 import XLink from "../misc/ExternalLink";
 import FrameFooter from "../main/FrameFooter";
+import {
+  WELCOME_PAGE_QUESTIONS_WIDTH,
+  WELCOME_PAGE_SUBJECTS_WIDTH,
+} from "../../constants";
 
 // TODO - Redirect to /home when logged-in.
 const Welcome = () => (
@@ -18,7 +23,7 @@ const Welcome = () => (
     <Grid.Row>
       <Grid.Column>
         <Header size="huge" textAlign="center">
-          Welcome to Metric-Teacher!
+          Welcome to Metric-Teacher
         </Header>
       </Grid.Column>
     </Grid.Row>
@@ -27,7 +32,7 @@ const Welcome = () => (
       <Grid.Column>
         <Container text>
           <p>
-            Metric-Teacher is a free website that will help you learn to imagine, understand, and describe objects, people, and the world in a new system of units!
+            Metric-Teacher is a free website that will help you learn to imagine, understand, and describe objects, people, and the world in a new system of units.
           </p>
         </Container>
       </Grid.Column>
@@ -35,6 +40,9 @@ const Welcome = () => (
 
     <Grid.Row textAlign="center">
       <Grid.Column>
+        <Header>
+          Start learning on Metric-Teacher today!
+        </Header>
         <SignupLoginButtons from="/home" />
       </Grid.Column>
     </Grid.Row>
@@ -71,15 +79,15 @@ const Welcome = () => (
     </Grid.Row>
 
     <Grid.Row centered columns={3} divided>
-      <Grid.Column width={5}>
+      <Grid.Column {...WELCOME_PAGE_QUESTIONS_WIDTH}>
         <Image src="/img/challenge/m-written.gif" size="small" rounded centered />
         <Header textAlign="center">Written</Header>
       </Grid.Column>
-      <Grid.Column width={5}>
+      <Grid.Column {...WELCOME_PAGE_QUESTIONS_WIDTH}>
         <Image src="/img/challenge/m-conversion.gif" size="small" rounded centered />
         <Header textAlign="center">Conversion</Header>
       </Grid.Column>
-      <Grid.Column width={5}>
+      <Grid.Column {...WELCOME_PAGE_QUESTIONS_WIDTH}>
         <Image src="/img/challenge/m-survey.gif" size="small" rounded centered />
         <Header textAlign="center">Survey</Header>
       </Grid.Column>
@@ -90,19 +98,15 @@ const Welcome = () => (
         <Container text>
           <List>
             <List.Item>
-              <b>Written Questions</b> are multiple-choice questions that range from simple facts about units to the measurements of real-world objects, people, locations, records, and more!
+              <b>Written</b> questions are multiple-choice questions that range from simple facts about units to the measurements of real-world objects, people, locations, records, and more!
             </List.Item>
             <List.Item>
-              <b>Conversion Questions</b> are dynamically generated questions that ask you to convert one measurement to another. There are multiple methods of answering including multiple choice, slider bar, and direct input!
+              <b>Conversion</b> questions are dynamically generated questions that ask you to convert one measurement to another. There are multiple methods of answering including multiple choice, slider bar, and direct input!
             </List.Item>
             <List.Item>
-              <b>Survey Questions</b> are special to Metric-Teacher. Surveys will ask you both factual and opinion-based questions ranging from your own height to your preferred room temperature. Metric-Teacher will then teach you these values in Metric, giving you personalized content!
+              <b>Survey</b> questions are special to Metric-Teacher. Surveys will ask you both factual and opinion-based questions ranging from your own height to your preferred room temperature. Metric-Teacher will then teach you these values in Metric, giving you personalized content!
             </List.Item>
           </List>
-
-          <p>
-            You will be performing conversions regularly and you'll get quick at them! But over time you'll begin to recognize natural patterns. Just like how you don't need to think how much 300 pounds weighs of how long 6 feet, 7 inches is to recognize that those two values together makes for a very large person! You'll get that same sensation with 135 kilograms and 200 centimeters!
-          </p>
         </Container>
       </Grid.Column>
     </Grid.Row>
@@ -115,32 +119,81 @@ const Welcome = () => (
           </Header>
 
           <p>
-            Metric-Teacher offers courses on <b>six</b> major subjects!
+            Metric-Teacher offers instruction on <b>six</b> major Subjects!
+          </p>
+        </Container>
+      </Grid.Column>
+    </Grid.Row>
+
+    <Grid.Row textAlign="center" centered columns={3}>
+      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
+        <Header icon textAlign="center">
+          <Icon name="arrows alternate horizontal" size="huge" color="red" />
+          <Header.Content>Length</Header.Content>
+        </Header>
+      </Grid.Column>
+      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
+        <Header icon textAlign="center">
+          <Icon name="balance scale" size="huge" color="yellow" />
+          <Header.Content>Mass</Header.Content>
+        </Header>
+      </Grid.Column>
+      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
+        <Header icon textAlign="center">
+          <Icon name="cube" size="huge" color="blue" />
+          <Header.Content>Volume</Header.Content>
+        </Header>
+      </Grid.Column>
+    </Grid.Row>
+
+    <Grid.Row textAlign="center" centered columns={3}>
+      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
+        <Header icon textAlign="center">
+          <Icon name="thermometer three quarters" size="huge" color="orange" />
+          <Header.Content>Temperature</Header.Content>
+        </Header>
+      </Grid.Column>
+      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
+        <Header icon textAlign="center">
+          <Icon name="location arrow" size="huge" color="olive" />
+          <Header.Content>Velocity</Header.Content>
+        </Header>
+      </Grid.Column>
+      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
+        <Header icon textAlign="center">
+          <Icon name="clone outline" size="huge" color="teal" />
+          <Header.Content>Area</Header.Content>
+        </Header>
+      </Grid.Column>
+    </Grid.Row>
+
+    <Grid.Row>
+      <Grid.Column>
+        <Container text>
+          <p>
+            You can view all <Icon name="tasks" />Subjects <Link to="subjects">here</Link>.
           </p>
 
-          <List>
-            <List.Item>
-              <XLink to="docs/guide/length">Length</XLink>
-            </List.Item>
-            <List.Item>
-              <XLink to="docs/guide/mass">Mass</XLink>
-            </List.Item>
-            <List.Item>
-              <XLink to="docs/guide/volume">Volume</XLink>
-            </List.Item>
-            <List.Item>
-              <XLink to="docs/guide/temperature">Temperature</XLink>
-            </List.Item>
-            <List.Item>
-              <XLink to="docs/guide/velocity">Velocity</XLink>
-            </List.Item>
-            <List.Item>
-              <XLink to="docs/guide/area">Area</XLink>
-            </List.Item>
-          </List>
+          <p>
+            You can view all <Icon name="book" />Documentation <Link to="docs">here</Link>.
+          </p>
+        </Container>
+      </Grid.Column>
+    </Grid.Row>
+
+    <Grid.Row>
+      <Grid.Column>
+        <Container text>
+          <Header dividing>
+            Will this involve doing math?
+          </Header>
 
           <p>
-            View all available Subjects <XLink to="subjects">here</XLink>. View all documentation <XLink to="docs">here</XLink>.
+            There's no getting around it... yes, but it'll only be painful early on. You will be performing conversions regularly. But you'll get quick at them! Over time you'll begin to recognize patterns instead of mechanical conversions.
+          </p>
+
+          <p>
+            Just like how you don't need to think how much 300 pounds weighs of how long 6 feet, 7 inches is to recognize that those two values together makes for a very large person! You'll get that same sensation with 135 kilograms and 200 centimeters!
           </p>
         </Container>
       </Grid.Column>
@@ -175,6 +228,9 @@ const Welcome = () => (
             So, are you ready to learn?
           </Header>
           <Image src="/img/challenge/r-correct-b.gif" centered size="large" />
+          <Header size="small">
+            Start learning on Metric-Teacher today!
+          </Header>
           <SignupLoginButtons from="/home" />
         </Container>
       </Grid.Column>
@@ -184,15 +240,15 @@ const Welcome = () => (
       <Grid.Column>
         <Container text>
           <Header dividing>
-            Who made this?
+            Who's behind Metric-Teacher?
           </Header>
 
           <p>
-            Metric-Teacher is the personal project of Seattle-based web developer <b>Kyle Geib</b>. He can be found on <XLink to="www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, <XLink to="https://github.com/TiE23">GitHub</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>.
+            Metric-Teacher is the personal project of Seattle-based web developer <b>Kyle Geib</b>. He can be found on <XLink to="www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, <XLink to="https://github.com/TiE23">GitHub</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>. He is currently looking for his next career opportunity.
           </p>
 
           <p>
-            Metric-Teacher's mascot, <i>Meti the Metric Macaw</i>, and other painted art is by <b>Paul E</b>. His art can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please be aware that some of his art is (tastefully) <u>NSFW</u>.</i>
+            Metric-Teacher's mascot, <i>Meti the Metric Macaw</i>, and other digital art is by <b>Paul E</b>. His art can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please be aware that some of his art is (tastefully) <u>NSFW</u>.</i>
           </p>
         </Container>
       </Grid.Column>
