@@ -1,19 +1,19 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
-import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Link, Redirect } from "react-router-dom";
 import { Container, Grid, Header, Icon, Image, List } from "semantic-ui-react";
 
 import SignupLoginButtons from "../misc/SignupLoginButtons";
 import XLink from "../misc/ExternalLink";
 import FrameFooter from "../main/FrameFooter";
-import {
-  WELCOME_PAGE_QUESTIONS_WIDTH,
-  WELCOME_PAGE_SUBJECTS_WIDTH,
-} from "../../constants";
 
-// TODO - Redirect to /home when logged-in.
-const Welcome = () => (
+const Welcome = props => (
   <Grid padded>
+    {props.userTokenData && props.userTokenData.id && // Redirect immediately if logged in.
+      <Redirect to="home" />
+    }
+
     <Grid.Row>
       <Grid.Column>
         <Image src="/img/challenge/r-correct-a.gif" centered size="big" />
@@ -32,7 +32,7 @@ const Welcome = () => (
       <Grid.Column>
         <Container text>
           <p>
-            Metric-Teacher is a free website that will help you learn to imagine, understand, and describe objects, people, and the world in the Metric System.
+            Metric-Teacher is a free website that will help you learn to imagine, understand, and describe objects, people, and the world using the Metric System.
           </p>
         </Container>
       </Grid.Column>
@@ -79,28 +79,24 @@ const Welcome = () => (
           <p>
             <b>Challenges</b> use three different types of questions to help you learn...
           </p>
-        </Container>
-      </Grid.Column>
-    </Grid.Row>
 
-    <Grid.Row centered columns={3} divided>
-      <Grid.Column {...WELCOME_PAGE_QUESTIONS_WIDTH}>
-        <Image src="/img/challenge/m-written.gif" size="small" rounded centered />
-        <Header textAlign="center">Written</Header>
-      </Grid.Column>
-      <Grid.Column {...WELCOME_PAGE_QUESTIONS_WIDTH}>
-        <Image src="/img/challenge/m-conversion.gif" size="small" rounded centered />
-        <Header textAlign="center">Conversion</Header>
-      </Grid.Column>
-      <Grid.Column {...WELCOME_PAGE_QUESTIONS_WIDTH}>
-        <Image src="/img/challenge/m-survey.gif" size="small" rounded centered />
-        <Header textAlign="center">Survey</Header>
-      </Grid.Column>
-    </Grid.Row>
+          <Grid>
+            <Grid.Row centered columns="equal" divided>
+              <Grid.Column>
+                <Image src="/img/challenge/m-written.gif" size="small" rounded centered />
+                <Header textAlign="center">Written</Header>
+              </Grid.Column>
+              <Grid.Column>
+                <Image src="/img/challenge/m-conversion.gif" size="small" rounded centered />
+                <Header textAlign="center">Conversion</Header>
+              </Grid.Column>
+              <Grid.Column>
+                <Image src="/img/challenge/m-survey.gif" size="small" rounded centered />
+                <Header textAlign="center">Survey</Header>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
 
-    <Grid.Row>
-      <Grid.Column>
-        <Container text>
           <List>
             <List.Item>
               <b>Written</b> questions are multiple-choice. They range from simple facts about units to the measurements of real-world objects, people, locations, records, and more!
@@ -126,55 +122,51 @@ const Welcome = () => (
           <p>
             Metric-Teacher offers instruction on <b>six</b> major Subjects!
           </p>
-        </Container>
-      </Grid.Column>
-    </Grid.Row>
 
-    <Grid.Row textAlign="center" centered columns={3}>
-      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
-        <Header icon textAlign="center">
-          <Icon name="arrows alternate horizontal" size="huge" color="red" />
-          <Header.Content>Length</Header.Content>
-        </Header>
-      </Grid.Column>
-      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
-        <Header icon textAlign="center">
-          <Icon name="balance scale" size="huge" color="yellow" />
-          <Header.Content>Mass</Header.Content>
-        </Header>
-      </Grid.Column>
-      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
-        <Header icon textAlign="center">
-          <Icon name="cube" size="huge" color="blue" />
-          <Header.Content>Volume</Header.Content>
-        </Header>
-      </Grid.Column>
-    </Grid.Row>
+          <Grid>
+            <Grid.Row textAlign="center" centered columns="equal">
+              <Grid.Column>
+                <Header icon textAlign="center">
+                  <Icon name="arrows alternate horizontal" size="huge" color="red" />
+                  <Header.Content>Length</Header.Content>
+                </Header>
+              </Grid.Column>
+              <Grid.Column>
+                <Header icon textAlign="center">
+                  <Icon name="balance scale" size="huge" color="yellow" />
+                  <Header.Content>Mass</Header.Content>
+                </Header>
+              </Grid.Column>
+              <Grid.Column>
+                <Header icon textAlign="center">
+                  <Icon name="cube" size="huge" color="blue" />
+                  <Header.Content>Volume</Header.Content>
+                </Header>
+              </Grid.Column>
+            </Grid.Row>
 
-    <Grid.Row textAlign="center" centered columns={3}>
-      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
-        <Header icon textAlign="center">
-          <Icon name="thermometer three quarters" size="huge" color="orange" />
-          <Header.Content>Temperature</Header.Content>
-        </Header>
-      </Grid.Column>
-      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
-        <Header icon textAlign="center">
-          <Icon name="location arrow" size="huge" color="olive" />
-          <Header.Content>Velocity</Header.Content>
-        </Header>
-      </Grid.Column>
-      <Grid.Column {...WELCOME_PAGE_SUBJECTS_WIDTH}>
-        <Header icon textAlign="center">
-          <Icon name="clone outline" size="huge" color="teal" />
-          <Header.Content>Area</Header.Content>
-        </Header>
-      </Grid.Column>
-    </Grid.Row>
+            <Grid.Row textAlign="center" centered columns="equal">
+              <Grid.Column>
+                <Header icon textAlign="center">
+                  <Icon name="thermometer three quarters" size="huge" color="orange" />
+                  <Header.Content>Temperature</Header.Content>
+                </Header>
+              </Grid.Column>
+              <Grid.Column>
+                <Header icon textAlign="center">
+                  <Icon name="location arrow" size="huge" color="olive" />
+                  <Header.Content>Velocity</Header.Content>
+                </Header>
+              </Grid.Column>
+              <Grid.Column>
+                <Header icon textAlign="center">
+                  <Icon name="clone outline" size="huge" color="teal" />
+                  <Header.Content>Area</Header.Content>
+                </Header>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
 
-    <Grid.Row>
-      <Grid.Column>
-        <Container text>
           <p>
             You can view all <Icon name="tasks" />Subjects <Link to="subjects">here</Link>.
           </p>
@@ -198,7 +190,7 @@ const Welcome = () => (
           </p>
 
           <p>
-            Just like you've known your entire life that <b>104°F</b> is a blisteringly hot day, you'll learn to naturally recognize that when your Australian friend tells you it's <b>40°C</b> in her town on New Year's Day you'll know to tell her to drink lots of water and <i>not</i> break out the hot cocoa. That is the goal of Metric-Teacher.
+            Just like you've known your entire life that <b>104°F</b> is a blisteringly hot day, you'll learn to naturally recognize that when your Australian friend tells you it's <b>40°C</b> outside on New Year's Day you'll know to <i>not</i> suggest she get the hot cocoa out but instead remind her to drink lots of water! That is the goal of Metric-Teacher.
           </p>
         </Container>
       </Grid.Column>
@@ -208,7 +200,7 @@ const Welcome = () => (
       <Grid.Column>
         <Container text>
           <Header dividing>
-            But I already know the Metric system! Can it teach me US units?
+            I already know the Metric system! Can it teach me US units?
           </Header>
 
           <p>
@@ -271,5 +263,15 @@ const Welcome = () => (
     </Grid.Row>
   </Grid>
 );
+
+Welcome.propTypes = {
+  userTokenData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
+};
+
+Welcome.defaultProps = {
+  userTokenData: null,
+};
 
 export default Welcome;

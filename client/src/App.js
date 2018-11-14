@@ -7,6 +7,7 @@ import withAuth from "./components/AuthHOC";
 
 import Test from "./components/Test";
 import Welcome from "./components/landing/Welcome";
+import Home from "./components/landing/Home";
 import MenuFrame from "./components/main/MenuFrame";
 import ChallengePage from "./components/challenge/ChallengePage";
 import Login from "./components/entry/Login";
@@ -32,6 +33,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" render={() => <Redirect to="welcome" />} />
       <Route exact path="/welcome" component={withAuth(Welcome)} />
+      <Route exact path="/home" component={withAuth(Home, { private: true })} />
       <Route exact path="/login" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/signup" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/logout" component={Logout} />
@@ -53,7 +55,7 @@ const App = () => (
             component={
               withAuth(AdminToolsPage, {
                 private: true,
-                permissions: { type: USER_TYPE_ADMIN },
+                permissions: { type: USER_TYPE_MODERATOR },
               })
             }
           />
@@ -73,7 +75,7 @@ const App = () => (
             component={
               withAuth(UserSearchPage, {
                 private: true,
-                permissions: { type: USER_TYPE_MODERATOR },
+                permissions: { type: USER_TYPE_ADMIN },
               })
             }
           />
