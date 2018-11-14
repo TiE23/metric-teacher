@@ -32,7 +32,7 @@ const Welcome = () => (
       <Grid.Column>
         <Container text>
           <p>
-            Metric-Teacher is a free website that will help you learn to imagine, understand, and describe objects, people, and the world in a new system of units.
+            Metric-Teacher is a free website that will help you learn to imagine, understand, and describe objects, people, and the world in the Metric System.
           </p>
         </Container>
       </Grid.Column>
@@ -103,13 +103,13 @@ const Welcome = () => (
         <Container text>
           <List>
             <List.Item>
-              <b>Written</b> questions are multiple-choice questions that range from simple facts about units to the measurements of real-world objects, people, locations, records, and more!
+              <b>Written</b> questions are multiple-choice. They range from simple facts about units to the measurements of real-world objects, people, locations, records, and more!
             </List.Item>
             <List.Item>
-              <b>Conversion</b> questions are dynamically generated questions that ask you to convert one measurement to another. There are multiple methods of answering including multiple choice, slider bar, and direct input!
+              <b>Conversion</b> questions are dynamically generated. They ask you to convert one measurement to another. There are multiple methods of answering including multiple choice, slider bar, and direct input!
             </List.Item>
             <List.Item>
-              <b>Survey</b> questions are special to Metric-Teacher. Surveys will ask you both factual and opinion-based questions ranging from your own height to your preferred room temperature. Metric-Teacher will then teach you these values in Metric, giving you personalized content!
+              <b>Survey</b> questions are special to Metric-Teacher. Surveys ask you to give factual and opinion-based answers to questions ranging from your own height to your preferred room temperature. Metric-Teacher will then teach you these values in Metric by asking you to convert these personalized questions!
             </List.Item>
           </List>
         </Container>
@@ -194,11 +194,11 @@ const Welcome = () => (
           </Header>
 
           <p>
-            There's no getting around it... yes, but it'll only be troublesome early on. You will be performing conversions regularly. But you'll get quick at them! Over time you'll begin to recognize patterns instead of relying on calculated conversions.
+            There's no getting around it but, yes, you will be performing conversions. But with practice not only will you get get quick at them, you'll start to simply recognize new values.
           </p>
 
           <p>
-            Just like you've known your entire life that 104°F is a blisteringly hot day, you'll learn to easily recognize that a 40°C is similarly unbearable. That is the goal on Metric-Teacher.
+            Just like you've known your entire life that <b>104°F</b> is a blisteringly hot day, you'll learn to naturally recognize that when your Australian friend tells you it's <b>40°C</b> in her town on New Year's Day you'll know to tell her to drink lots of water and <i>not</i> break out the hot cocoa. That is the goal of Metric-Teacher.
           </p>
         </Container>
       </Grid.Column>
@@ -208,19 +208,19 @@ const Welcome = () => (
       <Grid.Column>
         <Container text>
           <Header dividing>
-            But I already know the Metric system! Can it still help me?
+            But I already know the Metric system! Can it teach me US units?
           </Header>
 
           <p>
-            <b>Yes!</b> Metric-Teacher can still help by teaching you the US Customary Unit system! Simply set your profile to say that you prefer the Metric system when enrolling and you'll be given questions more appropriate to your needs!
+            <b>Yes!</b> Metric-Teacher can help you by teaching you the US Customary Unit system. Simply set your profile to say that you prefer the Metric system when enrolling and you'll be given questions more appropriate to your needs!
           </p>
 
           <p>
-            So, if you're going to the United States and want to be able to read weather forecasts in Fahrenheit, understand distances in miles, or order drinks with fluid ounces you can use Metric-Teacher to prepare you!
+            So, if you're going to the United States you can use Metric-Teacher to prepare you if you want to be able to read weather forecasts in Fahrenheit, understand distances in miles, or follow speed limit signs!
           </p>
 
           <p>
-            If you're going to the United Kingdom instead, you should take a moment to note that differences in the Imperial system used in the UK exist for volume. Read more <Link to="docs/uscustomary/liquid">here</Link>.
+            If you're going to the United Kingdom instead, you should take a moment to note that differences in the Imperial system used in the UK exist for volume and are not taught on Metric-Teacher. Read more <Link to="docs/uscustomary/liquid">here</Link>.
           </p>
         </Container>
       </Grid.Column>
@@ -258,7 +258,7 @@ const Welcome = () => (
           </p>
 
           <p>
-            Metric-Teacher's mascot, <i>Meti the Metric Macaw</i>, and other digital art is by <b>Paul E</b>. His art and information on commissions can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please take note that some of his art is (tastefully) <u>NSFW</u>.</i>
+            Metric-Teacher's mascot, <i>Meti the Metric Macaw</i>, and other digital art is by <b>Paul E</b>. His art and information on commissions can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please take note that some of his art, while always tasteful, is meant for mature audiences.</i>
           </p>
         </Container>
       </Grid.Column>

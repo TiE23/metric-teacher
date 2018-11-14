@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Header, Icon, Segment } from "semantic-ui-react";
+import { Container, Header, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { compose } from "react-apollo";
 import { withRouter } from "react-router";

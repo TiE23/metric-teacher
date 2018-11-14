@@ -366,6 +366,7 @@ export default {
         content: "Length",
         as: "h2",
         dividing: true,
+        icon: "arrows alternate horizontal",
       },
       content: (
         <div>
@@ -544,6 +545,7 @@ export default {
         content: "Mass",
         as: "h2",
         dividing: true,
+        icon: "balance scale",
       },
       content: (
         <div>
@@ -689,6 +691,7 @@ export default {
         content: "Volume",
         as: "h2",
         dividing: true,
+        icon: "cube",
       },
       content: (
         <div>
@@ -896,6 +899,7 @@ export default {
         content: "Temperature",
         as: "h2",
         dividing: true,
+        icon: "thermometer three quarters",
       },
       content: (
         <div>
@@ -1037,6 +1041,7 @@ export default {
         content: "Velocity",
         as: "h2",
         dividing: true,
+        icon: "location arrow",
       },
       content: (
         <div>
@@ -1164,6 +1169,7 @@ export default {
         content: "Area",
         as: "h2",
         dividing: true,
+        icon: "clone outline",
       },
       content: (
         <div>
