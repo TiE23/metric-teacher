@@ -23,7 +23,7 @@ const Welcome = () => (
     <Grid.Row>
       <Grid.Column>
         <Header size="huge" textAlign="center">
-          Welcome to Metric-Teacher
+          Welcome to Metric-Teacher!
         </Header>
       </Grid.Column>
     </Grid.Row>
@@ -53,8 +53,13 @@ const Welcome = () => (
           <Header dividing>
             What does it do?
           </Header>
+
           <p>
             Metric-Teacher teaches you the Metric system in a way that will actually help you think in Metric! With regular practice you will not be stuck calculating conversions in your head, instead you'll be simply thinking in Metric!
+          </p>
+
+          <p>
+            You want a little bit more detail? Read Metric-Teacher's mission statement <Link to="docs/missionstatement">here</Link>.
           </p>
         </Container>
       </Grid.Column>
@@ -189,11 +194,11 @@ const Welcome = () => (
           </Header>
 
           <p>
-            There's no getting around it... yes, but it'll only be painful early on. You will be performing conversions regularly. But you'll get quick at them! Over time you'll begin to recognize patterns instead of mechanical conversions.
+            There's no getting around it... yes, but it'll only be troublesome early on. You will be performing conversions regularly. But you'll get quick at them! Over time you'll begin to recognize patterns instead of relying on calculated conversions.
           </p>
 
           <p>
-            Just like how you don't need to think how much 300 pounds weighs of how long 6 feet, 7 inches is to recognize that those two values together makes for a very large person! You'll get that same sensation with 135 kilograms and 200 centimeters!
+            Just like you've known your entire life that 104°F is a blisteringly hot day, you'll learn to easily recognize that a 40°C is similarly unbearable. That is the goal on Metric-Teacher.
           </p>
         </Container>
       </Grid.Column>
@@ -207,7 +212,7 @@ const Welcome = () => (
           </Header>
 
           <p>
-            Metric-Teacher can still help by teaching you the US Customary Unit system! Simply set your profile to say that you prefer the Metric system when enrolling and you'll be given questions more appropriate to your needs!
+            <b>Yes!</b> Metric-Teacher can still help by teaching you the US Customary Unit system! Simply set your profile to say that you prefer the Metric system when enrolling and you'll be given questions more appropriate to your needs!
           </p>
 
           <p>
@@ -215,7 +220,7 @@ const Welcome = () => (
           </p>
 
           <p>
-            If you're going to the United Kingdom instead, you should take a moment to note that differences in the Imperial system used in the UK exist for volume. Read more <XLink to="docs/uscustomary/liquid">here</XLink>.
+            If you're going to the United Kingdom instead, you should take a moment to note that differences in the Imperial system used in the UK exist for volume. Read more <Link to="docs/uscustomary/liquid">here</Link>.
           </p>
         </Container>
       </Grid.Column>
@@ -225,7 +230,12 @@ const Welcome = () => (
       <Grid.Column>
         <Container text>
           <Header size="large">
-            So, are you ready to learn?
+            <Header.Content>
+            "So, are you ready to learn?"
+              <Header.Subheader>
+                —Meti, The Metric Macaw
+              </Header.Subheader>
+            </Header.Content>
           </Header>
           <Image src="/img/challenge/r-correct-b.gif" centered size="large" />
           <Header size="small">
@@ -244,11 +254,11 @@ const Welcome = () => (
           </Header>
 
           <p>
-            Metric-Teacher is the personal project of Seattle-based web developer <b>Kyle Geib</b>. He can be found on <XLink to="www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, <XLink to="https://github.com/TiE23">GitHub</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>. He is currently looking for his next career opportunity.
+            Metric-Teacher is a personal passion project of Seattle-based web developer <b>Kyle Geib</b>. He can be found on <XLink to="www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, <XLink to="https://github.com/TiE23">GitHub</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>. He is currently looking for his next career opportunity as a Fullstack JS developer using ReactJS, NodeJS, and GraphQL with Apollo Client.
           </p>
 
           <p>
-            Metric-Teacher's mascot, <i>Meti the Metric Macaw</i>, and other digital art is by <b>Paul E</b>. His art can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please be aware that some of his art is (tastefully) <u>NSFW</u>.</i>
+            Metric-Teacher's mascot, <i>Meti the Metric Macaw</i>, and other digital art is by <b>Paul E</b>. His art and information on commissions can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please take note that some of his art is (tastefully) <u>NSFW</u>.</i>
           </p>
         </Container>
       </Grid.Column>
