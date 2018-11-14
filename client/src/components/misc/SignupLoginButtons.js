@@ -4,22 +4,11 @@ import { withRouter } from "react-router";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-const LoginSignupButtons = (props) => {
+const SignupLoginButtons = (props) => {
   const navigateTo = (e, { to, from }) => props.history.push(to, { from });
 
   return (
     <Button.Group>
-      <Button
-        as={Link}
-        color="olive"
-        to="/login"
-        from={props.from}
-        onClick={navigateTo}
-        {...props.buttonProps}
-      >
-        Login
-      </Button>
-      <Button.Or />
       <Button
         as={Link}
         color="blue"
@@ -30,11 +19,22 @@ const LoginSignupButtons = (props) => {
       >
         Sign Up
       </Button>
+      <Button.Or />
+      <Button
+        as={Link}
+        color="olive"
+        to="/login"
+        from={props.from}
+        onClick={navigateTo}
+        {...props.buttonProps}
+      >
+        Login
+      </Button>
     </Button.Group>
   );
 };
 
-LoginSignupButtons.propTypes = {
+SignupLoginButtons.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -42,9 +42,9 @@ LoginSignupButtons.propTypes = {
   buttonProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
-LoginSignupButtons.defaultProps = {
+SignupLoginButtons.defaultProps = {
   from: "/",
   buttonProps: null,
 };
 
-export default withRouter(LoginSignupButtons);
+export default withRouter(SignupLoginButtons);

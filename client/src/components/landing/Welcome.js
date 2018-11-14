@@ -2,7 +2,7 @@
 import React from "react";
 import { Container, Grid, Header, Image, List } from "semantic-ui-react";
 
-import LoginSignupButtons from "../misc/LoginSignupButtons";
+import SignupLoginButtons from "../misc/SignupLoginButtons";
 import XLink from "../misc/ExternalLink";
 import FrameFooter from "../main/FrameFooter";
 
@@ -35,7 +35,7 @@ const Welcome = () => (
 
     <Grid.Row textAlign="center">
       <Grid.Column>
-        <LoginSignupButtons from="/home" />
+        <SignupLoginButtons from="/home" />
       </Grid.Column>
     </Grid.Row>
 
@@ -175,7 +175,7 @@ const Welcome = () => (
             So, are you ready to learn?
           </Header>
           <Image src="/img/challenge/r-correct-b.gif" centered size="large" />
-          <LoginSignupButtons from="/home" />
+          <SignupLoginButtons from="/home" />
         </Container>
       </Grid.Column>
     </Grid.Row>

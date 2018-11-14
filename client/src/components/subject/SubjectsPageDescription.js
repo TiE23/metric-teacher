@@ -5,7 +5,7 @@ import { Container } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { compose } from "react-apollo";
 
-import LoginSignupButtons from "../misc/LoginSignupButtons";
+import SignupLoginButtons from "../misc/SignupLoginButtons";
 
 import withAuth from "../AuthHOC";
 
@@ -38,7 +38,7 @@ const SubjectsPageDescription = props => (
         Have fun and start learning right away with a free student account!
       </p>
       <Container textAlign="center">
-        <LoginSignupButtons from={props.location} />
+        <SignupLoginButtons from={props.location} />
       </Container>
     </Container>
 );

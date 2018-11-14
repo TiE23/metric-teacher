@@ -6,14 +6,14 @@ import { Menu, Icon } from "semantic-ui-react";
 const MenuContentBasics = props => (
   [
     <Menu.Item
-      key="main"
+      key="home"
       as={Link}
       to="/"
       onClick={props.navigateTo}
     >
       <Icon name="home" />
       {" "}
-      Main
+      Home
     </Menu.Item>,
     props.loggedIn ?
       <Menu.Item
