@@ -12,6 +12,11 @@ import ScrollTo from "../misc/ScrollTo";
 import withAuth from "../AuthHOC";
 import SignupLoginButtons from "../misc/SignupLoginButtons";
 
+import {
+  PAGE_TITLE_HEADER_SIZE,
+  PAGE_ICON_COLOR_DOCUMENTATION,
+} from "../../constants";
+
 /**
  * This function recursively constructs the individual elements of the document page.
  * It returns two arrays, nodes and keys. Nodes are the actual React node objects while the
@@ -92,8 +97,8 @@ const DocumentationPage = props => (
   <React.Fragment>
     <ScrollTo paramSlug={props.match.params[0].slice(1)} />
     <Container id="all">
-      <Header size="huge" textAlign="center">
-        <Icon name="book" />
+      <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+        <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
         Documentation
       </Header>
       {(!props.userTokenData || !props.userTokenData.id) &&

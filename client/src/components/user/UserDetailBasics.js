@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Segment, Container, Button, Header, List, Icon } from "semantic-ui-react";
 
 import {
+  PAGE_TITLE_HEADER_SIZE,
+  PAGE_ICON_COLOR_PROFILE,
   USER_TYPE_NAMES,
   USER_STATUS_NAMES,
 } from "../../constants";
@@ -16,8 +18,9 @@ const UserDetailBasics = (props) => {
 
   return (
     <Segment>
-      <Header size="huge" textAlign="center">
-        <Icon name="user" />User Profile
+      <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+        <Icon name="user" color={PAGE_ICON_COLOR_PROFILE} />
+        User Profile
       </Header>
       <List>
         <List.Item icon="user" content={nameFormated} />

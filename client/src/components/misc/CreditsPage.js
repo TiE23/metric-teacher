@@ -1,10 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Container, Header, Icon, Item, List } from "semantic-ui-react";
-import { PAGE_TITLE_HEADER_SIZE } from "../../constants";
 
 import XLink from "./ExternalLink";
 
+import {
+  PAGE_TITLE_HEADER_SIZE,
+  PAGE_ICON_COLOR_CREDITS,
+} from "../../constants";
 import {
   KyleG,
   PaulE,
@@ -13,7 +16,7 @@ import {
 const CreditsPage = () => (
   <Container text>
     <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-      <Icon name="users" color="teal" />
+      <Icon name="users" color={PAGE_ICON_COLOR_CREDITS} />
       Metric-Teacher Credits
     </Header>
 

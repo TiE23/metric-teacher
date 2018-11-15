@@ -7,6 +7,14 @@ export const CHALLENGE_STATE = "challenge-state";
 
 // Styling
 export const PAGE_TITLE_HEADER_SIZE = "huge";
+export const PAGE_ICON_COLOR_HOME = "olive";
+export const PAGE_ICON_COLOR_LOGIN = "green";
+export const PAGE_ICON_COLOR_CHALLENGE = "yellow";
+export const PAGE_ICON_COLOR_SUBJECTS = "orange";
+export const PAGE_ICON_COLOR_DOCUMENTATION = "red";
+export const PAGE_ICON_COLOR_PROFILE = "blue";
+export const PAGE_ICON_COLOR_CREDITS = "teal";
+export const PAGE_ICON_COLOR_ADMIN = "brown";
 
 // Responsive Sizing
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8, computer: 8 };

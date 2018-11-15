@@ -9,6 +9,10 @@ import SubjectsList from "./SubjectsList";
 import SubjectsPageDescription from "./SubjectsPageDescription";
 
 import {
+  PAGE_TITLE_HEADER_SIZE,
+  PAGE_ICON_COLOR_SUBJECTS,
+} from "../../constants";
+import {
   SUBJECT_DETAILS_QUERY,
   SUBJECT_AND_MASTERY_DETAILS_QUERY,
 } from "../../graphql/Queries";
@@ -27,8 +31,8 @@ const Subjects = (props) => {
           queryData={queryProps}
         >
           <Segment>
-            <Header size="huge" textAlign="center">
-              <Icon name="tasks" />
+            <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+              <Icon name="tasks" color={PAGE_ICON_COLOR_SUBJECTS} />
               Subjects
             </Header>
             <SubjectsPageDescription />

@@ -12,6 +12,7 @@ import {
 } from "../../../graphql/Mutations";
 
 import {
+  PAGE_TITLE_HEADER_SIZE,
   FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM,
   FLOATING_CENTER_GRID_COLUMN_WIDTH_FULL,
 } from "../../../constants";
@@ -25,12 +26,12 @@ const ChallengeComplete = (props) => {
     <Grid centered>
       <Grid.Row>
         <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM}>
-          <Header size="large" textAlign="center">
+          <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
             <Header.Content>
               <Icon name="flag checkered" />
               Challenge Complete
               <Header.Subheader>
-                You faced {props.qaCount} questions.
+                You faced {props.qaCount} question{props.qaCount !== 1 ? "s" : ""}.
               </Header.Subheader>
             </Header.Content>
           </Header>
