@@ -32,7 +32,12 @@ const Welcome = props => (
       <Grid.Column>
         <Container text>
           <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-            Welcome to Metric-Teacher!
+            <Header.Content>
+              Welcome to Metric-Teacher!
+              <Header.Subheader>
+                The best way to learn the Metric System.
+              </Header.Subheader>
+            </Header.Content>
           </Header>
 
           <p>

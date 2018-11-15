@@ -1,14 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  Segment,
-  Form,
-  Button,
-  Container,
-  Dimmer,
-  Loader,
-  Message,
-} from "semantic-ui-react";
+import { Form, Button, Container, Dimmer, Loader, Message } from "semantic-ui-react";
 
 import withAuth from "../AuthHOC";
 import utils from "../../utils";
@@ -97,7 +89,7 @@ class UserDetailBasicsEditorForm extends Component {
 
   render() {
     return (
-      <Segment>
+      <React.Fragment>
         <Form className="attached fluid segment">
           <Dimmer inverted active={this.props.loading}>
             <Loader />
@@ -183,7 +175,7 @@ class UserDetailBasicsEditorForm extends Component {
           </ul>
         </Message>
         }
-      </Segment>
+      </React.Fragment>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Segment, Container, Button, Header, List, Icon } from "semantic-ui-react";
+import { Container, Button, Header, List, Icon } from "semantic-ui-react";
 
 import {
   PAGE_TITLE_HEADER_SIZE,
@@ -17,10 +17,15 @@ const UserDetailBasics = (props) => {
     `${userData.honorific ? `${userData.honorific} ` : ""}${userData.fname} ${userData.lname}`;
 
   return (
-    <Segment>
+    <React.Fragment>
       <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-        <Icon name="user" color={PAGE_ICON_COLOR_PROFILE} />
-        User Profile
+        <Header.Content>
+          <Icon name="user" color={PAGE_ICON_COLOR_PROFILE} />
+          User Profile
+          <Header.Subheader>
+            Review your information and progress.
+          </Header.Subheader>
+        </Header.Content>
       </Header>
       <List>
         <List.Item icon="user" content={nameFormated} />
@@ -45,7 +50,8 @@ const UserDetailBasics = (props) => {
           </Button>
         </Container>
       }
-    </Segment>
+      <br />
+    </React.Fragment>
   );
 };
 

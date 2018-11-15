@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
-import { Icon, Header, Segment } from "semantic-ui-react";
+import { Icon, Header } from "semantic-ui-react";
 
 import utils from "../../utils";
 
@@ -33,7 +33,7 @@ const UserDetailBasicsEditor = (props) => {
       }}
     >
       {(updateUserProfile, { loading, error }) => (
-        <Segment>
+        <React.Fragment>
           <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
             <Icon name="edit" color={PAGE_ICON_COLOR_PROFILE} />
             Update Your Information
@@ -47,7 +47,7 @@ const UserDetailBasicsEditor = (props) => {
             loading={loading}
             error={error}
           />
-        </Segment>
+        </React.Fragment>
       )}
     </Mutation>
   );
