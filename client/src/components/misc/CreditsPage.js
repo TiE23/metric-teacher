@@ -67,7 +67,7 @@ const CreditsPage = () => (
             <List.Icon name="facebook" />
             <List.Content>
               <List.Header>
-                <XLink to="https://github.com/facebook/create-react-app">Create-React-App</XLink>
+                <XLink to="https://github.com/facebook/create-react-app">Create React App</XLink>
               </List.Header>
               <List.Description>
                 Set up a modern web app by running one command
@@ -86,10 +86,12 @@ const CreditsPage = () => (
             </List.Content>
           </List.Item>
           <List.Item>
-            <List.Icon name="paint brush" />
+            <List.Icon name="columns" />
             <List.Content>
               <List.Header>
-                <XLink to="https://github.com/Semantic-Org/Semantic-UI-React">Semantic-UI-React</XLink>
+                <XLink to="https://github.com/Semantic-Org/Semantic-UI-React">
+                  Semantic-UI React
+                </XLink>
               </List.Header>
               <List.Description>
                 The official Semantic-UI-React integration
@@ -97,10 +99,10 @@ const CreditsPage = () => (
             </List.Content>
           </List.Item>
           <List.Item>
-            <List.Icon name="theme" />
+            <List.Icon name="paint brush" />
             <List.Content>
               <List.Header>
-                <XLink to="https://semantic-ui-forest.com/themes">Semantic-UI-Forest</XLink>
+                <XLink to="https://semantic-ui-forest.com/themes">Semantic-UI Forest</XLink>
               </List.Header>
               <List.Description>
                 Collection of Bootswatch and Semantic-UI themes

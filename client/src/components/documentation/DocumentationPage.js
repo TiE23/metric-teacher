@@ -98,8 +98,13 @@ const DocumentationPage = props => (
     <ScrollTo paramSlug={props.match.params[0].slice(1)} />
     <Container id="all">
       <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-        <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
-        Documentation
+        <Header.Content>
+          <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
+          Documentation
+          <Header.Subheader>
+            Everything you need to know.
+          </Header.Subheader>
+        </Header.Content>
       </Header>
       {(!props.userTokenData || !props.userTokenData.id) &&
         <Container text textAlign="center">

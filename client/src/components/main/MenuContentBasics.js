@@ -3,6 +3,15 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Menu, Icon } from "semantic-ui-react";
 
+import {
+  PAGE_ICON_COLOR_ADMIN,
+  PAGE_ICON_COLOR_CHALLENGE,
+  PAGE_ICON_COLOR_DOCUMENTATION,
+  PAGE_ICON_COLOR_HOME,
+  PAGE_ICON_COLOR_PROFILE,
+  PAGE_ICON_COLOR_SUBJECTS,
+} from "../../constants";
+
 const MenuContentBasics = props => (
   [
     <Menu.Item
@@ -11,7 +20,7 @@ const MenuContentBasics = props => (
       to="/"
       onClick={props.navigateTo}
     >
-      <Icon name="home" />
+      <Icon name="home" color={PAGE_ICON_COLOR_HOME} />
       {" "}
       Home
     </Menu.Item>,
@@ -22,7 +31,7 @@ const MenuContentBasics = props => (
         to="/challenge"
         onClick={props.navigateTo}
       >
-        <Icon name="bolt" />
+        <Icon name="bolt" color={PAGE_ICON_COLOR_CHALLENGE} />
         {" "}
         Challenge
       </Menu.Item> : null,
@@ -32,7 +41,7 @@ const MenuContentBasics = props => (
       to="/subjects"
       onClick={props.navigateTo}
     >
-      <Icon name="tasks" />
+      <Icon name="tasks" color={PAGE_ICON_COLOR_SUBJECTS} />
       {" "}
       Subjects
     </Menu.Item>,
@@ -42,7 +51,7 @@ const MenuContentBasics = props => (
       to="/docs"
       onClick={props.navigateTo}
     >
-      <Icon name="book" />
+      <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
       {" "}
       Docs
     </Menu.Item>,
@@ -53,7 +62,7 @@ const MenuContentBasics = props => (
         to="/user/me"
         onClick={props.navigateTo}
       >
-        <Icon name="user" />
+        <Icon name="user" color={PAGE_ICON_COLOR_PROFILE} />
         {" "}
         Me
       </Menu.Item> : null,
@@ -64,7 +73,7 @@ const MenuContentBasics = props => (
         to="/admin"
         onClick={props.navigateTo}
       >
-        <Icon name="cog" />
+        <Icon name="cog" color={PAGE_ICON_COLOR_ADMIN} />
         {" "}
         Admin
       </Menu.Item> : null,

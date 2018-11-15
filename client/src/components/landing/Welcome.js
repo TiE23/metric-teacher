@@ -9,6 +9,7 @@ import FrameFooter from "../main/FrameFooter";
 
 import {
   PAGE_TITLE_HEADER_SIZE,
+  MASCOT_NAME_LONG,
 } from "../../constants";
 import {
   KyleG,
@@ -194,7 +195,7 @@ const Welcome = props => (
             <Header.Content>
             "So, are you ready to learn?"
               <Header.Subheader>
-                —<i>Meti the Metric Macaw</i>
+                —<i>{MASCOT_NAME_LONG}</i>
               </Header.Subheader>
             </Header.Content>
           </Header>

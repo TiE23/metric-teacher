@@ -32,8 +32,13 @@ const Subjects = (props) => {
         >
           <Segment>
             <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-              <Icon name="tasks" color={PAGE_ICON_COLOR_SUBJECTS} />
-              Subjects
+              <Header.Content>
+                <Icon name="tasks" color={PAGE_ICON_COLOR_SUBJECTS} />
+                Subjects
+                <Header.Subheader>
+                  See what you can learn next.
+                </Header.Subheader>
+              </Header.Content>
             </Header>
             <SubjectsPageDescription />
             <br />

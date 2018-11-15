@@ -11,10 +11,22 @@ export const PAGE_ICON_COLOR_HOME = "olive";
 export const PAGE_ICON_COLOR_LOGIN = "green";
 export const PAGE_ICON_COLOR_CHALLENGE = "yellow";
 export const PAGE_ICON_COLOR_SUBJECTS = "orange";
-export const PAGE_ICON_COLOR_DOCUMENTATION = "red";
+export const PAGE_ICON_COLOR_DOCUMENTATION = "purple";
 export const PAGE_ICON_COLOR_PROFILE = "blue";
 export const PAGE_ICON_COLOR_CREDITS = "teal";
 export const PAGE_ICON_COLOR_ADMIN = "brown";
+export const RANDOM_HOME_MASCOT_IMAGE = [
+  "/img/challenge/r-correct-a.gif",
+  "/img/challenge/r-correct-b.gif",
+  "/img/challenge/r-correct-c.gif",
+][random(2)];
+export const RANDOM_HOME_MASCOT_QUOTE = [
+  "Let's learn!",
+  "What will you master today?",
+  "Challenge yourself!",
+][random(2)];
+export const MASCOT_NAME_SHORT = "Meti";
+export const MASCOT_NAME_LONG = "Meti the Metric Macaw";
 
 // Responsive Sizing
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8, computer: 8 };
