@@ -22,15 +22,11 @@ const Welcome = props => (
 
     <Grid.Row>
       <Grid.Column>
-        <Header size="huge" textAlign="center">
-          Welcome to Metric-Teacher!
-        </Header>
-      </Grid.Column>
-    </Grid.Row>
-
-    <Grid.Row>
-      <Grid.Column>
         <Container text>
+          <Header size="huge" textAlign="center">
+            Welcome to Metric-Teacher!
+          </Header>
+
           <p>
             Metric-Teacher is a free website that will help you learn to imagine, understand, and describe objects, people, and the world using the Metric System.
           </p>
@@ -50,9 +46,7 @@ const Welcome = props => (
     <Grid.Row>
       <Grid.Column>
         <Container text>
-          <Header dividing>
-            What does it do?
-          </Header>
+          <Header dividing>What does it do?</Header>
 
           <p>
             Metric-Teacher teaches you the Metric system in a way that will actually help you think in Metric! With regular practice you will not be stuck calculating conversions in your head, instead you'll be simply thinking in Metric!
@@ -61,16 +55,8 @@ const Welcome = props => (
           <p>
             You want a little bit more detail? Read Metric-Teacher's mission statement <Link to="docs/missionstatement">here</Link>.
           </p>
-        </Container>
-      </Grid.Column>
-    </Grid.Row>
 
-    <Grid.Row>
-      <Grid.Column>
-        <Container text>
-          <Header dividing>
-            How does it work?
-          </Header>
+          <Header dividing>How does it work?</Header>
 
           <p>
             If you've ever used Duolingo, you'll have an idea how to use Metric-Teacher. By choosing your desired subject to be quizzed on you'll learn by getting asked and answering questions in a dynamic <b>Challenge</b> system!
@@ -108,16 +94,8 @@ const Welcome = props => (
               <b>Survey</b> questions are special to Metric-Teacher. Surveys ask you to give factual and opinion-based answers to questions ranging from your own height to your preferred room temperature. Metric-Teacher will then teach you these values in Metric by asking you to convert these personalized questions!
             </List.Item>
           </List>
-        </Container>
-      </Grid.Column>
-    </Grid.Row>
 
-    <Grid.Row>
-      <Grid.Column>
-        <Container text>
-          <Header dividing>
-            What can it teach me?
-          </Header>
+          <Header dividing>What can it teach me?</Header>
 
           <p>
             Metric-Teacher offers instruction on <b>six</b> major Subjects!
@@ -174,34 +152,18 @@ const Welcome = props => (
           <p>
             You can view all <Icon name="book" />Documentation <Link to="docs">here</Link>.
           </p>
-        </Container>
-      </Grid.Column>
-    </Grid.Row>
 
-    <Grid.Row>
-      <Grid.Column>
-        <Container text>
-          <Header dividing>
-            Will this involve doing math?
-          </Header>
+          <Header dividing>Will this involve a lot of math?</Header>
 
           <p>
-            There's no getting around it but, yes, you will be performing conversions. But with practice not only will you get get quick at them, you'll start to simply recognize new values.
+            There's no getting around it but, yes, you will be performing conversion calculations in your head. Metric-Teacher provides <Link to="docs/guide/mentalmath">tips</Link> for mental math and conversion tricks for every unit. But with practice not only will you get get quick at them, you'll start to simply recognize new values.
           </p>
 
           <p>
             Just like you've known your entire life that <b>104°F</b> is a blisteringly hot day, you'll learn to naturally recognize that when your Australian friend tells you it's <b>40°C</b> outside on New Year's Day you'll know to <i>not</i> suggest she get the hot cocoa out but instead remind her to drink lots of water! That is the goal of Metric-Teacher.
           </p>
-        </Container>
-      </Grid.Column>
-    </Grid.Row>
 
-    <Grid.Row>
-      <Grid.Column>
-        <Container text>
-          <Header dividing>
-            I already know the Metric system! Can it teach me US units?
-          </Header>
+          <Header dividing>I already know the Metric system! Can it teach me US units?</Header>
 
           <p>
             <b>Yes!</b> Metric-Teacher can help you by teaching you the US Customary Unit system. Simply set your profile to say that you prefer the Metric system when enrolling and you'll be given questions more appropriate to your needs!
@@ -212,7 +174,7 @@ const Welcome = props => (
           </p>
 
           <p>
-            If you're going to the United Kingdom instead, you should take a moment to note that differences in the Imperial system used in the UK exist for volume and are not taught on Metric-Teacher. Read more <Link to="docs/uscustomary/liquid">here</Link>.
+            If you're going to the United Kingdom you should take a moment to note that the Imperial system used in the UK has different units for volume. Imperial units for volume are <u>not</u> taught on Metric-Teacher. Read more <Link to="docs/uscustomary/liquid">here</Link>.
           </p>
         </Container>
       </Grid.Column>
@@ -225,7 +187,7 @@ const Welcome = props => (
             <Header.Content>
             "So, are you ready to learn?"
               <Header.Subheader>
-                —Meti, The Metric Macaw
+                —<i>Meti the Metric Macaw</i>
               </Header.Subheader>
             </Header.Content>
           </Header>
@@ -241,16 +203,14 @@ const Welcome = props => (
     <Grid.Row>
       <Grid.Column>
         <Container text>
-          <Header dividing>
-            Who's behind Metric-Teacher?
-          </Header>
+          <Header dividing>Who's behind Metric-Teacher?</Header>
 
           <p>
             Metric-Teacher is a personal passion project of Seattle-based web developer <b>Kyle Geib</b>. He can be found on <XLink to="www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, <XLink to="https://github.com/TiE23">GitHub</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>. He is currently looking for his next career opportunity as a Fullstack JS developer using ReactJS, NodeJS, and GraphQL with Apollo Client.
           </p>
 
           <p>
-            Metric-Teacher's mascot, <i>Meti the Metric Macaw</i>, and other digital art is by <b>Paul E</b>. His art and information on commissions can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please take note that some of his art, while always tasteful, is meant for mature audiences.</i>
+            Metric-Teacher's mascot, <i>Meti the Metric Macaw</i>, and other digital art is by <b>Paul E</b>. His art and information on commissions can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please take note that some of his art, while always tasteful, does contain nudity.</i>
           </p>
         </Container>
       </Grid.Column>
