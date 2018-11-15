@@ -12,6 +12,8 @@ import {
 } from "../../../graphql/Queries";
 
 import {
+  PAGE_TITLE_HEADER_SIZE,
+  PAGE_ICON_COLOR_CHALLENGE,
   CHALLENGE_KICKOFF_LENGTH_OPTIONS,
 } from "../../../constants";
 
@@ -35,9 +37,9 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
           ),
         }}
       >
-        <Header size="large" textAlign="center">
+        <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
           <Header.Content>
-            <Icon name="bolt" />
+            <Icon name="bolt" color={PAGE_ICON_COLOR_CHALLENGE} />
             Challenge Kickoff
             <Header.Subheader>
               Customize your next Challenge.

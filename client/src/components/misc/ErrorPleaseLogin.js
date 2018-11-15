@@ -15,7 +15,7 @@ import { Button } from "semantic-ui-react";
  * @constructor
  */
 const ErrorPleaseLogin = props => (
-  <div>
+  <React.Fragment>
     {props.error &&
       <p>
         {props.error.message || "There was an error."}
@@ -24,12 +24,12 @@ const ErrorPleaseLogin = props => (
 
     {(props.showLoginLinks || (props.error && props.error.message.includes("User must be logged in"))) &&
     <p>
-      Please <Link to={{ pathname: "/login", state: { from: props.location } }}>login</Link> {" "}
-      or <Link to={{ pathname: "/signup", state: { from: props.location } }}>sign-up</Link>.
+      Please <Link to={{ pathname: "/signup", state: { from: props.location } }}>signup</Link> {" "}
+      or <Link to={{ pathname: "/login", state: { from: props.location } }}>login</Link>.
     </p>
     }
     <Button onClick={props.history.goBack}>Go back</Button>
-  </div>
+  </React.Fragment>
 );
 
 ErrorPleaseLogin.propTypes = {

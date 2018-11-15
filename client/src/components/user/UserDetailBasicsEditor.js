@@ -1,12 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
-import { Segment, Header } from "semantic-ui-react";
+import { Icon, Header } from "semantic-ui-react";
 
 import utils from "../../utils";
 
 import UserDetailBasicsEditorForm from "./UserDetailBasicsEditorForm";
 
+import {
+  PAGE_TITLE_HEADER_SIZE,
+  PAGE_ICON_COLOR_PROFILE,
+} from "../../constants";
 import {
   UPDATE_USER_PROFILE_MUTATION,
 } from "../../graphql/Mutations";
@@ -29,11 +33,10 @@ const UserDetailBasicsEditor = (props) => {
       }}
     >
       {(updateUserProfile, { loading, error }) => (
-        <Segment>
-          <Header size="huge" textAlign="center">
-            <Header.Content>
-              Update Your Information
-            </Header.Content>
+        <React.Fragment>
+          <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+            <Icon name="edit" color={PAGE_ICON_COLOR_PROFILE} />
+            Update Your Information
           </Header>
           <UserDetailBasicsEditorForm
             initUserData={userData}
@@ -44,7 +47,7 @@ const UserDetailBasicsEditor = (props) => {
             loading={loading}
             error={error}
           />
-        </Segment>
+        </React.Fragment>
       )}
     </Mutation>
   );

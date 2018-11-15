@@ -1,13 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
-import { Segment, Header, Icon } from "semantic-ui-react";
+import { Header, Icon } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
 import QueryHandler from "../QueryHandler";
 import SubjectsList from "./SubjectsList";
 import SubjectsPageDescription from "./SubjectsPageDescription";
 
+import {
+  PAGE_TITLE_HEADER_SIZE,
+  PAGE_ICON_COLOR_SUBJECTS,
+} from "../../constants";
 import {
   SUBJECT_DETAILS_QUERY,
   SUBJECT_AND_MASTERY_DETAILS_QUERY,
@@ -26,21 +30,24 @@ const Subjects = (props) => {
         <QueryHandler
           queryData={queryProps}
         >
-          <Segment>
-            <Header size="huge" textAlign="center">
-              <Icon name="tasks" />
+          <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+            <Header.Content>
+              <Icon name="tasks" color={PAGE_ICON_COLOR_SUBJECTS} />
               Subjects
-            </Header>
-            <SubjectsPageDescription />
-            <br />
-            <SubjectsList
-              subjectsData={queryProps.data && sortBy(queryProps.data.allSubjects, "index")}
-              masteriesData={queryProps.data && queryProps.data.activeMasteries}
-              queryInfo={{ query, variables: queryProps.variables }}
-              compactView={false}
-              accordionProps={{ fluid: true }}
-            />
-          </Segment>
+              <Header.Subheader>
+                See what you can learn next.
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+          <SubjectsPageDescription />
+          <br />
+          <SubjectsList
+            subjectsData={queryProps.data && sortBy(queryProps.data.allSubjects, "index")}
+            masteriesData={queryProps.data && queryProps.data.activeMasteries}
+            queryInfo={{ query, variables: queryProps.variables }}
+            compactView={false}
+            accordionProps={{ fluid: true }}
+          />
         </QueryHandler>
       )}
     </Query>

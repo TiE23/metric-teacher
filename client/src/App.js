@@ -6,7 +6,9 @@ import "./semantic/dist/semantic.min.css";
 import withAuth from "./components/AuthHOC";
 
 import Test from "./components/Test";
-import Welcome from "./components/Welcome";
+import Welcome from "./components/landing/Welcome";
+import Home from "./components/landing/Home";
+import Credits from "./components/misc/CreditsPage";
 import MenuFrame from "./components/main/MenuFrame";
 import ChallengePage from "./components/challenge/ChallengePage";
 import Login from "./components/entry/Login";
@@ -30,12 +32,14 @@ import {
 const App = () => (
   <div className="App">
     <Switch>
-      <Route exact path="/" component={withAuth(Welcome)} />
+      <Route exact path="/" render={() => <Redirect to="welcome" />} />
+      <Route exact path="/welcome" component={withAuth(Welcome)} />
       <Route exact path="/login" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/signup" component={withAuth(Login, { props: { loginPath: "/login" } })} />
       <Route exact path="/logout" component={Logout} />
       <Route path="/">
         <MenuFrame>
+          <Route exact path="/home" component={withAuth(Home, { private: true })} />
           <Route exact path="/user/:id" component={withAuth(UserPage, { private: true })} />
           <Route exact path="/subjects" component={withAuth(SubjectsPage)} />
           <Route exact path="/docs" render={() => <Redirect to="docs/all" />} />
@@ -45,6 +49,8 @@ const App = () => (
             path="/challenge/:mode?/:challengeId?"
             component={withAuth(ChallengePage, { private: true })}
           />
+          <Route exact path="/credits" component={Credits} />
+
           {/* Admin Pages */}
           <Route
             exact
@@ -52,7 +58,7 @@ const App = () => (
             component={
               withAuth(AdminToolsPage, {
                 private: true,
-                permissions: { type: USER_TYPE_ADMIN },
+                permissions: { type: USER_TYPE_MODERATOR },
               })
             }
           />
@@ -72,7 +78,7 @@ const App = () => (
             component={
               withAuth(UserSearchPage, {
                 private: true,
-                permissions: { type: USER_TYPE_MODERATOR },
+                permissions: { type: USER_TYPE_ADMIN },
               })
             }
           />
@@ -85,14 +91,34 @@ const App = () => (
               })
             }
           />
+
           {/* Below are test paths for development... */}
-          <Route exact path="/test" component={withAuth(Test, { private: true })} />
-          <Route exact path="/qaviewer/:questionId" component={withAuth(QaViewerPage, { private: true })} />
+          <Route
+            exact
+            path="/test"
+            component={
+              withAuth(Test, {
+                private: true,
+                permissions: { type: USER_TYPE_ADMIN },
+              })
+            }
+          />
+          <Route
+            exact
+            path="/qaviewer/:questionId"
+            component={
+              withAuth(QaViewerPage,
+                { private: true,
+                  permissions: { type: USER_TYPE_ADMIN },
+                })
+            }
+          />
           <Route
             exact
             path="/questionviewer/:questionId"
             component={withAuth(QuestionViewerPage, { private: true })}
           />
+
           {/* This is the 404 Page */}
           <Route path="*" component={NotFoundPage} />
         </MenuFrame>
