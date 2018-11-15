@@ -24,7 +24,7 @@ const Welcome = props => (
 
     <Grid.Row>
       <Grid.Column>
-        <Image src="/img/challenge/r-correct-a.gif" centered size="big" />
+        <Image src="/img/challenge/r-correct-a.gif" centered size="large" />
       </Grid.Column>
     </Grid.Row>
 

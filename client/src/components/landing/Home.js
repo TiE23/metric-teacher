@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Grid, Header, Icon, Image, Segment, Transition } from "semantic-ui-react";
 
 import {
@@ -22,6 +22,10 @@ import {
 
 const Home = props => (
   <Grid stackable {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
+    {!props.userTokenData &&
+      <Redirect to="/welcome" />
+    }
+
     <Grid.Row>
       <Grid.Column>
         <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
