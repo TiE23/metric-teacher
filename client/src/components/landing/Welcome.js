@@ -213,6 +213,9 @@ const Welcome = props => (
           <Header dividing>Who's behind Metric-Teacher?</Header>
           {KyleG}
           {PaulE}
+          <p>
+            See full credits <Link to="credits">here</Link>.
+          </p>
         </Container>
       </Grid.Column>
     </Grid.Row>
