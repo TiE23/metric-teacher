@@ -5,8 +5,15 @@ import { Link, Redirect } from "react-router-dom";
 import { Container, Grid, Header, Icon, Image, List } from "semantic-ui-react";
 
 import SignupLoginButtons from "../misc/SignupLoginButtons";
-import XLink from "../misc/ExternalLink";
 import FrameFooter from "../main/FrameFooter";
+
+import {
+  PAGE_TITLE_HEADER_SIZE,
+} from "../../constants";
+import {
+  KyleG,
+  PaulE,
+} from "../misc/CreditsText";
 
 const Welcome = props => (
   <Grid padded>
@@ -23,7 +30,7 @@ const Welcome = props => (
     <Grid.Row>
       <Grid.Column>
         <Container text>
-          <Header size="huge" textAlign="center">
+          <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
             Welcome to Metric-Teacher!
           </Header>
 
@@ -204,14 +211,8 @@ const Welcome = props => (
       <Grid.Column>
         <Container text>
           <Header dividing>Who's behind Metric-Teacher?</Header>
-
-          <p>
-            Metric-Teacher is a personal passion project of Seattle-based web developer <b>Kyle Geib</b>. He can be found on <XLink to="www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, <XLink to="https://github.com/TiE23">GitHub</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>. He is currently looking for his next career opportunity as a Fullstack JS developer using ReactJS, NodeJS, and GraphQL with Apollo Client.
-          </p>
-
-          <p>
-            Metric-Teacher's mascot, <i>Meti the Metric Macaw</i>, and other digital art is by <b>Paul E</b>. His art and information on commissions can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please take note that some of his art, while always tasteful, does contain nudity.</i>
-          </p>
+          {KyleG}
+          {PaulE}
         </Container>
       </Grid.Column>
     </Grid.Row>

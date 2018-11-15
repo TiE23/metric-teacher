@@ -5,6 +5,9 @@ import random from "lodash/random";
 export const AUTH_TOKEN = "auth-token";
 export const CHALLENGE_STATE = "challenge-state";
 
+// Styling
+export const PAGE_TITLE_HEADER_SIZE = "huge";
+
 // Responsive Sizing
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM = { mobile: 16, tablet: 8, computer: 8 };
 export const FLOATING_CENTER_GRID_COLUMN_WIDTH_LARGE = { mobile: 16, tablet: 12, computer: 10 };
