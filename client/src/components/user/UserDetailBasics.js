@@ -18,15 +18,17 @@ const UserDetailBasics = (props) => {
 
   return (
     <React.Fragment>
-      <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-        <Header.Content>
-          <Icon name="user" color={PAGE_ICON_COLOR_PROFILE} />
-          User Profile
-          <Header.Subheader>
-            Review your information and progress.
-          </Header.Subheader>
-        </Header.Content>
-      </Header>
+      <Container text>
+        <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+          <Header.Content>
+            <Icon name="user" color={PAGE_ICON_COLOR_PROFILE} />
+            User Profile
+            <Header.Subheader>
+              Review your information and progress.
+            </Header.Subheader>
+          </Header.Content>
+        </Header>
+      </Container>
       <List>
         <List.Item icon="user" content={nameFormated} />
         <List.Item icon="mail" content={userData.email} />
@@ -46,7 +48,7 @@ const UserDetailBasics = (props) => {
             onClick={props.openEditor}
             primary
           >
-            Edit Profile
+            Edit User Details
           </Button>
         </Container>
       }

@@ -1,10 +1,10 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
-import XLink from "./ExternalLink";
+import XLink from "../ExternalLink";
 
 import {
   MASCOT_NAME_LONG,
-} from "../../constants";
+} from "../../../constants";
 
 export const KyleG = (
   <p>
@@ -14,6 +14,6 @@ export const KyleG = (
 
 export const PaulE = (
   <p>
-    Metric-Teacher's mascot, <i>{MASCOT_NAME_LONG}</i>, and other digital art is by <b>Paul E</b>. His art and information on commissions can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please take note that some of his art, while always tasteful, can contain mild nudity.</i>
+    Metric-Teacher's mascot, <i>{MASCOT_NAME_LONG}</i>, and other digital art is by <b>Paul E</b>. His art and information on commissions can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please take note that some of his art, while always tasteful, sometimes contain mild nudity.</i>
   </p>
 );

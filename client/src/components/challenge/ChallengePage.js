@@ -56,15 +56,8 @@ class ChallengePage extends PureComponent {
         questionModeStart: true,
         challengeId: cuid.slug(),
         selectedQuestionIds: [
-          // "cjnc5d7jr007p0832lip756qg", // Written (w/ answer detail)
-          // "cjnc5d7ar004x0832ubbvemwz", // Written (w/ media)
-          // "cjnc5d7ni008x08328owwcpu6", // Conversion (simple)
-          // "cjnc5d7fq006d0832j4kq5bjb", // Conversion (annotated)
-          "cjnc5d7kb007x0832p7ahstts", // Conversion (annotated, from metric)
-          // "cjnc5d7yl00d90832r5tvircn", // Conversion (to floz)
-          // "cjnc5d7hh006x0832s0ysl0t6", // Survey (note not required)
-          // "cjnc5d7hs00710832zvfun2vo", // Survey (note optional)
-          // "cjnc5d7i300750832c5h15pch", // Survey (note required)
+          // Put question ids here.
+          // Run by calling this function with a button click. Ideally in ChallengeKickoff.
         ],
       });
     };

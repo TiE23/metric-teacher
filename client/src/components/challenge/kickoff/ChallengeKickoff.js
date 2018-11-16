@@ -2,7 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
-import { Button, Checkbox, Dropdown, Grid, Header, Icon, Popup, Segment } from "semantic-ui-react";
+import {
+  Button,
+  Checkbox,
+  Container,
+  Dropdown,
+  Grid,
+  Header,
+  Icon,
+  Popup,
+  Segment
+} from "semantic-ui-react";
 
 import QueryHandler from "../../QueryHandler";
 import ChallengeKickoffSelector from "./ChallengeKickoffSelector";
@@ -37,15 +47,17 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
           ),
         }}
       >
-        <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-          <Header.Content>
-            <Icon name="bolt" color={PAGE_ICON_COLOR_CHALLENGE} />
-            Challenge Kickoff
-            <Header.Subheader>
-              Customize your next Challenge.
-            </Header.Subheader>
-          </Header.Content>
-        </Header>
+        <Container text>
+          <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+            <Header.Content>
+              <Icon name="bolt" color={PAGE_ICON_COLOR_CHALLENGE} />
+              Challenge Kickoff
+              <Header.Subheader>
+                Customize your next Challenge.
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+        </Container>
         <br />
         <ChallengeKickoffSelector
           masteriesData={queryProps.data && queryProps.data.activeMasteries}
@@ -53,7 +65,7 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
           updateSubSubjectIds={props.updateSubSubjectIds}
         />
         <Segment attached="top">
-          <Grid stackable columns="equal" verticalAlign="middle">
+          <Grid stackable columns="equal" verticalAlign="middle" padded={false}>
             <Grid.Row>
               <Grid.Column>
                 <Header size="medium">
@@ -105,14 +117,6 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
         >
           Start Challenge!
         </Button>
-
-        {/* TODO - Remove this */}
-        <br />
-        <button
-          onClick={props.handleQuestionModeStart}
-        >
-          Question List Start! (Dev)
-        </button>
       </QueryHandler>
     )}
   </Query>
@@ -127,6 +131,7 @@ ChallengeKickoff.propTypes = {
   updateChallengeLength: PropTypes.func.isRequired,
   updateIgnoreDifficulty: PropTypes.func.isRequired,
   handleChallengeModeStart: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/no-unused-prop-types
   handleQuestionModeStart: PropTypes.func.isRequired,
 };
 

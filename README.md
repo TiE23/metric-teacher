@@ -1,2 +1,3 @@
-# metric-teacher
-The repository name is intentionally generic.
+# 📐🗄🗂🗳📏 metric-teacher 📏🗳🗂🗄📐
+
+View `./client/README.md` and `./server/README.md` for more complete README documentation.
