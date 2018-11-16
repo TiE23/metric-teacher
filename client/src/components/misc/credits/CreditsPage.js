@@ -2,12 +2,13 @@
 import React from "react";
 import { Container, Header, Icon, Item, List } from "semantic-ui-react";
 
-import XLink from "./ExternalLink";
+import XLink from "../ExternalLink";
 
 import {
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_CREDITS,
-} from "../../constants";
+} from "../../../constants";
+
 import {
   KyleG,
   PaulE,
@@ -17,7 +18,7 @@ const CreditsPage = () => (
   <Container text>
     <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
       <Icon name="users" color={PAGE_ICON_COLOR_CREDITS} />
-      Metric-Teacher Credits
+      Credits
     </Header>
 
     <Item.Group>
@@ -25,7 +26,7 @@ const CreditsPage = () => (
         <Item.Image src="/img/mascot/portrait.gif" size="small" />
         <Item.Content>
           <Item.Header>Kyle Geib</Item.Header>
-          <Item.Meta>Engineer and Designer</Item.Meta>
+          <Item.Meta>Creator and Developer</Item.Meta>
           <Item.Description>
             {KyleG}
           </Item.Description>

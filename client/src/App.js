@@ -5,10 +5,9 @@ import "./semantic/dist/semantic.min.css";
 
 import withAuth from "./components/AuthHOC";
 
-import Test from "./components/Test";
 import Welcome from "./components/landing/Welcome";
 import Home from "./components/landing/Home";
-import Credits from "./components/misc/CreditsPage";
+import Credits from "./components/misc/credits/CreditsPage";
 import MenuFrame from "./components/main/MenuFrame";
 import ChallengePage from "./components/challenge/ChallengePage";
 import Login from "./components/entry/Login";
@@ -40,6 +39,7 @@ const App = () => (
       <Route path="/">
         <MenuFrame>
           <Route exact path="/home" component={withAuth(Home, { private: true })} />
+          <Route exact path="/credits" component={Credits} />
           <Route exact path="/user/:id" component={withAuth(UserPage, { private: true })} />
           <Route exact path="/subjects" component={withAuth(SubjectsPage)} />
           <Route exact path="/docs" render={() => <Redirect to="docs/all" />} />
@@ -49,7 +49,6 @@ const App = () => (
             path="/challenge/:mode?/:challengeId?"
             component={withAuth(ChallengePage, { private: true })}
           />
-          <Route exact path="/credits" component={Credits} />
 
           {/* Admin Pages */}
           <Route
@@ -95,9 +94,9 @@ const App = () => (
           {/* Below are test paths for development... */}
           <Route
             exact
-            path="/test"
+            path="/qaviewer/:questionId"
             component={
-              withAuth(Test, {
+              withAuth(QaViewerPage, {
                 private: true,
                 permissions: { type: USER_TYPE_ADMIN },
               })
@@ -105,18 +104,13 @@ const App = () => (
           />
           <Route
             exact
-            path="/qaviewer/:questionId"
-            component={
-              withAuth(QaViewerPage,
-                { private: true,
-                  permissions: { type: USER_TYPE_ADMIN },
-                })
-            }
-          />
-          <Route
-            exact
             path="/questionviewer/:questionId"
-            component={withAuth(QuestionViewerPage, { private: true })}
+            component={
+              withAuth(QuestionViewerPage, {
+                private: true,
+                permissions: { type: USER_TYPE_ADMIN },
+              })
+            }
           />
 
           {/* This is the 404 Page */}

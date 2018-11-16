@@ -10,11 +10,12 @@ import FrameFooter from "../main/FrameFooter";
 import {
   PAGE_TITLE_HEADER_SIZE,
   MASCOT_NAME_LONG,
+  MASCOT_NAME_SHORT,
 } from "../../constants";
+
 import {
   KyleG,
-  PaulE,
-} from "../misc/CreditsText";
+} from "../misc/credits/CreditsText";
 
 const Welcome = props => (
   <Grid padded>
@@ -218,9 +219,8 @@ const Welcome = props => (
         <Container text>
           <Header dividing>Who's behind Metric-Teacher?</Header>
           {KyleG}
-          {PaulE}
           <p>
-            See full credits <Link to="credits">here</Link>.
+            Learn more about the technology used and <b>Paul E.</b>, the artist behind {MASCOT_NAME_SHORT} <Link to="credits">here</Link>.
           </p>
         </Container>
       </Grid.Column>
