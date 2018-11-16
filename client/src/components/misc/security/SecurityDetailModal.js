@@ -4,7 +4,7 @@ import { Modal } from "semantic-ui-react";
 import SecurityDetailText from "./SecurityDetailText";
 
 const SecurityDetailModal = props => (
-  <Modal trigger={props.children}>
+  <Modal trigger={props.children} closeIcon>
     <Modal.Header>
       A word on security...
     </Modal.Header>
