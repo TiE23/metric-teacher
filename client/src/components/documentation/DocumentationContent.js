@@ -16,23 +16,19 @@ export default {
     content: (
       <React.Fragment>
         <p>
-          Metric-Teacher is a teaching tool that will help any interested person learn to imagine, interpret, and describe the world in a different system of measurements.
+          Metric-Teacher is a teaching tool that will help any interested person learn to imagine, understand, and describe objects, people, and the world using a new system of measurements.
         </p>
 
         <p>
-          Metric-Teacher isn't a spruced-up source of boring conversion charts. It is inspired by the language learning tool Duolingo where students learn through repetition, pattern recognition, and daily practice instead of being told to memorize vocabulary lists and grammar rules.
+          The goal is to allow a student to eventually think in a new unit system. Like a fluent speaker of a new language isn't remembering vocabulary lists as they speak, our students won't need to remember conversion formula for the rest of their life.
         </p>
 
         <p>
-          Metric-Teacher's goal is to allow a student to eventually think in a new unit system. Like a fluent speaker of a new language isn't remembering vocabulary lists as they speak, our students won't need to remember conversion formula for the rest of their life.
+          Whether a student wishes to learn the Metric system or the US Customary Unit System they will find what they need here all on one convenient, mobile-friendly website.
         </p>
 
         <p>
-          Whether a student wishes to learn the Metric system or the US Customary Unit system they will find what they need here all on one convenient, mobile-friendly website.
-        </p>
-
-        <p>
-          So, if you want to know how long a 10K run really is or what a "Quarter Pounder with Cheese" means you need only enthusiasm, dedication, and Metric-Teacher.
+          So, if you want to know how long a 10k run really is or what a "Quarter Pounder with Cheese" means you need only enthusiasm, dedication, and Metric-Teacher.
         </p>
       </React.Fragment>
     ),
@@ -46,7 +42,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            The metric system is the standard of the world. While an American can live their life quite happily without being very familiar with the Metric system it's hard to argue that there is anything advantageous in remaining ignorant to a system used by 95.6% of the world's population.
+            The metric system is the international standard. While an American can live their life quite happily without being very familiar with the metric system it's hard to argue that there is anything advantageous in remaining ignorant to a system used by 95.6% of the world's population.
           </p>
 
           <p>
@@ -54,14 +50,14 @@ export default {
           </p>
 
           <p>
-            As a non-metric user you probably <XLink to="https://en.wikipedia.org/wiki/Metrication_in_the_United_States#Current_use">already have a grasp on some parts of the metric system</XLink>. You know how large a 2-liter bottle is and you've seen centimeters on rulers since you were in kindergarten. This is all you need to start.
+            As a US Customary Unit System user you likely <XLink to="https://en.wikipedia.org/wiki/Metrication_in_the_United_States#Current_use">do have a grasp on some parts of the metric system</XLink>. You know how large a 2-liter bottle is and you've seen centimeters on rulers since you were in kindergarten. This is enough of a base to start.
           </p>
 
           <p>
             The goal of Metric-Teacher is to make the metric system feel natural:
             <List bulleted>
               <List.Item>
-                The same mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall...
+                The mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall...
               </List.Item>
               <List.Item>
                 Will become a mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall.
@@ -81,26 +77,22 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            If you're moving to America or to some parts of the English-speaking world you're going to encounter US Customary Units. Knowing what your new coworker means when say they live 15 miles away, or what to wear when the TV weather forecast for tomorrow is going to be 50 degrees Fahrenheit, or how to react when your classmate bemoans the 5 pounds they gained over the holiday break is a small but invaluable ability.
+            If you're moving to America (or to some parts of the English-speaking world) you're going to encounter US Customary (or Imperial) Units. Knowing what your new coworker means when say they live 15 miles away, or what to wear when the TV weather forecast for tomorrow is going to be 50 degrees Fahrenheit, or how to react when your classmate bemoans the 5 pounds they gained over the holiday break is an invaluable ability.
           </p>
 
           <p>
-            While your new American neighbors may scratch their head if you tell them how that one time you were on a summer holiday in Greece and it reached 40 degrees Celsius, <XLink to="https://en.wikipedia.org/wiki/Metrication_in_the_United_States#Current_use">they will be relatively familiar</XLink> with a liter water bottle, the light layer of snow that's "only a centimeter deep", and the street corner that's "about 100 meters away."
+            While your new American neighbors may scratch their head if you tell them how that one time you were on a summer holiday in Greece and it reached 40 degrees Celsius, <XLink to="https://en.wikipedia.org/wiki/Metrication_in_the_United_States#Current_use">they will be relatively familiar</XLink> with a liter water bottle, the light layer of snow that's "only a centimeter deep", and the street corner that's "about 100 meters" away.
           </p>
 
           <p>
-            The US Customary Unit system involves a large library of units and sub units that you'll have to contend with and grow familiar with. In addition, you'll need to grasp when to switch from one unit to another depending on the amount or context.
+            The US Customary Unit System involves a large library of units and sub units that you'll have to contend with and grow familiar with. In addition, you'll need to grasp when to switch from one unit to another depending on the amount or context. And while this website was conceived and built to help students learn the metric system it can be used just as effectively in reverse.
           </p>
 
           <p>
-            The US Customary Unit system may be outdated and confusing, but in reality there is practical use to it given context. While this website was conceived and built to help students learn the metric system it can be used just as effectively in reverse.
-          </p>
-
-          <p>
-            The goal of Metric-Teacher is to make the US Customary Unit system feel natural:
+            The goal of Metric-Teacher is to make the US Customary Unit System feel natural:
             <List bulleted>
               <List.Item>
-                The same mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall...
+                The mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall...
               </List.Item>
               <List.Item>
                 Will become a mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall.
@@ -109,106 +101,6 @@ export default {
           </p>
         </React.Fragment>
       ),
-    },
-  },
-
-
-  // US Customary Details
-  uscustomary: {
-    header: {
-      content: "The US Customary Unit Perspective",
-      as: "h1",
-      dividing: true,
-    },
-    content: (
-      <React.Fragment>
-        <p>
-          Metric-Teacher uses the <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units">US Customary System</XLink> (USCS). Based off earlier British units, it is a sibling to the <XLink to="https://en.wikipedia.org/wiki/Imperial_units">Imperial Unit System</XLink> which was <XLink to="https://en.wikipedia.org/wiki/Weights_and_Measures_Acts_(UK)">standardized in 1894</XLink>, decades after the United States declared independence from the British Empire. The functional <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">differences</XLink> are limited to <u>liquid</u> volume units.
-        </p>
-
-        <p>
-          Fahrenheit, it is worth mentioning, isn't an Imperial unit. It was first defined by a Dutch-German-Polish physicist in 1724 and gained acceptance over the following decades following a final adjustment in definition in 1776 by Henry Cavendish, a British scientist. On the other hand, it is <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units#Units_of_temperature">considered a member</XLink> of the US Customary Units system.
-        </p>
-
-        <p>
-          The United States is the only major country in the world that hasn't adopted the Metric system as their standard system of measurements. The story is that in 1793 Thomas Jefferson, a founding father of the United States, requested Metric unit samples from France but the ship carrying them to America was lost in a storm.
-        </p>
-
-        <p>
-          <XLink to="https://en.wikipedia.org/wiki/Metric_Conversion_Act">The Metric Conversion Act</XLink> of 1975 made the metric system the preferred system of US trade and commerce, but only on paper. <XLink to="https://en.wikipedia.org/wiki/United_States_Metric_Board">The United States Metrification Board</XLink> was abolished in 1982 by US President Ronald Reagan citing budgetary concerns and a lack of enthusiasm.
-        </p>
-
-        <p>
-          Many sectors of American industry, government, military, science, engineering, and medicine use the Metric system in various circumstances. But in daily life, both individual and public, the US Customary System is the one that the population has the strongest grasp.
-        </p>
-      </React.Fragment>
-    ),
-
-    liquid: {
-      header: {
-        content: "Imperial vs US Customary Liquid Volume Units",
-        as: "h2",
-        dividing: true,
-      },
-      content: (
-        <React.Fragment>
-          <p>
-            Metric-Teacher teaches the US Customary Unit system, also known as the United States customary system (USCS). Despite the shared history, there are a distinct differences between the unit system used in the United States and the Imperial unit system used in greatly varying levels in the currently and historically British-influenced world.
-          </p>
-
-          <p>
-            US Customary units are identical to Imperial units for length and mass. Differences are <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">limited to liquid volumes</XLink>, which is fortunate so long as you don't find yourself converting an English pint to milliliters with the conversion values of a US pint in mind.
-          </p>
-
-          {Tables.imperialVsUSVolumes}
-        </React.Fragment>
-      ),
-
-      summary: {
-        header: {
-          content: "Imperial vs US Customary Volume Units Summary",
-          as: "h3",
-        },
-        content: (
-          <React.Fragment>
-            <List bulleted>
-              <List.Item>
-                Similarities
-                <List.List>
-                  <List.Item>
-                    Two pints make one quart.
-                  </List.Item>
-                  <List.Item>
-                    Four quarts make one gallon.
-                  </List.Item>
-                  <List.Item>
-                    A cup is half a pint. While very common in the US Customary Unit system, it is generally ignored in the Imperial Unit system.
-                  </List.Item>
-                </List.List>
-              </List.Item>
-              <List.Item>
-                Differences
-                <List.List>
-                  <List.Item>
-                    The Imperial fluid ounce is 4% smaller than the US fluid ounce.
-                  </List.Item>
-                  <List.Item>
-                    The Imperial pint is 20 Imperial fluid ounces - the US pint is 16 US fluid ounces. The Imperial pint 20% larger than a US pint.
-                  </List.Item>
-                </List.List>
-              </List.Item>
-            </List>
-
-            <p>
-              In 1824, decades after the US declared independence in 1776, the British Parliament defined an Imperial gallon as the volume of <XLink to="https://en.wikipedia.org/wiki/Fluid_ounce#History">10 pounds of water</XLink> and similarly an Imperial fluid ounce a equivalent to an ounce (weight) of water. Because there are 160 ounces in 10 pounds, that resulting in 160 fluid ounces in a gallon of water.
-            </p>
-
-            <p>
-              The US gallon is not based on the weight of any liquid. Instead it is based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow history. This is the system that Metric-Teacher covers.
-            </p>
-          </React.Fragment>
-        ),
-      },
     },
   },
 
@@ -270,6 +162,106 @@ export default {
           {Tables.metricPrefixes}
         </React.Fragment>
       ),
+    },
+  },
+
+
+  // US Customary Details
+  uscustomary: {
+    header: {
+      content: "The US Customary Unit Perspective",
+      as: "h1",
+      dividing: true,
+    },
+    content: (
+      <React.Fragment>
+        <p>
+          Metric-Teacher uses the <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units">US Customary System</XLink> (USCS). Based off earlier British units, it is a sibling to the <XLink to="https://en.wikipedia.org/wiki/Imperial_units">Imperial Unit System</XLink> which was <XLink to="https://en.wikipedia.org/wiki/Weights_and_Measures_Acts_(UK)">standardized in 1894</XLink>, decades after the United States declared independence from the British Empire. The functional <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">differences</XLink> are limited to <u>liquid</u> volume units.
+        </p>
+
+        <p>
+          Fahrenheit, it is worth mentioning, isn't an Imperial unit. It was first defined by a Dutch-German-Polish physicist in 1724 and gained acceptance over the following decades following a final adjustment in definition in 1776 by Henry Cavendish, a British scientist. On the other hand, it is <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units#Units_of_temperature">considered a member</XLink> of the US Customary Units system.
+        </p>
+
+        <p>
+          The United States is the only major country in the world that hasn't adopted the Metric system as their standard system of measurements. The story is that in 1793 Thomas Jefferson, a founding father of the United States, requested Metric unit samples from France but the ship carrying them to America was lost in a storm.
+        </p>
+
+        <p>
+          <XLink to="https://en.wikipedia.org/wiki/Metric_Conversion_Act">The Metric Conversion Act</XLink> of 1975 made the metric system the preferred system of US trade and commerce, but only on paper. <XLink to="https://en.wikipedia.org/wiki/United_States_Metric_Board">The United States Metrification Board</XLink> was abolished in 1982 by US President Ronald Reagan citing budgetary concerns and a lack of enthusiasm.
+        </p>
+
+        <p>
+          Many sectors of American industry, government, military, science, engineering, and medicine use the Metric system in various circumstances. But in daily life, both individual and public, the US Customary System is the one that the population has the strongest grasp.
+        </p>
+      </React.Fragment>
+    ),
+
+    liquid: {
+      header: {
+        content: "Imperial vs US Customary Liquid Volume Units",
+        as: "h2",
+        dividing: true,
+      },
+      content: (
+        <React.Fragment>
+          <p>
+            Metric-Teacher teaches the US Customary Unit System, also known as the United States customary system (USCS). Despite the shared history, there are a distinct differences between the unit system used in the United States and the Imperial unit system used in greatly varying levels in the currently and historically British-influenced world.
+          </p>
+
+          <p>
+            US Customary units are identical to Imperial units for length and mass. Differences are <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">limited to liquid volumes</XLink>, which is fortunate so long as you don't find yourself converting an English pint to milliliters with the conversion values of a US pint in mind.
+          </p>
+
+          {Tables.imperialVsUSVolumes}
+        </React.Fragment>
+      ),
+
+      summary: {
+        header: {
+          content: "Imperial vs US Customary Volume Units Summary",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <List bulleted>
+              <List.Item>
+                Similarities
+                <List.List>
+                  <List.Item>
+                    Two pints make one quart.
+                  </List.Item>
+                  <List.Item>
+                    Four quarts make one gallon.
+                  </List.Item>
+                  <List.Item>
+                    A cup is half a pint. While very common in the US Customary Unit System, it is generally ignored in the Imperial Unit system.
+                  </List.Item>
+                </List.List>
+              </List.Item>
+              <List.Item>
+                Differences
+                <List.List>
+                  <List.Item>
+                    The Imperial fluid ounce is 4% smaller than the US fluid ounce.
+                  </List.Item>
+                  <List.Item>
+                    The Imperial pint is 20 Imperial fluid ounces - the US pint is 16 US fluid ounces. The Imperial pint 20% larger than a US pint.
+                  </List.Item>
+                </List.List>
+              </List.Item>
+            </List>
+
+            <p>
+              In 1824, decades after the US declared independence in 1776, the British Parliament defined an Imperial gallon as the volume of <XLink to="https://en.wikipedia.org/wiki/Fluid_ounce#History">10 pounds of water</XLink> and similarly an Imperial fluid ounce a equivalent to an ounce (weight) of water. Because there are 160 ounces in 10 pounds, that resulting in 160 fluid ounces in a gallon of water.
+            </p>
+
+            <p>
+              The US gallon is not based on the weight of any liquid. Instead it is based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow history. This is the system that Metric-Teacher covers.
+            </p>
+          </React.Fragment>
+        ),
+      },
     },
   },
 
