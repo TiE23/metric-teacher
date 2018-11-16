@@ -1,3 +1,3 @@
 # 📐🗄🗂🗳📏 metric-teacher 📏🗳🗂🗄📐
 
-View /client and /server for more complete README documentation.
+View `./client/README.md` and `./server/README.md` for more complete README documentation.

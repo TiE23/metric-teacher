@@ -1,6 +1,6 @@
 const constants = {
   // Server Configurations
-  BCRYPT_SALT_LENGTH: 10,
+  BCRYPT_SALT_LENGTH: 10, // TODO - Set to 12? Sounds like that is the sweet-spot.
 
   // Database Constants
   // Input Limits

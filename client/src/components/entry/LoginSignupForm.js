@@ -22,6 +22,7 @@ import {
 
 import LoadingButton from "../misc/LoadingButton";
 import FrameFooter from "../main/FrameFooter";
+import SecurityDetailModal from "../misc/security/SecurityDetailModal";
 
 class LoginSignupForm extends Component {
   constructor(props) {
@@ -151,6 +152,12 @@ class LoginSignupForm extends Component {
               >
                 Click here if you {this.props.loginPage ? "need to make" : "already have"} an account.
               </Link>
+              <br />
+              <SecurityDetailModal>
+                <span style={{ cursor: "pointer" }}>
+                  Security on Metric-Teacher?
+                </span>
+              </SecurityDetailModal>
             </Container>
           </Form>
           {this.props.error &&
