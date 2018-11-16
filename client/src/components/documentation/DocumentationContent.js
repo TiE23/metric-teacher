@@ -1,7 +1,7 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
 import { Link } from "react-router-dom";
-import { Grid, Header, Image, List } from "semantic-ui-react";
+import { Grid, Header, Icon, Image, List } from "semantic-ui-react";
 
 import Tables from "./DocumentationTables";
 import XLink from "../misc/ExternalLink";
@@ -112,9 +112,9 @@ export default {
 
 
   // Metric-Teacher Details
-  metricTeacher: {
+  howTo: {
     header: {
-      content: "Using Metric-Teacher",
+      content: "How To Use Metric-Teacher",
       as: "h1",
       dividing: true,
     },
@@ -125,6 +125,76 @@ export default {
         </p>
       </React.Fragment>
     ),
+
+    start: {
+      header: {
+        content: "Getting Started",
+        as: "h2",
+        dividing: true,
+      },
+      content: (
+        <React.Fragment>
+          <p>
+            After <Link to="/signup">signing up</Link> for an account you'll need to <b>Enroll</b>. This takes only a single click from the <Link to="/user/me">User Profile page</Link>.
+          </p>
+        </React.Fragment>
+      ),
+
+      course: {
+        header: {
+          content: "Assigning a New Course",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              The next step is to assign a new <b>Course</b> to yourself. Here you will be asked for your preference: Are you more familiar with the Metric system? Or are you more familiar with the US Customary Unit system? Your preference can be changed at any time.
+            </p>
+          </React.Fragment>
+        ),
+      },
+
+      subjects: {
+        header: {
+          content: "Building Your Course-load",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              Now it's time to assign <b>SubSubjects</b> to your course. Go to the <Link to="/subjects">Subjects page</Link> to view the various Subjects and SubSubjects. Assign a SubSubject to start seeing it available in Challenges.
+            </p>
+
+            <p>
+              With each assigned SubSubject your Course will track your <b>Mastery</b> with each SubSubject. As you progress in your learning your Mastery score will increase. As your Mastery improves the questions you get will get progressively more and more difficult.
+            </p>
+          </React.Fragment>
+        ),
+      },
+    },
+
+    profile: {
+      header: {
+        content: "Reviewing Your Profile",
+        as: "h2",
+        dividing: true,
+      },
+      content: (
+        <React.Fragment>
+          <p>
+            When reviewing your <b>Masteries</b> on the <Link to="/user/me">User Profile page</Link> you can group by Subject or see each SubSubject individually. You can also disable any SubSubject you desire to remove them from Challenges, useful if you have completed or lost interest in a particular SubSubject. Enabling them again will return them availability in Challenges.
+          </p>
+
+          <p>
+            When reviewing your <b>Surveys</b> on the <Link to="/user/me">User Profile page</Link> you can re-answer them, adjust your note (if there is any), or disable it from appearing in Challenges.
+          </p>
+
+          <p>
+            Finally you can, of course, adjust your <b>User Details</b> updating your password and email address as you need.
+          </p>
+        </React.Fragment>
+      ),
+    },
 
     challenges: {
       header: {
@@ -222,7 +292,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              Each question you face is internally labelled with a <b>difficulty grade</b> ranging from 1 to 5. As you gain Mastery in a SubSubject the difficulty of the questions you face will increase. The easiest questions are not meant to challenge, only to dip your toe. But by the end you'll be asked to perform some very tight conversions.
+              Each question you face is internally labelled with a <b>difficulty grade</b> ranging from 1 to 5. As you gain Mastery in a SubSubject the difficulty of the questions you face will increase. The easiest questions are not meant to challenge, only to introduce you to the basics. Before long you'll be given more demanding questions and by the end you'll be asked to perform some very accurate conversions.
             </p>
 
             <p>
@@ -267,6 +337,50 @@ export default {
         ),
       },
 
+      help: {
+        header: {
+          content: "Getting Help",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              <b>Documentation</b> is always available in Challenges.
+            </p>
+
+            <p>
+              Below the question there is a small teal colored link with a <Icon name="book" color="teal" fitted /> that you can click on to see a description, conversion chart, and tips on how to convert to the units you're working on.
+            </p>
+          </React.Fragment>
+        ),
+      },
+
+      surveys: {
+        header: {
+          content: "Filling Surveys",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              <b>Surveys</b> are special questions that first ask you to answer a question by offering a fact or an opinion on something measurable. It is recommended that you answer every survey you can as skipping it will not show it to you again (you can answer it later in the the Surveys section of your <Link to="/user/me">User Profile page</Link>).
+            </p>
+
+            <p>
+              Of course, if a Survey question doesn't apply to you, or you view it as too personal, or you don't have an answer, you can skip filling out the survey with <u>no penalty</u> towards your Mastery.
+            </p>
+
+            <p>
+              Surveys are always directed into the unit system you are learning. That is, if you have a preference for the Metric system, Survey questions will always ask you to convert a value into the US Customary Unit system. And vice-versa.
+            </p>
+
+            <p>
+              Some Surveys have the option or require filling in a <b>Note</b>. If it asks you, for example, how tall the last person you spoke to is, it would make sense to write that person's name down. That way, you'll learn that particular person's height in another system of units, a natural way to better grasp short measurements of length.
+            </p>
+          </React.Fragment>
+        ),
+      },
+
       completing: {
         header: {
           content: "Completing a Challenge",
@@ -283,7 +397,7 @@ export default {
             </p>
 
             <p>
-              The <b>score page</b> will show you your Mastery progress for each SubSubject you've practiced against (there is no guarentee that you'll see every SubSubject you selected in a Challenge). It will also show progress on Survey questions and your responses to any new Survey questions you've faced.
+              The <b>score page</b> will show you your Mastery progress for each SubSubject you've practiced against (there is no guarantee that you'll see every SubSubject you selected in a Challenge). It will also show progress on Survey questions and your responses to any new Survey questions you've faced.
             </p>
           </React.Fragment>
         ),

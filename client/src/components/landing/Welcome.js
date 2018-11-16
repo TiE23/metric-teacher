@@ -77,7 +77,7 @@ const Welcome = props => (
             If you've ever used Duolingo, you'll have an idea how to use Metric-Teacher. By choosing your desired subject to be quizzed on you'll learn by getting asked and answering questions in a dynamic <b>Challenge</b> system!
           </p>
 
-          {DocumentationContent.metricTeacher.challenges.questionTypes.content}
+          {DocumentationContent.howTo.challenges.questionTypes.content}
 
           <Header dividing>What can it teach me?</Header>
 
@@ -171,7 +171,7 @@ const Welcome = props => (
             <Header.Content>
             "So, are you ready to learn?"
               <Header.Subheader>
-                —<i>{MASCOT_NAME_LONG}</i>
+                <i>—{MASCOT_NAME_LONG}</i>
               </Header.Subheader>
             </Header.Content>
           </Header>

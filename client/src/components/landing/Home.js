@@ -107,7 +107,7 @@ const Home = props => (
         <Header>
           "{RANDOM_HOME_MASCOT_QUOTE}"
           <Header.Subheader>
-            —<i>{MASCOT_NAME_LONG}</i>
+            <i>—{MASCOT_NAME_LONG}</i>
           </Header.Subheader>
         </Header>
       </Grid.Column>
