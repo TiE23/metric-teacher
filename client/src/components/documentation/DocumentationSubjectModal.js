@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import { Divider, Header, Modal } from "semantic-ui-react";
 
 import Docs from "./DocumentationContent";
-import ExternalLink from "../misc/ExternalLink";
+import XLink from "../misc/ExternalLink";
 
 const DocumentationSubjectModal = (props) => {
   const subjectAddress = props.subject.toLocaleLowerCase();
-  const toMetricAddress = props.toMetric ? "toMetric" : "fromMetric";
+  const directionAddress = props.toMetric ? "toMetric" : "fromMetric";
 
   if (!Docs.guide[subjectAddress]) {
     return props.children;
   }
 
-  const targetDoc = Docs.guide[subjectAddress][toMetricAddress];
+  const targetDoc = Docs.guide[subjectAddress][directionAddress];
 
   return (
     <Modal trigger={props.children} closeIcon>
@@ -29,11 +29,11 @@ const DocumentationSubjectModal = (props) => {
           <Header {...targetDoc.tips.header} />
           {targetDoc.tips.content}
           <Divider />
-          <ExternalLink
-            to={`/docs/guide/${subjectAddress}/${toMetricAddress.toLocaleLowerCase()}`}
+          <XLink
+            to={`/docs/guide/${subjectAddress}/${directionAddress.toLocaleLowerCase()}`}
           >
             See full documentation...
-          </ExternalLink>
+          </XLink>
         </Modal.Description>
       </Modal.Content>
     </Modal>

@@ -14,17 +14,17 @@ export default {
       dividing: true,
     },
     content: (
-      <div>
+      <React.Fragment>
         <p>
           Metric-Teacher is a teaching tool that will help any interested person learn to imagine, interpret, and describe the world in a different system of measurements.
         </p>
 
         <p>
-          Metric-Teacher is a new approach. It isn't a spruced-up source for conversion charts. It is inspired by the language learning tool Duolingo. In that tool students aren't given exhausting vocabulary lists and grammar charts to study. Instead they learn through repetition and pattern recognition.
+          Metric-Teacher isn't a spruced-up source of boring conversion charts. It is inspired by the language learning tool Duolingo where students learn through repetition, pattern recognition, and daily practice instead of being told to memorize vocabulary lists and grammar rules.
         </p>
 
         <p>
-          Metric-Teacher's goal is to allow a student to eventually think in a new system. Like a fluent speaker of a new language isn't remembering vocabulary lists as they speak, our students won't juggle conversion charts in their head for the rest of their life.
+          Metric-Teacher's goal is to allow a student to eventually think in a new unit system. Like a fluent speaker of a new language isn't remembering vocabulary lists as they speak, our students won't need to remember conversion formula for the rest of their life.
         </p>
 
         <p>
@@ -32,9 +32,9 @@ export default {
         </p>
 
         <p>
-          So, if you want to know how long a 10K run really is or what a Quarter Pounder with Cheese means, you need only enthusiasm, discipline, and Metric-Teacher.
+          So, if you want to know how long a 10K run really is or what a "Quarter Pounder with Cheese" means you need only enthusiasm, dedication, and Metric-Teacher.
         </p>
-      </div>
+      </React.Fragment>
     ),
 
     whyMetric: {
@@ -44,13 +44,13 @@ export default {
         dividing: true,
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
-            The metric system is the standard of the world. While an American can live their life quite happily without being very familiar with the metric system it's hard to argue that there is anything advantageous in remaining ignorant to a system used by 95.6% of the world by population.
+            The metric system is the standard of the world. While an American can live their life quite happily without being very familiar with the Metric system it's hard to argue that there is anything advantageous in remaining ignorant to a system used by 95.6% of the world's population.
           </p>
 
           <p>
-            The metric system is far easier to do math with. Instead of remembering that there are 16 ounces in a pound, that there are 5280 feet in a mile, that water boils at 212 degrees Fahrenheit, or that there are 128 fluid ounces in a gallon, everything is easily divisible by 10s, 100s, and 1000s.
+            The metric system is far easier to do math with. Instead of remembering that there are 16 ounces in a pound, that there are 5280 feet in a mile, that water boils at 212 degrees Fahrenheit, or that there are 128 fluid ounces in a gallon, everything is easily divisible by 10s, 100s, and 1000s. By simpling moving the decimal point in a number one can convert between various scales.
           </p>
 
           <p>
@@ -59,14 +59,16 @@ export default {
 
           <p>
             The goal of Metric-Teacher is to make the metric system feel natural:
-            <br />
-            The same mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall…
+            <List bulleted>
+              <List.Item>
+                The same mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall...
+              </List.Item>
+              <List.Item>
+                Will become a mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall.
+              </List.Item>
+            </List>
           </p>
-
-          <p>
-            Will become a mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall.
-          </p>
-        </div>
+        </React.Fragment>
       ),
     },
 
@@ -77,7 +79,7 @@ export default {
         dividing: true,
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
             If you're moving to America or to some parts of the English-speaking world you're going to encounter US Customary Units. Knowing what your new coworker means when say they live 15 miles away, or what to wear when the TV weather forecast for tomorrow is going to be 50 degrees Fahrenheit, or how to react when your classmate bemoans the 5 pounds they gained over the holiday break is a small but invaluable ability.
           </p>
@@ -96,14 +98,16 @@ export default {
 
           <p>
             The goal of Metric-Teacher is to make the US Customary Unit system feel natural:
-            <br />
-            The same mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall…
+            <List bulleted>
+              <List.Item>
+                The same mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall...
+              </List.Item>
+              <List.Item>
+                Will become a mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall.
+              </List.Item>
+            </List>
           </p>
-
-          <p>
-            Will become a mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall.
-          </p>
-        </div>
+        </React.Fragment>
       ),
     },
   },
@@ -117,31 +121,27 @@ export default {
       dividing: true,
     },
     content: (
-      <div>
+      <React.Fragment>
         <p>
-          The history of <XLink to="https://en.wikipedia.org/wiki/Imperial_units">Imperial units</XLink> is a clouded one. Because this website was made by Americans primarily for Americans the actual units taught are the <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units">US Customary Units</XLink>. The functional <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">differences</XLink> are limited to liquid volume. Imperial units are greater in size than US units. So take note that on this website all measures of liquid volume are in US customary units of gallons, quarts, pints, cups, and fluid ounces.
+          Metric-Teacher uses the <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units">US Customary System</XLink> (USCS). Based off earlier British units, it is a sibling to the <XLink to="https://en.wikipedia.org/wiki/Imperial_units">Imperial Unit System</XLink> which was <XLink to="https://en.wikipedia.org/wiki/Weights_and_Measures_Acts_(UK)">standardized in 1894</XLink>, decades after the United States declared independence from the British Empire. The functional <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">differences</XLink> are limited to <u>liquid</u> volume units.
         </p>
 
         <p>
-          US Customary Units are derived from the British Imperial System, a system <XLink to="https://en.wikipedia.org/wiki/Weights_and_Measures_Acts_(UK)">standardized in 1824</XLink> to establish a common measurement system in the British Empire. The Imperial System itself is an evolution of earlier English units.
+          Fahrenheit, it is worth mentioning, isn't an Imperial unit. It was first defined by a Dutch-German-Polish physicist in 1724 and gained acceptance over the following decades following a final adjustment in definition in 1776 by Henry Cavendish, a British scientist. On the other hand, it is <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units#Units_of_temperature">considered a member</XLink> of the US Customary Units system.
         </p>
 
         <p>
-          Fahrenheit, it is worth mentioning, technically isn't an Imperial unit. It was developed by a Dutch-German-Polish physicist. But it is <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units#Units_of_temperature">considered a member</XLink> of the US Customary Units system.
+          The United States is the only major country in the world that hasn't adopted the Metric system as their standard system of measurements. The story is that in 1793 Thomas Jefferson, a founding father of the United States, requested Metric unit samples from France but the ship carrying them to America was lost in a storm.
         </p>
 
         <p>
-          The United States is only major country in the world that hasn't adopted the Metric system as their standard system of measurements. The story goes that the US failed to adopt the newly defined Metric system in its infancy due to a fatefully lost shipment requested by Thomas Jefferson in 1793.
+          <XLink to="https://en.wikipedia.org/wiki/Metric_Conversion_Act">The Metric Conversion Act</XLink> of 1975 made the metric system the preferred system of US trade and commerce, but only on paper. <XLink to="https://en.wikipedia.org/wiki/United_States_Metric_Board">The United States Metrification Board</XLink> was abolished in 1982 by US President Ronald Reagan citing budgetary concerns and a lack of enthusiasm.
         </p>
 
         <p>
-          <XLink to="https://en.wikipedia.org/wiki/Metric_Conversion_Act">The Metric Conversion Act</XLink> of 1975 made the metric system the preferred system of US trade and commerce, but only on paper. <XLink to="https://en.wikipedia.org/wiki/United_States_Metric_Board">The United States Metrification Board</XLink> was abolished in 1982 by President Reagan for budgetary and enthusiasm reasons.
+          Many sectors of American industry, government, military, science, engineering, and medicine use the Metric system in various circumstances. But in daily life, both individual and public, the US Customary System is the one that the population has the strongest grasp.
         </p>
-
-        <p>
-          Many sectors of industry, the government, the military, science, and medicine use the Metric system as their standard. But in daily life, both individual and publicly, the US Customary system is the one that the population has the strongest grasp.
-        </p>
-      </div>
+      </React.Fragment>
     ),
 
     liquid: {
@@ -151,7 +151,7 @@ export default {
         dividing: true,
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
             Metric-Teacher teaches the US Customary Unit system, also known as the United States customary system (USCS). Despite the shared history, there are a distinct differences between the unit system used in the United States and the Imperial unit system used in greatly varying levels in the currently and historically British-influenced world.
           </p>
@@ -161,11 +161,7 @@ export default {
           </p>
 
           {Tables.imperialVsUSVolumes}
-
-          <p>
-            You may notice that the Imperial cup is missing from this table. It is simply half an Imperial pint, therefore 10 Imperial fluid ounces. It is not in common use with the units jumping from fluid ounces to pints.
-          </p>
-        </div>
+        </React.Fragment>
       ),
 
       summary: {
@@ -174,7 +170,7 @@ export default {
           as: "h3",
         },
         content: (
-          <div>
+          <React.Fragment>
             <List bulleted>
               <List.Item>
                 Similarities
@@ -186,7 +182,7 @@ export default {
                     Four quarts make one gallon.
                   </List.Item>
                   <List.Item>
-                    The Imperial cup is uncommon. But just like the US cup is half a US pint it is also half the size of an Imperial pint.
+                    A cup is half a pint. While very common in the US Customary Unit system, it is generally ignored in the Imperial Unit system.
                   </List.Item>
                 </List.List>
               </List.Item>
@@ -197,24 +193,20 @@ export default {
                     The Imperial fluid ounce is 4% smaller than the US fluid ounce.
                   </List.Item>
                   <List.Item>
-                    The Imperial pint is 20 Imperial fluid ounces - the US pint is 16 US fluid ounces. Making the Imperial pint 20% larger than a US pint.
+                    The Imperial pint is 20 Imperial fluid ounces - the US pint is 16 US fluid ounces. The Imperial pint 20% larger than a US pint.
                   </List.Item>
                 </List.List>
               </List.Item>
             </List>
 
             <p>
-              The explanation behind this difference in one way can be explained that in 1824 the British Parliament defined an Imperial gallon as the volume of <XLink to="https://en.wikipedia.org/wiki/Fluid_ounce#History">10 pounds of water</XLink> and similarly an Imperial fluid ounce a equivalent to an ounce (weight) of water. Because there are 160 ounces in 10 pounds, that resulting in 160 fluid ounces in a gallon of water.
+              In 1824, decades after the US declared independence in 1776, the British Parliament defined an Imperial gallon as the volume of <XLink to="https://en.wikipedia.org/wiki/Fluid_ounce#History">10 pounds of water</XLink> and similarly an Imperial fluid ounce a equivalent to an ounce (weight) of water. Because there are 160 ounces in 10 pounds, that resulting in 160 fluid ounces in a gallon of water.
             </p>
 
             <p>
-              The US gallon was instead based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow reasonings behind it. It was not based on the weight of any liquid.
+              The US gallon is not based on the weight of any liquid. Instead it is based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow history. This is the system that Metric-Teacher covers.
             </p>
-
-            <p>
-              The United States kept using the older gallon while the British Empire switched to the newer Imperial gallon and subsequently all derived measurements of volume.
-            </p>
-          </div>
+          </React.Fragment>
         ),
       },
     },
@@ -229,21 +221,13 @@ export default {
       dividing: true,
     },
     content: (
-      <div>
+      <React.Fragment>
         <p>
-          The <XLink to="https://en.wikipedia.org/wiki/History_of_the_metric_system">history</XLink> of <XLink to="https://en.wikipedia.org/wiki/Metric_system">the Metric System</XLink> is easier to trace as it was developed as a standard to solve the problems of the world's confusing blend of measurements in the chaos of the French Revolution in the 1790s.
+          The <XLink to="https://en.wikipedia.org/wiki/History_of_the_metric_system">history</XLink> of <XLink to="https://en.wikipedia.org/wiki/Metric_system">the Metric System</XLink> is easier to trace as it was developed in the light of the French Revolution in the 1790s as a new standard to solve the problems of the world's confusing blend of measurements.
         </p>
 
         <p>
-          When choosing the spelling of the metric units we decided to use American spelling as this website was developed by Americans primarily for Americans. So American spellings (meter, gram, liter, etc…) are used throughout this website as opposed to British or French spellings (metre, gramme, litre, etc…).
-        </p>
-
-        <p>
-          The Metric system started with <XLink to="https://en.wikipedia.org/wiki/History_of_the_metre">the definition of the meter</XLink>. Through surveying, the meter was defined to be one ten millionth of the distance between the North Pole and the Equator through Paris. While their measurements were quite accurate considering the limitations of the age, this would later be redefined when future surveys discovered inaccuracies that proved that the distance from the pole to the equator was not 10,000 kilometers.
-        </p>
-
-        <p>
-          From the definition of length of the meter area and volume were derived. From there the gram was defined as the weight of a cubic centimeter of water.
+          The Metric system started with <XLink to="https://en.wikipedia.org/wiki/History_of_the_metre">the definition of the meter</XLink>. Through surveying, the meter was defined to be one ten millionth of the distance between the North Pole and the Equator through Paris. While their measurements were quite accurate considering the technological limitations of the era, future surveys discovered slight inaccuracies. Despite this, the meter would stay the same length. From the meter, area and volume were derived. The gram was defined as the weight of a cubic centimeter of water.
         </p>
 
         <p>
@@ -251,14 +235,25 @@ export default {
         </p>
 
         <p>
-          It is worth mentioning that centigrade mirrored a system defined fifty years before the Metric system by the Swedish astronomer Anders Celsius. It was renamed to Celsius in 1954 to honor him.
+          Over time the units were redefined with new physical prototypes and the system was further developed into the International System of Units (SI, abbreviated from the French <i>Système international (d'unités)</i>), the modern form of the metric system. Even with these updates the units defined in the late 18th century have remained effectively the same for over 200 years.
         </p>
-
-        <p>
-          Over time the units were redefined with new bases and the system was further developed into the International System of Units (SI, abbreviated from the French <i>Système international (d'unités)</i>), the modern form of the metric system. Even with these updates the units defined in the late 18th century have remained effectively the same for over 200 years.
-        </p>
-      </div>
+      </React.Fragment>
     ),
+
+    spelling: {
+      header: {
+        content: "Metric Unit Spelling",
+        as: "h2",
+        dividing: true,
+      },
+      content: (
+        <React.Fragment>
+          <p>
+            As this website was developed by Americans primarily for Americans, American spellings (meter, gram, liter, etc...) for metric unit names are used throughout this website as opposed to British or French spellings (metre, gramme, litre, etc...) .
+          </p>
+        </React.Fragment>
+      ),
+    },
 
     prefixes: {
       header: {
@@ -267,13 +262,13 @@ export default {
         dividing: true,
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
             This is not a <XLink to="https://en.wikipedia.org/wiki/Metric_prefix">full list</XLink> of all prefixes in existence and not all prefixes shown here are even covered by Metric-Teacher. Almost all work will be limited to kilo, centi, and milli prefixes.
           </p>
 
           {Tables.metricPrefixes}
-        </div>
+        </React.Fragment>
       ),
     },
   },
@@ -287,11 +282,11 @@ export default {
       dividing: true,
     },
     content: (
-      <div>
+      <React.Fragment>
         <p>
           In this section you will find multiple resources on how to convert between various units as well as plain-English advice to help you with the mental math you'll find yourself performing until you gain a natural feel.
         </p>
-      </div>
+      </React.Fragment>
     ),
 
     mentalMath: {
@@ -301,7 +296,7 @@ export default {
         dividing: true,
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
             Metric-Teacher's goal is to teach you to think, imagine, and communicate in a new system of units. If we wanted to only teach you conversion tables we could've gone at it with far simpler method that didn't involve challenges, subjects, mastery scores, surveys, and a colorful interface with a friendly parrot cheering you on.
           </p>
@@ -313,7 +308,7 @@ export default {
           <p>
             But before that you'll need the ability to quickly calculate conversions. In the guides below, you will find tips to help calculate quick and rough conversions with simple math. If you need help with calculations read the next section closely.
           </p>
-        </div>
+        </React.Fragment>
       ),
     },
 
@@ -324,39 +319,38 @@ export default {
         dividing: true,
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
-            The guides below commonly use suggestions such as "add 10%" or "subtract 5%". This might be easy for some, but if you struggle to calculate a 15% tip for a dinner bill (as is custom in the United States) this may be a tricky task.
+            The guides below commonly use suggestions such as "add 10%" or "subtract 5%". This might be easy for some, but if you struggle to calculate a 15% tip for a restaurant bill (as is custom in the United States) this may be a tricky task.
           </p>
 
           <p>
-            So, let's quickly teach you how to calculate your 15% tip!
+            So, let's quickly teach you how to calculate a 15% tip!
+          </p>
+
+          <List bulleted>
+            <List.Item>
+              Multiplying a bill "by 1.15" is obtuse. It is far easier to split up the calculation into easy chunks.
+            </List.Item>
+            <List.Item>
+              If your bill is $12.00, first calculate 10% of that bill. Easy, just move the decimal: $1.20!
+            </List.Item>
+            <List.Item>
+              Now for 5% more. This is easy! It's half of 10%. Remember that $1.20? Cut that in half ($0.60) and add it! That's a $1.80 tip.
+            </List.Item>
+            <List.Item>
+              Add $1.80 to the original $12.00. $13.80 is your final value.
+            </List.Item>
+          </List>
+
+          <p>
+            By remembering how easy it is to calculate 10% of any value you can also calculate 5% of any value with hardly any effort and we try to keep these "conversion tips" as easy as possible.
           </p>
 
           <p>
-            Multiplying a bill by 1.15 is obtuse. It is far easier to split up the calculation into easy chunks.
+            Round up and down to easier-to-grasp numbers if needed. For example, calculating a 15% tip for a bill of $37.91 isn't nearly as easy as a $38.00 or even a $40.00 bill. Though you may tip a little more than necessary if you do it'll be far quicker.
           </p>
-
-          <p>
-            If your bill is $12.00, first calculate 10% of that bill. Easy, just move the decimal: $1.20!
-          </p>
-
-          <p>
-            Add $1.20 to the original $12.00. $13.20. Now you have a 10% tip - a little stingy in the eyes of many.
-          </p>
-
-          <p>
-            Now for 5% more. This is easy! It's half of 10%. Remember that $1.20? Cut that in half ($0.60) and add it! That's $13.80 in total.
-          </p>
-
-          <p>
-            By remembering how easy it is to calculate 10% of any value you can also calculate 5% of any value with hardly any effort and we try to keep these "tips" as undemanding as possible.
-          </p>
-
-          <p>
-            Round up and down to easier-to-grasp numbers if needed. For example, calculating a 15% tip for a bill of $37.91 isn't nearly as easy as a $38.00 or even a $40.00 bill. Though you may tip a little more than "necessary" if you do, it's just the kind of "risk" you'll need to deal with.
-          </p>
-        </div>
+        </React.Fragment>
       ),
     },
 
@@ -369,11 +363,11 @@ export default {
         icon: "arrows alternate horizontal",
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
             Length is the most straight-forward measurement to deal with. It is also the most wildly-ranging measurement that you'll need to study in terms of scale. Scales ranging from a grain of rice to the circumference of the Earth and beyond are all applicable to any student.
           </p>
-        </div>
+        </React.Fragment>
       ),
 
       toMetric: {
@@ -383,11 +377,11 @@ export default {
           subheader: "Description of the units you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               The base metric unit is the meter. Common prefixes of the meter are the kilometer (1000 meters), centimeter (1/100 of a meter) and millimeter (1/1000 of a meter).
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -396,9 +390,9 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.length.toMetric}
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -408,7 +402,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <List bulleted>
                 <List.Item>
                   An <b>inch</b> is about 2.5 <b>centimeters</b>. So, multiplying by two and then adding half more the number of inches can give a quick conversion.
@@ -448,9 +442,9 @@ export default {
               </List>
 
               <p>
-                Luckily, if you have experience with converting velocity between miles per hour to kilometers per hour you can use the same tips as converting miles to kilometers.
+                Luckily, if you have experience with converting velocity between miles per hour to kilometers per hour you can use the same tips as converting miles to kilometers. (50mi = 80.4km; 50mph = 80.4km/h).
               </p>
-            </div>
+            </React.Fragment>
           ),
         },
       },
@@ -462,11 +456,11 @@ export default {
           subheader: "Description of the units you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               The more ubiquitous unit is the foot. Common derivative units are the inch (1/12th of a foot), the yard (3 feet), and the mile (5280 feet).
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -475,9 +469,9 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.length.fromMetric}
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -487,7 +481,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <List bulleted>
                 <List.Item>
                   A <b>millimeter</b> is difficult to convert to <b>inches</b>. It can help to remember that it is longer than 1/32nd of an inch and shorter than 1/16th of an inch (it is close to 1/25th of an inch).
@@ -506,13 +500,15 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>meter</b> is roughly interchangeable with a <b>yard</b> (3ft) in informal circumstances. Keep in mind the yard is about 10% shorter than a meter, so for every 10 meters add another yard (multiply by 11). From there you could convert to feet by multiplying by 3.
+                  A <b>meter</b> little over 3 <b>feet</b> and is roughly interchangeable with a <b>yard</b> (3ft). A meter is about 10% longer than a yard, or about 3.3 feet.
                   <List.List>
                     <List.Item>
-                      Example: 60 meters is about 60 × 1.1 = 66 yards (actual answer: 65.6yd).
-                    </List.Item>
-                    <List.Item>
-                      From there you can multiply 66 by 3 for 196 feet (actual answer: 196.9ft).
+                      Example: 40 meters is about 40 × 1.1 = 44 yards (actual answer: 43.7yd).
+                      <List.List>
+                        <List.Item>
+                          Multiply the yards by 3 to get feet. 44 × 3 = 132 feet (actual answer: 131.2ft).
+                        </List.Item>
+                      </List.List>
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -530,9 +526,9 @@ export default {
               </List>
 
               <p>
-                Luckily, if you have experience with converting velocity between kilometers per hour to miles per hour you can use the same tips as converting kilometers to miles.
+                Luckily, if you have experience with converting velocity between kilometers per hour to miles per hour you can use the same tips as converting kilometers to miles. (50km = 31mi; 50km/h = 31mph).
               </p>
-            </div>
+            </React.Fragment>
           ),
         },
       },
@@ -548,11 +544,11 @@ export default {
         icon: "balance scale",
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
             Mass, or more commonly, weight, is an important measure in daily life. Scales vary from small portions you might encounter in the kitchen to the weight of large vehicles and beyond.
           </p>
-        </div>
+        </React.Fragment>
       ),
 
       toMetric: {
@@ -562,11 +558,11 @@ export default {
           subheader: "Description of the units you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               The base unit is the kilogram (the gram alone was considered too small to be practical). Common prefixes are the kilogram (1000 grams), and milligram (1/1000 of a gram). Additionally, there is the tonne / metric ton (1000 kilograms).
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -575,9 +571,9 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.mass.toMetric}
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -587,7 +583,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <List bulleted>
                 <List.Item>
                   An <b>ounce</b> is slightly less than 30 <b>grams</b> (28.35g). If you multiply the ounces by 30 and subtract about 5% from your answer you can calculate a rough estimate.
@@ -614,7 +610,7 @@ export default {
                   </List.List>
                 </List.Item>
               </List>
-            </div>
+            </React.Fragment>
           ),
         },
       },
@@ -626,11 +622,11 @@ export default {
           subheader: "Description of the units you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               The most ubiquitous unit is the pound. Common derivative units are the ounce (1/16 of a pound) and the US ton / short ton (2000 pounds). The grain unit is not taught on this website as it is of uncommon use, effectively replaced with the metric gram.
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -639,9 +635,9 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.mass.fromMetric}
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -651,7 +647,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <List bulleted>
                 <List.Item>
                   A <b>gram</b> alone is not easily convertible to <b>ounces</b>. In the US the lack of a similarly precise and commonly used unit means that grams are actually better understood than small fractions of the ounce. The best you can do is remember that there are slightly less than 30 grams (28.35g) in an ounce. So, divide by 30 and add 5% to that value.
@@ -678,7 +674,7 @@ export default {
                   </List.List>
                 </List.Item>
               </List>
-            </div>
+            </React.Fragment>
           ),
         },
       },
@@ -694,11 +690,11 @@ export default {
         icon: "cube",
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
             Volume by definition is the cube of distance. Daily life very much only deals with volume in terms of water and other consumable liquids, but there is still plenty of applications in science and mechanics to consider different units of volume.
           </p>
-        </div>
+        </React.Fragment>
       ),
 
       toMetric: {
@@ -708,7 +704,7 @@ export default {
           subheader: "Description of the units you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               The base unit is the liter. The most common prefix is the milliliter (1/1000 of a liter). Additionally,
               the cubic meter (exactly equivalent to 1000 liters) can also be used for much larger volumes.
@@ -726,7 +722,7 @@ export default {
             <p>
               <i>Metric-Teacher uses the US Customary Units for volume. A further distinction to note is the US Customary Cup. It is equal to 8 fluid ounces or 236.6 milliliters. The US Legal Cup is slightly larger at 240 milliliters and is used in nutrition labelling as a half-baked metrification by the US. As a result, it is often errantly understood that "a cup" is both 240 milliliters and 8 ounces when this is not the case. To add confusion, converting cups to milliliters using Google will use the US Legal Cup.</i>
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -735,9 +731,9 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.volume.toMetric}
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -747,7 +743,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <List bulleted>
                 <List.Item>
                   A <b>fluid ounce</b> is just under 30 <b>milliliters</b> in volume. You can quickly convert by multiplying
@@ -796,7 +792,7 @@ export default {
                   </List.List>
                 </List.Item>
               </List>
-            </div>
+            </React.Fragment>
           ),
         },
       },
@@ -808,7 +804,7 @@ export default {
           subheader: "Description of the units you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               It is difficult to choose the most common unit for volume among US Customary Units. The smallest common unit is the fluid ounce, then the cup (8 fluid ounces), the pint (2 cups), the quart (2 pints), and finally the gallon (4 quarts).
             </p>
@@ -836,7 +832,7 @@ export default {
             <p>
               <i>Metric-Teacher supports a combination input of gallons, quarts, and fluid ounces when dealing with fluid ounces. Pints and cups are typically dropped when dealing with amounts of liquid greater than a quart. Questions that seek answers specifically in gallons, quarts, pints, or cups will request them as decimal values.</i>
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -845,11 +841,11 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.volume.fromMetric}
               <Header as="h5">US Customary Volume Unit Relationships</Header>
               {Tables.volume.usCustomaryUnitRelations}
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -859,7 +855,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <List bulleted>
                 <List.Item>
                   There are slightly less than 30 <b>milliliters</b> (29.57ml) per <b>fluid ounce</b>. So, divide by 30 for a good estimate.
@@ -886,7 +882,7 @@ export default {
                   </List.List>
                 </List.Item>
               </List>
-            </div>
+            </React.Fragment>
           ),
         },
       },
@@ -902,11 +898,11 @@ export default {
         icon: "thermometer three quarters",
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
             Temperature is the black sheep of the six measurement subjects. The Fahrenheit and Celsius scales can have negative values, can represent differences as well as specific temperatures, and most confusingly have different zeroes. These all combine to make conversion and pattern recognition a cumbersome affair.
           </p>
-        </div>
+        </React.Fragment>
       ),
 
       toMetric: {
@@ -916,11 +912,11 @@ export default {
           subheader: "Description of the unit you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               Celsius is a scale of 100 degrees between the temperatures of water freezing and boiling. Freezing is defined as 0°C and boiling at 100°C. Originally named centigrade, its name was changed to Celsius in 1948 to honor a Swedish astronomer whose pioneering temperature scale, conceived in 1742, predated the Metric system by half a century.
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -929,12 +925,12 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.temperature.toMetric}
               <p>
                 <i>Converting from Fahrenheit to Celsius is harder than the reverse.</i>
               </p>
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -944,7 +940,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <p>
                 You can get a rough conversion by taking the <b>Fahrenheit</b>, subtracting 30, and then dividing by 2 (the order is important).
               </p>
@@ -964,7 +960,7 @@ export default {
               <p>
                 Additionally, temperature differences are a separate concept. You do not need to concern yourself with - 32. If someone said "raise/lower the thermostat by 9°F", that would be 9 × (5/9) which would be 5°C.
               </p>
-            </div>
+            </React.Fragment>
           ),
         },
       },
@@ -976,11 +972,11 @@ export default {
           subheader: "Description of the unit you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               Fahrenheit is a scale of 180 degrees between the temperatures of water freezing and boiling. Freezing is defined as 32°F and boiling at 212°F. The original 1724 foundation of the scale was afflicted with poorly reasoned, irresponsibly arbitrary, and inaccurately measured reference points.
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -989,12 +985,12 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.temperature.fromMetric}
               <p>
                 <i>Converting from Celsius to Fahrenheit is easier than the reverse.</i>
               </p>
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -1004,7 +1000,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <p>
                 You can get a very rough conversion by multiplying the <b>Celsius</b> by 2 and then adding 30 (the order is important).
               </p>
@@ -1028,7 +1024,7 @@ export default {
               <p>
                 Additionally, temperature differences are a separate concept. You do not need to concern yourself with + 32. If someone said "raise/lower the thermostat by 5°C", that would be 5 × (9/5), which is 9°F.
               </p>
-            </div>
+            </React.Fragment>
           ),
         },
       },
@@ -1044,11 +1040,11 @@ export default {
         icon: "location arrow",
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
             Velocity is the measurement of distance travelled over a set unit of time. Scales of velocity that concern people are usually centered around travelling. Whether on foot, on bicycle, in a car, or an airliner, there is a wide range of speeds to be familiar with.
           </p>
-        </div>
+        </React.Fragment>
       ),
 
       toMetric: {
@@ -1058,7 +1054,7 @@ export default {
           subheader: "Description of the unit you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               While not the only metric unit for velocity, kilometers per hour is by far the most common. The most commonly used symbol is "km/h" with all lowercase letters. Though discouraged, it may appear written as "km/hr", "kmh", "kmph","kph", or another similar way with varied capitalization.
             </p>
@@ -1066,7 +1062,7 @@ export default {
             <p>
               Additionally, the unit meters per second (m/s) is also in wide use in engineering, science, and physics. Metric-Teacher does not cover this unit.
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -1075,9 +1071,9 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.velocity.toMetric}
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -1087,7 +1083,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <List bulleted>
                 <List.Item>
                   5 <b>miles per hour</b> is about 8 <b>kilometers per hour</b> (8.05km/h) and 10 <b>miles per hour</b> is about 16 <b>kilometers per hour</b> (16.1km/h).
@@ -1103,9 +1099,9 @@ export default {
               </List>
 
               <p>
-                Luckily, if you have experience with converting distance between miles to kilometers you can use the same tips as converting miles per hour to kilometers per hour.
+                Luckily, if you have experience with converting distance between miles to kilometers you can use the same tips as converting miles per hour to kilometers per hour. (50mph = 80.4km/h; 50mi = 80.4km).
               </p>
-            </div>
+            </React.Fragment>
           ),
         },
       },
@@ -1117,11 +1113,11 @@ export default {
           subheader: "Description of the unit you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               While not the only US Customary Unit for velocity, miles per hour is by far the most common. The most commonly used symbol is "mph", though all caps "MPH" is also acceptable. You may see "mi/h", though it is less common.
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -1130,9 +1126,9 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.velocity.fromMetric}
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -1142,7 +1138,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <List bulleted>
                 <List.Item>
                   5 <b>kilometer per hour</b> is a little over 3 <b>miles per hour</b> (3.11mph) and 10 <b>kilometers per hour</b> is a little over 6 <b>miles per hour</b> (6.22mph).
@@ -1156,7 +1152,11 @@ export default {
                   </List.List>
                 </List.Item>
               </List>
-            </div>
+
+              <p>
+                Luckily, if you have experience with converting distance between kilometers to miles you can use the same tips as converting kilometers per hour to miles per hour. (50km/h = 31mph; 50km = 31mi).
+              </p>
+            </React.Fragment>
           ),
         },
       },
@@ -1172,11 +1172,11 @@ export default {
         icon: "clone outline",
       },
       content: (
-        <div>
+        <React.Fragment>
           <p>
             Area is simply the square of distances but in practice proves to be an interesting subject as the orders of magnitude at play in any typical application can greatly contrast the usefulness of units at different scales. That is to say, units used to measure the floorspace of a home is likely not at all useful when dealing with a plot of land, and an acre or hectare would hardly be appropriate to represent the size of a state or country.
           </p>
-        </div>
+        </React.Fragment>
       ),
 
       toMetric: {
@@ -1186,7 +1186,7 @@ export default {
           subheader: "Description of the units you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               The base unit is the square meter (m²). In addition, the square kilometer (km²) and the hectare (ha) will also be used.
             </p>
@@ -1194,7 +1194,7 @@ export default {
             <p>
               The hectare is a rare departure from form but is used because it is somewhat comparable to the US acre. It is the only named unit that is accepted for use with the SI. A hectare is a square area with 100 meter sides (10,000m², or 0.01km²).
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -1203,9 +1203,9 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.area.toMetric}
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -1215,7 +1215,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <List bulleted>
                 <List.Item>
                   A <b>square foot</b> is approximately 9% the area of a <b>square meter</b>. So if you divide the square feet by 10 and then reduce that value by 10% you'll have a rough estimate.
@@ -1245,7 +1245,7 @@ export default {
                   </List.List>
                 </List.Item>
               </List>
-            </div>
+            </React.Fragment>
           ),
         },
       },
@@ -1257,11 +1257,11 @@ export default {
           subheader: "Description of the units you'll be converting to...",
         },
         content: (
-          <div>
+          <React.Fragment>
             <p>
               Like it is for length there is no US Customary "base unit" for area. But we can use square feet for this purpose. The acre is used for plots of land and square miles are for much larger areas up to and including countries and continents.
             </p>
-          </div>
+          </React.Fragment>
         ),
 
         chart: {
@@ -1270,9 +1270,9 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               {Tables.area.fromMetric}
-            </div>
+            </React.Fragment>
           ),
         },
 
@@ -1282,7 +1282,7 @@ export default {
             as: "h4",
           },
           content: (
-            <div>
+            <React.Fragment>
               <List bulleted>
                 <List.Item>
                   A <b>square meter</b> is about 11 times the area of a <b>square foot</b>. So, if you multiply the square meters by 10 and then add 10% more (or simply multiply by 11) you'll have a rough upper-end estimate.
@@ -1309,7 +1309,7 @@ export default {
                   </List.List>
                 </List.Item>
               </List>
-            </div>
+            </React.Fragment>
           ),
         },
       },
