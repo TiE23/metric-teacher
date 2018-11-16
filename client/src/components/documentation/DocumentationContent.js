@@ -1,9 +1,15 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
-import { Header, List } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Grid, Header, Image, List } from "semantic-ui-react";
 
 import Tables from "./DocumentationTables";
 import XLink from "../misc/ExternalLink";
+
+import {
+  MASCOT_NAME_SHORT,
+  QUESTION_TYPE_DROPDOWN,
+} from "../../constants";
 
 export default {
   // Mission Statement
@@ -60,7 +66,7 @@ export default {
                 The mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall...
               </List.Item>
               <List.Item>
-                Will become a mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall.
+                Will become the mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall.
               </List.Item>
             </List>
           </p>
@@ -95,7 +101,7 @@ export default {
                 The mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall...
               </List.Item>
               <List.Item>
-                Will become a mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall.
+                Will become the mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall.
               </List.Item>
             </List>
           </p>
@@ -104,6 +110,186 @@ export default {
     },
   },
 
+
+  // Metric-Teacher Details
+  metricTeacher: {
+    header: {
+      content: "Using Metric-Teacher",
+      as: "h1",
+      dividing: true,
+    },
+    content: (
+      <React.Fragment>
+        <p>
+          The following is a guide to the different parts of Metric-Teacher and how to use the website effectively.
+        </p>
+      </React.Fragment>
+    ),
+
+    challenges: {
+      header: {
+        content: "Challenges",
+        as: "h2",
+        dividing: true,
+      },
+      content: (
+        <React.Fragment>
+          <p>
+            Challenges are the centerpiece of Metric-Teacher. After <Link to="/signup">signing up for an account</Link> and choosing the Subjects and SubSubjects you're interested in on the <Link to="/subjects">Subjects page</Link> you can start a Challenge by visiting the <Link to="/challenge">Challenge page</Link>.
+          </p>
+        </React.Fragment>
+      ),
+
+      starting: {
+        header: {
+          content: "Starting a Challenge",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              On the Challenge "<b>Kickoff</b>" page you'll have options to select what Subjects you want to practice on. We recommend concentrating on one Subject at a time until you're comfortable with it and to practice both "To Metric" and "From Metric" together.
+            </p>
+
+            <p>
+              The <b>length</b> of a Challenge is always up to you. Progress in SubSubject mastery only depends on the number of questions faced, not the length of the Challenge itself.
+            </p>
+
+            <p>
+              If you're looking to jump-start progress on a new SubSubject within a Subject you're familiar with already you can select "<b>ignore difficulty</b>". This will show all questions of all difficulties regardless of your Mastery in any particular SubSubject.
+            </p>
+          </React.Fragment>
+        ),
+      },
+
+      questionTypes: {
+        header: {
+          content: "Question Types",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              Challenges use three different types of questions to help you learn.
+            </p>
+
+            <Grid>
+              <Grid.Row centered columns="equal" divided>
+                <Grid.Column>
+                  <Image src="/img/challenge/m-written.gif" size="small" rounded centered />
+                  <Header textAlign="center">Written</Header>
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/img/challenge/m-conversion.gif" size="small" rounded centered />
+                  <Header textAlign="center">Conversion</Header>
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/img/challenge/m-survey.gif" size="small" rounded centered />
+                  <Header textAlign="center">Survey</Header>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+
+            <List>
+              <List.Item>
+                <List.Icon name={QUESTION_TYPE_DROPDOWN[0].icon} />
+                <List.Content>
+                  <b>Written</b> questions are multiple-choice. They range from simple facts about units to the measurements of real-world objects, people, locations, records, and more!
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Icon name={QUESTION_TYPE_DROPDOWN[1].icon} />
+                <List.Content>
+                  <b>Conversion</b> questions are dynamically generated. They ask you to convert one measurement to another. There are multiple methods of answering including multiple choice, slider bar, and direct input!
+                </List.Content>
+              </List.Item>
+              <List.Item>
+                <List.Icon name={QUESTION_TYPE_DROPDOWN[2].icon} />
+                <List.Content>
+                  <b>Survey</b> questions are special to Metric-Teacher. Surveys ask you to give factual and opinion-based answers to questions ranging from your own height to your preferred room temperature. Metric-Teacher will then teach you these values in Metric by asking you to convert these personalized questions!
+                </List.Content>
+              </List.Item>
+            </List>
+          </React.Fragment>
+        ),
+      },
+
+      taking: {
+        header: {
+          content: "Taking a Challenge",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              Each question you face is internally labelled with a <b>difficulty grade</b> ranging from 1 to 5. As you gain Mastery in a SubSubject the difficulty of the questions you face will increase. The easiest questions are not meant to challenge, only to dip your toe. But by the end you'll be asked to perform some very tight conversions.
+            </p>
+
+            <p>
+              <b>Progress</b> in a challenge is shown on the horizontal bar between the question and answer sections of the Challenge screen.
+            </p>
+
+            <p>
+              <b>Skipping</b> questions is always an option. While you will take a hit on your mastery level if you skip a question, the punishment is greatly reduced if you skip the question after a wrong answer. Do not feel bad skipping a question. The Mastery level isn't a high score to chase, it's a measure of your abilities, and having it rise and fall is intended.
+            </p>
+
+            <p>
+              <b>Input</b> methods vary. Depending on the type of question you'll have different methods of answering.
+              <List bulleted>
+                <List.Item>
+                  <b>Multiple choice</b> presents you with multiple choices where only one choice is the correct one.
+                </List.Item>
+                <List.Item>
+                  <b>Direct input</b> presents you with a calculator-like interface that allows you to input a value directly. In the case the input shows multiple units (such as feet and inches) you can select the unit by clicking. Delete values with the red
+                </List.Item>
+                <List.Item>
+                  <b>Slider input</b> presents you with a easy-to-use slider that will provide you with a suggested range of input. Your job is to select the answer within a certain window. Don't always assume it'll be somewhere in the middle, though!
+                </List.Item>
+              </List>
+            </p>
+
+            <p>
+              <b>Correct answers</b> are required to improve your Mastery. Each question needs to be answered correctly a set number of times before you've successfully answered the question.
+            </p>
+
+            <p>
+              <b>Incorrect answers</b> are inevitable. Luckily {MASCOT_NAME_SHORT} is here to lend a hand. The next time you face your question after an incorrect answer your previous choice or input will be shown to you either by greying out an option or giving you a hint to answer higher or lower. But answer incorrectly too many times and you'll fail the question and you will not be asked it again for the remainder of the Challenge.
+            </p>
+
+            <p>
+              <b>Streaks</b> are tracked by {MASCOT_NAME_SHORT}. Answer too many questions incorrectly and he'll get increasingly worried. But answer enough questions correctly in a row and you might see him celebrate and change his outfit to match the occasion.
+            </p>
+
+            <p>
+              <b>Pausing</b> a Challenge is supported on single devices only. With each Challenge you are given a special code in the URL in your browser's address bar. If you decide to stop taking a challenge and resume later, so long as you are using the same browser, whether on a phone or computer, you can <b>resume</b> the Challenge exactly where you left off by navigating to that same address. So even if you click on the wrong link on the page or accidentally close the tab you won't lose progress. <i>Starting a new Challenge, though, will delete unsaved progress.</i>
+            </p>
+          </React.Fragment>
+        ),
+      },
+
+      completing: {
+        header: {
+          content: "Completing a Challenge",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              When you've completed a Challenge you'll reach the <b>Challenge Complete</b> page. Click the submit button to see how you did!
+            </p>
+
+            <p>
+              This is a website, so using Metric-Teacher <b>offline</b> is only partially supported. You must have an Internet connection to use most parts of the site and to <u>start</u> or <u>complete</u> a Challenge. But you <u>do not need a connection</u> to progress through a Challenge. So, if you complete a Challenge and find yourself without an Internet connection on your phone you can safely refresh the Challenge Complete page and try submitting again when you have a connection.
+            </p>
+
+            <p>
+              The <b>score page</b> will show you your Mastery progress for each SubSubject you've practiced against (there is no guarentee that you'll see every SubSubject you selected in a Challenge). It will also show progress on Survey questions and your responses to any new Survey questions you've faced.
+            </p>
+          </React.Fragment>
+        ),
+      },
+    },
+  },
 
   // Metric Details
   metric: {

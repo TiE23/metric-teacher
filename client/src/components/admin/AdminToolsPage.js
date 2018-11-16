@@ -17,7 +17,7 @@ const AdminToolsPage = () => (
     <List divided relaxed>
       <List.Item
         icon="users"
-        content={<Link to="admin/usersearch">User Browser</Link>}
+        content={<Link to="/admin/usersearch">User Browser</Link>}
       />
       <List.Item
         icon="search"

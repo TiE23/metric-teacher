@@ -60,7 +60,7 @@ const CreditsPage = () => (
                 <XLink to="https://reactjs.org/">ReactJS</XLink>
               </List.Header>
               <List.Description>
-                A JavaScript library for building user interfaces
+                "A JavaScript library for building user interfaces."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -71,7 +71,7 @@ const CreditsPage = () => (
                 <XLink to="https://github.com/facebook/create-react-app">Create React App</XLink>
               </List.Header>
               <List.Description>
-                Set up a modern web app by running one command
+                "Set up a modern web app by running one command."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -82,7 +82,7 @@ const CreditsPage = () => (
                 <XLink to="https://www.apollographql.com/">Apollo Client</XLink>
               </List.Header>
               <List.Description>
-                A complete solution to do GraphQL right
+                "A complete solution to do GraphQL right."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -95,7 +95,7 @@ const CreditsPage = () => (
                 </XLink>
               </List.Header>
               <List.Description>
-                The official Semantic-UI-React integration
+                "The official Semantic-UI-React integration."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -106,7 +106,7 @@ const CreditsPage = () => (
                 <XLink to="https://semantic-ui-forest.com/themes">Semantic-UI Forest</XLink>
               </List.Header>
               <List.Description>
-                Collection of Bootswatch and Semantic-UI themes
+                "Collection of Bootswatch and Semantic-UI themes."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -126,7 +126,7 @@ const CreditsPage = () => (
                 <XLink to="https://nodejs.org/">NodeJS</XLink>
               </List.Header>
               <List.Description>
-                A JavaScript runtime built on Chrome's V8 JavaScript engine
+                "A JavaScript runtime built on Chrome's V8 JavaScript engine."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -137,7 +137,7 @@ const CreditsPage = () => (
                 <XLink to="https://graphql.org/">GraphQL</XLink>
               </List.Header>
               <List.Description>
-                A query language for your API
+                "A query language for your API."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -148,7 +148,7 @@ const CreditsPage = () => (
                 <XLink to="https://www.prisma.io/">Prisma</XLink>
               </List.Header>
               <List.Description>
-                GraphQL for modern developers
+                "GraphQL for modern developers."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -159,7 +159,7 @@ const CreditsPage = () => (
                 <XLink to="https://www.oracle.com/mysql/">MySQL</XLink>
               </List.Header>
               <List.Description>
-                The world’s most popular open source database
+                "The world’s most popular open source database."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -170,7 +170,7 @@ const CreditsPage = () => (
                 <XLink to="https://www.docker.com/">Docker</XLink>
               </List.Header>
               <List.Description>
-                Industry-leading container engine technology
+                "Industry-leading container engine technology."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -183,7 +183,7 @@ const CreditsPage = () => (
                 </XLink>
               </List.Header>
               <List.Description>
-                Flexible linear converter
+                "Flexible linear converter."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -203,7 +203,7 @@ const CreditsPage = () => (
                 <XLink to="https://www.jetbrains.com/webstorm/">JetBrains WebStorm</XLink>
               </List.Header>
               <List.Description>
-                The smartest JavaScript IDE
+                "The smartest JavaScript IDE."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -214,7 +214,7 @@ const CreditsPage = () => (
                 <XLink to="https://github.com/TiE23/metric-teacher">GitHub</XLink>
               </List.Header>
               <List.Description>
-                A development platform inspired by the way you work
+                "A development platform inspired by the way you work."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -225,7 +225,7 @@ const CreditsPage = () => (
                 <XLink to="https://www.syntevo.com/smartgit/">Syntevo SmartGit</XLink>
               </List.Header>
               <List.Description>
-                A powerful, multi-platform Git client
+                "A powerful, multi-platform Git client."
               </List.Description>
             </List.Content>
           </List.Item>
@@ -236,7 +236,7 @@ const CreditsPage = () => (
                 <XLink to="https://www.sublimetext.com/">Sublime Text 3</XLink>
               </List.Header>
               <List.Description>
-                A sophisticated text editor for code, markup, and prose
+                "A sophisticated text editor for code, markup, and prose."
               </List.Description>
             </List.Content>
           </List.Item>
