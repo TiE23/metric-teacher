@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
-import { Grid, Header, Icon, Image, Segment, Transition } from "semantic-ui-react";
+import { Container, Grid, Header, Icon, Image, Segment, Transition } from "semantic-ui-react";
 
 import {
   PAGE_TITLE_HEADER_SIZE,
@@ -43,18 +43,22 @@ const Home = props => (
     <Grid.Row columns={2}>
       <Grid.Column width={8}>
         <Segment>
-          <Header as={Link} to="challenge">
-            <Icon name="bolt" color={PAGE_ICON_COLOR_CHALLENGE} />
-            Challenge
-          </Header>
+          <Container as={Link} to="challenge">
+            <Header>
+              <Icon name="bolt" color={PAGE_ICON_COLOR_CHALLENGE} />
+              Challenge
+            </Header>
+          </Container>
         </Segment>
       </Grid.Column>
       <Grid.Column width={8}>
         <Segment>
-          <Header as={Link} to="subjects">
-            <Icon name="tasks" color={PAGE_ICON_COLOR_SUBJECTS} />
-            Subjects
-          </Header>
+          <Container as={Link} to="subjects">
+            <Header>
+              <Icon name="tasks" color={PAGE_ICON_COLOR_SUBJECTS} />
+              Subjects
+            </Header>
+          </Container>
         </Segment>
       </Grid.Column>
     </Grid.Row>
@@ -70,10 +74,12 @@ const Home = props => (
       </Grid.Column>
       <Grid.Column width={8}>
         <Segment>
-          <Header as={Link} to="user/me">
-            <Icon name="user" color={PAGE_ICON_COLOR_PROFILE} />
-            My Profile
-          </Header>
+          <Container as={Link} to="user/me">
+            <Header>
+              <Icon name="user" color={PAGE_ICON_COLOR_PROFILE} />
+              My Profile
+            </Header>
+          </Container>
         </Segment>
       </Grid.Column>
     </Grid.Row>
@@ -81,19 +87,23 @@ const Home = props => (
     <Grid.Row columns={2}>
       <Grid.Column width={8}>
         <Segment>
-          <Header as={Link} to="credits">
-            <Icon name="users" color={PAGE_ICON_COLOR_CREDITS} />
-            Credits
-          </Header>
+          <Container as={Link} to="credits">
+            <Header>
+              <Icon name="users" color={PAGE_ICON_COLOR_CREDITS} />
+              Credits
+            </Header>
+          </Container>
         </Segment>
       </Grid.Column>
       {props.userTokenData && props.userTokenData.type >= USER_TYPE_MODERATOR &&
         <Grid.Column width={8}>
           <Segment>
-            <Header as={Link} to="admin">
-              <Icon name="cog" color={PAGE_ICON_COLOR_ADMIN} />
-              Admin
-            </Header>
+            <Container as={Link} to="admin">
+              <Header>
+                <Icon name="cog" color={PAGE_ICON_COLOR_ADMIN} />
+                Admin
+              </Header>
+            </Container>
           </Segment>
         </Grid.Column>
       }
