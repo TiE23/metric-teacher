@@ -33,7 +33,7 @@ const NotFoundPage = () => (
             <p>
               Hopefully you weren&apos;t sent here by mistake!
             </p>
-            <Button as={Link} to="/" primary>Go to main page</Button>
+            <Button as={Link} to="/" primary fluid>Go to front page</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>

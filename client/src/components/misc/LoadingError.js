@@ -19,9 +19,11 @@ import FloatingCenterGrid from "../FloatingCenterGrid";
 const LoadingError = ({ error, errorHeader, errorMessage, loadingMessage }) => (
   error ?
     <FloatingCenterGrid>
-      <Message warning> {/* negative looks scary, so I've decided to use warning instead */}
-        <Message.Header>{errorHeader || "Error"}</Message.Header>
-        {errorMessage || (error && error.message && <p>{error.message}</p>)}
+      <Message color="red">
+        <Message.Content>
+          <Message.Header>{errorHeader || "Error"}</Message.Header>
+          {errorMessage || (error && error.message && <p>{error.message}</p>)}
+        </Message.Content>
       </Message>
     </FloatingCenterGrid>
     :

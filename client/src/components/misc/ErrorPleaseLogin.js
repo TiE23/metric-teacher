@@ -28,7 +28,7 @@ const ErrorPleaseLogin = props => (
       or <Link to={{ pathname: "/login", state: { from: props.location } }}>login</Link>.
     </p>
     }
-    <Button onClick={props.history.goBack}>Go back</Button>
+    <Button as={Link} to="/" fluid>Go to front page</Button>
   </React.Fragment>
 );
 
@@ -39,9 +39,6 @@ ErrorPleaseLogin.propTypes = {
   showLoginLinks: PropTypes.bool,
   location: PropTypes.shape({
     pathname: PropTypes.string,
-  }).isRequired,
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
   }).isRequired,
 };
 

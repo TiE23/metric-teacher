@@ -20,7 +20,6 @@ import {
 } from "../../constants";
 
 import LoadingButton from "../misc/LoadingButton";
-import FrameFooter from "../main/FrameFooter";
 import SecurityDetailModal from "../misc/security/SecurityDetailModal";
 
 class LoginSignupForm extends Component {
@@ -183,7 +182,6 @@ class LoginSignupForm extends Component {
             <Loader />
           </Dimmer>
         </Segment>
-        <FrameFooter />
       </React.Fragment>
     );
   }

@@ -27,9 +27,9 @@ const MenuContentLogin = props => (
     :
     [
       <Menu.Item
-        key="signup"
+        key="login"
         as={Link}
-        to="/signup"
+        to="/login"
         onClick={props.navigateTo}
       >
         Sign Up / Log-in
