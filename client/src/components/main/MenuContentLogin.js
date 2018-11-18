@@ -32,7 +32,7 @@ const MenuContentLogin = props => (
         to="/signup"
         onClick={props.navigateTo}
       >
-        Signup / Login
+        Sign Up / Log-in
       </Menu.Item>,
     ]
 );

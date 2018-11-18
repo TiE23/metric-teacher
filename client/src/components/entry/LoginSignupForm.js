@@ -17,7 +17,6 @@ import utils from "../../utils";
 import {
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_LOGIN,
-  PASSWORD_MINIMUM_LENGTH,
 } from "../../constants";
 
 import LoadingButton from "../misc/LoadingButton";
@@ -83,16 +82,13 @@ class LoginSignupForm extends Component {
   render() {
     return (
       <React.Fragment>
-        <Segment textAlign="left">
-          <Dimmer inverted active={this.props.loading}>
-            <Loader />
-          </Dimmer>
+        <Segment>
           <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
             <Icon
               name={this.props.loginPage ? "sign in" : "signup"}
               color={PAGE_ICON_COLOR_LOGIN}
             />
-            Please {this.props.loginPage ? "login" : "sign-up"} below!
+            {this.props.loginPage ? "Log-in to your account" : "Sign Up"}
           </Header>
           <Form>
             {!this.props.loginPage &&
@@ -100,9 +96,10 @@ class LoginSignupForm extends Component {
                 required={!this.props.loginPage}
                 value={this.state.fname}
                 onChange={e => this.handleChange({ fname: e.target.value })}
-                label="First Name"
                 autoComplete="given-name"
-                placeholder="Your first name"
+                placeholder="First name (required)"
+                icon="user"
+                iconPosition="left"
               />
             }
             {!this.props.loginPage &&
@@ -110,9 +107,10 @@ class LoginSignupForm extends Component {
                 required={!this.props.loginPage}
                 value={this.state.lname}
                 onChange={e => this.handleChange({ lname: e.target.value })}
-                label="Last Name"
                 autoComplete="family-name"
-                placeholder="Your last name"
+                placeholder="Last name (required)"
+                icon="users"
+                iconPosition="left"
               />
             }
             <Form.Input
@@ -120,42 +118,47 @@ class LoginSignupForm extends Component {
               required
               value={this.state.email}
               onChange={e => this.handleChange({ email: e.target.value })}
-              label="Email"
               autoComplete="email"
-              placeholder="Your email"
+              placeholder="E-mail address"
+              icon="mail"
+              iconPosition="left"
             />
             <Form.Input
               required
+              type="password"
               value={this.state.password}
               onChange={e => this.handleChange({ password: e.target.value })}
-              label="Password"
               autoComplete={this.props.loginPage ? "current-password" : "new-password"}
-              placeholder={this.props.loginPage ?
-                "Enter your password" : `Password must be at least ${PASSWORD_MINIMUM_LENGTH} characters long`
-              }
-              type="password"
+              placeholder="Password"
+              icon="key"
+              iconPosition="left"
             />
+            <LoadingButton
+              onClick={() => this.submit()}
+              buttonText={this.props.loginPage ? "Log-in" : "Sign Up"}
+              buttonProps={{
+                primary: true,
+                type: "submit",
+                fluid: true,
+              }}
+              loading={this.props.loading}
+            />
+            <br />
             <Container textAlign="right">
-              <LoadingButton
-                onClick={() => this.submit()}
-                buttonText={this.props.loginPage ? "Login" : "Sign-up"}
-                buttonProps={{
-                  primary: true,
-                  type: "submit",
-                }}
-                loading={this.props.loading}
-              />
-              <br />
-              <br />
-              <Link
-                to={this.props.loginPage ? "/signup" : "/login"}
-              >
-                Click here if you {this.props.loginPage ? "need to make" : "already have"} an account.
-              </Link>
-              <br />
+              {this.props.loginPage ?
+                <span>
+                  New to us? <Link to="/signup">Sign Up!</Link>
+                </span>
+                :
+                <span>
+                  Returning? <Link to="login">Log-in!</Link>
+                </span>
+              }
+            </Container>
+            <Container>
               <SecurityDetailModal>
                 <span style={{ cursor: "pointer" }}>
-                  Security on Metric-Teacher?
+                  <Icon name="lock" /> Security on Metric-Teacher?
                 </span>
               </SecurityDetailModal>
             </Container>
@@ -176,6 +179,9 @@ class LoginSignupForm extends Component {
             </ul>
           </Message>
           }
+          <Dimmer inverted active={this.props.loading}>
+            <Loader />
+          </Dimmer>
         </Segment>
         <FrameFooter />
       </React.Fragment>

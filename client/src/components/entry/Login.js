@@ -17,7 +17,7 @@ import {
 } from "../../graphql/Mutations";
 
 import {
-  FLOATING_CENTER_GRID_COLUMN_WIDTH_LARGE,
+  FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM,
 } from "../../constants";
 
 class Login extends PureComponent {
@@ -59,7 +59,7 @@ class Login extends PureComponent {
         {(login, { loading, error }) => (
           <Grid centered>
             <Grid.Row>
-              <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_LARGE}>
+              <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM}>
                 <br />
                 <LoginSignupForm
                   loginPage={loginPage}

@@ -28,7 +28,7 @@ const SignupLoginButtons = (props) => {
         onClick={navigateTo}
         {...props.buttonProps}
       >
-        Login
+        Log-in
       </Button>
     </Button.Group>
   );

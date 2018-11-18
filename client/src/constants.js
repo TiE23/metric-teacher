@@ -8,7 +8,7 @@ export const CHALLENGE_STATE = "challenge-state";
 // Styling
 export const PAGE_TITLE_HEADER_SIZE = "huge";
 export const PAGE_ICON_COLOR_HOME = "olive";
-export const PAGE_ICON_COLOR_LOGIN = "green";
+export const PAGE_ICON_COLOR_LOGIN = "blue";
 export const PAGE_ICON_COLOR_CHALLENGE = "yellow";
 export const PAGE_ICON_COLOR_SUBJECTS = "orange";
 export const PAGE_ICON_COLOR_DOCUMENTATION = "purple";
