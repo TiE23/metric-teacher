@@ -122,6 +122,7 @@ export const SubjectDataAll = gql`
     createdAt
     updatedAt
     name
+    media
     description
     measurementDescription
   }

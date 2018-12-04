@@ -7,7 +7,10 @@ import DocumentationSubjectModal from "../documentation/DocumentationSubjectModa
 const Subject = props => (
   <Item.Group>
     <Item>
-      <Item.Image size="small" src={props.subjectData.media || "/img/placeholder.png"} />
+      <Item.Image
+        size="large"
+        src={`/img/subjects/${props.subjectData.media}` || "/img/placeholder.png"}
+      />
       <Item.Content>
         <Item.Header>{props.subjectData.name}</Item.Header>
         <Item.Description>
