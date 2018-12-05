@@ -146,6 +146,7 @@ class UserDetailBasicsEditorForm extends Component {
             {typeof this.props.closeEditor === "function" &&
             <Button
               onClick={this.props.closeEditor}
+              type="button"
             >
               Close
             </Button>
