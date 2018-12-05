@@ -338,7 +338,7 @@ mutation {
     name: "Velocity"
     media: "velocity.gif"
     description: "Practice measurements of velocity."
-    measurementDescription: "Meters-per-second is the base unit of velocity in SI but the far more common kilometers-per-hour is used."
+    measurementDescription: "Meters-per-second is the base unit of velocity in SI while kilometers-per-hour is in far more common use."
     subSubjects: {
       create: [
         {
