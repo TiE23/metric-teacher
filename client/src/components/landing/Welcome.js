@@ -134,7 +134,7 @@ const Welcome = props => (
           </p>
 
           <p>
-            You can view all <Icon name="book" />Documentation <Link to="/docs">here</Link>.
+            You can view all <Icon name="book" />Documentation <Link to="/docs/guide">here</Link>.
           </p>
 
           <Header dividing>Will this involve a lot of math?</Header>

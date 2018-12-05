@@ -28,20 +28,21 @@ const UserDetailBasics = (props) => {
             </Header.Subheader>
           </Header.Content>
         </Header>
+        <List>
+          <List.Item icon="user" content={nameFormated} />
+          <List.Item icon="mail" content={userData.email} />
+          <List.Item
+            icon="certificate"
+            content={USER_TYPE_NAMES[userData.type] || "Unknown"}
+          />
+          <List.Item
+            icon="shield"
+            content={USER_STATUS_NAMES[userData.status] || "Unknown"}
+          />
+          <List.Item icon="id card" content={userData.id} />
+        </List>
       </Container>
-      <List>
-        <List.Item icon="user" content={nameFormated} />
-        <List.Item icon="mail" content={userData.email} />
-        <List.Item
-          icon="certificate"
-          content={USER_TYPE_NAMES[userData.type] || "Unknown"}
-        />
-        <List.Item
-          icon="shield"
-          content={USER_STATUS_NAMES[userData.status] || "Unknown"}
-        />
-        <List.Item icon="id card" content={userData.id} />
-      </List>
+      <br />
       {typeof props.openEditor === "function" &&
         <Container textAlign="right">
           <Button

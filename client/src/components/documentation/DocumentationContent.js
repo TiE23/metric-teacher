@@ -506,7 +506,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            Metric-Teacher teaches the US Customary Unit System, also known as the United States customary system (USCS). Despite the shared history, there are a distinct differences between the unit system used in the United States and the Imperial unit system used in greatly varying levels in the currently and historically British-influenced world.
+            Metric-Teacher teaches the US Customary Unit System, also known as the United States Customary System (USCS). Despite the shared history, there are distinct differences between the unit system used in the United States and the Imperial unit system used in the United Kingdom.
           </p>
 
           <p>

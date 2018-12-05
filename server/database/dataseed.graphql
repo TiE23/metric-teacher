@@ -4,6 +4,7 @@ mutation {
   subject_length: createSubject(data: {
     index: 100
     name: "Length"
+    media: "length.gif"
     description: "Practice measurements of length and distance."
     measurementDescription: "The meter is the base unit of length in SI."
     subSubjects: {
@@ -130,6 +131,7 @@ mutation {
   subject_mass: createSubject(data: {
     index: 200
     name: "Mass"
+    media: "mass.gif"
     description: "Practice measurements of weight and mass."
     measurementDescription: "The kilogram is the base unit of mass in SI."
     subSubjects: {
@@ -208,6 +210,7 @@ mutation {
   subject_volume: createSubject(data: {
     index: 300
     name: "Volume"
+    media: "volume.gif"
     description: "Practice measurements of volume."
     measurementDescription: "The cubic meter is the base unit of volume in SI."
     subSubjects: {
@@ -270,6 +273,7 @@ mutation {
   subject_temperature: createSubject(data: {
     index: 400
     name: "Temperature"
+    media: "temperature.gif"
     description: "Practice measurements of temperature."
     measurementDescription: "Kelvin is the base unit of temperature in SI but the human-friendly Celsius is used."
     subSubjects: {
@@ -332,8 +336,9 @@ mutation {
   subject_velocity: createSubject(data: {
     index: 500
     name: "Velocity"
+    media: "velocity.gif"
     description: "Practice measurements of velocity."
-    measurementDescription: "Meters-per-second is the base unit of velocity in SI but the far more common kilometers-per-hour is used."
+    measurementDescription: "Meters-per-second is the base unit of velocity in SI while kilometers-per-hour is in far more common use."
     subSubjects: {
       create: [
         {
@@ -426,6 +431,7 @@ mutation {
   subject_area: createSubject(data: {
     index: 600
     name: "Area"
+    media: "area.gif"
     description: "Practice measurements of area."
     measurementDescription: "The square meter is the base measurement of area in SI."
     subSubjects: {
