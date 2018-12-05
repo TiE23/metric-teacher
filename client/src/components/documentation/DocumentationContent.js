@@ -61,15 +61,15 @@ export default {
 
           <p>
             The goal of Metric-Teacher is to make the metric system feel natural:
-            <List bulleted>
-              <List.Item>
-                The mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall...
-              </List.Item>
-              <List.Item>
-                Will become the mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall.
-              </List.Item>
-            </List>
           </p>
+          <List bulleted>
+            <List.Item>
+              The mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall...
+            </List.Item>
+            <List.Item>
+              Will become the mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall.
+            </List.Item>
+          </List>
         </React.Fragment>
       ),
     },
@@ -96,15 +96,15 @@ export default {
 
           <p>
             The goal of Metric-Teacher is to make the US Customary Unit System feel natural:
-            <List bulleted>
-              <List.Item>
-                The mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall...
-              </List.Item>
-              <List.Item>
-                Will become the mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall.
-              </List.Item>
-            </List>
           </p>
+          <List bulleted>
+            <List.Item>
+              The mind that tells you that a 35 degree Celsius summer day is hot, a 40 kilometers per hour car is slow, and a 200 centimeter tall man is very tall...
+            </List.Item>
+            <List.Item>
+              Will become the mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall.
+            </List.Item>
+          </List>
         </React.Fragment>
       ),
     },
@@ -305,18 +305,18 @@ export default {
 
             <p>
               <b>Input</b> methods vary. Depending on the type of question you'll have different methods of answering.
-              <List bulleted>
-                <List.Item>
-                  <b>Multiple choice</b> presents you with multiple choices where only one choice is the correct one.
-                </List.Item>
-                <List.Item>
-                  <b>Direct input</b> presents you with a calculator-like interface that allows you to input a value directly. In the case the input shows multiple units (such as feet and inches) you can select the unit by clicking. Delete values with the red
-                </List.Item>
-                <List.Item>
-                  <b>Slider input</b> presents you with a easy-to-use slider that will provide you with a suggested range of input. Your job is to select the answer within a certain window. Don't always assume it'll be somewhere in the middle, though!
-                </List.Item>
-              </List>
             </p>
+            <List bulleted>
+              <List.Item>
+                <b>Multiple choice</b> presents you with multiple choices where only one choice is the correct one.
+              </List.Item>
+              <List.Item>
+                <b>Direct input</b> presents you with a calculator-like interface that allows you to input a value directly. In the case the input shows multiple units (such as feet and inches) you can select the unit by clicking. Delete values with the red
+              </List.Item>
+              <List.Item>
+                <b>Slider input</b> presents you with a easy-to-use slider that will provide you with a suggested range of input. Your job is to select the answer within a certain window. Don't always assume it'll be somewhere in the middle, though!
+              </List.Item>
+            </List>
 
             <p>
               <b>Correct answers</b> are required to improve your Mastery. Each question needs to be answered correctly a set number of times before you've successfully answered the question.
