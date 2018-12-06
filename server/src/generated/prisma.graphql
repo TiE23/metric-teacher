@@ -1,5 +1,5 @@
 # source: http://self:4466/server/dev
-# timestamp: Tue Oct 16 2018 12:55:24 GMT-0700 (Pacific Daylight Time)
+# timestamp: Wed Dec 05 2018 20:05:13 GMT-0800 (Pacific Standard Time)
 
 type AggregateClassroom {
   count: Int!
@@ -528,7 +528,7 @@ type Course implements Node {
   updatedAt: DateTime!
   status: Int!
   flags: Int!
-  parent(where: EnrollmentWhereInput): Enrollment!
+  parent: Enrollment!
   classrooms(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom!]
   masteries(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery!]
   surveys(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey!]
@@ -677,7 +677,7 @@ input CourseSubscriptionWhereInput {
 input CourseUpdateInput {
   status: Int
   flags: Int
-  parent: EnrollmentUpdateOneWithoutCoursesInput
+  parent: EnrollmentUpdateOneRequiredWithoutCoursesInput
   classrooms: ClassroomUpdateManyWithoutStudentCoursesInput
   masteries: MasteryUpdateManyWithoutParentInput
   surveys: SurveyUpdateManyWithoutParentInput
@@ -701,18 +701,16 @@ input CourseUpdateManyWithoutParentInput {
   upsert: [CourseUpsertWithWhereUniqueWithoutParentInput!]
 }
 
-input CourseUpdateOneWithoutMasteriesInput {
+input CourseUpdateOneRequiredWithoutMasteriesInput {
   create: CourseCreateWithoutMasteriesInput
   connect: CourseWhereUniqueInput
-  delete: Boolean
   update: CourseUpdateWithoutMasteriesDataInput
   upsert: CourseUpsertWithoutMasteriesInput
 }
 
-input CourseUpdateOneWithoutSurveysInput {
+input CourseUpdateOneRequiredWithoutSurveysInput {
   create: CourseCreateWithoutSurveysInput
   connect: CourseWhereUniqueInput
-  delete: Boolean
   update: CourseUpdateWithoutSurveysDataInput
   upsert: CourseUpsertWithoutSurveysInput
 }
@@ -720,7 +718,7 @@ input CourseUpdateOneWithoutSurveysInput {
 input CourseUpdateWithoutClassroomsDataInput {
   status: Int
   flags: Int
-  parent: EnrollmentUpdateOneWithoutCoursesInput
+  parent: EnrollmentUpdateOneRequiredWithoutCoursesInput
   masteries: MasteryUpdateManyWithoutParentInput
   surveys: SurveyUpdateManyWithoutParentInput
 }
@@ -728,7 +726,7 @@ input CourseUpdateWithoutClassroomsDataInput {
 input CourseUpdateWithoutMasteriesDataInput {
   status: Int
   flags: Int
-  parent: EnrollmentUpdateOneWithoutCoursesInput
+  parent: EnrollmentUpdateOneRequiredWithoutCoursesInput
   classrooms: ClassroomUpdateManyWithoutStudentCoursesInput
   surveys: SurveyUpdateManyWithoutParentInput
 }
@@ -744,7 +742,7 @@ input CourseUpdateWithoutParentDataInput {
 input CourseUpdateWithoutSurveysDataInput {
   status: Int
   flags: Int
-  parent: EnrollmentUpdateOneWithoutCoursesInput
+  parent: EnrollmentUpdateOneRequiredWithoutCoursesInput
   classrooms: ClassroomUpdateManyWithoutStudentCoursesInput
   masteries: MasteryUpdateManyWithoutParentInput
 }
@@ -940,7 +938,7 @@ type Enrollment implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  student(where: UserWhereInput): User!
+  student: User!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
 }
 
@@ -1041,14 +1039,13 @@ input EnrollmentSubscriptionWhereInput {
 }
 
 input EnrollmentUpdateInput {
-  student: UserUpdateOneWithoutEnrollmentInput
+  student: UserUpdateOneRequiredWithoutEnrollmentInput
   courses: CourseUpdateManyWithoutParentInput
 }
 
-input EnrollmentUpdateOneWithoutCoursesInput {
+input EnrollmentUpdateOneRequiredWithoutCoursesInput {
   create: EnrollmentCreateWithoutCoursesInput
   connect: EnrollmentWhereUniqueInput
-  delete: Boolean
   update: EnrollmentUpdateWithoutCoursesDataInput
   upsert: EnrollmentUpsertWithoutCoursesInput
 }
@@ -1063,7 +1060,7 @@ input EnrollmentUpdateOneWithoutStudentInput {
 }
 
 input EnrollmentUpdateWithoutCoursesDataInput {
-  student: UserUpdateOneWithoutEnrollmentInput
+  student: UserUpdateOneRequiredWithoutEnrollmentInput
 }
 
 input EnrollmentUpdateWithoutStudentDataInput {
@@ -1190,9 +1187,9 @@ type Feedback implements Node {
   type: Int!
   status: Int!
   text: String
-  question(where: QuestionWhereInput): Question!
-  author(where: UserWhereInput): User!
-  reviewer(where: UserWhereInput): User
+  question: Question!
+  author: User!
+  reviewer: User
 }
 
 """A connection to a list of items."""
@@ -1329,8 +1326,8 @@ input FeedbackUpdateInput {
   type: Int
   status: Int
   text: String
-  question: QuestionUpdateOneWithoutFeedbackInput
-  author: UserUpdateOneWithoutFeedbackWrittenInput
+  question: QuestionUpdateOneRequiredWithoutFeedbackInput
+  author: UserUpdateOneRequiredWithoutFeedbackWrittenInput
   reviewer: UserUpdateOneWithoutFeedbackReviewedInput
 }
 
@@ -1365,7 +1362,7 @@ input FeedbackUpdateWithoutAuthorDataInput {
   type: Int
   status: Int
   text: String
-  question: QuestionUpdateOneWithoutFeedbackInput
+  question: QuestionUpdateOneRequiredWithoutFeedbackInput
   reviewer: UserUpdateOneWithoutFeedbackReviewedInput
 }
 
@@ -1373,7 +1370,7 @@ input FeedbackUpdateWithoutQuestionDataInput {
   type: Int
   status: Int
   text: String
-  author: UserUpdateOneWithoutFeedbackWrittenInput
+  author: UserUpdateOneRequiredWithoutFeedbackWrittenInput
   reviewer: UserUpdateOneWithoutFeedbackReviewedInput
 }
 
@@ -1381,8 +1378,8 @@ input FeedbackUpdateWithoutReviewerDataInput {
   type: Int
   status: Int
   text: String
-  question: QuestionUpdateOneWithoutFeedbackInput
-  author: UserUpdateOneWithoutFeedbackWrittenInput
+  question: QuestionUpdateOneRequiredWithoutFeedbackInput
+  author: UserUpdateOneRequiredWithoutFeedbackWrittenInput
 }
 
 input FeedbackUpdateWithWhereUniqueWithoutAuthorInput {
@@ -1616,8 +1613,8 @@ type Mastery implements Node {
   updatedAt: DateTime!
   status: Int!
   score: Int!
-  parent(where: CourseWhereInput): Course!
-  subSubject(where: SubSubjectWhereInput): SubSubject!
+  parent: Course!
+  subSubject: SubSubject!
 }
 
 """A connection to a list of items."""
@@ -1731,8 +1728,8 @@ input MasterySubscriptionWhereInput {
 input MasteryUpdateInput {
   status: Int
   score: Int
-  parent: CourseUpdateOneWithoutMasteriesInput
-  subSubject: SubSubjectUpdateOneWithoutMasteriesInput
+  parent: CourseUpdateOneRequiredWithoutMasteriesInput
+  subSubject: SubSubjectUpdateOneRequiredWithoutMasteriesInput
 }
 
 input MasteryUpdateManyWithoutParentInput {
@@ -1756,13 +1753,13 @@ input MasteryUpdateManyWithoutSubSubjectInput {
 input MasteryUpdateWithoutParentDataInput {
   status: Int
   score: Int
-  subSubject: SubSubjectUpdateOneWithoutMasteriesInput
+  subSubject: SubSubjectUpdateOneRequiredWithoutMasteriesInput
 }
 
 input MasteryUpdateWithoutSubSubjectDataInput {
   status: Int
   score: Int
-  parent: CourseUpdateOneWithoutMasteriesInput
+  parent: CourseUpdateOneRequiredWithoutMasteriesInput
 }
 
 input MasteryUpdateWithWhereUniqueWithoutParentInput {
@@ -2072,10 +2069,10 @@ type Question implements Node {
   question: String!
   answer: String!
   media: String
-  parent(where: SubSubjectWhereInput): SubSubject!
+  parent: SubSubject!
   feedback(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback!]
-  author(where: UserWhereInput): User
-  reviewer(where: UserWhereInput): User
+  author: User
+  reviewer: User
 }
 
 """A connection to a list of items."""
@@ -2271,7 +2268,7 @@ input QuestionUpdateDataInput {
   question: String
   answer: String
   media: String
-  parent: SubSubjectUpdateOneWithoutQuestionsInput
+  parent: SubSubjectUpdateOneRequiredWithoutQuestionsInput
   feedback: FeedbackUpdateManyWithoutQuestionInput
   author: UserUpdateOneWithoutQuestionsWrittenInput
   reviewer: UserUpdateOneWithoutQuestionsReviewedInput
@@ -2285,7 +2282,7 @@ input QuestionUpdateInput {
   question: String
   answer: String
   media: String
-  parent: SubSubjectUpdateOneWithoutQuestionsInput
+  parent: SubSubjectUpdateOneRequiredWithoutQuestionsInput
   feedback: FeedbackUpdateManyWithoutQuestionInput
   author: UserUpdateOneWithoutQuestionsWrittenInput
   reviewer: UserUpdateOneWithoutQuestionsReviewedInput
@@ -2318,18 +2315,16 @@ input QuestionUpdateManyWithoutReviewerInput {
   upsert: [QuestionUpsertWithWhereUniqueWithoutReviewerInput!]
 }
 
-input QuestionUpdateOneInput {
+input QuestionUpdateOneRequiredInput {
   create: QuestionCreateInput
   connect: QuestionWhereUniqueInput
-  delete: Boolean
   update: QuestionUpdateDataInput
   upsert: QuestionUpsertNestedInput
 }
 
-input QuestionUpdateOneWithoutFeedbackInput {
+input QuestionUpdateOneRequiredWithoutFeedbackInput {
   create: QuestionCreateWithoutFeedbackInput
   connect: QuestionWhereUniqueInput
-  delete: Boolean
   update: QuestionUpdateWithoutFeedbackDataInput
   upsert: QuestionUpsertWithoutFeedbackInput
 }
@@ -2342,7 +2337,7 @@ input QuestionUpdateWithoutAuthorDataInput {
   question: String
   answer: String
   media: String
-  parent: SubSubjectUpdateOneWithoutQuestionsInput
+  parent: SubSubjectUpdateOneRequiredWithoutQuestionsInput
   feedback: FeedbackUpdateManyWithoutQuestionInput
   reviewer: UserUpdateOneWithoutQuestionsReviewedInput
 }
@@ -2355,7 +2350,7 @@ input QuestionUpdateWithoutFeedbackDataInput {
   question: String
   answer: String
   media: String
-  parent: SubSubjectUpdateOneWithoutQuestionsInput
+  parent: SubSubjectUpdateOneRequiredWithoutQuestionsInput
   author: UserUpdateOneWithoutQuestionsWrittenInput
   reviewer: UserUpdateOneWithoutQuestionsReviewedInput
 }
@@ -2381,7 +2376,7 @@ input QuestionUpdateWithoutReviewerDataInput {
   question: String
   answer: String
   media: String
-  parent: SubSubjectUpdateOneWithoutQuestionsInput
+  parent: SubSubjectUpdateOneRequiredWithoutQuestionsInput
   feedback: FeedbackUpdateManyWithoutQuestionInput
   author: UserUpdateOneWithoutQuestionsWrittenInput
 }
@@ -2873,10 +2868,9 @@ input SubjectUpdateInput {
   subSubjects: SubSubjectUpdateManyWithoutParentInput
 }
 
-input SubjectUpdateOneWithoutSubSubjectsInput {
+input SubjectUpdateOneRequiredWithoutSubSubjectsInput {
   create: SubjectCreateWithoutSubSubjectsInput
   connect: SubjectWhereUniqueInput
-  delete: Boolean
   update: SubjectUpdateWithoutSubSubjectsDataInput
   upsert: SubjectUpsertWithoutSubSubjectsInput
 }
@@ -3203,7 +3197,7 @@ type SubSubject implements Node {
   toMetric: Boolean!
   rarity: Int!
   scale: String!
-  parent(where: SubjectWhereInput): Subject!
+  parent: Subject!
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
   masteries(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery!]
 }
@@ -3374,7 +3368,7 @@ input SubSubjectUpdateInput {
   toMetric: Boolean
   rarity: Int
   scale: String
-  parent: SubjectUpdateOneWithoutSubSubjectsInput
+  parent: SubjectUpdateOneRequiredWithoutSubSubjectsInput
   questions: QuestionUpdateManyWithoutParentInput
   masteries: MasteryUpdateManyWithoutSubSubjectInput
 }
@@ -3388,18 +3382,16 @@ input SubSubjectUpdateManyWithoutParentInput {
   upsert: [SubSubjectUpsertWithWhereUniqueWithoutParentInput!]
 }
 
-input SubSubjectUpdateOneWithoutMasteriesInput {
+input SubSubjectUpdateOneRequiredWithoutMasteriesInput {
   create: SubSubjectCreateWithoutMasteriesInput
   connect: SubSubjectWhereUniqueInput
-  delete: Boolean
   update: SubSubjectUpdateWithoutMasteriesDataInput
   upsert: SubSubjectUpsertWithoutMasteriesInput
 }
 
-input SubSubjectUpdateOneWithoutQuestionsInput {
+input SubSubjectUpdateOneRequiredWithoutQuestionsInput {
   create: SubSubjectCreateWithoutQuestionsInput
   connect: SubSubjectWhereUniqueInput
-  delete: Boolean
   update: SubSubjectUpdateWithoutQuestionsDataInput
   upsert: SubSubjectUpsertWithoutQuestionsInput
 }
@@ -3412,7 +3404,7 @@ input SubSubjectUpdateWithoutMasteriesDataInput {
   toMetric: Boolean
   rarity: Int
   scale: String
-  parent: SubjectUpdateOneWithoutSubSubjectsInput
+  parent: SubjectUpdateOneRequiredWithoutSubSubjectsInput
   questions: QuestionUpdateManyWithoutParentInput
 }
 
@@ -3436,7 +3428,7 @@ input SubSubjectUpdateWithoutQuestionsDataInput {
   toMetric: Boolean
   rarity: Int
   scale: String
-  parent: SubjectUpdateOneWithoutSubSubjectsInput
+  parent: SubjectUpdateOneRequiredWithoutSubSubjectsInput
   masteries: MasteryUpdateManyWithoutSubSubjectInput
 }
 
@@ -3784,8 +3776,8 @@ type Survey implements Node {
   score: Int!
   answer: String
   detail: String
-  parent(where: CourseWhereInput): Course!
-  question(where: QuestionWhereInput): Question!
+  parent: Course!
+  question: Question!
 }
 
 """A connection to a list of items."""
@@ -3900,8 +3892,8 @@ input SurveyUpdateInput {
   score: Int
   answer: String
   detail: String
-  parent: CourseUpdateOneWithoutSurveysInput
-  question: QuestionUpdateOneInput
+  parent: CourseUpdateOneRequiredWithoutSurveysInput
+  question: QuestionUpdateOneRequiredInput
 }
 
 input SurveyUpdateManyWithoutParentInput {
@@ -3918,7 +3910,7 @@ input SurveyUpdateWithoutParentDataInput {
   score: Int
   answer: String
   detail: String
-  question: QuestionUpdateOneInput
+  question: QuestionUpdateOneRequiredInput
 }
 
 input SurveyUpdateWithWhereUniqueWithoutParentInput {
@@ -4169,7 +4161,7 @@ type User implements Node {
   type: Int!
   status: Int!
   flags: Int!
-  enrollment(where: EnrollmentWhereInput): Enrollment
+  enrollment: Enrollment
   classroomsTeaching(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom!]
   feedbackWritten(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback!]
   feedbackReviewed(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback!]
@@ -4443,12 +4435,18 @@ input UserUpdateManyWithoutClassroomsTeachingInput {
   upsert: [UserUpsertWithWhereUniqueWithoutClassroomsTeachingInput!]
 }
 
-input UserUpdateOneWithoutEnrollmentInput {
+input UserUpdateOneRequiredWithoutEnrollmentInput {
   create: UserCreateWithoutEnrollmentInput
   connect: UserWhereUniqueInput
-  delete: Boolean
   update: UserUpdateWithoutEnrollmentDataInput
   upsert: UserUpsertWithoutEnrollmentInput
+}
+
+input UserUpdateOneRequiredWithoutFeedbackWrittenInput {
+  create: UserCreateWithoutFeedbackWrittenInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutFeedbackWrittenDataInput
+  upsert: UserUpsertWithoutFeedbackWrittenInput
 }
 
 input UserUpdateOneWithoutFeedbackReviewedInput {
@@ -4458,14 +4456,6 @@ input UserUpdateOneWithoutFeedbackReviewedInput {
   delete: Boolean
   update: UserUpdateWithoutFeedbackReviewedDataInput
   upsert: UserUpsertWithoutFeedbackReviewedInput
-}
-
-input UserUpdateOneWithoutFeedbackWrittenInput {
-  create: UserCreateWithoutFeedbackWrittenInput
-  connect: UserWhereUniqueInput
-  delete: Boolean
-  update: UserUpdateWithoutFeedbackWrittenDataInput
-  upsert: UserUpsertWithoutFeedbackWrittenInput
 }
 
 input UserUpdateOneWithoutQuestionsReviewedInput {

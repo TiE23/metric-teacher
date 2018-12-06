@@ -14,7 +14,8 @@ const SubjectsPageDescription = props => (
     <Container>
       <p>
         Browse available <b>subjects</b> below and assign new <b>sub-subjects</b> that are
-        marked as <i>&quot;Not Assigned&quot;</i> to your course load.
+        marked as <i>&quot;Not Assigned&quot;</i> to your course load. We strongly recommend
+        you assign both &quot;To Metric&quot; and &quot;From Metric&quot; for each sub-subject.
       </p>
       <p>
         View your current course load in <Link to="/user/me">your profile.</Link>
