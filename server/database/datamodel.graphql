@@ -77,7 +77,7 @@ type Mastery {
 # Ex: "Starting at what height would you describe an adult man to be 'very tall'?"
 # A range could be "72-80 inches".
 # If the user answers 6ft3in (75 inches), great. Next time it'll ask the user to identify that same
-# imperial value again and then later ask to convert it to metric (in this example it would be 1.91m).
+# US unit value again and then later ask to convert it to metric (in this example it would be 1.91m).
 # And finally ask the user to identify the metric value.
 type Survey {
   id: ID! @unique

@@ -113,6 +113,10 @@ class ChallengeGenerator {
       ignoreRarity,
     );
 
+    if (!questionIds.length) {
+      throw new Error("Could not find any questions for the challenge. Try checking the \"Ignore Difficulty\" option next time.");
+    }
+
     // Get the content of the selected questions and get any Survey data the Course may have.
     const questionData = await this.getQuestionData(questionIds);
     const surveyData = await this.getCourseSurveys(courseId, questionIds);
@@ -429,6 +433,11 @@ function buildQuestionList(subSubjectQuestions, listSize, preference, ignoreRari
 
   // Build a lottery
   const { lotteryRanges, lotteryTotal } = lotteryBuilder(ssqClone, ignoreRarity);
+
+  // If the lottery range is empty that means we have no questions to choose.
+  if (lotteryRanges.length === 0) {
+    return [];
+  }
 
   const questionIds = [];
   const maxAttempts = listSize * 3;  // Will attempt up to 3 times the requested size.
