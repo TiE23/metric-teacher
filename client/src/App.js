@@ -17,8 +17,9 @@ import SubjectsPage from "./components/subject/SubjectsPage";
 import DocumentationPage from "./components/documentation/DocumentationPage";
 import QaViewerPage from "./components/qa/QaViewerPage";
 import QuestionViewerPage from "./components/question/QuestionViewerPage";
-import QuestionSubmissionPage from "./components/question/QuestionSubmissionPage";
+import QuestionSubmissionPage from "./components/tools/QuestionSubmissionPage";
 import AdminToolsPage from "./components/admin/AdminToolsPage";
+import ToolsPage from "./components/tools/ToolsPage";
 import UserSearchPage from "./components/admin/user/UserSearchPage";
 import QuestionSearchPage from "./components/admin/question/QuestionSearchPage";
 import NotFoundPage from "./components/misc/NotFoundPage";
@@ -81,9 +82,20 @@ const App = () => (
               })
             }
           />
+
+          {/* Tool Pages */}
           <Route
             exact
-            path="/submitquestion"
+            path="/tools"
+            component={
+              withAuth(ToolsPage, {
+                private: true,
+              })
+            }
+          />
+          <Route
+            exact
+            path="/tools/submitquestion"
             component={
               withAuth(QuestionSubmissionPage, {
                 private: true,

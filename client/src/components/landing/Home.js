@@ -43,7 +43,7 @@ const Home = props => (
     <Grid.Row columns={2}>
       <Grid.Column width={8}>
         <Segment>
-          <Container as={Link} to="challenge">
+          <Container as={Link} to="/challenge">
             <Header>
               <Icon name="bolt" color={PAGE_ICON_COLOR_CHALLENGE} />
               Challenge
@@ -53,7 +53,7 @@ const Home = props => (
       </Grid.Column>
       <Grid.Column width={8}>
         <Segment>
-          <Container as={Link} to="subjects">
+          <Container as={Link} to="/subjects">
             <Header>
               <Icon name="tasks" color={PAGE_ICON_COLOR_SUBJECTS} />
               Subjects
@@ -66,7 +66,7 @@ const Home = props => (
     <Grid.Row columns={2}>
       <Grid.Column width={8}>
         <Segment>
-          <Header as={Link} to="docs">
+          <Header as={Link} to="/docs">
             <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
             Documentation
           </Header>
@@ -74,7 +74,7 @@ const Home = props => (
       </Grid.Column>
       <Grid.Column width={8}>
         <Segment>
-          <Container as={Link} to="user/me">
+          <Container as={Link} to="/user/me">
             <Header>
               <Icon name="user" color={PAGE_ICON_COLOR_PROFILE} />
               My Profile
@@ -87,7 +87,7 @@ const Home = props => (
     <Grid.Row columns={2}>
       <Grid.Column width={8}>
         <Segment>
-          <Container as={Link} to="credits">
+          <Container as={Link} to="/credits">
             <Header>
               <Icon name="users" color={PAGE_ICON_COLOR_CREDITS} />
               Credits
@@ -95,17 +95,28 @@ const Home = props => (
           </Container>
         </Segment>
       </Grid.Column>
-      {props.userTokenData && props.userTokenData.type >= USER_TYPE_MODERATOR &&
+      {(props.userTokenData && props.userTokenData.type >= USER_TYPE_MODERATOR) ?
         <Grid.Column width={8}>
           <Segment>
-            <Container as={Link} to="admin">
+            <Container as={Link} to="/admin">
               <Header>
                 <Icon name="cog" color={PAGE_ICON_COLOR_ADMIN} />
-                Admin
+                Admin Tools
+              </Header>
+            </Container>
+          </Segment>
+        </Grid.Column> :
+        <Grid.Column width={8}>
+          <Segment>
+            <Container as={Link} to="/tools">
+              <Header>
+                <Icon name="cog" color={PAGE_ICON_COLOR_ADMIN} />
+                Community Tools
               </Header>
             </Container>
           </Segment>
         </Grid.Column>
+
       }
     </Grid.Row>
 

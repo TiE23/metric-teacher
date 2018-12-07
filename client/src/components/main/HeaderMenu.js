@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Menu } from "semantic-ui-react";
 
-import MenuContentBasics from "./MenuContentBasics";
+import MenuContentItems from "./MenuContentItems";
 import MenuContentLogin from "./MenuContentLogin";
 
 import {
@@ -11,7 +11,7 @@ import {
 
 const HeaderMenu = props => (
   <Menu>
-    <MenuContentBasics
+    <MenuContentItems
       navigateTo={props.navigateTo}
       loggedIn={!!props.userTokenData}
       showAdminLink={props.userTokenData && props.userTokenData.type > USER_TYPE_MODERATOR}

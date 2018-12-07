@@ -14,7 +14,7 @@ export const PAGE_ICON_COLOR_SUBJECTS = "orange";
 export const PAGE_ICON_COLOR_DOCUMENTATION = "purple";
 export const PAGE_ICON_COLOR_PROFILE = "blue";
 export const PAGE_ICON_COLOR_CREDITS = "teal";
-export const PAGE_ICON_COLOR_ADMIN = "brown";
+export const PAGE_ICON_COLOR_ADMIN = "grey";
 export const RANDOM_HOME_MASCOT_IMAGE = [
   "/img/challenge/r-correct-a.gif",
   "/img/challenge/r-correct-b.gif",
