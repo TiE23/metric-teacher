@@ -132,8 +132,8 @@ const ChallengeList = (props) => {
           currentQaObject.question.data.survey.response.surveyId,
           {
             // Each successive correct answer decreases score.
-            score: CHALLENGE_SCORES.correct.survey[currentQaObject.difficulty] /
-              (currentChallengeProgress.correctAnswerCount + 1),
+            score: Math.ceil(CHALLENGE_SCORES.correct.survey[currentQaObject.difficulty] /
+              (currentChallengeProgress.correctAnswerCount + 1)),
           },
         );
       }
