@@ -98,6 +98,9 @@ export const CHALLENGE_KEYPAD_LAYOUT = [
   ["0", ".", CHALLENGE_KEYPAD_NEGATIVE],
 ];
 
+export const CHALLENGE_ALMOST_EXACT_FRACTION = 200;
+export const CHALLENGE_ALMOST_EXACT_CLOSE = 0.1;
+
 export const CHALLENGE_TRANSITION_PROPS = {
   animation: "fly left",
   duration: { show: 500, hide: 0 },
