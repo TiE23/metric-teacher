@@ -14,11 +14,24 @@ const ChallengeSkip = props => (
       fluid: true,
     }}
     confirmModal={props.showSurveySkipConfirm && !props.showClearButton}
-    modalContent="Are you sure you want to skip filling out this survey? You won't be asked again. If you change your mind you can find the survey in your My Details page."
+    modalContent="Are you sure you want to skip filling out this survey? If you simply don't want to answer right now you can select &quot;Ask Me Later&quot; and we'll ask you another time. If you select &quot;Skip Survey&quot; you won't be asked again. If you change your mind you can find the survey in your User Profile page."
     modalRejectLabel="Reconsider"
     modalRejectColor="teal"
-    modalAcceptLabel="Skip Survey"
-    modalAcceptColor="orange"
+    modalRejectIcon="step backward"
+    modalActions={[
+      {
+        modalAcceptClick: props.handleSkipQa,
+        modalAcceptLabel: "Ask Me Later",
+        modalAcceptColor: "yellow",
+        modalAcceptIcon: "pause",
+      },
+      {
+        modalAcceptClick: props.handleSkipQa,
+        modalAcceptLabel: "Skip Survey",
+        modalAcceptColor: "orange",
+        modalAcceptIcon: "step forward",
+      },
+    ]}
   />
 );
 

@@ -10,8 +10,8 @@ class LoadingButton extends PureComponent {
       fired: false,
     };
 
-    this.buttonClick = () => {
-      this.props.onClick();
+    this.buttonClick = (onClickFunction) => {
+      onClickFunction();
       this.setState({ fired: true }); // Mark the submission as fired.
     };
 
@@ -89,23 +89,26 @@ class LoadingButton extends PureComponent {
               color={this.props.modalRejectColor}
               onClick={this.closeModal}
             >
-              <Icon name="remove" />
+              <Icon name={this.props.modalRejectIcon} />
               {this.props.error ? "Close" : this.props.modalRejectLabel}
             </Button>
-            <Button
-              onClick={this.buttonClick}
-              basic={this.props.modalProps.basic}
-              inverted={this.props.modalProps.basic}
-              color={this.props.modalAcceptColor}
-              disabled={this.props.loading || (this.props.error &&
-                this.props.buttonDisableOnError && this.props.modalStayOpenOnError)}
-              loading={this.props.loading}
-            >
-              {!this.props.loading && !(this.props.error && this.props.buttonDisableOnError) &&
-              <Icon name="checkmark" />}
-              {(this.props.error && this.props.buttonDisableOnError) ?
-                "Error!" : this.props.modalAcceptLabel}
-            </Button>
+            {this.props.modalActions.map(actionProps => (
+              <Button
+                key={`modalAction_${actionProps.modalAcceptLabel}`}
+                onClick={() => this.buttonClick(actionProps.modalAcceptClick)}
+                color={actionProps.modalAcceptColor}
+                basic={this.props.modalProps.basic}
+                inverted={this.props.modalProps.basic}
+                disabled={this.props.loading || (this.props.error &&
+                  this.props.buttonDisableOnError && this.props.modalStayOpenOnError)}
+                loading={this.props.loading}
+              >
+                {!this.props.loading && !(this.props.error && this.props.buttonDisableOnError) &&
+                <Icon name={actionProps.modalAcceptIcon} />}
+                {(this.props.error && this.props.buttonDisableOnError) ?
+                  "Error!" : actionProps.modalAcceptLabel}
+              </Button>
+            ))}
           </Modal.Actions>
         </Modal>
       );
@@ -114,7 +117,7 @@ class LoadingButton extends PureComponent {
     } else {
       return (
         <Button
-          onClick={this.buttonClick}
+          onClick={() => this.buttonClick(this.props.onClick)}
           disabled={this.props.loading || (this.props.error && this.props.buttonDisableOnError)}
           loading={this.props.loading}
           {...this.props.buttonProps}
@@ -127,7 +130,7 @@ class LoadingButton extends PureComponent {
 }
 
 LoadingButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   onSuccess: PropTypes.func,
   buttonText: PropTypes.string.isRequired,
   loading: PropTypes.bool,
@@ -141,12 +144,20 @@ LoadingButton.propTypes = {
   modalContent: PropTypes.string,
   modalRejectLabel: PropTypes.string,
   modalRejectColor: PropTypes.string,
-  modalAcceptLabel: PropTypes.string,
-  modalAcceptColor: PropTypes.string,
+  modalRejectIcon: PropTypes.string,
+  modalActions: PropTypes.arrayOf(
+    PropTypes.shape({
+      modalAcceptClick: PropTypes.func.isRequired,
+      modalAcceptLabel: PropTypes.string.isRequired,
+      modalAcceptColor: PropTypes.string.isRequired,
+      modalAcceptIcon: PropTypes.string.isRequired,
+    }),
+  ),
   modalStayOpenOnError: PropTypes.bool,
 };
 
 LoadingButton.defaultProps = {
+  onClick: null,
   onSuccess: null,
   loading: false,
   error: false,
@@ -161,8 +172,8 @@ LoadingButton.defaultProps = {
   modalContent: "Are you sure?",
   modalRejectLabel: "No",
   modalRejectColor: "red",
-  modalAcceptLabel: "Yes",
-  modalAcceptColor: "green",
+  modalRejectIcon: "remove",
+  modalActions: null,
   modalStayOpenOnError: false,
 };
 
