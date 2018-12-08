@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import { withRouter } from "react-router";
 
-import QueryHandler from "../QueryHandler";
-import QuestionViewer from "./QuestionViewer";
+import QueryHandler from "../../QueryHandler";
+import QuestionCreator from "./creator/QuestionCreator";
 
 import {
   GET_QA_QUESTIONS_DATA_LIMITED,
-} from "../../graphql/Queries";
+} from "../../../graphql/Queries";
 
 /**
  * This is for testing purposes right now.
@@ -32,7 +32,7 @@ const QuestionViewerPage = (props) => {
           queryData={queryProps}
           noDataErrorMessage="Question not found."
         >
-          <QuestionViewer
+          <QuestionCreator
             qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
             allowEditor
           />

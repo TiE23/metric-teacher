@@ -2,16 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 
-import QueryHandler from "../../QueryHandler";
+import QueryHandler from "../../../QueryHandler";
 import QuestionListTable from "./QuestionListTable";
-
-import {
-  QUESTION_SEARCH,
-} from "../../../graphql/Queries";
 
 const QuestionListContainer = props => (
   <Query
-    query={QUESTION_SEARCH}
+    query={props.query}
     variables={props.searchVariables}
     fetchPolicy="network-only"  // Fresh data on every search.
   >
@@ -22,7 +18,8 @@ const QuestionListContainer = props => (
       >
         <QuestionListTable
           questionData={queryProps.data.questionSearch}
-          queryInfo={{ query: QUESTION_SEARCH, variables: queryProps.variables }}
+          queryInfo={{ query: props.query, variables: queryProps.variables }}
+          adminMode={props.adminMode}
         />
       </QueryHandler>
     )}
@@ -30,9 +27,15 @@ const QuestionListContainer = props => (
 );
 
 QuestionListContainer.propTypes = {
+  query: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   searchVariables: PropTypes.shape({
     where: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   }).isRequired,
+  adminMode: PropTypes.bool,
+};
+
+QuestionListContainer.defaultProps = {
+  adminMode: false,
 };
 
 export default QuestionListContainer;

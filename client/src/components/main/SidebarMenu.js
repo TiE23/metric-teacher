@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Icon, Menu, Sidebar } from "semantic-ui-react";
 
-import MenuContentBasics from "./MenuContentBasics";
+import MenuContentItems from "./MenuContentItems";
 import MenuContentLogin from "./MenuContentLogin";
 
 import {
@@ -40,7 +40,7 @@ const SidebarMenu = class SidebarMenu extends PureComponent {
         >
           <Icon name="close" />
         </Menu.Item>
-        <MenuContentBasics
+        <MenuContentItems
           navigateTo={this.handleNavigateTo}
           loggedIn={!!this.props.userTokenData}
           showAdminLink={

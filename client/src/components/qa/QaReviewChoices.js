@@ -52,15 +52,16 @@ const QaReviewChoices = (props) => {
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
-        <span>
-          <Icon name="info circle" />
-          {" "}
-          There will be
-          {" "}
-          {props.choicesOffered}
-          {" "}
-          choices.
-        </span>
+        <p>
+          <Icon name="hashtag" /> There will be {props.choicesOffered} choices.
+          {props.answerDetail &&
+            <React.Fragment>
+              <br />
+              <Icon name="info circle" />
+              &quot;{props.answerDetail}&quot;
+            </React.Fragment>
+          }
+        </p>
       </Grid.Row>
     </Grid>
   );
@@ -69,6 +70,11 @@ const QaReviewChoices = (props) => {
 QaReviewChoices.propTypes = {
   choices: PropTypes.arrayOf(QA_UNIT_OBJECT_TYPE).isRequired,
   choicesOffered: PropTypes.number.isRequired,
+  answerDetail: PropTypes.string,
+};
+
+QaReviewChoices.defaultProps = {
+  answerDetail: null,
 };
 
 export default QaReviewChoices;

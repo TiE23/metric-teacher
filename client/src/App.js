@@ -16,11 +16,12 @@ import UserPage from "./components/user/UserPage";
 import SubjectsPage from "./components/subject/SubjectsPage";
 import DocumentationPage from "./components/documentation/DocumentationPage";
 import QaViewerPage from "./components/qa/QaViewerPage";
-import QuestionViewerPage from "./components/question/QuestionViewerPage";
-import QuestionSubmissionPage from "./components/question/QuestionSubmissionPage";
+import QuestionViewerPage from "./components/tools/question/QuestionViewerPage";
+import QuestionCreatorPage from "./components/tools/question/QuestionCreatorPage";
 import AdminToolsPage from "./components/admin/AdminToolsPage";
+import ToolsPage from "./components/tools/ToolsPage";
 import UserSearchPage from "./components/admin/user/UserSearchPage";
-import QuestionSearchPage from "./components/admin/question/QuestionSearchPage";
+import QuestionSearchPage from "./components/tools/question/QuestionSearchPage";
 import NotFoundPage from "./components/misc/NotFoundPage";
 
 import {
@@ -68,6 +69,9 @@ const App = () => (
               withAuth(QuestionSearchPage, {
                 private: true,
                 permissions: { type: USER_TYPE_MODERATOR },
+                props: {
+                  mode: "adminSearch",
+                },
               })
             }
           />
@@ -81,12 +85,35 @@ const App = () => (
               })
             }
           />
+
+          {/* Tool Pages */}
           <Route
             exact
-            path="/submitquestion"
+            path="/tools"
             component={
-              withAuth(QuestionSubmissionPage, {
+              withAuth(ToolsPage, {
                 private: true,
+              })
+            }
+          />
+          <Route
+            exact
+            path="/tools/questioncreator"
+            component={
+              withAuth(QuestionCreatorPage, {
+                private: true,
+              })
+            }
+          />
+          <Route
+            exact
+            path="/tools/questionscontributed"
+            component={
+              withAuth(QuestionSearchPage, {
+                private: true,
+                props: {
+                  mode: "userContributions",
+                },
               })
             }
           />

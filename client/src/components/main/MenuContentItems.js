@@ -12,7 +12,7 @@ import {
   PAGE_ICON_COLOR_SUBJECTS,
 } from "../../constants";
 
-const MenuContentBasics = props => (
+const MenuContentItems = props => (
   [
     <Menu.Item
       key="home"
@@ -55,7 +55,7 @@ const MenuContentBasics = props => (
       {" "}
       Docs
     </Menu.Item>,
-    props.loggedIn ?
+    (props.loggedIn && !props.showAdminLink) ?
       <Menu.Item
         key="profile"
         as={Link}
@@ -80,15 +80,15 @@ const MenuContentBasics = props => (
   ]
 );
 
-MenuContentBasics.propTypes = {
+MenuContentItems.propTypes = {
   navigateTo: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool,
   showAdminLink: PropTypes.bool,
 };
 
-MenuContentBasics.defaultProps = {
+MenuContentItems.defaultProps = {
   loggedIn: false,
   showAdminLink: false,
 };
 
-export default MenuContentBasics;
+export default MenuContentItems;

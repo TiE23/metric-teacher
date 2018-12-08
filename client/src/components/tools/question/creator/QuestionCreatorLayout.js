@@ -2,15 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Header, Container, Button, Message } from "semantic-ui-react";
 
-import utils from "../../utils";
+import utils from "../../../../utils";
 
 import QuestionDetailsBasics from "./details/QuestionDetailsBasics";
 import QuestionDetailsSubSubject from "./details/QuestionDetailsSubSubject";
 import QuestionDetailsQuestion from "./details/QuestionDetailsQuestion";
 import QuestionDetailsAnswer from "./details/QuestionDetailsAnswer";
-import LoadingButton from "../misc/LoadingButton";
+import LoadingButton from "../../../misc/LoadingButton";
 
-const QuestionViewerLayout = props => (
+const QuestionCreatorLayout = props => (
   // TODO - Consider making PureComponent and splitting up handler funcs before passing to children.
   // TODO - Set loading and error to state and reset error state and re-try.
   <Grid columns="equal" padded>
@@ -129,7 +129,7 @@ const QuestionViewerLayout = props => (
   </Grid>
 );
 
-QuestionViewerLayout.propTypes = {
+QuestionCreatorLayout.propTypes = {
   qaFormData: PropTypes.shape({
     question: PropTypes.shape({
       basics: PropTypes.object.isRequired,
@@ -159,7 +159,7 @@ QuestionViewerLayout.propTypes = {
   newQuestionSubmitted: PropTypes.bool,
 };
 
-QuestionViewerLayout.defaultProps = {
+QuestionCreatorLayout.defaultProps = {
   allowEditor: false,
   newQuestionMode: false,
   editorOpen: false,
@@ -174,4 +174,4 @@ QuestionViewerLayout.defaultProps = {
   newQuestionSubmitted: false,
 };
 
-export default QuestionViewerLayout;
+export default QuestionCreatorLayout;

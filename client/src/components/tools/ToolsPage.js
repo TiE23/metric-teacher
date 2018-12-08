@@ -7,32 +7,29 @@ import {
   PAGE_ICON_COLOR_ADMIN,
 } from "../../constants";
 
-const AdminToolsPage = () => (
+const ToolsPage = () => (
   <Segment as={Container} text>
     <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-      <Icon name="cog" color={PAGE_ICON_COLOR_ADMIN} />
-      Admin Tools
+      <Header.Content>
+        <Icon name="cog" color={PAGE_ICON_COLOR_ADMIN} />
+        Community Tools
+        <Header.Subheader>
+          Help grow Metric-Teacher by submitting your own questions.
+        </Header.Subheader>
+      </Header.Content>
     </Header>
 
     <List divided relaxed>
-      <List.Item
-        icon="users"
-        content={<Link to="/admin/usersearch">User Browser</Link>}
-      />
-      <List.Item
-        icon="search"
-        content={<Link to="/admin/questionsearch">Question Browser</Link>}
-      />
       <List.Item
         icon="plus"
         content={<Link to="/tools/questioncreator">Question Creator</Link>}
       />
       <List.Item
-        icon="cog"
-        content={<Link to="/tools">Community Tools Page</Link>}
+        icon="pencil"
+        content={<Link to="/tools/questionscontributed">Review Contributed Questions</Link>}
       />
     </List>
   </Segment>
 );
 
-export default AdminToolsPage;
+export default ToolsPage;

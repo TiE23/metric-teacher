@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { Table, Popup, Icon, Message } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
-import utils from "../../../utils";
+import utils from "../../../../utils";
 
+import XLink from "../../../misc/ExternalLink";
 import QuestionQaDetailsAndEditorModal from "./QuestionQaDetailsAndEditorModal";
 
 import {
@@ -12,7 +13,8 @@ import {
   QUESTION_STATUS_DROPDOWN,
   QUESTION_FLAG_NAMES,
   QUESTION_DIFFICULTY_DROPDOWN,
-} from "../../../constants";
+  USER_TYPE_NAMES,
+} from "../../../../constants";
 
 class QuestionListTable extends PureComponent {
   constructor(props) {
@@ -257,23 +259,45 @@ class QuestionListTable extends PureComponent {
                     trigger={(<span style={{ cursor: "help" }}>{question.question}</span>)}
                     content={(
                       <span>
-                        <b>Question ID</b>
-                        {": "}
-                        {question.id}
+                        <b>Question ID</b>: {question.id}
                         <ul>
                           <li>
-                            <b>Question</b>
-                            {": "}
-                            &quot;
-                            {question.question}
-                            &quot;
+                            <b>Question</b>: &quot;{question.question}&quot;
                           </li>
                           <li>
-                            <b>Answer</b>
-                            {": "}
-                            &quot;
-                            {question.answer}
-                            &quot;
+                            <b>Answer</b>: &quot;{question.answer}&quot;
+                          </li>
+                          <li>
+                            <b>Author</b>: {
+                              question.author ?
+                                <React.Fragment>
+                                  {question.author.id}
+                                  {" "}
+                                  (<i>{USER_TYPE_NAMES[question.author.type]}</i>)
+                                  {" "}
+                                  {this.props.adminMode &&
+                                    <XLink to={`/user/${question.author.id}`}>View</XLink>
+                                  }
+                                </React.Fragment>
+                                :
+                                "None"
+                            }
+                          </li>
+                          <li>
+                            <b>Reviewer</b>: {
+                              question.reviewer ?
+                                <React.Fragment>
+                                  {question.reviewer.id}
+                                  {" "}
+                                  (<i>{USER_TYPE_NAMES[question.reviewer.type]}</i>)
+                                  {" "}
+                                  {this.props.adminMode &&
+                                    <XLink to={`/user/${question.reviewer.id}`}>View</XLink>
+                                  }
+                                </React.Fragment>
+                                :
+                                "None"
+                            }
                           </li>
                         </ul>
                       </span>
@@ -284,19 +308,21 @@ class QuestionListTable extends PureComponent {
                   />
                 </Table.Cell>
                 <Table.Cell>
+                  {this.props.adminMode &&
+                    <QuestionQaDetailsAndEditorModal
+                      questionId={question.id}
+                      editorMode
+                      queryInfo={this.props.queryInfo}
+                      modalProps={{ size: "fullscreen" }}
+                    >
+                      <Icon name="pencil" style={{ cursor: "pointer" }} />
+                    </QuestionQaDetailsAndEditorModal>
+                  }
                   <QuestionQaDetailsAndEditorModal
                     questionId={question.id}
                     editorMode={false}
                   >
                     <Icon name="window maximize" style={{ cursor: "pointer" }} />
-                  </QuestionQaDetailsAndEditorModal>
-                  <QuestionQaDetailsAndEditorModal
-                    questionId={question.id}
-                    editorMode
-                    queryInfo={this.props.queryInfo}
-                    modalProps={{ size: "fullscreen" }}
-                  >
-                    <Icon name="pencil" style={{ cursor: "pointer" }} />
                   </QuestionQaDetailsAndEditorModal>
                 </Table.Cell>
               </Table.Row>
@@ -339,11 +365,13 @@ QuestionListTable.propTypes = {
     }).isRequired,
   })),
   queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  adminMode: PropTypes.bool,
 };
 
 QuestionListTable.defaultProps = {
   questionData: null,
   queryInfo: null,
+  adminMode: false,
 };
 
 export default QuestionListTable;

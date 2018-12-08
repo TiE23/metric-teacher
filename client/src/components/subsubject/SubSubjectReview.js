@@ -49,13 +49,10 @@ const SubSubjectReview = props => (
         <List.Description>
           {props.toMetric !== null ?
             <span>
-              US Customary {" "}
-              <Icon
-                fitted
-                name={`long arrow alternate ${props.toMetric ?
-                  "long arrow alternate right" : "long arrow alternate left"}`}
-              />
-              {" "}Metric
+              {props.toMetric ? "US Customary" : "Metric"}
+              {" "}
+              <Icon name="long arrow alternate right" />
+              {props.toMetric ? "Metric" : "US Customary"}
             </span>
             : <span>...</span>
           }

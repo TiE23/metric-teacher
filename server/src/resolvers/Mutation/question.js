@@ -307,7 +307,7 @@ const question = {
           }
           :
           undefined,
-        author: {
+        reviewer: {
           connect: {
             id: callingUserData.id,
           },
