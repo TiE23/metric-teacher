@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Table, Popup, Icon, Message } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
-import utils from "../../../utils";
+import utils from "../../../../utils";
 
 import QuestionQaDetailsAndEditorModal from "./QuestionQaDetailsAndEditorModal";
 
@@ -12,7 +12,7 @@ import {
   QUESTION_STATUS_DROPDOWN,
   QUESTION_FLAG_NAMES,
   QUESTION_DIFFICULTY_DROPDOWN,
-} from "../../../constants";
+} from "../../../../constants";
 
 class QuestionListTable extends PureComponent {
   constructor(props) {

@@ -4,15 +4,15 @@ import { Dropdown } from "semantic-ui-react";
 import forEach from "lodash/forEach";
 import find from "lodash/find";
 
-import utils from "../../../../utils";
+import utils from "../../../../../utils";
 
-import SubSubjectReview from "../../../subsubject/SubSubjectReview";
+import SubSubjectReview from "../../../../subsubject/SubSubjectReview";
 
 import {
   DIRECTION_DROPDOWN,
   SUBJECT_ICONS,
   SCALE_ICONS,
-} from "../../../../constants";
+} from "../../../../../constants";
 
 class QuestionDetailsSubSubjectsSelector extends PureComponent {
   constructor(props) {

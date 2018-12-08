@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import { Modal } from "semantic-ui-react";
 
-import QueryHandler from "../../QueryHandler";
-import QaReview from "../../qa/QaReview";
-import QuestionViewer from "../../tools/question/QuestionViewer";
+import QueryHandler from "../../../QueryHandler";
+import QaReview from "../../../qa/QaReview";
+import QuestionCreator from "../creator/QuestionCreator";
 
 import {
   GET_QA_QUESTIONS_WITHOUT_STUDENT,
   GET_QA_QUESTIONS_DATA_LIMITED,
-} from "../../../graphql/Queries";
+} from "../../../../graphql/Queries";
 
 const QuestionQaDetailsAndEditorModal = (props) => {
   const query = props.editorMode ? GET_QA_QUESTIONS_DATA_LIMITED : GET_QA_QUESTIONS_WITHOUT_STUDENT;
@@ -36,7 +36,7 @@ const QuestionQaDetailsAndEditorModal = (props) => {
               noDataErrorMessage="Question not found."
             >
               {props.editorMode ?
-                <QuestionViewer
+                <QuestionCreator
                   qaData={queryProps.data && queryProps.data.getQa && queryProps.data.getQa[0]}
                   queryInfo={props.queryInfo} // Pass in Questions query.
                   allowEditor

@@ -25,7 +25,7 @@ const AdminToolsPage = () => (
       />
       <List.Item
         icon="plus"
-        content={<Link to="/tools/submitquestion">Question Creator</Link>}
+        content={<Link to="/tools/questioncreator">Question Creator</Link>}
       />
       <List.Item
         icon="cog"

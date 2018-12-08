@@ -4,8 +4,8 @@ import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
 
-import QuestionSearchOptions from "./QuestionSearchOptions";
-import QuestionListContainer from "./QuestionListContainer";
+import QuestionSearchOptions from "./list/QuestionSearchOptions";
+import QuestionListContainer from "./list/QuestionListContainer";
 
 class QuestionSearchPage extends PureComponent {
   constructor(props) {

@@ -17,11 +17,11 @@ import SubjectsPage from "./components/subject/SubjectsPage";
 import DocumentationPage from "./components/documentation/DocumentationPage";
 import QaViewerPage from "./components/qa/QaViewerPage";
 import QuestionViewerPage from "./components/tools/question/QuestionViewerPage";
-import QuestionSubmissionPage from "./components/tools/question/QuestionSubmissionPage";
+import QuestionCreatorPage from "./components/tools/question/QuestionCreatorPage";
 import AdminToolsPage from "./components/admin/AdminToolsPage";
 import ToolsPage from "./components/tools/ToolsPage";
 import UserSearchPage from "./components/admin/user/UserSearchPage";
-import QuestionSearchPage from "./components/admin/question/QuestionSearchPage";
+import QuestionSearchPage from "./components/tools/question/QuestionSearchPage";
 import NotFoundPage from "./components/misc/NotFoundPage";
 
 import {
@@ -95,9 +95,9 @@ const App = () => (
           />
           <Route
             exact
-            path="/tools/submitquestion"
+            path="/tools/questioncreator"
             component={
-              withAuth(QuestionSubmissionPage, {
+              withAuth(QuestionCreatorPage, {
                 private: true,
               })
             }

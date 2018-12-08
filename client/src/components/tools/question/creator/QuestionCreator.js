@@ -4,23 +4,23 @@ import { Mutation } from "react-apollo";
 import merge from "lodash/merge";
 import cuid from "cuid";
 
-import utils from "../../../utils";
+import utils from "../../../../utils";
 
-import QuestionViewerLayout from "./QuestionViewerLayout";
+import QuestionCreatorLayout from "./QuestionCreatorLayout";
 
 import {
   SUBMIT_QA_QUESTION,
   UPDATE_QA_QUESTION,
-} from "../../../graphql/Mutations";
+} from "../../../../graphql/Mutations";
 
 import {
   FLAGS_NONE,
   QUESTION_DIFFICULTY_MEDIUM,
   QUESTION_STATUS_REVIEW_PENDING,
   QUESTION_TYPE_WRITTEN,
-} from "../../../constants";
+} from "../../../../constants";
 
-class QuestionViewer extends PureComponent {
+class QuestionCreator extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -179,7 +179,7 @@ class QuestionViewer extends PureComponent {
           }}
         >
           {(submitQuestion, { loading, error }) => (
-            <QuestionViewerLayout
+            <QuestionCreatorLayout
               qaFormData={this.state.qaFormData}
               allowEditor={this.props.allowEditor}
               newQuestionMode={this.props.newQuestionMode}
@@ -224,7 +224,7 @@ class QuestionViewer extends PureComponent {
           }}
         >
           {(updateQuestion, { loading, error }) => (
-            <QuestionViewerLayout
+            <QuestionCreatorLayout
               qaFormData={this.state.qaFormData}
               allowEditor={this.props.allowEditor}
               newQuestionMode={this.props.newQuestionMode}
@@ -250,7 +250,7 @@ class QuestionViewer extends PureComponent {
   }
 }
 
-QuestionViewer.propTypes = {
+QuestionCreator.propTypes = {
   qaData: PropTypes.shape({
     id: PropTypes.string.isRequired,
     questionId: PropTypes.string.isRequired,
@@ -318,11 +318,11 @@ QuestionViewer.propTypes = {
   newQuestionMode: PropTypes.bool,
 };
 
-QuestionViewer.defaultProps = {
+QuestionCreator.defaultProps = {
   qaData: null,
   queryInfo: null,
   allowEditor: false,
   newQuestionMode: false,
 };
 
-export default QuestionViewer;
+export default QuestionCreator;
