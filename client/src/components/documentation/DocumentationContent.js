@@ -7,6 +7,7 @@ import Tables from "./DocumentationTables";
 import XLink from "../misc/ExternalLink";
 
 import {
+  SITE_NAME,
   MASCOT_NAME_SHORT,
   QUESTION_TYPE_DROPDOWN,
 } from "../../constants";
@@ -22,7 +23,7 @@ export default {
     content: (
       <React.Fragment>
         <p>
-          Metric-Teacher is a teaching tool that will help any interested person learn to imagine, understand, and describe objects, people, and the world using a new system of measurements.
+          {SITE_NAME} is a teaching tool that will help any interested person learn to imagine, understand, and describe objects, people, and the world using a new system of measurements.
         </p>
 
         <p>
@@ -34,7 +35,7 @@ export default {
         </p>
 
         <p>
-          So, if you want to know how long a 10k run really is or what a "Quarter Pounder with Cheese" means you need only enthusiasm, dedication, and Metric-Teacher.
+          So, if you want to know how long a 10k run really is or what a "Quarter Pounder with Cheese" means you need only enthusiasm, dedication, and {SITE_NAME}.
         </p>
       </React.Fragment>
     ),
@@ -60,7 +61,7 @@ export default {
           </p>
 
           <p>
-            The goal of Metric-Teacher is to make the metric system feel natural:
+            The goal of {SITE_NAME} is to make the metric system feel natural:
           </p>
           <List bulleted>
             <List.Item>
@@ -95,7 +96,7 @@ export default {
           </p>
 
           <p>
-            The goal of Metric-Teacher is to make the US Customary Unit System feel natural:
+            The goal of {SITE_NAME} is to make the US Customary Unit System feel natural:
           </p>
           <List bulleted>
             <List.Item>
@@ -111,17 +112,17 @@ export default {
   },
 
 
-  // Metric-Teacher Details
+  // Site Details
   howTo: {
     header: {
-      content: "How To Use Metric-Teacher",
+      content: `How To Use ${SITE_NAME}`,
       as: "h1",
       dividing: true,
     },
     content: (
       <React.Fragment>
         <p>
-          The following is a guide to the different parts of Metric-Teacher and how to use the website effectively.
+          The following is a guide to the different parts of {SITE_NAME} and how to use the website effectively.
         </p>
       </React.Fragment>
     ),
@@ -205,7 +206,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            Challenges are the centerpiece of Metric-Teacher. After <Link to="/signup">signing up for an account</Link> and choosing the Subjects and SubSubjects you're interested in on the <Link to="/subjects">Subjects page</Link> you can start a Challenge by visiting the <Link to="/challenge">Challenge page</Link>.
+            Challenges are the centerpiece of {SITE_NAME}. After <Link to="/signup">signing up for an account</Link> and choosing the Subjects and SubSubjects you're interested in on the <Link to="/subjects">Subjects page</Link> you can start a Challenge by visiting the <Link to="/challenge">Challenge page</Link>.
           </p>
         </React.Fragment>
       ),
@@ -276,7 +277,7 @@ export default {
               <List.Item>
                 <List.Icon name={QUESTION_TYPE_DROPDOWN[2].icon} />
                 <List.Content>
-                  <b>Survey</b> questions are special to Metric-Teacher. Surveys ask you to give factual and opinion-based answers to questions ranging from your own height to your preferred room temperature. Metric-Teacher will then teach you these values in Metric by asking you to convert these personalized questions!
+                  <b>Survey</b> questions are special to {SITE_NAME}. Surveys ask you to give factual and opinion-based answers to questions ranging from your own height to your preferred room temperature. {SITE_NAME} will then teach you these values in Metric by asking you to convert these personalized questions!
                 </List.Content>
               </List.Item>
             </List>
@@ -393,7 +394,7 @@ export default {
             </p>
 
             <p>
-              This is a website, so using Metric-Teacher <b>offline</b> is only partially supported. You must have an Internet connection to use most parts of the site and to <u>start</u> or <u>complete</u> a Challenge. But you <u>do not need a connection</u> to progress through a Challenge. So, if you complete a Challenge and find yourself without an Internet connection on your phone you can safely refresh the Challenge Complete page and try submitting again when you have a connection.
+              This is a website, so using {SITE_NAME} <b>offline</b> is only partially supported. You must have an Internet connection to use most parts of the site and to <u>start</u> or <u>complete</u> a Challenge. But you <u>do not need a connection</u> to progress through a Challenge. So, if you complete a Challenge and find yourself without an Internet connection on your phone you can safely refresh the Challenge Complete page and try submitting again when you have a connection.
             </p>
 
             <p>
@@ -456,7 +457,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            This is not a <XLink to="https://en.wikipedia.org/wiki/Metric_prefix">full list</XLink> of all prefixes in existence and not all prefixes shown here are even covered by Metric-Teacher. Almost all work will be limited to kilo, centi, and milli prefixes.
+            This is not a <XLink to="https://en.wikipedia.org/wiki/Metric_prefix">full list</XLink> of all prefixes in existence and not all prefixes shown here are even covered by {SITE_NAME}. Almost all work will be limited to kilo, centi, and milli prefixes.
           </p>
 
           {Tables.metricPrefixes}
@@ -476,7 +477,7 @@ export default {
     content: (
       <React.Fragment>
         <p>
-          Metric-Teacher uses the <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units">US Customary System</XLink> (USCS). Based off earlier British units, it is a sibling to the <XLink to="https://en.wikipedia.org/wiki/Imperial_units">Imperial Unit System</XLink> which was <XLink to="https://en.wikipedia.org/wiki/Weights_and_Measures_Acts_(UK)">standardized in 1894</XLink>, decades after the United States declared independence from the British Empire. The functional <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">differences</XLink> are limited to <u>liquid</u> volume units.
+          {SITE_NAME} uses the <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units">US Customary System</XLink> (USCS). Based off earlier British units, it is a sibling to the <XLink to="https://en.wikipedia.org/wiki/Imperial_units">Imperial Unit System</XLink> which was <XLink to="https://en.wikipedia.org/wiki/Weights_and_Measures_Acts_(UK)">standardized in 1894</XLink>, decades after the United States declared independence from the British Empire. The functional <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">differences</XLink> are limited to <u>liquid</u> volume units.
         </p>
 
         <p>
@@ -506,7 +507,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            Metric-Teacher teaches the US Customary Unit System, also known as the United States Customary System (USCS). Despite the shared history, there are distinct differences between the unit system used in the United States and the Imperial unit system used in the United Kingdom.
+            {SITE_NAME} teaches the US Customary Unit System, also known as the United States Customary System (USCS). Despite the shared history, there are distinct differences between the unit system used in the United States and the Imperial unit system used in the United Kingdom.
           </p>
 
           <p>
@@ -557,7 +558,7 @@ export default {
             </p>
 
             <p>
-              The US gallon is not based on the weight of any liquid. Instead it is based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow history. This is the system that Metric-Teacher covers.
+              The US gallon is not based on the weight of any liquid. Instead it is based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow history. This is the system that {SITE_NAME} covers.
             </p>
           </React.Fragment>
         ),
@@ -590,7 +591,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            Metric-Teacher's goal is to teach you to think, imagine, and communicate in a new system of units. If we wanted to only teach you conversion tables we could've gone at it with far simpler method that didn't involve challenges, subjects, mastery scores, surveys, and a colorful interface with a friendly parrot cheering you on.
+            {SITE_NAME}'s goal is to teach you to think, imagine, and communicate in a new system of units. If we wanted to only teach you conversion tables we could've gone at it with far simpler method that didn't involve challenges, subjects, mastery scores, surveys, and a colorful interface with a friendly parrot cheering you on.
           </p>
 
           <p>
@@ -1012,7 +1013,7 @@ export default {
             </Header>
 
             <p>
-              <i>Metric-Teacher uses the US Customary Units for volume. A further distinction to note is the US Customary Cup. It is equal to 8 fluid ounces or 236.6 milliliters. The US Legal Cup is slightly larger at 240 milliliters and is used in nutrition labelling as a half-baked metrification by the US. As a result, it is often errantly understood that "a cup" is both 240 milliliters and 8 ounces when this is not the case. To add confusion, converting cups to milliliters using Google will use the US Legal Cup.</i>
+              <i>{SITE_NAME} uses the US Customary Units for volume. A further distinction to note is the US Customary Cup. It is equal to 8 fluid ounces or 236.6 milliliters. The US Legal Cup is slightly larger at 240 milliliters and is used in nutrition labelling as a half-baked metrification by the US. As a result, it is often errantly understood that "a cup" is both 240 milliliters and 8 ounces when this is not the case. To add confusion, converting cups to milliliters using Google will use the US Legal Cup.</i>
             </p>
           </React.Fragment>
         ),
@@ -1122,7 +1123,7 @@ export default {
             </p>
 
             <p>
-              <i>Metric-Teacher supports a combination input of gallons, quarts, and fluid ounces when dealing with fluid ounces. Pints and cups are typically dropped when dealing with amounts of liquid greater than a quart. Questions that seek answers specifically in gallons, quarts, pints, or cups will request them as decimal values.</i>
+              <i>{SITE_NAME} supports a combination input of gallons, quarts, and fluid ounces when dealing with fluid ounces. Pints and cups are typically dropped when dealing with amounts of liquid greater than a quart. Questions that seek answers specifically in gallons, quarts, pints, or cups will request them as decimal values.</i>
             </p>
           </React.Fragment>
         ),
@@ -1352,7 +1353,7 @@ export default {
             </p>
 
             <p>
-              Additionally, the unit meters per second (m/s) is also in wide use in engineering, science, and physics. Metric-Teacher does not cover this unit.
+              Additionally, the unit meters per second (m/s) is also in wide use in engineering, science, and physics. {SITE_NAME} does not cover this unit.
             </p>
           </React.Fragment>
         ),

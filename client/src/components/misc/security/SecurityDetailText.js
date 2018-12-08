@@ -3,10 +3,14 @@ import React from "react";
 
 import XLink from "../ExternalLink";
 
+import {
+  SITE_NAME,
+} from "../../../constants";
+
 export default (
   <React.Fragment>
     <p>
-      This site is currently a personal project and does not yet support HTTPS security, so passwords are transmitted in plain text to Metric-Teacher's server. Which means you're at risk to have your password stolen if your connection is insecure.
+      This site is currently a personal project and does not yet support HTTPS security, so passwords are transmitted in plain text to {SITE_NAME}'s server. Which means you're at risk to have your password stolen if your connection is insecure.
     </p>
 
     <p>
@@ -22,7 +26,7 @@ export default (
     </p>
 
     <p>
-      Your name, email address, and your Survey answers are all visible to me but are not made public. I've taken specific steps to prevent this from happening through specific schema choices in Metric-Teacher's API.
+      Your name, email address, and your Survey answers are all visible to me but are not made public. I've taken specific steps to prevent this from happening through specific schema choices in {SITE_NAME}'s API.
     </p>
 
     <p>

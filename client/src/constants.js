@@ -6,6 +6,7 @@ export const AUTH_TOKEN = "auth-token";
 export const CHALLENGE_STATE = "challenge-state";
 
 // Styling
+export const SITE_NAME = "Metric-Teacher";
 export const PAGE_TITLE_HEADER_SIZE = "huge";
 export const PAGE_ICON_COLOR_HOME = "olive";
 export const PAGE_ICON_COLOR_LOGIN = "blue";
