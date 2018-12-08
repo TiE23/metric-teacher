@@ -92,23 +92,41 @@ class LoadingButton extends PureComponent {
               <Icon name={this.props.modalRejectIcon} />
               {this.props.error ? "Close" : this.props.modalRejectLabel}
             </Button>
-            {this.props.modalActions.map(actionProps => (
+            {this.props.modalActions ?
+              // Complex modal actions
+              this.props.modalActions.map(actionProps => (
+                <Button
+                  key={`modalAction_${actionProps.modalAcceptLabel}`}
+                  onClick={() => this.buttonClick(actionProps.modalAcceptClick)}
+                  color={actionProps.modalAcceptColor}
+                  basic={this.props.modalProps.basic}
+                  inverted={this.props.modalProps.basic}
+                  disabled={this.props.loading || (this.props.error &&
+                    this.props.buttonDisableOnError && this.props.modalStayOpenOnError)}
+                  loading={this.props.loading}
+                >
+                  {!this.props.loading && !(this.props.error && this.props.buttonDisableOnError) &&
+                  <Icon name={actionProps.modalAcceptIcon} />}
+                  {(this.props.error && this.props.buttonDisableOnError) ?
+                    "Error!" : actionProps.modalAcceptLabel}
+                </Button>
+              )) :
+              // Simple modal action (runs onClick)
               <Button
-                key={`modalAction_${actionProps.modalAcceptLabel}`}
-                onClick={() => this.buttonClick(actionProps.modalAcceptClick)}
-                color={actionProps.modalAcceptColor}
+                onClick={() => this.buttonClick(this.props.onClick)}
                 basic={this.props.modalProps.basic}
                 inverted={this.props.modalProps.basic}
+                color={this.props.modalAcceptColor}
                 disabled={this.props.loading || (this.props.error &&
                   this.props.buttonDisableOnError && this.props.modalStayOpenOnError)}
                 loading={this.props.loading}
               >
                 {!this.props.loading && !(this.props.error && this.props.buttonDisableOnError) &&
-                <Icon name={actionProps.modalAcceptIcon} />}
+                <Icon name={this.props.modalAcceptIcon} />}
                 {(this.props.error && this.props.buttonDisableOnError) ?
-                  "Error!" : actionProps.modalAcceptLabel}
+                  "Error!" : this.props.modalAcceptLabel}
               </Button>
-            ))}
+            }
           </Modal.Actions>
         </Modal>
       );
@@ -145,6 +163,9 @@ LoadingButton.propTypes = {
   modalRejectLabel: PropTypes.string,
   modalRejectColor: PropTypes.string,
   modalRejectIcon: PropTypes.string,
+  modalAcceptLabel: PropTypes.string,
+  modalAcceptColor: PropTypes.string,
+  modalAcceptIcon: PropTypes.string,
   modalActions: PropTypes.arrayOf(
     PropTypes.shape({
       modalAcceptClick: PropTypes.func.isRequired,
@@ -173,6 +194,9 @@ LoadingButton.defaultProps = {
   modalRejectLabel: "No",
   modalRejectColor: "red",
   modalRejectIcon: "remove",
+  modalAcceptLabel: "Yes",
+  modalAcceptColor: "green",
+  modalAcceptIcon: "checkmark",
   modalActions: null,
   modalStayOpenOnError: false,
 };
