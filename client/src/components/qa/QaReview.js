@@ -41,6 +41,7 @@ class QaReview extends PureComponent {
           <QaReviewChoices
             choices={qaData.answer.data.multiple.choices}
             choicesOffered={qaData.answer.data.multiple.choicesOffered}
+            answerDetail={qaData.answer.detail}
           />
         }
         {qaData.question.type === QUESTION_TYPE_SURVEY && this.props.studentId &&
