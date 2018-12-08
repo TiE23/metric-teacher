@@ -22,6 +22,14 @@ export const QuestionDataEverythingExtra = gql`
         ...SubjectDataAll
       }
     }
+    author {
+      id
+      type
+    }
+    reviewer {
+      id
+      type
+    }
   }
   ${QuestionDataAll}
   ${SubSubjectDataAll}

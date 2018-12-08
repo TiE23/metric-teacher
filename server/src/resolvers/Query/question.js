@@ -12,7 +12,6 @@ const {
 
 const {
   USER_TYPE_STUDENT,
-  USER_TYPE_TEACHER,
   USER_STATUS_NORMAL,
 } = require("../../constants");
 
@@ -74,7 +73,7 @@ const question = {
 
 
   /**
-   * Get a list of Questions by Prisma query search parameters. For teachers and better only.
+   * Get a list of Questions by Prisma query search parameters. For normal users only.
    * @param parent
    * @param args
    *        where: QuestionWhereInput
@@ -91,7 +90,7 @@ const question = {
   async questionSearch(parent, args, ctx, info) {
     // Need to be teacher or better and normal.
     await checkAuth(ctx, {
-      type: USER_TYPE_TEACHER,
+      type: USER_TYPE_STUDENT,
       status: USER_STATUS_NORMAL,
       action: "questionSearch",
     });

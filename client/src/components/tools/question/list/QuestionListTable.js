@@ -5,6 +5,7 @@ import sortBy from "lodash/sortBy";
 
 import utils from "../../../../utils";
 
+import XLink from "../../../misc/ExternalLink";
 import QuestionQaDetailsAndEditorModal from "./QuestionQaDetailsAndEditorModal";
 
 import {
@@ -12,6 +13,7 @@ import {
   QUESTION_STATUS_DROPDOWN,
   QUESTION_FLAG_NAMES,
   QUESTION_DIFFICULTY_DROPDOWN,
+  USER_TYPE_NAMES,
 } from "../../../../constants";
 
 class QuestionListTable extends PureComponent {
@@ -257,23 +259,41 @@ class QuestionListTable extends PureComponent {
                     trigger={(<span style={{ cursor: "help" }}>{question.question}</span>)}
                     content={(
                       <span>
-                        <b>Question ID</b>
-                        {": "}
-                        {question.id}
+                        <b>Question ID</b>: {question.id}
                         <ul>
                           <li>
-                            <b>Question</b>
-                            {": "}
-                            &quot;
-                            {question.question}
-                            &quot;
+                            <b>Question</b>: &quot;{question.question}&quot;
                           </li>
                           <li>
-                            <b>Answer</b>
-                            {": "}
-                            &quot;
-                            {question.answer}
-                            &quot;
+                            <b>Answer</b>: &quot;{question.answer}&quot;
+                          </li>
+                          <li>
+                            <b>Author</b>: {
+                              question.author ?
+                                <React.Fragment>
+                                  {question.author.id}
+                                  {" "}
+                                  (<i>{USER_TYPE_NAMES[question.author.type]}</i>)
+                                  {" "}
+                                  <XLink to={`/user/${question.author.id}`}>View</XLink>
+                                </React.Fragment>
+                                :
+                                "None"
+                            }
+                          </li>
+                          <li>
+                            <b>Reviewer</b>: {
+                              question.reviewer ?
+                                <React.Fragment>
+                                  {question.reviewer.id}
+                                  {" "}
+                                  (<i>{USER_TYPE_NAMES[question.reviewer.type]}</i>)
+                                  {" "}
+                                  <XLink to={`/user/${question.reviewer.id}`}>View</XLink>
+                                </React.Fragment>
+                                :
+                                "None"
+                            }
                           </li>
                         </ul>
                       </span>

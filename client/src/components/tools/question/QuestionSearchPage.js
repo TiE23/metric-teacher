@@ -7,6 +7,10 @@ import utils from "../../../utils";
 import QuestionSearchOptions from "./list/QuestionSearchOptions";
 import QuestionListContainer from "./list/QuestionListContainer";
 
+import {
+  QUESTION_SEARCH,
+} from "../../../graphql/Queries";
+
 class QuestionSearchPage extends PureComponent {
   constructor(props) {
     super(props);
@@ -103,6 +107,7 @@ class QuestionSearchPage extends PureComponent {
           </p>
           :
           <QuestionListContainer
+            query={QUESTION_SEARCH}
             searchVariables={this.state.searchVariables}
           />
         }
