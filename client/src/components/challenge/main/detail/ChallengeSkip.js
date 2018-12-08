@@ -20,7 +20,7 @@ const ChallengeSkip = props => (
     modalRejectIcon="step backward"
     modalActions={[
       {
-        modalAcceptClick: props.handleSkipQa,
+        modalAcceptClick: props.handleAnswerQaLater,
         modalAcceptLabel: "Ask Me Later",
         modalAcceptColor: "yellow",
         modalAcceptIcon: "pause",
@@ -39,6 +39,7 @@ ChallengeSkip.propTypes = {
   showClearButton: PropTypes.bool.isRequired,
   showSurveySkipConfirm: PropTypes.bool,
   handleSkipQa: PropTypes.func.isRequired,
+  handleAnswerQaLater: PropTypes.func.isRequired,
   handleClearQa: PropTypes.func.isRequired,
 };
 

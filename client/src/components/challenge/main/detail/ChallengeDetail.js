@@ -29,6 +29,7 @@ const ChallengeDetail = props => (
           showSurveySkipConfirm={props.responseMode ===
             CHALLENGE_RESPONSE_INPUT_SLIDER_SURVEY_FILLER}
           handleSkipQa={props.handleSkipQa}
+          handleAnswerQaLater={props.handleAnswerQaLater}
           handleClearQa={props.handleClearQa}
         />
       </Grid.Column>
@@ -46,6 +47,7 @@ ChallengeDetail.propTypes = {
   showClearButton: PropTypes.bool.isRequired,
   responseMode: PropTypes.number.isRequired,
   handleSkipQa: PropTypes.func.isRequired,
+  handleAnswerQaLater: PropTypes.func.isRequired,
   handleClearQa: PropTypes.func.isRequired,
 };
 

@@ -25,6 +25,7 @@ import {
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
   CHALLENGE_RESOLUTION_SURVEY_FILLED,
+  CHALLENGE_RESOLUTION_SURVEY_ANSWER_LATER,
   CHALLENGE_CLEAR_INCORRECT_ANSWERS_ON_CORRECT,
 } from "../../constants";
 
@@ -176,6 +177,9 @@ const ChallengeList = (props) => {
         currentQaObject.questionId,
         payload,  // Pass through the survey's payload (skip, value, unit, score, detail).
       );
+    } else if (resolution === CHALLENGE_RESOLUTION_SURVEY_ANSWER_LATER) {
+      // Mark as done but record nothing...
+      challengeProgressUpdate.succeeded = true;
     }
 
     props.updateChallengeProgress(props.currentChallenge.currentQaId, challengeProgressUpdate);
