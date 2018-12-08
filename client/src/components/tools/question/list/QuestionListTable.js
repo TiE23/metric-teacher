@@ -275,7 +275,9 @@ class QuestionListTable extends PureComponent {
                                   {" "}
                                   (<i>{USER_TYPE_NAMES[question.author.type]}</i>)
                                   {" "}
-                                  <XLink to={`/user/${question.author.id}`}>View</XLink>
+                                  {this.props.adminMode &&
+                                    <XLink to={`/user/${question.author.id}`}>View</XLink>
+                                  }
                                 </React.Fragment>
                                 :
                                 "None"
@@ -289,7 +291,9 @@ class QuestionListTable extends PureComponent {
                                   {" "}
                                   (<i>{USER_TYPE_NAMES[question.reviewer.type]}</i>)
                                   {" "}
-                                  <XLink to={`/user/${question.reviewer.id}`}>View</XLink>
+                                  {this.props.adminMode &&
+                                    <XLink to={`/user/${question.reviewer.id}`}>View</XLink>
+                                  }
                                 </React.Fragment>
                                 :
                                 "None"
@@ -304,14 +308,16 @@ class QuestionListTable extends PureComponent {
                   />
                 </Table.Cell>
                 <Table.Cell>
-                  <QuestionQaDetailsAndEditorModal
-                    questionId={question.id}
-                    editorMode
-                    queryInfo={this.props.queryInfo}
-                    modalProps={{ size: "fullscreen" }}
-                  >
-                    <Icon name="pencil" style={{ cursor: "pointer" }} />
-                  </QuestionQaDetailsAndEditorModal>
+                  {this.props.adminMode &&
+                    <QuestionQaDetailsAndEditorModal
+                      questionId={question.id}
+                      editorMode
+                      queryInfo={this.props.queryInfo}
+                      modalProps={{ size: "fullscreen" }}
+                    >
+                      <Icon name="pencil" style={{ cursor: "pointer" }} />
+                    </QuestionQaDetailsAndEditorModal>
+                  }
                   <QuestionQaDetailsAndEditorModal
                     questionId={question.id}
                     editorMode={false}
@@ -359,11 +365,13 @@ QuestionListTable.propTypes = {
     }).isRequired,
   })),
   queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  adminMode: PropTypes.bool,
 };
 
 QuestionListTable.defaultProps = {
   questionData: null,
   queryInfo: null,
+  adminMode: false,
 };
 
 export default QuestionListTable;

@@ -1,10 +1,12 @@
 import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 import { Container, Button } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
 
-import QuestionSearchOptions from "./list/QuestionSearchOptions";
+import QuestionSearchOptions from "./list/options/QuestionSearchOptions";
+import QuestionContributionOptions from "./list/options/QuestionContributionOptions";
 import QuestionListContainer from "./list/QuestionListContainer";
 
 import {
@@ -67,6 +69,13 @@ class QuestionSearchPage extends PureComponent {
           difficulty_in: where.difficulties,
         } : null;
 
+      const authors = where.authors && where.authors.length ?
+        {
+          author: {
+            id_in: where.authors,
+          },
+        } : null;
+
       return mergeWith(
         {},
         subjects,
@@ -75,6 +84,7 @@ class QuestionSearchPage extends PureComponent {
         statuses,
         flags,
         difficulties,
+        authors,
         utils.mergeCustomizer,
       );
     };
@@ -91,9 +101,16 @@ class QuestionSearchPage extends PureComponent {
   render() {
     return (
       <Container textAlign="center">
-        <QuestionSearchOptions
-          handleChange={this.handleWhereChange}
-        />
+        {this.props.mode === "adminSearch" &&
+          <QuestionSearchOptions
+            handleChange={this.handleWhereChange}
+          />
+        }
+        {this.props.mode === "userContributions" &&
+          <QuestionContributionOptions
+            handleChange={this.handleWhereChange}
+          />
+        }
         <Button
           onClick={this.handleSearch}
           color="olive"
@@ -103,17 +120,22 @@ class QuestionSearchPage extends PureComponent {
         {utils.isEmptyRecursive(this.state.searchVariables) ?
           <p>
             <br />
-            No Search Set
+            No Search Entered
           </p>
           :
           <QuestionListContainer
             query={QUESTION_SEARCH}
             searchVariables={this.state.searchVariables}
+            adminMode={this.props.mode === "adminSearch"}
           />
         }
       </Container>
     );
   }
 }
+
+QuestionSearchPage.propTypes = {
+  mode: PropTypes.string.isRequired,
+};
 
 export default QuestionSearchPage;

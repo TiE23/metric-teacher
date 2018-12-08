@@ -9,7 +9,7 @@ import {
   QUESTION_STATUS_DROPDOWN,
   QUESTION_FLAG_DROPDOWN,
   QUESTION_DIFFICULTY_DROPDOWN,
-} from "../../../../constants";
+} from "../../../../../constants";
 
 class QuestionSearchOptions extends PureComponent {
   constructor(props) {

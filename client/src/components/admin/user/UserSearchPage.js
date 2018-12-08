@@ -98,7 +98,7 @@ class UserSearchPage extends PureComponent {
         {utils.isEmptyRecursive(this.state.searchVariables) ?
           <p>
             <br />
-            No Search Set
+            No Search Entered
           </p>
           :
           <UserListContainer

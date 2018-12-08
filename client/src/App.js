@@ -69,6 +69,9 @@ const App = () => (
               withAuth(QuestionSearchPage, {
                 private: true,
                 permissions: { type: USER_TYPE_MODERATOR },
+                props: {
+                  mode: "adminSearch",
+                },
               })
             }
           />
@@ -99,6 +102,18 @@ const App = () => (
             component={
               withAuth(QuestionCreatorPage, {
                 private: true,
+              })
+            }
+          />
+          <Route
+            exact
+            path="/tools/questionscontributed"
+            component={
+              withAuth(QuestionSearchPage, {
+                private: true,
+                props: {
+                  mode: "userContributions",
+                },
               })
             }
           />

@@ -19,6 +19,7 @@ const QuestionListContainer = props => (
         <QuestionListTable
           questionData={queryProps.data.questionSearch}
           queryInfo={{ query: props.query, variables: queryProps.variables }}
+          adminMode={props.adminMode}
         />
       </QueryHandler>
     )}
@@ -30,6 +31,11 @@ QuestionListContainer.propTypes = {
   searchVariables: PropTypes.shape({
     where: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   }).isRequired,
+  adminMode: PropTypes.bool,
+};
+
+QuestionListContainer.defaultProps = {
+  adminMode: false,
 };
 
 export default QuestionListContainer;

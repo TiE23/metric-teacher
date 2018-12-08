@@ -10,14 +10,23 @@ import {
 const ToolsPage = () => (
   <Segment as={Container} text>
     <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-      <Icon name="cog" color={PAGE_ICON_COLOR_ADMIN} />
-      Community Tools
+      <Header.Content>
+        <Icon name="cog" color={PAGE_ICON_COLOR_ADMIN} />
+        Community Tools
+        <Header.Subheader>
+          Help grow Metric-Teacher by submitting your own questions.
+        </Header.Subheader>
+      </Header.Content>
     </Header>
 
     <List divided relaxed>
       <List.Item
         icon="plus"
         content={<Link to="/tools/questioncreator">Question Creator</Link>}
+      />
+      <List.Item
+        icon="pencil"
+        content={<Link to="/tools/questionscontributed">Review Contributed Questions</Link>}
       />
     </List>
   </Segment>
