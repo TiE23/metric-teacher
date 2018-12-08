@@ -20,6 +20,7 @@ import {
   CHALLENGE_RESOLUTION_CORRECT,
   CHALLENGE_RESOLUTION_INCORRECT,
   CHALLENGE_RESOLUTION_SURVEY_FILLED,
+  CHALLENGE_RESOLUTION_SURVEY_ANSWER_LATER,
   CHALLENGE_RESPONSE_INPUT_DIRECT,
   CHALLENGE_RESPONSE_INPUT_SLIDER,
   CHALLENGE_IMAGES_DIMMER_SKIPPED,
@@ -74,12 +75,26 @@ class ChallengeMain extends PureComponent {
       this.setState({
         dimmerColor: "orange",
         dimmerMessage: "Skipped!",
-        dimmerIcon: "trash alternate outline",
+        dimmerIcon: "step forward",
         dimmerImage: CHALLENGE_IMAGES_DIMMER_SKIPPED,
       });
 
       dimmerStart(
         () => this.props.resolveQa(this.props.qaData.id, CHALLENGE_RESOLUTION_SKIP),
+        CHALLENGE_DIMMER_TIME_NO_EXTRA,
+      );
+    };
+
+    this.handleAnswerQaLater = () => {
+      this.setState({
+        dimmerColor: "yellow",
+        dimmerMessage: "Ask Me Later!",
+        dimmerIcon: "pause",
+        dimmerImage: CHALLENGE_IMAGES_DIMMER_SKIPPED,
+      });
+
+      dimmerStart(
+        () => this.props.resolveQa(this.props.qaData.id, CHALLENGE_RESOLUTION_SURVEY_ANSWER_LATER),
         CHALLENGE_DIMMER_TIME_NO_EXTRA,
       );
     };
@@ -214,6 +229,7 @@ class ChallengeMain extends PureComponent {
                 showClearButton={utils.t0(this.props.currentChallenge.inputData)}
                 responseMode={this.props.currentQaProgress.responseMode}
                 handleSkipQa={this.handleSkipQa}
+                handleAnswerQaLater={this.handleAnswerQaLater}
                 handleClearQa={this.handleClearQa}
               />
             </Grid.Column>
