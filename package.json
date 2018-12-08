@@ -3,7 +3,7 @@
   "description": "metric-teacher webapp base",
   "repository": "git@github.com:TiE23/metric-teacher.git",
   "author": "Kyle Geib <kyle.geib@gmail.com>",
-  "license": "None",
+  "license": "Copyright Kyle Geib, 2018. All rights reserved.",
   "private": true,
   "dependencies": {
     "eslint": "^5.3.0",

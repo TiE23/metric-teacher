@@ -13,6 +13,7 @@ import withAuth from "../AuthHOC";
 import SignupLoginButtons from "../misc/SignupLoginButtons";
 
 import {
+  SITE_NAME,
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_DOCUMENTATION,
 } from "../../constants";
@@ -109,7 +110,7 @@ const DocumentationPage = props => (
       {(!props.userTokenData || !props.userTokenData.id) &&
         <Container text textAlign="center">
           <Header size="small">
-            Start learning on Metric-Teacher today!
+            Start learning on {SITE_NAME} today!
           </Header>
           <SignupLoginButtons from={props.location.pathname} />
           <br />

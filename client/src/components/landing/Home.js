@@ -5,6 +5,7 @@ import { Link, Redirect } from "react-router-dom";
 import { Container, Grid, Header, Icon, Image, Segment, Transition } from "semantic-ui-react";
 
 import {
+  SITE_NAME,
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_HOME,
   RANDOM_HOME_MASCOT_IMAGE,
@@ -31,7 +32,7 @@ const Home = props => (
         <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
           <Header.Content>
             <Icon name="home" color={PAGE_ICON_COLOR_HOME} />
-            Metric-Teacher
+            {SITE_NAME}
             <Header.Subheader>
               Master something new!
             </Header.Subheader>

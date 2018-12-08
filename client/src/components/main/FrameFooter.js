@@ -1,9 +1,13 @@
 import React from "react";
 import { Divider } from "semantic-ui-react";
 
+import {
+  SITE_NAME,
+} from "../../constants";
+
 const FrameFooter = () => (
   <Divider horizontal>
-    Metric-Teacher 2018
+    {SITE_NAME} 2018
   </Divider>
 );
 

@@ -3,6 +3,7 @@ import { Container, Header, Icon, List, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 import {
+  SITE_NAME,
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_ADMIN,
 } from "../../constants";
@@ -14,7 +15,7 @@ const ToolsPage = () => (
         <Icon name="cog" color={PAGE_ICON_COLOR_ADMIN} />
         Community Tools
         <Header.Subheader>
-          Help grow Metric-Teacher by submitting your own questions.
+          Help grow {SITE_NAME} by submitting your own questions.
         </Header.Subheader>
       </Header.Content>
     </Header>

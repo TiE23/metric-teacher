@@ -15,6 +15,7 @@ import {
 import utils from "../../utils";
 
 import {
+  SITE_NAME,
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_LOGIN,
 } from "../../constants";
@@ -157,7 +158,7 @@ class LoginSignupForm extends Component {
             <Container>
               <SecurityDetailModal>
                 <span style={{ cursor: "pointer" }}>
-                  <Icon name="lock" /> Security on Metric-Teacher?
+                  <Icon name="lock" /> Security on {SITE_NAME}?
                 </span>
               </SecurityDetailModal>
             </Container>
