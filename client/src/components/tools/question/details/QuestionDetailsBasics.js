@@ -2,9 +2,9 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { List, Icon, Modal, Image, Dropdown, Input } from "semantic-ui-react";
 
-import utils from "../../../utils";
+import utils from "../../../../utils";
 
-import EditBelowIcon from "../../misc/EditBelowIcon";
+import EditBelowIcon from "../../../misc/EditBelowIcon";
 
 import {
   FLAGS_NONE,
@@ -14,7 +14,7 @@ import {
   QUESTION_STATUS_DROPDOWN,
   QUESTION_FLAG_NAMES,
   QUESTION_FLAG_DROPDOWN,
-} from "../../../constants";
+} from "../../../../constants";
 
 class QuestionDetailsBasics extends PureComponent {
   constructor(props) {

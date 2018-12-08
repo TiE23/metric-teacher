@@ -4,21 +4,21 @@ import { Mutation } from "react-apollo";
 import merge from "lodash/merge";
 import cuid from "cuid";
 
-import utils from "../../utils";
+import utils from "../../../utils";
 
 import QuestionViewerLayout from "./QuestionViewerLayout";
 
 import {
   SUBMIT_QA_QUESTION,
   UPDATE_QA_QUESTION,
-} from "../../graphql/Mutations";
+} from "../../../graphql/Mutations";
 
 import {
   FLAGS_NONE,
   QUESTION_DIFFICULTY_MEDIUM,
   QUESTION_STATUS_REVIEW_PENDING,
   QUESTION_TYPE_WRITTEN,
-} from "../../constants";
+} from "../../../constants";
 
 class QuestionViewer extends PureComponent {
   constructor(props) {

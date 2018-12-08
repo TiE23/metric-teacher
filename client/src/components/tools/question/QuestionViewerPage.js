@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import { withRouter } from "react-router";
 
-import QueryHandler from "../QueryHandler";
+import QueryHandler from "../../QueryHandler";
 import QuestionViewer from "./QuestionViewer";
 
 import {
   GET_QA_QUESTIONS_DATA_LIMITED,
-} from "../../graphql/Queries";
+} from "../../../graphql/Queries";
 
 /**
  * This is for testing purposes right now.

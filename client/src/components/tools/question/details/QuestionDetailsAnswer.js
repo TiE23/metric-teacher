@@ -4,10 +4,10 @@ import { Dropdown, Input, List, Icon, Button, Popup } from "semantic-ui-react";
 import range from "lodash/range";
 import cuid from "cuid";
 
-import utils from "../../../utils";
+import utils from "../../../../utils";
 
-import EditBelowIcon from "../../misc/EditBelowIcon";
-import UnitDropdown from "../../misc/UnitDropdown";
+import EditBelowIcon from "../../../misc/EditBelowIcon";
+import UnitDropdown from "../../../misc/UnitDropdown";
 
 import {
   QUESTION_ANSWER_CHOICE_MAXIMUM_LENGTH,
@@ -17,7 +17,7 @@ import {
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
-} from "../../../constants";
+} from "../../../../constants";
 
 const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent {
   constructor(props) {

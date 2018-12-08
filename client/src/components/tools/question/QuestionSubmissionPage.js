@@ -1,6 +1,6 @@
 import React from "react";
 
-import QuestionViewer from "../question/QuestionViewer";
+import QuestionViewer from "./QuestionViewer";
 
 const QuestionSubmissionPage = () => (
   <QuestionViewer

@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Header, Container, Button, Message } from "semantic-ui-react";
 
-import utils from "../../utils";
+import utils from "../../../utils";
 
 import QuestionDetailsBasics from "./details/QuestionDetailsBasics";
 import QuestionDetailsSubSubject from "./details/QuestionDetailsSubSubject";
 import QuestionDetailsQuestion from "./details/QuestionDetailsQuestion";
 import QuestionDetailsAnswer from "./details/QuestionDetailsAnswer";
-import LoadingButton from "../misc/LoadingButton";
+import LoadingButton from "../../misc/LoadingButton";
 
 const QuestionViewerLayout = props => (
   // TODO - Consider making PureComponent and splitting up handler funcs before passing to children.

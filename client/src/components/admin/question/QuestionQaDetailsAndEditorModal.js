@@ -5,7 +5,7 @@ import { Modal } from "semantic-ui-react";
 
 import QueryHandler from "../../QueryHandler";
 import QaReview from "../../qa/QaReview";
-import QuestionViewer from "../../question/QuestionViewer";
+import QuestionViewer from "../../tools/question/QuestionViewer";
 
 import {
   GET_QA_QUESTIONS_WITHOUT_STUDENT,

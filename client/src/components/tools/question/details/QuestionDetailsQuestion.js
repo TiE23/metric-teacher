@@ -2,17 +2,17 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { List, Input, TextArea, Popup, Icon } from "semantic-ui-react";
 
-import utils from "../../../utils";
+import utils from "../../../../utils";
 
-import EditBelowIcon from "../../misc/EditBelowIcon";
-import UnitDropdown from "../../misc/UnitDropdown";
+import EditBelowIcon from "../../../misc/EditBelowIcon";
+import UnitDropdown from "../../../misc/UnitDropdown";
 
 import {
   QUESTION_TEXT_MAXIMUM_LENGTH,
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
   QUESTION_TYPE_SURVEY,
-} from "../../../constants";
+} from "../../../../constants";
 
 class QuestionDetailsQuestion extends PureComponent {
   constructor(props) {

@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 
-import QueryHandler from "../../QueryHandler";
+import QueryHandler from "../../../QueryHandler";
 import QuestionDetailsSubSubjectsSelector from "./QuestionDetailsSubSubjectsSelector";
-import SubSubjectReview from "../../subsubject/SubSubjectReview";
+import SubSubjectReview from "../../../subsubject/SubSubjectReview";
 
 import {
   SUBJECT_DETAILS_QUERY,
   SUBSUBJECT_DETAILS_QUERY,
-} from "../../../graphql/Queries";
+} from "../../../../graphql/Queries";
 
 const QuestionDetailsSubSubject = props => (
   <div>

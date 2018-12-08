@@ -286,17 +286,17 @@ class QuestionListTable extends PureComponent {
                 <Table.Cell>
                   <QuestionQaDetailsAndEditorModal
                     questionId={question.id}
-                    editorMode={false}
-                  >
-                    <Icon name="window maximize" style={{ cursor: "pointer" }} />
-                  </QuestionQaDetailsAndEditorModal>
-                  <QuestionQaDetailsAndEditorModal
-                    questionId={question.id}
                     editorMode
                     queryInfo={this.props.queryInfo}
                     modalProps={{ size: "fullscreen" }}
                   >
                     <Icon name="pencil" style={{ cursor: "pointer" }} />
+                  </QuestionQaDetailsAndEditorModal>
+                  <QuestionQaDetailsAndEditorModal
+                    questionId={question.id}
+                    editorMode={false}
+                  >
+                    <Icon name="window maximize" style={{ cursor: "pointer" }} />
                   </QuestionQaDetailsAndEditorModal>
                 </Table.Cell>
               </Table.Row>
