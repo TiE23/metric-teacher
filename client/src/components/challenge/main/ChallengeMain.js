@@ -9,6 +9,8 @@ import ChallengeDetail from "./detail/ChallengeDetail";
 import ChallengeResponse from "./response/ChallengeResponse";
 
 import {
+  CHALLENGE_ALMOST_EXACT_FRACTION,
+  CHALLENGE_ALMOST_EXACT_CLOSE,
   CHALLENGE_DIMMER_TIME_NO_EXTRA,
   CHALLENGE_DIMMER_TIME_EXTRA,
   CHALLENGE_DIMMER_TRANSITION_PROPS,
@@ -132,7 +134,9 @@ class ChallengeMain extends PureComponent {
           const payloadAnswer = parseFloat(payload.answer.slice(2));
 
           const miss = Math.abs(payloadAnswer - data.conversion.friendly);
-          if (miss < 0.1) {
+          if (miss < CHALLENGE_ALMOST_EXACT_CLOSE ||
+            miss < data.conversion.friendly / CHALLENGE_ALMOST_EXACT_FRACTION
+          ) {
             dimmerExtra = deline`
               You answer,
               ${utils.unitWorder(payloadAnswer, data.toUnitWord, true)},
