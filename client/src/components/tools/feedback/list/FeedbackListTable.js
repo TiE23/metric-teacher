@@ -4,10 +4,12 @@ import { Icon, Message, Popup, Table } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
 import QuestionListTableCell from "../../misc/QuestionListTableCell";
+import XLink from "../../../misc/ExternalLink";
 
 import {
+  USER_TYPE_NAMES,
   FEEDBACK_TYPE_DROPDOWN,
-  FEEDBACK_STATUS_DROPDOWN
+  FEEDBACK_STATUS_DROPDOWN,
 } from "../../../../constants";
 
 class FeedbackListTable extends PureComponent {
@@ -147,13 +149,66 @@ class FeedbackListTable extends PureComponent {
             {data.map(feedback => (
               <Table.Row key={feedback.id}>
                 <Table.Cell>
-                  {feedback.id.slice(-4)}
+                  <Popup
+                    trigger={(<span style={{ cursor: "help" }}>{feedback.id.slice(-4)}</span>)}
+                    content={(
+                      <React.Fragment>
+                        <b>Feedback ID</b>: {feedback.id}
+                        <ul>
+                          <li>
+                            <b>CreatedAt</b>: {feedback.createdAt}
+                          </li>
+                          <li>
+                            <b>UpdatedAt</b>: {feedback.updatedAt}
+                          </li>
+                        </ul>
+                      </React.Fragment>
+                    )}
+                    position="bottom left"
+                    on="click"
+                    wide="very"
+                  />
                 </Table.Cell>
                 <Table.Cell>
-                  {feedback.author.id.slice(-4)}
+                  <Popup
+                    trigger={(
+                      <span style={{ cursor: "help" }}>{feedback.author.id.slice(-4)}</span>
+                    )}
+                    content={(
+                      <React.Fragment>
+                        <b>Author ID</b>:{" "}
+                        {feedback.author.id} (<i>{USER_TYPE_NAMES[feedback.author.type]}</i>)
+                        {" "}
+                        {this.props.adminMode &&
+                          <XLink to={`/user/${feedback.author.id}`}>View</XLink>
+                        }
+                      </React.Fragment>
+                    )}
+                    position="bottom left"
+                    on="click"
+                    wide="very"
+                  />
                 </Table.Cell>
                 <Table.Cell>
-                  {feedback.reviewer ? `…${feedback.reviewer.id.slice(-5)}` : "None"}
+                  {feedback.reviewer ?
+                    <Popup
+                      trigger={(
+                        <span style={{ cursor: "help" }}>{feedback.reviewer.id.slice(-4)}</span>
+                      )}
+                      content={(
+                        <React.Fragment>
+                          <b>Reviewer ID</b>:{" "}
+                          {feedback.reviewer.id} (<i>{USER_TYPE_NAMES[feedback.reviewer.type]}</i>)
+                          {" "}
+                          {this.props.adminMode &&
+                          <XLink to={`/user/${feedback.reviewer.id}`}>View</XLink>
+                          }
+                        </React.Fragment>
+                      )}
+                      position="bottom left"
+                      on="click"
+                      wide="very"
+                    /> : "None"}
                 </Table.Cell>
                 <Table.Cell>
                   <Popup
@@ -214,6 +269,7 @@ class FeedbackListTable extends PureComponent {
 FeedbackListTable.propTypes = {
   feedbackData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
     type: PropTypes.number.isRequired,
     status: PropTypes.number.isRequired,
@@ -229,7 +285,7 @@ FeedbackListTable.propTypes = {
     reviewer: PropTypes.shape({
       id: PropTypes.string.isRequired,
       type: PropTypes.number.isRequired,
-    }).isRequired,
+    }),
   })),
   // queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   adminMode: PropTypes.bool,

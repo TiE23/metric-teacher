@@ -175,21 +175,17 @@ class QuestionListTable extends PureComponent {
                   <Popup
                     trigger={(<span style={{ cursor: "help" }}>{question.parent.parent.name}</span>)}
                     content={(
-                      <span>
+                      <React.Fragment>
                         <b>{question.parent.parent.name}</b>
                         <ul>
                           <li>
-                            <b>Subject ID</b>
-                            {": "}
-                            {question.parent.parent.id}
+                            <b>Subject ID</b>: {question.parent.parent.id}
                           </li>
                           <li>
-                            <b>SubSubject ID</b>
-                            {": "}
-                            {question.parent.id}
+                            <b>SubSubject ID</b>: {question.parent.id}
                           </li>
                         </ul>
-                      </span>
+                      </React.Fragment>
                     )}
                     position="bottom left"
                     on="click"

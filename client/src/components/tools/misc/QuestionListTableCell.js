@@ -25,13 +25,9 @@ const QuestionListTableCell = props => (
             <b>Author</b>:{" "}
             {props.author ?
               <React.Fragment>
-                {props.author.id}
+                {props.author.id} (<i>{USER_TYPE_NAMES[props.author.type]}</i>)
                 {" "}
-                (<i>{USER_TYPE_NAMES[props.author.type]}</i>)
-                {" "}
-                {props.adminMode &&
-                <XLink to={`/user/${props.author.id}`}>View</XLink>
-                }
+                {props.adminMode && <XLink to={`/user/${props.author.id}`}>View</XLink>}
               </React.Fragment>
               :
               "None"
@@ -41,13 +37,9 @@ const QuestionListTableCell = props => (
             <b>Reviewer</b>:{" "}
             {props.reviewer ?
               <React.Fragment>
-                {props.reviewer.id}
+                {props.reviewer.id} (<i>{USER_TYPE_NAMES[props.reviewer.type]}</i>)
                 {" "}
-                (<i>{USER_TYPE_NAMES[props.reviewer.type]}</i>)
-                {" "}
-                {props.adminMode &&
-                <XLink to={`/user/${props.reviewer.id}`}>View</XLink>
-                }
+                {props.adminMode && <XLink to={`/user/${props.reviewer.id}`}>View</XLink>}
               </React.Fragment>
               :
               "None"
