@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Container, Button } from "semantic-ui-react";
+import { Button, Container, Header } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
@@ -32,6 +32,11 @@ class FeedbackSearchPage extends PureComponent {
     };
 
     const buildWhere = (where) => {
+      const ids = where.ids && where.ids.length ?
+        {
+          id_in: where.ids,
+        } : null;
+
       const authors = where.authors && where.authors.length ?
         {
           author: {
@@ -58,6 +63,7 @@ class FeedbackSearchPage extends PureComponent {
 
       return mergeWith(
         {},
+        ids,
         authors,
         reviewers,
         statuses,
@@ -78,6 +84,7 @@ class FeedbackSearchPage extends PureComponent {
   render() {
     return (
       <Container textAlign="center">
+        <Header dividing>Feedback Search</Header>
         {this.props.mode === "adminSearch" &&
         <FeedbackSearchOptions
           handleChange={this.handleWhereChange}

@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 
-import QueryHandler from "../../QueryHandler";
+import QueryHandler from "../../../QueryHandler";
 import UserListTable from "./UserListTable";
 
 import {
   USER_SEARCH,
-} from "../../../graphql/Queries";
+} from "../../../../graphql/Queries";
 
 const UserListContainer = props => (
   <Query

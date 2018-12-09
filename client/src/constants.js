@@ -287,28 +287,6 @@ export const SURVEY_DETAIL_MAXIMUM_LENGTH = 128;
 
 // Feedback Input
 export const FEEDBACK_MAXIMUM_LENGTH = 500;
-export const FEEDBACK_TYPE_GENERAL = 0;
-export const FEEDBACK_TYPE_INCORRECT = 1;
-export const FEEDBACK_TYPE_CONFUSING = 2;
-export const FEEDBACK_TYPE_TYPO = 3;
-export const FEEDBACK_TYPE_TOO_EASY = 4;
-export const FEEDBACK_TYPE_TOO_HARD = 5;
-export const FEEDBACK_TYPE_DROPDOWN = [
-  { value: FEEDBACK_TYPE_GENERAL, text: "General" },
-  { value: FEEDBACK_TYPE_INCORRECT, text: "Question or answer is incorrect" },
-  { value: FEEDBACK_TYPE_CONFUSING, text: "Question or answer is confusing or misleading" },
-  { value: FEEDBACK_TYPE_TYPO, text: "Question or answer has a typo" },
-  { value: FEEDBACK_TYPE_TOO_EASY, text: "Question is too easy" },
-  { value: FEEDBACK_TYPE_TOO_HARD, text: "Question is too hard" },
-];
-export const FEEDBACK_STATUS_UNREVIEWED = 0;
-export const FEEDBACK_STATUS_REVIEWED_APPROVED = 1;
-export const FEEDBACK_STATUS_REVIEWED_REJECTED = 2;
-export const FEEDBACK_STATUS_DROPDOWN = [
-  { value: FEEDBACK_STATUS_UNREVIEWED, text: "Unreviewed" },
-  { value: FEEDBACK_STATUS_REVIEWED_APPROVED, text: "Reviewed - Approved" },
-  { value: FEEDBACK_STATUS_REVIEWED_REJECTED, text: "Reviewed - Rejected" },
-];
 
 // Interface
 // Max multiple choice options we can show (including correct answer).
@@ -483,6 +461,30 @@ export const QUESTION_FLAG_DROPDOWN = [
     text: "0x02 User note required",
     key: 0x02,
   },
+];
+
+// Feedback
+export const FEEDBACK_TYPE_GENERAL = 0;
+export const FEEDBACK_TYPE_INCORRECT = 1;
+export const FEEDBACK_TYPE_CONFUSING = 2;
+export const FEEDBACK_TYPE_TYPO = 3;
+export const FEEDBACK_TYPE_TOO_EASY = 4;
+export const FEEDBACK_TYPE_TOO_HARD = 5;
+export const FEEDBACK_TYPE_DROPDOWN = [
+  { value: FEEDBACK_TYPE_GENERAL, text: "General", icon: "envelope" },
+  { value: FEEDBACK_TYPE_INCORRECT, text: "Question or answer is incorrect", icon: "erase" },
+  { value: FEEDBACK_TYPE_CONFUSING, text: "Question or answer is confusing or misleading", icon: "cogs" },
+  { value: FEEDBACK_TYPE_TYPO, text: "Question or answer has a typo", icon: "keyboard" },
+  { value: FEEDBACK_TYPE_TOO_EASY, text: "Question is too easy", icon: "snowflake" },
+  { value: FEEDBACK_TYPE_TOO_HARD, text: "Question is too hard", icon: "fire" },
+];
+export const FEEDBACK_STATUS_UNREVIEWED = 0;
+export const FEEDBACK_STATUS_REVIEWED_APPROVED = 1;
+export const FEEDBACK_STATUS_REVIEWED_REJECTED = 2;
+export const FEEDBACK_STATUS_DROPDOWN = [
+  { value: FEEDBACK_STATUS_UNREVIEWED, text: "Unreviewed", icon: "question" },
+  { value: FEEDBACK_STATUS_REVIEWED_APPROVED, text: "Reviewed - Approved", icon: "checkmark" },
+  { value: FEEDBACK_STATUS_REVIEWED_REJECTED, text: "Reviewed - Rejected", icon: "remove" },
 ];
 
 // Unit initials

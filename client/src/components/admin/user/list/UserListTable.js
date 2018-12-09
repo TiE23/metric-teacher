@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import { Table, Message, Popup, Icon, Modal } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
-import UserDetails from "../../user/UserDetails";
+import UserDetails from "../../../user/UserDetails";
 
 import {
   USER_STATUS_DROPDOWN,
   USER_TYPE_DROPDOWN,
-} from "../../../constants";
+} from "../../../../constants";
 
 class UserListTable extends PureComponent {
   constructor(props) {

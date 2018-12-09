@@ -1,7 +1,14 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Table, Message } from "semantic-ui-react";
+import { Icon, Message, Popup, Table } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
+
+import QuestionListTableCell from "../../misc/QuestionListTableCell";
+
+import {
+  FEEDBACK_TYPE_DROPDOWN,
+  FEEDBACK_STATUS_DROPDOWN
+} from "../../../../constants";
 
 class FeedbackListTable extends PureComponent {
   constructor(props) {
@@ -21,6 +28,8 @@ class FeedbackListTable extends PureComponent {
       status: "status",
       author: "author.id",
       reviewer: "reviewer.id",
+      question: "question.question",
+      updatedAt: "updatedAt",
     };
 
     // Performs the resorting of a complex data structure.
@@ -101,7 +110,35 @@ class FeedbackListTable extends PureComponent {
               sorted={sortColumn === "author" ? sortDirection : null}
               onClick={this.handleSort("author")}
             >
-              Author
+              Author ID
+            </Table.HeaderCell>
+            <Table.HeaderCell
+              width={1}
+              sorted={sortColumn === "reviewer" ? sortDirection : null}
+              onClick={this.handleSort("reviewer")}
+            >
+              Reviewer ID
+            </Table.HeaderCell>
+            <Table.HeaderCell
+              width={1}
+              sorted={sortColumn === "type" ? sortDirection : null}
+              onClick={this.handleSort("type")}
+            >
+              Type
+            </Table.HeaderCell>
+            <Table.HeaderCell
+              width={1}
+              sorted={sortColumn === "status" ? sortDirection : null}
+              onClick={this.handleSort("status")}
+            >
+              Status
+            </Table.HeaderCell>
+            <Table.HeaderCell
+              width={5}
+              sorted={sortColumn === "question" ? sortDirection : null}
+              onClick={this.handleSort("question")}
+            >
+              Question
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -110,10 +147,49 @@ class FeedbackListTable extends PureComponent {
             {data.map(feedback => (
               <Table.Row key={feedback.id}>
                 <Table.Cell>
-                  {feedback.id}
+                  {feedback.id.slice(-4)}
                 </Table.Cell>
                 <Table.Cell>
-                  {feedback.author.id}
+                  {feedback.author.id.slice(-4)}
+                </Table.Cell>
+                <Table.Cell>
+                  {feedback.reviewer ? `…${feedback.reviewer.id.slice(-5)}` : "None"}
+                </Table.Cell>
+                <Table.Cell>
+                  <Popup
+                    trigger={(
+                      <span>
+                        <Icon name={FEEDBACK_TYPE_DROPDOWN[feedback.type].icon} />
+                        {feedback.type}
+                      </span>
+                    )}
+                    content={FEEDBACK_TYPE_DROPDOWN[feedback.type].text}
+                    position="left center"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Popup
+                    trigger={(
+                      <span>
+                        <Icon name={FEEDBACK_STATUS_DROPDOWN[feedback.status].icon} />
+                        {feedback.status}
+                      </span>
+                    )}
+                    content={FEEDBACK_STATUS_DROPDOWN[feedback.status].text}
+                    position="left center"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <QuestionListTableCell
+                    adminMode={this.props.adminMode}
+                    question={{
+                      id: feedback.question.id,
+                      question: feedback.question.question,
+                      answer: feedback.question.answer,
+                    }}
+                    author={feedback.author}
+                    reviewer={feedback.reviewer}
+                  />
                 </Table.Cell>
               </Table.Row>
             ))}
@@ -138,8 +214,14 @@ class FeedbackListTable extends PureComponent {
 FeedbackListTable.propTypes = {
   feedbackData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
+    updatedAt: PropTypes.string.isRequired,
     type: PropTypes.number.isRequired,
     status: PropTypes.number.isRequired,
+    question: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      question: PropTypes.string.isRequired,
+      answer: PropTypes.string.isRequired,
+    }),
     author: PropTypes.shape({
       id: PropTypes.string.isRequired,
       type: PropTypes.number.isRequired,
@@ -150,13 +232,13 @@ FeedbackListTable.propTypes = {
     }).isRequired,
   })),
   // queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  // adminMode: PropTypes.bool,
+  adminMode: PropTypes.bool,
 };
 
 FeedbackListTable.defaultProps = {
   feedbackData: null,
   // queryInfo: null,
-  // adminMode: false,
+  adminMode: false,
 };
 
 export default FeedbackListTable;
