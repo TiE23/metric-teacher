@@ -20,8 +20,8 @@ import QuestionViewerPage from "./components/tools/question/QuestionViewerPage";
 import QuestionCreatorPage from "./components/tools/question/QuestionCreatorPage";
 import AdminToolsPage from "./components/admin/AdminToolsPage";
 import ToolsPage from "./components/tools/ToolsPage";
-import UserSearchPage from "./components/admin/user/UserSearchPage";
-import QuestionSearchPage from "./components/tools/question/QuestionSearchPage";
+import UserListPage from "./components/tools/user/UserListPage";
+import QuestionListPage from "./components/tools/question/QuestionListPage";
 import FeedbackListPage from "./components/tools/feedback/FeedbackListPage";
 import NotFoundPage from "./components/misc/NotFoundPage";
 
@@ -67,7 +67,7 @@ const App = () => (
             exact
             path="/admin/questionsearch"
             component={
-              withAuth(QuestionSearchPage, {
+              withAuth(QuestionListPage, {
                 private: true,
                 permissions: { type: USER_TYPE_MODERATOR },
                 props: {
@@ -80,7 +80,7 @@ const App = () => (
             exact
             path="/admin/usersearch"
             component={
-              withAuth(UserSearchPage, {
+              withAuth(UserListPage, {
                 private: true,
                 permissions: { type: USER_TYPE_ADMIN },
               })
@@ -123,7 +123,7 @@ const App = () => (
             exact
             path="/tools/questionscontributed"
             component={
-              withAuth(QuestionSearchPage, {
+              withAuth(QuestionListPage, {
                 private: true,
                 props: {
                   mode: "userContributions",

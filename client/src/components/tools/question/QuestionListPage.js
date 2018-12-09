@@ -13,7 +13,7 @@ import {
   QUESTION_SEARCH,
 } from "../../../graphql/Queries";
 
-class QuestionSearchPage extends PureComponent {
+class QuestionListPage extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -135,8 +135,8 @@ class QuestionSearchPage extends PureComponent {
   }
 }
 
-QuestionSearchPage.propTypes = {
+QuestionListPage.propTypes = {
   mode: PropTypes.string.isRequired,
 };
 
-export default QuestionSearchPage;
+export default QuestionListPage;

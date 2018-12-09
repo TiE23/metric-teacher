@@ -7,7 +7,7 @@ import utils from "../../../utils";
 import UserSearchOptions from "./list/options/UserSearchOptions";
 import UserListContainer from "./list/UserListContainer";
 
-class UserSearchPage extends PureComponent {
+class UserListPage extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -111,4 +111,4 @@ class UserSearchPage extends PureComponent {
   }
 }
 
-export default UserSearchPage;
+export default UserListPage;
