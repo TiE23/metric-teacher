@@ -294,7 +294,7 @@ export const QUESTION_FEEDBACK_TYPE_TYPO = 3;
 export const QUESTION_FEEDBACK_TYPE_TOO_EASY = 4;
 export const QUESTION_FEEDBACK_TYPE_TOO_HARD = 5;
 export const QUESTION_FEEDBACK_TYPE_DROPDOWN = [
-  { value: QUESTION_FEEDBACK_TYPE_GENERAL, text: "General feedback" },
+  { value: QUESTION_FEEDBACK_TYPE_GENERAL, text: "General" },
   { value: QUESTION_FEEDBACK_TYPE_INCORRECT, text: "Question or answer is incorrect" },
   { value: QUESTION_FEEDBACK_TYPE_CONFUSING, text: "Question or answer is confusing or misleading" },
   { value: QUESTION_FEEDBACK_TYPE_TYPO, text: "Question or answer has a typo" },

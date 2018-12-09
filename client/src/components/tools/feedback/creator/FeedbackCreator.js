@@ -18,7 +18,6 @@ const FeedbackCreator = props => (
         onSubmit={variables => submitFeedback({
           variables: { ...variables, questionid: props.questionId }
         })}
-        closeForm={props.closeForm}
         loading={loading}
         error={error}
       />
@@ -28,7 +27,6 @@ const FeedbackCreator = props => (
 
 FeedbackCreator.propTypes = {
   questionId: PropTypes.string.isRequired,
-  closeForm: PropTypes.func,
 };
 
 FeedbackCreator.defaultProps = {

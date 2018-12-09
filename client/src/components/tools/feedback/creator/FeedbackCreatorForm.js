@@ -17,6 +17,7 @@ class FeedbackCreatorForm extends PureComponent {
       type: 0,
       text: "",
       formErrors: [],
+      submitted: false,
     };
 
     this.handleTypeChange = (e, { value }) => {
@@ -51,8 +52,6 @@ class FeedbackCreatorForm extends PureComponent {
           type: this.state.type,
           text: this.state.text,
         });
-
-        // this.props.closeForm();
       }
     };
   }
@@ -109,7 +108,6 @@ class FeedbackCreatorForm extends PureComponent {
 
 FeedbackCreatorForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  closeForm: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.any, // eslint-disable-line react/forbid-prop-types
 };
