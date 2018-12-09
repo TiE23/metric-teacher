@@ -194,21 +194,33 @@ class QuestionListTable extends PureComponent {
                 </Table.Cell>
                 <Table.Cell>
                   <Popup
-                    trigger={(<span>{utils.firstLetterCap(question.parent.scale)}</span>)}
+                    trigger={(
+                      <span style={{ cursor: "default" }}>
+                        {utils.firstLetterCap(question.parent.scale)}
+                      </span>
+                    )}
                     content={utils.firstLetterCap(question.parent.scale)}
                     position="left center"
                   />
                 </Table.Cell>
                 <Table.Cell>
                   <Popup
-                    trigger={(<span>{question.parent.toMetric ? "To Metric" : "From Metric"}</span>)}
+                    trigger={(
+                      <span style={{ cursor: "default" }}>
+                        {question.parent.toMetric ? "To Metric" : "From Metric"}
+                      </span>
+                    )}
                     content={question.parent.toMetric ? "To Metric" : "From Metric"}
                     position="left center"
                   />
                 </Table.Cell>
                 <Table.Cell>
                   <Popup
-                    trigger={(<span>{QUESTION_TYPE_DROPDOWN[question.type].text}</span>)}
+                    trigger={(
+                      <span style={{ cursor: "default" }}>
+                        {QUESTION_TYPE_DROPDOWN[question.type].text}
+                      </span>
+                    )}
                     content={QUESTION_TYPE_DROPDOWN[question.type].text}
                     position="left center"
                   />
@@ -216,7 +228,7 @@ class QuestionListTable extends PureComponent {
                 <Table.Cell>
                   <Popup
                     trigger={(
-                      <span>
+                      <span style={{ cursor: "default" }}>
                         <Icon name={QUESTION_STATUS_DROPDOWN[question.status].icon} />
                         {question.status}
                       </span>
@@ -228,7 +240,7 @@ class QuestionListTable extends PureComponent {
                 <Table.Cell>
                   <Popup
                     trigger={(
-                      <span>
+                      <span style={{ cursor: "default" }}>
                         <Icon name={question.flags === 0 ? "flag outline" : "flag"} />
                         {question.flags}
                       </span>
@@ -240,7 +252,7 @@ class QuestionListTable extends PureComponent {
                 <Table.Cell>
                   <Popup
                     trigger={(
-                      <span>
+                      <span style={{ cursor: "default" }}>
                         <Icon name={QUESTION_DIFFICULTY_DROPDOWN[question.difficulty].icon} />
                         {question.difficulty}
                       </span>

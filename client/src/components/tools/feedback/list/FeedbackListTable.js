@@ -26,12 +26,12 @@ class FeedbackListTable extends PureComponent {
     // This is a list of iteratee addresses that determine the sort direction of a specific column.
     const addressBook = {
       id: "id",
-      type: "type",
-      status: "status",
       author: "author.id",
       reviewer: "reviewer.id",
+      type: "type",
+      text: "text",
+      status: "status",
       question: "question.question",
-      updatedAt: "updatedAt",
     };
 
     // Performs the resorting of a complex data structure.
@@ -129,6 +129,13 @@ class FeedbackListTable extends PureComponent {
               Type
             </Table.HeaderCell>
             <Table.HeaderCell
+              width={2}
+              sorted={sortColumn === "text" ? sortDirection : null}
+              onClick={this.handleSort("text")}
+            >
+              Text
+            </Table.HeaderCell>
+            <Table.HeaderCell
               width={1}
               sorted={sortColumn === "status" ? sortDirection : null}
               onClick={this.handleSort("status")}
@@ -208,12 +215,12 @@ class FeedbackListTable extends PureComponent {
                       position="bottom left"
                       on="click"
                       wide="very"
-                    /> : "None"}
+                    /> : <i>None</i>}
                 </Table.Cell>
                 <Table.Cell>
                   <Popup
                     trigger={(
-                      <span>
+                      <span style={{ cursor: "default" }}>
                         <Icon name={FEEDBACK_TYPE_DROPDOWN[feedback.type].icon} />
                         {feedback.type}
                       </span>
@@ -223,9 +230,20 @@ class FeedbackListTable extends PureComponent {
                   />
                 </Table.Cell>
                 <Table.Cell>
+                  {feedback.text ?
+                    <Popup
+                      trigger={(
+                        <span style={{ cursor: "help" }}>{feedback.text}</span>
+                      )}
+                      content={(<p>{feedback.text}</p>)}
+                      position="bottom center"
+                      wide="very"
+                    /> : <i>None</i>}
+                </Table.Cell>
+                <Table.Cell>
                   <Popup
                     trigger={(
-                      <span>
+                      <span style={{ cursor: "default" }}>
                         <Icon name={FEEDBACK_STATUS_DROPDOWN[feedback.status].icon} />
                         {feedback.status}
                       </span>
@@ -273,6 +291,7 @@ FeedbackListTable.propTypes = {
     updatedAt: PropTypes.string.isRequired,
     type: PropTypes.number.isRequired,
     status: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
     question: PropTypes.shape({
       id: PropTypes.string.isRequired,
       question: PropTypes.string.isRequired,

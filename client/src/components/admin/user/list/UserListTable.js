@@ -72,6 +72,13 @@ class UserListTable extends PureComponent {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell
+              width={1}
+              sorted={sortColumn === "id" ? sortDirection : null}
+              onClick={this.handleSort("id")}
+            >
+              User ID
+            </Table.HeaderCell>
+            <Table.HeaderCell
               width={2}
               sorted={sortColumn === "email" ? sortDirection : null}
               onClick={this.handleSort("email")}
@@ -126,28 +133,21 @@ class UserListTable extends PureComponent {
               <Table.Row key={user.id}>
                 <Table.Cell>
                   <Popup
-                    trigger={(<span style={{ cursor: "help" }}>{user.email}</span>)}
+                    trigger={(
+                      <span style={{ cursor: "help" }}>{`${user.id.slice(-8)}`}</span>
+                    )}
                     content={(
-                      <span>
-                        <b>{user.email}</b>
+                      <React.Fragment>
+                        <b>User ID</b>: {user.id}
                         <ul>
                           <li>
-                            <b>User ID</b>
-                            {": "}
-                            {user.id}
+                            <b>CreatedAt</b>: {user.createdAt}
                           </li>
                           <li>
-                            <b>User CreatedAt</b>
-                            {": "}
-                            {user.createdAt}
-                          </li>
-                          <li>
-                            <b>User UpdatedAt</b>
-                            {": "}
-                            {user.updatedAt}
+                            <b>UpdatedAt</b>: {user.updatedAt}
                           </li>
                         </ul>
-                      </span>
+                      </React.Fragment>
                     )}
                     position="bottom left"
                     on="click"
@@ -155,34 +155,53 @@ class UserListTable extends PureComponent {
                   />
                 </Table.Cell>
                 <Table.Cell>
-                  {user.fname}
+                  <Popup
+                    trigger={(<span style={{ cursor: "help" }}>{user.email}</span>)}
+                    content={(<React.Fragment>{user.email}</React.Fragment>)}
+                    position="bottom left"
+                    on="click"
+                    wide="very"
+                  />
                 </Table.Cell>
                 <Table.Cell>
-                  {user.lname}
+                  <Popup
+                    trigger={(<span style={{ cursor: "help" }}>{user.fname}</span>)}
+                    content={user.fname}
+                    positon="left center"
+                    on="click"
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Popup
+                    trigger={(<span style={{ cursor: "help" }}>{user.lname}</span>)}
+                    content={user.lname}
+                    positon="left center"
+                    on="click"
+                  />
                 </Table.Cell>
                 <Table.Cell>
                   <Popup
                     trigger={(
-                      <span>
+                      <span style={{ cursor: "default" }}>
                         <Icon name={USER_TYPE_DROPDOWN[user.type].icon} />
                         {" "}
                         {USER_TYPE_DROPDOWN[user.type].text}
                       </span>
                     )}
-                    content={`type: ${user.type}`}
+                    content={`Type ${user.type}`}
                     positon="left center"
                   />
                 </Table.Cell>
                 <Table.Cell>
                   <Popup
                     trigger={(
-                      <span>
+                      <span style={{ cursor: "default" }}>
                         <Icon name={USER_STATUS_DROPDOWN[user.status].icon} />
                         {" "}
                         {USER_STATUS_DROPDOWN[user.status].text}
                       </span>
                     )}
-                    content={`status: ${user.status}`}
+                    content={`Status ${user.status}`}
                     positon="left center"
                   />
                 </Table.Cell>

@@ -473,8 +473,8 @@ export const FEEDBACK_TYPE_TOO_HARD = 5;
 export const FEEDBACK_TYPE_DROPDOWN = [
   { value: FEEDBACK_TYPE_GENERAL, text: "General", icon: "envelope" },
   { value: FEEDBACK_TYPE_INCORRECT, text: "Question or answer is incorrect", icon: "erase" },
-  { value: FEEDBACK_TYPE_CONFUSING, text: "Question or answer is confusing or misleading", icon: "cogs" },
-  { value: FEEDBACK_TYPE_TYPO, text: "Question or answer has a typo", icon: "keyboard" },
+  { value: FEEDBACK_TYPE_CONFUSING, text: "Question or answer is confusing/misleading", icon: "cogs" },
+  { value: FEEDBACK_TYPE_TYPO, text: "Question or answer has a typo/mistake", icon: "keyboard" },
   { value: FEEDBACK_TYPE_TOO_EASY, text: "Question is too easy", icon: "snowflake" },
   { value: FEEDBACK_TYPE_TOO_HARD, text: "Question is too hard", icon: "fire" },
 ];
