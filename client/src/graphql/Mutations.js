@@ -144,3 +144,11 @@ export const ADD_CHALLENGE_RESULTS = gql`
     }
   }
 `;
+
+export const SUBMIT_FEEDBACK = gql`
+  mutation SubmitFeedback($questionid: ID!, $type: Int!, $text: String!) {
+    submitFeedback(questionid: $questionid, type: $type, text: $text) {
+      id
+    }
+  }
+`;
