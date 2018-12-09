@@ -287,6 +287,20 @@ export const SURVEY_DETAIL_MAXIMUM_LENGTH = 128;
 
 // Feedback Input
 export const QUESTION_FEEDBACK_MAXIMUM_LENGTH = 500;
+export const QUESTION_FEEDBACK_TYPE_GENERAL = 0;
+export const QUESTION_FEEDBACK_TYPE_INCORRECT = 1;
+export const QUESTION_FEEDBACK_TYPE_CONFUSING = 2;
+export const QUESTION_FEEDBACK_TYPE_TYPO = 3;
+export const QUESTION_FEEDBACK_TYPE_TOO_EASY = 4;
+export const QUESTION_FEEDBACK_TYPE_TOO_HARD = 5;
+export const QUESTION_FEEDBACK_TYPE_DROPDOWN = [
+  { value: QUESTION_FEEDBACK_TYPE_GENERAL, text: "General feedback" },
+  { value: QUESTION_FEEDBACK_TYPE_INCORRECT, text: "Question or answer is incorrect" },
+  { value: QUESTION_FEEDBACK_TYPE_CONFUSING, text: "Question or answer is confusing or misleading" },
+  { value: QUESTION_FEEDBACK_TYPE_TYPO, text: "Question or answer has a typo" },
+  { value: QUESTION_FEEDBACK_TYPE_TOO_EASY, text: "Question is too easy" },
+  { value: QUESTION_FEEDBACK_TYPE_TOO_HARD, text: "Question is too hard" },
+];
 
 // Interface
 // Max multiple choice options we can show (including correct answer).
