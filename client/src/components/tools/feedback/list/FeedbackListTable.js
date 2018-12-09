@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Icon, Message, Popup, Table } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
+import FeedbackEditorModal from "../FeedbackEditorModal";
 import QuestionListTableCell from "../../misc/QuestionListTableCell";
 import XLink from "../../../misc/ExternalLink";
 
@@ -149,6 +150,11 @@ class FeedbackListTable extends PureComponent {
             >
               Question
             </Table.HeaderCell>
+            <Table.HeaderCell
+              width={1}
+            >
+              Actions
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         {data.length ?
@@ -263,6 +269,16 @@ class FeedbackListTable extends PureComponent {
                     author={feedback.author}
                     reviewer={feedback.reviewer}
                   />
+                </Table.Cell>
+                <Table.Cell>
+                  <FeedbackEditorModal
+                    feedbackId={feedback.id}
+                    feedbackType={feedback.type}
+                    feedbackStatus={feedback.status}
+                    feedbackText={feedback.text}
+                  >
+                    <Icon name="pencil" />
+                  </FeedbackEditorModal>
                 </Table.Cell>
               </Table.Row>
             ))}

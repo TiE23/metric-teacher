@@ -152,3 +152,11 @@ export const SUBMIT_FEEDBACK = gql`
     }
   }
 `;
+
+export const UPDATE_FEEDBACK_STATUS = gql`
+  mutation UpdateFeedbackStatus($feedbackid: ID!, $status: Int!) {
+    updateFeedbackStatus(feedbackid: $feedbackid, status: $status) {
+      id
+    }
+  }
+`;

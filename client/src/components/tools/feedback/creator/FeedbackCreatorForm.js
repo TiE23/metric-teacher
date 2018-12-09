@@ -89,6 +89,7 @@ class FeedbackCreatorForm extends PureComponent {
             />
           </Container>
         </Form>
+
         {this.props.success &&
         <Message attached positive>
           <Message.Header>Feedback Received</Message.Header>
@@ -120,7 +121,7 @@ FeedbackCreatorForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.any, // eslint-disable-line react/forbid-prop-types
-  success: PropTypes.any,
+  success: PropTypes.bool,
 };
 
 FeedbackCreatorForm.defaultProps = {
