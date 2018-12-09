@@ -2,8 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Modal } from "semantic-ui-react";
 
-import FeedbackCreator from "./FeedbackCreator";
-import { QUESTION_DIFFICULTY_DROPDOWN } from "../../../../constants";
+import FeedbackCreator from "./creator/FeedbackCreator";
+
+import {
+  QUESTION_DIFFICULTY_DROPDOWN,
+} from "../../../constants";
 
 const FeedbackCreatorModal = props => (
   <Modal

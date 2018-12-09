@@ -286,20 +286,28 @@ export const QUESTION_ANSWER_CHOICE_MAXIMUM_LENGTH = 64;
 export const SURVEY_DETAIL_MAXIMUM_LENGTH = 128;
 
 // Feedback Input
-export const QUESTION_FEEDBACK_MAXIMUM_LENGTH = 500;
-export const QUESTION_FEEDBACK_TYPE_GENERAL = 0;
-export const QUESTION_FEEDBACK_TYPE_INCORRECT = 1;
-export const QUESTION_FEEDBACK_TYPE_CONFUSING = 2;
-export const QUESTION_FEEDBACK_TYPE_TYPO = 3;
-export const QUESTION_FEEDBACK_TYPE_TOO_EASY = 4;
-export const QUESTION_FEEDBACK_TYPE_TOO_HARD = 5;
-export const QUESTION_FEEDBACK_TYPE_DROPDOWN = [
-  { value: QUESTION_FEEDBACK_TYPE_GENERAL, text: "General" },
-  { value: QUESTION_FEEDBACK_TYPE_INCORRECT, text: "Question or answer is incorrect" },
-  { value: QUESTION_FEEDBACK_TYPE_CONFUSING, text: "Question or answer is confusing or misleading" },
-  { value: QUESTION_FEEDBACK_TYPE_TYPO, text: "Question or answer has a typo" },
-  { value: QUESTION_FEEDBACK_TYPE_TOO_EASY, text: "Question is too easy" },
-  { value: QUESTION_FEEDBACK_TYPE_TOO_HARD, text: "Question is too hard" },
+export const FEEDBACK_MAXIMUM_LENGTH = 500;
+export const FEEDBACK_TYPE_GENERAL = 0;
+export const FEEDBACK_TYPE_INCORRECT = 1;
+export const FEEDBACK_TYPE_CONFUSING = 2;
+export const FEEDBACK_TYPE_TYPO = 3;
+export const FEEDBACK_TYPE_TOO_EASY = 4;
+export const FEEDBACK_TYPE_TOO_HARD = 5;
+export const FEEDBACK_TYPE_DROPDOWN = [
+  { value: FEEDBACK_TYPE_GENERAL, text: "General" },
+  { value: FEEDBACK_TYPE_INCORRECT, text: "Question or answer is incorrect" },
+  { value: FEEDBACK_TYPE_CONFUSING, text: "Question or answer is confusing or misleading" },
+  { value: FEEDBACK_TYPE_TYPO, text: "Question or answer has a typo" },
+  { value: FEEDBACK_TYPE_TOO_EASY, text: "Question is too easy" },
+  { value: FEEDBACK_TYPE_TOO_HARD, text: "Question is too hard" },
+];
+export const FEEDBACK_STATUS_UNREVIEWED = 0;
+export const FEEDBACK_STATUS_REVIEWED_APPROVED = 1;
+export const FEEDBACK_STATUS_REVIEWED_REJECTED = 2;
+export const FEEDBACK_STATUS_DROPDOWN = [
+  { value: FEEDBACK_STATUS_UNREVIEWED, text: "Unreviewed" },
+  { value: FEEDBACK_STATUS_REVIEWED_APPROVED, text: "Reviewed - Approved" },
+  { value: FEEDBACK_STATUS_REVIEWED_REJECTED, text: "Reviewed - Rejected" },
 ];
 
 // Interface

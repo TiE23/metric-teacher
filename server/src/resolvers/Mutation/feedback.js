@@ -3,7 +3,7 @@ const {
 } = require("../../utils");
 
 const {
-  QUESTION_FEEDBACK_MAXIMUM_LENGTH,
+  FEEDBACK_MAXIMUM_LENGTH,
   USER_STATUS_NORMAL,
   USER_TYPE_STUDENT,
   USER_TYPE_MODERATOR,
@@ -33,8 +33,8 @@ const feedback = {
       action: "submitFeedback",
     });
 
-    if (args.text && args.text.length > QUESTION_FEEDBACK_MAXIMUM_LENGTH) {
-      throw new InputLengthAboveMaximum("text", QUESTION_FEEDBACK_MAXIMUM_LENGTH);
+    if (args.text && args.text.length > FEEDBACK_MAXIMUM_LENGTH) {
+      throw new InputLengthAboveMaximum("text", FEEDBACK_MAXIMUM_LENGTH);
     }
 
     // Fire off the mutation.

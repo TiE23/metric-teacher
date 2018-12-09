@@ -24,6 +24,10 @@ import {
   QuestionDataEverythingExtra,
 } from "./fragments/QuestionFragments";
 
+import {
+  FeedbackDataEverythingExtra,
+} from "./fragments/FeedbackFragments";
+
 export const ME_AUTH_QUERY = gql`
   query MeAuthQuery {
     me {
@@ -182,6 +186,15 @@ export const QUESTION_SEARCH = gql`
     }
   }
   ${QuestionDataEverythingExtra}
+`;
+
+export const FEEDBACK_SEARCH = gql`
+  query FeedbackSearch ($where: FeedbackWhereInput, $orderBy: FeedbackOrderByInput, $skip: Int, $after: String, $before: String, $first: Int, $last: Int) {
+    feedbackSearch(where: $where, orderBy: $orderBy, skip: $skip, after: $after, before: $before, first: $first, last: $last) {
+      ...FeedbackDataEverythingExtra
+    }
+  }
+  ${FeedbackDataEverythingExtra}
 `;
 
 // TODO - Use PrivateUser fragment when issue is fixed someday.

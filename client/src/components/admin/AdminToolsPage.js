@@ -16,16 +16,20 @@ const AdminToolsPage = () => (
 
     <List divided relaxed>
       <List.Item
-        icon="users"
-        content={<Link to="/admin/usersearch">User Browser</Link>}
+        icon="plus"
+        content={<Link to="/tools/questioncreator">Question Creator</Link>}
       />
       <List.Item
         icon="search"
         content={<Link to="/admin/questionsearch">Question Browser</Link>}
       />
       <List.Item
-        icon="plus"
-        content={<Link to="/tools/questioncreator">Question Creator</Link>}
+        icon="paper plane"
+        content={<Link to="/admin/feedbacksearch">Feedback Browser</Link>}
+      />
+      <List.Item
+        icon="users"
+        content={<Link to="/admin/usersearch">User Browser</Link>}
       />
       <List.Item
         icon="cog"

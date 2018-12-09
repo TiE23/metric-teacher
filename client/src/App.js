@@ -22,6 +22,7 @@ import AdminToolsPage from "./components/admin/AdminToolsPage";
 import ToolsPage from "./components/tools/ToolsPage";
 import UserSearchPage from "./components/admin/user/UserSearchPage";
 import QuestionSearchPage from "./components/tools/question/QuestionSearchPage";
+import FeedbackListPage from "./components/tools/feedback/FeedbackListPage";
 import NotFoundPage from "./components/misc/NotFoundPage";
 
 import {
@@ -82,6 +83,19 @@ const App = () => (
               withAuth(UserSearchPage, {
                 private: true,
                 permissions: { type: USER_TYPE_ADMIN },
+              })
+            }
+          />
+          <Route
+            exact
+            path="/admin/feedbacksearch"
+            component={
+              withAuth(FeedbackListPage, {
+                private: true,
+                permissions: { type: USER_TYPE_MODERATOR },
+                props: {
+                  mode: "adminSearch",
+                },
               })
             }
           />
