@@ -2,12 +2,14 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Container, Form, Message } from "semantic-ui-react";
 
+import LoadingButton from "../../../misc/LoadingButton";
+
 import {
+  SITE_NAME,
   QUESTION_FEEDBACK_MAXIMUM_LENGTH,
   QUESTION_FEEDBACK_TYPE_DROPDOWN,
   QUESTION_FEEDBACK_TYPE_GENERAL,
 } from "../../../../constants";
-import LoadingButton from "../../../misc/LoadingButton";
 
 class FeedbackCreatorForm extends PureComponent {
   constructor(props) {
@@ -17,7 +19,6 @@ class FeedbackCreatorForm extends PureComponent {
       type: 0,
       text: "",
       formErrors: [],
-      submitted: false,
     };
 
     this.handleTypeChange = (e, { value }) => {
@@ -82,17 +83,26 @@ class FeedbackCreatorForm extends PureComponent {
               buttonProps={{
                 primary: true,
                 type: "submit",
+                disabled: this.props.success,
               }}
               loading={this.props.loading}
             />
           </Container>
         </Form>
+        {this.props.success &&
+        <Message attached positive>
+          <Message.Header>Feedback Received</Message.Header>
+          Thank you for helping make {SITE_NAME} better!
+        </Message>
+        }
+
         {this.props.error &&
         <Message attached negative>
           <Message.Header>Error</Message.Header>
           {this.props.error.message}
         </Message>
         }
+
         {this.state.formErrors.length !== 0 &&
         <Message attached negative>
           <Message.Header>Form Errors</Message.Header>
@@ -110,10 +120,12 @@ FeedbackCreatorForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  success: PropTypes.any,
 };
 
 FeedbackCreatorForm.defaultProps = {
   error: null,
+  success: false,
 };
 
 export default FeedbackCreatorForm;

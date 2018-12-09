@@ -8,18 +8,18 @@ import {
   SUBMIT_FEEDBACK,
 } from "../../../../graphql/Mutations";
 
-
 const FeedbackCreator = props => (
   <Mutation
     mutation={SUBMIT_FEEDBACK}
   >
-    {(submitFeedback, { loading, error }) => (
+    {(submitFeedback, { loading, error, data }) => (
       <FeedbackCreatorForm
         onSubmit={variables => submitFeedback({
-          variables: { ...variables, questionid: props.questionId }
+          variables: { ...variables, questionid: props.questionId },
         })}
         loading={loading}
         error={error}
+        success={data && data.submitFeedback && !!data.submitFeedback.id}
       />
     )}
   </Mutation>
@@ -27,10 +27,6 @@ const FeedbackCreator = props => (
 
 FeedbackCreator.propTypes = {
   questionId: PropTypes.string.isRequired,
-};
-
-FeedbackCreator.defaultProps = {
-  closeForm: null,
 };
 
 export default FeedbackCreator;

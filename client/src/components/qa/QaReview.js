@@ -13,7 +13,6 @@ import {
 import QaReviewBasics from "./QaReviewBasics";
 import QaReviewChoices from "./QaReviewChoices";
 import QaReviewSurvey from "./QaReviewSurvey";
-import FeedbackCreatorModal from "../tools/feedback/creator/FeedbackCreatorModal";
 
 class QaReview extends PureComponent {
   constructor(props) {
@@ -58,13 +57,6 @@ class QaReview extends PureComponent {
             closeSurveyEditor={this.props.allowSurveyEditor ? this.closeSurveyEditor : null}
           />
         }
-        <FeedbackCreatorModal
-          questionId={qaData.questionId}
-          questionText={qaData.question.text}
-          questionDifficulty={qaData.difficulty}
-        >
-          <button type="button">Dev: Submit feedback on this question.</button>
-        </FeedbackCreatorModal>
       </QaReviewBasics>
     );
   }
