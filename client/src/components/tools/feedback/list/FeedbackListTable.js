@@ -1,26 +1,25 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Table, Popup, Icon, Message } from "semantic-ui-react";
+import { Icon, Message, Popup, Table } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
-import utils from "../../../../utils";
-
-import QuestionQaDetailsAndEditorModal from "./QuestionQaDetailsAndEditorModal";
+import FeedbackEditorModal from "../FeedbackEditorModal";
 import QuestionListTableCell from "../../misc/QuestionListTableCell";
+import QuestionQaDetailsAndEditorModal from "../../question/list/QuestionQaDetailsAndEditorModal";
+import XLink from "../../../misc/ExternalLink";
 
 import {
-  QUESTION_TYPE_DROPDOWN,
-  QUESTION_STATUS_DROPDOWN,
-  QUESTION_FLAG_NAMES,
-  QUESTION_DIFFICULTY_DROPDOWN,
+  USER_TYPE_NAMES,
+  FEEDBACK_TYPE_DROPDOWN,
+  FEEDBACK_STATUS_DROPDOWN,
 } from "../../../../constants";
 
-class QuestionListTable extends PureComponent {
+class FeedbackListTable extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: this.props.questionData,
+      data: this.props.feedbackData,
       sortColumn: null,
       sortDirection: null,
       sorted: true,
@@ -28,14 +27,13 @@ class QuestionListTable extends PureComponent {
 
     // This is a list of iteratee addresses that determine the sort direction of a specific column.
     const addressBook = {
-      subject: "parent.parent.name",
-      scale: "parent.scale",
-      direction: "parent.toMetric",
+      id: "id",
+      author: "author.id",
+      reviewer: "reviewer.id",
       type: "type",
+      text: "text",
       status: "status",
-      flags: "flags",
-      difficulty: "difficulty",
-      question: "question",
+      question: "question.question",
     };
 
     // Performs the resorting of a complex data structure.
@@ -69,10 +67,10 @@ class QuestionListTable extends PureComponent {
     };
 
     // Because the content of the table can be changed in edits, we need to react and then correctly
-    // resort the table when new questionData comes in.
+    // resort the table when new feedbackData comes in.
     this.componentDidUpdate = (prevProps, prevState) => {
       // New data? Mark the table as not sorted!
-      if (this.props.questionData !== prevProps.questionData) {
+      if (this.props.feedbackData !== prevProps.feedbackData) {
         this.setState({
           sorted: false,
         });
@@ -81,7 +79,7 @@ class QuestionListTable extends PureComponent {
       // The table isn't sorted? Sort it!
       if (!this.state.sorted) {
         const sortedData = sorter(
-          this.props.questionData,
+          this.props.feedbackData,
           addressBook[prevState.sortColumn],
           prevState.sortDirection,
         );
@@ -95,7 +93,7 @@ class QuestionListTable extends PureComponent {
   }
 
   render() {
-    if (!this.props.questionData) return null;
+    if (!this.props.feedbackData) return null;
 
     const { data, sortColumn, sortDirection } = this.state;
 
@@ -106,24 +104,24 @@ class QuestionListTable extends PureComponent {
           <Table.Row>
             <Table.HeaderCell
               width={1}
-              sorted={sortColumn === "subject" ? sortDirection : null}
-              onClick={this.handleSort("subject")}
+              sorted={sortColumn === "id" ? sortDirection : null}
+              onClick={this.handleSort("id")}
             >
-              Subject
+              Feedback ID
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
-              sorted={sortColumn === "scale" ? sortDirection : null}
-              onClick={this.handleSort("scale")}
+              sorted={sortColumn === "author" ? sortDirection : null}
+              onClick={this.handleSort("author")}
             >
-              Scale
+              Author ID
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
-              sorted={sortColumn === "direction" ? sortDirection : null}
-              onClick={this.handleSort("direction")}
+              sorted={sortColumn === "reviewer" ? sortDirection : null}
+              onClick={this.handleSort("reviewer")}
             >
-              To Metric
+              Reviewer ID
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
@@ -133,6 +131,13 @@ class QuestionListTable extends PureComponent {
               Type
             </Table.HeaderCell>
             <Table.HeaderCell
+              width={2}
+              sorted={sortColumn === "text" ? sortDirection : null}
+              onClick={this.handleSort("text")}
+            >
+              Text
+            </Table.HeaderCell>
+            <Table.HeaderCell
               width={1}
               sorted={sortColumn === "status" ? sortDirection : null}
               onClick={this.handleSort("status")}
@@ -140,49 +145,37 @@ class QuestionListTable extends PureComponent {
               Status
             </Table.HeaderCell>
             <Table.HeaderCell
-              width={1}
-              sorted={sortColumn === "flags" ? sortDirection : null}
-              onClick={this.handleSort("flags")}
-            >
-              Flags
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              width={1}
-              sorted={sortColumn === "difficulty" ? sortDirection : null}
-              onClick={this.handleSort("difficulty")}
-            >
-              Difficulty
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              width={6}
+              width={5}
               sorted={sortColumn === "question" ? sortDirection : null}
               onClick={this.handleSort("question")}
             >
               Question
             </Table.HeaderCell>
-            <Table.HeaderCell
-              width={1}
-            >
-              Actions
-            </Table.HeaderCell>
+            {this.props.adminMode &&
+              <Table.HeaderCell
+                width={1}
+              >
+                Actions
+              </Table.HeaderCell>
+            }
           </Table.Row>
         </Table.Header>
         {data.length ?
           <Table.Body>
-            {data.map(question => (
-              <Table.Row key={question.id}>
+            {data.map(feedback => (
+              <Table.Row key={feedback.id}>
                 <Table.Cell>
                   <Popup
-                    trigger={(<span style={{ cursor: "help" }}>{question.parent.parent.name}</span>)}
+                    trigger={(<span style={{ cursor: "help" }}>{feedback.id.slice(-4)}</span>)}
                     content={(
                       <React.Fragment>
-                        <b>{question.parent.parent.name}</b>
+                        <b>Feedback ID</b>: {feedback.id}
                         <ul>
                           <li>
-                            <b>Subject ID</b>: {question.parent.parent.id}
+                            <b>CreatedAt</b>: {feedback.createdAt}
                           </li>
                           <li>
-                            <b>SubSubject ID</b>: {question.parent.id}
+                            <b>UpdatedAt</b>: {feedback.updatedAt}
                           </li>
                         </ul>
                       </React.Fragment>
@@ -195,98 +188,112 @@ class QuestionListTable extends PureComponent {
                 <Table.Cell>
                   <Popup
                     trigger={(
-                      <span style={{ cursor: "default" }}>
-                        {utils.firstLetterCap(question.parent.scale)}
-                      </span>
+                      <span style={{ cursor: "help" }}>{feedback.author.id.slice(-4)}</span>
                     )}
-                    content={utils.firstLetterCap(question.parent.scale)}
-                    position="left center"
+                    content={(
+                      <React.Fragment>
+                        <b>Author ID</b>:{" "}
+                        {feedback.author.id} (<i>{USER_TYPE_NAMES[feedback.author.type]}</i>)
+                        {" "}
+                        {this.props.adminMode &&
+                          <XLink to={`/user/${feedback.author.id}`}>View</XLink>
+                        }
+                      </React.Fragment>
+                    )}
+                    position="bottom left"
+                    on="click"
+                    wide="very"
                   />
+                </Table.Cell>
+                <Table.Cell>
+                  {feedback.reviewer ?
+                    <Popup
+                      trigger={(
+                        <span style={{ cursor: "help" }}>{feedback.reviewer.id.slice(-4)}</span>
+                      )}
+                      content={(
+                        <React.Fragment>
+                          <b>Reviewer ID</b>:{" "}
+                          {feedback.reviewer.id} (<i>{USER_TYPE_NAMES[feedback.reviewer.type]}</i>)
+                          {" "}
+                          {this.props.adminMode &&
+                          <XLink to={`/user/${feedback.reviewer.id}`}>View</XLink>
+                          }
+                        </React.Fragment>
+                      )}
+                      position="bottom left"
+                      on="click"
+                      wide="very"
+                    /> : <i>None</i>}
                 </Table.Cell>
                 <Table.Cell>
                   <Popup
                     trigger={(
                       <span style={{ cursor: "default" }}>
-                        {question.parent.toMetric ? "To Metric" : "From Metric"}
+                        <Icon name={FEEDBACK_TYPE_DROPDOWN[feedback.type].icon} />
+                        {feedback.type}
                       </span>
                     )}
-                    content={question.parent.toMetric ? "To Metric" : "From Metric"}
+                    content={FEEDBACK_TYPE_DROPDOWN[feedback.type].text}
                     position="left center"
                   />
+                </Table.Cell>
+                <Table.Cell>
+                  {feedback.text ?
+                    <Popup
+                      trigger={(
+                        <span style={{ cursor: "help" }}>{feedback.text}</span>
+                      )}
+                      content={(<p>{feedback.text}</p>)}
+                      position="bottom center"
+                      wide="very"
+                    /> : <i>None</i>}
                 </Table.Cell>
                 <Table.Cell>
                   <Popup
                     trigger={(
                       <span style={{ cursor: "default" }}>
-                        {QUESTION_TYPE_DROPDOWN[question.type].text}
+                        <Icon name={FEEDBACK_STATUS_DROPDOWN[feedback.status].icon} />
+                        {feedback.status}
                       </span>
                     )}
-                    content={QUESTION_TYPE_DROPDOWN[question.type].text}
-                    position="left center"
-                  />
-                </Table.Cell>
-                <Table.Cell>
-                  <Popup
-                    trigger={(
-                      <span style={{ cursor: "default" }}>
-                        <Icon name={QUESTION_STATUS_DROPDOWN[question.status].icon} />
-                        {question.status}
-                      </span>
-                    )}
-                    content={QUESTION_STATUS_DROPDOWN[question.status].text}
-                    position="left center"
-                  />
-                </Table.Cell>
-                <Table.Cell>
-                  <Popup
-                    trigger={(
-                      <span style={{ cursor: "default" }}>
-                        <Icon name={question.flags === 0 ? "flag outline" : "flag"} />
-                        {question.flags}
-                      </span>
-                    )}
-                    content={utils.flagDescriber(QUESTION_FLAG_NAMES, question.flags)}
-                    position="left center"
-                  />
-                </Table.Cell>
-                <Table.Cell>
-                  <Popup
-                    trigger={(
-                      <span style={{ cursor: "default" }}>
-                        <Icon name={QUESTION_DIFFICULTY_DROPDOWN[question.difficulty].icon} />
-                        {question.difficulty}
-                      </span>
-                    )}
-                    content={QUESTION_DIFFICULTY_DROPDOWN[question.difficulty].text}
+                    content={FEEDBACK_STATUS_DROPDOWN[feedback.status].text}
                     position="left center"
                   />
                 </Table.Cell>
                 <Table.Cell>
                   <QuestionListTableCell
                     adminMode={this.props.adminMode}
-                    question={question}
-                    author={question.author}
-                    reviewer={question.reviewer}
+                    question={{
+                      id: feedback.question.id,
+                      question: feedback.question.question,
+                      answer: feedback.question.answer,
+                    }}
+                    author={feedback.author}
+                    reviewer={feedback.reviewer}
                   />
                 </Table.Cell>
-                <Table.Cell>
-                  {this.props.adminMode &&
+                {this.props.adminMode &&
+                  <Table.Cell>
+                    <FeedbackEditorModal
+                      queryInfo={this.props.queryInfo}
+                      feedbackId={feedback.id}
+                      feedbackType={feedback.type}
+                      feedbackStatus={feedback.status}
+                      feedbackText={feedback.text}
+                    >
+                      <Icon name="paper plane" style={{ cursor: "pointer" }} />
+                    </FeedbackEditorModal>
                     <QuestionQaDetailsAndEditorModal
-                      questionId={question.id}
+                      questionId={feedback.question.id}
                       editorMode
                       queryInfo={this.props.queryInfo}
                       modalProps={{ size: "fullscreen" }}
                     >
                       <Icon name="pencil" style={{ cursor: "pointer" }} />
                     </QuestionQaDetailsAndEditorModal>
-                  }
-                  <QuestionQaDetailsAndEditorModal
-                    questionId={question.id}
-                    editorMode={false}
-                  >
-                    <Icon name="window maximize" style={{ cursor: "pointer" }} />
-                  </QuestionQaDetailsAndEditorModal>
-                </Table.Cell>
+                  </Table.Cell>
+                }
               </Table.Row>
             ))}
           </Table.Body>
@@ -296,7 +303,7 @@ class QuestionListTable extends PureComponent {
               <Table.HeaderCell colSpan={9}>
                 <Message warning>
                   <Message.Header>No Results</Message.Header>
-                  <p>Use a less restrictive search setting to see more questions.</p>
+                  <p>Use a less restrictive search setting to see more feedback.</p>
                 </Message>
               </Table.HeaderCell>
             </Table.Row>
@@ -307,33 +314,36 @@ class QuestionListTable extends PureComponent {
   }
 }
 
-QuestionListTable.propTypes = {
-  questionData: PropTypes.arrayOf(PropTypes.shape({
+FeedbackListTable.propTypes = {
+  feedbackData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    updatedAt: PropTypes.string.isRequired,
     type: PropTypes.number.isRequired,
     status: PropTypes.number.isRequired,
-    flags: PropTypes.number.isRequired,
-    difficulty: PropTypes.number.isRequired,
-    question: PropTypes.string.isRequired,
-    answer: PropTypes.string.isRequired,
-    parent: PropTypes.shape({   // SubSubject
+    text: PropTypes.string.isRequired,
+    question: PropTypes.shape({
       id: PropTypes.string.isRequired,
-      scale: PropTypes.string.isRequired,
-      toMetric: PropTypes.bool.isRequired,
-      parent: PropTypes.shape({ // Subject
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-      }).isRequired,
+      question: PropTypes.string.isRequired,
+      answer: PropTypes.string.isRequired,
+    }),
+    author: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.number.isRequired,
     }).isRequired,
+    reviewer: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.number.isRequired,
+    }),
   })),
   queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   adminMode: PropTypes.bool,
 };
 
-QuestionListTable.defaultProps = {
-  questionData: null,
-  queryInfo: null,
+FeedbackListTable.defaultProps = {
+  feedbackData: null,
+  // queryInfo: null,
   adminMode: false,
 };
 
-export default QuestionListTable;
+export default FeedbackListTable;

@@ -6,7 +6,7 @@ import {
   USER_FLAGS_DROPDOWN,
   USER_STATUS_DROPDOWN,
   USER_TYPE_DROPDOWN,
-} from "../../../constants";
+} from "../../../../../constants";
 
 class UserSearchOptions extends PureComponent {
   constructor(props) {

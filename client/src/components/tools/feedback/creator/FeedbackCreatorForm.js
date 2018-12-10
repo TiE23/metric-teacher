@@ -6,9 +6,9 @@ import LoadingButton from "../../../misc/LoadingButton";
 
 import {
   SITE_NAME,
-  QUESTION_FEEDBACK_MAXIMUM_LENGTH,
-  QUESTION_FEEDBACK_TYPE_DROPDOWN,
-  QUESTION_FEEDBACK_TYPE_GENERAL,
+  FEEDBACK_MAXIMUM_LENGTH,
+  FEEDBACK_TYPE_DROPDOWN,
+  FEEDBACK_TYPE_GENERAL,
 } from "../../../../constants";
 
 class FeedbackCreatorForm extends PureComponent {
@@ -26,7 +26,7 @@ class FeedbackCreatorForm extends PureComponent {
     };
 
     this.handleTextChange = (e, { value }) => {
-      if (value.length <= QUESTION_FEEDBACK_MAXIMUM_LENGTH) {
+      if (value.length <= FEEDBACK_MAXIMUM_LENGTH) {
         this.setState({ text: value });
       }
     };
@@ -34,7 +34,7 @@ class FeedbackCreatorForm extends PureComponent {
     this.validate = () => {
       const formErrors = [];
 
-      if (this.state.type === QUESTION_FEEDBACK_TYPE_GENERAL &&
+      if (this.state.type === FEEDBACK_TYPE_GENERAL &&
         this.state.text.trim().length === 0
       ) {
         formErrors.push("General feedback requires details");
@@ -64,16 +64,16 @@ class FeedbackCreatorForm extends PureComponent {
           <Form.Select
             value={this.state.type}
             onChange={this.handleTypeChange}
-            options={QUESTION_FEEDBACK_TYPE_DROPDOWN}
+            options={FEEDBACK_TYPE_DROPDOWN}
             label="Feedback Type"
           />
           <Form.TextArea
             value={this.state.text}
             onChange={this.handleTextChange}
             label="Details"
-            required={this.state.type === QUESTION_FEEDBACK_TYPE_GENERAL}
+            required={this.state.type === FEEDBACK_TYPE_GENERAL}
             placeholder={
-              `Elaborate on your feedback (${QUESTION_FEEDBACK_MAXIMUM_LENGTH} character limit)`
+              `Elaborate on your feedback (${FEEDBACK_MAXIMUM_LENGTH} character limit)`
             }
           />
           <Container textAlign="right">
@@ -89,6 +89,7 @@ class FeedbackCreatorForm extends PureComponent {
             />
           </Container>
         </Form>
+
         {this.props.success &&
         <Message attached positive>
           <Message.Header>Feedback Received</Message.Header>
@@ -120,7 +121,7 @@ FeedbackCreatorForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.any, // eslint-disable-line react/forbid-prop-types
-  success: PropTypes.any,
+  success: PropTypes.bool,
 };
 
 FeedbackCreatorForm.defaultProps = {

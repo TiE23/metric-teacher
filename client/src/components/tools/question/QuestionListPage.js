@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Container, Button } from "semantic-ui-react";
+import { Button, Container, Header } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
@@ -13,7 +13,7 @@ import {
   QUESTION_SEARCH,
 } from "../../../graphql/Queries";
 
-class QuestionSearchPage extends PureComponent {
+class QuestionListPage extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -101,6 +101,7 @@ class QuestionSearchPage extends PureComponent {
   render() {
     return (
       <Container textAlign="center">
+        <Header dividing>Question Search</Header>
         {this.props.mode === "adminSearch" &&
           <QuestionSearchOptions
             handleChange={this.handleWhereChange}
@@ -134,8 +135,8 @@ class QuestionSearchPage extends PureComponent {
   }
 }
 
-QuestionSearchPage.propTypes = {
+QuestionListPage.propTypes = {
   mode: PropTypes.string.isRequired,
 };
 
-export default QuestionSearchPage;
+export default QuestionListPage;

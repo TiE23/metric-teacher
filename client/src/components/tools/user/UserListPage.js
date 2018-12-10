@@ -1,13 +1,13 @@
 import React, { PureComponent } from "react";
-import { Container, Button } from "semantic-ui-react";
+import { Button, Container, Header } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
 
-import UserSearchOptions from "./UserSearchOptions";
-import UserListContainer from "./UserListContainer";
+import UserSearchOptions from "./list/options/UserSearchOptions";
+import UserListContainer from "./list/UserListContainer";
 
-class UserSearchPage extends PureComponent {
+class UserListPage extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -86,6 +86,7 @@ class UserSearchPage extends PureComponent {
   render() {
     return (
       <Container textAlign="center">
+        <Header dividing>User Search</Header>
         <UserSearchOptions
           handleChange={this.handleWhereChange}
         />
@@ -110,4 +111,4 @@ class UserSearchPage extends PureComponent {
   }
 }
 
-export default UserSearchPage;
+export default UserListPage;
