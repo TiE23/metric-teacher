@@ -72,6 +72,7 @@ const feedback = {
     const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_MODERATOR,
       status: USER_STATUS_NORMAL,
+      flagExclude: USER_FLAG_DISALLOW_FEEDBACK_SUBMISSION,
       action: "updateFeedbackStatus",
     });
 
