@@ -211,7 +211,7 @@ async function checkAuth(
   if (permissions.flagExclude) {
     if (callingUserData.flags & permissions.flagExclude) {
       approval = false;
-      rejectionReasons.push("User marked with disallowed flags.");
+      rejectionReasons.push("User has been flagged and is not allowed to perform this action.");
     }
   }
 
@@ -219,7 +219,7 @@ async function checkAuth(
   if (permissions.flagRequire) {
     if ((callingUserData.flags & permissions.flagRequire) !== permissions.flagRequire) {
       approval = false;
-      rejectionReasons.push("User not marked with required flags.");
+      rejectionReasons.push("User lacks specific flag(s) and is not allowed to perform this action.");
     }
   }
 

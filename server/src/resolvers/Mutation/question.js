@@ -13,6 +13,7 @@ const {
   USER_STATUS_NORMAL,
   USER_TYPE_STUDENT,
   USER_TYPE_MODERATOR,
+  USER_FLAG_DISALLOW_QUESTION_SUBMISSION,
   QUESTION_STATUS_REVIEW_PENDING,
   QUESTION_TYPE_WRITTEN,
   QUESTION_TYPE_CONVERSION,
@@ -154,6 +155,7 @@ const question = {
     const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_MODERATOR,
       status: USER_STATUS_NORMAL,
+      flagExclude: USER_FLAG_DISALLOW_QUESTION_SUBMISSION,
       action: "updateQuestion",
     });
 

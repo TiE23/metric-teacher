@@ -7,6 +7,7 @@ const {
   USER_STATUS_NORMAL,
   USER_TYPE_STUDENT,
   USER_TYPE_MODERATOR,
+  USER_FLAG_DISALLOW_FEEDBACK_SUBMISSION,
   FEEDBACK_STATUS_UNREVIEWED,
 } = require("../../constants");
 
@@ -30,6 +31,7 @@ const feedback = {
     const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
       status: USER_STATUS_NORMAL,
+      flagExclude: USER_FLAG_DISALLOW_FEEDBACK_SUBMISSION,
       action: "submitFeedback",
     });
 
