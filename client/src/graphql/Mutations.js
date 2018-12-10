@@ -158,6 +158,9 @@ export const UPDATE_FEEDBACK_STATUS = gql`
     updateFeedbackStatus(feedbackid: $feedbackid, status: $status) {
       id
       status
+      reviewer {
+        id
+      }
     }
   }
 `;
