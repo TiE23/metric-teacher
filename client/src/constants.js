@@ -450,20 +450,16 @@ export const QUESTION_DIFFICULTY_DROPDOWN = [
 ];
 export const QUESTION_FLAG_USER_DETAIL_OPTIONAL = 0x01; // Survey requests user note (optional)
 export const QUESTION_FLAG_USER_DETAIL_REQUIRED = 0x02; // Survey requests user note (required)
-export const QUESTION_FLAG_NAMES = {
-  0x01: "User note optional",
-  0x02: "User note required",
-};
 export const QUESTION_FLAG_DROPDOWN = [
   {
     value: QUESTION_FLAG_USER_DETAIL_OPTIONAL,
-    text: "0x01 User note optional",
-    key: 0x01,
+    text: "User note optional",
+    icon: "file outline",
   },
   {
     value: QUESTION_FLAG_USER_DETAIL_REQUIRED,
-    text: "0x02 User note required",
-    key: 0x02,
+    text: "User note required",
+    icon: "file alternate outline",
   },
 ];
 

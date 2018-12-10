@@ -7,7 +7,6 @@ import FeedbackEditorModal from "../FeedbackEditorModal";
 import QuestionListTableCell from "../../misc/QuestionListTableCell";
 import QuestionQaDetailsAndEditorModal from "../../question/list/QuestionQaDetailsAndEditorModal";
 import UserDetailsModal from "../../../user/UserDetailsModal";
-import XLink from "../../../misc/ExternalLink";
 
 import {
   USER_TYPE_NAMES,
@@ -193,8 +192,8 @@ class FeedbackListTable extends PureComponent {
                     )}
                     content={(
                       <React.Fragment>
-                        <b>Author ID</b>:{" "}
-                        {feedback.author.id} (<i>{USER_TYPE_NAMES[feedback.author.type]}</i>)
+                        <b>Author ID</b>: {feedback.author.id}{" "}
+                         (<i>{USER_TYPE_NAMES[feedback.author.type]}</i>)
                       </React.Fragment>
                     )}
                     position="bottom left"
@@ -219,12 +218,8 @@ class FeedbackListTable extends PureComponent {
                         )}
                         content={(
                           <React.Fragment>
-                            <b>Reviewer ID</b>:{" "}
-                            {feedback.reviewer.id}{" "}
-                            (<i>{USER_TYPE_NAMES[feedback.reviewer.type]}</i>){" "}
-                            {this.props.adminMode &&
-                              <XLink to={`/user/${feedback.reviewer.id}`}>View</XLink>
-                            }
+                            <b>Reviewer ID</b>: {feedback.reviewer.id}{" "}
+                            (<i>{USER_TYPE_NAMES[feedback.reviewer.type]}</i>)
                           </React.Fragment>
                         )}
                         position="bottom left"

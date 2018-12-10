@@ -9,7 +9,7 @@ import UserDetailsModal from "../../../user/UserDetailsModal";
 import UserStateEditorModal from "../UserStateEditorModal";
 
 import {
-  QUESTION_FLAG_NAMES,
+  USER_FLAG_DROPDOWN,
   USER_STATUS_DROPDOWN,
   USER_TYPE_DROPDOWN,
 } from "../../../../constants";
@@ -216,7 +216,7 @@ class UserListTable extends PureComponent {
                         {user.flags}
                       </span>
                     )}
-                    content={utils.flagDescriber(QUESTION_FLAG_NAMES, user.flags)}
+                    content={utils.flagDescriber(USER_FLAG_DROPDOWN, user.flags)}
                     position="left center"
                   />
                 </Table.Cell>
@@ -226,6 +226,7 @@ class UserListTable extends PureComponent {
                     userType={user.type}
                     userStatus={user.status}
                     userFlags={user.flags}
+                    queryInfo={this.props.queryInfo}
                   >
                     <Icon name="pencil" style={{ cursor: "pointer" }} />
                   </UserStateEditorModal>
@@ -266,13 +267,12 @@ UserListTable.propTypes = {
     status: PropTypes.number.isRequired,
     flags: PropTypes.number.isRequired,
   })),
-  // TODO might use this for a user editing modal?
-  // queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 UserListTable.defaultProps = {
   userData: null,
-  // queryInfo: null,
+  queryInfo: null,
 };
 
 export default UserListTable;
