@@ -13,6 +13,21 @@ export const QuestionDataEverything = gql`
   ${QuestionDataAll}
 `;
 
+export const QuestionDataEverythingAuthorReviewer = gql`
+  fragment QuestionDataEverythingAuthorReviewer on Question {
+    ...QuestionDataAll
+    author {
+      id
+      type
+    }
+    reviewer {
+      id
+      type
+    }
+  }
+  ${QuestionDataAll}
+`;
+
 export const QuestionDataEverythingExtra = gql`
   fragment QuestionDataEverythingExtra on Question {
     ...QuestionDataAll

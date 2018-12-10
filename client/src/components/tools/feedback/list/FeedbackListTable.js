@@ -107,21 +107,28 @@ class FeedbackListTable extends PureComponent {
               sorted={sortColumn === "id" ? sortDirection : null}
               onClick={this.handleSort("id")}
             >
-              Feedback ID
+              ID
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "author" ? sortDirection : null}
               onClick={this.handleSort("author")}
             >
-              Author ID
+              Author
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
               sorted={sortColumn === "reviewer" ? sortDirection : null}
               onClick={this.handleSort("reviewer")}
             >
-              Reviewer ID
+              Reviewer
+            </Table.HeaderCell>
+            <Table.HeaderCell
+              width={3}
+              sorted={sortColumn === "question" ? sortDirection : null}
+              onClick={this.handleSort("question")}
+            >
+              Question
             </Table.HeaderCell>
             <Table.HeaderCell
               width={1}
@@ -131,7 +138,7 @@ class FeedbackListTable extends PureComponent {
               Type
             </Table.HeaderCell>
             <Table.HeaderCell
-              width={2}
+              width={3}
               sorted={sortColumn === "text" ? sortDirection : null}
               onClick={this.handleSort("text")}
             >
@@ -143,13 +150,6 @@ class FeedbackListTable extends PureComponent {
               onClick={this.handleSort("status")}
             >
               Status
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              width={5}
-              sorted={sortColumn === "question" ? sortDirection : null}
-              onClick={this.handleSort("question")}
-            >
-              Question
             </Table.HeaderCell>
             {this.props.adminMode &&
               <Table.HeaderCell
@@ -227,6 +227,18 @@ class FeedbackListTable extends PureComponent {
                     /> : <i>None</i>}
                 </Table.Cell>
                 <Table.Cell>
+                  <QuestionListTableCell
+                    adminMode={this.props.adminMode}
+                    question={{
+                      id: feedback.question.id,
+                      question: feedback.question.question,
+                      answer: feedback.question.answer,
+                    }}
+                    author={feedback.question.author}
+                    reviewer={feedback.question.reviewer}
+                  />
+                </Table.Cell>
+                <Table.Cell>
                   <Popup
                     trigger={(
                       <span style={{ cursor: "default" }}>
@@ -259,18 +271,6 @@ class FeedbackListTable extends PureComponent {
                     )}
                     content={FEEDBACK_STATUS_DROPDOWN[feedback.status].text}
                     position="left center"
-                  />
-                </Table.Cell>
-                <Table.Cell>
-                  <QuestionListTableCell
-                    adminMode={this.props.adminMode}
-                    question={{
-                      id: feedback.question.id,
-                      question: feedback.question.question,
-                      answer: feedback.question.answer,
-                    }}
-                    author={feedback.author}
-                    reviewer={feedback.reviewer}
                   />
                 </Table.Cell>
                 {this.props.adminMode &&
@@ -326,6 +326,14 @@ FeedbackListTable.propTypes = {
       id: PropTypes.string.isRequired,
       question: PropTypes.string.isRequired,
       answer: PropTypes.string.isRequired,
+      author: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        type: PropTypes.number.isRequired,
+      }),
+      reviewer: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        type: PropTypes.number.isRequired,
+      }),
     }),
     author: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -342,7 +350,7 @@ FeedbackListTable.propTypes = {
 
 FeedbackListTable.defaultProps = {
   feedbackData: null,
-  // queryInfo: null,
+  queryInfo: null,
   adminMode: false,
 };
 
