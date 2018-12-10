@@ -37,6 +37,7 @@ const FeedbackEditorModal = props => (
         <FeedbackEditor
           feedbackId={props.feedbackId}
           initFeedbackStatus={props.feedbackStatus}
+          queryInfo={props.queryInfo}
         />
       </Modal.Description>
     </Modal.Content>
@@ -45,6 +46,7 @@ const FeedbackEditorModal = props => (
 
 FeedbackEditorModal.propTypes = {
   children: PropTypes.node.isRequired,
+  queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   feedbackId: PropTypes.string.isRequired,
   feedbackType: PropTypes.number.isRequired,
   feedbackStatus: PropTypes.number.isRequired,
@@ -52,6 +54,7 @@ FeedbackEditorModal.propTypes = {
 };
 
 FeedbackEditorModal.defaultProps = {
+  queryInfo: null,
   feedbackText: null,
 };
 

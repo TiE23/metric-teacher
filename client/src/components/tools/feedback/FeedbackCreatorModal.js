@@ -18,7 +18,7 @@ const FeedbackCreatorModal = props => (
     <Modal.Content>
       <Modal.Description>
         <p>
-          &quot;{props.questionText}&quot;{" "}
+          &quot;{props.questionText}&quot;
           <br />
           <i>
             Difficulty: {QUESTION_DIFFICULTY_DROPDOWN[props.questionDifficulty].text}

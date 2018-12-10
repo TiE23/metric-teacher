@@ -5,6 +5,7 @@ import sortBy from "lodash/sortBy";
 
 import FeedbackEditorModal from "../FeedbackEditorModal";
 import QuestionListTableCell from "../../misc/QuestionListTableCell";
+import QuestionQaDetailsAndEditorModal from "../../question/list/QuestionQaDetailsAndEditorModal";
 import XLink from "../../../misc/ExternalLink";
 
 import {
@@ -150,11 +151,13 @@ class FeedbackListTable extends PureComponent {
             >
               Question
             </Table.HeaderCell>
-            <Table.HeaderCell
-              width={1}
-            >
-              Actions
-            </Table.HeaderCell>
+            {this.props.adminMode &&
+              <Table.HeaderCell
+                width={1}
+              >
+                Actions
+              </Table.HeaderCell>
+            }
           </Table.Row>
         </Table.Header>
         {data.length ?
@@ -270,16 +273,27 @@ class FeedbackListTable extends PureComponent {
                     reviewer={feedback.reviewer}
                   />
                 </Table.Cell>
-                <Table.Cell>
-                  <FeedbackEditorModal
-                    feedbackId={feedback.id}
-                    feedbackType={feedback.type}
-                    feedbackStatus={feedback.status}
-                    feedbackText={feedback.text}
-                  >
-                    <Icon name="pencil" />
-                  </FeedbackEditorModal>
-                </Table.Cell>
+                {this.props.adminMode &&
+                  <Table.Cell>
+                    <FeedbackEditorModal
+                      queryInfo={this.props.queryInfo}
+                      feedbackId={feedback.id}
+                      feedbackType={feedback.type}
+                      feedbackStatus={feedback.status}
+                      feedbackText={feedback.text}
+                    >
+                      <Icon name="paper plane" style={{ cursor: "pointer" }} />
+                    </FeedbackEditorModal>
+                    <QuestionQaDetailsAndEditorModal
+                      questionId={feedback.question.id}
+                      editorMode
+                      queryInfo={this.props.queryInfo}
+                      modalProps={{ size: "fullscreen" }}
+                    >
+                      <Icon name="pencil" style={{ cursor: "pointer" }} />
+                    </QuestionQaDetailsAndEditorModal>
+                  </Table.Cell>
+                }
               </Table.Row>
             ))}
           </Table.Body>
@@ -322,7 +336,7 @@ FeedbackListTable.propTypes = {
       type: PropTypes.number.isRequired,
     }),
   })),
-  // queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   adminMode: PropTypes.bool,
 };
 
