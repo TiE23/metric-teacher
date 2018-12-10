@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 import { Icon, Message, Popup, Table } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
+import utils from "../../../../utils";
+
 import UserDetailsModal from "../../../user/UserDetailsModal";
 
 import {
+  QUESTION_FLAG_NAMES,
   USER_STATUS_DROPDOWN,
   USER_TYPE_DROPDOWN,
 } from "../../../../constants";
@@ -205,7 +208,16 @@ class UserListTable extends PureComponent {
                   />
                 </Table.Cell>
                 <Table.Cell>
-                  {user.flags}
+                  <Popup
+                    trigger={(
+                      <span style={{ cursor: "default" }}>
+                        <Icon name={user.flags === 0 ? "flag outline" : "flag"} />
+                        {user.flags}
+                      </span>
+                    )}
+                    content={utils.flagDescriber(QUESTION_FLAG_NAMES, user.flags)}
+                    position="left center"
+                  />
                 </Table.Cell>
                 <Table.Cell>
                   <UserDetailsModal userId={user.id}>

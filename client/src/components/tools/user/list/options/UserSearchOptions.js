@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Form } from "semantic-ui-react";
 
 import {
-  USER_FLAGS_DROPDOWN,
+  USER_FLAG_DROPDOWN,
   USER_STATUS_DROPDOWN,
   USER_TYPE_DROPDOWN,
 } from "../../../../../constants";
@@ -107,17 +107,16 @@ class UserSearchOptions extends PureComponent {
             multiple
             selection
           />
-          {false && <Form.Select
+          <Form.Select
             label="Flag (and)"
             placeholder="Any"
-            options={USER_FLAGS_DROPDOWN}
+            options={USER_FLAG_DROPDOWN}
             value={this.state.flags}
             onChange={this.handleFlagsChange}
             fluid
             multiple
             selection
           />
-          }
         </Form.Group>
       </Form>
     );
