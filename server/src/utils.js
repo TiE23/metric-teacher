@@ -231,6 +231,17 @@ async function checkAuth(
   return callingUserData;
 }
 
+
+/**
+ * "Truthy Zero".
+ * Makes the number 0 cast to true. Ints and Floats both work.
+ * @param input
+ * @returns {boolean}
+ */
+function t0(input) {
+  return !!(input || input === 0);
+}
+
 module.exports = {
   getAuthTokenData,
   getUserData,
@@ -238,4 +249,5 @@ module.exports = {
   targetStudentDataHelper,
   setStatusForCourses,
   checkAuth,
+  t0,
 };
