@@ -70,6 +70,7 @@ const question = {
     const callingUserData = await checkAuth(ctx, {
       type: USER_TYPE_STUDENT,
       status: USER_STATUS_NORMAL,
+      flagExclude: USER_FLAG_DISALLOW_QUESTION_SUBMISSION,
       action: "submitQuestion",
     });
 
