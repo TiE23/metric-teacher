@@ -56,6 +56,18 @@ export const UPDATE_USER_PROFILE_MUTATION = gql`
   }
 `;
 
+// Only grabbing fields that are accessible and can be changed in the mutation.
+export const UPDATE_USER_STATES = gql`
+  mutation UpdateUserStates($userid: ID!, $type: Int, $status: Int, $flags: Int) {
+    updateUserStates(userid: $userid, type: $type, status: $status, flags: $flags) {
+      id
+      type
+      status
+      flags
+    }
+  }
+`;
+
 export const ENROLL_STUDENT_MUTATION = gql`
   mutation EnrollStudentMutation($studentid: ID!) {
     enrollStudent(studentid: $studentid) {

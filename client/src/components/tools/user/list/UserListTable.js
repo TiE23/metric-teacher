@@ -6,6 +6,7 @@ import sortBy from "lodash/sortBy";
 import utils from "../../../../utils";
 
 import UserDetailsModal from "../../../user/UserDetailsModal";
+import UserStateEditorModal from "../UserStateEditorModal";
 
 import {
   QUESTION_FLAG_NAMES,
@@ -220,6 +221,14 @@ class UserListTable extends PureComponent {
                   />
                 </Table.Cell>
                 <Table.Cell>
+                  <UserStateEditorModal
+                    userId={user.id}
+                    userType={user.type}
+                    userStatus={user.status}
+                    userFlags={user.flags}
+                  >
+                    <Icon name="pencil" style={{ cursor: "pointer" }} />
+                  </UserStateEditorModal>
                   <UserDetailsModal userId={user.id}>
                     <Icon name="zoom" style={{ cursor: "pointer" }} />
                   </UserDetailsModal>
