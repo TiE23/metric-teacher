@@ -6,6 +6,7 @@ import sortBy from "lodash/sortBy";
 import FeedbackEditorModal from "../FeedbackEditorModal";
 import QuestionListTableCell from "../../misc/QuestionListTableCell";
 import QuestionQaDetailsAndEditorModal from "../../question/list/QuestionQaDetailsAndEditorModal";
+import UserDetailsModal from "../../../user/UserDetailsModal";
 import XLink from "../../../misc/ExternalLink";
 
 import {
@@ -194,37 +195,51 @@ class FeedbackListTable extends PureComponent {
                       <React.Fragment>
                         <b>Author ID</b>:{" "}
                         {feedback.author.id} (<i>{USER_TYPE_NAMES[feedback.author.type]}</i>)
-                        {" "}
-                        {this.props.adminMode &&
-                          <XLink to={`/user/${feedback.author.id}`}>View</XLink>
-                        }
                       </React.Fragment>
                     )}
                     position="bottom left"
                     on="click"
                     wide="very"
                   />
+                  {this.props.adminMode &&
+                    <React.Fragment>
+                      {" "}
+                      <UserDetailsModal userId={feedback.author.id}>
+                        <Icon name="zoom" style={{ cursor: "pointer" }} />
+                      </UserDetailsModal>
+                    </React.Fragment>
+                  }
                 </Table.Cell>
                 <Table.Cell>
                   {feedback.reviewer ?
-                    <Popup
-                      trigger={(
-                        <span style={{ cursor: "help" }}>{feedback.reviewer.id.slice(-4)}</span>
-                      )}
-                      content={(
+                    <React.Fragment>
+                      <Popup
+                        trigger={(
+                          <span style={{ cursor: "help" }}>{feedback.reviewer.id.slice(-4)}</span>
+                        )}
+                        content={(
+                          <React.Fragment>
+                            <b>Reviewer ID</b>:{" "}
+                            {feedback.reviewer.id}{" "}
+                            (<i>{USER_TYPE_NAMES[feedback.reviewer.type]}</i>){" "}
+                            {this.props.adminMode &&
+                              <XLink to={`/user/${feedback.reviewer.id}`}>View</XLink>
+                            }
+                          </React.Fragment>
+                        )}
+                        position="bottom left"
+                        on="click"
+                        wide="very"
+                      />
+                      {this.props.adminMode &&
                         <React.Fragment>
-                          <b>Reviewer ID</b>:{" "}
-                          {feedback.reviewer.id} (<i>{USER_TYPE_NAMES[feedback.reviewer.type]}</i>)
                           {" "}
-                          {this.props.adminMode &&
-                          <XLink to={`/user/${feedback.reviewer.id}`}>View</XLink>
-                          }
+                          <UserDetailsModal userId={feedback.reviewer.id}>
+                            <Icon name="zoom" style={{ cursor: "pointer" }} />
+                          </UserDetailsModal>
                         </React.Fragment>
-                      )}
-                      position="bottom left"
-                      on="click"
-                      wide="very"
-                    /> : <i>None</i>}
+                      }
+                    </React.Fragment> : <i>None</i>}
                 </Table.Cell>
                 <Table.Cell>
                   <QuestionListTableCell

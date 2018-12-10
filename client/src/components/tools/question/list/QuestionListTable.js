@@ -284,7 +284,7 @@ class QuestionListTable extends PureComponent {
                     questionId={question.id}
                     editorMode={false}
                   >
-                    <Icon name="window maximize" style={{ cursor: "pointer" }} />
+                    <Icon name="zoom" style={{ cursor: "pointer" }} />
                   </QuestionQaDetailsAndEditorModal>
                 </Table.Cell>
               </Table.Row>

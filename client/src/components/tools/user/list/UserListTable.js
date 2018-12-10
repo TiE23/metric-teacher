@@ -1,10 +1,9 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { Table, Message, Popup, Icon, Modal } from "semantic-ui-react";
+import { Icon, Message, Popup, Table } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
-import UserDetails from "../../../user/UserDetails";
+import UserDetailsModal from "../../../user/UserDetailsModal";
 
 import {
   USER_STATUS_DROPDOWN,
@@ -209,20 +208,9 @@ class UserListTable extends PureComponent {
                   {user.flags}
                 </Table.Cell>
                 <Table.Cell>
-                  <Modal
-                    trigger={(<Icon name="window maximize" style={{ cursor: "pointer" }} />)}
-                    closeIcon
-                    size="fullscreen"
-                  >
-                    <Modal.Header>User Details</Modal.Header>
-                    <Modal.Content>
-                      <UserDetails userId={user.id} />
-                      <p>
-                        <br />
-                        <Link to={`/user/${user.id}`}>Go to account page...</Link>
-                      </p>
-                    </Modal.Content>
-                  </Modal>
+                  <UserDetailsModal userId={user.id}>
+                    <Icon name="zoom" style={{ cursor: "pointer" }} />
+                  </UserDetailsModal>
                 </Table.Cell>
               </Table.Row>
             ))}
@@ -258,12 +246,12 @@ UserListTable.propTypes = {
     flags: PropTypes.number.isRequired,
   })),
   // TODO might use this for a user editing modal?
-  queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  // queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 UserListTable.defaultProps = {
   userData: null,
-  queryInfo: null,
+  // queryInfo: null,
 };
 
 export default UserListTable;
