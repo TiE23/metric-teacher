@@ -1093,7 +1093,7 @@ const flagDescriber = (flagsDictionary, flags) => {
   const flagDescriptions = [];
   forEach(flagsDictionary, (value, key) => {
     if (flags & key) {
-      flagDescriptions.push(`0x0${key.toString(16)}: (${value})`);
+      flagDescriptions.push(`0x0${key.toString(16)} (${value})`);
     }
   });
 

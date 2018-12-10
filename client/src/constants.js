@@ -358,8 +358,6 @@ export const DIRECTION_DROPDOWN = [
 export const FLAGS_NONE = 0;
 
 // User
-export const USER_FLAGS_DROPDOWN = [  // There are no flags, yet.
-];
 export const USER_STATUS_NAMES = [
   "Normal",
   "Closed",
@@ -385,6 +383,12 @@ export const USER_TYPE_DROPDOWN = [
   { value: USER_TYPE_TEACHER, text: "Teacher", icon: "university" },
   { value: USER_TYPE_MODERATOR, text: "Moderator", icon: "user secret" },
   { value: USER_TYPE_ADMIN, text: "Admin", icon: "chess king" },
+];
+export const USER_FLAG_DISALLOW_QUESTION_SUBMISSION = 0x01;
+export const USER_FLAG_DISALLOW_FEEDBACK_SUBMISSION = 0x02;
+export const USER_FLAG_DROPDOWN = [
+  { value: USER_FLAG_DISALLOW_QUESTION_SUBMISSION, text: "Disallow Question Submission", icon: "plus" },
+  { value: USER_FLAG_DISALLOW_FEEDBACK_SUBMISSION, text: "Disallow Feedback Submission", icon: "paper plane" },
 ];
 
 // Mastery
