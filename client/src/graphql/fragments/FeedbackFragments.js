@@ -5,7 +5,7 @@ import {
 } from "./SimpleFragments";
 
 import {
-  QuestionDataEverything,
+  QuestionDataEverythingAuthorReviewer,
 } from "./QuestionFragments";
 
 export const FeedbackDataEverything = gql`
@@ -19,7 +19,7 @@ export const FeedbackDataEverythingExtra = gql`
   fragment FeedbackDataEverythingExtra on Feedback {
     ...FeedbackDataAll
     question {
-      ...QuestionDataEverything
+      ...QuestionDataEverythingAuthorReviewer
     }
     author {
       id
@@ -31,5 +31,5 @@ export const FeedbackDataEverythingExtra = gql`
     }
   }
   ${FeedbackDataAll}
-  ${QuestionDataEverything}
+  ${QuestionDataEverythingAuthorReviewer}
 `;

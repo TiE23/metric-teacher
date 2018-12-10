@@ -5,6 +5,7 @@ import utils from "../../../../utils";
 
 import QaReviewBasics from "../../../qa/QaReviewBasics";
 import DocumentationSubjectModal from "../../../documentation/DocumentationSubjectModal";
+import FeedbackCreatorModal from "../../../tools/feedback/FeedbackCreatorModal";
 
 import {
   QA_DATA_EVERYTHING,
@@ -18,26 +19,32 @@ const ChallengeQuestion = props => (
     />
     <br />
     <div style={{ position: "absolute", bottom: 5, right: 5, textAlign: "right" }}>
-      <DocumentationSubjectModal
-        subject={props.qaData.subject.name}
-        toMetric={props.qaData.subject.toMetric}
-      >
-        <p
-          style={{
-            color: "teal",
-            fontSize: "smaller",
-            textDecoration: "underline",
-            cursor: "pointer",
-          }}
+      <p style={{ color: "teal", fontSize: "smaller", cursor: "pointer" }}>
+        <DocumentationSubjectModal
+          subject={props.qaData.subject.name}
+          toMetric={props.qaData.subject.toMetric}
         >
-          {props.qaData.subject.name}
-          {" - "}
-          {utils.firstLetterCap(props.qaData.subject.scale)}
-          {" - "}
-          {props.qaData.subject.toMetric ? "To Metric" : "From Metric"}
-          <Icon name="book" />
-        </p>
-      </DocumentationSubjectModal>
+          <span style={{ textDecoration: "underline" }}>
+            {props.qaData.subject.name}
+            {" - "}
+            {utils.firstLetterCap(props.qaData.subject.scale)}
+            {" - "}
+            {props.qaData.subject.toMetric ? "To Metric" : "From Metric"}
+            <Icon name="book" />
+          </span>
+        </DocumentationSubjectModal>
+        |
+        <FeedbackCreatorModal
+          questionId={props.qaData.questionId}
+          questionText={
+            props.qaData.question.text ||
+            utils.qaReviewTextFormatter(props.qaData, true).questionDescription
+          }
+          questionDifficulty={props.qaData.difficulty}
+        >
+          <Icon name="paper plane" />
+        </FeedbackCreatorModal>
+      </p>
     </div>
   </Segment>
 );

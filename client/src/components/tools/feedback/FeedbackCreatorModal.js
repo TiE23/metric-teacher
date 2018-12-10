@@ -14,7 +14,7 @@ const FeedbackCreatorModal = props => (
     size="small"
     closeIcon
   >
-    <Modal.Header>Question Feedback</Modal.Header>
+    <Modal.Header>Provide Feedback on this question</Modal.Header>
     <Modal.Content>
       <Modal.Description>
         <p>
