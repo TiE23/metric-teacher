@@ -7,6 +7,7 @@ import XLink from "../ExternalLink";
 import {
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_CREDITS,
+  MASCOT_NAME_LONG,
 } from "../../../constants";
 
 import {
@@ -43,6 +44,51 @@ const CreditsPage = () => (
         </Item.Content>
       </Item>
     </Item.Group>
+
+    <Header dividing content="Stats" />
+
+    <Header size="small" content="Educational" />
+    <List horizontal bulleted>
+      <List.Item>6 Subjects</List.Item>
+      <List.Item>56 Sub-Subjects</List.Item>
+      <List.Item>660+ Questions</List.Item>
+      <List.Item>3 Question Types</List.Item>
+      <List.Item>5 Difficulty Levels</List.Item>
+      <List.Item>3 Answer Methods</List.Item>
+      <List.Item>31 Pages of Original Documentation</List.Item>
+      <List.Item>17 Different Metric Units</List.Item>
+      <List.Item>23 Different US Units</List.Item>
+    </List>
+
+    <Header size="small" content="Artistic" />
+    <List horizontal bulleted>
+      <List.Item>21 Drawings of {MASCOT_NAME_LONG}</List.Item>
+      <List.Item>62 Drawn Objects in the Background</List.Item>
+      <List.Item>62 Objects in the Background</List.Item>
+      <List.Item>1 Green Tree Python Tailor</List.Item>
+      <List.Item>1 Weight Lifting African Elephant</List.Item>
+      <List.Item>1 Pufferfish Chemist</List.Item>
+      <List.Item>1 Polar Bear Tour Guide</List.Item>
+      <List.Item>1 Cheetah Sprinter</List.Item>
+      <List.Item>1 Flying Squirrel Architect</List.Item>
+      <List.Item>1 Very Scarlet Macaw</List.Item>
+      <List.Item>1 Imaginative Artist</List.Item>
+    </List>
+
+    <Header size="small" content="Technical" />
+    <List horizontal bulleted>
+      <List.Item>130+ React Components</List.Item>
+      <List.Item>22,000+ Javascript SLOC</List.Item>
+      <List.Item>35 GraphQL Query Endpoints</List.Item>
+      <List.Item>27 GraphQL Mutation Endpoints</List.Item>
+      <List.Item>140+ Closed GitHub Issues</List.Item>
+      <List.Item>640+ Non-merge Commits</List.Item>
+      <List.Item>4 Different User Types</List.Item>
+      <List.Item>151 Unit Tests</List.Item>
+      <List.Item>4 Different Admin Tools</List.Item>
+      <List.Item>26 Pages of Documentation</List.Item>
+      <List.Item>1 Self-driven Developer</List.Item>
+    </List>
 
     <Header dividing content="Technology" />
 

@@ -9,7 +9,7 @@ import {
 
 export const KyleG = (
   <p>
-    {SITE_NAME} is a personal passion project of Seattle-based web developer <b>Kyle Geib</b>. He can be found on <XLink to="https://github.com/TiE23">GitHub</XLink>, <XLink to="https://www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>. He is currently looking for his next career opportunity as a Fullstack JavaScript developer using ReactJS, NodeJS, and GraphQL with Apollo Client.
+    {SITE_NAME} is a personal passion project of Seattle-based web developer <b>Kyle Geib</b> and is his first website. He can be found on <XLink to="https://github.com/TiE23">GitHub</XLink>, <XLink to="https://www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>. He is currently looking for his next career opportunity as a Fullstack JavaScript developer using ReactJS, NodeJS, and GraphQL with Apollo Client.
   </p>
 );
 
