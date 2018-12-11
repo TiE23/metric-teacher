@@ -6,8 +6,8 @@ type User {
   email: String! @unique
   password: String!
   honorific: String
-  fname: String!
-  lname: String!
+  fname: String
+  lname: String
   type: Int!
   status: Int!
   flags: Int!

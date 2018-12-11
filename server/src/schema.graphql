@@ -63,7 +63,7 @@ type Query {
 ### Mutations
 type Mutation {
   # Auth Mutations
-  signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!
+  signup(email: String!, password: String!, fname: String, lname: String): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
 
   # User Mutations
@@ -180,8 +180,8 @@ type User implements Node {
   createdAt: DateTime!
   updatedAt: DateTime!
   honorific: String
-  fname: String!
-  lname: String!
+  fname: String
+  lname: String
   type: Int!
   status: Int!
   flags: Int!
@@ -194,8 +194,8 @@ type PrivateUser implements Node {
   updatedAt: DateTime!
   email: String!
   honorific: String
-  fname: String!
-  lname: String!
+  fname: String
+  lname: String
   type: Int!
   status: Int!
   flags: Int!
