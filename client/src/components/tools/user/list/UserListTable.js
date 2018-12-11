@@ -167,20 +167,28 @@ class UserListTable extends PureComponent {
                   />
                 </Table.Cell>
                 <Table.Cell>
-                  <Popup
-                    trigger={(<span style={{ cursor: "help" }}>{user.fname}</span>)}
-                    content={user.fname}
-                    positon="left center"
-                    on="click"
-                  />
+                  {user.fname ?
+                    <Popup
+                      trigger={(<span style={{ cursor: "help" }}>{user.fname}</span>)}
+                      content={user.fname}
+                      positon="left center"
+                      on="click"
+                    />
+                    :
+                    <i>None</i>
+                  }
                 </Table.Cell>
                 <Table.Cell>
-                  <Popup
-                    trigger={(<span style={{ cursor: "help" }}>{user.lname}</span>)}
-                    content={user.lname}
-                    positon="left center"
-                    on="click"
-                  />
+                  {user.lname ?
+                    <Popup
+                      trigger={(<span style={{ cursor: "help" }}>{user.lname}</span>)}
+                      content={user.lname}
+                      positon="left center"
+                      on="click"
+                    />
+                    :
+                    <i>None</i>
+                  }
                 </Table.Cell>
                 <Table.Cell>
                   <Popup
@@ -261,8 +269,8 @@ UserListTable.propTypes = {
     updatedAt: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     honorific: PropTypes.string,
-    fname: PropTypes.string.isRequired,
-    lname: PropTypes.string.isRequired,
+    fname: PropTypes.string,
+    lname: PropTypes.string,
     type: PropTypes.number.isRequired,
     status: PropTypes.number.isRequired,
     flags: PropTypes.number.isRequired,

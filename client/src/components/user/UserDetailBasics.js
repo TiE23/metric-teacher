@@ -13,8 +13,7 @@ const UserDetailBasics = (props) => {
   if (!props.userData) return null;
 
   const { userData } = props;
-  const nameFormated =
-    `${userData.honorific ? `${userData.honorific} ` : ""}${userData.fname} ${userData.lname}`;
+  const nameFormatted = [userData.honorific, userData.fname, userData.lname].join(" ").trim();
 
   return (
     <React.Fragment>
@@ -29,7 +28,10 @@ const UserDetailBasics = (props) => {
           </Header.Content>
         </Header>
         <List>
-          <List.Item icon="user" content={nameFormated} />
+          <List.Item
+            icon="user"
+            content={nameFormatted || <i>Anonymous</i>}
+          />
           <List.Item icon="mail" content={userData.email} />
           <List.Item
             icon="certificate"
@@ -62,8 +64,8 @@ UserDetailBasics.propTypes = {
   userData: PropTypes.shape({
     id: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    fname: PropTypes.string.isRequired,
-    lname: PropTypes.string.isRequired,
+    fname: PropTypes.string,
+    lname: PropTypes.string,
     honorific: PropTypes.string,
     type: PropTypes.number.isRequired,
     status: PropTypes.number.isRequired,
