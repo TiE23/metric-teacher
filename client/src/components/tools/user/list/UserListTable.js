@@ -57,7 +57,7 @@ class UserListTable extends PureComponent {
       // The table isn't sorted? Sort it!
       if (!this.state.sorted) {
         this.setState({
-          data: sortBy(prevState.data, prevState.sortColumn),
+          data: sortBy(this.props.userData, prevState.sortColumn),
           sorted: true,
         });
       }
