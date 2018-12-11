@@ -6,9 +6,10 @@ import sortBy from "lodash/sortBy";
 import utils from "../../../../utils";
 
 import UserDetailsModal from "../../../user/UserDetailsModal";
+import UserStateEditorModal from "../UserStateEditorModal";
 
 import {
-  QUESTION_FLAG_NAMES,
+  USER_FLAG_DROPDOWN,
   USER_STATUS_DROPDOWN,
   USER_TYPE_DROPDOWN,
 } from "../../../../constants";
@@ -56,7 +57,7 @@ class UserListTable extends PureComponent {
       // The table isn't sorted? Sort it!
       if (!this.state.sorted) {
         this.setState({
-          data: sortBy(prevState.data, prevState.sortColumn),
+          data: sortBy(this.props.userData, prevState.sortColumn),
           sorted: true,
         });
       }
@@ -215,11 +216,20 @@ class UserListTable extends PureComponent {
                         {user.flags}
                       </span>
                     )}
-                    content={utils.flagDescriber(QUESTION_FLAG_NAMES, user.flags)}
+                    content={utils.flagDescriber(USER_FLAG_DROPDOWN, user.flags)}
                     position="left center"
                   />
                 </Table.Cell>
                 <Table.Cell>
+                  <UserStateEditorModal
+                    userId={user.id}
+                    userType={user.type}
+                    userStatus={user.status}
+                    userFlags={user.flags}
+                    queryInfo={this.props.queryInfo}
+                  >
+                    <Icon name="pencil" style={{ cursor: "pointer" }} />
+                  </UserStateEditorModal>
                   <UserDetailsModal userId={user.id}>
                     <Icon name="zoom" style={{ cursor: "pointer" }} />
                   </UserDetailsModal>
@@ -257,13 +267,12 @@ UserListTable.propTypes = {
     status: PropTypes.number.isRequired,
     flags: PropTypes.number.isRequired,
   })),
-  // TODO might use this for a user editing modal?
-  // queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  queryInfo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 UserListTable.defaultProps = {
   userData: null,
-  // queryInfo: null,
+  queryInfo: null,
 };
 
 export default UserListTable;

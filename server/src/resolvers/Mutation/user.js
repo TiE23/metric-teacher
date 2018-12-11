@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 
 const {
   checkAuth,
+  t0,
 } = require("../../utils");
 
 const {
@@ -197,9 +198,9 @@ const user = {
 
     // Construct the update payload carefully...
     const dataPayload = {};
-    if (args.type) dataPayload.type = args.type;
-    if (args.status) dataPayload.status = args.status;
-    if (args.flags) dataPayload.flags = args.flags;
+    if (t0(args.type)) dataPayload.type = args.type;
+    if (t0(args.status)) dataPayload.status = args.status;
+    if (t0(args.flags)) dataPayload.flags = args.flags;
 
     // Only Teachers can have honorifics, remove it if they were once a teacher. ...This will never
     // happen...

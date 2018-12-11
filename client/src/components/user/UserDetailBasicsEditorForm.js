@@ -12,6 +12,7 @@ import {
 } from "../../constants";
 
 import LoadingButton from "../misc/LoadingButton";
+import UserStateEditorModal from "../tools/user/UserStateEditorModal";
 
 class UserDetailBasicsEditorForm extends Component {
   constructor(props) {
@@ -143,6 +144,28 @@ class UserDetailBasicsEditorForm extends Component {
             />
           }
           <Container textAlign="right">
+            {this.props.userTokenData.type >= USER_TYPE_MODERATOR &&
+              <UserStateEditorModal
+                userId={this.props.initUserData.id}
+                userType={this.props.initUserData.type}
+                userStatus={this.props.initUserData.status}
+                userFlags={this.props.initUserData.flags}
+              >
+                <p>
+                  <span
+                    style={{
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                      color: "teal",
+                    }}
+                  >
+                    <i>Edit State</i>
+                  </span>
+                  <br />
+                  <br />
+                </p>
+              </UserStateEditorModal>
+            }
             {typeof this.props.closeEditor === "function" &&
             <Button
               onClick={this.props.closeEditor}
@@ -195,6 +218,8 @@ UserDetailBasicsEditorForm.propTypes = {
     lname: PropTypes.string.isRequired,
     honorific: PropTypes.string,
     type: PropTypes.number.isRequired,
+    status: PropTypes.number.isRequired,
+    flags: PropTypes.number.isRequired,
   }).isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.any, // eslint-disable-line react/forbid-prop-types

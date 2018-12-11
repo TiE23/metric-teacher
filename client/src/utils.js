@@ -1085,15 +1085,15 @@ const implodeBits = (bitList) => {
 /**
  * Loop through a dictionary of flags and the flags value itself and return an array of the
  * descriptions of activated flags.
- * @param flagsDictionary
+ * @param flagsDropdown
  * @param flags
  * @returns {String}
  */
-const flagDescriber = (flagsDictionary, flags) => {
+const flagDescriber = (flagsDropdown, flags) => {
   const flagDescriptions = [];
-  forEach(flagsDictionary, (value, key) => {
-    if (flags & key) {
-      flagDescriptions.push(`0x0${key.toString(16)} (${value})`);
+  forEach(flagsDropdown, (row) => {
+    if (flags & row.value) {
+      flagDescriptions.push(`0x0${row.value.toString(16)} (${row.text})`);
     }
   });
 

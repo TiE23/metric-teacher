@@ -11,7 +11,7 @@ import QuestionListTableCell from "../../misc/QuestionListTableCell";
 import {
   QUESTION_TYPE_DROPDOWN,
   QUESTION_STATUS_DROPDOWN,
-  QUESTION_FLAG_NAMES,
+  QUESTION_FLAG_DROPDOWN,
   QUESTION_DIFFICULTY_DROPDOWN,
 } from "../../../../constants";
 
@@ -245,7 +245,7 @@ class QuestionListTable extends PureComponent {
                         {question.flags}
                       </span>
                     )}
-                    content={utils.flagDescriber(QUESTION_FLAG_NAMES, question.flags)}
+                    content={utils.flagDescriber(QUESTION_FLAG_DROPDOWN, question.flags)}
                     position="left center"
                   />
                 </Table.Cell>

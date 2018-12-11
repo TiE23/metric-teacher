@@ -12,7 +12,6 @@ import {
   QUESTION_TYPE_DROPDOWN,
   QUESTION_DIFFICULTY_DROPDOWN,
   QUESTION_STATUS_DROPDOWN,
-  QUESTION_FLAG_NAMES,
   QUESTION_FLAG_DROPDOWN,
 } from "../../../../../constants";
 
@@ -185,7 +184,7 @@ class QuestionDetailsBasics extends PureComponent {
               {this.props.flags}
               {" - "}
               &quot;
-              {utils.flagDescriber(QUESTION_FLAG_NAMES, this.props.flags)}
+              {utils.flagDescriber(QUESTION_FLAG_DROPDOWN, this.props.flags)}
               &quot;
             </List.Description>
           </List.Content>
