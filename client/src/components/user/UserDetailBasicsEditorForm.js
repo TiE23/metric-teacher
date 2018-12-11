@@ -68,8 +68,10 @@ class UserDetailBasicsEditorForm extends Component {
       const variables = {
         honorific: this.state.honorific !== this.props.initUserData.honorific ?
           this.state.honorific : undefined,
-        fname: this.state.fname !== this.props.initUserData.fname ? this.state.fname : undefined,
-        lname: this.state.lname !== this.props.initUserData.lname ? this.state.lname : undefined,
+        fname: this.state.fname !== null && this.state.fname !== this.props.initUserData.fname ?
+          this.state.fname : undefined,
+        lname: this.state.lname !== null && this.state.lname !== this.props.initUserData.lname ?
+          this.state.lname : undefined,
         email: lowercaseStateEmail !== lowercaseInitEmail ? lowercaseStateEmail : undefined,
         password: this.state.passwordNew || this.state.passwordOld ?
           {
@@ -214,8 +216,8 @@ UserDetailBasicsEditorForm.propTypes = {
   initUserData: PropTypes.shape({
     id: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    fname: PropTypes.string.isRequired,
-    lname: PropTypes.string.isRequired,
+    fname: PropTypes.string,
+    lname: PropTypes.string,
     honorific: PropTypes.string,
     type: PropTypes.number.isRequired,
     status: PropTypes.number.isRequired,

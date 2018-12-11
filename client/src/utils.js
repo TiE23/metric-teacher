@@ -309,8 +309,6 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
 
   const errors = [];
 
-  if (checked.fname && !form.fname.trim()) errors.push("First name required");
-  if (checked.lname && !form.lname.trim()) errors.push("Last name required");
   if (checked.honorific && !form.honorific.trim()) errors.push("Honorific required");
 
   if (checked.fname && form.fname.trim().length > NAME_FIRST_MAXIMUM_LENGTH) {

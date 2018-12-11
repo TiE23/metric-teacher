@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import {
   Container,
   Dimmer,
+  Divider,
   Form,
   Header,
   Icon,
@@ -14,14 +15,14 @@ import {
 
 import utils from "../../utils";
 
+import LoadingButton from "../misc/LoadingButton";
+import SecurityDetailModal from "../misc/security/SecurityDetailModal";
+
 import {
   SITE_NAME,
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_LOGIN,
 } from "../../constants";
-
-import LoadingButton from "../misc/LoadingButton";
-import SecurityDetailModal from "../misc/security/SecurityDetailModal";
 
 class LoginSignupForm extends Component {
   constructor(props) {
@@ -92,26 +93,25 @@ class LoginSignupForm extends Component {
           </Header>
           <Form>
             {!this.props.loginPage &&
-              <Form.Input
-                required={!this.props.loginPage}
-                value={this.state.fname}
-                onChange={e => this.handleChange({ fname: e.target.value })}
-                autoComplete="given-name"
-                placeholder="First name (required)"
-                icon="user"
-                iconPosition="left"
-              />
-            }
-            {!this.props.loginPage &&
-              <Form.Input
-                required={!this.props.loginPage}
-                value={this.state.lname}
-                onChange={e => this.handleChange({ lname: e.target.value })}
-                autoComplete="family-name"
-                placeholder="Last name (required)"
-                icon="users"
-                iconPosition="left"
-              />
+              <React.Fragment>
+                <Form.Input
+                  value={this.state.fname}
+                  onChange={e => this.handleChange({ fname: e.target.value })}
+                  autoComplete="given-name"
+                  placeholder="First name (optional)"
+                  icon="user"
+                  iconPosition="left"
+                />
+                <Form.Input
+                  value={this.state.lname}
+                  onChange={e => this.handleChange({ lname: e.target.value })}
+                  autoComplete="family-name"
+                  placeholder="Last name (optional)"
+                  icon="users"
+                  iconPosition="left"
+                />
+                <Divider />
+              </React.Fragment>
             }
             <Form.Input
               // Here to help password managers work properly on signup. https://goo.gl/9p2vKq
@@ -119,7 +119,7 @@ class LoginSignupForm extends Component {
               value={this.state.email}
               onChange={e => this.handleChange({ email: e.target.value })}
               autoComplete="email"
-              placeholder="E-mail address"
+              placeholder={`E-mail address${this.props.loginPage ? "" : " (required)"}`}
               icon="mail"
               iconPosition="left"
             />

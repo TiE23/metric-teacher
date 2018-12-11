@@ -80,8 +80,8 @@ type User {
    createdAt: DateTime!
    updatedAt: DateTime!
    honorific: String
-   fname: String!
-   lname: String!
+   fname: String
+   lname: String
    type: Int!
    status: Int!
    flags: Int!
@@ -97,8 +97,8 @@ type PrivateUser {
   updatedAt: DateTime!
   email: String!
   honorific: String
-  fname: String!
-  lname: String!
+  fname: String
+  lname: String
   type: Int!
   status: Int!
   flags: Int!
@@ -376,7 +376,7 @@ QuestionAnswerInput: {
 
 ### Mutations
 #### Auth Mutations
-* `signup(email: String!, password: String!, fname: String!, lname: String!): AuthPayload!`
+* `signup(email: String!, password: String!, fname: String, lname: String): AuthPayload!`
     * Sign up for an account. All arguments are required and emails need to be unique.
 * `login(email: String!, password: String!): AuthPayload!`
     * Log in to the account of a user by providing the email and password. Bcrypt is used to check the password input for correctness.
@@ -467,9 +467,9 @@ QuestionAnswerInput: {
 * `honorific`
     * Optional string for prefixes such as "Mr.", "Mrs.", "Ms.", "Prof.", etc.
 * `fname`
-    * User's first name.
+    * Optional user's first name.
 * `lname`
-    * User's last name.
+    * Optional user's last name.
 * `type`
     * `0` - Student (default)
     * `1` - Teacher
