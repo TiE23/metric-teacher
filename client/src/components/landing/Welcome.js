@@ -130,6 +130,8 @@ const Welcome = props => (
             </Grid.Row>
           </Grid>
 
+          <br />
+
           <p>
             You can view all <Icon name="tasks" />Subjects <Link to="/subjects">here</Link>.
           </p>
