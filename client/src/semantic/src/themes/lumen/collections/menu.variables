@@ -5,8 +5,9 @@
 @labelTextColor: @hoverItemTextColor;
 @pressedItemBackground: #fff;
 @hoverItemBackground: #fff;
-@tabularBorderColor: @border;
+@tabularBorderColor: #f0f0f0;
 @tabularActiveBackground: #fff;
+@tabularActiveColor: #222;
 
 @paginationActiveBorder: @primaryColor;
 @paginationActiveBackground: @gray-lighter;

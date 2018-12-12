@@ -26,6 +26,7 @@
 @textColor: @gray;
 @linkHoverColor: #158cba;
 @fontName: "Source Sans Pro";
+@fontSize: 0.875rem;
 
 @headerFontWeight: 400;
 
