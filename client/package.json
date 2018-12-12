@@ -22,7 +22,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "semantic-ui-react": "^0.82.2",
+    "semantic-ui-react": "^0.84.0",
     "subscriptions-transport-ws": "^0.9.14",
     "validator": "^10.5.0"
   },
@@ -36,6 +36,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "semantic-ui": "^2.3.3"
+    "semantic-ui": "^2.4.2"
   }
 }
