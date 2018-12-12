@@ -39,7 +39,7 @@ const SubjectsPageDescription = props => (
         Have fun and start learning right away with a free student account!
       </p>
       <Container textAlign="center">
-        <SignupLoginButtons from={props.location} />
+        <SignupLoginButtons from={props.location.pathname} />
       </Container>
     </Container>
 );
