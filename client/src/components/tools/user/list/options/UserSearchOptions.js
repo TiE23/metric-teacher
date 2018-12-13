@@ -57,7 +57,7 @@ class UserSearchOptions extends PureComponent {
 
   render() {
     return (
-      <Form>
+      <React.Fragment>
         <Form.Group inline widths="equal">
           <Form.Input
             label="IDs"
@@ -120,7 +120,7 @@ class UserSearchOptions extends PureComponent {
             selection
           />
         </Form.Group>
-      </Form>
+      </React.Fragment>
     );
   }
 }
