@@ -51,7 +51,7 @@ class FeedbackSearchOptions extends PureComponent {
 
   render() {
     return (
-      <Form>
+      <React.Fragment>
         <Form.Group inline widths="equal">
           <Form.Input
             label="IDs"
@@ -104,7 +104,7 @@ class FeedbackSearchOptions extends PureComponent {
             fluid
           />
         </Form.Group>
-      </Form>
+      </React.Fragment>
     );
   }
 }

@@ -19,6 +19,8 @@ class QuestionSearchOptions extends PureComponent {
       ids: null,
       authors: null,
       reviewers: null,
+      questionText: null,
+      answerText: null,
       subjects: [],
       direction: null,
       types: [],
@@ -44,6 +46,14 @@ class QuestionSearchOptions extends PureComponent {
 
     this.handleReviewersChange = (e, { value }) => {
       this.setState({ reviewers: value });
+    };
+
+    this.handleQuestionTextChange = (e, { value }) => {
+      this.setState({ questionText: value });
+    };
+
+    this.handleAnswerTextChange = (e, { value }) => {
+      this.setState({ answerText: value });
     };
 
     this.handleSubjectsChange = (e, { value }) => {
@@ -77,10 +87,10 @@ class QuestionSearchOptions extends PureComponent {
 
   render() {
     return (
-      <Form>
+      <React.Fragment>
         <Form.Group inline widths="equal">
           <Form.Input
-            label="Question IDs"
+            label="IDs"
             placeholder="Any"
             value={this.state.ids || ""}
             onChange={this.handleIdsChange}
@@ -98,6 +108,20 @@ class QuestionSearchOptions extends PureComponent {
             placeholder="Any"
             value={this.state.reviewers || ""}
             onChange={this.handleReviewersChange}
+            fluid
+          />
+          <Form.Input
+            label="Question Text"
+            placeholder="Any"
+            value={this.state.questionText || ""}
+            onChange={this.handleQuestionTextChange}
+            fluid
+          />
+          <Form.Input
+            label="Answer Text"
+            placeholder="Any"
+            value={this.state.answerText || ""}
+            onChange={this.handleAnswerTextChange}
             fluid
           />
         </Form.Group>
@@ -162,7 +186,7 @@ class QuestionSearchOptions extends PureComponent {
             selection
           />
         </Form.Group>
-      </Form>
+      </React.Fragment>
     );
   }
 }

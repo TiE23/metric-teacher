@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Button, Container, Header } from "semantic-ui-react";
+import { Button, Container, Form, Header } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
@@ -87,15 +87,18 @@ class UserListPage extends PureComponent {
     return (
       <Container textAlign="center">
         <Header dividing>User Search</Header>
-        <UserSearchOptions
-          handleChange={this.handleWhereChange}
-        />
-        <Button
-          onClick={this.handleSearch}
-          color="olive"
-        >
-          Search
-        </Button>
+        <Form>
+          <UserSearchOptions
+            handleChange={this.handleWhereChange}
+          />
+          <Button
+            onClick={this.handleSearch}
+            color="olive"
+            type="submit"
+          >
+            Search
+          </Button>
+        </Form>
         {utils.isEmptyRecursive(this.state.searchVariables) ?
           <p>
             <br />

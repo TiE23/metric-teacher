@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Button, Container, Header } from "semantic-ui-react";
+import { Button, Container, Form, Header } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
@@ -93,17 +93,20 @@ class FeedbackSearchPage extends PureComponent {
     return (
       <Container textAlign="center">
         <Header dividing>Feedback Search</Header>
-        {this.props.mode === "adminSearch" &&
-        <FeedbackSearchOptions
-          handleChange={this.handleWhereChange}
-        />
-        }
-        <Button
-          onClick={this.handleSearch}
-          color="olive"
-        >
-          Search
-        </Button>
+        <Form>
+          {this.props.mode === "adminSearch" &&
+          <FeedbackSearchOptions
+            handleChange={this.handleWhereChange}
+          />
+          }
+          <Button
+            onClick={this.handleSearch}
+            color="olive"
+            type="submit"
+          >
+            Search
+          </Button>
+        </Form>
         {utils.isEmptyRecursive(this.state.searchVariables) ?
           <p>
             <br />

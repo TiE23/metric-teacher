@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Button, Container, Header } from "semantic-ui-react";
+import { Button, Container, Form, Header } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
@@ -52,6 +52,16 @@ class QuestionListPage extends PureComponent {
           },
         } : null;
 
+      const questionText = where.questionText ?
+        {
+          question_contains: where.questionText,
+        } : null;
+
+      const answerText = where.answerText ?
+        {
+          answer_contains: where.answerText,
+        } : null;
+
       const subjects = where.subjects && where.subjects.length ?  // Check length of array.
         {
           parent: {
@@ -93,6 +103,8 @@ class QuestionListPage extends PureComponent {
         ids,
         authors,
         reviewers,
+        questionText,
+        answerText,
         subjects,
         direction,
         types,
@@ -117,22 +129,25 @@ class QuestionListPage extends PureComponent {
     return (
       <Container textAlign="center">
         <Header dividing>Question Search</Header>
-        {this.props.mode === "adminSearch" &&
-          <QuestionSearchOptions
-            handleChange={this.handleWhereChange}
-          />
-        }
-        {this.props.mode === "userContributions" &&
-          <QuestionContributionOptions
-            handleChange={this.handleWhereChange}
-          />
-        }
-        <Button
-          onClick={this.handleSearch}
-          color="olive"
-        >
-          Search
-        </Button>
+        <Form>
+          {this.props.mode === "adminSearch" &&
+            <QuestionSearchOptions
+              handleChange={this.handleWhereChange}
+            />
+          }
+          {this.props.mode === "userContributions" &&
+            <QuestionContributionOptions
+              handleChange={this.handleWhereChange}
+            />
+          }
+          <Button
+            onClick={this.handleSearch}
+            color="olive"
+            type="submit"
+          >
+            Search
+          </Button>
+        </Form>
         {utils.isEmptyRecursive(this.state.searchVariables) ?
           <p>
             <br />
