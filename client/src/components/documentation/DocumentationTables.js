@@ -23,12 +23,16 @@ export default {
           </Table.Cell>
           <Table.Cell>
             1 US fl oz = 1.04 imp fl oz
+            <br />
+            1 US fl oz = <i>29.6 ml</i>
           </Table.Cell>
           <Table.Cell>
             US Fluid Ounce is 4% larger
           </Table.Cell>
           <Table.Cell>
             1 imp fl oz = 0.96 US fl oz
+            <br />
+            1 imp fl oz = <i>28.4 ml</i>
           </Table.Cell>
         </Table.Row>
 
@@ -42,6 +46,8 @@ export default {
             1 US pt = 16.7 imp fl oz
             <br />
             1 US pt = 0.83 imp pt
+            <br />
+            1 US pt = <i>473.2 ml</i>
           </Table.Cell>
           <Table.Cell>
             Imperial Pint is 20% larger
@@ -52,6 +58,8 @@ export default {
             1 imp pt = 19.2 US fl oz
             <br />
             1 imp pt = 1.2 US pt
+            <br />
+            1 imp pt = <i>568.3 ml</i>
           </Table.Cell>
         </Table.Row>
 
@@ -67,6 +75,8 @@ export default {
             1 US qt = 33.3 imp fl oz
             <br />
             1 US qt = 0.83 imp qt
+            <br />
+            1 US qt = <i>946.4 ml</i>
           </Table.Cell>
           <Table.Cell>
             Imperial Quart is 20% larger
@@ -79,6 +89,8 @@ export default {
             1 imp qt = 38 US fl oz
             <br />
             1 imp qt = 1.2 US qt
+            <br />
+            1 imp qt = <i>1136.5 ml</i>
           </Table.Cell>
         </Table.Row>
 
@@ -94,6 +106,8 @@ export default {
             1 US gal = 133 imp fl oz
             <br />
             1 US gal = 0.83 imp gal
+            <br />
+            1 US gal = <i>3785.4 ml</i>
           </Table.Cell>
           <Table.Cell>
             Imperial Gallon is 20% larger
@@ -106,6 +120,8 @@ export default {
             1 imp gal = 153 US fl oz
             <br />
             1 imp gal = 1.2 US gal
+            <br />
+            1 imp gal = <i>4546.1 ml</i>
           </Table.Cell>
         </Table.Row>
       </Table.Body>
@@ -268,7 +284,7 @@ export default {
           <Table.Row>
             <Table.Cell>1 Millimeter (mm)</Table.Cell>
             <Table.Cell>0.0033 Feet (ft)</Table.Cell>
-            <Table.Cell>0.0394 Inches (in) or 1/25 of an Inch (in)</Table.Cell>
+            <Table.Cell>0.0394 Inches (in) or about 1/25 of an Inch (in)</Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell>1 Centimeter (cm)</Table.Cell>
@@ -284,6 +300,59 @@ export default {
             <Table.Cell>1 Kilometer (km)</Table.Cell>
             <Table.Cell>3280.84 Feet (ft)</Table.Cell>
             <Table.Cell>0.6213 Miles (mi)</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+    ),
+
+    usCustomaryUnitRelations: (
+      <Table celled compact>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>One unit...</Table.HeaderCell>
+            <Table.HeaderCell>Is made of...</Table.HeaderCell>
+            <Table.HeaderCell>Makes up...</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        <Table.Body>
+          <Table.Row verticalAlign="top">
+            <Table.Cell>1 Mile (mi)</Table.Cell>
+            <Table.Cell>
+              5280 Feet (ft)
+              <br />
+              1760 Yards (yd)
+            </Table.Cell>
+            <Table.Cell>-</Table.Cell>
+          </Table.Row>
+          <Table.Row verticalAlign="top">
+            <Table.Cell>1 Yard (yd)</Table.Cell>
+            <Table.Cell>
+              3 Feet (ft)
+              <br />
+              36 Inches (in)
+            </Table.Cell>
+            <Table.Cell>1/1760 Mile (mi)</Table.Cell>
+          </Table.Row>
+          <Table.Row verticalAlign="top">
+            <Table.Cell>1 Foot (ft)</Table.Cell>
+            <Table.Cell>
+              12 Inches (in)
+            </Table.Cell>
+            <Table.Cell>
+              1/3 Yard (yd)
+              <br />
+              1/5280 Mile (mi)
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row verticalAlign="top">
+            <Table.Cell>1 Inch (in)</Table.Cell>
+            <Table.Cell>-</Table.Cell>
+            <Table.Cell>
+              1/12 Foot (ft)
+              <br />
+              1/36 Yard (yd)
+            </Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
@@ -366,8 +435,8 @@ export default {
         <Table.Body>
           <Table.Row>
             <Table.Cell>1 Fluid Ounce (fl oz)</Table.Cell>
-            <Table.Cell>0.0295 Liters (l) </Table.Cell>
-            <Table.Cell>29.57 Milliliters (ml)</Table.Cell>
+            <Table.Cell>0.0296 Liters (l) </Table.Cell>
+            <Table.Cell>29.6 Milliliters (ml)</Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell>1 Cup (cup)</Table.Cell>
@@ -387,6 +456,7 @@ export default {
           <Table.Row>
             <Table.Cell>1 Gallon (gal)</Table.Cell>
             <Table.Cell>3.785 Liters (l) </Table.Cell>
+            <Table.Cell>3785 Milliliters (ml) </Table.Cell>
             <Table.Cell>-</Table.Cell>
           </Table.Row>
         </Table.Body>

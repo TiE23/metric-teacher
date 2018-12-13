@@ -84,7 +84,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            If you're moving to America (or to some parts of the English-speaking world) you're going to encounter US Customary (or Imperial) Units. Knowing what your new coworker means when say they live 15 miles away, or what to wear when the TV weather forecast for tomorrow is going to be 50 degrees Fahrenheit, or how to react when your classmate bemoans the 5 pounds they gained over the holiday break is an invaluable ability.
+            If you're moving to America (or to the UK or Ireland) you're going to encounter US Customary (or Imperial) Units. Knowing what your new coworker means when say they live 15 miles away, or what to wear when the TV weather forecast for tomorrow is going to be 50 degrees Fahrenheit, or how to react when your classmate bemoans the 5 pounds they gained over the holiday break is an invaluable ability.
           </p>
 
           <p>
@@ -356,6 +356,24 @@ export default {
         ),
       },
 
+      feedback: {
+        header: {
+          content: "Giving Feedback",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              <b>Feedback</b> is encouraged and helps {SITE_NAME}. Click <Icon name="paper plane" color="teal" fitted /> to give feedback on the current question. Send in suggestions, corrections, or complaints - they all help.
+            </p>
+
+            <p>
+              Please note that if you are found to be abusing the feedback system your privileges can be revoked or your account terminated.
+            </p>
+          </React.Fragment>
+        ),
+      },
+
       surveys: {
         header: {
           content: "Filling Surveys",
@@ -368,7 +386,7 @@ export default {
             </p>
 
             <p>
-              Of course, if a Survey question doesn't apply to you, or you view it as too personal, or you don't have an answer, you can skip filling out the survey with <u>no penalty</u> towards your Mastery.
+              Of course, if a Survey question doesn't apply to you, or you view it as too personal you can skip filling out the survey with <u>no penalty</u> towards your Mastery. Alternatively, if you want to answer a question later you can click "Ask Me Later".
             </p>
 
             <p>
@@ -399,6 +417,53 @@ export default {
 
             <p>
               The <b>score page</b> will show you your Mastery progress for each SubSubject you've practiced against (there is no guarantee that you'll see every SubSubject you selected in a Challenge). It will also show progress on Survey questions and your responses to any new Survey questions you've faced.
+            </p>
+          </React.Fragment>
+        ),
+      },
+    },
+
+    contribute: {
+      header: {
+        content: `Contributing to ${SITE_NAME}`,
+        as: "h2",
+      },
+
+      feedback: {
+        header: {
+          content: "Giving Feedback",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              <b>Feedback</b> is encouraged and helps {SITE_NAME}. Click <Icon name="paper plane" color="teal" fitted /> to give feedback on the current question when in Challenge Mode. Send in suggestions, corrections, or complaints - they all help.
+            </p>
+
+            <p>
+              Please note that if you are found to be abusing the feedback system your privileges can be revoked or your account terminated.
+            </p>
+          </React.Fragment>
+        ),
+      },
+
+      questions: {
+        header: {
+          content: "Question Creator",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              If you'd like to help make {SITE_NAME} better you can contribute by writing your own questions. Visit the <Link to="/tools">Community Tools</Link> page and use the <b>Question Creator</b>.
+            </p>
+
+            <p>
+              Choose your question's type and difficulty, subject, scale, and finally direction. From there compose your own question and submit it to be reviewed. You will not be able to edit your question after submission but if you made one little typo or picked the wrong difficulty do not worry, we'll adjust it as needed.
+            </p>
+
+            <p>
+              From there you can look at your past contributions and see which were approved, which were rejected, and which are still awaiting review. Please note that if you are found to be abusing the question creation system your privileges can be revoked or your account terminated.
             </p>
           </React.Fragment>
         ),
@@ -717,18 +782,18 @@ export default {
                   A <b>yard</b> is about 90% the length of a <b>meter</b> (0.9144m). By subtracting 10% from your calculation you can give a quick conversion.
                   <List.List>
                     <List.Item>
-                      Example: 50 yards is about 50 - 5 = 45 meters (actual answer: 45.72m).
+                      Example: 50 yards is about 50 - (50 * 0.1) = 45 meters (actual answer: 45.72m).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  5 <b>miles</b> is about 8 <b>kilometers</b> (8.05km) and 10 <b>miles</b> is about 16 <b>kilometers</b> (16.09km).
+                  A <b>mile</b> is about 1.6 <b>kilometers</b>. It's a tough calculation to get right, but you can do it in steps by adding 50% and 10% of the original.
                   <List.List>
                     <List.Item>
-                      Example: 45 miles is about 45 / 5 = 9; 9 × 8 = 72 kilometers (actual answer: 72.4km).
+                      Example: 100 miles is about 100 * 1.5 = 150; 150 + (100 * 0.1) = 160 kilometers (actual answer: 160.9km).
                     </List.Item>
                     <List.Item>
-                      Example: 100 miles is about 100 / 10 = 10; 10 × 16 = 160 kilometers (actual answer: 160.9km).
+                      Example: 32 miles is about 32 * 1.5 = 48; 48 + (32 * 0.1) = 51.2 kilometers (actual answer: 51.5km).
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -758,12 +823,14 @@ export default {
 
         chart: {
           header: {
-            content: "Chart",
+            content: "Charts",
             as: "h4",
           },
           content: (
             <React.Fragment>
               {Tables.length.fromMetric}
+              <Header as="h5">US Customary Length Unit Relationships</Header>
+              {Tables.length.usCustomaryUnitRelations}
             </React.Fragment>
           ),
         },
@@ -777,7 +844,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  A <b>millimeter</b> is difficult to convert to <b>inches</b>. It can help to remember that it is longer than 1/32nd of an inch and shorter than 1/16th of an inch (it is close to 1/25th of an inch).
+                  A <b>millimeter</b> is difficult to convert to <b>inches</b>. But since each millimeter is about one 25th of an inch if you multiply the millimeters by 4 and divide by 100 you'll get a good estimate.
                   <List.List>
                     <List.Item>
                       Example: 7 millimeters is about 7 × 4 = 28; 28 / 100 = 0.28 inches (actual answer: 0.276in).
@@ -788,31 +855,32 @@ export default {
                   A <b>centimeter</b> isn't too difficult to convert to <b>inches</b>, but it can help to remember that 10 centimeters is about 4 inches (3.94in).
                   <List.List>
                     <List.Item>
-                      Example: 50 centimeters is about 50 / 10 = 5; 5 × 4 = 20 inches (actual answer: 19.7in).
+                      Example: 50 centimeters is about 50 × 4 = 200; 200 / 10 = 20 inches (actual answer: 19.7in).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>meter</b> little over 3 <b>feet</b> and is roughly interchangeable with a <b>yard</b> (3ft). A meter is about 10% longer than a yard, or about 3.3 feet.
+                  A <b>meter</b> is about 10% longer than a <b>yard</b>, or about 3.3 <b>feet</b> (39.3 inches).
                   <List.List>
                     <List.Item>
-                      Example: 40 meters is about 40 × 1.1 = 44 yards (actual answer: 43.7yd).
-                      <List.List>
-                        <List.Item>
-                          Multiply the yards by 3 to get feet. 44 × 3 = 132 feet (actual answer: 131.2ft).
-                        </List.Item>
-                      </List.List>
+                      Example: 2.5 meters is about 2.5 × 40 = 100; 100 - 2.5 = 97.5 <b>inches</b> (actual answer: 98.4 in).
+                    </List.Item>
+                    <List.Item>
+                      Example: 4 meters is about 4 × 3 = 12; 12 * 1.1 = 13.2 <b>feet</b> (actual answer: 13.1ft).
+                    </List.Item>
+                    <List.Item>
+                      Example: 15 meters is about 15 × 1.1 = 16.5 <b>yards</b> (actual answer: 16.4yd).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>kilometer</b> can be easier to convert to <b>miles</b> by remembering that 5 kilometers is a little over 3 miles (3.11mi) and that 10 kilometers is a little over 6 miles (6.22mi).
+                  A <b>kilometer</b> can be easier to convert to <b>miles</b> by remembering that 10 kilometers is a little over 6 miles (6.22mi).
                   <List.List>
                     <List.Item>
-                      Example: 25 kilometers is about 25 / 5 = 5; 5 × 3 = 15 miles (actual answer: 15.5mi).
+                      Example: 25 kilometers is about 25 × 6 = 150; 150 / 10 = 15 miles (actual answer: 15.5mi).
                     </List.Item>
                     <List.Item>
-                      Example: 200 kilometers is about 200 / 10 = 10; 20 × 6 = 120 miles (actual answer: 124.3mi).
+                      Example: 200 kilometers is about 200 × 6 = 1200; 1200 / 10 = 120 miles (actual answer: 124.3mi).
                     </List.Item>
                   </List.List>
                 </List.Item>
