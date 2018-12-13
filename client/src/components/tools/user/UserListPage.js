@@ -27,9 +27,9 @@ class UserListPage extends PureComponent {
     };
 
     const buildWhere = (where) => {
-      const id = where.id ?
+      const ids = where.ids ?
         {
-          id_in: where.id.replace(/ /, "").split(","),
+          id_in: where.ids.replace(/\s/, "").split(","),
         } : null;
 
       const email = where.email ?
@@ -64,7 +64,7 @@ class UserListPage extends PureComponent {
 
       return mergeWith(
         {},
-        id,
+        ids,
         email,
         fname,
         lname,
