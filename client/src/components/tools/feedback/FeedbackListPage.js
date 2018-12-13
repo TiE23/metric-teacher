@@ -32,22 +32,29 @@ class FeedbackSearchPage extends PureComponent {
     };
 
     const buildWhere = (where) => {
-      const ids = where.ids && where.ids.length ?
+      const ids = where.ids ?
         {
-          id_in: where.ids,
+          id_in: where.ids.replace(/\s/, "").split(","),
         } : null;
 
-      const authors = where.authors && where.authors.length ?
+      const questions = where.questions ?
         {
-          author: {
-            id_in: where.authors,
+          question: {
+            id_in: where.questions.replace(/\s/, "").split(","),
           },
         } : null;
 
-      const reviewers = where.reviewers && where.reviewers.length ?
+      const authors = where.authors ?
+        {
+          author: {
+            id_in: where.authors.replace(/\s/, "").split(","),
+          },
+        } : null;
+
+      const reviewers = where.reviewers ?
         {
           reviewer: {
-            id_in: where.reviewers,
+            id_in: where.reviewers.replace(/\s/, "").split(","),
           },
         } : null;
 
@@ -64,6 +71,7 @@ class FeedbackSearchPage extends PureComponent {
       return mergeWith(
         {},
         ids,
+        questions,
         authors,
         reviewers,
         statuses,

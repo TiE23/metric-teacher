@@ -12,35 +12,28 @@ class FeedbackSearchOptions extends PureComponent {
     super(props);
 
     this.state = {
-      questionIdsText: "",
-      questionIds: [],
-      authorsText: "",
-      authors: [],
-      reviewersText: "",
-      reviewers: [],
+      ids: "",
+      questions: "",
+      authors: "",
+      reviewers: "",
       statuses: [],
       types: [],
     };
 
-    this.handleQuestionIdsChange = (e, { value }) => {
-      this.setState({
-        questionIdsText: value,
-        questionIds: value.replace(/\s/, "").split(","),
-      });
+    this.handleIdsChange = (e, { value }) => {
+      this.setState({ ids: value });
+    };
+
+    this.handleQuestionsChange = (e, { value }) => {
+      this.setState({ questions: value });
     };
 
     this.handleAuthorsChange = (e, { value }) => {
-      this.setState({
-        authorsText: value,
-        authors: value.replace(/\s/, "").split(","),
-      });
+      this.setState({ authors: value });
     };
 
     this.handleReviewersChange = (e, { value }) => {
-      this.setState({
-        reviewersText: value,
-        reviewers: value.replace(/\s/, "").split(","),
-      });
+      this.setState({ reviewers: value });
     };
 
     this.handleStatusesChange = (e, { value }) => {
@@ -61,24 +54,10 @@ class FeedbackSearchOptions extends PureComponent {
       <Form>
         <Form.Group inline widths="equal">
           <Form.Input
-            label="Question IDs (or)"
+            label="IDs"
             placeholder="Any"
-            value={this.state.questionIdsText}
-            onChange={this.handleQuestionIdsChange}
-            fluid
-          />
-          <Form.Input
-            label="Authors (or)"
-            placeholder="Any"
-            value={this.state.authorsText}
-            onChange={this.handleAuthorsChange}
-            fluid
-          />
-          <Form.Input
-            label="Reviewers (or)"
-            placeholder="Any"
-            value={this.state.reviewersText}
-            onChange={this.handleReviewersChange}
+            value={this.state.ids}
+            onChange={this.handleIdsChange}
             fluid
           />
           <Form.Select
@@ -100,6 +79,29 @@ class FeedbackSearchOptions extends PureComponent {
             fluid
             multiple
             selection
+          />
+        </Form.Group>
+        <Form.Group inline widths="equal">
+          <Form.Input
+            label="Questions"
+            placeholder="Any"
+            value={this.state.questions}
+            onChange={this.handleQuestionsChange}
+            fluid
+          />
+          <Form.Input
+            label="Authors"
+            placeholder="Any"
+            value={this.state.authors}
+            onChange={this.handleAuthorsChange}
+            fluid
+          />
+          <Form.Input
+            label="Reviewers"
+            placeholder="Any"
+            value={this.state.reviewers}
+            onChange={this.handleReviewersChange}
+            fluid
           />
         </Form.Group>
       </Form>
