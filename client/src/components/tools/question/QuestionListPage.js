@@ -33,7 +33,26 @@ class QuestionListPage extends PureComponent {
     };
 
     const buildWhere = (where) => {
-      const subjects = where.subjects && where.subjects.length ?
+      const ids = where.ids ?
+        {
+          id_in: where.ids.replace(/\s/, "").split(","),
+        } : null;
+
+      const authors = where.authors ?
+        {
+          author: {
+            id_in: where.authors.replace(/\s/, "").split(","),
+          },
+        } : null;
+
+      const reviewers = where.reviewers ?
+        {
+          reviewer: {
+            id_in: where.reviewers.replace(/\s/, "").split(","),
+          },
+        } : null;
+
+      const subjects = where.subjects && where.subjects.length ?  // Check length of array.
         {
           parent: {
             parent: {
@@ -69,15 +88,11 @@ class QuestionListPage extends PureComponent {
           difficulty_in: where.difficulties,
         } : null;
 
-      const authors = where.authors && where.authors.length ?
-        {
-          author: {
-            id_in: where.authors,
-          },
-        } : null;
-
       return mergeWith(
         {},
+        ids,
+        authors,
+        reviewers,
         subjects,
         direction,
         types,
