@@ -52,6 +52,16 @@ class QuestionListPage extends PureComponent {
           },
         } : null;
 
+      const questionText = where.questionText ?
+        {
+          question_contains: where.questionText,
+        } : null;
+
+      const answerText = where.answerText ?
+        {
+          answer_contains: where.answerText,
+        } : null;
+
       const subjects = where.subjects && where.subjects.length ?  // Check length of array.
         {
           parent: {
@@ -93,6 +103,8 @@ class QuestionListPage extends PureComponent {
         ids,
         authors,
         reviewers,
+        questionText,
+        answerText,
         subjects,
         direction,
         types,
