@@ -13,7 +13,7 @@ class UserSearchOptions extends PureComponent {
     super(props);
 
     this.state = {
-      id: null,
+      ids: null,
       email: null,
       fname: null,
       lname: null,
@@ -22,8 +22,8 @@ class UserSearchOptions extends PureComponent {
       flags: [],
     };
 
-    this.handleIdChange = (e, { value }) => {
-      this.setState({ id: value });
+    this.handleIdsChange = (e, { value }) => {
+      this.setState({ ids: value });
     };
 
     this.handleEmailChange = (e, { value }) => {
@@ -60,10 +60,10 @@ class UserSearchOptions extends PureComponent {
       <Form>
         <Form.Group inline widths="equal">
           <Form.Input
-            label="ID (comma delim)"
+            label="IDs"
             placeholder="Any"
-            value={this.state.id || ""}
-            onChange={this.handleIdChange}
+            value={this.state.ids || ""}
+            onChange={this.handleIdsChange}
             fluid
           />
           <Form.Input
@@ -87,6 +87,8 @@ class UserSearchOptions extends PureComponent {
             onChange={this.handleLastNameChange}
             fluid
           />
+        </Form.Group>
+        <Form.Group inline widths="equal">
           <Form.Select
             label="Type (or)"
             placeholder="Any"

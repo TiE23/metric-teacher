@@ -13,9 +13,7 @@ class QuestionContributionOptions extends PureComponent {
     super(props);
 
     this.state = {
-      authors: [
-        props.userTokenData.id,
-      ],
+      authors: props.userTokenData.id,  // Fixed
       statuses: [],
     };
 
