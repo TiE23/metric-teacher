@@ -10,6 +10,7 @@ import isPlainObject from "lodash/isPlainObject";
 import Docs from "./DocumentationContent";
 import ScrollTo from "../misc/ScrollTo";
 import withAuth from "../AuthHOC";
+
 import SignupLoginButtons from "../misc/SignupLoginButtons";
 
 import {
@@ -20,7 +21,7 @@ import {
 
 /**
  * This function recursively constructs the individual elements of the document page.
- * It returns two arrays, nodes and keys. Nodes are the actual React node objects while the
+ * It returns two arrays: nodes and keys. Nodes are the actual React node objects while the
  * keys are unique IDs that differentiate every element so that we can satisfy the React requirement
  * of having unique keys for the final list in the output Container component.
  *
@@ -119,6 +120,7 @@ const DocumentationPage = props => (
           <br />
         </Container>
       }
+      <br />
       {explodeDocs(Docs).map(({ node, id }) => <React.Fragment key={id}>{node}</React.Fragment>)}
       <br />
       <Link to="/docs" replace>Back to top.</Link>

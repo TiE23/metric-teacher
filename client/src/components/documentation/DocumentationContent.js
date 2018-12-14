@@ -53,7 +53,7 @@ export default {
           </p>
 
           <p>
-            The metric system is far easier to do math with. Instead of remembering that there are 16 ounces in a pound, that there are 5280 feet in a mile, that water boils at 212 degrees Fahrenheit, or that there are 128 fluid ounces in a gallon, everything is easily divisible by 10s, 100s, and 1000s. By simpling moving the decimal point in a number one can convert between various scales.
+            The metric system is far easier to do math with. Instead of remembering that there are 16 ounces in a pound, that there are 5280 feet in a mile, that water boils at 212 degrees Fahrenheit, or that there are 128 fluid ounces in a gallon, everything is easily divisible by 10s, 100s, and 1000s. By simply moving the decimal point in a number one can convert between various scales.
           </p>
 
           <p>
