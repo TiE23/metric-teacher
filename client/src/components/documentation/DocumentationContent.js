@@ -614,16 +614,26 @@ export default {
                   <List.Item>
                     The Imperial pint is 20 Imperial fluid ounces - the US pint is 16 US fluid ounces. The Imperial pint 20% larger than a US pint.
                   </List.Item>
+                  <List.Item>
+                    The Imperial quart is 40 Imperial fluid ounces - the US quart is 32 US fluid ounces. The Imperial quart 20% larger than a US quart.
+                  </List.Item>
+                  <List.Item>
+                    The Imperial gallon is 160 Imperial fluid ounces - the US gallon is 128 US fluid ounces. The Imperial gallon 20% larger than a US gallon.
+                  </List.Item>
                 </List.List>
               </List.Item>
             </List>
 
             <p>
-              In 1824, decades after the US declared independence in 1776, the British Parliament defined an Imperial gallon as the volume of <XLink to="https://en.wikipedia.org/wiki/Fluid_ounce#History">10 pounds of water</XLink> and similarly an Imperial fluid ounce a equivalent to an ounce (weight) of water. Because there are 160 ounces in 10 pounds, that resulting in 160 fluid ounces in a gallon of water.
+              In 1824, decades after the US declared independence in 1776, the British Parliament defined an Imperial gallon as the volume of <XLink to="https://en.wikipedia.org/wiki/Fluid_ounce#History">10 pounds of water</XLink> and similarly an Imperial fluid ounce a equivalent to an ounce (weight) of water. Because there are 160 ounces in 10 pounds, that results in 160 fluid ounces in one gallon.
             </p>
 
             <p>
               The US gallon is not based on the weight of any liquid. Instead it is based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow history. This is the system that {SITE_NAME} covers.
+            </p>
+
+            <p>
+              This all being said, we're talking about <i>liquid</i> volume here. Other units of volume such as cubic inches (often used in mechanics and engineering), cubic feet, etc, are completely identical.
             </p>
           </React.Fragment>
         ),
@@ -763,37 +773,34 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  An <b>inch</b> is about 2.5 <b>centimeters</b>. So, multiplying by two and then adding half more the number of inches can give a quick conversion.
+                  An <b>inch</b> is 2.54 <b>centimeters</b>. Multiply by 2 and then add 50% of the starting value.
                   <List.List>
                     <List.Item>
-                      Example: 6 inches is about (6 × 2) + 3 = 15 centimeters (actual answer: 15.24cm).
+                      Example: 6 inches is about 6 × 2 = 12; 12 + 3 = 15 centimeters (actual answer: 15.24cm).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>foot</b> is about 30 <b>centimeters</b>. Just remember the length of a ruler.
+                  A <b>foot</b> is 30.48 <b>centimeters</b>. Multiply by 30 and then add 50% of the starting value.
                   <List.List>
                     <List.Item>
-                      Example: 8 feet is about 8 × 30 = 240 centimeters. (actual answer: 243.8cm).
+                      Example: 8 feet is about 8 × 30 = 240; 240 + 4 = 244 centimeters. (actual answer: 243.8cm).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>yard</b> is about 90% the length of a <b>meter</b> (0.9144m). By subtracting 10% from your calculation you can give a quick conversion.
+                  A <b>yard</b> is 0.91 <b>meters</b>. Subtract 10%.
                   <List.List>
                     <List.Item>
-                      Example: 50 yards is about 50 - (50 * 0.1) = 45 meters (actual answer: 45.72m).
+                      Example: 50 yards is about 50 - 5 = 45 meters (actual answer: 45.72m).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>mile</b> is about 1.6 <b>kilometers</b>. It's a tough calculation to get right, but you can do it in steps by adding 50% and 10% of the original.
+                  A <b>mile</b> is 1.61 <b>kilometers</b>. Add 50% and then add 10% of the starting value.
                   <List.List>
                     <List.Item>
-                      Example: 100 miles is about 100 * 1.5 = 150; 150 + (100 * 0.1) = 160 kilometers (actual answer: 160.9km).
-                    </List.Item>
-                    <List.Item>
-                      Example: 32 miles is about 32 * 1.5 = 48; 48 + (32 * 0.1) = 51.2 kilometers (actual answer: 51.5km).
+                      Example: 60 miles is about 60 × 1.5 = 90; 90 + 6 = 96 kilometers (actual answer: 96.6km).
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -844,7 +851,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  A <b>millimeter</b> is difficult to convert to <b>inches</b>. But since each millimeter is about one 25th of an inch if you multiply the millimeters by 4 and divide by 100 you'll get a good estimate.
+                  A <b>millimeter</b> 0.039 <b>inches</b>. Multiply by 4 and then divide by 100.
                   <List.List>
                     <List.Item>
                       Example: 7 millimeters is about 7 × 4 = 28; 28 / 100 = 0.28 inches (actual answer: 0.276in).
@@ -852,7 +859,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>centimeter</b> isn't too difficult to convert to <b>inches</b>, but it can help to remember that 10 centimeters is about 4 inches (3.94in).
+                  A <b>centimeter</b> is 0.39 <b>inches</b>. Multiply by 4 and then divide by 10.
                   <List.List>
                     <List.Item>
                       Example: 50 centimeters is about 50 × 4 = 200; 200 / 10 = 20 inches (actual answer: 19.7in).
@@ -860,27 +867,34 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>meter</b> is about 10% longer than a <b>yard</b>, or about 3.3 <b>feet</b> (39.3 inches).
+                  A <b>meter</b> is 39.3 <b>inches</b>. Multiply by 40 and then subtract 100% of the starting value.
                   <List.List>
                     <List.Item>
-                      Example: 2.5 meters is about 2.5 × 40 = 100; 100 - 2.5 = 97.5 <b>inches</b> (actual answer: 98.4 in).
-                    </List.Item>
-                    <List.Item>
-                      Example: 4 meters is about 4 × 3 = 12; 12 * 1.1 = 13.2 <b>feet</b> (actual answer: 13.1ft).
-                    </List.Item>
-                    <List.Item>
-                      Example: 15 meters is about 15 × 1.1 = 16.5 <b>yards</b> (actual answer: 16.4yd).
+                      Example: 2.5 meters is about 2.5 × 40 = 100; 100 - 2.5 = 97.5 inches (actual answer: 98.4 in).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>kilometer</b> can be easier to convert to <b>miles</b> by remembering that 10 kilometers is a little over 6 miles (6.22mi).
+                  A <b>meter</b> is 3.28 <b>feet</b>. Multiply by 3 and then add 10%.
+                  <List.List>
+                    <List.Item>
+                      Example: 4 meters is about 4 × 3 = 12; 12 * 1.1 = 13.2 <b>feet</b> (actual answer: 13.1ft).
+                    </List.Item>
+                  </List.List>
+                </List.Item>
+                <List.Item>
+                  A <b>meter</b> is about 9% longer than a <b>yard</b>. Add 10%.
+                  <List.List>
+                    <List.Item>
+                      Example: 15 meters is about 15 + 1.5 = 16.5 <b>yards</b> (actual answer: 16.4yd).
+                    </List.Item>
+                  </List.List>
+                </List.Item>
+                <List.Item>
+                  A <b>kilometer</b> is about 0.6 <b>miles</b>. Multiply by 6 and then divide by 10.
                   <List.List>
                     <List.Item>
                       Example: 25 kilometers is about 25 × 6 = 150; 150 / 10 = 15 miles (actual answer: 15.5mi).
-                    </List.Item>
-                    <List.Item>
-                      Example: 200 kilometers is about 200 × 6 = 1200; 1200 / 10 = 120 miles (actual answer: 124.3mi).
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -947,7 +961,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  An <b>ounce</b> is slightly less than 30 <b>grams</b> (28.35g). If you multiply the ounces by 30 and subtract about 5% from your answer you can calculate a rough estimate.
+                  An <b>ounce</b> is 28.35 <b>grams</b>. Multiply by 30 and then subtract about 5%.
                   <List.List>
                     <List.Item>
                       Example: 6 ounces is about 6 × 30 = 180; 180 - 9 = 171 grams (actual answer: 170.1g).
@@ -955,7 +969,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>pound</b> is tricky to convert to <b>kilograms</b>. But if you divide your pounds by two and subtract another 10% from your final answer you can calculate a rough estimate.
+                  A <b>pound</b> is 0.45 <b>kilograms</b>. Divide by 2 and then subtract 10%.
                   <List.List>
                     <List.Item>
                       Example: 160 pounds is about 160 / 2 = 80; 80 - 8 = 72 kilograms (actual answer: 72.6kg).
@@ -963,7 +977,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>US ton</b> is used similarly to the <b>tonne</b> because they represent roughly the same heft. You can roughly calculate by simply reducing your answer by 10% to get the tonne equivalent.
+                  A <b>US ton</b> is 0.91 <b>metric tonnes</b>. Subtract 10%.
                   <List.List>
                     <List.Item>
                       Example: 14 US tons is about 14 - 1.4 = 12.6 tonnes (actual answer: 12.7t).
@@ -1011,7 +1025,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  A <b>gram</b> alone is not easily convertible to <b>ounces</b>. In the US the lack of a similarly precise and commonly used unit means that grams are actually better understood than small fractions of the ounce. The best you can do is remember that there are slightly less than 30 grams (28.35g) in an ounce. So, divide by 30 and add 5% to that value.
+                  There are 28.35 <b>grams</b> in 1 <b>ounce</b>. Divide by 30 and then add 5%.
                   <List.List>
                     <List.Item>
                       Example: 240 grams is about 240 / 30 = 8; 8 + 0.4 = 8.4 ounces (actual answer: (8.46oz).
@@ -1019,7 +1033,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>kilogram</b> is easy to convert into <b>pounds</b>. Multiply by 2 and add 10% to that value.
+                  A <b>kilogram</b> is 2.2 <b>pounds</b>. Multiply by 2 and then add 10%.
                   <List.List>
                     <List.Item>
                       Example: 60 kilograms is about 60 × 2 = 120; 120 + 12 = 132 pounds (actual answer: 132.3lb).
@@ -1027,7 +1041,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>tonne</b> is very easy to convert to <b>US Tons</b>. Just add 10% to the value.
+                  A <b>metric tonne</b> is 1.1 <b>US Tons</b>. Add 10%.
                   <List.List>
                     <List.Item>
                       Example. 4 tonnes is about 4.4 US tons (actual answer: 4.41ton).
@@ -1107,27 +1121,24 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  A <b>fluid ounce</b> is just under 30 <b>milliliters</b> in volume. You can quickly convert by multiplying
-                  the fluid ounces by 30 and subtracting half the number of fluid ounces from the value.
+                  A <b>fluid ounce</b> is 29.57 <b>milliliters</b>. Multiply by 30 and then subtract 50% of the starting value.
                   <List.List>
                     <List.Item>
-                      Example: 10 fluid ounces is about 10 × 30 = 300; 300 - (10 / 2) = 295 milliliters (actual answer:
+                      Example: 10 fluid ounces is about 10 × 30 = 300; 300 - 5 = 295 milliliters (actual answer:
                       295.7ml).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>cup</b> can be converted roughly to <b>milliliters</b> by multiplying by 250 and subtracting 5% from
-                  that value.
+                  A <b>cup</b> is about 236.6 <b>milliliters</b>. Multiply by 250 and then subtract 5%.
                   <List.List>
                     <List.Item>
-                      Example: 4 cups is about 250 × 4 = 1000; 1000 - 50 = 950 milliliters (actual answer is 946ml).
+                      Example: 4 cups is about 250 × 4 = 1000; 1000 - 50 = 950 milliliters (actual answer: 946ml).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>pint</b> can be converted roughly to <b>milliliters</b> by multiplying by 500 and subtract 5% from that
-                  value.
+                  A <b>pint</b> is 473.2 <b>milliliters</b>. Multiply by 500 and then subtract 5%.
                   <List.List>
                     <List.Item>
                       Example: 3 pints is about 500 × 3 = 1500; 1500 - 75 = 1425 (actual answer: 1419.5ml).
@@ -1135,8 +1146,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>quart</b> is often compared directly to the <b>liter</b>. The best you can do is remember that the
-                  quart is approximately 5% smaller than a liter.
+                  A <b>quart</b> is 0.95 <b>liters</b>. Subtract 5%.
                   <List.List>
                     <List.Item>
                       Example: 6 quarts is about 6 - 0.3 = 5.7 liters (actual answer: 5.68l).
@@ -1144,11 +1154,10 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>gallon</b> can be roughly converted to <b>liters</b> with this basic trick: Multiply the gallon by
-                  4 and subtract 25% of the number of gallons from that value.
+                  A <b>gallon</b> is 3.79 <b>liters</b>. Multiply by 4 and then subtract 25% of the starting value.
                   <List.List>
                     <List.Item>
-                      Example: 60 gallons is about 60 × 4 = 240; 240 - (60 / 4) = 225 liters (actual value: 227.1l).
+                      Example: 60 gallons is about 60 × 4 = 240; 240 - 15 = 225 liters (actual value: 227.1l).
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -1223,7 +1232,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  There are slightly less than 30 <b>milliliters</b> (29.57ml) per <b>fluid ounce</b>. So, divide by 30 for a good estimate.
+                  There are 29.57 <b>milliliters</b> in 1 <b>fluid ounce</b>. Divide by 30.
                   <List.List>
                     <List.Item>
                       Example: 360 milliliters is about 360 / 30 = 12 fluid ounces (actual answer: 12.2fl oz).
@@ -1231,7 +1240,23 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>liter</b> is easy to convert to <b>quarts</b>. A liter is about 6% larger than a quart. An increase of 5% would provide a very close estimate.
+                  There are 236.6 <b>milliliters</b> in 1 <b>cup</b>. Divide by 250 and then add 5%.
+                  <List.List>
+                    <List.Item>
+                      Example: 750 milliliters is about 750 / 250 = 3; 3 + 0.15 = 3.15 cups (actual answer: 3.17cup).
+                    </List.Item>
+                  </List.List>
+                </List.Item>
+                <List.Item>
+                  There are 473 <b>milliliters</b> in 1 <b>pint</b>. Divide by 500 and then add 5%.
+                  <List.List>
+                    <List.Item>
+                      Example: 1500 milliliters is about 1500 / 500 = 3; 3 + 0.15 = 3.15 pints (actual answer: 3.17pt).
+                    </List.Item>
+                  </List.List>
+                </List.Item>
+                <List.Item>
+                  A <b>liter</b> is 1.06 <b>quarts</b>. Add 5% more.
                   <List.List>
                     <List.Item>
                       Example: 10 liters is about 10 + 0.5 = 10.5 quarts (actual answer: 10.57qt).
@@ -1239,7 +1264,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>liter</b> isn't too difficult to convert to <b>gallons</b>. It is 26% the volume of a gallon. You can get a rough amount by dividing the number of liters by 4 and then add 5% to that value.
+                  There are 3.79 <b>liters</b> in 1 <b>gallon</b>. Divide by 4 and then add 5%.
                   <List.List>
                     <List.Item>
                       Example: 16 liters is about 16 / 4 = 4; 4 + 0.2 = 4.2 gallons (actual answer: 4.23gal).
@@ -1307,7 +1332,7 @@ export default {
           content: (
             <React.Fragment>
               <p>
-                You can get a rough conversion by taking the <b>Fahrenheit</b>, subtracting 30, and then dividing by 2 (the order is important).
+                For a very rough conversion take the <b>Fahrenheit</b> subtract 30 and then divide by 2.
               </p>
 
               <List bulleted>
@@ -1323,7 +1348,7 @@ export default {
               </List>
 
               <p>
-                Additionally, temperature differences are a separate concept. You do not need to concern yourself with - 32. If someone said "raise/lower the thermostat by 9°F", that would be 9 × (5/9) which would be 5°C.
+                Additionally, temperature differences are a separate concept. You do not need to concern yourself with - 32. If someone said "raise/lower the thermostat by 9°F", that would be 9 × (5/9) which would be 5°C. "Multiply by 5 and then divide by 9."
               </p>
             </React.Fragment>
           ),
@@ -1367,7 +1392,7 @@ export default {
           content: (
             <React.Fragment>
               <p>
-                You can get a very rough conversion by multiplying the <b>Celsius</b> by 2 and then adding 30 (the order is important).
+                For a very rough conversion take the <b>Celsius</b>, multiply by 2 and then add 30.
               </p>
 
               <List bulleted>
@@ -1451,13 +1476,13 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  5 <b>miles per hour</b> is about 8 <b>kilometers per hour</b> (8.05km/h) and 10 <b>miles per hour</b> is about 16 <b>kilometers per hour</b> (16.1km/h).
+                  1 <b>mile per hour</b> is 1.61 <b>kilometers per hour</b>. Add 50% and then add 10% of the starting value.
                   <List.List>
                     <List.Item>
-                      Example: 45 miles per hour is about 45 / 5 = 9; 9 × 8 = 72 kilometers per hour (actual answer: 72.4km/h).
+                      Example: 60 miles per hour is about 60 + 30; 90 + 6 = 96 kilometers per hour (actual answer: 96.6km/h).
                     </List.Item>
                     <List.Item>
-                      Example: 100 miles per hour is about 100 / 10 = 10; 10 × 16 = 160 kilometers per hour (actual answer: 160.9km/h).
+                      Example: 100 miles per hour is about 100 + 50 = 150; 150 + 10 = 160 kilometers per hour (actual answer: 160.9km/h).
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -1481,6 +1506,10 @@ export default {
           <React.Fragment>
             <p>
               While not the only US Customary Unit for velocity, miles per hour is by far the most common. The most commonly used symbol is "mph", though all caps "MPH" is also acceptable. You may see "mi/h", though it is less common.
+            </p>
+
+            <p>
+              Additionally, the unit feet per second (ft/s) is also in wide use in engineering, science, and physics. {SITE_NAME} does not cover this unit.
             </p>
           </React.Fragment>
         ),
@@ -1506,13 +1535,13 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  5 <b>kilometer per hour</b> is a little over 3 <b>miles per hour</b> (3.11mph) and 10 <b>kilometers per hour</b> is a little over 6 <b>miles per hour</b> (6.22mph).
+                  1 <b>kilometer per hour</b> is 0.62 <b>miles per hour</b>. Multiply by 6 and then divide by 10.
                   <List.List>
                     <List.Item>
-                      Example: 25 kilometers per hour is about 25 / 5 = 5; 5 × 3 = 15 miles per hour (actual answer: 15.5mph).
+                      Example: 25 kilometers per hour is about 25 × 6 = 150; 150 / 10 = 15 miles per hour (actual answer: 15.5mph).
                     </List.Item>
                     <List.Item>
-                      Example: 200 kilometers per hour is about 200 / 10 = 20; 20 × 6 = 120 miles per hour (actual answer: 124.3mph).
+                      Example: 200 kilometers per hour is about 200 × 6 = 1200; 1200 / 10 = 120 miles per hour (actual answer: 124.3mph).
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -1557,7 +1586,7 @@ export default {
             </p>
 
             <p>
-              The hectare is a rare departure from form but is used because it is somewhat comparable to the US acre. It is the only named unit that is accepted for use with the SI. A hectare is a square area with 100 meter sides (10,000m², or 0.01km²).
+              The hectare (pronounced <i>hek-tare</i>) is a rare departure from form but is used because it is somewhat comparable to the US acre. It is the only named unit that is accepted for use with SI. A hectare is a square area with 100 meter sides (10,000m², or 0.01km²).
             </p>
           </React.Fragment>
         ),
@@ -1583,7 +1612,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  A <b>square foot</b> is approximately 9% the area of a <b>square meter</b>. So if you divide the square feet by 10 and then reduce that value by 10% you'll have a rough estimate.
+                  A <b>square foot</b> is 0.09 <b>square meters</b>. Divide by 10 and subtract 10% from that value.
                   <List.List>
                     <List.Item>
                       Example: 150 square feet is about 150 / 10 = 15; 15 - 1.5 = 13.5 square meters (actual value: 13.9m²).
@@ -1591,7 +1620,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  An <b>acre</b> is approximately 40% the area of a <b>hectare</b>. So if you multiply by 4 and then divide by 10 you'll have a good estimate.
+                  An <b>acre</b> is 0.4 <b>hectares</b>. Multiply by 4 and then divide by 10.
                   <List.List>
                     <List.Item>
                       Example: 15 acres is about 15 × 4 = 60; 60 / 10 = 6 hectares (actual value: 6.1ha).
@@ -1599,7 +1628,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>square mile</b> is more than two and a half times the area of a <b>square kilometer</b>. So multiplying by two and then adding half more the square miles will give you a rough low-end estimate.
+                  A <b>square mile</b> is 2.59 <b>square kilometer</b>. Multiply by 2 and then add 50% of the starting value. <i>It will give you a rough low-end estimate.</i>
                   <List.List>
                     <List.Item>
                       Example: 8 square miles is about 8 × 2 = 16; 16 + 4 = 20 square kilometers (actual answer: 20.7km²).
@@ -1650,7 +1679,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  A <b>square meter</b> is about 11 times the area of a <b>square foot</b>. So, if you multiply the square meters by 10 and then add 10% more (or simply multiply by 11) you'll have a rough upper-end estimate.
+                  A <b>square meter</b> is 10.76 <b>square feet</b>. Multiply by 10 and then add 10%. <i>It will give you a rough high-end estimate.</i>
                   <List.List>
                     <List.Item>
                       Example: 18 square meters is about 18 × 10 = 180; 180 + 18 = 198 square feet (actual value: 193.8ft²).
@@ -1658,7 +1687,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>hectare</b> is about two and a half times the area of an <b>acre</b>. So, multiplying by 2 and then adding half more the hectares will give you a rough estimate.
+                  A <b>hectare</b> is 2.47 <b>acres</b>. Multiply by 2 and then add 50% of the starting value.
                   <List.List>
                     <List.Item>
                       Example: 24 hectares is about 24 × 2 = 48; 48 + 12 = 60 acres (actual value: 59.3ac).
@@ -1666,10 +1695,13 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>square kilometer</b> is about 40% the area of a <b>square mile</b>. So, if you multiply by 4 and then divide by 10 you'll have a good estimate.
+                  A <b>square kilometer</b> is 0.39 <b>square miles</b>. Multiply by 4 and then divide by 10.
                   <List.List>
                     <List.Item>
                       Example: 40 square kilometers is about 40 × 4 = 160; 160 / 10 = 16 square miles (actual value: 15.4mi²).
+                    </List.Item>
+                    <List.Item>
+                      You can also use your knowledge of converting centimeters to inches to help convert square kilometers to square miles, as their ratio (0.39in to 1cm) is fairly similar (0.39mi² to 1km²).
                     </List.Item>
                   </List.List>
                 </List.Item>
