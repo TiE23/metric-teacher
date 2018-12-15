@@ -1,0 +1,18 @@
+version: "3.6"
+
+services:
+  metric-teacher-client:
+    container_name: metric-teacher-client
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/${METRIC_TEACHER_CLIENT_BUILD_MODE:-test}/Dockerfile
+    volumes:
+      - "metric-teacher-client:/app"
+      - "/app/node_modules"
+    ports:
+      - "3005:3000" # Localdev I prefer 3005
+      - "80:80"     # For production build just go to 80
+
+volumes:
+  metric-teacher-client:
