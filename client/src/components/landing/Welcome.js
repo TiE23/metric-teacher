@@ -195,10 +195,10 @@ const Welcome = props => (
         <Container text>
           <Header dividing>Who's behind {SITE_NAME}?</Header>
           <p>
-            {SITE_NAME} is a personal project of Seattle-based web developer <b>Kyle Geib</b> with digital art created by <b>Paul E</b>.
+            {SITE_NAME} is a personal project of Seattle-based web developer <b>Kyle Geib</b> and features art drawn by Californian digital artist <b>Paul E</b>.
           </p>
           <p>
-            Learn more about us <Link to="/credits">here</Link>.
+            Learn more about the site and us <Link to="/credits">here</Link>.
           </p>
         </Container>
       </Grid.Column>

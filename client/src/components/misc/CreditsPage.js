@@ -2,16 +2,19 @@
 import React from "react";
 import { Container, Header, Icon, Item, List } from "semantic-ui-react";
 
+import ScrollToTopOnMount from "./ScrollToTopOnMount";
 import XLink from "./ExternalLink";
 
 import {
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_CREDITS,
   MASCOT_NAME_LONG,
+  SITE_NAME,
 } from "../../constants";
 
 const CreditsPage = () => (
   <Container text>
+    <ScrollToTopOnMount />
     <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
       <Icon name="users" color={PAGE_ICON_COLOR_CREDITS} />
       Credits
@@ -29,7 +32,7 @@ const CreditsPage = () => (
             </p>
 
             <p>
-              He is currently looking for his next career opportunity as a Fullstack JavaScript developer using ReactJS, NodeJS, and GraphQL with Apollo Client.
+              He is currently looking for his next career opportunity as a Fullstack JavaScript developer using ReactJS, NodeJS, and GraphQL with Apollo Client. {SITE_NAME} is his first website.
             </p>
 
             <p>
@@ -45,7 +48,7 @@ const CreditsPage = () => (
           <Item.Meta>Digital Artist</Item.Meta>
           <Item.Description>
             <p>
-              Californian digital artist and equally skillful creator of cute parrots and dashing elves.
+              Californian digital artist who is skillful at drawing both cute parrots and handsome elves.
             </p>
 
             <p>
