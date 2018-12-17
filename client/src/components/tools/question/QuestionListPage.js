@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Button, Container, Header } from "semantic-ui-react";
+import { Button, Container, Form, Header } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
@@ -33,7 +33,36 @@ class QuestionListPage extends PureComponent {
     };
 
     const buildWhere = (where) => {
-      const subjects = where.subjects && where.subjects.length ?
+      const ids = where.ids ?
+        {
+          id_in: where.ids.replace(/\s/, "").split(","),
+        } : null;
+
+      const authors = where.authors ?
+        {
+          author: {
+            id_in: where.authors.replace(/\s/, "").split(","),
+          },
+        } : null;
+
+      const reviewers = where.reviewers ?
+        {
+          reviewer: {
+            id_in: where.reviewers.replace(/\s/, "").split(","),
+          },
+        } : null;
+
+      const questionText = where.questionText ?
+        {
+          question_contains: where.questionText,
+        } : null;
+
+      const answerText = where.answerText ?
+        {
+          answer_contains: where.answerText,
+        } : null;
+
+      const subjects = where.subjects && where.subjects.length ?  // Check length of array.
         {
           parent: {
             parent: {
@@ -69,15 +98,13 @@ class QuestionListPage extends PureComponent {
           difficulty_in: where.difficulties,
         } : null;
 
-      const authors = where.authors && where.authors.length ?
-        {
-          author: {
-            id_in: where.authors,
-          },
-        } : null;
-
       return mergeWith(
         {},
+        ids,
+        authors,
+        reviewers,
+        questionText,
+        answerText,
         subjects,
         direction,
         types,
@@ -102,22 +129,25 @@ class QuestionListPage extends PureComponent {
     return (
       <Container textAlign="center">
         <Header dividing>Question Search</Header>
-        {this.props.mode === "adminSearch" &&
-          <QuestionSearchOptions
-            handleChange={this.handleWhereChange}
-          />
-        }
-        {this.props.mode === "userContributions" &&
-          <QuestionContributionOptions
-            handleChange={this.handleWhereChange}
-          />
-        }
-        <Button
-          onClick={this.handleSearch}
-          color="olive"
-        >
-          Search
-        </Button>
+        <Form>
+          {this.props.mode === "adminSearch" &&
+            <QuestionSearchOptions
+              handleChange={this.handleWhereChange}
+            />
+          }
+          {this.props.mode === "userContributions" &&
+            <QuestionContributionOptions
+              handleChange={this.handleWhereChange}
+            />
+          }
+          <Button
+            onClick={this.handleSearch}
+            color="olive"
+            type="submit"
+          >
+            Search
+          </Button>
+        </Form>
         {utils.isEmptyRecursive(this.state.searchVariables) ?
           <p>
             <br />

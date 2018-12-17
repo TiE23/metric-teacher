@@ -13,9 +13,7 @@ class QuestionContributionOptions extends PureComponent {
     super(props);
 
     this.state = {
-      authors: [
-        props.userTokenData.id,
-      ],
+      authors: props.userTokenData.id,  // Fixed
       statuses: [],
     };
 
@@ -35,7 +33,7 @@ class QuestionContributionOptions extends PureComponent {
 
   render() {
     return (
-      <Form>
+      <React.Fragment>
         <Form.Group inline widths="equal">
           <Form.Input
             label="Author"
@@ -51,7 +49,7 @@ class QuestionContributionOptions extends PureComponent {
             selection
           />
         </Form.Group>
-      </Form>
+      </React.Fragment>
     );
   }
 }

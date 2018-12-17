@@ -16,6 +16,11 @@ class QuestionSearchOptions extends PureComponent {
     super(props);
 
     this.state = {
+      ids: null,
+      authors: null,
+      reviewers: null,
+      questionText: null,
+      answerText: null,
       subjects: [],
       direction: null,
       types: [],
@@ -30,6 +35,26 @@ class QuestionSearchOptions extends PureComponent {
       ...DIRECTION_DROPDOWN,
       { key: "either", value: undefined, text: "Either", icon: "sync alternate" },
     ];
+
+    this.handleIdsChange = (e, { value }) => {
+      this.setState({ ids: value });
+    };
+
+    this.handleAuthorsChange = (e, { value }) => {
+      this.setState({ authors: value });
+    };
+
+    this.handleReviewersChange = (e, { value }) => {
+      this.setState({ reviewers: value });
+    };
+
+    this.handleQuestionTextChange = (e, { value }) => {
+      this.setState({ questionText: value });
+    };
+
+    this.handleAnswerTextChange = (e, { value }) => {
+      this.setState({ answerText: value });
+    };
 
     this.handleSubjectsChange = (e, { value }) => {
       this.setState({ subjects: value });
@@ -62,7 +87,44 @@ class QuestionSearchOptions extends PureComponent {
 
   render() {
     return (
-      <Form>
+      <React.Fragment>
+        <Form.Group inline widths="equal">
+          <Form.Input
+            label="IDs"
+            placeholder="Any"
+            value={this.state.ids || ""}
+            onChange={this.handleIdsChange}
+            fluid
+          />
+          <Form.Input
+            label="Authors"
+            placeholder="Any"
+            value={this.state.authors || ""}
+            onChange={this.handleAuthorsChange}
+            fluid
+          />
+          <Form.Input
+            label="Reviewers"
+            placeholder="Any"
+            value={this.state.reviewers || ""}
+            onChange={this.handleReviewersChange}
+            fluid
+          />
+          <Form.Input
+            label="Question Text"
+            placeholder="Any"
+            value={this.state.questionText || ""}
+            onChange={this.handleQuestionTextChange}
+            fluid
+          />
+          <Form.Input
+            label="Answer Text"
+            placeholder="Any"
+            value={this.state.answerText || ""}
+            onChange={this.handleAnswerTextChange}
+            fluid
+          />
+        </Form.Group>
         <Form.Group inline widths="equal">
           <Form.Select
             label="Subject (or)"
@@ -124,7 +186,7 @@ class QuestionSearchOptions extends PureComponent {
             selection
           />
         </Form.Group>
-      </Form>
+      </React.Fragment>
     );
   }
 }

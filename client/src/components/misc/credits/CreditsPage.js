@@ -63,8 +63,7 @@ const CreditsPage = () => (
     <Header size="small" content="Artistic" />
     <List horizontal bulleted>
       <List.Item>21 Drawings of {MASCOT_NAME_LONG}</List.Item>
-      <List.Item>62 Drawn Objects in the Background</List.Item>
-      <List.Item>62 Objects in the Background</List.Item>
+      <List.Item>64 Drawn Objects</List.Item>
       <List.Item>1 Green Tree Python Tailor</List.Item>
       <List.Item>1 Weight Lifting African Elephant</List.Item>
       <List.Item>1 Pufferfish Chemist</List.Item>

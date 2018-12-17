@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Button, Container, Header } from "semantic-ui-react";
+import { Button, Container, Form, Header } from "semantic-ui-react";
 import mergeWith from "lodash/mergeWith";
 
 import utils from "../../../utils";
@@ -32,22 +32,29 @@ class FeedbackSearchPage extends PureComponent {
     };
 
     const buildWhere = (where) => {
-      const ids = where.ids && where.ids.length ?
+      const ids = where.ids ?
         {
-          id_in: where.ids,
+          id_in: where.ids.replace(/\s/, "").split(","),
         } : null;
 
-      const authors = where.authors && where.authors.length ?
+      const questions = where.questions ?
         {
-          author: {
-            id_in: where.authors,
+          question: {
+            id_in: where.questions.replace(/\s/, "").split(","),
           },
         } : null;
 
-      const reviewers = where.reviewers && where.reviewers.length ?
+      const authors = where.authors ?
+        {
+          author: {
+            id_in: where.authors.replace(/\s/, "").split(","),
+          },
+        } : null;
+
+      const reviewers = where.reviewers ?
         {
           reviewer: {
-            id_in: where.reviewers,
+            id_in: where.reviewers.replace(/\s/, "").split(","),
           },
         } : null;
 
@@ -64,6 +71,7 @@ class FeedbackSearchPage extends PureComponent {
       return mergeWith(
         {},
         ids,
+        questions,
         authors,
         reviewers,
         statuses,
@@ -85,17 +93,20 @@ class FeedbackSearchPage extends PureComponent {
     return (
       <Container textAlign="center">
         <Header dividing>Feedback Search</Header>
-        {this.props.mode === "adminSearch" &&
-        <FeedbackSearchOptions
-          handleChange={this.handleWhereChange}
-        />
-        }
-        <Button
-          onClick={this.handleSearch}
-          color="olive"
-        >
-          Search
-        </Button>
+        <Form>
+          {this.props.mode === "adminSearch" &&
+          <FeedbackSearchOptions
+            handleChange={this.handleWhereChange}
+          />
+          }
+          <Button
+            onClick={this.handleSearch}
+            color="olive"
+            type="submit"
+          >
+            Search
+          </Button>
+        </Form>
         {utils.isEmptyRecursive(this.state.searchVariables) ?
           <p>
             <br />
