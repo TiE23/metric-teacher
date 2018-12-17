@@ -12,12 +12,7 @@ import {
   SITE_NAME,
   PAGE_TITLE_HEADER_SIZE,
   MASCOT_NAME_LONG,
-  MASCOT_NAME_SHORT,
 } from "../../constants";
-
-import {
-  KyleG,
-} from "../misc/credits/CreditsText";
 
 const Welcome = props => (
   <Grid padded>
@@ -65,7 +60,7 @@ const Welcome = props => (
           <Header dividing>What does it do?</Header>
 
           <p>
-            {SITE_NAME} teaches you the Metric system in a way that will actually help you think in Metric! With regular practice you will not be stuck calculating conversions in your head, instead you'll be simply thinking in Metric!
+            {SITE_NAME} teaches you the Metric System in a way that will actually help you think in metric! With regular practice you will not be stuck calculating conversions in your head, instead you'll be simply thinking in metric!
           </p>
 
           <p>
@@ -75,7 +70,15 @@ const Welcome = props => (
           <Header dividing>How does it work?</Header>
 
           <p>
-            If you've ever used Duolingo, you'll have an idea how to use {SITE_NAME}. By choosing your desired subject to be quizzed on you'll learn by getting asked and answering questions in a dynamic <b>Challenge</b> system!
+            If you've ever used Duolingo you'll have an idea how to use {SITE_NAME}. Learn by answering rapid-fire conversion questions in the dynamic <b>Challenge</b> system.
+          </p>
+
+          <p>
+            Choose a subject and a sub-subject like "<i>Mass - Human-scale</i>" and learn to convert your and your friends' body weights between pounds and kilograms. Choose "<i>Temperature - Weather-scale</i>" and become a master of both Fahrenheit <i>and</i> Celsius weather forecasts!
+          </p>
+
+          <p>
+            By encouraging quick answering and rough conversions, {SITE_NAME} helps you develop a <i>sense</i> for the Metric System!
           </p>
 
           {DocumentationContent.howTo.challenges.questionTypes.content}
@@ -83,7 +86,7 @@ const Welcome = props => (
           <Header dividing>What can it teach me?</Header>
 
           <p>
-            {SITE_NAME} offers instruction on <b>six</b> major Subjects!
+            {SITE_NAME} offers instruction on <b>six</b> Subjects!
           </p>
 
           <Grid>
@@ -150,10 +153,10 @@ const Welcome = props => (
             Just like you've known your entire life that <b>104°F</b> is a blisteringly hot day, you'll learn to naturally recognize that when your Australian friend tells you it's <b>40°C</b> outside on New Year's Day you'll know to <i>not</i> suggest she get the hot cocoa out but instead remind her to drink lots of water! That is the goal of {SITE_NAME}.
           </p>
 
-          <Header dividing>I already know the Metric system! Can it teach me US units?</Header>
+          <Header dividing>I already know the Metric System! Can it teach me US units?</Header>
 
           <p>
-            <b>Yes!</b> {SITE_NAME} can help you by teaching you the US Customary Unit system. Simply set your profile to say that you prefer the Metric system when enrolling and you'll be given questions more appropriate to your needs!
+            <b>Yes!</b> {SITE_NAME} can help you by teaching you the US Customary Unit system. Simply set your profile to say that you prefer the Metric System when enrolling and you'll be given questions more appropriate to your needs!
           </p>
 
           <p>
@@ -191,9 +194,11 @@ const Welcome = props => (
       <Grid.Column>
         <Container text>
           <Header dividing>Who's behind {SITE_NAME}?</Header>
-          {KyleG}
           <p>
-            Learn more about the technology used and <b>Paul E.</b>, the artist behind {MASCOT_NAME_SHORT}, <Link to="/credits">here</Link>.
+            {SITE_NAME} is a personal project of Seattle-based web developer <b>Kyle Geib</b> and proudly features art drawn by Californian digital artist <b>Paul Emery</b>.
+          </p>
+          <p>
+            Learn more about us and the technology behind {SITE_NAME} <Link to="/credits">here</Link>.
           </p>
         </Container>
       </Grid.Column>

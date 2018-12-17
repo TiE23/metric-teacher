@@ -7,7 +7,7 @@ import withAuth from "./components/AuthHOC";
 
 import Welcome from "./components/landing/Welcome";
 import Home from "./components/landing/Home";
-import Credits from "./components/misc/credits/CreditsPage";
+import Credits from "./components/misc/CreditsPage";
 import MenuFrame from "./components/main/MenuFrame";
 import ChallengePage from "./components/challenge/ChallengePage";
 import Login from "./components/entry/Login";
