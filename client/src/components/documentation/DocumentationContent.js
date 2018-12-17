@@ -969,7 +969,7 @@ export default {
                     <Grid.Column><Image src="/img/objects/mass/dumbell.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/mass/flour.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/mass/rock.gif" /></Grid.Column>
-                    {/* Missing a tenth object */}
+                    <Grid.Column><Image src="/img/objects/mass/strawberries.gif" /></Grid.Column>
                   </Grid.Row>
                 </Grid>
               </Responsive>
@@ -1129,7 +1129,7 @@ export default {
               <Grid.Column>
                 <Grid columns="equal">
                   <Grid.Row>
-                    <Grid.Column><Image src="/img/objects/volume/soda.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/volume/soda-bottle.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/volume/bath-tub.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/volume/bottle.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/volume/measurement-cups.gif" /></Grid.Column>
@@ -1144,7 +1144,7 @@ export default {
                     <Grid.Column><Image src="/img/objects/volume/pitcher.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/volume/hose.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/volume/pool.gif" /></Grid.Column>
-                    {/* Missing a tenth object */}
+                    <Grid.Column><Image src="/img/objects/volume/soda-can.gif" /></Grid.Column>
                   </Grid.Row>
                 </Grid>
               </Responsive>
