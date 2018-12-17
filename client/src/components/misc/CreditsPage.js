@@ -32,11 +32,11 @@ const CreditsPage = () => (
             </p>
 
             <p>
-              He is currently looking for his next career opportunity as a Fullstack JavaScript developer using ReactJS, NodeJS, and GraphQL with Apollo Client. {SITE_NAME} is his first website.
+              Kyle is currently looking for his next career opportunity as a Fullstack JavaScript developer using ReactJS, NodeJS, and GraphQL with Apollo Client. {SITE_NAME} is his first website.
             </p>
 
             <p>
-              Find him on <XLink to="https://github.com/TiE23">GitHub</XLink>, <XLink to="https://www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>.
+              Find Kyle on <XLink to="https://github.com/TiE23">GitHub</XLink>, <XLink to="https://www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>.
             </p>
           </Item.Description>
         </Item.Content>
@@ -44,15 +44,15 @@ const CreditsPage = () => (
       <Item>
         <Item.Image src="/img/credits/paul.gif" size="medium" />
         <Item.Content>
-          <Item.Header>Paul E.</Item.Header>
-          <Item.Meta>Digital Artist</Item.Meta>
+          <Item.Header>Paul Emery</Item.Header>
+          <Item.Meta>Freelance Artist</Item.Meta>
           <Item.Description>
             <p>
-              Californian digital artist who is skillful at drawing both cute parrots and handsome elves.
+              Californian digital artist who can draw both cute parrots and handsome elves with equal skill.
             </p>
 
             <p>
-              His art and commission rates can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please take note that some of his art, while always tasteful, sometimes contain mild nudity.</i>
+              Paul's portfolio and contact information can be found on <XLink to="https://www.artstation.com/paulstation2">ArtStation</XLink>.
             </p>
           </Item.Description>
         </Item.Content>
@@ -69,9 +69,9 @@ const CreditsPage = () => (
       <List.Item>3 Question Types</List.Item>
       <List.Item>5 Difficulty Levels</List.Item>
       <List.Item>3 Answer Methods</List.Item>
-      <List.Item>31 Pages of Original Documentation</List.Item>
       <List.Item>17 Different Metric Units</List.Item>
       <List.Item>23 Different US Units</List.Item>
+      <List.Item>31 Pages of Original Documentation</List.Item>
     </List>
 
     <Header size="small" content="Artistic" />
@@ -99,7 +99,7 @@ const CreditsPage = () => (
       <List.Item>4 Different User Types</List.Item>
       <List.Item>151 Unit Tests</List.Item>
       <List.Item>4 Different Admin Tools</List.Item>
-      <List.Item>26 Pages of Documentation</List.Item>
+      <List.Item>26 Pages of Markdown Documentation</List.Item>
       <List.Item>1 Self-driven Developer</List.Item>
     </List>
 
