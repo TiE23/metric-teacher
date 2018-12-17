@@ -8,7 +8,7 @@ const ExternalLink = props => (
     target="_blank"
     rel="noopener noreferrer" // Provides security -> https://mathiasbynens.github.io/rel-noopener/
   >
-    {props.children} <Icon name="external" size="small" fitted />
+    {props.children}&nbsp;<Icon name="external" size="small" fitted />
   </a>
 );
 

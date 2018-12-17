@@ -1,7 +1,7 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
 import { Link } from "react-router-dom";
-import { Grid, Header, Icon, Image, List } from "semantic-ui-react";
+import { Grid, Header, Icon, Image, List, Responsive } from "semantic-ui-react";
 
 import Tables from "./DocumentationTables";
 import XLink from "../misc/ExternalLink";
@@ -133,13 +133,21 @@ export default {
         as: "h2",
         dividing: true,
       },
-      content: (
-        <React.Fragment>
-          <p>
-            After <Link to="/signup">signing up</Link> for an account you'll need to <b>Enroll</b>. This takes only a single click from the <Link to="/user/me">User Profile page</Link>.
-          </p>
-        </React.Fragment>
-      ),
+      content: null,
+
+      enroll: {
+        header: {
+          content: "Enrolling",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              After <Link to="/signup">signing up</Link> for an account you'll need to <b>Enroll</b>. This takes only a single click from the <Link to="/user/me">User Profile page</Link>.
+            </p>
+          </React.Fragment>
+        ),
+      },
 
       course: {
         header: {
@@ -183,7 +191,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            When reviewing your <b>Masteries</b> on the <Link to="/user/me">User Profile page</Link> you can group by Subject or see each SubSubject individually. You can also disable any SubSubject you desire to remove them from Challenges, useful if you have completed or lost interest in a particular SubSubject. Enabling them again will return them availability in Challenges.
+            When reviewing your <b>Masteries</b> on the <Link to="/user/me">User Profile page</Link> you can group by Subject or see each SubSubject individually. You can also disable any SubSubject you desire to remove them from Challenges, useful if you have completed or lost interest in a particular SubSubject. Enabling them again will restore their availability in Challenges.
           </p>
 
           <p>
@@ -576,7 +584,7 @@ export default {
           </p>
 
           <p>
-            US Customary units are identical to Imperial units for length and mass. Differences are <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">limited to liquid volumes</XLink>, which is fortunate so long as you don't find yourself converting an English pint to milliliters with the conversion values of a US pint in mind.
+            US Customary units are identical to Imperial units for length and mass. Differences are <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">limited to <i>liquid</i> volumes</XLink>, which is fortunate so long as you don't find yourself converting an English pint to milliliters with the conversion values of a US pint in mind.
           </p>
 
           {Tables.imperialVsUSVolumes}
@@ -585,7 +593,7 @@ export default {
 
       summary: {
         header: {
-          content: "Imperial vs US Customary Volume Units Summary",
+          content: "Summary",
           as: "h3",
         },
         content: (
@@ -623,13 +631,23 @@ export default {
                 </List.List>
               </List.Item>
             </List>
+          </React.Fragment>
+        ),
+      },
 
+      history: {
+        header: {
+          content: "The History",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
             <p>
               In 1824, decades after the US declared independence in 1776, the British Parliament defined an Imperial gallon as the volume of <XLink to="https://en.wikipedia.org/wiki/Fluid_ounce#History">10 pounds of water</XLink> and similarly an Imperial fluid ounce a equivalent to an ounce (weight) of water. Because there are 160 ounces in 10 pounds, that results in 160 fluid ounces in one gallon.
             </p>
 
             <p>
-              The US gallon is not based on the weight of any liquid. Instead it is based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow history. This is the system that {SITE_NAME} covers.
+              The US gallon is not based on the weight of any liquid. Instead it is based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow history. This is the system that {SITE_NAME} teaches.
             </p>
 
             <p>
@@ -732,6 +750,37 @@ export default {
       },
       content: (
         <React.Fragment>
+          <Grid stackable columns="equal">
+            <Grid.Row>
+              <Grid.Column>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
+                    <Grid.Column><Image src="/img/objects/length/bridge.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/length/ruler.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/length/building.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/length/chain.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/length/tape-measure.gif" /></Grid.Column>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+              <Responsive as={Grid.Column} minWidth={768}>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Grid.Column><Image src="/img/objects/length/long-tape-measure.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/length/polevault.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/length/road-sign.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/length/rope.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/length/surveyor.gif" /></Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Responsive>
+            </Grid.Row>
+          </Grid>
+
+          <br />
+
           <p>
             Length is the most straight-forward measurement to deal with. It is also the most wildly-ranging measurement that you'll need to study in terms of scale. Scales ranging from a grain of rice to the circumference of the Earth and beyond are all applicable to any student.
           </p>
@@ -920,6 +969,37 @@ export default {
       },
       content: (
         <React.Fragment>
+          <Grid stackable columns="equal">
+            <Grid.Row>
+              <Grid.Column>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
+                    <Grid.Column><Image src="/img/objects/mass/barbell.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/mass/body-scale.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/mass/kilogram.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/mass/cinder-block.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/mass/scale.gif" /></Grid.Column>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+              <Responsive as={Grid.Column} minWidth={768}>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Grid.Column><Image src="/img/objects/mass/dump-truck.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/mass/dumbell.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/mass/flour.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/mass/rock.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/mass/strawberries.gif" /></Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Responsive>
+            </Grid.Row>
+          </Grid>
+
+          <br />
+
           <p>
             Mass, or more commonly, weight, is an important measure in daily life. Scales vary from small portions you might encounter in the kitchen to the weight of large vehicles and beyond.
           </p>
@@ -1066,6 +1146,37 @@ export default {
       },
       content: (
         <React.Fragment>
+          <Grid stackable columns="equal">
+            <Grid.Row>
+              <Grid.Column>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
+                    <Grid.Column><Image src="/img/objects/volume/soda-bottle.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/volume/bath-tub.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/volume/bottle.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/volume/measurement-cups.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/volume/syringe.gif" /></Grid.Column>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+              <Responsive as={Grid.Column} minWidth={768}>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Grid.Column><Image src="/img/objects/volume/balloons.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/volume/pitcher.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/volume/hose.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/volume/pool.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/volume/soda-can.gif" /></Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Responsive>
+            </Grid.Row>
+          </Grid>
+
+          <br />
+
           <p>
             Volume by definition is the cube of distance. Daily life very much only deals with volume in terms of water and other consumable liquids, but there is still plenty of applications in science and mechanics to consider different units of volume.
           </p>
@@ -1289,6 +1400,37 @@ export default {
       },
       content: (
         <React.Fragment>
+          <Grid stackable columns="equal">
+            <Grid.Row>
+              <Grid.Column>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
+                    <Grid.Column><Image src="/img/objects/temperature/sun.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/temperature/boiling-pot.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/temperature/cooler.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/temperature/flame.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/temperature/mittens.gif" /></Grid.Column>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+              <Responsive as={Grid.Column} minWidth={768}>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Grid.Column><Image src="/img/objects/temperature/oven.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/temperature/snow-flake.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/temperature/sun-clouds.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/temperature/thermometer.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/temperature/food-pot.gif" /></Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Responsive>
+            </Grid.Row>
+          </Grid>
+
+          <br />
+
           <p>
             Temperature is the black sheep of the six measurement subjects. The Fahrenheit and Celsius scales can have negative values, can represent differences as well as specific temperatures, and most confusingly have different zeroes. These all combine to make conversion and pattern recognition a cumbersome affair.
           </p>
@@ -1431,6 +1573,37 @@ export default {
       },
       content: (
         <React.Fragment>
+          <Grid stackable columns="equal">
+            <Grid.Row>
+              <Grid.Column>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
+                    <Grid.Column><Image src="/img/objects/velocity/sports-car.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/velocity/airplane.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/velocity/tachometer.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/velocity/race-car.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/velocity/rocket.gif" /></Grid.Column>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+              <Responsive as={Grid.Column} minWidth={768}>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Grid.Column><Image src="/img/objects/velocity/bicycle.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/velocity/running-shoes.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/velocity/slingshot.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/velocity/train.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/velocity/baseball-mitt.gif" /></Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Responsive>
+            </Grid.Row>
+          </Grid>
+
+          <br />
+
           <p>
             Velocity is the measurement of distance travelled over a set unit of time. Scales of velocity that concern people are usually centered around travelling. Whether on foot, on bicycle, in a car, or an airliner, there is a wide range of speeds to be familiar with.
           </p>
@@ -1567,8 +1740,37 @@ export default {
       },
       content: (
         <React.Fragment>
+          <Grid stackable columns="equal">
+            <Grid.Row>
+              <Grid.Column>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Grid.Column><Image src="/img/objects/area/paper.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/area/soccer-field.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/area/house.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/area/local-map.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/area/globe.gif" /></Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+              <Responsive as={Grid.Column} minWidth={768}>
+                <Grid columns="equal">
+                  <Grid.Row>
+                    <Grid.Column><Image src="/img/objects/area/rug.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/area/cloth.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/area/football-field.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/area/office-building.gif" /></Grid.Column>
+                    <Grid.Column><Image src="/img/objects/area/usa-map.gif" /></Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Responsive>
+            </Grid.Row>
+          </Grid>
+
+          <br />
+
           <p>
-            Area is simply the square of distances but in practice proves to be an interesting subject as the orders of magnitude at play in any typical application can greatly contrast the usefulness of units at different scales. That is to say, units used to measure the floorspace of a home is likely not at all useful when dealing with a plot of land, and an acre or hectare would hardly be appropriate to represent the size of a state or country.
+            Area is simply the square of length. In practice area proves to be an interesting subject as the orders of magnitude involved in measurements range widely and the units range widely as well. That is to say, units such as square feet and square meters used to measure the floorspace of a home is likely not at all useful when dealing with a plot of land, and an acre or hectare would hardly be appropriate to represent the size of a state or country.
           </p>
         </React.Fragment>
       ),
@@ -1653,7 +1855,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              Like it is for length there is no US Customary "base unit" for area. But we can use square feet for this purpose. The acre is used for plots of land and square miles are for much larger areas up to and including countries and continents.
+              Like it is for length, there is no US Customary "base unit" for area. But we can use square feet for this purpose. The acre is used for plots of land and square miles are for much larger areas up to and including countries and continents.
             </p>
           </React.Fragment>
         ),

@@ -5,6 +5,7 @@ import { Container, Header, Icon } from "semantic-ui-react";
 import sortBy from "lodash/sortBy";
 
 import QueryHandler from "../QueryHandler";
+import ScrollToTopOnMount from "../misc/ScrollToTopOnMount";
 import SubjectsList from "./SubjectsList";
 import SubjectsPageDescription from "./SubjectsPageDescription";
 
@@ -31,6 +32,7 @@ const Subjects = (props) => {
           queryData={queryProps}
         >
           <Container text>
+            <ScrollToTopOnMount />
             <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
               <Header.Content>
                 <Icon name="tasks" color={PAGE_ICON_COLOR_SUBJECTS} />
