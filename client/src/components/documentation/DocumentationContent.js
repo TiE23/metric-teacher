@@ -584,7 +584,7 @@ export default {
           </p>
 
           <p>
-            US Customary units are identical to Imperial units for length and mass. Differences are <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">limited to liquid volumes</XLink>, which is fortunate so long as you don't find yourself converting an English pint to milliliters with the conversion values of a US pint in mind.
+            US Customary units are identical to Imperial units for length and mass. Differences are <XLink to="https://en.wikipedia.org/wiki/Comparison_of_the_imperial_and_US_customary_measurement_systems">limited to <i>liquid</i> volumes</XLink>, which is fortunate so long as you don't find yourself converting an English pint to milliliters with the conversion values of a US pint in mind.
           </p>
 
           {Tables.imperialVsUSVolumes}
@@ -593,7 +593,7 @@ export default {
 
       summary: {
         header: {
-          content: "Imperial vs US Customary Volume Units Summary",
+          content: "Summary",
           as: "h3",
         },
         content: (
@@ -631,13 +631,23 @@ export default {
                 </List.List>
               </List.Item>
             </List>
+          </React.Fragment>
+        ),
+      },
 
+      history: {
+        header: {
+          content: "The History",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
             <p>
               In 1824, decades after the US declared independence in 1776, the British Parliament defined an Imperial gallon as the volume of <XLink to="https://en.wikipedia.org/wiki/Fluid_ounce#History">10 pounds of water</XLink> and similarly an Imperial fluid ounce a equivalent to an ounce (weight) of water. Because there are 160 ounces in 10 pounds, that results in 160 fluid ounces in one gallon.
             </p>
 
             <p>
-              The US gallon is not based on the weight of any liquid. Instead it is based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow history. This is the system that {SITE_NAME} covers.
+              The US gallon is not based on the weight of any liquid. Instead it is based on the older <XLink to="https://en.wikipedia.org/wiki/Wine_gallon">1707 English wine gallon</XLink> which was 231 cubic inches and had its own complicated and hard-to-follow history. This is the system that {SITE_NAME} teaches.
             </p>
 
             <p>
@@ -1760,7 +1770,7 @@ export default {
           <br />
 
           <p>
-            Area is simply the square of distances but in practice proves to be an interesting subject as the orders of magnitude at play in any typical application can greatly contrast the usefulness of units at different scales. That is to say, units used to measure the floorspace of a home is likely not at all useful when dealing with a plot of land, and an acre or hectare would hardly be appropriate to represent the size of a state or country.
+            Area is simply the square of length. In practice area proves to be an interesting subject as the orders of magnitude involved in measurements range widely and the units range widely as well. That is to say, units such as square feet and square meters used to measure the floorspace of a home is likely not at all useful when dealing with a plot of land, and an acre or hectare would hardly be appropriate to represent the size of a state or country.
           </p>
         </React.Fragment>
       ),
@@ -1845,7 +1855,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              Like it is for length there is no US Customary "base unit" for area. But we can use square feet for this purpose. The acre is used for plots of land and square miles are for much larger areas up to and including countries and continents.
+              Like it is for length, there is no US Customary "base unit" for area. But we can use square feet for this purpose. The acre is used for plots of land and square miles are for much larger areas up to and including countries and continents.
             </p>
           </React.Fragment>
         ),
