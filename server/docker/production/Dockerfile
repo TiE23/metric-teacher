@@ -6,15 +6,15 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # install modules
-COPY ./package.json ./package.json
-RUN yarn install --network-timeout 1000000
+COPY package.json yarn.lock ./
+RUN yarn install
 
 # copy files to work directory
-COPY . .
+COPY . /app
+
+EXPOSE 4000
 
 # start the server (port 4000)
 #CMD [ "yarn", "start" ]
 # Leave as this until I fix prisma server contact
 CMD [ "node", "-r", "dotenv/config", "src/index.js" ]
-
-EXPOSE 4000

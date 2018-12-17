@@ -5,12 +5,11 @@ FROM node:10.5.0
 RUN mkdir -p /app
 WORKDIR /app
 
-# install modules
-COPY ./package.json ./package.json
-RUN yarn install --network-timeout 1000000
-
-# copy files to work directory
+# copy files to work directory (relying on .dockerignore here)
 COPY . .
+
+# install modules
+RUN yarn install
 
 # start the server (port 4000)
 #CMD [ "yarn", "start" ]
