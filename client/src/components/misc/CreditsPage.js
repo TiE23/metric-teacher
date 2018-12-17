@@ -1,19 +1,14 @@
-/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
 import { Container, Header, Icon, Item, List } from "semantic-ui-react";
 
-import XLink from "../ExternalLink";
+import XLink from "./ExternalLink";
 
 import {
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_CREDITS,
   MASCOT_NAME_LONG,
-} from "../../../constants";
-
-import {
-  KyleG,
-  PaulE,
-} from "./CreditsText";
+} from "../../constants";
 
 const CreditsPage = () => (
   <Container text>
@@ -29,7 +24,17 @@ const CreditsPage = () => (
           <Item.Header>Kyle Geib</Item.Header>
           <Item.Meta>Creator and Developer</Item.Meta>
           <Item.Description>
-            {KyleG}
+            <p>
+              Seattle-based web developer who wanted to learn both modern JS web development <i>and</i> the Metric System... so... I guess <i>this</i> happened.
+            </p>
+
+            <p>
+              He is currently looking for his next career opportunity as a Fullstack JavaScript developer using ReactJS, NodeJS, and GraphQL with Apollo Client.
+            </p>
+
+            <p>
+              Find him on <XLink to="https://github.com/TiE23">GitHub</XLink>, <XLink to="https://www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>.
+            </p>
           </Item.Description>
         </Item.Content>
       </Item>
@@ -39,7 +44,13 @@ const CreditsPage = () => (
           <Item.Header>Paul E.</Item.Header>
           <Item.Meta>Digital Artist</Item.Meta>
           <Item.Description>
-            {PaulE}
+            <p>
+              Californian digital artist and equally skillful creator of cute parrots and dashing elves.
+            </p>
+
+            <p>
+              His art and commission rates can be found on <XLink to="http://paulstation2.tumblr.com/tagged/art">Tumblr</XLink>. <i>Please take note that some of his art, while always tasteful, sometimes contain mild nudity.</i>
+            </p>
           </Item.Description>
         </Item.Content>
       </Item>
