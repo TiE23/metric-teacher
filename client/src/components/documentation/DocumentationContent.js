@@ -133,13 +133,21 @@ export default {
         as: "h2",
         dividing: true,
       },
-      content: (
-        <React.Fragment>
-          <p>
-            After <Link to="/signup">signing up</Link> for an account you'll need to <b>Enroll</b>. This takes only a single click from the <Link to="/user/me">User Profile page</Link>.
-          </p>
-        </React.Fragment>
-      ),
+      content: null,
+
+      enroll: {
+        header: {
+          content: "Enrolling",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              After <Link to="/signup">signing up</Link> for an account you'll need to <b>Enroll</b>. This takes only a single click from the <Link to="/user/me">User Profile page</Link>.
+            </p>
+          </React.Fragment>
+        ),
+      },
 
       course: {
         header: {
@@ -183,7 +191,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            When reviewing your <b>Masteries</b> on the <Link to="/user/me">User Profile page</Link> you can group by Subject or see each SubSubject individually. You can also disable any SubSubject you desire to remove them from Challenges, useful if you have completed or lost interest in a particular SubSubject. Enabling them again will return them availability in Challenges.
+            When reviewing your <b>Masteries</b> on the <Link to="/user/me">User Profile page</Link> you can group by Subject or see each SubSubject individually. You can also disable any SubSubject you desire to remove them from Challenges, useful if you have completed or lost interest in a particular SubSubject. Enabling them again will restore their availability in Challenges.
           </p>
 
           <p>
@@ -732,16 +740,18 @@ export default {
       },
       content: (
         <React.Fragment>
-          <Grid stackable columns="equal" padded="horizontally">
+          <Grid stackable columns="equal">
             <Grid.Row>
               <Grid.Column>
                 <Grid columns="equal">
                   <Grid.Row>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
                     <Grid.Column><Image src="/img/objects/length/bridge.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/length/ruler.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/length/building.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/length/chain.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/length/tape-measure.gif" /></Grid.Column>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
                   </Grid.Row>
                 </Grid>
               </Grid.Column>
@@ -949,16 +959,18 @@ export default {
       },
       content: (
         <React.Fragment>
-          <Grid stackable columns="equal" padded="horizontally">
+          <Grid stackable columns="equal">
             <Grid.Row>
               <Grid.Column>
                 <Grid columns="equal">
                   <Grid.Row>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
                     <Grid.Column><Image src="/img/objects/mass/barbell.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/mass/body-scale.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/mass/kilogram.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/mass/cinder-block.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/mass/scale.gif" /></Grid.Column>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
                   </Grid.Row>
                 </Grid>
               </Grid.Column>
@@ -1124,16 +1136,18 @@ export default {
       },
       content: (
         <React.Fragment>
-          <Grid stackable columns="equal" padded="horizontally">
+          <Grid stackable columns="equal">
             <Grid.Row>
               <Grid.Column>
                 <Grid columns="equal">
                   <Grid.Row>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
                     <Grid.Column><Image src="/img/objects/volume/soda-bottle.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/volume/bath-tub.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/volume/bottle.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/volume/measurement-cups.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/volume/syringe.gif" /></Grid.Column>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
                   </Grid.Row>
                 </Grid>
               </Grid.Column>
@@ -1376,16 +1390,18 @@ export default {
       },
       content: (
         <React.Fragment>
-          <Grid stackable columns="equal" padded="horizontally">
+          <Grid stackable columns="equal">
             <Grid.Row>
               <Grid.Column>
                 <Grid columns="equal">
                   <Grid.Row>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
                     <Grid.Column><Image src="/img/objects/temperature/sun.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/temperature/boiling-pot.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/temperature/cooler.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/temperature/flame.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/temperature/mittens.gif" /></Grid.Column>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
                   </Grid.Row>
                 </Grid>
               </Grid.Column>
@@ -1547,16 +1563,18 @@ export default {
       },
       content: (
         <React.Fragment>
-          <Grid stackable columns="equal" padded="horizontally">
+          <Grid stackable columns="equal">
             <Grid.Row>
               <Grid.Column>
                 <Grid columns="equal">
                   <Grid.Row>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
                     <Grid.Column><Image src="/img/objects/velocity/sports-car.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/velocity/airplane.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/velocity/tachometer.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/velocity/race-car.gif" /></Grid.Column>
                     <Grid.Column><Image src="/img/objects/velocity/rocket.gif" /></Grid.Column>
+                    <Responsive as={Grid.Column} maxWidth={768}>&nbsp;</Responsive>
                   </Grid.Row>
                 </Grid>
               </Grid.Column>
@@ -1712,7 +1730,7 @@ export default {
       },
       content: (
         <React.Fragment>
-          <Grid stackable columns="equal" padded="horizontally">
+          <Grid stackable columns="equal">
             <Grid.Row>
               <Grid.Column>
                 <Grid columns="equal">
