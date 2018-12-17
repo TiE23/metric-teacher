@@ -24,7 +24,7 @@ const CreditsPage = () => (
 
     <Item.Group>
       <Item>
-        <Item.Image src="/img/mascot/portrait.gif" size="small" />
+        <Item.Image src="/img/credits/kyle.gif" size="medium" />
         <Item.Content>
           <Item.Header>Kyle Geib</Item.Header>
           <Item.Meta>Creator and Developer</Item.Meta>
@@ -34,7 +34,7 @@ const CreditsPage = () => (
         </Item.Content>
       </Item>
       <Item>
-        <Item.Image src="/img/mascot/portrait.gif" size="small" />
+        <Item.Image src="/img/credits/paul.gif" size="medium" />
         <Item.Content>
           <Item.Header>Paul E.</Item.Header>
           <Item.Meta>Digital Artist</Item.Meta>
