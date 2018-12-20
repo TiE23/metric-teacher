@@ -5,16 +5,12 @@ FROM node:10.5.0
 RUN mkdir -p /app
 WORKDIR /app
 
-# install modules
 COPY package.json yarn.lock ./
+
+# install modules
 RUN yarn install
 
-# copy files to work directory
-COPY . /app
+# copy files to work directory (relying on .dockerignore here)
+COPY . .
 
 EXPOSE 4000
-
-# start the server (port 4000)
-#CMD [ "yarn", "start" ]
-# Leave as this until I fix prisma server contact
-CMD [ "node", "-r", "dotenv/config", "src/index.js" ]

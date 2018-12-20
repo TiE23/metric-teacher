@@ -7,9 +7,7 @@ services:
     build:
       context: .
       dockerfile: docker/${METRIC_TEACHER_SERVER_BUILD_MODE:-test}/Dockerfile
-    volumes:
-      - "metric-teacher-server:/app"
-      - "/app/node_modules"
+    command: "yarn start"
     ports:
       - "4000:4000"
     extra_hosts:
