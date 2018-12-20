@@ -281,7 +281,7 @@ mutation {
         {
           index: 4001000
           name: "Temperature - Weather-scale - To Metric"
-          description: "Convert from values ranging -5 to 115 Fahrenheit. A scale concerned temperatures that can be found in normally human-habitable nature. Such as from frosty blizzards to arid heat-waves, avoiding Antarctic lows and Death Valley highs."
+          description: "Convert from values ranging -5 to 115 Fahrenheit. A scale concerned with temperatures that can be found in normally human-habitable nature. Such as from frosty blizzards to arid heat-waves, avoiding Antarctic lows and Death Valley highs."
           toMetric: true
           rarity: 0
           scale: "weather"
@@ -289,7 +289,7 @@ mutation {
         {
           index: 4001001
           name: "Temperature - Weather-scale - From Metric"
-          description: "Convert from values ranging -20 to 45 Celsius. A scale concerned temperatures that can be found in normally human-habitable nature. Such as from frosty blizzards to arid heat-waves, avoiding Antarctic lows and Death Valley highs."
+          description: "Convert from values ranging -20 to 45 Celsius. A scale concerned with temperatures that can be found in normally human-habitable nature. Such as from frosty blizzards to arid heat-waves, avoiding Antarctic lows and Death Valley highs."
           toMetric: false
           rarity: 0
           scale: "weather"
@@ -297,7 +297,7 @@ mutation {
         {
           index: 4002000
           name: "Temperature - Cooking-scale - To Metric"
-          description: "Convert from values ranging 115 to 572 Fahrenheit. A scale concerned temperatures that can be found in a pot or oven. Such as slow-cookers, ovens, barbecues, and hot-fired ovens."
+          description: "Convert from values ranging 115 to 572 Fahrenheit. A scale concerned with temperatures that can be found in a pot or oven. Such as slow-cookers, ovens, barbecues, and hot-fired ovens."
           toMetric: true
           rarity: 0
           scale: "cooking"
@@ -305,7 +305,7 @@ mutation {
         {
           index: 4002001
           name: "Temperature - Cooking-scale - From Metric"
-          description: "Convert from values ranging 45 to 300 Celsius. A scale concerned temperatures that can be found in a pot or oven. Such as slow-cookers, ovens, barbecues, and hot-fired ovens."
+          description: "Convert from values ranging 45 to 300 Celsius. A scale concerned with temperatures that can be found in a pot or oven. Such as slow-cookers, ovens, barbecues, and hot-fired ovens."
           toMetric: false
           rarity: 0
           scale: "cooking"
@@ -313,7 +313,7 @@ mutation {
         {
           index: 4003000
           name: "Temperature - Chemistry-scale - To Metric"
-          description: "Convert from values greater than 572 Fahrenheit. A scale concerned temperatures that can be found in chemical or engineering settings. Such as ignition points of materials, melting points of metals, etc."
+          description: "Convert from values greater than 572 Fahrenheit. A scale concerned with temperatures that can be found in chemical or engineering settings. Such as ignition points of materials, melting points of metals, etc."
           toMetric: true
           rarity: 0
           scale: "chemistry"
@@ -321,7 +321,7 @@ mutation {
         {
           index: 4003001
           name: "Temperature - Chemistry-scale - From Metric"
-          description: "Convert from values greater than 300 Celsius. A scale concerned temperatures that can be found in chemical or engineering settings. Such as ignition points of materials, melting points of metals, etc."
+          description: "Convert from values greater than 300 Celsius. A scale concerned with temperatures that can be found in chemical or engineering settings. Such as ignition points of materials, melting points of metals, etc."
           toMetric: false
           rarity: 0
           scale: "chemistry"
