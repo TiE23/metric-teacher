@@ -5,19 +5,20 @@ FROM node:10.5.0
 RUN mkdir -p /app
 WORKDIR /app
 
-# install modules
-COPY ./package.json ./package.json
-RUN yarn install --network-timeout 1000000
+# install serve program
 RUN yarn global add serve
 
-# copy files to work directory
+# install gulp
+RUN yarn global add gulp-cli
+
+# install modules, need to ignore script from semantic-ui
+COPY package.json yarn.lock ./
+RUN yarn install --ignore-scripts
+
+# copy files to work directory (relying on .dockerignore here)
 COPY . .
 
 # build the client
 RUN yarn build
-#RUN rm -rf ./src
-
-# start the client
-CMD [ "serve", "--single", "--port=80", "./build" ]
 
 EXPOSE 80

@@ -7,12 +7,9 @@ services:
     build:
       context: .
       dockerfile: docker/${METRIC_TEACHER_CLIENT_BUILD_MODE:-test}/Dockerfile
-    volumes:
-      - "metric-teacher-client:/app"
-      - "/app/node_modules"
+    command: "serve --single --listen=80 ./build"
     ports:
-      - "3005:3000" # Localdev I prefer 3005
-      - "80:80"     # For production build just go to 80
+      - "80:80"
 
 volumes:
   metric-teacher-client:
