@@ -1,0 +1,15 @@
+version: "3.6"
+
+services:
+  metric-teacher-client:
+    container_name: metric-teacher-client
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/${METRIC_TEACHER_CLIENT_BUILD_MODE:-test}/Dockerfile
+    command: "serve --single --listen=80 ./build"
+    ports:
+      - "80:80"
+
+volumes:
+  metric-teacher-client:

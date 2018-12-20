@@ -1,0 +1,23 @@
+version: "3.6"
+
+services:
+  metric-teacher-server:
+    container_name: metric-teacher-server
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/${METRIC_TEACHER_SERVER_BUILD_MODE:-test}/Dockerfile
+    command: "yarn start"
+    ports:
+      - "4000:4000"
+    extra_hosts:
+      - "self:172.18.0.20"
+
+# Connect to Prisma bridge (created at the "up" of ./database/docker-compose.yml)
+networks:
+  default:
+    external:
+      name: database_prisma
+
+volumes:
+  metric-teacher-server:

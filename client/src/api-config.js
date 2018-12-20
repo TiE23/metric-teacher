@@ -10,6 +10,10 @@ if (process.env.METRIC_TEACHER_SERVER_BACKEND_HOST) {
   API_ROOT = `${process.env.METRIC_TEACHER_SERVER_BACKEND_HOST}:${port}`;
 } else if (/amazonaws.com$/.test(hostname)) { // AWS testing
   API_ROOT = `${hostname}:${port}`;
+} else if (/metric-teacher.com$/.test(hostname)) {  // First domain name
+  API_ROOT = `${hostname}:${port}`;
+} else if (/metricteacher.app$/.test(hostname)) {   // Second domain name
+  API_ROOT = `${hostname}:${port}`;
 } else if (/^192\.168\.1\./.test(hostname)) { // Local network testing
   API_ROOT = `${hostname}:${port}`;
 } else {                                      // Local machine testing
