@@ -22,7 +22,7 @@ export default (
     </p>
 
     <p>
-      This is to explain to you that I, the owner of this website, never see your password (<XLink to="https://github.com/TiE23/metric-teacher/blob/master/server/src/resolvers/Mutation/auth.js">Source Code</XLink>). It's encrypted in the data database and by my rough estimate would take a custom $8,000 computer up to 200 days of brute force to crack a single truly random six character alphanumeric password. Make that seven characters and it might take 33 years.
+      This is to explain to you that I, the owner of this website, never see your password (<XLink to="https://github.com/TiE23/metric-teacher/blob/master/server/src/resolvers/Mutation/auth.js">Source Code</XLink>). It's encrypted in the database and by my rough estimate would take a custom $8,000 computer up to 200 days of brute force to crack a single truly random six character alphanumeric password. Make that seven characters and it might take 33 years.
     </p>
 
     <p>
