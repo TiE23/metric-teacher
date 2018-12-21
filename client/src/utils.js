@@ -1189,16 +1189,22 @@ const minMax = (min, value, max) => (Math.max(min, Math.min(value, max)));
 
 /**
  * Random choice option selector for Challenge mode for Written questions.
+ * What it does it it takes the number available (ex: 6) and generates a simple range array...
+ * (ex: [1, 2, 3, 4, 5], not including 0 which is the correct answer)
+ * It shuffles this range...
+ * (ex: [2, 5, 4, 3, 1])
+ * And then slices the number offered (ex: 4)
+ * (ex: [2, 5, 4], offered - 1 number of choices)
+ * It then randomly splices in the 0...
+ * (ex: [2, 0, 5, 4], the correct answer will be the second one in the list)
  *
  * @param available
  * @param offered
  * @returns {Array}
  */
 const writtenChoiceSelector = (available, offered = 2) => {
-  // Ex: 7 answers available (0-6), 4 offered...
-  const choicesAvailable = shuffle(range(1, available));  // [2, 6, 5, 1, 3, 4] (0 not included)
-  const offeredChoices = choicesAvailable.slice(0, offered);  // [2, 6, 5, 1]
-  offeredChoices[random(0, offeredChoices.length - 1)] = 0; // [2, 6, 0, 1] (0 replaces 5)
+  const offeredChoices = shuffle(range(1, available)).slice(0, offered - 1);
+  offeredChoices.splice(random(0, offeredChoices.length - 1), 0, 0);
 
   return offeredChoices;
 };

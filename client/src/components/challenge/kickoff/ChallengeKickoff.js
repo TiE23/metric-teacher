@@ -117,6 +117,8 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
         >
           Start Challenge!
         </Button>
+        {/* Set Question IDs in ChallengePage.handleQuestionModeStart() */}
+        {/* <button onClick={props.handleQuestionModeStart}>Dev Q's</button> */}
       </QueryHandler>
     )}
   </Query>
