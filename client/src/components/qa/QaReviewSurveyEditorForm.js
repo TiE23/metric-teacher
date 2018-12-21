@@ -74,7 +74,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
         this.props.onSubmit({
           value: newValue,
           unit: this.props.unit,  // Cannot be changed, but is required.
-          detail: this.state.note.trim(),
+          detail: this.state.note && this.state.note.trim(),
           score: newValue === this.props.answer ?
             this.props.score : null,
         });
