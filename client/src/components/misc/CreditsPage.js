@@ -94,10 +94,10 @@ const CreditsPage = () => (
       <List.Item>22,000+ Javascript SLOC</List.Item>
       <List.Item>35 GraphQL Query Endpoints</List.Item>
       <List.Item>27 GraphQL Mutation Endpoints</List.Item>
-      <List.Item>140+ Closed GitHub Issues</List.Item>
-      <List.Item>640+ Non-merge Commits</List.Item>
+      <List.Item>150+ Closed GitHub Issues</List.Item>
+      <List.Item>680+ Non-merge Commits</List.Item>
       <List.Item>4 Different User Types</List.Item>
-      <List.Item>151 Unit Tests</List.Item>
+      <List.Item>150+ Unit Tests</List.Item>
       <List.Item>4 Different Admin Tools</List.Item>
       <List.Item>26 Pages of Markdown Documentation</List.Item>
       <List.Item>1 Self-driven Developer</List.Item>

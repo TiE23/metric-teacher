@@ -26,15 +26,17 @@ export default (
     </p>
 
     <p>
-      Your name, email address, and your Survey answers are all visible to me but are not made public. I've taken specific steps to prevent this from happening through specific schema choices in {SITE_NAME}'s API design. I will never share your data with anyone.
+      Your name, email address, and your Survey answers are all visible to me but are not made public on the site nor in any accessible API. I will never share your data with anyone.
     </p>
 
     <p>
-      Finally, the database is secured with access protection and unique passwords and keys. All that said I cannot guarantee I could withstand a direct hacking attack, though I would suspect nefarious attackers would rather break the site than try and steal anything from it.
+      Finally, the site's hosting and database is secured with layers of password and key security. All that said I cannot guarantee I can withstand a world-class hacking attack, but I suspect that would likely never happen.
     </p>
 
     <p style={{ textAlign: "right" }}>
-      <i>—Kyle Geib, December 2018</i>
+      —Kyle Geib, December 2018
+      <br />
+      <i>Creator and Developer of {SITE_NAME}</i>
     </p>
   </React.Fragment>
 );
