@@ -30,8 +30,8 @@ const auth = {
    * @param args
    *        email: String!
    *        password: String!
-   *        fname: String!
-   *        lname: String!
+   *        fname: String
+   *        lname: String
    * @param ctx
    * @returns AuthPayload!
    */

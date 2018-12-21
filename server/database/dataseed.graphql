@@ -2004,7 +2004,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "In your estimation how long is your leg from ankle to hip? [12,48in(1)s]"
+    question: "In your estimation how long is your thigh from knee to hip? [10,28in(1)s]"
     answer: "[cm(5)a]"
     media: ""
     parent: {
@@ -2722,7 +2722,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "In your estimation how long is your leg from ankle to hip? [30,120cm(2)s]"
+    question: "In your estimation how long is your thigh from knee to hip? [24,72cm(2)s]"
     answer: "[in(2)a]"
     media: ""
     parent: {
