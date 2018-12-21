@@ -1988,7 +1988,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 1
-    question: "In your estimation what height is your hip from the ground when standing? [20,45in(1)s]"
+    question: "In your estimation what height is your hip from the ground when standing? [20,50in(1)s]"
     answer: "[cm(10)a]"
     media: ""
     parent: {
@@ -2706,7 +2706,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 1
-    question: "In your estimation what height is your hip from the ground when standing? [50,115cm(2)s]"
+    question: "In your estimation what height is your hip from the ground when standing? [50,128cm(2)s]"
     answer: "[in(5)a]"
     media: ""
     parent: {
