@@ -23,7 +23,7 @@ export default [
       content: (
         <React.Fragment>
           <p>
-            If you've ever used Duolingo you'll have an idea how to use {SITE_NAME}. Learn by answering rapid-fire conversion questions in the dynamic <b>Challenge</b> system.
+            If you've ever used the language learning tool Duolingo you'll have an idea how to use {SITE_NAME}. You learn by answering rapid-fire conversion questions in the dynamic <b>Challenge</b> system.
           </p>
 
           <p>

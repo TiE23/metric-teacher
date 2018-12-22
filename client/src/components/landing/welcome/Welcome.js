@@ -30,19 +30,15 @@ const Welcome = props => (
         <Container text>
           <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
             <Header.Content>
-              Welcome to {SITE_NAME}!
+              {SITE_NAME}
               <Header.Subheader>
-                The best way to learn the Metric System.
+                A new way to learn the Metric System.
               </Header.Subheader>
             </Header.Content>
           </Header>
 
           <p>
-            {SITE_NAME} is a free website that will help you learn to understand, describe, and imagine objects, people, and the world using the Metric System.
-          </p>
-
-          <p>
-            Read {SITE_NAME}'s mission statement <Link to="/docs/missionstatement">here</Link>.
+            Welcome! {SITE_NAME} is a free website that will help you learn to understand, describe, and imagine objects, people, and the world using the Metric System. Read our mission statement <Link to="/docs/missionstatement">here</Link>.
           </p>
         </Container>
       </Grid.Column>
