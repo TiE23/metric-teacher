@@ -927,20 +927,20 @@ export default {
                   A <b>meter</b> is 3.28 <b>feet</b>. Multiply by 3 and then add 10%.
                   <List.List>
                     <List.Item>
-                      Example: 4 meters is about 4 × 3 = 12; 12 * 1.1 = 13.2 <b>feet</b> (actual answer: 13.1ft).
+                      Example: 4 meters is about 4 × 3 = 12; 12 * 1.1 = 13.2 feet (actual answer: 13.1ft).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>meter</b> is about 9% longer than a <b>yard</b>. Add 10%.
+                  A <b>meter</b> is 1.094 <b>yards</b>. Add 10%.
                   <List.List>
                     <List.Item>
-                      Example: 15 meters is about 15 + 1.5 = 16.5 <b>yards</b> (actual answer: 16.4yd).
+                      Example: 15 meters is about 15 + 1.5 = 16.5 yards (actual answer: 16.4yd).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>kilometer</b> is about 0.6 <b>miles</b>. Multiply by 6 and then divide by 10.
+                  A <b>kilometer</b> is 0.62 <b>miles</b>. Multiply by 6 and then divide by 10.
                   <List.List>
                     <List.Item>
                       Example: 25 kilometers is about 25 × 6 = 150; 150 / 10 = 15 miles (actual answer: 15.5mi).
@@ -1241,7 +1241,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>cup</b> is about 236.6 <b>milliliters</b>. Multiply by 250 and then subtract 5%.
+                  A <b>cup</b> is 236.6 <b>milliliters</b>. Multiply by 250 and then subtract 5%.
                   <List.List>
                     <List.Item>
                       Example: 4 cups is about 250 × 4 = 1000; 1000 - 50 = 950 milliliters (actual answer: 946ml).
