@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
-import { Container, Icon, Header } from "semantic-ui-react";
+import { Icon, Header } from "semantic-ui-react";
 
 import utils from "../../utils";
 
@@ -34,17 +34,15 @@ const UserDetailBasicsEditor = (props) => {
     >
       {(updateUserProfile, { loading, error }) => (
         <React.Fragment>
-          <Container text>
-            <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-              <Header.Content>
-                <Icon name="edit" color={PAGE_ICON_COLOR_PROFILE} />
-                Edit User Details
-                <Header.Subheader>
-                  Update Your Information.
-                </Header.Subheader>
-              </Header.Content>
-            </Header>
-          </Container>
+          <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+            <Header.Content>
+              <Icon name="edit" color={PAGE_ICON_COLOR_PROFILE} />
+              Edit User Details
+              <Header.Subheader>
+                Update Your Information.
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
           <br />
           <UserDetailBasicsEditorForm
             initUserData={userData}

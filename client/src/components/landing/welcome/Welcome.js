@@ -5,7 +5,6 @@ import { Link, Redirect } from "react-router-dom";
 import { Accordion, Container, Grid, Header, Image } from "semantic-ui-react";
 
 import SignupLoginButtons from "../../misc/SignupLoginButtons";
-import FrameFooter from "../../main/FrameFooter";
 import WelcomeText from "./WelcomeText";
 
 import {

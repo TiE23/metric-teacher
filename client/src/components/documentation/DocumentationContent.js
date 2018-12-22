@@ -822,7 +822,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  An <b>inch</b> is 2.54 <b>centimeters</b>. Multiply by 2 and then add 50% of the starting value.
+                  An <b>inch</b> is 2.54 <b>centimeters</b>. Multiply by 2 and then add 50% <u>of the starting value</u>.
                   <List.List>
                     <List.Item>
                       Example: 6 inches is about 6 × 2 = 12; 12 + 3 = 15 centimeters (actual answer: 15.24cm).
@@ -830,7 +830,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>foot</b> is 30.48 <b>centimeters</b>. Multiply by 30 and then add 50% of the starting value.
+                  A <b>foot</b> is 30.48 <b>centimeters</b>. Multiply by 30 and then add 50% <u>of the starting value</u>.
                   <List.List>
                     <List.Item>
                       Example: 8 feet is about 8 × 30 = 240; 240 + 4 = 244 centimeters. (actual answer: 243.8cm).
@@ -846,7 +846,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>mile</b> is 1.61 <b>kilometers</b>. Add 50% and then add 10% of the starting value.
+                  A <b>mile</b> is 1.61 <b>kilometers</b>. Add 50% and then add 10% <u>of the starting value</u>.
                   <List.List>
                     <List.Item>
                       Example: 60 miles is about 60 × 1.5 = 90; 90 + 6 = 96 kilometers (actual answer: 96.6km).
@@ -916,7 +916,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>meter</b> is 39.3 <b>inches</b>. Multiply by 40 and then subtract 100% of the starting value.
+                  A <b>meter</b> is 39.3 <b>inches</b>. Multiply by 40 and then subtract 100% <u>of the starting value</u>.
                   <List.List>
                     <List.Item>
                       Example: 2.5 meters is about 2.5 × 40 = 100; 100 - 2.5 = 97.5 inches (actual answer: 98.4 in).
@@ -1232,7 +1232,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  A <b>fluid ounce</b> is 29.57 <b>milliliters</b>. Multiply by 30 and then subtract 50% of the starting value.
+                  A <b>fluid ounce</b> is 29.57 <b>milliliters</b>. Multiply by 30 and then subtract 50% <u>of the starting value</u>.
                   <List.List>
                     <List.Item>
                       Example: 10 fluid ounces is about 10 × 30 = 300; 300 - 5 = 295 milliliters (actual answer:
@@ -1265,7 +1265,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>gallon</b> is 3.79 <b>liters</b>. Multiply by 4 and then subtract 25% of the starting value.
+                  A <b>gallon</b> is 3.79 <b>liters</b>. Multiply by 4 and then subtract 25% <u>of the starting value</u>.
                   <List.List>
                     <List.Item>
                       Example: 60 gallons is about 60 × 4 = 240; 240 - 15 = 225 liters (actual value: 227.1l).
@@ -1649,7 +1649,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  1 <b>mile per hour</b> is 1.61 <b>kilometers per hour</b>. Add 50% and then add 10% of the starting value.
+                  1 <b>mile per hour</b> is 1.61 <b>kilometers per hour</b>. Add 50% and then add 10% <u>of the starting value</u>.
                   <List.List>
                     <List.Item>
                       Example: 60 miles per hour is about 60 + 30; 90 + 6 = 96 kilometers per hour (actual answer: 96.6km/h).
@@ -1830,7 +1830,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>square mile</b> is 2.59 <b>square kilometer</b>. Multiply by 2 and then add 50% of the starting value. <i>It will give you a rough low-end estimate.</i>
+                  A <b>square mile</b> is 2.59 <b>square kilometer</b>. Multiply by 2 and then add 50% <u>of the starting value</u>. <i>It will give you a rough low-end estimate.</i>
                   <List.List>
                     <List.Item>
                       Example: 8 square miles is about 8 × 2 = 16; 16 + 4 = 20 square kilometers (actual answer: 20.7km²).
@@ -1889,7 +1889,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  A <b>hectare</b> is 2.47 <b>acres</b>. Multiply by 2 and then add 50% of the starting value.
+                  A <b>hectare</b> is 2.47 <b>acres</b>. Multiply by 2 and then add 50% <u>of the starting value</u>.
                   <List.List>
                     <List.Item>
                       Example: 24 hectares is about 24 × 2 = 48; 48 + 12 = 60 acres (actual value: 59.3ac).

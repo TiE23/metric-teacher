@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
-import { Grid } from "semantic-ui-react";
+import { Container, Grid } from "semantic-ui-react";
 
 import QueryHandler from "../QueryHandler";
 import UserDetailBasics from "./UserDetailBasics";
@@ -42,35 +42,37 @@ class UserDetails extends PureComponent {
             queryData={queryProps}
             noDataErrorMessage="User not found."
           >
-            {this.state.editUserDetailBasics ?
+            <Container text>
+              {this.state.editUserDetailBasics ?
+                <Grid.Row centered>
+                  <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
+                    <UserDetailBasicsEditor
+                      userData={queryProps.data && queryProps.data.user}
+                      queryInfo={{ query: USER_DETAILS_QUERY, variables: queryProps.variables }}
+                      closeEditor={this.closeUserDetailBasicsEditor}
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+                :
+                <Grid.Row centered>
+                  <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
+                    <UserDetailBasics
+                      userData={queryProps.data && queryProps.data.user}
+                      queryInfo={{ query: USER_DETAILS_QUERY, variables: queryProps.variables }}
+                      openEditor={this.openUserDetailBasicsEditor}
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+              }
               <Grid.Row centered>
                 <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
-                  <UserDetailBasicsEditor
+                  <UserDetailEnrollment
                     userData={queryProps.data && queryProps.data.user}
                     queryInfo={{ query: USER_DETAILS_QUERY, variables: queryProps.variables }}
-                    closeEditor={this.closeUserDetailBasicsEditor}
                   />
                 </Grid.Column>
               </Grid.Row>
-              :
-              <Grid.Row centered>
-                <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
-                  <UserDetailBasics
-                    userData={queryProps.data && queryProps.data.user}
-                    queryInfo={{ query: USER_DETAILS_QUERY, variables: queryProps.variables }}
-                    openEditor={this.openUserDetailBasicsEditor}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-            }
-            <Grid.Row centered>
-              <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
-                <UserDetailEnrollment
-                  userData={queryProps.data && queryProps.data.user}
-                  queryInfo={{ query: USER_DETAILS_QUERY, variables: queryProps.variables }}
-                />
-              </Grid.Column>
-            </Grid.Row>
+            </Container>
           </QueryHandler>
         )}
       </Query>
