@@ -38,7 +38,7 @@ const SurveyToggle = props => (
         })}
         loading={loading}
         error={error}
-        buttonText={props.surveyCurrentStatus === SURVEY_STATUS_NORMAL ? "Skip" : "Use"}
+        buttonText={props.surveyCurrentStatus === SURVEY_STATUS_NORMAL ? "Disable" : "Enable"}
         buttonProps={{
           primary: props.surveyCurrentStatus === SURVEY_STATUS_SKIPPED,
           ...props.buttonProps,
