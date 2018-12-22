@@ -95,6 +95,7 @@ class LoginSignupForm extends Component {
             {!this.props.loginPage &&
               <React.Fragment>
                 <Form.Input
+                  autoFocus={!this.props.loginPage}
                   value={this.state.fname}
                   onChange={e => this.handleChange({ fname: e.target.value })}
                   autoComplete="given-name"
@@ -115,6 +116,7 @@ class LoginSignupForm extends Component {
             }
             <Form.Input
               // Here to help password managers work properly on signup. https://goo.gl/9p2vKq
+              autoFocus={this.props.loginPage}
               required
               value={this.state.email}
               onChange={e => this.handleChange({ email: e.target.value })}

@@ -12,7 +12,7 @@ import {
 const QaReviewSurveyBasics = props => (
   <List>
     <List.Item>
-      <b>Answer</b>: {props.answer ? utils.choiceWorder(props.answer) : "None"}
+      <b>Answer</b>: {props.answer ? utils.choiceWorder(props.answer) : <i>None</i>}
     </List.Item>
     {(props.detail || !!(props.questionFlags &
       (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED))
