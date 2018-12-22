@@ -83,6 +83,9 @@ class QaReviewSurveyEditorForm extends PureComponent {
   }
 
   render() {
+    const showNote = !!(this.props.questionFlags &
+      (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED));
+
     return (
       <div>
         <Form>
@@ -99,8 +102,7 @@ class QaReviewSurveyEditorForm extends PureComponent {
               <b>{utils.unitInitializer(this.props.unit)}</b>
             </Label>
           </Form.Input>
-          {(this.state.note || !!(this.props.questionFlags &
-            (QUESTION_FLAG_USER_DETAIL_OPTIONAL + QUESTION_FLAG_USER_DETAIL_REQUIRED))) &&
+          {(this.state.note || showNote) &&
             <Form.Input
               value={this.state.note}
               onChange={this.handleNoteChange}
@@ -127,7 +129,9 @@ class QaReviewSurveyEditorForm extends PureComponent {
               }}
               confirmModal={this.state.answer !== String(this.props.answer)}
               modalHeaderContent="Are you sure?"
-              modalContent="Updating your answer will reset your score to zero."
+              modalContent={
+                `You can change your note ${showNote ? "" : "(when applicable) "}any time, but updating your answer will reset your score to zero.`
+              }
             />
           </div>
         </Form>

@@ -43,8 +43,8 @@ const Survey = (props) => {
         <p>
           <br />
           <Icon name="info circle" /> {" "}
-          Skipping a Survey will make it no longer appear in challenges. There is no penalty for
-          skipping and you can reverse it at any time.
+          Disabling a Survey will make it no longer appear in challenges. There is no penalty for
+          disabling and you can reverse it at any time.
         </p>
       }
     </Segment>
