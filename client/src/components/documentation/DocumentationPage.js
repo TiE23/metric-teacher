@@ -110,8 +110,10 @@ const DocumentationPage = props => (
           </Header.Content>
         </Header>
       </Container>
+
       {(!props.userTokenData || !props.userTokenData.id) &&
         <Container text textAlign="center">
+          <br />
           <Header size="small">
             Start learning on {SITE_NAME} today!
           </Header>
@@ -120,9 +122,13 @@ const DocumentationPage = props => (
           <br />
         </Container>
       }
+
       <br />
+
       {explodeDocs(Docs).map(({ node, id }) => <React.Fragment key={id}>{node}</React.Fragment>)}
+
       <br />
+
       <Link to="/docs" replace>Back to top.</Link>
     </Container>
   </React.Fragment>
