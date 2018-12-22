@@ -34,10 +34,10 @@ const App = () => (
   <div className="App">
     <Switch>
       <Route exact path="/" render={() => <Redirect to="welcome" />} />
-      <Route exact path="/welcome" component={withAuth(Welcome)} />
       <Route exact path="/logout" component={Logout} />
       <Route path="/">
         <MenuFrame>
+          <Route exact path="/welcome" component={withAuth(Welcome)} />
           <Route exact path="/home" component={withAuth(Home, { private: true })} />
           <Route exact path="/login" component={withAuth(Login, { props: { loginPath: "/login" } })} />
           <Route exact path="/signup" component={withAuth(Login, { props: { loginPath: "/login" } })} />

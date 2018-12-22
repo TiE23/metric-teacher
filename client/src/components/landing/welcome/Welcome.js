@@ -39,7 +39,7 @@ const Welcome = props => (
           </Header>
 
           <p>
-            {SITE_NAME} is a free website that will help you learn to imagine, understand, and describe objects, people, and the world using the Metric System.
+            {SITE_NAME} is a free website that will help you learn to understand, describe, and imagine objects, people, and the world using the Metric System.
           </p>
 
           <p>
@@ -102,12 +102,6 @@ const Welcome = props => (
             Learn more about us and the technology behind {SITE_NAME} <Link to="/credits">here</Link>.
           </p>
         </Container>
-      </Grid.Column>
-    </Grid.Row>
-
-    <Grid.Row>
-      <Grid.Column>
-        <FrameFooter />
       </Grid.Column>
     </Grid.Row>
   </Grid>

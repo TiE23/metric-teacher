@@ -50,7 +50,7 @@ export default [
       content: (
         <React.Fragment>
           <p>
-            {SITE_NAME} offers instruction on <b>six</b> Subjects!
+            {SITE_NAME} offers instruction on <b>six</b> Subjects.
           </p>
 
           <Grid>
@@ -100,6 +100,10 @@ export default [
           <br />
 
           <p>
+            {SITE_NAME} teaches with <b>28</b> different Scales and <b>nearly 40</b> different Units in both directions to <i>and</i> from the Metric System.
+          </p>
+
+          <p>
             You can view all <Icon name="tasks" />Subjects <Link to="/subjects">here</Link>.
           </p>
 
@@ -121,11 +125,11 @@ export default [
       content: (
         <React.Fragment>
           <p>
-            There's no getting around it but, yes, you will be performing conversion calculations in your head. {SITE_NAME} provides <Link to="/docs/guide/mentalmath">tips</Link> for mental math and conversion tricks for every unit. But with practice not only will you get get quick at them, you'll start to simply recognize new values.
+            There's no getting around it but, yes, you will be performing conversion calculations in your head. {SITE_NAME} provides <Link to="/docs/guide/mentalmath">clever and memorable tips</Link> for mental math and conversion tricks for every unit. With practice not only will you get get quick at conversions, you'll stop making them!
           </p>
 
           <p>
-            Just like you've known your entire life that <b>104°F</b> is a blisteringly hot day, you'll learn to naturally recognize that when your Australian friend tells you it's <b>40°C</b> outside on New Year's Day you'll know to <i>not</i> suggest she get the hot cocoa out but instead remind her to drink lots of water! That is the goal of {SITE_NAME}.
+            Just like you've known your entire life that <b>104°F</b> is a blisteringly hot day, you'll learn to naturally recognize that when your friend in Australia tells you it's <b>40°C</b> outside on New Year's Day you'll know exactly how hot that is. That is the goal of {SITE_NAME}.
           </p>
         </React.Fragment>
       ),
@@ -146,7 +150,7 @@ export default [
           </p>
 
           <p>
-            So, if you're going to the United States you can use {SITE_NAME} to prepare you if you want to be able to read weather forecasts in Fahrenheit, understand distances in miles, or follow speed limit signs!
+            So, if you're going to the United States you can use {SITE_NAME} to prepare you to be able to read weather forecasts in Fahrenheit, understand distances in miles, or buy coffee by the pound!
           </p>
 
           <p>
