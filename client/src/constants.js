@@ -57,23 +57,23 @@ export const CHALLENGE_KICKOFF_LENGTH_DEFAULT = 8;
 export const CHALLENGE_KICKOFF_LENGTH_OPTIONS = [
   {
     key: 1,
-    value: CHALLENGE_KICKOFF_LENGTH_DEFAULT,
-    text: `Regular (${CHALLENGE_KICKOFF_LENGTH_DEFAULT} questions)`,
+    value: Math.ceil(CHALLENGE_KICKOFF_LENGTH_DEFAULT / 2),
+    text: "Short Length",
   },
   {
     key: 2,
-    value: Math.ceil(CHALLENGE_KICKOFF_LENGTH_DEFAULT / 2),
-    text: `Short (${Math.ceil(CHALLENGE_KICKOFF_LENGTH_DEFAULT / 2)} questions)`,
+    value: CHALLENGE_KICKOFF_LENGTH_DEFAULT,
+    text: "Regular Length",
   },
   {
     key: 3,
     value: Math.floor(CHALLENGE_KICKOFF_LENGTH_DEFAULT * 1.5),
-    text: `Long (${Math.floor(CHALLENGE_KICKOFF_LENGTH_DEFAULT * 1.5)} questions)`,
+    text: "Long Length",
   },
   {
     key: 4,
     value: CHALLENGE_KICKOFF_LENGTH_DEFAULT * 2,
-    text: `Extra Long (${CHALLENGE_KICKOFF_LENGTH_DEFAULT * 2} questions)`,
+    text: "Extra Long Length",
   },
 ];
 

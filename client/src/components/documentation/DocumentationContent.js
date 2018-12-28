@@ -1315,7 +1315,7 @@ export default {
             </p>
 
             <p>
-              Finally, when context is provided it is common to simply refer to fluid ounces as "ounces" in conversation(for example: "this water bottle holds 32 <i>ounces</i>"). This might provide an interesting dilemma in food packaging as one may have to inspect a label closely to see if the measurement is in fluid ounces (volume) or ounces (weight).
+              Finally, when context is provided it is common to simply refer to fluid ounces as "ounces" in conversation (for example: "this water bottle holds 32 <i>ounces</i>"). This might provide an interesting dilemma in food packaging as one may have to inspect a label closely to see if the measurement is in fluid ounces (volume) or ounces (weight).
             </p>
           </React.Fragment>
         ),

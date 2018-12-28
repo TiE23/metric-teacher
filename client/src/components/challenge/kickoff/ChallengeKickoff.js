@@ -82,7 +82,6 @@ const ChallengeKickoff = props => ( // TODO - Handle students with no active mas
             <Grid.Row>
               <Grid.Column>
                 <Dropdown
-                  icon="wait"
                   onChange={props.updateChallengeLength}
                   options={CHALLENGE_KICKOFF_LENGTH_OPTIONS}
                   placeholder="Choose a length"
