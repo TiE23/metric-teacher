@@ -4,17 +4,13 @@ services:
     image: prismagraphql/prisma:1.22.1
     restart: always
     ports:
-    - "80:4466"
+    - "80:4466" # For prod use on db.metric-teacher.com
     networks:
       prisma:
         ipv4_address: 172.18.0.20
         aliases:
           - prisma
     environment:
-      # env var PRISMA_MANAGEMENT_API_SECRET must be set before running
-      # docker-compose supports .env files (https://docs.docker.com/compose/environment-variables/#the-env-file)
-      # just define a .env file WHERE docker-compose is run (not where docker-compose.yml exists).
-      # In addition you must add that same secret to the key clusterSecret in ~/.prisma/config.yml.
       PRISMA_CONFIG: |
         managementApiSecret: ${PRISMA_MANAGEMENT_API_SECRET}
         port: 4466
@@ -38,11 +34,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: prisma
 
-# https://stackoverflow.com/a/39498534/3120546
 networks:
   prisma:
     driver: bridge
     ipam:
       config:
         - subnet: 172.18.0.0/16
-        # No gateway, no longer supported/needed

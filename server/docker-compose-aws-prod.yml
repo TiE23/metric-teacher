@@ -9,7 +9,7 @@ services:
       dockerfile: docker/production/Dockerfile
     command: "yarn start-prod"
     ports:
-      - "80:4000"
+      - "80:4000" # For prod use on api.metric-teacher.com
 
 volumes:
   metric-teacher-server:
