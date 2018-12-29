@@ -1,0 +1,42 @@
+version: "3"
+services:
+  prisma:
+    image: prismagraphql/prisma:1.22.1
+    restart: always
+    ports:
+    - "80:4466" # For prod use on db.metric-teacher.com
+    networks:
+      prisma:
+        ipv4_address: 172.18.0.20
+        aliases:
+          - prisma
+    environment:
+      PRISMA_CONFIG: |
+        managementApiSecret: ${PRISMA_MANAGEMENT_API_SECRET}
+        port: 4466
+        databases:
+          default:
+            connector: mysql
+            active: true
+            host: db
+            port: 3306
+            user: root
+            password: prisma
+
+  db:
+    image: mysql:5.7
+    restart: always
+    networks:
+      prisma:
+        ipv4_address: 172.18.0.30
+        aliases:
+          - db
+    environment:
+      MYSQL_ROOT_PASSWORD: prisma
+
+networks:
+  prisma:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
