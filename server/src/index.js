@@ -8,7 +8,7 @@ const db = new Prisma({
   // the endpoint of the Prisma API (value set in `.env`)
   endpoint: process.env.PRISMA_ENDPOINT,
   // log all GraphQL queries & mutations sent to the Prisma API
-  debug: true,
+  debug: process.env.PRISMA_DEBUG !== "false",
   // only needed if specified in `database/prisma.yml` (value set in `.env`)
   secret: process.env.PRISMA_SECRET,
 });

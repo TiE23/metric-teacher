@@ -8,15 +8,19 @@ let API_ROOT;
 // Figure out the full host root.
 if (process.env.METRIC_TEACHER_SERVER_BACKEND_HOST) {
   API_ROOT = `${process.env.METRIC_TEACHER_SERVER_BACKEND_HOST}:${port}`;
-} else if (/amazonaws.com$/.test(hostname)) { // AWS testing
+} else if (/amazonaws.com$/.test(hostname)) {       // AWS testing
   API_ROOT = `${hostname}:${port}`;
-} else if (/metric-teacher.com$/.test(hostname)) {  // First domain name
+} else if (/dev.metric-teacher.com$/.test(hostname)) {  // First domain name (dev)
   API_ROOT = `${hostname}:${port}`;
-} else if (/metricteacher.app$/.test(hostname)) {   // Second domain name
+} else if (/metric-teacher.com$/.test(hostname)) {      // First domain name (prod)
+  API_ROOT = "api.metric-teacher.com";
+} else if (/dev.metricteacher.app$/.test(hostname)) {   // Second domain name (dev)
   API_ROOT = `${hostname}:${port}`;
-} else if (/^192\.168\.1\./.test(hostname)) { // Local network testing
+} else if (/metricteacher.app$/.test(hostname)) {       // Second domain name (prod)
+  API_ROOT = "api.metricteacher.app";
+} else if (/^192\.168\.1\./.test(hostname)) {           // Local network testing
   API_ROOT = `${hostname}:${port}`;
-} else {                                      // Local machine testing
+} else {                                                // Local machine testing
   API_ROOT = `localhost:${port}`;
 }
 
