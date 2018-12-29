@@ -9,3 +9,6 @@ docker
 
 # NPM dependencies
 node_modules
+
+# Other
+README.md

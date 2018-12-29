@@ -1,0 +1,15 @@
+version: "3.6"
+
+services:
+  metric-teacher-server:
+    container_name: metric-teacher-server
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/production/Dockerfile
+    command: "yarn start-prod"
+    ports:
+      - "80:4000"
+
+volumes:
+  metric-teacher-server:
