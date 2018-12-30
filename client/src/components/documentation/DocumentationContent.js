@@ -31,7 +31,7 @@ export default {
         </p>
 
         <p>
-          Whether a student wishes to learn the Metric system or the US Customary Unit System they will find what they need here all on one convenient, mobile-friendly website.
+          Whether a student wishes to learn the Metric System or the US Customary Unit System they will find what they need here all on one convenient, mobile-friendly website.
         </p>
 
         <p>
@@ -49,19 +49,19 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            The metric system is the international standard. While an American can live their life quite happily without being very familiar with the metric system it's hard to argue that there is anything advantageous in remaining ignorant to a system used by 95.6% of the world's population.
+            The Metric System is the international standard. While an American can live their life quite happily without being very familiar with the Metric System it's hard to argue that there is anything advantageous in remaining ignorant to a system used by 95.6% of the world's population.
           </p>
 
           <p>
-            The metric system is far easier to do math with. Instead of remembering that there are 16 ounces in a pound, that there are 5280 feet in a mile, that water boils at 212 degrees Fahrenheit, or that there are 128 fluid ounces in a gallon, everything is easily divisible by 10s, 100s, and 1000s. By simply moving the decimal point in a number one can convert between various scales.
+            The Metric System is far easier to do math with. Instead of remembering that there are 16 ounces in a pound, that there are 5280 feet in a mile, that water boils at 212 degrees Fahrenheit, or that there are 128 fluid ounces in a gallon, everything is easily divisible by 10s, 100s, and 1000s. By simply moving the decimal point in a number one can convert between various scales.
           </p>
 
           <p>
-            As a US Customary Unit System user you likely <XLink to="https://en.wikipedia.org/wiki/Metrication_in_the_United_States#Current_use">do have a grasp on some parts of the metric system</XLink>. You know how large a 2-liter bottle is and you've seen centimeters on rulers since you were in kindergarten. This is enough of a base to start.
+            As a US Customary Unit System user you likely <XLink to="https://en.wikipedia.org/wiki/Metrication_in_the_United_States#Current_use">do have a grasp on some parts of the Metric System</XLink>. You know how large a 2-liter bottle is and you've seen centimeters on rulers since you were in kindergarten. This is enough of a base to start.
           </p>
 
           <p>
-            The goal of {SITE_NAME} is to make the metric system feel natural:
+            The goal of {SITE_NAME} is to make the Metric System feel natural:
           </p>
           <List bulleted>
             <List.Item>
@@ -92,7 +92,7 @@ export default {
           </p>
 
           <p>
-            The US Customary Unit System involves a large library of units and sub units that you'll have to contend with and grow familiar with. In addition, you'll need to grasp when to switch from one unit to another depending on the amount or context. And while this website was conceived and built to help students learn the metric system it can be used just as effectively in reverse.
+            The US Customary Unit System involves a large library of units and sub units that you'll have to contend with and grow familiar with. In addition, you'll need to grasp when to switch from one unit to another depending on the amount or context. And while this website was conceived and built to help students learn the Metric System it can be used just as effectively in reverse.
           </p>
 
           <p>
@@ -157,7 +157,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              The next step is to assign a new <b>Course</b> to yourself. Here you will be asked for your preference: Are you more familiar with the Metric system? Or are you more familiar with the US Customary Unit system? Your preference can be changed at any time.
+              The next step is to assign a new <b>Course</b> to yourself. Here you will be asked for your preference: Are you more familiar with the Metric System? Or are you more familiar with the US Customary Unit system? Your preference can be changed at any time.
             </p>
           </React.Fragment>
         ),
@@ -398,7 +398,7 @@ export default {
             </p>
 
             <p>
-              Surveys are always directed into the unit system you are learning. That is, if you have a preference for the Metric system, Survey questions will always ask you to convert a value into the US Customary Unit system. And vice-versa.
+              Surveys are always directed into the unit system you are learning. That is, if you have a preference for the Metric System, Survey questions will always ask you to convert a value into the US Customary Unit system. And vice-versa.
             </p>
 
             <p>
@@ -507,15 +507,15 @@ export default {
         </p>
 
         <p>
-          The Metric system started with <XLink to="https://en.wikipedia.org/wiki/History_of_the_metre">the definition of the meter</XLink>. Through surveying, the meter was defined to be one ten millionth of the distance between the North Pole and the Equator through Paris. While their measurements were quite accurate considering the technological limitations of the era, future surveys discovered slight inaccuracies. Despite this, the meter would stay the same length. From the meter, area and volume were derived. The gram was defined as the weight of a cubic centimeter of water.
+          The Metric System started with <XLink to="https://en.wikipedia.org/wiki/History_of_the_metre">the definition of the meter</XLink>. Through surveying, the meter was defined to be one ten millionth of the distance between the North Pole and the Equator through Paris. While their measurements were quite accurate considering the technological limitations of the era, future surveys discovered slight inaccuracies. Despite this, the meter would stay the same length. From the meter, area and volume were derived. The gram was defined as the weight of a cubic centimeter of water.
         </p>
 
         <p>
-          The key to the metric system's success was the use of the decimal unit system. Dropping fractions for decimal numbers and adopting Greek and Latin-rooted prefixes for naming the metric system simplified conversions between similar units and standardized naming across languages and cultures.
+          The key to the Metric System's success was the use of the decimal unit system. Dropping fractions for decimal numbers and adopting Greek and Latin-rooted prefixes for naming the Metric System simplified conversions between similar units and standardized naming across languages and cultures.
         </p>
 
         <p>
-          Over time the units were redefined with new physical prototypes and the system was further developed into the International System of Units (SI, abbreviated from the French <i>Système international (d'unités)</i>), the modern form of the metric system. Even with these updates the units defined in the late 18th century have remained effectively the same for over 200 years.
+          Over time the units were redefined with new physical prototypes and the system was further developed into the International System of Units (SI, abbreviated from the French <i>Système international (d'unités)</i>), the modern form of the Metric System. Even with these updates the units defined in the late 18th century have remained effectively the same for over 200 years.
         </p>
       </React.Fragment>
     ),
@@ -572,15 +572,15 @@ export default {
         </p>
 
         <p>
-          The United States is the only major country in the world that hasn't adopted the Metric system as their standard system of measurements. The story is that in 1793 Thomas Jefferson, a founding father of the United States, requested Metric unit samples from France but the ship carrying them to America was lost in a storm. Thus the push to use the Metric System never occurred.
+          The United States is the only major country in the world that hasn't adopted the Metric System as their standard system of measurements. The story is that in 1793 Thomas Jefferson, a founding father of the United States, requested Metric unit samples from France but the ship carrying them to America was lost in a storm. Thus the push to use the Metric System never occurred.
         </p>
 
         <p>
-          <XLink to="https://en.wikipedia.org/wiki/Metric_Conversion_Act">The Metric Conversion Act</XLink> of 1975 made the metric system the preferred system of US trade and commerce, but only on paper. <XLink to="https://en.wikipedia.org/wiki/United_States_Metric_Board">The United States Metric Board</XLink> was abolished in 1982 by US President Ronald Reagan citing a lack of enthusiasm and budgetary concerns.
+          <XLink to="https://en.wikipedia.org/wiki/Metric_Conversion_Act">The Metric Conversion Act</XLink> of 1975 made the Metric System the preferred system of US trade and commerce, but only on paper. <XLink to="https://en.wikipedia.org/wiki/United_States_Metric_Board">The United States Metric Board</XLink> was abolished in 1982 by US President Ronald Reagan citing a lack of enthusiasm and budgetary concerns.
         </p>
 
         <p>
-          Many sectors of American industry, government, military, science, engineering, and medicine use the Metric system in various circumstances. But in daily life, both individual and public, the US Customary System is the one that the population has the strongest grasp.
+          Many sectors of American industry, government, military, science, engineering, and medicine use the Metric System in various circumstances. But in daily life, both individual and public, the US Customary System is the one that the population has the strongest grasp.
         </p>
       </React.Fragment>
     ),
@@ -1055,7 +1055,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  An <b>ounce</b> is 28.35 <b>grams</b>. Multiply by 30 and then subtract about 5%.
+                  An <b>ounce</b> is 28.35 <b>grams</b>. Multiply by 30 and then subtract 5%.
                   <List.List>
                     <List.Item>
                       Example: 6 ounces is about 6 × 30 = 180; 180 - 9 = 171 grams (actual answer: 170.1g).
@@ -1460,7 +1460,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              Celsius is a scale of 100 degrees between the temperatures of water freezing and boiling. Freezing is defined as 0°C and boiling at 100°C. Originally named centigrade, its name was changed to Celsius in 1948 to honor a Swedish astronomer whose pioneering temperature scale, conceived in 1742, predated the Metric system by half a century.
+              Celsius is a scale of 100 degrees between the temperatures of water freezing and boiling. Freezing is defined as 0°C and boiling at 100°C. Originally named centigrade, its name was changed to Celsius in 1948 to honor a Swedish astronomer whose pioneering temperature scale, conceived in 1742, predated the Metric System by half a century.
             </p>
           </React.Fragment>
         ),
