@@ -59,6 +59,11 @@ const CreditsPage = () => (
       </Item>
     </Item.Group>
 
+    <Header dividing content="Contact" />
+    <p>
+      You can E-mail us at <a href="mailto:metricteachersite@gmail.com">metricteachersite@gmail.com</a> for comments, suggestions, questions, or help with your account such as password resets.
+    </p>
+
     <Header dividing content="Stats" />
 
     <Header size="small" content="Educational" />

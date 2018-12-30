@@ -476,6 +476,20 @@ export default {
           </React.Fragment>
         ),
       },
+
+      contact: {
+        header: {
+          content: "Contact Us",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              If you have comments, requests, bug reports, or you forgot your password you can e-mail us at <a href="mailto:metricteachersite@gmail.com">metricteachersite@gmail.com</a> and we'll be sure to try and help you out any way we can!
+            </p>
+          </React.Fragment>
+        ),
+      },
     },
   },
 
@@ -554,15 +568,15 @@ export default {
         </p>
 
         <p>
-          Fahrenheit, it is worth mentioning, isn't an Imperial unit. It was first defined by a Dutch-German-Polish physicist in 1724 and gained acceptance over the following decades following a final adjustment in definition in 1776 by Henry Cavendish, a British scientist. On the other hand, it is <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units#Units_of_temperature">considered a member</XLink> of the US Customary Units system.
+          Fahrenheit, it is worth mentioning, isn't an Imperial unit. It was first defined by a Dutch-German-Polish physicist in 1724 and gained acceptance over the following decades following a final adjustment in definition in 1776 by Henry Cavendish, a British scientist. On the other hand, <XLink to="https://en.wikipedia.org/wiki/United_States_customary_units#Units_of_temperature">it is considered a member of the US Customary Units system</XLink>.
         </p>
 
         <p>
-          The United States is the only major country in the world that hasn't adopted the Metric system as their standard system of measurements. The story is that in 1793 Thomas Jefferson, a founding father of the United States, requested Metric unit samples from France but the ship carrying them to America was lost in a storm.
+          The United States is the only major country in the world that hasn't adopted the Metric system as their standard system of measurements. The story is that in 1793 Thomas Jefferson, a founding father of the United States, requested Metric unit samples from France but the ship carrying them to America was lost in a storm. Thus the push to use the Metric System never occurred.
         </p>
 
         <p>
-          <XLink to="https://en.wikipedia.org/wiki/Metric_Conversion_Act">The Metric Conversion Act</XLink> of 1975 made the metric system the preferred system of US trade and commerce, but only on paper. <XLink to="https://en.wikipedia.org/wiki/United_States_Metric_Board">The United States Metrification Board</XLink> was abolished in 1982 by US President Ronald Reagan citing budgetary concerns and a lack of enthusiasm.
+          <XLink to="https://en.wikipedia.org/wiki/Metric_Conversion_Act">The Metric Conversion Act</XLink> of 1975 made the metric system the preferred system of US trade and commerce, but only on paper. <XLink to="https://en.wikipedia.org/wiki/United_States_Metric_Board">The United States Metric Board</XLink> was abolished in 1982 by US President Ronald Reagan citing a lack of enthusiasm and budgetary concerns.
         </p>
 
         <p>
