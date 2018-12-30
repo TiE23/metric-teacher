@@ -515,7 +515,7 @@ export default {
         </p>
 
         <p>
-          Over time the units were redefined with new physical prototypes and the system was further developed into the International System of Units (SI, abbreviated from the French <i>Système international (d'unités)</i>), the modern form of the Metric System. Even with these updates the units defined in the late 18th century have remained effectively the same for over 200 years.
+          Over time the units were redefined with new physical prototypes and the system was further developed into the <b>International System of Units</b> which is abbreviated as <b>SI</b> from the French <i>Système international (d'unités)</i>. SI is the modern form of the Metric System, but referring to it as the "Metric System" is still perfectly reasonable in almost all circumstances. Even with these updates the units defined in the late 18th century have remained effectively the same for over 200 years.
         </p>
       </React.Fragment>
     ),
