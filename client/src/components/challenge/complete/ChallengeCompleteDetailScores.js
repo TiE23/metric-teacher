@@ -42,7 +42,7 @@ ChallengeCompleteDetailScores.propTypes = {
   maxScore: PropTypes.number.isRequired,
   scoreUpdates: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.node.isRequired,
     currentScore: PropTypes.number.isRequired,
     scoreChange: PropTypes.number.isRequired,
   })).isRequired,

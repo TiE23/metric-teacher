@@ -7797,7 +7797,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 1
-    question: "This is what a semi-truck and no trailer might weigh. [9-11ton(1)s]"
+    question: "This is what a semi-truck and no trailer might weigh. [9,11ton(1)s]"
     answer: "[t(2)a]"
     media: ""
     parent: {
@@ -7813,7 +7813,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "This is what a semi-truck with an empty trailer might weigh. [15-20ton(1)s]"
+    question: "This is what a semi-truck with an empty trailer might weigh. [15,20ton(1)s]"
     answer: "[t(1.5)a]"
     media: ""
     parent: {
@@ -7861,7 +7861,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 5
-    question: "This is what a tank used in the army might weigh. [50-100ton(0.25)s]"
+    question: "This is what a tank used in the army might weigh. [50,100ton(0.25)s]"
     answer: "[t(0.3)a]"
     media: ""
     parent: {
@@ -8097,7 +8097,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 2
-    question: "This is what a semi-truck with an empty trailer might weigh. [13-18t(1)s]"
+    question: "This is what a semi-truck with an empty trailer might weigh. [13,18t(1)s]"
     answer: "[ton(1.5)a]"
     media: ""
     parent: {
@@ -8145,7 +8145,7 @@ mutation {
     status: 0
     flags: 0
     difficulty: 5
-    question: "This is what a tank used in the army might weigh. [45-90t(0.25)s]"
+    question: "This is what a tank used in the army might weigh. [45,90t(0.25)s]"
     answer: "[ton(0.3)a]"
     media: ""
     parent: {
