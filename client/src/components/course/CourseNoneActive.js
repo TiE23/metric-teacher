@@ -13,13 +13,12 @@ const CourseNoneActive = props => (
     <p>
       A Course tracks a student&apos;s progress as they learn more about converting between Metric
       and US Customary Unit systems.
-      {props.assignAvailable &&
-        <span>
-          <br />
-          Tell us what system you are more familiar with and click the button below to start.
-        </span>
-      }
     </p>
+    {props.assignAvailable &&
+      <p>
+        Tell us what system you are more familiar with and click the button below to start.
+      </p>
+    }
     {props.assignAvailable &&
       <UserDetailCourseAssign
         studentId={props.studentId}
