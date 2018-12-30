@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
-import { Grid, Header, Segment } from "semantic-ui-react";
+import { Grid, Header, Popup, Segment } from "semantic-ui-react";
 
 import utils from "../../../utils";
 
@@ -94,9 +94,21 @@ const ChallengeCompleteDetails = props => (
                       scoreUpdates={queryProps.data.surveys.map(row => (
                         {
                           id: row.id,
-                          label: utils.stringTruncator(
-                            utils.questionTextGrabber(row.question.question),
-                            45,
+                          label: (
+                            <Popup
+                              wide
+                              on="click"
+                              position="bottom center"
+                              trigger={
+                                <i style={{ cursor: "help" }}>
+                                  {utils.stringTruncator(
+                                    utils.questionTextGrabber(row.question.question),
+                                    45,
+                                  )}
+                                </i>
+                              }
+                              content={utils.questionTextGrabber(row.question.question)}
+                            />
                           ),
                           currentScore: row.score,
                           scoreChange: utils.cacheGetTarget(

@@ -53,11 +53,11 @@ export const CHALLENGE_REPEATS_WRITTEN_CHOICES = true;
 export const CHALLENGE_REPEATS_CONVERSION_MODE = false;
 export const CHALLENGE_REPEATS_CONVERSION_CHOICES = false;
 export const CHALLENGE_REPEATS_CONVERSION_RANGE = false;
-export const CHALLENGE_KICKOFF_LENGTH_DEFAULT = 8;
+export const CHALLENGE_KICKOFF_LENGTH_DEFAULT = 10;
 export const CHALLENGE_KICKOFF_LENGTH_OPTIONS = [
   {
     key: 1,
-    value: Math.ceil(CHALLENGE_KICKOFF_LENGTH_DEFAULT / 2),
+    value: Math.ceil(CHALLENGE_KICKOFF_LENGTH_DEFAULT * 0.7),
     text: "Short Length",
   },
   {
@@ -67,12 +67,12 @@ export const CHALLENGE_KICKOFF_LENGTH_OPTIONS = [
   },
   {
     key: 3,
-    value: Math.floor(CHALLENGE_KICKOFF_LENGTH_DEFAULT * 1.5),
+    value: Math.floor(CHALLENGE_KICKOFF_LENGTH_DEFAULT * 1.4),
     text: "Long Length",
   },
   {
     key: 4,
-    value: CHALLENGE_KICKOFF_LENGTH_DEFAULT * 2,
+    value: Math.floor(CHALLENGE_KICKOFF_LENGTH_DEFAULT * 1.8),
     text: "Extra Long Length",
   },
 ];
@@ -231,9 +231,10 @@ export const CHALLENGE_MAX_STRIKES = [
 export const CHALLENGE_QUESTION_REPEAT = [
   // This is a config to determine how many times a question might be asked again even after a
   // correct answer. Minimum is 1.
+  // Difficulties 0, 1, 2, 3, 4, 5.
   [1, 2, 2, 1, 1, 1], // Written
-  [1, 3, 2, 2, 2, 1], // Conversion
-  [1, 3, 2, 2, 2, 1], // Survey
+  [1, 1, 1, 2, 2, 1], // Conversion
+  [1, 1, 1, 2, 2, 2], // Survey
 ];
 
 // Password
