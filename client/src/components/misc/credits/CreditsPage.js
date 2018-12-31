@@ -2,7 +2,8 @@
 import React from "react";
 import { Container, Header, Icon } from "semantic-ui-react";
 
-import Personnel from "./Personnel";
+import KG from "./KG";
+import PE from "./PE";
 import Contact from "./Contact";
 import Stats from "./Stats";
 import Technology from "./Technology";
@@ -22,7 +23,8 @@ const CreditsPage = () => (
       Credits
     </Header>
 
-    {Personnel}
+    {KG}
+    {PE}
 
     <Header dividing content="Contact" />
 

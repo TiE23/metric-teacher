@@ -30,21 +30,5 @@ export default (
         </Item.Description>
       </Item.Content>
     </Item>
-    <Item>
-      <Item.Image src="/img/credits/paul.gif" size="medium" />
-      <Item.Content>
-        <Item.Header>Paul Emery</Item.Header>
-        <Item.Meta>Freelance Artist</Item.Meta>
-        <Item.Description>
-          <p>
-            Californian digital artist who can draw both cute parrots and handsome elves with equal skill.
-          </p>
-
-          <p>
-            Paul's portfolio and contact information can be found on <XLink to="https://www.artstation.com/paulstation2">ArtStation</XLink>.
-          </p>
-        </Item.Description>
-      </Item.Content>
-    </Item>
   </Item.Group>
 );
