@@ -123,17 +123,6 @@ export default (
           </List.Content>
         </List.Item>
         <List.Item>
-          <List.Icon name="docker" />
-          <List.Content>
-            <List.Header>
-              <XLink to="https://www.docker.com/">Docker</XLink>
-            </List.Header>
-            <List.Description>
-              "Industry-leading container engine technology"
-            </List.Description>
-          </List.Content>
-        </List.Item>
-        <List.Item>
           <List.Icon name="node js" />
           <List.Content>
             <List.Header>
@@ -143,6 +132,37 @@ export default (
             </List.Header>
             <List.Description>
               "Flexible linear converter"
+            </List.Description>
+          </List.Content>
+        </List.Item>
+      </List.List>
+    </List.Item>
+
+    <List.Item>
+      <List.Icon name="hdd" />
+      <List.Content>
+        <List.Header>Hosting</List.Header>
+      </List.Content>
+      <List.List>
+        <List.Item>
+          <List.Icon name="aws" />
+          <List.Content>
+            <List.Header>
+              <XLink to="https://aws.amazon.com/ec2/">AWS EC2</XLink>
+            </List.Header>
+            <List.Description>
+              "A web service that provides secure, resizable compute capacity in the cloud"
+            </List.Description>
+          </List.Content>
+        </List.Item>
+        <List.Item>
+          <List.Icon name="docker" />
+          <List.Content>
+            <List.Header>
+              <XLink to="https://www.docker.com/">Docker</XLink>
+            </List.Header>
+            <List.Description>
+              "Industry-leading container engine technology"
             </List.Description>
           </List.Content>
         </List.Item>
