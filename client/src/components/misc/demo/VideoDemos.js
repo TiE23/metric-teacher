@@ -12,7 +12,7 @@ export default [
   {
     key: "intro",
     title: {
-      content: "Introduction",
+      content: "Introduction (3 demos)",
     },
     content: {
       content: (
@@ -98,7 +98,7 @@ export default [
   {
     key: "challengeMode",
     title: {
-      content: "Challenge Mode",
+      content: "Challenge Mode (8 demos)",
     },
     content: {
       content: (
@@ -132,7 +132,7 @@ export default [
             <Grid.Column>
               <Header as="h3">
                 <Header.Content>
-                  2a) Answering Questions: Multiple choice
+                  2) Answering Questions: Multiple choice
                   <Header.Subheader>
                     The most basic form of question. Choose between 2 to 6 possible answers.
                   </Header.Subheader>
@@ -157,7 +157,7 @@ export default [
             <Grid.Column>
               <Header as="h3">
                 <Header.Content>
-                  2b) Answering Questions: Direct input (single unit)
+                  3) Answering Questions: Direct input (single unit)
                   <Header.Subheader>
                     The toughest questions demand the student to directly input their answer. I use a custom keypad to save time on activating and deactivating mobile keyboards.
                   </Header.Subheader>
@@ -182,7 +182,7 @@ export default [
             <Grid.Column>
               <Header as="h3">
                 <Header.Content>
-                  2c) Answering Questions: Direct input (split unit)
+                  4) Answering Questions: Direct input (split unit)
                   <Header.Subheader>
                     Intelligent support for input in feet & inches, pounds & ounces, and gallons, quarts, & fluid ounces.
                   </Header.Subheader>
@@ -207,7 +207,7 @@ export default [
             <Grid.Column>
               <Header as="h3">
                 <Header.Content>
-                  2d) Answering Questions: Slider input
+                  5) Answering Questions: Slider input
                   <Header.Subheader>
                     To discourage guessing slider input is designed to be sure that the correct answer isn't always somewhere in the middle.
                   </Header.Subheader>
@@ -232,7 +232,7 @@ export default [
             <Grid.Column>
               <Header as="h3">
                 <Header.Content>
-                  2e) Answering Questions: Survey response
+                  6) Answering Questions: Survey response
                   <Header.Subheader>
                     Survey responses use slider input and have a predefined input range. Personal notes are also supported on some Surveys and are used to enrich questions.
                   </Header.Subheader>
@@ -257,7 +257,7 @@ export default [
             <Grid.Column>
               <Header as="h3">
                 <Header.Content>
-                  2f) Answering Questions: Incorrect responses
+                  7) Answering Questions: Incorrect responses
                   <Header.Subheader>
                     Incorrect responses hurt Mastery Score and uses a strike system before giving up. {SITE_NAME} will remember incorrect answers to help a student learn from their mistakes.
                   </Header.Subheader>
@@ -282,7 +282,7 @@ export default [
             <Grid.Column>
               <Header as="h3">
                 <Header.Content>
-                  3) Skipping questions
+                  8) Skipping questions
                   <Header.Subheader>
                     Students can skip any question at the cost of Mastery Score.
                   </Header.Subheader>

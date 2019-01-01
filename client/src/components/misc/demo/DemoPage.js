@@ -28,7 +28,7 @@ const DemoPage = () => (
       </Header.Content>
     </Header>
 
-    <Header as="h2" content="Video Demos" dividing />
+    <Header as="h2" content="Demos" dividing />
 
     <p>See all of {SITE_NAME} without having to use it!</p>
 
