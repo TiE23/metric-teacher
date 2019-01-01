@@ -1,9 +1,10 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
-import { Container, Header, Icon, Image } from "semantic-ui-react";
+import { Container, Grid, Header, Icon, Image } from "semantic-ui-react";
 
 import ScrollToTopOnMount from "../ScrollToTopOnMount";
 import XLink from "../ExternalLink";
+import ResponsivePlayer from "../ResponsivePlayer";
 
 import {
   PAGE_ICON_COLOR_CREDITS,
@@ -73,6 +74,50 @@ const DemoPage = () => (
     <p>
       This idea is {SITE_NAME}'s <b>Survey Question</b> system. By asking people meaningful questions they can begin associating Metric unit measurements with those answers.
     </p>
+
+    <Header as="h2" content="Video Demonstrations" dividing />
+
+    <Grid stackable padded="horizontally" columns="equal" textAlign="center">
+      <Grid.Row>
+        <Grid.Column>
+          <Header as="h2" content="Basics" />
+        </Grid.Column>
+      </Grid.Row>
+
+      <Grid.Row>
+        <Grid.Column>
+          <Header size="small" textAlign="center" content="1) Starting an account" />
+          <ResponsivePlayer
+            xyRatio={4 / 3}
+            player={{
+              volume: 0,
+              muted: true,
+              playing: true,
+              loop: true,
+              playsinline: true,
+              url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/01-starting-01.mp4",
+            }}
+          />
+        </Grid.Column>
+      </Grid.Row>
+
+      <Grid.Row>
+        <Grid.Column>
+          <Header size="small" textAlign="center" content="2) Enrolling as a student" />
+          <ResponsivePlayer
+            xyRatio={4 / 3}
+            player={{
+              volume: 0,
+              muted: true,
+              playing: true,
+              loop: true,
+              playsinline: true,
+              url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/01-enrolling-01.mp4",
+            }}
+          />
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   </Container>
 );
 
