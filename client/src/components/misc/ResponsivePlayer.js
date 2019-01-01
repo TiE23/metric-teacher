@@ -9,6 +9,7 @@ class ResponsivePlayer extends PureComponent {
         style={{
           position: "relative",
           paddingTop: `${100 / (this.props.xyRatio)}%`,
+          borderStyle: "ridge",
         }}
       >
         <ReactPlayer
