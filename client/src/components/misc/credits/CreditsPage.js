@@ -5,7 +5,7 @@ import { Container, Header, Icon } from "semantic-ui-react";
 import KG from "./KG";
 import PE from "./PE";
 import Contact from "./Contact";
-import Stats from "./Stats";
+import { Educational, Artistic, Technical } from "./Stats";
 import Technology from "./Technology";
 
 import ScrollToTopOnMount from "../ScrollToTopOnMount";
@@ -32,7 +32,9 @@ const CreditsPage = () => (
 
     <Header dividing content="Stats" />
 
-    {Stats}
+    {Educational}
+    {Artistic}
+    {Technical}
 
     <Header dividing content="Technology" />
 

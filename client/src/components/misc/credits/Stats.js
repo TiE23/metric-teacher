@@ -6,7 +6,7 @@ import {
   MASCOT_NAME_LONG,
 } from "../../../constants";
 
-export default (
+export const Educational = (
   <React.Fragment>
     <Header size="small" content="Educational" />
     <List horizontal bulleted>
@@ -20,7 +20,11 @@ export default (
       <List.Item>23 Different US Units</List.Item>
       <List.Item>31 Pages of Original Documentation</List.Item>
     </List>
+  </React.Fragment>
+);
 
+export const Artistic = (
+  <React.Fragment>
     <Header size="small" content="Artistic" />
     <List horizontal bulleted>
       <List.Item>21 Drawings of {MASCOT_NAME_LONG}</List.Item>
@@ -34,7 +38,11 @@ export default (
       <List.Item>1 Very Scarlet Macaw</List.Item>
       <List.Item>1 Imaginative Artist</List.Item>
     </List>
+  </React.Fragment>
+);
 
+export const Technical = (
+  <React.Fragment>
     <Header size="small" content="Technical" />
     <List horizontal bulleted>
       <List.Item>130+ React Components</List.Item>
@@ -50,4 +58,4 @@ export default (
       <List.Item>1 Self-driven Developer</List.Item>
     </List>
   </React.Fragment>
-)
+);
