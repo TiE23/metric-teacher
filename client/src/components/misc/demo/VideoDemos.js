@@ -392,4 +392,323 @@ export default [
       ),
     },
   },
+  {
+    key: "newQuestions",
+    title: {
+      content: "Creating Questions (3 demos)",
+    },
+    content: {
+      content: (
+        <Grid columns="equal" textAlign="center">
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  1) Creating a new question (selecting the sub-subject)
+                  <Header.Subheader>
+                    Subjects and scales are all linked to the database. New subjects and scales require no client code updates.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-B-new-question-A-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  2) Creating a new question (writing the question)
+                  <Header.Subheader>
+                    Different questions require different answer structures. This shows the most basic written type.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-B-new-question-B-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  3) Creating a new question (writing the answers)
+                  <Header.Subheader>
+                    The answer writing interface is full of little quality-of-life features such as batch editing answer units (shown here).
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-B-new-question-C-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      ),
+    },
+  },
+  {
+    key: "adminQuestions",
+    title: {
+      content: "Question Admin Tools (2 demos)",
+    },
+    content: {
+      content: (
+        <Grid columns="equal" textAlign="center">
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  1) Reviewing new questions (searching by "Review Pending" status)
+                  <Header.Subheader>
+                    When people submit new questions admins and moderators must first review the question.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-C-question-browser-A-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  2) Reviewing new questions (updating status to "active")
+                  <Header.Subheader>
+                    If the question is correct and organized properly the question can now appear in Challenges for all students.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-C-question-browser-B-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      ),
+    },
+  },
+  {
+    key: "adminUsers",
+    title: {
+      content: "User Admin Tools (3 demos)",
+    },
+    content: {
+      content: (
+        <Grid columns="equal" textAlign="center">
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  1) Reviewing user accounts (searching for students)
+                  <Header.Subheader>
+                    There are student, teacher (future feature), moderator, and admin account types on {SITE_NAME}.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-D-user-browser-A-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  2) Reviewing user accounts (reviewing user information)
+                  <Header.Subheader>
+                    Admins and moderators can review user accounts and make changes on these accounts without leaving the page.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-D-user-browser-B-02.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  3) Reviewing user accounts (changing type, status, and account flags)
+                  <Header.Subheader>
+                    In this example the admin disallows a student from submitting new questions to the site.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-D-user-browser-C-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      ),
+    },
+  },
+  {
+    key: "adminFeedback",
+    title: {
+      content: "Feedback Admin Tools (3 demos)",
+    },
+    content: {
+      content: (
+        <Grid columns="equal" textAlign="center">
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  1) Feedback review (looking at new, un-reviewed question feedback)
+                  <Header.Subheader>
+                    This is where admins can review user feedback and see what they say.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-E-feedback-browser-A-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  2) Feedback review (fixing a bad question)
+                  <Header.Subheader>
+                    Here the admin quickly takes action on a user's feedback submission.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-E-feedback-browser-B-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  3) Feedback review (closing the feedback item)
+                  <Header.Subheader>
+                    Here the admin marks the user's feedback as "approved". Their suggestion was helpful!
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-E-feedback-browser-C-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      ),
+    },
+  },
 ];
