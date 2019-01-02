@@ -1,5 +1,6 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 import { Accordion, Grid, Header, Icon } from "semantic-ui-react";
 
 import ResponsivePlayer from "../ResponsivePlayer";
@@ -27,12 +28,13 @@ class VideoDemos extends PureComponent {
 
   render() {
     const { activeIndex } = this.state;
+    const { mode } = this.props;
 
     return (
       <Accordion styled fluid>
         <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
           <Icon name="dropdown" />
-          Introduction (3 demos)
+          Getting Started (3 demos)
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
           {activeIndex === 0 &&
@@ -43,7 +45,7 @@ class VideoDemos extends PureComponent {
                     <Header.Content>
                       1) Creating an account
                       <Header.Subheader>
-                        Sign-up or login with e-mail and password. JWT is returned via GraphQL mutation.
+                        Sign-up or login with e-mail and password. {mode === "recruiter" && "A JWT is returned by a GraphQL mutation."}
                       </Header.Subheader>
                     </Header.Content>
                   </Header>
@@ -115,7 +117,6 @@ class VideoDemos extends PureComponent {
           }
         </Accordion.Content>
 
-
         <Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
           <Icon name="dropdown" />
           Challenge Mode (8 demos) <Icon name="star" color="yellow" />
@@ -179,7 +180,7 @@ class VideoDemos extends PureComponent {
                     <Header.Content>
                       3) Answering Questions: Direct input (single unit)
                       <Header.Subheader>
-                        The toughest questions demand the student to directly input their answer. I use a custom keypad to save time on activating and deactivating mobile keyboards.
+                        The toughest questions demand the student to directly input their answer. {mode === "recruiter" && "I use a custom keypad to save time on activating and deactivating mobile keyboards."}
                       </Header.Subheader>
                     </Header.Content>
                   </Header>
@@ -326,7 +327,6 @@ class VideoDemos extends PureComponent {
           }
         </Accordion.Content>
 
-
         <Accordion.Title active={activeIndex === 2} index={2} onClick={this.handleClick}>
           <Icon name="dropdown" />
           Help and Feedback (2 demos)
@@ -387,42 +387,44 @@ class VideoDemos extends PureComponent {
           }
         </Accordion.Content>
 
+        {mode === "recruiter" &&
+        <React.Fragment>
+          <Accordion.Title active={activeIndex === 3} index={3} onClick={this.handleClick}>
+            <Icon name="dropdown" />
+            Responsive Design (1 demo) <Icon name="star" color="yellow" />
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex === 3}>
+            {activeIndex === 3 &&
+              <Grid columns="equal" textAlign="center">
+                <Grid.Row>
+                  <Grid.Column>
+                    <Header as="h3">
+                      <Header.Content>
+                        1) Responsive design using Semantic-UI-React
+                        <Header.Subheader>
+                          {SITE_NAME} was designed to work on mobile and desktop equally well. There are also considerations made to users with unreliable Internet connections and won't erase progress if the server cannot be reached.
+                        </Header.Subheader>
+                      </Header.Content>
+                    </Header>
 
-        <Accordion.Title active={activeIndex === 3} index={3} onClick={this.handleClick}>
-          <Icon name="dropdown" />
-          Responsive Design (1 demo) <Icon name="star" color="yellow" />
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 3}>
-          {activeIndex === 3 &&
-            <Grid columns="equal" textAlign="center">
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      1) Responsive design using Semantic-UI-React
-                      <Header.Subheader>
-                        {SITE_NAME} was designed to work on mobile and desktop equally well. There are also considerations made to users with unreliable Internet connections and won't erase progress if the server cannot be reached.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
-
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/08-responsive-01.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          }
-        </Accordion.Content>
-
+                    <ResponsivePlayer
+                      xyRatio={4 / 3}
+                      player={{
+                        volume: 0,
+                        muted: true,
+                        playing: true,
+                        loop: true,
+                        playsinline: true,
+                        url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/08-responsive-01.mp4",
+                      }}
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            }
+          </Accordion.Content>
+        </React.Fragment>
+        }
 
         <Accordion.Title active={activeIndex === 4} index={4} onClick={this.handleClick}>
           <Icon name="dropdown" />
@@ -509,243 +511,251 @@ class VideoDemos extends PureComponent {
           }
         </Accordion.Content>
 
+        {mode === "recruiter" &&
+          <React.Fragment>
+            <Accordion.Title active={activeIndex === 5} index={5} onClick={this.handleClick}>
+              <Icon name="dropdown" />
+              Question Admin Tools (2 demos)
+            </Accordion.Title>
+            <Accordion.Content active={activeIndex === 5}>
+              {activeIndex === 5 &&
+                <Grid columns="equal" textAlign="center">
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header as="h3">
+                        <Header.Content>
+                          1) Reviewing new questions (searching by "Review Pending" status)
+                          <Header.Subheader>
+                            When people submit new questions admins and moderators must first review the question.
+                          </Header.Subheader>
+                        </Header.Content>
+                      </Header>
 
-        <Accordion.Title active={activeIndex === 5} index={5} onClick={this.handleClick}>
-          <Icon name="dropdown" />
-          Question Admin Tools (2 demos)
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 5}>
-          {activeIndex === 5 &&
-            <Grid columns="equal" textAlign="center">
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      1) Reviewing new questions (searching by "Review Pending" status)
-                      <Header.Subheader>
-                        When people submit new questions admins and moderators must first review the question.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
+                      <ResponsivePlayer
+                        xyRatio={4 / 3}
+                        player={{
+                          volume: 0,
+                          muted: true,
+                          playing: true,
+                          loop: true,
+                          playsinline: true,
+                          url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-C-question-browser-A-01.mp4",
+                        }}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
 
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-C-question-browser-A-01.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header as="h3">
+                        <Header.Content>
+                          2) Reviewing new questions (updating status to "active")
+                          <Header.Subheader>
+                            If the question is correct and organized properly the question can now appear in Challenges for all students.
+                          </Header.Subheader>
+                        </Header.Content>
+                      </Header>
 
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      2) Reviewing new questions (updating status to "active")
-                      <Header.Subheader>
-                        If the question is correct and organized properly the question can now appear in Challenges for all students.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
+                      <ResponsivePlayer
+                        xyRatio={4 / 3}
+                        player={{
+                          volume: 0,
+                          muted: true,
+                          playing: true,
+                          loop: true,
+                          playsinline: true,
+                          url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-C-question-browser-B-01.mp4",
+                        }}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              }
+            </Accordion.Content>
+          </React.Fragment>
+        }
 
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-C-question-browser-B-01.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          }
-        </Accordion.Content>
+        {mode === "recruiter" &&
+          <React.Fragment>
+            <Accordion.Title active={activeIndex === 6} index={6} onClick={this.handleClick}>
+              <Icon name="dropdown" />
+              User Admin Tools (3 demos)
+            </Accordion.Title>
+            <Accordion.Content active={activeIndex === 6}>
+              {activeIndex === 6 &&
+                <Grid columns="equal" textAlign="center">
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header as="h3">
+                        <Header.Content>
+                          1) Reviewing user accounts (searching for students)
+                          <Header.Subheader>
+                            There are student, teacher (future feature), moderator, and admin account types on {SITE_NAME}.
+                          </Header.Subheader>
+                        </Header.Content>
+                      </Header>
 
+                      <ResponsivePlayer
+                        xyRatio={4 / 3}
+                        player={{
+                          volume: 0,
+                          muted: true,
+                          playing: true,
+                          loop: true,
+                          playsinline: true,
+                          url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-D-user-browser-A-01.mp4",
+                        }}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
 
-        <Accordion.Title active={activeIndex === 6} index={6} onClick={this.handleClick}>
-          <Icon name="dropdown" />
-          User Admin Tools (3 demos)
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 6}>
-          {activeIndex === 6 &&
-            <Grid columns="equal" textAlign="center">
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      1) Reviewing user accounts (searching for students)
-                      <Header.Subheader>
-                        There are student, teacher (future feature), moderator, and admin account types on {SITE_NAME}.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header as="h3">
+                        <Header.Content>
+                          2) Reviewing user accounts (reviewing user information)
+                          <Header.Subheader>
+                            Admins and moderators can review user accounts and make changes on these accounts without leaving the page.
+                          </Header.Subheader>
+                        </Header.Content>
+                      </Header>
 
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-D-user-browser-A-01.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
+                      <ResponsivePlayer
+                        xyRatio={4 / 3}
+                        player={{
+                          volume: 0,
+                          muted: true,
+                          playing: true,
+                          loop: true,
+                          playsinline: true,
+                          url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-D-user-browser-B-02.mp4",
+                        }}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
 
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      2) Reviewing user accounts (reviewing user information)
-                      <Header.Subheader>
-                        Admins and moderators can review user accounts and make changes on these accounts without leaving the page.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header as="h3">
+                        <Header.Content>
+                          3) Reviewing user accounts (changing type, status, and account flags)
+                          <Header.Subheader>
+                            In this example the admin disallows a student from submitting new questions to the site.
+                          </Header.Subheader>
+                        </Header.Content>
+                      </Header>
 
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-D-user-browser-B-02.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
+                      <ResponsivePlayer
+                        xyRatio={4 / 3}
+                        player={{
+                          volume: 0,
+                          muted: true,
+                          playing: true,
+                          loop: true,
+                          playsinline: true,
+                          url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-D-user-browser-C-01.mp4",
+                        }}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              }
+            </Accordion.Content>
+          </React.Fragment>
+        }
 
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      3) Reviewing user accounts (changing type, status, and account flags)
-                      <Header.Subheader>
-                        In this example the admin disallows a student from submitting new questions to the site.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
+        {mode === "recruiter" &&
+          <React.Fragment>
+            <Accordion.Title active={activeIndex === 7} index={7} onClick={this.handleClick}>
+              <Icon name="dropdown" />
+              Feedback Admin Tools (3 demos)
+            </Accordion.Title>
+            <Accordion.Content active={activeIndex === 7}>
+              {activeIndex === 7 &&
+                <Grid columns="equal" textAlign="center">
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header as="h3">
+                        <Header.Content>
+                          1) Feedback review (looking at new, un-reviewed question feedback)
+                          <Header.Subheader>
+                            This is where admins can review user feedback and see what they say.
+                          </Header.Subheader>
+                        </Header.Content>
+                      </Header>
 
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-D-user-browser-C-01.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          }
-        </Accordion.Content>
+                      <ResponsivePlayer
+                        xyRatio={4 / 3}
+                        player={{
+                          volume: 0,
+                          muted: true,
+                          playing: true,
+                          loop: true,
+                          playsinline: true,
+                          url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-E-feedback-browser-A-01.mp4",
+                        }}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
 
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header as="h3">
+                        <Header.Content>
+                          2) Feedback review (fixing a bad question)
+                          <Header.Subheader>
+                            Here the admin quickly takes action on a user's feedback submission.
+                          </Header.Subheader>
+                        </Header.Content>
+                      </Header>
 
-        <Accordion.Title active={activeIndex === 7} index={7} onClick={this.handleClick}>
-          <Icon name="dropdown" />
-          Feedback Admin Tools (3 demos)
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 7}>
-          {activeIndex === 7 &&
-            <Grid columns="equal" textAlign="center">
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      1) Feedback review (looking at new, un-reviewed question feedback)
-                      <Header.Subheader>
-                        This is where admins can review user feedback and see what they say.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
+                      <ResponsivePlayer
+                        xyRatio={4 / 3}
+                        player={{
+                          volume: 0,
+                          muted: true,
+                          playing: true,
+                          loop: true,
+                          playsinline: true,
+                          url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-E-feedback-browser-B-01.mp4",
+                        }}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
 
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-E-feedback-browser-A-01.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Header as="h3">
+                        <Header.Content>
+                          3) Feedback review (closing the feedback item)
+                          <Header.Subheader>
+                            Here the admin marks the user's feedback as "approved". Their suggestion was helpful!
+                          </Header.Subheader>
+                        </Header.Content>
+                      </Header>
 
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      2) Feedback review (fixing a bad question)
-                      <Header.Subheader>
-                        Here the admin quickly takes action on a user's feedback submission.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
-
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-E-feedback-browser-B-01.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      3) Feedback review (closing the feedback item)
-                      <Header.Subheader>
-                        Here the admin marks the user's feedback as "approved". Their suggestion was helpful!
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
-
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-E-feedback-browser-C-01.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          }
-        </Accordion.Content>
-
+                      <ResponsivePlayer
+                        xyRatio={4 / 3}
+                        player={{
+                          volume: 0,
+                          muted: true,
+                          playing: true,
+                          loop: true,
+                          playsinline: true,
+                          url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-E-feedback-browser-C-01.mp4",
+                        }}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              }
+            </Accordion.Content>
+          </React.Fragment>
+        }
 
         <Accordion.Title active={activeIndex === 8} index={8} onClick={this.handleClick}>
           <Icon name="dropdown" />
-          Student Documentation (2 demos)
+          Student Documentation ({mode === "recruiter" ? "2 demos" : "1 demo"})
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 8}>
           {activeIndex === 8 &&
@@ -774,39 +784,46 @@ class VideoDemos extends PureComponent {
                   />
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      2) Documentation single-source-of-truth and dynamic routing
-                      <Header.Subheader>
-                        Documentation takes advantage of React's component modularity and applies SSOT design. Routing is also dynamic and provides auto-scrolling on page load.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
+              {mode === "recruiter" &&
+                <Grid.Row>
+                  <Grid.Column>
+                    <Header as="h3">
+                      <Header.Content>
+                        2) Documentation single-source-of-truth and dynamic routing
+                        <Header.Subheader>
+                          Documentation takes advantage of React's component modularity and applies SSOT design. Routing is also dynamic and provides auto-scrolling on page load.
+                        </Header.Subheader>
+                      </Header.Content>
+                    </Header>
 
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/09-documentation-B-01.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
+                    <ResponsivePlayer
+                      xyRatio={4 / 3}
+                      player={{
+                        volume: 0,
+                        muted: true,
+                        playing: true,
+                        loop: true,
+                        playsinline: true,
+                        url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/09-documentation-B-01.mp4",
+                      }}
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+              }
             </Grid>
           }
         </Accordion.Content>
-
-
       </Accordion>
     );
   }
 }
 
+VideoDemos.propTypes = {
+  mode: PropTypes.string,
+};
+
+VideoDemos.defaultProps = {
+  mode: "recruiter",
+};
 
 export default VideoDemos;
