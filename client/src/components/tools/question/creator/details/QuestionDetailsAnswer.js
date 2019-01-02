@@ -19,7 +19,7 @@ import {
   QUESTION_TYPE_SURVEY,
 } from "../../../../../constants";
 
-const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent {
+class QuestionDetailsAnswer extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -106,7 +106,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
           const val = utils.decimalHelper(value);
           if ((val && utils.isDecimalTyped(val)) || !val) {
             const { choices } = this.props.multiple;
-            choices[index].mixedValue = val;
+            choices[index].mixedValue = val; // Is a string. Cast in composeQaInputFromFormData()
             this.props.handleAnswerDataChange({ multiple: { choices } });
           }
         }
@@ -441,7 +441,7 @@ const QuestionDetailsAnswer = class QuestionDetailsAnswer extends PureComponent 
       </List>
     );
   }
-};
+}
 
 QuestionDetailsAnswer.propTypes = {
   type: PropTypes.number.isRequired,
