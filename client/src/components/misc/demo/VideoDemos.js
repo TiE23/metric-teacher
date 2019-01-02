@@ -393,6 +393,42 @@ export default [
     },
   },
   {
+    key: "responsive",
+    title: {
+      content: "Responsive Design (1 demo)",
+    },
+    content: {
+      content: (
+        <Grid columns="equal" textAlign="center">
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  1) Responsive design using Semantic-UI-React
+                  <Header.Subheader>
+                    {SITE_NAME} was designed to work on mobile and desktop equally well. It's responsive and relatively lightweight. It supports cases where a user might not have a connection when finishing their Challenge and won't lose their progress.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/08-responsive-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      ),
+    },
+  },
+  {
     key: "newQuestions",
     title: {
       content: "Creating Questions (3 demos)",
@@ -703,6 +739,66 @@ export default [
                   loop: true,
                   playsinline: true,
                   url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/07-E-feedback-browser-C-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      ),
+    },
+  },
+  {
+    key: "documentation",
+    title: {
+      content: "Student Documentation (2 demos)",
+    },
+    content: {
+      content: (
+        <Grid columns="equal" textAlign="center">
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  1) Breadth and depth of documentation
+                  <Header.Subheader>
+                    {SITE_NAME} contains dozens of pages worth of painstakingly detailed and edited documentation and dozens of clever tips on converting dozens of different units.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/09-documentation-A-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  2) Documentation single-source-of-truth and dynamic routing
+                  <Header.Subheader>
+                    Documentation takes advantage of React's component modularity and applies SSOT design. Routing is also dynamic and provides auto-scrolling on page load.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/09-documentation-B-01.mp4",
                 }}
               />
             </Grid.Column>
