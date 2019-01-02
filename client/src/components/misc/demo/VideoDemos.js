@@ -451,7 +451,7 @@ class VideoDemos extends PureComponent {
 
         <Accordion.Title active={activeIndex === 4} index={4} onClick={this.handleClick}>
           <Icon name="dropdown" />
-          Creating Questions (3 demos)
+          Creating Questions (3 demos) <Icon name="star" color="yellow" />
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 4}>
           {activeIndex === 4 &&

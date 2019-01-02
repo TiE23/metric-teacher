@@ -6,7 +6,7 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: docker/${METRIC_TEACHER_CLIENT_BUILD_MODE:-test}/Dockerfile
+      dockerfile: docker/${METRIC_TEACHER_CLIENT_BUILD_MODE:-prebuilt}/Dockerfile
     command: "serve --single --listen=80 ./build"
     ports:
       - "80:80"
