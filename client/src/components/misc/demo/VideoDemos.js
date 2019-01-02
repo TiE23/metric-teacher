@@ -95,7 +95,7 @@ class VideoDemos extends PureComponent {
                     <Header.Content>
                       3) Building a course load
                       <Header.Subheader>
-                        Students choose what subjects and scales they want to learn. Scale choices are important. Length, for example, can encompass centimeters to measure someone's height or kilometers to measure distances between cities.
+                        Students choose what subjects and scales they want to learn. Length, for example, can be measured in centimeters or kilometers and must be matched with their contemporary units: inches or miles.
                       </Header.Subheader>
                     </Header.Content>
                   </Header>
@@ -365,7 +365,7 @@ class VideoDemos extends PureComponent {
                     <Header.Content>
                       2) Question feedback system
                       <Header.Subheader>
-                        Users can send me feedback if they find a mistake or an issue with any question they come across. There are hundreds of questions so this is very helpful.
+                        Students can send in feedback if they find a mistake or an issue with any question they come across. There are hundreds of questions so this is very helpful.
                       </Header.Subheader>
                     </Header.Content>
                   </Header>
@@ -459,7 +459,8 @@ class VideoDemos extends PureComponent {
                     <Header.Content>
                       1) Creating a new question (selecting the sub-subject)
                       <Header.Subheader>
-                        Subjects and scales are all linked to the database. New subjects and scales require no client code updates.
+                        {mode === "recruiter" && "Subjects and scales are all linked to the database. New subjects and scales require no client code updates."}
+                        {mode === "educator" && "Every question belongs to a subject and scale combination known as a sub-subject."}
                       </Header.Subheader>
                     </Header.Content>
                   </Header>

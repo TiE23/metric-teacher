@@ -45,38 +45,13 @@ const DemoPage = props => (
       <React.Fragment>
         <Header as="h2" content="A Personal Introduction" dividing />
         {PersonalIntroduction}
-      </React.Fragment>
-    }
 
-    <Header as="h2" content={`The Inspiration Behind ${SITE_NAME}`} dividing />
-    {props.mode === "educator" &&
-      <p>
-        Hello! I'm Kyle Geib and I want to tell you a little bit about the ideas behind {SITE_NAME}.
-      </p>
-    }
-    {Inspiration}
-
-    {props.mode === "recruiter" &&
-      <React.Fragment>
         <Header as="h2" content={`The Technology Behind ${SITE_NAME}`} dividing />
         {Technology}
-      </React.Fragment>
-    }
 
-    <Header as="h2" content={`The Stats of ${SITE_NAME}`} dividing />
-    {props.mode === "recruiter" &&
-      <React.Fragment>
+        <Header as="h2" content="Stats" dividing />
         {Technical}
-      </React.Fragment>
-    }
-    {props.mode === "educator" &&
-      <React.Fragment>
-        {Educational}
-      </React.Fragment>
-    }
 
-    {props.mode === "recruiter" &&
-      <React.Fragment>
         <Header as="h2" content="Thank You" dividing />
         {ThankYou}
       </React.Fragment>
@@ -84,6 +59,12 @@ const DemoPage = props => (
 
     {props.mode === "educator" &&
       <React.Fragment>
+        <Header as="h2" content={`The Inspiration Behind ${SITE_NAME}`} dividing />
+        {Inspiration}
+
+        <Header as="h2" content="Stats" dividing />
+        {Educational}
+
         <Header as="h2" content="More Information" dividing />
         <p>
           You can discover a little more about the site and the people behind it, including contact information, <Link to="/credits">here</Link>.

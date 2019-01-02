@@ -9,7 +9,7 @@ import {
 export default (
   <React.Fragment>
     <p>
-      I know this website is only the beginning for me. If you're reading this wondering if I might make a great new member of your team I really appreciate you taking the time to look at my work. I am excessively excited to see what I can do in a professional environment and am looking forward to working with you.
+      This website is only the beginning. If you're reading this wondering if I might make a great addition to your team I really appreciate you taking the time to look at my work. I am excessively excited to see what I can do in a professional environment and am looking forward to working with you.
     </p>
 
     <p>

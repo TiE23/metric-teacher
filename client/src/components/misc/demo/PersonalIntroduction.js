@@ -13,29 +13,31 @@ export default (
     <Image src="/img/credits/kyle.gif" size="small" floated="right" rounded />
 
     <p>
-      Hello! I'm <b>Kyle Geib</b> and I'm a Seattle-based developer and <i>University of Washington Bothell</i> graduated. I worked for five years at <i>Accretive Technology Group</i> (ATG), an independent web company that specializes in video streaming.
+      Hello! I'm <b>Kyle Geib</b>, a <i>University of Washington Bothell</i> graduate and professional web-developer based in Seattle. I worked for five years at <i>Accretive Technology Group</i> (ATG), an independent web company that specializes in video streaming.
     </p>
 
     <Header as="h3" content="My Time at ATG" />
 
     <p>
-      I started at ATG as an <b>intern</b> in 2013 and became one of their first <b>SDET</b>s. In 2015 I became a <b>Support Engineer</b>, essentially a programming jack-of-all-trades. I did everything from fixing bugs in backend PHP, manually testing site code, designing automation scripts, building custom CLI tools in Python, writing crazy MySQL queries, playing with Node micro-services, and constructing basic admin tools using jQuery.
+      I started at ATG as an intern in 2013 and became one of their first <b>SDET</b>s. In 2015 I became a <b>Support Engineer</b>, essentially a programming jack-of-all-trades. I did everything from fixing bugs in backend PHP, manually testing site code, designing automation scripts, building custom CLI tools in Python, writing crazy MySQL queries, playing with Node micro-services, and constructing basic admin tools using jQuery.
     </p>
 
     <Header as="h3" content="Needing Change" />
 
     <p>
-      There was fun to be had, but I wanted to become a <b>Full-stack JavaScript developer</b>. My company was moving to <b>ReactJS</b> for their front-end and <b>NodeJS</b> back-end services running on <b>Docker</b> containers. But I was stuck fixing bugs and adding admin tools in decade-old PHP code. I knew I had to take drastic steps if I wanted to improve my career. I needed skills that would make me an asset - not a liability - on a tight-knit feature team.
+      Every day was something new but I wanted to become a <b>Full-stack JavaScript developer</b>. ATG was moving to <b>ReactJS</b> for their front-end and <b>NodeJS</b> back-end services running on <b>Docker</b> containers. While feature teams switched to new technology I was stuck working in a decade-old PHP codebase. If I wanted to join a tight-knit feature team I needed to bring skills that would make me an asset; not a liability.
+    </p>
+
+    <Header as="h3" content="Something New" />
+
+    <p>
+      I knew I had to take drastic steps if I wanted to see changes in my career. So, after five years with ATG I amicably parted ways with them in January 2018. From there I launched myself into full-time self-teaching. I learned <b>JavaScript ES6</b>, <b>NodeJS</b>, <b>GraphQL</b>, <b>ReactJS</b>, <b>Apollo Client</b>, <b>Docker</b>, <b>AWS EC2</b>, and more. All of it was new to me.
     </p>
 
     <Header as="h3" content={`Building ${SITE_NAME}`} />
 
     <p>
-      I made my decision. After five years I amicably parted ways with ATG in January 2018. I then launched myself into full-time self-teaching: <b>JavaScript ES6</b>, <b>NodeJS</b>, <b>GraphQL</b>, <b>ReactJS</b>, <b>Apollo Client</b>, <b>Docker</b>, <b>AWS EC2</b>... all of it new to me.
-    </p>
-
-    <p>
-      By May I had pushed my first {SITE_NAME} <XLink to="https://github.com/TiE23/metric-teacher">commit to GitHub</XLink> and after <b>eight months</b> of full-time work I finally brought my first website live on December 20th, 2018.
+      After following countless tutorials and a throw-away project I was ready to chase after the Metric system teaching idea I had in me for years. By May I had pushed my first {SITE_NAME} commit <XLink to="https://github.com/TiE23/metric-teacher">to GitHub</XLink>. After nearly <b>eight months</b> of full-time work I finally brought {SITE_NAME}, my first website, live on December 20th, 2018.
     </p>
   </React.Fragment>
 );
