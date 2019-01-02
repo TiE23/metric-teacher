@@ -52,7 +52,8 @@ const App = () => (
             path="/challenge/:mode?/:challengeId?"
             component={withAuth(ChallengePage, { private: true })}
           />
-          <Route exact path="/demo" component={Demo} />
+          <Route exact path="/demo" render={() => <Demo mode="recruiter" />} />
+          <Route exact path="/intro" render={() => <Demo mode="educator" />} />
 
           {/* Admin Pages */}
           <Route
