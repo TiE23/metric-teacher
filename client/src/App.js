@@ -7,7 +7,7 @@ import withAuth from "./components/AuthHOC";
 
 import Welcome from "./components/landing/welcome/Welcome";
 import Home from "./components/landing/Home";
-import Credits from "./components/misc/CreditsPage";
+import Credits from "./components/misc/credits/CreditsPage";
 import MenuFrame from "./components/main/MenuFrame";
 import ChallengePage from "./components/challenge/ChallengePage";
 import Login from "./components/entry/Login";
@@ -24,6 +24,7 @@ import UserListPage from "./components/tools/user/UserListPage";
 import QuestionListPage from "./components/tools/question/QuestionListPage";
 import FeedbackListPage from "./components/tools/feedback/FeedbackListPage";
 import NotFoundPage from "./components/misc/NotFoundPage";
+import Demo from "./components/misc/demo/DemoPage";
 
 import {
   USER_TYPE_MODERATOR,
@@ -51,6 +52,7 @@ const App = () => (
             path="/challenge/:mode?/:challengeId?"
             component={withAuth(ChallengePage, { private: true })}
           />
+          <Route exact path="/demo" component={Demo} />
 
           {/* Admin Pages */}
           <Route

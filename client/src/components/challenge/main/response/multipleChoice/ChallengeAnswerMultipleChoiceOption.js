@@ -8,6 +8,7 @@ const ChallengeAnswerMultipleChoiceOption = props => (
     secondary={props.wrong}
     color={props.selected ? "blue" : null}
     onClick={() => props.handleSelect(props.number)}
+    style={{ cursor: "pointer" }}
   >
     <Icon
       size="large"

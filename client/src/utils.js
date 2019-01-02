@@ -1299,7 +1299,7 @@ const composeQaInputFromFormData = (qaFormData, newQuestionMode) => {
         choices: qaFormData.question.answerData.multiple.choices.map(choice => ({
           unit: choice.unit,
           written: choice.unit === "written" ? choice.mixedValue : undefined,
-          value: choice.unit !== "written" ? choice.mixedValue : undefined,
+          value: choice.unit !== "written" ? parseFloat(choice.mixedValue) : undefined,
         })),
       },
       detail: qaFormData.question.answerData.detail,
@@ -1313,7 +1313,7 @@ const composeQaInputFromFormData = (qaFormData, newQuestionMode) => {
     };
     qaInput.answerinput = {
       conversioninput: {
-        accuracy: qaFormData.question.answerData.accuracy,
+        accuracy: parseFloat(qaFormData.question.answerData.accuracy),
         unit: qaFormData.question.answerData.unit,
       },
     };

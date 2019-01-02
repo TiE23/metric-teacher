@@ -6714,7 +6714,7 @@ mutation {
     flags: 0
     difficulty: 1
     question: "Imagine being told an athlete weighed 100 kilograms. Is that pretty big? Convert that weight to pounds."
-    answer: "[220.5kg|200kg|200.5kg|215kg|215.5kg|210kg|210.5kg|230kg|230.5kg]4"
+    answer: "[220.5lb|200lb|200.5lb|215lb|215.5lb|210lb|210.5lb|230lb|230.5lb]4"
     media: ""
     parent: {
       connect: {

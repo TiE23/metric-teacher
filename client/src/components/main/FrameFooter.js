@@ -7,7 +7,7 @@ import {
 
 const FrameFooter = () => (
   <Divider horizontal>
-    {SITE_NAME} 2018
+    {SITE_NAME} © {new Date().getFullYear()}
   </Divider>
 );
 
