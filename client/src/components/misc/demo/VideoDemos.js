@@ -387,44 +387,64 @@ class VideoDemos extends PureComponent {
           }
         </Accordion.Content>
 
-        {mode === "recruiter" &&
-        <React.Fragment>
-          <Accordion.Title active={activeIndex === 3} index={3} onClick={this.handleClick}>
-            <Icon name="dropdown" />
-            Responsive Design (1 demo) <Icon name="star" color="yellow" />
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 3}>
-            {activeIndex === 3 &&
-              <Grid columns="equal" textAlign="center">
-                <Grid.Row>
-                  <Grid.Column>
-                    <Header as="h3">
-                      <Header.Content>
-                        1) Responsive design using Semantic-UI-React
-                        <Header.Subheader>
-                          {SITE_NAME} was designed to work on mobile and desktop equally well. There are also considerations made to users with unreliable Internet connections and won't erase progress if the server cannot be reached.
-                        </Header.Subheader>
-                      </Header.Content>
-                    </Header>
+        <Accordion.Title active={activeIndex === 3} index={3} onClick={this.handleClick}>
+          <Icon name="dropdown" />
+          Mobile {mode === "recruiter" ? "First" : "Friendly"} Design (2 demos) <Icon name="star" color="yellow" />
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 3}>
+          {activeIndex === 3 &&
+            <Grid columns="equal" textAlign="center">
+              <Grid.Row>
+                <Grid.Column>
+                  <Header as="h3">
+                    <Header.Content>
+                      1) Made for smart phones
+                      <Header.Subheader>
+                        {SITE_NAME} was made to play well with unreliable Internet connections. Students won't have their progress erased when the server cannot be reached due to lost cell signal.
+                      </Header.Subheader>
+                    </Header.Content>
+                  </Header>
 
-                    <ResponsivePlayer
-                      xyRatio={4 / 3}
-                      player={{
-                        volume: 0,
-                        muted: true,
-                        playing: true,
-                        loop: true,
-                        playsinline: true,
-                        url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/08-responsive-01.mp4",
-                      }}
-                    />
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            }
-          </Accordion.Content>
-        </React.Fragment>
-        }
+                  <ResponsivePlayer
+                    xyRatio={1.2}
+                    player={{
+                      volume: 0,
+                      muted: true,
+                      playing: true,
+                      loop: true,
+                      playsinline: true,
+                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/08-responsive-B-02.mp4",
+                    }}
+                  />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Header as="h3">
+                    <Header.Content>
+                      2) Responsive design{mode === "recruiter" && " using Semantic-UI-React"}
+                      <Header.Subheader>
+                        {SITE_NAME} was designed to work on mobile and desktop equally well.
+                      </Header.Subheader>
+                    </Header.Content>
+                  </Header>
+
+                  <ResponsivePlayer
+                    xyRatio={4 / 3}
+                    player={{
+                      volume: 0,
+                      muted: true,
+                      playing: true,
+                      loop: true,
+                      playsinline: true,
+                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/08-responsive-A-01.mp4",
+                    }}
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          }
+        </Accordion.Content>
 
         <Accordion.Title active={activeIndex === 4} index={4} onClick={this.handleClick}>
           <Icon name="dropdown" />
