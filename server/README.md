@@ -1,4 +1,4 @@
-# 📐🗄🗂🗳📏 metric-teacher Server 📏🗳🗂🗄📐
+<h1 align="center">📐🗄🗂🗳📏 metric-teacher Server 📏🗳🗂🗄📐</h1>
 This is the documentation for the server side of the metric-teacher project, a Node.js GraphQL API software project.
 
 This is a project conceived and implemented completely by myself, Kyle Geib. UW Bothell educated, Seattle located SDET turned Product Support Engineer turning to eventual JavaScript Full-Stack Developer. I've been a professional programmer since 2013-01-02.
