@@ -1,6 +1,6 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
-import { Accordion, Container, Header, Icon, Image } from "semantic-ui-react";
+import { Container, Header, Icon, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 import ScrollToTopOnMount from "../ScrollToTopOnMount";
@@ -33,12 +33,7 @@ const DemoPage = () => (
 
     <p>See all of {SITE_NAME} without having to use it!</p>
 
-    <Accordion
-      panels={VideoDemos}
-      exclusive
-      styled
-      fluid
-    />
+    <VideoDemos />
 
     <Header as="h2" content="A Personal Introduction" dividing />
     <Image src="/img/credits/kyle.gif" size="small" floated="right" rounded />
@@ -71,7 +66,7 @@ const DemoPage = () => (
 
 
     <Header as="h2" content={`The Inspiration Behind ${SITE_NAME}`} dividing />
-    <Image src="/img/mascot/clipboard.gif" size="medium" floated="right" rounded />
+    <Image src="/img/challenge/m-written.gif" size="small" floated="right" rounded />
 
     <p>
       A few years ago I was using <XLink to="https://www.duolingo.com/"><b>Duolingo</b></XLink>, a site that teaches foreign languages through repetition of <b>programmatically generated flash-cards</b> that you return to for 10 minutes a day. I thought that the same method could work for teaching Americans the Metric System.
