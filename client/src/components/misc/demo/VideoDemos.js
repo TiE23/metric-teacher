@@ -1,6 +1,6 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
-import { Grid, Header } from "semantic-ui-react";
+import { Grid, Header, Icon } from "semantic-ui-react";
 
 import ResponsivePlayer from "../ResponsivePlayer";
 
@@ -98,7 +98,9 @@ export default [
   {
     key: "challengeMode",
     title: {
-      content: "Challenge Mode (9 demos)",
+      content: (
+        <React.Fragment>Challenge Mode (9 demos) <Icon name="star" color="yellow" /></React.Fragment>
+      ),
     },
     content: {
       content: (
@@ -395,7 +397,9 @@ export default [
   {
     key: "responsive",
     title: {
-      content: "Responsive Design (1 demo)",
+      content: (
+        <React.Fragment>Responsive Design (1 demo) <Icon name="star" color="yellow" /></React.Fragment>
+      ),
     },
     content: {
       content: (
