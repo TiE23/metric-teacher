@@ -118,7 +118,7 @@ class VideoDemos extends PureComponent {
 
         <Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
           <Icon name="dropdown" />
-          Challenge Mode (9 demos) <Icon name="star" color="yellow" />
+          Challenge Mode (8 demos) <Icon name="star" color="yellow" />
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}>
           {activeIndex === 1 &&
@@ -227,32 +227,7 @@ class VideoDemos extends PureComponent {
                 <Grid.Column>
                   <Header as="h3">
                     <Header.Content>
-                      5) Answering Questions: Slider input
-                      <Header.Subheader>
-                        To discourage guessing slider input is designed to be sure that the correct answer isn't always somewhere in the middle.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
-
-                  <ResponsivePlayer
-                    xyRatio={4 / 3}
-                    player={{
-                      volume: 0,
-                      muted: true,
-                      playing: true,
-                      loop: true,
-                      playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/04-c-slider-01.mp4",
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-
-              <Grid.Row>
-                <Grid.Column>
-                  <Header as="h3">
-                    <Header.Content>
-                      6) Answering Questions: Survey response
+                      5) Answering Questions: Survey response (slider)
                       <Header.Subheader>
                         Survey responses use slider input and have a predefined input range. Personal notes are also supported on some Surveys and are used to enrich questions.
                       </Header.Subheader>
@@ -267,7 +242,7 @@ class VideoDemos extends PureComponent {
                       playing: true,
                       loop: true,
                       playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/04-c-slider-01.mp4",
+                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/04-d-survey-response-01.mp4",
                     }}
                   />
                 </Grid.Column>
@@ -277,7 +252,7 @@ class VideoDemos extends PureComponent {
                 <Grid.Column>
                   <Header as="h3">
                     <Header.Content>
-                      7) Answering Questions: Incorrect responses
+                      6) Answering Questions: Incorrect responses
                       <Header.Subheader>
                         Incorrect responses hurt Mastery Score and uses a strike system before giving up. {SITE_NAME} will remember incorrect answers to help a student learn from their mistakes.
                       </Header.Subheader>
@@ -302,7 +277,7 @@ class VideoDemos extends PureComponent {
                 <Grid.Column>
                   <Header as="h3">
                     <Header.Content>
-                      8) Skipping questions
+                      7) Skipping questions
                       <Header.Subheader>
                         Students can skip any question at the cost of Mastery Score.
                       </Header.Subheader>
@@ -327,7 +302,7 @@ class VideoDemos extends PureComponent {
                 <Grid.Column>
                   <Header as="h3">
                     <Header.Content>
-                      9) Completing a Challenge
+                      8) Completing a Challenge
                       <Header.Subheader>
                         At the end of a Challenge the student will see a summary of their progress.
                       </Header.Subheader>
@@ -426,7 +401,7 @@ class VideoDemos extends PureComponent {
                     <Header.Content>
                       1) Responsive design using Semantic-UI-React
                       <Header.Subheader>
-                        {SITE_NAME} was designed to work on mobile and desktop equally well. It's responsive and relatively lightweight. It supports cases where a user might not have a connection when finishing their Challenge and won't lose their progress.
+                        {SITE_NAME} was designed to work on mobile and desktop equally well. There are also considerations made to users with unreliable Internet connections and won't erase progress if the server cannot be reached.
                       </Header.Subheader>
                     </Header.Content>
                   </Header>
