@@ -98,7 +98,7 @@ export default [
   {
     key: "challengeMode",
     title: {
-      content: "Challenge Mode (8 demos)",
+      content: "Challenge Mode (9 demos)",
     },
     content: {
       content: (
@@ -298,6 +298,92 @@ export default [
                   loop: true,
                   playsinline: true,
                   url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/04-e-skip-02.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  9) Completing a Challenge
+                  <Header.Subheader>
+                    At the end of a Challenge the student will see a summary of their progress.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/04-F-complete-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      ),
+    },
+  },
+  {
+    key: "feedback",
+    title: {
+      content: "Help and Feedback (2 demos)",
+    },
+    content: {
+      content: (
+        <Grid columns="equal" textAlign="center">
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  1) Conversion tips pop-up
+                  <Header.Subheader>
+                    Conversion tips are always available for instant review on any question.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/05-popup-01.mp4",
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h3">
+                <Header.Content>
+                  2) Question feedback system
+                  <Header.Subheader>
+                    Users can send me feedback if they find a mistake or an issue with any question they come across. There are hundreds of questions so this is very helpful.
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+
+              <ResponsivePlayer
+                xyRatio={4 / 3}
+                player={{
+                  volume: 0,
+                  muted: true,
+                  playing: true,
+                  loop: true,
+                  playsinline: true,
+                  url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/06-feedback-02.mp4",
                 }}
               />
             </Grid.Column>
