@@ -1488,19 +1488,42 @@ export default {
           },
           content: (
             <React.Fragment>
-              <p>
-                For a very rough conversion take the <b>Fahrenheit</b> subtract 30 and then divide by 2.
-              </p>
-
               <List bulleted>
                 <List.Item>
-                  Example: 50 Fahrenheit is about 50 - 30 = 20; 20 / 2 = 10 Celsius (actual answer: 10°C).
+                  <i>(Very rough conversion for <u>weather temperature range</u>)</i>: With <b>Fahrenheit</b> subtract 30 and then divide by 2.
+                  <List.List>
+                    <List.Item>
+                      Example: 50 Fahrenheit is about 50 - 30 = 20; 20 / 2 = 10 Celsius (actual answer: 10°C).
+                    </List.Item>
+                    <List.Item>
+                      Example: 10 Fahrenheit is about 10 - 30 = -20; -20 / 2 = -10 Celsius (actual answer: -12°C).
+                    </List.Item>
+                    <List.Item>
+                      Example: 92 Fahrenheit is about 92 - 30 = 62; 62 / 2 = 31 (actual answer: 33.3°C).
+                    </List.Item>
+                  </List.List>
                 </List.Item>
                 <List.Item>
-                  Example: 10 Fahrenheit is about 10 - 30 = -20; -20 / 2 = -10 Celsius (actual answer: 12°C).
+                  <i>(Very rough conversion for temperatures <u>300-800°F</u>)</i>: With <b>Fahrenheit</b> divide by 2.
+                  <List.List>
+                    <List.Item>
+                      Example: 300 Fahrenheit is about 300 / 2 = 150 Celsius (actual answer: 149°C).
+                    </List.Item>
+                    <List.Item>
+                      Example: 550 Fahrenheit is about 550 / 2 = 275 Celsius (actual answer: 288°C).
+                    </List.Item>
+                  </List.List>
                 </List.Item>
                 <List.Item>
-                  Example: 92 Fahrenheit is about 92 - 30 = 62; 62 / 2 = 31 (actual answer: 33.3°C).
+                  <i>(Very rough conversion for temperatures <u>800°F or more</u>)</i>: With <b>Fahrenheit</b> divide by 2 and then add 10%.
+                  <List.List>
+                    <List.Item>
+                      Example: 800 Fahrenheit is about 800 / 2 = 400; 400 + 40 = 440 Celsius (actual answer: 426°C).
+                    </List.Item>
+                    <List.Item>
+                      Example: 4400 Fahrenheit is about 4400 / 2 = 2200; 2200 + 220 = 2420 Celsius (actual answer: 2427°C).
+                    </List.Item>
+                  </List.List>
                 </List.Item>
               </List>
 
@@ -1548,19 +1571,38 @@ export default {
           },
           content: (
             <React.Fragment>
-              <p>
-                For a very rough conversion take the <b>Celsius</b>, multiply by 2 and then add 30.
-              </p>
-
               <List bulleted>
                 <List.Item>
-                  Example: 10 Celsius is about 10 × 2 = 20; 20 + 30 = 50 Fahrenheit (actual answer: 50°F).
+                  <i>(Very rough conversion for <u>weather temperature range</u>)</i>: With <b>Celsius</b> multiply by 2 and then add 30.
+                  <List.List>
+                    <List.Item>
+                      Example: 10 Celsius is about 10 × 2 = 20; 20 + 30 = 50 Fahrenheit (actual answer: 50°F).
+                    </List.Item>
+                    <List.Item>
+                      Example: -10 Celsius is about -10 × 2 = -20; -20 + 30 = 10 Fahrenheit (actual answer: 14°F).
+                    </List.Item>
+                    <List.Item>
+                      Example: 30 Celsius is about 30 × 2 = 60; 60 + 30 = 90 Fahrenheit (actual answer: 86°F).
+                    </List.Item>
+                  </List.List>
                 </List.Item>
                 <List.Item>
-                  Example: -10 Celsius is about -10 × 2 = -20; -20 + 30 = 10 Fahrenheit (actual answer: 14°F).
+                  <i>(Very rough conversion for temperatures <u>150-400°C</u>)</i>: With <b>Celsius</b> multiply by 2.
+                  <List.List>
+                    Example: 150 Celsius is about 150 × 2 = 300 Fahrenheit (actual answer: 302°F).
+                  </List.List>
+                  <List.List>
+                    Example: 300 Celsius is about 300 × 2 = 600 Fahrenheit (actual answer: 572°F).
+                  </List.List>
                 </List.Item>
                 <List.Item>
-                  Example: 31 Celsius is about 31 × 2 = 62; 62 + 30 = 92 Fahrenheit (actual answer: 87.8°F).
+                  <i>(Very rough conversion for temperatures <u>400°C or more</u>)</i>: With <b>Celsius</b> multiply by 2 and then subtract 10%.
+                  <List.List>
+                    Example: 400 Celsius is about 400 × 2 = 800; 800 - 80 = 720 Fahrenheit (actual answer: 752°F).
+                  </List.List>
+                  <List.List>
+                    Example: 2500 Celsius is about 2500 × 2 = 5000; 5000 - 500 = 4500 Fahrenheit (actual answer: 4532°F).
+                  </List.List>
                 </List.Item>
               </List>
 
@@ -1569,7 +1611,7 @@ export default {
               </p>
 
               <p>
-                Additionally, temperature differences are a separate concept. You do not need to concern yourself with + 32. If someone said "raise/lower the thermostat by 5°C", that would be 5 × (9/5), which is 9°F.
+                Additionally, temperature differences are a separate concept. You do not need to concern yourself with + 32. If someone said "raise/lower the thermostat by 5°C", that would be 5 × (9/5), which is 9°F. "Multiply by 9 and then divide by 5."
               </p>
             </React.Fragment>
           ),
