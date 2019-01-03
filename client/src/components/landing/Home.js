@@ -68,10 +68,12 @@ const Home = props => (
       <Grid.Row columns={2}>
         <Grid.Column width={8}>
           <Segment>
-            <Header as={Link} to="/docs">
-              <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
-              Documentation
-            </Header>
+            <Container as={Link} to="/docs">
+              <Header>
+                <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
+                Documentation
+              </Header>
+            </Container>
           </Segment>
         </Grid.Column>
         <Grid.Column width={8}>
@@ -118,7 +120,6 @@ const Home = props => (
               </Container>
             </Segment>
           </Grid.Column>
-
         }
       </Grid.Row>
 
