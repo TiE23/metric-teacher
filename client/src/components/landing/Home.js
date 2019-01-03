@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
 import { Container, Grid, Header, Icon, Image, Segment, Transition } from "semantic-ui-react";
 
+import XLink from "../misc/ExternalLink";
+
 import {
   SITE_NAME,
   PAGE_TITLE_HEADER_SIZE,
@@ -68,10 +70,12 @@ const Home = props => (
       <Grid.Row columns={2}>
         <Grid.Column width={8}>
           <Segment>
-            <Header as={Link} to="/docs">
-              <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
-              Documentation
-            </Header>
+            <Container as={Link} to="/docs">
+              <Header>
+                <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
+                Documentation
+              </Header>
+            </Container>
           </Segment>
         </Grid.Column>
         <Grid.Column width={8}>
@@ -118,7 +122,6 @@ const Home = props => (
               </Container>
             </Segment>
           </Grid.Column>
-
         }
       </Grid.Row>
 
@@ -133,6 +136,14 @@ const Home = props => (
               <i>—{MASCOT_NAME_LONG}</i>
             </Header.Subheader>
           </Header>
+        </Grid.Column>
+      </Grid.Row>
+
+      <Grid.Row textAlign="center">
+        <Grid.Column>
+          <p>
+            <XLink to="https://twitter.com/MetricTeacher"><Icon name="twitter" />@MetricTeacher</XLink>
+          </p>
         </Grid.Column>
       </Grid.Row>
     </Grid>
