@@ -8,6 +8,7 @@ import XLink from "../misc/ExternalLink";
 
 import {
   SITE_NAME,
+  SITE_EMAIL_ADMIN,
   MASCOT_NAME_SHORT,
   QUESTION_TYPE_DROPDOWN,
 } from "../../constants";
@@ -485,7 +486,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              If you have comments, requests, bug reports, or you forgot your password you can e-mail us at <a href="mailto:metricteachersite@gmail.com">metricteachersite@gmail.com</a> and we'll be sure to try and help you out any way we can!
+              If you have comments, requests, bug reports, or you forgot your password you can e-mail us at <a href={`mailto:${SITE_EMAIL_ADMIN}`}>{SITE_EMAIL_ADMIN}</a> and we'll be sure to try and help you out any way we can!
             </p>
           </React.Fragment>
         ),

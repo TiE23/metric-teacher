@@ -8,6 +8,7 @@ import XLink from "../misc/ExternalLink";
 
 import {
   SITE_NAME,
+  SITE_TWITTER_ACCOUNT,
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_HOME,
   RANDOM_HOME_MASCOT_IMAGE,
@@ -142,7 +143,7 @@ const Home = props => (
       <Grid.Row textAlign="center">
         <Grid.Column>
           <p>
-            <XLink to="https://twitter.com/MetricTeacher"><Icon name="twitter" />@MetricTeacher</XLink>
+            <XLink to={`https://twitter.com/${SITE_TWITTER_ACCOUNT}`}><Icon name="twitter" />@{SITE_TWITTER_ACCOUNT}</XLink>
           </p>
         </Grid.Column>
       </Grid.Row>

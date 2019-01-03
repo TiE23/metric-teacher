@@ -11,6 +11,8 @@ import WelcomeText from "./WelcomeText";
 
 import {
   SITE_NAME,
+  SITE_EMAIL_ADMIN,
+  SITE_TWITTER_ACCOUNT,
   PAGE_TITLE_HEADER_SIZE,
   MASCOT_NAME_LONG,
 } from "../../../constants";
@@ -44,7 +46,7 @@ const Welcome = props => (
           </p>
 
           <p>
-            <i>{SITE_NAME} is brand new and is in active development. Please have patience as we figure everything out. You can help by sending feedback by contacting us <XLink to="https://twitter.com/MetricTeacher">@MetricTeacher&nbsp;<Icon name="twitter" fitted /></XLink> or sending an <a href="mailto:metricteachersite@gmail.com">e-mail</a>!</i>
+            <i>{SITE_NAME} is brand new and is in active development. Please have patience as we figure everything out. You can help by sending feedback by contacting us <XLink to={`https://twitter.com/MetricTeacher${SITE_TWITTER_ACCOUNT}`}>@{SITE_TWITTER_ACCOUNT}&nbsp;<Icon name="twitter" fitted /></XLink> or sending an <a href={`mailto:${SITE_EMAIL_ADMIN}`}>e-mail</a>!</i>
           </p>
         </Container>
       </Grid.Column>
