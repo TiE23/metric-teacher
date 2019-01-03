@@ -44,7 +44,7 @@ const Welcome = props => (
           </p>
 
           <p>
-            <i>{SITE_NAME} is brand new and is in active development. Please have patience as we figure everything out. You can help by sending feedback by contacting us <XLink to="https://twitter.com/MetricTeacher">@MetricTeacher&nbsp;<Icon name="twitter" fitted /></XLink> or sending an <a href="mailto:metricteachersite@gmail.com">email</a>!</i>
+            <i>{SITE_NAME} is brand new and is in active development. Please have patience as we figure everything out. You can help by sending feedback by contacting us <XLink to="https://twitter.com/MetricTeacher">@MetricTeacher&nbsp;<Icon name="twitter" fitted /></XLink> or sending an <a href="mailto:metricteachersite@gmail.com">e-mail</a>!</i>
           </p>
         </Container>
       </Grid.Column>

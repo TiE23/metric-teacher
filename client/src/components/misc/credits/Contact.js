@@ -10,7 +10,7 @@ import {
 export default (
   <React.Fragment>
     <p>
-      You can E-mail us at <a href="mailto:metricteachersite@gmail.com">metricteachersite@gmail.com</a> for comments, suggestions, questions, or help with your account such as password resets.
+      You can e-mail us at <a href="mailto:metricteachersite@gmail.com">metricteachersite@gmail.com</a> for comments, suggestions, questions, or help with your account such as password resets.
     </p>
 
     <p>
