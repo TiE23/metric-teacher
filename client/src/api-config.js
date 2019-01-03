@@ -20,6 +20,8 @@ if (process.env.METRIC_TEACHER_SERVER_BACKEND_HOST) {
   API_ROOT = "api.metricteacher.app";
 } else if (/^192\.168\.1\./.test(hostname)) {           // Local network testing
   API_ROOT = `${hostname}:${port}`;
+} else if (/^10\.0\.0\./.test(hostname)) {              // Local network testing
+  API_ROOT = `${hostname}:${port}`;
 } else {                                                // Local machine testing
   API_ROOT = `localhost:${port}`;
 }
