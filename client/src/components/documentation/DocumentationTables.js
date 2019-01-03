@@ -585,7 +585,7 @@ export default {
               ([°F] - 32) × (5/9) = [°C]
             </Table.Cell>
             <Table.Cell>
-              "Subtract 32 from the Fahrenheit value and then multiply by 5, then divide by 9."
+              "With Fahrenheit subtract 32, then multiply by 5, then divide by 9."
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -596,7 +596,7 @@ export default {
               [°F] × (5/9) = [°C]
             </Table.Cell>
             <Table.Cell>
-              "Multiply the Fahrenheit value by 5, then divide by 9.
+              "With Fahrenheit multiply by 5, then divide by 9.
             </Table.Cell>
           </Table.Row>
         </Table.Body>
@@ -622,7 +622,7 @@ export default {
               ([°C] × (9/5)) + 32 = [°F]
             </Table.Cell>
             <Table.Cell>
-              "Multiply the Celsius value by 9, then divide by 5, and then add 32."
+              "With Celsius multiply by 9, then divide by 5, then add 32."
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -633,7 +633,7 @@ export default {
               [°C] × (9/5) = [°F]
             </Table.Cell>
             <Table.Cell>
-              "Multiply the Celsius value by 9, then divide by 5."
+              "With Celsius multiply by 9, then divide by 5."
             </Table.Cell>
           </Table.Row>
         </Table.Body>
