@@ -2,7 +2,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
-import { Accordion, Container, Grid, Header, Image } from "semantic-ui-react";
+import { Accordion, Container, Grid, Header, Icon, Image } from "semantic-ui-react";
+
+import XLink from "../../misc/ExternalLink";
 
 import SignupLoginButtons from "../../misc/SignupLoginButtons";
 import WelcomeText from "./WelcomeText";
@@ -39,6 +41,10 @@ const Welcome = props => (
 
           <p>
             Welcome! {SITE_NAME} is a free website that will help you learn to understand, describe, and imagine objects, people, and the world using the Metric System. Read our mission statement <Link to="/docs/missionstatement">here</Link>.
+          </p>
+
+          <p>
+            <i>{SITE_NAME} is brand new and is in active development. Please have patience as we figure everything out. You can help by sending feedback by contacting us <XLink to="https://twitter.com/MetricTeacher">@MetricTeacher&nbsp;<Icon name="twitter" fitted /></XLink> or sending an <a href="mailto:metricteachersite@gmail.com">email</a>!</i>
           </p>
         </Container>
       </Grid.Column>
