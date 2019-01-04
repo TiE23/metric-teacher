@@ -6,7 +6,7 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: docker/production/Dockerfile
+      dockerfile: docker/prod/Dockerfile
     command: "yarn start-prod"
     ports:
       - "80:4000" # For prod use on api.metric-teacher.com

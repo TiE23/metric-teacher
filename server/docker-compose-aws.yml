@@ -6,7 +6,7 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: docker/${METRIC_TEACHER_SERVER_BUILD_MODE:-test}/Dockerfile
+      dockerfile: docker/${METRIC_TEACHER_SERVER_BUILD_MODE:-dev}/Dockerfile
     command: "yarn start"
     ports:
       - "4000:4000"
