@@ -2,12 +2,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
-import { Accordion, Container, Grid, Header, Icon, Image } from "semantic-ui-react";
+import { Container, Grid, Header, Icon, Image, Responsive } from "semantic-ui-react";
 
 import XLink from "../../misc/ExternalLink";
 
 import SignupLoginButtons from "../../misc/SignupLoginButtons";
-import WelcomeText from "./WelcomeText";
 
 import {
   SITE_NAME,
@@ -15,38 +14,52 @@ import {
   SITE_TWITTER_ACCOUNT,
   PAGE_TITLE_HEADER_SIZE,
   MASCOT_NAME_LONG,
+  MOBILE_BREAKPOINT,
 } from "../../../constants";
 
 const Welcome = props => (
-  <Grid padded>
+  <Grid padded stackable>
     {props.userTokenData && props.userTokenData.id && // Redirect immediately if logged in.
       <Redirect to="home" />
     }
 
     <Grid.Row>
-      <Grid.Column>
-        <Image src="/img/challenge/r-correct-a.gif" centered size="large" />
+      <Grid.Column width={8}>
+        <Image src="/img/challenge/r-correct-b.gif" centered size="large" />
+      </Grid.Column>
+
+      <Grid.Column width={8} verticalAlign="middle">
+        <Responsive as={Container} text minWidth={MOBILE_BREAKPOINT}>
+          <Header size={PAGE_TITLE_HEADER_SIZE}>
+            <Header.Content>
+              {SITE_NAME}
+              <Header.Subheader>
+                Learn the Metric System in a new, fun, and easy way!
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+          <SignupLoginButtons from="/home" />
+        </Responsive>
+
+        <Responsive as={Container} text textAlign="center" maxWidth={MOBILE_BREAKPOINT}>
+          <Header size={PAGE_TITLE_HEADER_SIZE}>
+            <Header.Content>
+              {SITE_NAME}
+              <Header.Subheader>
+                Learn the Metric System in a new, fun, and easy way!
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+          <SignupLoginButtons from="/home" />
+        </Responsive>
       </Grid.Column>
     </Grid.Row>
 
     <Grid.Row>
       <Grid.Column>
         <Container text>
-          <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-            <Header.Content>
-              {SITE_NAME}
-              <Header.Subheader>
-                A new way to learn the Metric System.
-              </Header.Subheader>
-            </Header.Content>
-          </Header>
-
           <p>
-            Welcome! {SITE_NAME} is a free website that will help you learn to understand, describe, and imagine objects, people, and the world using the Metric System. Read our mission statement <Link to="/docs/missionstatement">here</Link>.
-          </p>
-
-          <p>
-            <i>{SITE_NAME} is brand new and is in active development. Please have patience as we figure everything out. You can help by sending feedback by contacting us <XLink to={`https://twitter.com/MetricTeacher${SITE_TWITTER_ACCOUNT}`}>@{SITE_TWITTER_ACCOUNT}&nbsp;<Icon name="twitter" fitted /></XLink> or sending an <a href={`mailto:${SITE_EMAIL_ADMIN}`}>e-mail</a>!</i>
+            <i>{SITE_NAME} is a one-person project and in active development. You can help by giving feedback through <XLink to={`https://twitter.com/${SITE_TWITTER_ACCOUNT}`}>@{SITE_TWITTER_ACCOUNT}&nbsp;<Icon name="twitter" fitted /></XLink> or sending an <a href={`mailto:${SITE_EMAIL_ADMIN}`}>e-mail</a>!</i>
           </p>
         </Container>
       </Grid.Column>
@@ -54,14 +67,10 @@ const Welcome = props => (
 
     <Grid.Row textAlign="center">
       <Grid.Column>
-        <Header>
-          Start learning on {SITE_NAME} today!
-        </Header>
-        <SignupLoginButtons from="/home" />
       </Grid.Column>
     </Grid.Row>
 
-    <Grid.Row>
+    {/* <Grid.Row>
       <Grid.Column>
         <Container text>
           <Accordion
@@ -72,9 +81,9 @@ const Welcome = props => (
           />
         </Container>
       </Grid.Column>
-    </Grid.Row>
+    </Grid.Row> */}
 
-    <Grid.Row textAlign="center">
+    {/* <Grid.Row textAlign="center">
       <Grid.Column>
         <Container text>
           <Header size="large">
@@ -92,7 +101,7 @@ const Welcome = props => (
           <SignupLoginButtons from="/home" />
         </Container>
       </Grid.Column>
-    </Grid.Row>
+    </Grid.Row> */}
 
     <Grid.Row>
       <Grid.Column>
@@ -102,7 +111,7 @@ const Welcome = props => (
             {SITE_NAME} is a personal project of Seattle-based web developer <b>Kyle Geib</b> and proudly features art drawn by Californian digital artist <b>Paul Emery</b>.
           </p>
           <p>
-            Learn more about us and the technology behind {SITE_NAME} <Link to="/credits">here</Link>.
+            Learn more about us and the technology behind {SITE_NAME} in our <Link to="/credits">credits page</Link> and read {SITE_NAME}'s <Link to="/docs/missionstatement">mission statement</Link>.
           </p>
         </Container>
       </Grid.Column>

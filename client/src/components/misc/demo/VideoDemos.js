@@ -415,6 +415,7 @@ class VideoDemos extends PureComponent {
                       playsinline: true,
                       url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/08-responsive-B-02.mp4",
                     }}
+                    playerStyle={{}}
                   />
                 </Grid.Column>
               </Grid.Row>

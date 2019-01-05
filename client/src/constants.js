@@ -45,6 +45,7 @@ export const CHALLENGE_DISPLAY_SINGLE_DELETE_COLUMN_WIDTH = { mobile: 4, tablet:
 export const CHALLENGE_DISPLAY_SPLIT_INPUT_COLUMN_WIDTH = { mobile: 13, tablet: 10, computer: 7 };
 export const CHALLENGE_DISPLAY_SPLIT_DELETE_COLUMN_WIDTH = { mobile: 2, tablet: 1, computer: 1 };
 export const CHALLENGE_MEDIA_MIN_WIDTH = 575;
+export const MOBILE_BREAKPOINT = 768;
 
 // Documentation Settings
 export const DOCUMENTATION_HEADER_OFFSET = -90;

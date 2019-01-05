@@ -9,7 +9,7 @@ class ResponsivePlayer extends PureComponent {
         style={{
           position: "relative",
           paddingTop: `${100 / (this.props.xyRatio)}%`,
-          borderStyle: "ridge",
+          ...this.props.playerStyle,
         }}
       >
         <ReactPlayer
@@ -26,10 +26,12 @@ class ResponsivePlayer extends PureComponent {
 ResponsivePlayer.propTypes = {
   xyRatio: PropTypes.number,
   player: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  playerStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 ResponsivePlayer.defaultProps = {
   xyRatio: 1,
+  playerStyle: { borderStyle: "ridge" },  // Disable by passing {} (an empty object)
 };
 
 export default ResponsivePlayer;
