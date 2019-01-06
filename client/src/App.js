@@ -24,7 +24,8 @@ import UserListPage from "./components/tools/user/UserListPage";
 import QuestionListPage from "./components/tools/question/QuestionListPage";
 import FeedbackListPage from "./components/tools/feedback/FeedbackListPage";
 import NotFoundPage from "./components/misc/NotFoundPage";
-import Demo from "./components/misc/demo/DemoPage";
+import DemoPage from "./components/misc/demo/DemoPage";
+import IntroPage from "./components/misc/demo/IntroPage";
 
 import {
   USER_TYPE_MODERATOR,
@@ -52,8 +53,8 @@ const App = () => (
             path="/challenge/:mode?/:challengeId?"
             component={withAuth(ChallengePage, { private: true })}
           />
-          <Route exact path="/demo" render={() => <Demo mode="recruiter" />} />
-          <Route exact path="/intro" render={() => <Demo mode="educator" />} />
+          <Route exact path="/demo" component={DemoPage} />
+          <Route exact path="/intro" component={IntroPage} />
 
           {/* Admin Pages */}
           <Route
