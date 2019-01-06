@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 import { Button, Grid, Transition } from "semantic-ui-react";
 import CarouselPips from "./CarouselPips";
 
+import {
+  CAROUSEL_BUTTONS_GRID_COLUMN_WIDTH,
+  CAROUSEL_PIPS_GRID_COLUMN_WIDTH,
+} from "../../../constants";
+
 class Carousel extends PureComponent {
   constructor(props) {
     super(props);
@@ -15,26 +20,24 @@ class Carousel extends PureComponent {
       blocking: false,
     };
 
-    this.increment = () => {
-      if (this.state.index + 1 < this.props.panels.length) {
+    this.changeIndex = (newIndex) => {
+      if (newIndex >= 0 && newIndex < this.props.panels.length) {
         this.setState(prevState => ({
-          nextIndex: prevState.index + 1,
+          nextIndex: newIndex,
           visible: false,
-          animation: this.props.incrementOutAnimation,
+          animation: newIndex < prevState.index ?
+            this.props.decrementOutAnimation : this.props.incrementOutAnimation,
           blocking: true,
         }));
       }
     };
 
+    this.increment = () => {
+      this.changeIndex(this.state.index + 1);
+    };
+
     this.decrement = () => {
-      if (this.state.index - 1 >= 0) {
-        this.setState(prevState => ({
-          nextIndex: prevState.index - 1,
-          visible: false,
-          animation: this.props.decrementOutAnimation,
-          blocking: true,
-        }));
-      }
+      this.changeIndex(this.state.index - 1);
     };
 
     this.showNext = () => {
@@ -64,12 +67,11 @@ class Carousel extends PureComponent {
 
   render() {
     return (
-      <Grid>
+      <Grid centered>
         <Grid.Row
           style={{ height: "auto" }}
         >
           <Grid.Column
-            textAlign="center"
             verticalAlign="bottom"
             onClick={this.props.incrementOnClick ? this.increment : null}
             style={this.props.incrementOnClick ? { cursor: "pointer" } : null}
@@ -91,26 +93,30 @@ class Carousel extends PureComponent {
         </Grid.Row>
 
         <Grid.Row columns={3} verticalAlign="middle">
-          <Grid.Column width={4} textAlign="right">
+          <Grid.Column {...CAROUSEL_BUTTONS_GRID_COLUMN_WIDTH}>
             <Button
               icon="angle left"
+              floated="right"
               disabled={this.state.blocking || this.state.index === 0}
               onClick={this.decrement}
               color={this.props.controlColor}
             />
           </Grid.Column>
 
-          <Grid.Column width={8}>
+          <Grid.Column {...CAROUSEL_PIPS_GRID_COLUMN_WIDTH} textAlign="center">
             <CarouselPips
+              changeIndex={this.changeIndex}
+              blocking={this.state.blocking}
               totalPips={this.props.panels.length}
               currentPip={this.state.index}
               color={this.props.controlColor}
             />
           </Grid.Column>
 
-          <Grid.Column width={4} textAlign="left">
+          <Grid.Column {...CAROUSEL_BUTTONS_GRID_COLUMN_WIDTH}>
             <Button
               icon="angle right"
+              floated="left"
               disabled={this.state.blocking || this.state.index === this.props.panels.length - 1}
               onClick={this.increment}
               color={this.props.controlColor}
