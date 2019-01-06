@@ -15,26 +15,24 @@ class Carousel extends PureComponent {
       blocking: false,
     };
 
-    this.increment = () => {
-      if (this.state.index + 1 < this.props.panels.length) {
+    this.changeIndex = (newIndex) => {
+      if (newIndex >= 0 && newIndex < this.props.panels.length) {
         this.setState(prevState => ({
-          nextIndex: prevState.index + 1,
+          nextIndex: newIndex,
           visible: false,
-          animation: this.props.incrementOutAnimation,
+          animation: newIndex < prevState.index ?
+            this.props.decrementOutAnimation : this.props.incrementOutAnimation,
           blocking: true,
         }));
       }
     };
 
+    this.increment = () => {
+      this.changeIndex(this.state.index + 1);
+    };
+
     this.decrement = () => {
-      if (this.state.index - 1 >= 0) {
-        this.setState(prevState => ({
-          nextIndex: prevState.index - 1,
-          visible: false,
-          animation: this.props.decrementOutAnimation,
-          blocking: true,
-        }));
-      }
+      this.changeIndex(this.state.index - 1);
     };
 
     this.showNext = () => {
@@ -102,6 +100,8 @@ class Carousel extends PureComponent {
 
           <Grid.Column width={8}>
             <CarouselPips
+              changeIndex={this.changeIndex}
+              blocking={this.state.blocking}
               totalPips={this.props.panels.length}
               currentPip={this.state.index}
               color={this.props.controlColor}
