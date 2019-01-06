@@ -25,17 +25,38 @@ import {
 const Welcome = props => (
   <Grid padded stackable>
     {props.userTokenData && props.userTokenData.id && // Redirect immediately if logged in.
-      <Redirect to="home" />
+      <Redirect to="/home" />
     }
 
-    <Grid.Row>
-      <Grid.Column width={8}>
-        <Image src="/img/challenge/r-correct-b.gif" centered size="large" />
+    {/* Desktop */}
+    <Responsive as={Grid.Row} minWidth={MOBILE_BREAKPOINT} columns="equal">
+      <Grid.Column>
+        <Image src="/img/challenge/r-correct-b.gif" size="large" floated="right" />
       </Grid.Column>
+      <Grid.Column>
+        <Container text>
+          <Header size={PAGE_TITLE_HEADER_SIZE}>
+            <Header.Content>
+              {SITE_NAME}
+              <Header.Subheader>
+                Learn the Metric System in a new, fun,<br />and easy way!
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+          <SignupLoginButtons from="/home" />
+        </Container>
+      </Grid.Column>
+    </Responsive>
 
-      <Grid.Column width={8} verticalAlign="middle">
-        {/* Desktop */}
-        <Responsive as={Container} text minWidth={MOBILE_BREAKPOINT}>
+    {/* Mobile */}
+    <Responsive as={Grid.Row} textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
+      <Grid.Column>
+        <Image src="/img/challenge/r-correct-b.gif" size="large" centered />
+      </Grid.Column>
+    </Responsive>
+    <Responsive as={Grid.Row} textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
+      <Grid.Column>
+        <Container text>
           <Header size={PAGE_TITLE_HEADER_SIZE}>
             <Header.Content>
               {SITE_NAME}
@@ -45,22 +66,9 @@ const Welcome = props => (
             </Header.Content>
           </Header>
           <SignupLoginButtons from="/home" />
-        </Responsive>
-
-        {/* Mobile */}
-        <Responsive as={Container} text textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
-          <Header size={PAGE_TITLE_HEADER_SIZE}>
-            <Header.Content>
-              {SITE_NAME}
-              <Header.Subheader>
-                Learn the Metric System in a new, fun, and easy way!
-              </Header.Subheader>
-            </Header.Content>
-          </Header>
-          <SignupLoginButtons from="/home" />
-        </Responsive>
+        </Container>
       </Grid.Column>
-    </Grid.Row>
+    </Responsive>
 
     <Grid.Row>
       <Grid.Column>
@@ -107,6 +115,11 @@ const Welcome = props => (
     <Grid.Row>
       <Grid.Column>
         <Container text>
+          <Header>Want to learn a little more?</Header>
+          <p>
+            Take a look at the <Link to="/intro">introduction page</Link> for a little more information — or {SITE_NAME}'s <Link to="/docs/missionstatement">mission statement</Link> for a lot more!
+          </p>
+
           <Header>Who's behind {SITE_NAME}?</Header>
           <p>
             {SITE_NAME} is a personal project of Seattle-based web developer <b>Kyle Geib</b> and proudly features art drawn by Californian digital artist <b>Paul Emery</b>.
@@ -120,23 +133,17 @@ const Welcome = props => (
           <p>
             {SITE_NAME} is a one-person project and is in active development. You can help by giving feedback through <a href={`mailto:${SITE_EMAIL_ADMIN}`}>e-mail</a> or by tweeting at <i>{MASCOT_NAME_SHORT}</i> directly at <XLink to={`https://twitter.com/${SITE_TWITTER_ACCOUNT}`}>@{SITE_TWITTER_ACCOUNT}&nbsp;<Icon name="twitter" fitted /></XLink>
           </p>
-
-          <Header>Still on the fence?</Header>
-          <p>
-            Take a look at the <Link to="/intro">introduction page</Link> for a little more information — or {SITE_NAME}'s <Link to="/docs/missionstatement">mission statement</Link> for a lot more!
-          </p>
         </Container>
       </Grid.Column>
     </Grid.Row>
 
-    <Grid.Row>
-      <Grid.Column width={8}>
-        <Image src="/img/challenge/r-correct-c.gif" centered size="large" />
+    {/* Desktop */}
+    <Responsive as={Grid.Row} minWidth={MOBILE_BREAKPOINT} columns="equal">
+      <Grid.Column>
+        <Image src="/img/challenge/r-correct-c.gif" size="large" floated="right" />
       </Grid.Column>
-
-      <Grid.Column width={8} verticalAlign="middle">
-        {/* Desktop */}
-        <Responsive as={Container} text minWidth={MOBILE_BREAKPOINT}>
+      <Grid.Column>
+        <Container text>
           <Header size="large">
             <Header.Content>
               "Are you ready to learn?"
@@ -149,10 +156,19 @@ const Welcome = props => (
             Start learning on {SITE_NAME} today!
           </Header>
           <SignupLoginButtons from="/home" />
-        </Responsive>
+        </Container>
+      </Grid.Column>
+    </Responsive>
 
-        {/* Mobile */}
-        <Responsive as={Container} text textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
+    {/* Mobile */}
+    <Responsive as={Grid.Row} textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
+      <Grid.Column>
+        <Image src="/img/challenge/r-correct-c.gif" size="large" centered />
+      </Grid.Column>
+    </Responsive>
+    <Responsive as={Grid.Row} textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
+      <Grid.Column>
+        <Container text>
           <Header size="large">
             <Header.Content>
               "Are you ready to learn?"
@@ -165,9 +181,9 @@ const Welcome = props => (
             Start learning on {SITE_NAME} today!
           </Header>
           <SignupLoginButtons from="/home" />
-        </Responsive>
+        </Container>
       </Grid.Column>
-    </Grid.Row>
+    </Responsive>
   </Grid>
 );
 
