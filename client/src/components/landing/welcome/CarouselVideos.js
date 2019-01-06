@@ -10,7 +10,7 @@ import {
 
 
 export default xyRatio => [
-  <Container key="video01" text>
+  <Container key="challenge" text>
     <ResponsivePlayer
       xyRatio={xyRatio}
       playerProps={{
@@ -25,14 +25,14 @@ export default xyRatio => [
     />
     <Header>
       <Header.Content>
-        Learn by taking Challenges!
+        Get better by taking Challenges!
         <Header.Subheader>
           {SITE_NAME} dynamically generates Challenges and tailors special Survey questions for every student.
         </Header.Subheader>
       </Header.Content>
     </Header>
   </Container>,
-  <Container key="video02" text>
+  <Container key="mistakes" text>
     <ResponsivePlayer
       xyRatio={xyRatio}
       playerProps={{
@@ -54,7 +54,7 @@ export default xyRatio => [
       </Header.Content>
     </Header>
   </Container>,
-  <Container key="video03" text>
+  <Container key="kickoff" text>
     <ResponsivePlayer
       xyRatio={xyRatio}
       playerProps={{
@@ -76,7 +76,7 @@ export default xyRatio => [
       </Header.Content>
     </Header>
   </Container>,
-  <Container key="video04" text>
+  <Container key="tips" text>
     <ResponsivePlayer
       xyRatio={xyRatio}
       playerProps={{
@@ -93,12 +93,12 @@ export default xyRatio => [
       <Header.Content>
         Never stay stuck for long!
         <Header.Subheader>
-          Handy conversion tips are always only a tap away.
+          Handy conversion tips are only a tap away.
         </Header.Subheader>
       </Header.Content>
     </Header>
   </Container>,
-  <Container key="video05" text>
+  <Container key="complete" text>
     <ResponsivePlayer
       xyRatio={xyRatio}
       playerProps={{
@@ -113,14 +113,14 @@ export default xyRatio => [
     />
     <Header>
       <Header.Content>
-        Get better with practice!
+        Improve with practice!
         <Header.Subheader>
           Track your progress over time and face more difficult questions as you get better.
         </Header.Subheader>
       </Header.Content>
     </Header>
   </Container>,
-  <Container key="video06" text>
+  <Container key="subjects" text>
     <ResponsivePlayer
       xyRatio={xyRatio}
       playerProps={{
@@ -135,9 +135,9 @@ export default xyRatio => [
     />
     <Header>
       <Header.Content>
-        Learn the Subjects that you're interested in!
+        Discover the topics that interest you!
         <Header.Subheader>
-          {SITE_NAME} also works in reverse, teaching Metric System users the US Customary Unit System.
+          Six Subjects, twenty-eight scales, and nearly forty different units to choose from.
         </Header.Subheader>
       </Header.Content>
     </Header>

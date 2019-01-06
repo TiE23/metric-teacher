@@ -106,7 +106,7 @@ const Welcome = props => (
         <Divider horizontal>
           <Header as="h4">
             <Icon name="info circle" color={PAGE_ICON_COLOR_WELCOME} />
-            Introducing {SITE_NAME}
+            Get to Know {SITE_NAME}
           </Header>
         </Divider>
       </Grid.Column>
@@ -120,6 +120,11 @@ const Welcome = props => (
             Take a look at the <Link to="/intro">introduction page</Link> for a little more information — or {SITE_NAME}'s <Link to="/docs/missionstatement">mission statement</Link> for a lot more!
           </p>
 
+          <Header>Already know the Metric System?</Header>
+          <p>
+            {SITE_NAME} also works in reverse, teaching Metric System users the US Customary Unit System. Simply set your preference when Enrolling!
+          </p>
+
           <Header>Who's behind {SITE_NAME}?</Header>
           <p>
             {SITE_NAME} is a personal project of Seattle-based web developer <b>Kyle Geib</b> and proudly features art drawn by Californian digital artist <b>Paul Emery</b>.
@@ -129,11 +134,21 @@ const Welcome = props => (
             Learn more about us and the technology behind {SITE_NAME} in our <Link to="/credits">credits page</Link>.
           </p>
 
-          <Header>Like what you see?</Header>
           <p>
-            {SITE_NAME} is a one-person project and is in active development. You can help by giving feedback through <a href={`mailto:${SITE_EMAIL_ADMIN}`}>e-mail</a> or by tweeting at <i>{MASCOT_NAME_SHORT}</i> directly at <XLink to={`https://twitter.com/${SITE_TWITTER_ACCOUNT}`}>@{SITE_TWITTER_ACCOUNT}&nbsp;<Icon name="twitter" fitted /></XLink>
+            {SITE_NAME} is a one-person project and is in active development. You can help by giving feedback through <a href={`mailto:${SITE_EMAIL_ADMIN}`}>e-mail</a> or by tweeting directly at <i>{MASCOT_NAME_SHORT}</i> at <XLink to={`https://twitter.com/${SITE_TWITTER_ACCOUNT}`}>@{SITE_TWITTER_ACCOUNT}&nbsp;<Icon name="twitter" fitted /></XLink>
           </p>
         </Container>
+      </Grid.Column>
+    </Grid.Row>
+
+    <Grid.Row>
+      <Grid.Column>
+        <Divider horizontal>
+          <Header as="h4">
+            <Icon name="check circle" color={PAGE_ICON_COLOR_WELCOME} />
+            {SITE_NAME} is Ready For You
+          </Header>
+        </Divider>
       </Grid.Column>
     </Grid.Row>
 
@@ -146,7 +161,7 @@ const Welcome = props => (
         <Container text>
           <Header size="large">
             <Header.Content>
-              "Are you ready to learn?"
+              "So, are you ready to learn?"
               <Header.Subheader>
                 <i>—{MASCOT_NAME_LONG}</i>
               </Header.Subheader>
@@ -171,7 +186,7 @@ const Welcome = props => (
         <Container text>
           <Header size="large">
             <Header.Content>
-              "Are you ready to learn?"
+              "So, are you ready to learn?"
               <Header.Subheader>
                 <i>—{MASCOT_NAME_LONG}</i>
               </Header.Subheader>
