@@ -1213,19 +1213,25 @@ export default {
             </p>
 
             <p>
-              Note that cubic centimeters (cm³) is identical to milliliters. A liter could also be expressed as a
-              cubic decimeter (dm³), a cube that is 10cm×10cm×10cm, but almost never is.
-            </p>
-
-            <Header as="h5">
-              Additional Notes
-            </Header>
-
-            <p>
-              <i>{SITE_NAME} uses the US Customary Units for volume. A further distinction to note is the US Customary Cup. It is equal to 8 fluid ounces or 236.6 milliliters. The US Legal Cup is slightly larger at 240 milliliters and is used in nutrition labelling as a half-baked metrification by the US. As a result, it is often errantly understood that "a cup" is both 240 milliliters and 8 ounces when this is not the case. To add confusion, converting cups to milliliters using Google will use the US Legal Cup.</i>
+              Note that cubic centimeters (cm³) are identical to milliliters. A liter could also be expressed as a
+              cubic decimeter (dm³) — a cube that is 10cm×10cm×10cm — but almost never is.
             </p>
           </React.Fragment>
         ),
+
+        additionalNotes: {
+          header: {
+            content: "Additional Notes",
+            as: "h5",
+          },
+          content: (
+            <React.Fragment>
+              <p>
+                <i>{SITE_NAME} uses the US Customary Units for volume. A further distinction to note is the US Customary Cup. It is equal to 8 fluid ounces or 236.6 milliliters. The US Legal Cup is slightly larger at 240 milliliters and is used in nutrition labelling as a half-baked metrication by the US. As a result, it is often errantly understood that "a cup" is both 240 milliliters and 8 ounces when this is not the case. To add confusion, converting cups to milliliters using Google will use the US Legal Cup.</i>
+              </p>
+            </React.Fragment>
+          ),
+        },
 
         chart: {
           header: {
@@ -1303,38 +1309,44 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              It is difficult to choose the most common unit for volume among US Customary Units. The smallest common unit is the fluid ounce, then the cup (8 fluid ounces), the pint (2 cups), the quart (2 pints), and finally the gallon (4 quarts). It depends on context.
-            </p>
-
-            <Header as="h5">
-              Additional Notes
-            </Header>
-
-            <p>
-              <i>In the US the combination of units to describe a specific amount of liquid is often an exercise of discretion. So long as the pattern is easy to recognize and not mixed it should be acceptable.</i>
-            </p>
-
-            <p>
-              <i>For example, the amount of 160 fluid ounces could be represented at "5 quarts", "1 gallon and 1 quart", or "1.25 gallons" with broad acceptance. An amount such as 168 fluid ounces could be represented as "5 quarts and 1 cup" or "1 gallon, 1 quart, and 1 cup" or "1 gallon and 40 fluid ounces". But it should not be represented as "1.25 gallons and 1 cup", violating a mixing of whole units and decimal units.</i>
-            </p>
-
-            <p>
-              <i>Amounts utilizing a mix of whole and decimal units should limit the decimal value to fluid ounces. For example, with 169.25 fluid ounces resulting in "1 gallon, 1 quart, 1 cup, and 1.25 fluid ounces" and not "1 gallon, 1 quart, and 1.156 cups."</i>
-            </p>
-
-            <p>
-              <i>In practice decimal values are quite commonly accepted in most situations. For example, you will never purchase "5 quarts of gasoline", for instance, you will purchase 1.25 gallons of gasoline. Additionally, you'll more likely see a baking recipe call for 1.5 cups, not "1 cup, 4 fluid ounces", of milk.</i>
-            </p>
-
-            <p>
-              <i>{SITE_NAME} supports a combination input of gallons, quarts, and fluid ounces when dealing with fluid ounces. Pints and cups are typically dropped when dealing with amounts of liquid greater than a quart. Questions that seek answers specifically in gallons, quarts, pints, or cups will request them as decimal values.</i>
-            </p>
-
-            <p>
-              Finally, when context is provided it is common to simply refer to fluid ounces as "ounces" in conversation (for example: "this water bottle holds 32 <i>ounces</i>"). This might provide an interesting dilemma in food packaging as one may have to inspect a label closely to see if the measurement is in fluid ounces (volume) or ounces (weight).
+              It is difficult to choose the most common unit for volume among US Customary Units as it depends on context. The smallest common unit is the fluid ounce, then the cup (8 fluid ounces), the pint (2 cups), the quart (2 pints), and finally the gallon (4 quarts).
             </p>
           </React.Fragment>
         ),
+
+        additionalNotes: {
+          header: {
+            content: "Additional Notes",
+            as: "h5",
+          },
+          content: (
+            <React.Fragment>
+              <p>
+                <i>In the US the combination of units to describe a specific amount of liquid is often an exercise of discretion. So long as the pattern is easy to recognize and not mixed it should be acceptable.</i>
+              </p>
+
+              <p>
+                <i>For example, the amount of 160 fluid ounces could be represented at "5 quarts", "1 gallon and 1 quart", or "1.25 gallons" with broad acceptance. An amount such as 168 fluid ounces could be represented as "5 quarts and 1 cup" or "1 gallon, 1 quart, and 1 cup" or "1 gallon and 40 fluid ounces". But it should not be represented as "1.25 gallons and 1 cup", violating a mixing of whole units and decimal units.</i>
+              </p>
+
+              <p>
+                <i>Amounts utilizing a mix of whole and decimal units should limit the decimal value to fluid ounces. For example, with 169.25 fluid ounces resulting in "1 gallon, 1 quart, 1 cup, and 1.25 fluid ounces" and not "1 gallon, 1 quart, and 1.156 cups."</i>
+              </p>
+
+              <p>
+                <i>In practice decimal values are quite commonly accepted in most situations. For example, you will never purchase "5 quarts of gasoline", for instance, you will purchase 1.25 gallons of gasoline. Additionally, you'll more likely see a baking recipe call for 1.5 cups, not "1 cup, 4 fluid ounces", of milk.</i>
+              </p>
+
+              <p>
+                <i>{SITE_NAME} supports a combination input of gallons, quarts, and fluid ounces when dealing with fluid ounces. Pints and cups are typically dropped when dealing with amounts of liquid greater than a quart. Questions that seek answers specifically in gallons, quarts, pints, or cups will request them as decimal values.</i>
+              </p>
+
+              <p>
+                Finally, when context is provided it is common to simply refer to fluid ounces as "ounces" in conversation (for example: "this water bottle holds 32 <i>ounces</i>"). This might provide an interesting dilemma in food packaging as one may have to inspect a label closely to see if the measurement is in fluid ounces (volume) or ounces (weight).
+              </p>
+            </React.Fragment>
+          ),
+        },
 
         chart: {
           header: {
