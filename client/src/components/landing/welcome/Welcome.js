@@ -2,22 +2,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
-import { Container, Grid, Header, Icon, Image, Responsive } from "semantic-ui-react";
+import { Container, Divider, Grid, Header, Icon, Image, Responsive } from "semantic-ui-react";
 
 import XLink from "../../misc/ExternalLink";
 
 import SignupLoginButtons from "../../misc/SignupLoginButtons";
+import Carousel from "../../misc/carousel/Carousel";
+
+import CarouselVideos from "./CarouselVideos";
 
 import {
   SITE_NAME,
   SITE_EMAIL_ADMIN,
   SITE_TWITTER_ACCOUNT,
   PAGE_TITLE_HEADER_SIZE,
+  PAGE_ICON_COLOR_WELCOME,
   MASCOT_NAME_LONG,
   MASCOT_NAME_SHORT,
   MOBILE_BREAKPOINT,
 } from "../../../constants";
-import Carousel from "../../misc/carousel/Carousel";
 
 const Welcome = props => (
   <Grid padded stackable>
@@ -31,6 +34,7 @@ const Welcome = props => (
       </Grid.Column>
 
       <Grid.Column width={8} verticalAlign="middle">
+        {/* Desktop */}
         <Responsive as={Container} text minWidth={MOBILE_BREAKPOINT}>
           <Header size={PAGE_TITLE_HEADER_SIZE}>
             <Header.Content>
@@ -43,7 +47,8 @@ const Welcome = props => (
           <SignupLoginButtons from="/home" />
         </Responsive>
 
-        <Responsive as={Container} text textAlign="center" maxWidth={MOBILE_BREAKPOINT}>
+        {/* Mobile */}
+        <Responsive as={Container} text textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
           <Header size={PAGE_TITLE_HEADER_SIZE}>
             <Header.Content>
               {SITE_NAME}
@@ -57,19 +62,45 @@ const Welcome = props => (
       </Grid.Column>
     </Grid.Row>
 
-    <Grid.Row textAlign="center">
+    <Grid.Row>
       <Grid.Column>
+        <Divider horizontal>
+          <Header as="h4">
+            <Icon name="video play" color={PAGE_ICON_COLOR_WELCOME} />
+            {SITE_NAME} in Action
+          </Header>
+        </Divider>
+      </Grid.Column>
+    </Grid.Row>
+
+    <Grid.Row textAlign="center">
+      {/* Desktop */}
+      <Responsive as={Grid.Column} minWidth={MOBILE_BREAKPOINT}>
         <Carousel
-          panels={[
-            <Image centered key={1} src="/img/mascot/portrait.gif" />,
-            <Image centered key={2} src="/img/credits/kyle.gif" />,
-            <Image centered key={3} src="/img/credits/paul.gif" />,
-            <i key={4}>Blank</i>,
-            <Image centered key={5} src="/img/credits/kyle.gif" />,
-            <Image centered key={6} src="/img/mascot/portrait.gif" />,
-          ]}
-          controlColor="teal"
+          panels={CarouselVideos(1.2)}
+          controlColor={PAGE_ICON_COLOR_WELCOME}
+          incrementOnClick
         />
+      </Responsive>
+
+      {/* Mobile */}
+      <Responsive as={Grid.Column} maxWidth={MOBILE_BREAKPOINT - 1}>
+        <Carousel
+          panels={CarouselVideos(0.8)}
+          controlColor={PAGE_ICON_COLOR_WELCOME}
+          incrementOnClick
+        />
+      </Responsive>
+    </Grid.Row>
+
+    <Grid.Row>
+      <Grid.Column>
+        <Divider horizontal>
+          <Header as="h4">
+            <Icon name="info circle" color={PAGE_ICON_COLOR_WELCOME} />
+            Introducing {SITE_NAME}
+          </Header>
+        </Divider>
       </Grid.Column>
     </Grid.Row>
 
@@ -82,12 +113,17 @@ const Welcome = props => (
           </p>
 
           <p>
-            Learn more about us and the technology behind {SITE_NAME} in our <Link to="/credits">credits page</Link> and read {SITE_NAME}'s <Link to="/docs/missionstatement">mission statement</Link>.
+            Learn more about us and the technology behind {SITE_NAME} in our <Link to="/credits">credits page</Link>.
           </p>
 
           <Header>Like what you see?</Header>
           <p>
             {SITE_NAME} is a one-person project and is in active development. You can help by giving feedback through <a href={`mailto:${SITE_EMAIL_ADMIN}`}>e-mail</a> or by tweeting at <i>{MASCOT_NAME_SHORT}</i> directly at <XLink to={`https://twitter.com/${SITE_TWITTER_ACCOUNT}`}>@{SITE_TWITTER_ACCOUNT}&nbsp;<Icon name="twitter" fitted /></XLink>
+          </p>
+
+          <Header>Still on the fence?</Header>
+          <p>
+            Take a look at the <Link to="/intro">introduction page</Link> for a little more information — or {SITE_NAME}'s <Link to="/docs/missionstatement">mission statement</Link> for a lot more!
           </p>
         </Container>
       </Grid.Column>
@@ -99,10 +135,11 @@ const Welcome = props => (
       </Grid.Column>
 
       <Grid.Column width={8} verticalAlign="middle">
+        {/* Desktop */}
         <Responsive as={Container} text minWidth={MOBILE_BREAKPOINT}>
           <Header size="large">
             <Header.Content>
-              "So, are you ready to learn?"
+              "Are you ready to learn?"
               <Header.Subheader>
                 <i>—{MASCOT_NAME_LONG}</i>
               </Header.Subheader>
@@ -114,10 +151,11 @@ const Welcome = props => (
           <SignupLoginButtons from="/home" />
         </Responsive>
 
-        <Responsive as={Container} text textAlign="center" maxWidth={MOBILE_BREAKPOINT}>
+        {/* Mobile */}
+        <Responsive as={Container} text textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
           <Header size="large">
             <Header.Content>
-              "So, are you ready to learn?"
+              "Are you ready to learn?"
               <Header.Subheader>
                 <i>—{MASCOT_NAME_LONG}</i>
               </Header.Subheader>

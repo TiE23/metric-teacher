@@ -15,7 +15,7 @@ class Carousel extends PureComponent {
       blocking: false,
     };
 
-    this.smoothIncrement = () => {
+    this.increment = () => {
       if (this.state.index + 1 < this.props.panels.length) {
         this.setState(prevState => ({
           nextIndex: prevState.index + 1,
@@ -26,7 +26,7 @@ class Carousel extends PureComponent {
       }
     };
 
-    this.smoothDecrement = () => {
+    this.decrement = () => {
       if (this.state.index - 1 >= 0) {
         this.setState(prevState => ({
           nextIndex: prevState.index - 1,
@@ -66,9 +66,13 @@ class Carousel extends PureComponent {
     return (
       <Grid>
         <Grid.Row
-          style={{ height: `${this.props.height}px` }}
+          style={{ height: "auto" }}
         >
-          <Grid.Column textAlign="center" verticalAlign="bottom">
+          <Grid.Column
+            textAlign="center"
+            verticalAlign="bottom"
+            onClick={this.props.incrementOnClick ? this.increment : null}
+          >
             <Transition
               unmountOnHide
               visible={this.state.visible}
@@ -90,7 +94,7 @@ class Carousel extends PureComponent {
             <Button
               icon="angle left"
               disabled={this.state.blocking || this.state.index === 0}
-              onClick={this.smoothDecrement}
+              onClick={this.decrement}
               color={this.props.controlColor}
             />
           </Grid.Column>
@@ -107,7 +111,7 @@ class Carousel extends PureComponent {
             <Button
               icon="angle right"
               disabled={this.state.blocking || this.state.index === this.props.panels.length - 1}
-              onClick={this.smoothIncrement}
+              onClick={this.increment}
               color={this.props.controlColor}
             />
           </Grid.Column>
@@ -126,9 +130,7 @@ Carousel.propTypes = {
   showAnimationDuration: PropTypes.number,
   hideAnimationDuration: PropTypes.number,
   controlColor: PropTypes.string,
-  // Be aware of how the height affects the carousel's look on mobile.
-  // This component is far from perfect.
-  height: PropTypes.number,
+  incrementOnClick: PropTypes.bool,
 };
 
 Carousel.defaultProps = {
@@ -139,7 +141,7 @@ Carousel.defaultProps = {
   showAnimationDuration: 500,
   hideAnimationDuration: 500,
   controlColor: "grey",
-  height: 512,
+  incrementOnClick: false,
 };
 
 export default Carousel;

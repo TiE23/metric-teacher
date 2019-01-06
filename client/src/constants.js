@@ -10,6 +10,7 @@ export const SITE_NAME = "Metric-Teacher";
 export const SITE_EMAIL_ADMIN = "admin@metric-teacher.com";
 export const SITE_TWITTER_ACCOUNT = "MetricTeacher";
 export const PAGE_TITLE_HEADER_SIZE = "huge";
+export const PAGE_ICON_COLOR_WELCOME = "teal";
 export const PAGE_ICON_COLOR_HOME = "olive";
 export const PAGE_ICON_COLOR_LOGIN = "blue";
 export const PAGE_ICON_COLOR_CHALLENGE = "yellow";
