@@ -72,6 +72,7 @@ class Carousel extends PureComponent {
             textAlign="center"
             verticalAlign="bottom"
             onClick={this.props.incrementOnClick ? this.increment : null}
+            style={this.props.incrementOnClick ? { cursor: "pointer" } : null}
           >
             <Transition
               unmountOnHide
