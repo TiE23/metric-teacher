@@ -112,6 +112,17 @@ export default (
           </List.Content>
         </List.Item>
         <List.Item>
+          <List.Icon name="heartbeat" />
+          <List.Content>
+            <List.Header>
+              <XLink to="https://github.com/prisma/graphql-yoga">GraphQL Yoga</XLink>
+            </List.Header>
+            <List.Description>
+              "Fully-featured GraphQL Server"
+            </List.Description>
+          </List.Content>
+        </List.Item>
+        <List.Item>
           <List.Icon name="database" />
           <List.Content>
             <List.Header>

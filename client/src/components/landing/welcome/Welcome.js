@@ -2,111 +2,188 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
-import { Accordion, Container, Grid, Header, Icon, Image } from "semantic-ui-react";
+import { Container, Divider, Grid, Header, Icon, Image, Responsive } from "semantic-ui-react";
 
 import XLink from "../../misc/ExternalLink";
 
 import SignupLoginButtons from "../../misc/SignupLoginButtons";
-import WelcomeText from "./WelcomeText";
+import Carousel from "../../misc/carousel/Carousel";
+
+import CarouselVideos from "./CarouselVideos";
 
 import {
   SITE_NAME,
   SITE_EMAIL_ADMIN,
   SITE_TWITTER_ACCOUNT,
   PAGE_TITLE_HEADER_SIZE,
+  PAGE_ICON_COLOR_WELCOME,
   MASCOT_NAME_LONG,
+  MASCOT_NAME_SHORT,
+  MOBILE_BREAKPOINT,
 } from "../../../constants";
 
 const Welcome = props => (
-  <Grid padded>
+  <Grid padded stackable>
     {props.userTokenData && props.userTokenData.id && // Redirect immediately if logged in.
-      <Redirect to="home" />
+      <Redirect to="/home" />
     }
 
-    <Grid.Row>
+    {/* Desktop */}
+    <Responsive as={Grid.Row} minWidth={MOBILE_BREAKPOINT} columns="equal">
       <Grid.Column>
-        <Image src="/img/challenge/r-correct-a.gif" centered size="large" />
+        <Image src="/img/challenge/r-correct-b.gif" size="large" floated="right" />
       </Grid.Column>
-    </Grid.Row>
-
-    <Grid.Row>
       <Grid.Column>
         <Container text>
-          <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+          <Header size={PAGE_TITLE_HEADER_SIZE}>
             <Header.Content>
               {SITE_NAME}
               <Header.Subheader>
-                A new way to learn the Metric System.
+                Learn the Metric System in a new, fun,<br />and easy way!
               </Header.Subheader>
             </Header.Content>
           </Header>
-
-          <p>
-            Welcome! {SITE_NAME} is a free website that will help you learn to understand, describe, and imagine objects, people, and the world using the Metric System. Read our mission statement <Link to="/docs/missionstatement">here</Link>.
-          </p>
-
-          <p>
-            <i>{SITE_NAME} is brand new and is in active development. Please have patience as we figure everything out. You can help by sending feedback by contacting us <XLink to={`https://twitter.com/MetricTeacher${SITE_TWITTER_ACCOUNT}`}>@{SITE_TWITTER_ACCOUNT}&nbsp;<Icon name="twitter" fitted /></XLink> or sending an <a href={`mailto:${SITE_EMAIL_ADMIN}`}>e-mail</a>!</i>
-          </p>
+          <SignupLoginButtons from="/home" />
         </Container>
+      </Grid.Column>
+    </Responsive>
+
+    {/* Mobile */}
+    <Responsive as={Grid.Row} textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
+      <Grid.Column>
+        <Image src="/img/challenge/r-correct-b.gif" size="large" centered />
+      </Grid.Column>
+    </Responsive>
+    <Responsive as={Grid.Row} textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
+      <Grid.Column>
+        <Container text>
+          <Header size={PAGE_TITLE_HEADER_SIZE}>
+            <Header.Content>
+              {SITE_NAME}
+              <Header.Subheader>
+                Learn the Metric System in a new, fun, and easy way!
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+          <SignupLoginButtons from="/home" />
+        </Container>
+      </Grid.Column>
+    </Responsive>
+
+    <Grid.Row>
+      <Grid.Column>
+        <Divider horizontal>
+          <Header as="h4">
+            <Icon name="video play" color={PAGE_ICON_COLOR_WELCOME} />
+            {SITE_NAME} in Action
+          </Header>
+        </Divider>
       </Grid.Column>
     </Grid.Row>
 
     <Grid.Row textAlign="center">
+      {/* Desktop */}
+      <Responsive as={Grid.Column} minWidth={MOBILE_BREAKPOINT}>
+        <Carousel
+          panels={CarouselVideos(1.2)}
+          controlColor={PAGE_ICON_COLOR_WELCOME}
+          incrementOnClick
+        />
+      </Responsive>
+
+      {/* Mobile */}
+      <Responsive as={Grid.Column} maxWidth={MOBILE_BREAKPOINT - 1}>
+        <Carousel
+          panels={CarouselVideos(0.8)}
+          controlColor={PAGE_ICON_COLOR_WELCOME}
+          incrementOnClick
+        />
+      </Responsive>
+    </Grid.Row>
+
+    <Grid.Row>
       <Grid.Column>
-        <Header>
-          Start learning on {SITE_NAME} today!
-        </Header>
-        <SignupLoginButtons from="/home" />
+        <Divider horizontal>
+          <Header as="h4">
+            <Icon name="info circle" color={PAGE_ICON_COLOR_WELCOME} />
+            Introducing {SITE_NAME}
+          </Header>
+        </Divider>
       </Grid.Column>
     </Grid.Row>
 
     <Grid.Row>
       <Grid.Column>
         <Container text>
-          <Accordion
-            panels={WelcomeText}
-            exclusive={false}
-            defaultActiveIndex={[0]}
-            fluid
-          />
+          <Header>Want to learn a little more?</Header>
+          <p>
+            Take a look at the <Link to="/intro">introduction page</Link> for a little more information — or {SITE_NAME}'s <Link to="/docs/missionstatement">mission statement</Link> for a lot more!
+          </p>
+
+          <Header>Who's behind {SITE_NAME}?</Header>
+          <p>
+            {SITE_NAME} is a personal project of Seattle-based web developer <b>Kyle Geib</b> and proudly features art drawn by Californian digital artist <b>Paul Emery</b>.
+          </p>
+
+          <p>
+            Learn more about us and the technology behind {SITE_NAME} in our <Link to="/credits">credits page</Link>.
+          </p>
+
+          <Header>Like what you see?</Header>
+          <p>
+            {SITE_NAME} is a one-person project and is in active development. You can help by giving feedback through <a href={`mailto:${SITE_EMAIL_ADMIN}`}>e-mail</a> or by tweeting at <i>{MASCOT_NAME_SHORT}</i> directly at <XLink to={`https://twitter.com/${SITE_TWITTER_ACCOUNT}`}>@{SITE_TWITTER_ACCOUNT}&nbsp;<Icon name="twitter" fitted /></XLink>
+          </p>
         </Container>
       </Grid.Column>
     </Grid.Row>
 
-    <Grid.Row textAlign="center">
+    {/* Desktop */}
+    <Responsive as={Grid.Row} minWidth={MOBILE_BREAKPOINT} columns="equal">
+      <Grid.Column>
+        <Image src="/img/challenge/r-correct-c.gif" size="large" floated="right" />
+      </Grid.Column>
       <Grid.Column>
         <Container text>
           <Header size="large">
             <Header.Content>
-            "So, are you ready to learn?"
+              "Are you ready to learn?"
               <Header.Subheader>
                 <i>—{MASCOT_NAME_LONG}</i>
               </Header.Subheader>
             </Header.Content>
           </Header>
-          <Image src="/img/challenge/r-correct-b.gif" centered size="large" />
           <Header size="small">
             Start learning on {SITE_NAME} today!
           </Header>
           <SignupLoginButtons from="/home" />
         </Container>
       </Grid.Column>
-    </Grid.Row>
+    </Responsive>
 
-    <Grid.Row>
+    {/* Mobile */}
+    <Responsive as={Grid.Row} textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
+      <Grid.Column>
+        <Image src="/img/challenge/r-correct-c.gif" size="large" centered />
+      </Grid.Column>
+    </Responsive>
+    <Responsive as={Grid.Row} textAlign="center" maxWidth={MOBILE_BREAKPOINT - 1}>
       <Grid.Column>
         <Container text>
-          <Header>Who's behind {SITE_NAME}?</Header>
-          <p>
-            {SITE_NAME} is a personal project of Seattle-based web developer <b>Kyle Geib</b> and proudly features art drawn by Californian digital artist <b>Paul Emery</b>.
-          </p>
-          <p>
-            Learn more about us and the technology behind {SITE_NAME} <Link to="/credits">here</Link>.
-          </p>
+          <Header size="large">
+            <Header.Content>
+              "Are you ready to learn?"
+              <Header.Subheader>
+                <i>—{MASCOT_NAME_LONG}</i>
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+          <Header size="small">
+            Start learning on {SITE_NAME} today!
+          </Header>
+          <SignupLoginButtons from="/home" />
         </Container>
       </Grid.Column>
-    </Grid.Row>
+    </Responsive>
   </Grid>
 );
 

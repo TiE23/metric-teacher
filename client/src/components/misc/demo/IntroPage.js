@@ -1,14 +1,14 @@
 /* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
 import { Container, Header, Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 import ScrollToTopOnMount from "../ScrollToTopOnMount";
+import SignupLoginButtons from "../SignupLoginButtons";
 
 import VideoDemos from "./VideoDemos";
-import PersonalIntroduction from "./PersonalIntroduction";
-import ThankYou from "./ThankYou";
-import { Technical } from "../credits/Stats";
-import Technology from "../credits/Technology";
+import Inspiration from "./Inspiration";
+import { Educational } from "../credits/Stats";
 
 import {
   PAGE_ICON_COLOR_DEMO,
@@ -16,15 +16,15 @@ import {
   SITE_NAME,
 } from "../../../constants";
 
-const DemoPage = () => (
+const IntroPage = () => (
   <Container text>
     <ScrollToTopOnMount />
     <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
       <Header.Content>
         <Icon name="bullhorn" color={PAGE_ICON_COLOR_DEMO} />
-        {SITE_NAME} Demonstration
+        Introducing {SITE_NAME}
         <Header.Subheader>
-          For your consideration.
+          Getting up to speed.
         </Header.Subheader>
       </Header.Content>
     </Header>
@@ -35,20 +35,22 @@ const DemoPage = () => (
       See all of {SITE_NAME} without having to use it!
     </p>
 
-    <VideoDemos mode="recruiter" />
+    <VideoDemos mode="educator" />
 
-    <Header as="h2" content="A Personal Introduction" dividing />
-    {PersonalIntroduction}
-
-    <Header as="h2" content={`The Technology Behind ${SITE_NAME}`} dividing />
-    {Technology}
+    <Header as="h2" content={`The Inspiration Behind ${SITE_NAME}`} dividing />
+    {Inspiration}
 
     <Header as="h2" content="Stats" dividing />
-    {Technical}
+    {Educational}
 
-    <Header as="h2" content="Thank You" dividing />
-    {ThankYou}
+    <Header as="h2" content="More Information" dividing />
+    <p>
+      You can discover a little more about the site and the people behind it, including contact information, <Link to="/credits">here</Link>.
+    </p>
+
+    <Header as="h2" content={`Start using ${SITE_NAME} today!`} dividing />
+    <SignupLoginButtons from="/home" />
   </Container>
 );
 
-export default DemoPage;
+export default IntroPage;

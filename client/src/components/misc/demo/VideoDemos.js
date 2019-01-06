@@ -52,7 +52,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -77,7 +77,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -102,7 +102,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -137,7 +137,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -162,7 +162,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -187,7 +187,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -212,7 +212,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -237,7 +237,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -262,7 +262,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -287,7 +287,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -312,7 +312,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -347,7 +347,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -372,7 +372,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -407,7 +407,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={1.2}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -415,6 +415,7 @@ class VideoDemos extends PureComponent {
                       playsinline: true,
                       url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/08-responsive-B-02.mp4",
                     }}
+                    playerStyle={{}}
                   />
                 </Grid.Column>
               </Grid.Row>
@@ -431,7 +432,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -467,7 +468,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -492,7 +493,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -517,7 +518,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -554,7 +555,7 @@ class VideoDemos extends PureComponent {
 
                       <ResponsivePlayer
                         xyRatio={4 / 3}
-                        player={{
+                        playerProps={{
                           volume: 0,
                           muted: true,
                           playing: true,
@@ -579,7 +580,7 @@ class VideoDemos extends PureComponent {
 
                       <ResponsivePlayer
                         xyRatio={4 / 3}
-                        player={{
+                        playerProps={{
                           volume: 0,
                           muted: true,
                           playing: true,
@@ -618,7 +619,7 @@ class VideoDemos extends PureComponent {
 
                       <ResponsivePlayer
                         xyRatio={4 / 3}
-                        player={{
+                        playerProps={{
                           volume: 0,
                           muted: true,
                           playing: true,
@@ -643,7 +644,7 @@ class VideoDemos extends PureComponent {
 
                       <ResponsivePlayer
                         xyRatio={4 / 3}
-                        player={{
+                        playerProps={{
                           volume: 0,
                           muted: true,
                           playing: true,
@@ -668,7 +669,7 @@ class VideoDemos extends PureComponent {
 
                       <ResponsivePlayer
                         xyRatio={4 / 3}
-                        player={{
+                        playerProps={{
                           volume: 0,
                           muted: true,
                           playing: true,
@@ -707,7 +708,7 @@ class VideoDemos extends PureComponent {
 
                       <ResponsivePlayer
                         xyRatio={4 / 3}
-                        player={{
+                        playerProps={{
                           volume: 0,
                           muted: true,
                           playing: true,
@@ -732,7 +733,7 @@ class VideoDemos extends PureComponent {
 
                       <ResponsivePlayer
                         xyRatio={4 / 3}
-                        player={{
+                        playerProps={{
                           volume: 0,
                           muted: true,
                           playing: true,
@@ -757,7 +758,7 @@ class VideoDemos extends PureComponent {
 
                       <ResponsivePlayer
                         xyRatio={4 / 3}
-                        player={{
+                        playerProps={{
                           volume: 0,
                           muted: true,
                           playing: true,
@@ -794,7 +795,7 @@ class VideoDemos extends PureComponent {
 
                   <ResponsivePlayer
                     xyRatio={4 / 3}
-                    player={{
+                    playerProps={{
                       volume: 0,
                       muted: true,
                       playing: true,
@@ -819,7 +820,7 @@ class VideoDemos extends PureComponent {
 
                     <ResponsivePlayer
                       xyRatio={4 / 3}
-                      player={{
+                      playerProps={{
                         volume: 0,
                         muted: true,
                         playing: true,
