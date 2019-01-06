@@ -531,7 +531,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            As this website was developed by Americans primarily for Americans, American spellings (meter, gram, liter, etc...) for metric unit names are used throughout this website as opposed to British or French spellings (metre, gramme, litre, etc...) .
+            As this website was developed by Americans primarily for Americans, American spellings (meter, gram, liter, etc...) for Metric unit names are used throughout this website as opposed to British or French spellings (metre, gramme, litre, etc...) .
           </p>
         </React.Fragment>
       ),
@@ -812,7 +812,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              The base metric unit is the meter. Common prefixes of the meter are the kilometer (1000 meters), centimeter (1/100 of a meter) and millimeter (1/1000 of a meter).
+              The base Metric unit is the meter. Common prefixes of the meter are the kilometer (1000 meters), centimeter (1/100 of a meter) and millimeter (1/1000 of a meter).
             </p>
           </React.Fragment>
         ),
@@ -1491,7 +1491,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  <i>(Very rough conversion for <u>weather temperature range</u>)</i>: With <b>Fahrenheit</b> subtract 30 and then divide by 2.
+                  <i>(For <u>weather temperature range</u>)</i>: With <b>Fahrenheit</b> subtract 30 and then divide by 2.
                   <List.List>
                     <List.Item>
                       Example: 50 Fahrenheit is about 50 - 30 = 20; 20 / 2 = 10 Celsius (actual answer: 10°C).
@@ -1505,7 +1505,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  <i>(Very rough conversion for temperatures <u>300-800°F</u>)</i>: With <b>Fahrenheit</b> divide by 2.
+                  <i>(For temperatures <u>300-800°F</u>)</i>: With <b>Fahrenheit</b> divide by 2.
                   <List.List>
                     <List.Item>
                       Example: 300 Fahrenheit is about 300 / 2 = 150 Celsius (actual answer: 149°C).
@@ -1516,7 +1516,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  <i>(Very rough conversion for temperatures <u>800°F or more</u>)</i>: With <b>Fahrenheit</b> divide by 2 and then add 10%.
+                  <i>(For temperatures <u>800°F or more</u>)</i>: With <b>Fahrenheit</b> divide by 2 and then add 10%.
                   <List.List>
                     <List.Item>
                       Example: 800 Fahrenheit is about 800 / 2 = 400; 400 + 40 = 440 Celsius (actual answer: 426°C).
@@ -1574,7 +1574,7 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  <i>(Very rough conversion for <u>weather temperature range</u>)</i>: With <b>Celsius</b> multiply by 2 and then add 30.
+                  <i>(For <u>weather temperature range</u>)</i>: With <b>Celsius</b> multiply by 2 and then add 30.
                   <List.List>
                     <List.Item>
                       Example: 10 Celsius is about 10 × 2 = 20; 20 + 30 = 50 Fahrenheit (actual answer: 50°F).
@@ -1588,7 +1588,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  <i>(Very rough conversion for temperatures <u>150-400°C</u>)</i>: With <b>Celsius</b> multiply by 2.
+                  <i>(For temperatures <u>150-400°C</u>)</i>: With <b>Celsius</b> multiply by 2.
                   <List.List>
                     Example: 150 Celsius is about 150 × 2 = 300 Fahrenheit (actual answer: 302°F).
                   </List.List>
@@ -1597,7 +1597,7 @@ export default {
                   </List.List>
                 </List.Item>
                 <List.Item>
-                  <i>(Very rough conversion for temperatures <u>400°C or more</u>)</i>: With <b>Celsius</b> multiply by 2 and then subtract 10%.
+                  <i>(For temperatures <u>400°C or more</u>)</i>: With <b>Celsius</b> multiply by 2 and then subtract 10%.
                   <List.List>
                     Example: 400 Celsius is about 400 × 2 = 800; 800 - 80 = 720 Fahrenheit (actual answer: 752°F).
                   </List.List>
@@ -1677,7 +1677,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              While not the only metric unit for velocity, kilometers per hour is by far the most common. The most commonly used symbol is "km/h" with all lowercase letters. Though discouraged, it may appear written as "km/hr", "kmh", "kmph","kph", or another similar way with varied capitalization.
+              While not the only Metric unit for velocity, kilometers per hour is by far the most common. The most commonly used symbol is "km/h" with all lowercase letters. Though discouraged, it may appear written as "km/hr", "kmh", "kmph","kph", or another similar way with varied capitalization.
             </p>
 
             <p>
@@ -1707,13 +1707,13 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  1 <b>mile per hour</b> is 1.61 <b>kilometers per hour</b>. Add 50% and then add 10% <u>of the starting value</u>.
+                  A <b>mile per hour</b> is 1.61 <b>kilometers per hour</b>. Add 50% and then add 10% <u>of the starting value</u>.
                   <List.List>
                     <List.Item>
-                      Example: 60 miles per hour is about 60 + 30; 90 + 6 = 96 kilometers per hour (actual answer: 96.6km/h).
+                      Example: 60 mph is about 60 + 30; 90 + 6 = 96 km/h (actual answer: 96.6km/h).
                     </List.Item>
                     <List.Item>
-                      Example: 100 miles per hour is about 100 + 50 = 150; 150 + 10 = 160 kilometers per hour (actual answer: 160.9km/h).
+                      Example: 100 mph is about 100 + 50 = 150; 150 + 10 = 160 km/h (actual answer: 160.9km/h).
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -1766,13 +1766,13 @@ export default {
             <React.Fragment>
               <List bulleted>
                 <List.Item>
-                  1 <b>kilometer per hour</b> is 0.62 <b>miles per hour</b>. Multiply by 6 and then divide by 10.
+                  A <b>kilometer per hour</b> is 0.62 <b>miles per hour</b>. Multiply by 6 and then divide by 10.
                   <List.List>
                     <List.Item>
-                      Example: 25 kilometers per hour is about 25 × 6 = 150; 150 / 10 = 15 miles per hour (actual answer: 15.5mph).
+                      Example: 25 km/h is about 25 × 6 = 150; 150 / 10 = 15 mph (actual answer: 15.5mph).
                     </List.Item>
                     <List.Item>
-                      Example: 200 kilometers per hour is about 200 × 6 = 1200; 1200 / 10 = 120 miles per hour (actual answer: 124.3mph).
+                      Example: 200 km/h is about 200 × 6 = 1200; 1200 / 10 = 120 mph (actual answer: 124.3mph).
                     </List.Item>
                   </List.List>
                 </List.Item>

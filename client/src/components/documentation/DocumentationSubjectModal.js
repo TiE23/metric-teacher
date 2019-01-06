@@ -24,10 +24,10 @@ const DocumentationSubjectModal = (props) => {
         <Modal.Description>
           <Header {...targetDoc.header} />
           {targetDoc.content}
-          <Header {...targetDoc.chart.header} />
-          {targetDoc.chart.content}
           <Header {...targetDoc.tips.header} />
           {targetDoc.tips.content}
+          <Header {...targetDoc.chart.header} />
+          {targetDoc.chart.content}
           <Divider />
           <XLink
             to={`/docs/guide/${subjectAddress}/${directionAddress.toLocaleLowerCase()}`}
