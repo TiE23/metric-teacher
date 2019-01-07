@@ -35,7 +35,7 @@ import {
 const App = () => (
   <div className="App">
     <Switch>
-      <Route exact path="/" render={() => <Redirect to="welcome" />} />
+      <Redirect exact from="/" to="/welcome" />
       <Route exact path="/logout" component={Logout} />
       <Route path="/">
         <MenuFrame>
@@ -46,7 +46,7 @@ const App = () => (
           <Route exact path="/credits" component={Credits} />
           <Route exact path="/user/:id" component={withAuth(UserPage, { private: true })} />
           <Route exact path="/subjects" component={withAuth(SubjectsPage)} />
-          <Route exact path="/docs" render={() => <Redirect to="docs/all" />} />
+          <Redirect exact from="/docs" to="/docs/all" />
           <Route exact path="/docs(.*)" component={DocumentationPage} />
           <Route
             exact

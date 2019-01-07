@@ -135,7 +135,7 @@ export default xyRatio => [
     />
     <Header>
       <Header.Content>
-        Discover the topics that interest you!
+        Discover topics that interest you!
         <Header.Subheader>
           Six Subjects, twenty-eight scales, and nearly forty different units to choose from.
         </Header.Subheader>
