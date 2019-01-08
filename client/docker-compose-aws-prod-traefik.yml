@@ -1,0 +1,47 @@
+version: "3.6"
+
+services:
+  traefik:
+    image: traefik:latest
+    restart: always
+    command: --docker #--api # DO NOT USE IN PRODUCTION
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml
+      - ./acme.json:/acme.json
+    labels: # For when --api is set
+      - "traefik.frontend.rule=Host:traefik.metric-teacher.com"
+      - "traefik.port=8080"
+    container_name: traefik
+
+  metric-teacher-client:
+    container_name: metric-teacher-client
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/${METRIC_TEACHER_CLIENT_BUILD_MODE:-prebuilt}/Dockerfile
+    command: "serve --single --listen=3000 ./build"
+    networks:
+      - proxy
+    labels:
+      - "traefik.docker.network=proxy"
+      - "traefik.enable=true"
+      - "traefik.backend=metric-teacher-client"
+      - "traefik.base.frontend.rule=Host:metric-teacher.com"
+      - "traefik.base.port=3000"
+      - "traefik.www.frontend.rule=Host:www.metric-teacher.com"
+      - "traefik.www.port=3000"
+      - "traefik.test.frontend.rule=Host:test.metric-teacher.com"
+      - "traefik.test.port=3000"
+
+volumes:
+  metric-teacher-client:
+
+networks:
+  proxy:
+    name: "proxy"
