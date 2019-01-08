@@ -2,22 +2,27 @@ version: "3.6"
 
 services:
   traefik:
-    image: traefik:latest
+    hostname: traefik
+#    image: traefik:latest  # Until volume mounting is fixed...
+    build:                  # Until volume mounting is fixed...
+      context: .
+      dockerfile: traefikDockerfile
+    container_name: traefik
     restart: always
-    command: --docker #--api # DO NOT USE IN PRODUCTION
-    ports:
-      - 80:80
-      - 443:443
+    domainname: "metric-teacher.com"
     networks:
       - proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=HostRegexp:{subdomain:.+}.metric-teacher.com,metric-teacher.com;PathStrip:/traefik"
+      - "traefik.port=8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik.toml:/traefik.toml
+#      - ./traefik.toml:/traefik.toml # Until volume mounting is fixed...
       - ./acme.json:/acme.json
-    labels: # For when --api is set
-      - "traefik.frontend.rule=Host:traefik.metric-teacher.com"
-      - "traefik.port=8080"
-    container_name: traefik
 
   metric-teacher-client:
     container_name: metric-teacher-client
@@ -29,18 +34,11 @@ services:
     networks:
       - proxy
     labels:
+      - "traefik.backend=metric-teacher-client"
       - "traefik.docker.network=proxy"
       - "traefik.enable=true"
-      - "traefik.backend=metric-teacher-client"
-      - "traefik.base.frontend.rule=Host:metric-teacher.com"
-      - "traefik.base.port=3000"
-      - "traefik.www.frontend.rule=Host:www.metric-teacher.com"
-      - "traefik.www.port=3000"
-      - "traefik.test.frontend.rule=Host:test.metric-teacher.com"
-      - "traefik.test.port=3000"
-
-volumes:
-  metric-teacher-client:
+      - "traefik.frontend.rule=HostRegexp:{subdomain:.+}.metric-teacher.com,metric-teacher.com"
+      - "traefik.port=3000"
 
 networks:
   proxy:

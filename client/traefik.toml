@@ -1,33 +1,43 @@
-debug = false
+debug = true
 checkNewVersion = true
 logLevel = "ERROR"
 
-defaultEntryPoints = ["https","http"]
+defaultEntryPoints = ["https", "http"]
+
+[api]
+  entrypoint = "dashboard"
+  dashboard = true
+  address = ":8080"
 
 [entryPoints]
   [entryPoints.http]
     address = ":80"
-#  [entryPoints.http.redirect]
-#    entryPoint = "https"
+    [entryPoints.http.redirect]
+      entryPoint = "https"
   [entryPoints.https]
     address = ":443"
-  [entryPoints.https.tls]
+    [entryPoints.https.tls]
+  [entrypoints.dashboard]
+    address = ":8080"
+    [entrypoints.dashboard.auth]
+      [entrypoints.dashboard.auth.basic]
+        users = ["admin:$apr1$L8zTpgID$qIsGzwO6eA4vvRAIQmzqz/"]
 
 [retry]
 
-#[docker]
-#  endpoint = "unix:///var/run/docker.sock"
-#  domain = "test.metric-teacher.com"
-#  watch = true
-#  exposedByDefault = false
+[docker]
+  endpoint = "unix:///var/run/docker.sock"
+  domain = "metric-teacher.com"
+  watch = true
+  exposedByDefault = false
+  network = "proxy"
 
 #[acme]
-#  email = "metricteachersite@gmail.com"
+#  email = "admin@metric-teacher.com"
 #  storage = "acme.json"
 #  caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
 #  entryPoint = "https"
 #  onHostRule = true
-#  onDemand = false
 #  [acme.httpChallenge]
 #    entryPoint = "http"
 #
