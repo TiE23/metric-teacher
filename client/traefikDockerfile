@@ -1,4 +1,0 @@
-# This is temporary. I'm directly copying the traefik.toml file because the volume mount isn't be read...
-FROM traefik:latest
-
-COPY ./traefik.toml /traefik.toml
