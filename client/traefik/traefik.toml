@@ -12,8 +12,8 @@ defaultEntryPoints = ["https", "http"]
 [entryPoints]
   [entryPoints.http]
     address = ":80"
-#    [entryPoints.http.redirect]
-#      entryPoint = "https"
+    [entryPoints.http.redirect]
+      entryPoint = "https"
   [entryPoints.https]
     address = ":443"
     [entryPoints.https.tls]
@@ -32,15 +32,23 @@ defaultEntryPoints = ["https", "http"]
   exposedByDefault = false
   network = "proxy"
 
-#[acme]
-#  email = "admin@metric-teacher.com"
-#  storage = "acme.json"
-#  caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
-#  entryPoint = "https"
-#  onHostRule = true
-#  [acme.httpChallenge]
-#    entryPoint = "http"
-#
+[acme]
+  email = "admin@metric-teacher.com"
+  storage = "acme.json"
+  # For test - Creates Fake Certs
+  caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+  # For prod - Switch to this before doing it for real
+#  caServer = "https://acme-v02.api.letsencrypt.org/directory"
+  entryPoint = "https"
+  onHostRule = true
+  [acme.httpChallenge]
+    entryPoint = "http"
+
+# For test
+[[acme.domains]]
+  main = "test.metric-teacher.com"
+
+# For prod - switch to this before doing it for real.
 #[[acme.domains]]
 #  main = "metric-teacher.com"
-#  sans = ["www.metric-teacher.com", "api.metric-teacher.com", "db.metric-teacher.com", "test.metric-teacher.com"]
+#  sans = ["www.metric-teacher.com"]

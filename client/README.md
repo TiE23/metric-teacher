@@ -39,4 +39,4 @@ I'm using Traefik as a method to provide HTTPS security for the client, server, 
 
 Traefik is a simple tool that routes traffic through it and works well in Docker containers. It essentially acts as a simple gatekeeper of incoming traffic. When configured a certain way, it will force HTTP traffic to HTTPS. It also has the sweet feature of providing free and automatic SSL certification through Let's Encrypt!
 
-You can access the dashboard by visiting metric-teacher.com/traefik/
+You can access the dashboard by visiting metric-teacher.com/traefik though it may require you to use a new browser to work due to what I assume are caching issues. There is a user name and password requirement.

@@ -1,13 +1,20 @@
-# Reminder: The argument --build must be used with docker-compose when making any updates to
-# traefik.toml as the file needs to be re-copied due to the use of a Dockerfile.
+# This compose file requires that you have two files located at ~/ of the host machine:
+# traefik.toml and acme.json
+# traefik.toml should be the same file as found in this project.
+# acme.json should be a blank file with the permission code 600.
+# And by host machine, that means that if this is being use on a docker-machine such as an EC2
+# instance, yes, those files must be on THAT instance.
+# Copying with a single command from client directory (must have port 22 open, obviously):
+#   scp -pr traefik/* ubuntu@metric-teacher.com:~/
+# -p option maintains permission setting, so be sure that acme.json is 600 before sending.
+# To copy back:
+#   scp -p ubuntu@metric-teacher.com:acme* ./
 version: "3.6"
 
 services:
   traefik:
     hostname: traefik
-    build:
-      context: ./traefik
-      dockerfile: docker/aws/Dockerfile
+    image: traefik:latest
     container_name: traefik
     restart: always
     domainname: "metric-teacher.com"
@@ -17,12 +24,15 @@ services:
       - "80:80"
       - "443:443"
     labels:
+      - "traefik.frontend.entryPoints=https"
       - "traefik.enable=true"
       # Load the monitor by visiting ...metric-teacher.com/traefik - it may require a new browser window to work.
       - "traefik.frontend.rule=HostRegexp:{subdomain:.+}.metric-teacher.com,metric-teacher.com;PathPrefixStrip:/traefik"
       - "traefik.port=8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /home/ubuntu/traefik.toml:/traefik.toml
+      - /home/ubuntu/acme.json:/acme.json
 
   metric-teacher-client:
     container_name: metric-teacher-client
