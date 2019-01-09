@@ -1,5 +1,5 @@
-# Reminder: The argument --build must be used with docker-compose must be used when making any
-# updates to traefik.toml for them to take effect because of the use of a Dockerfile.
+# Reminder: The argument --build must be used with docker-compose when making any updates to
+# traefik.toml as the file needs to be re-copied due to the use of a Dockerfile.
 version: "3.6"
 
 services:
@@ -18,7 +18,8 @@ services:
       - "443:443"
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=HostRegexp:{subdomain:.+}.metric-teacher.com,metric-teacher.com;PathStrip:/traefik"
+      # Load the monitor by visiting ...metric-teacher.com/traefik - it may require a new browser window to work.
+      - "traefik.frontend.rule=HostRegexp:{subdomain:.+}.metric-teacher.com,metric-teacher.com;PathPrefixStrip:/traefik"
       - "traefik.port=8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
