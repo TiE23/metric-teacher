@@ -4,11 +4,16 @@
 # acme.json should be a blank file with the permission code 600.
 # And by host machine, that means that if this is being use on a docker-machine such as an EC2
 # instance, yes, those files must be on THAT instance.
-# Copying with a single command from client directory (must have port 22 open, obviously):
-#   scp -pr traefik/* ubuntu@metric-teacher.com:~/
-# -p option maintains permission setting, so be sure that acme.json is 600 before sending.
-# To copy back:
-#   scp -p ubuntu@metric-teacher.com:acme* ./
+#
+# cd to ./client/traefik
+# Use the script init.sh to upload the traefik.toml and a blank acme.json to the server.
+#   sh init.sh www.metric-teacher.com
+# Use download.sh to back it up (it'll save to acme.json.bak):
+#   sh download.sh www.metric-teacher.com
+# DON'T COMMIT acme.json or acme.json.bak and keep it safe!
+# If you have an acme file you want to use, place it in ./traefik and run this:
+#   sh upload.sh www.metric-teacher.com
+
 version: "3.6"
 
 services:

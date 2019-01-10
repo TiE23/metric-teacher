@@ -46,7 +46,7 @@ defaultEntryPoints = ["https", "http"]
 
 # For test
 [[acme.domains]]
-  main = "test.metric-teacher.com"
+  main = "test.metric-teacher.com" # You need to have Traefik on every domain, not just some.
 
 # For prod - switch to this before doing it for real.
 #[[acme.domains]]

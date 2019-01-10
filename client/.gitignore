@@ -12,6 +12,10 @@
 # production
 /build
 
+# private
+acme.json
+acme.json.bak
+
 # misc
 .DS_Store
 .env.local
