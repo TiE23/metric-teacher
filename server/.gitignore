@@ -9,5 +9,5 @@ node_modules
 # private
 acme.json
 acme.json.bak
-database/backup_*.sql
 database/backups
+traefik/backups

@@ -15,6 +15,7 @@
 # private
 acme.json
 acme.json.bak
+traefik/backups
 
 # misc
 .DS_Store
