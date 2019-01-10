@@ -12,5 +12,3 @@ RUN yarn install
 
 # copy files to work directory (relying on .dockerignore here)
 COPY . .
-
-EXPOSE 4000

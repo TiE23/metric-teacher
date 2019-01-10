@@ -5,3 +5,9 @@ node_modules
 .vscode
 *.log
 .env*
+
+# private
+acme.json
+acme.json.bak
+database/backup_*.sql
+database/backups
