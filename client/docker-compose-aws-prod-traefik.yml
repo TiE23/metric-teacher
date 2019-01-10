@@ -11,7 +11,7 @@
 # Use download.sh to back it up (it'll save to acme.json.bak):
 #   sh download.sh www.metric-teacher.com
 # DON'T COMMIT acme.json or acme.json.bak and keep it safe!
-# If you have an acme file you want to use, place it in ./traefik and run this:
+# If you want to re-upload traefik.toml or have an acme.json file you wanna upload, run:
 #   sh upload.sh www.metric-teacher.com
 
 version: "3.6"
