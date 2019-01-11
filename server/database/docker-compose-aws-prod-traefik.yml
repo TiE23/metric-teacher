@@ -43,7 +43,6 @@ services:
     image: prismagraphql/prisma:1.24.0
     restart: always
     networks:
-#      - default
       - internal
       - proxy
     environment:
@@ -69,12 +68,7 @@ services:
     image: mysql:5.7
     restart: always
     networks:
-#      - default
       - internal
-#      internal:
-#        ipv4_address: 172.18.0.30
-#        aliases:
-#          - db
     environment:
       MYSQL_ROOT_PASSWORD: prisma
     labels:
@@ -87,9 +81,3 @@ networks:
   internal:
     name: "internal"
     external: false
-#  internal:
-#    name: "internal"
-#    driver: bridge
-#    ipam:
-#      config:
-#        - subnet: 172.18.0.0/16

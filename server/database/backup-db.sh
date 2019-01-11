@@ -22,7 +22,7 @@ fi
 DATE_STAMP=`date -u +%Y-%m-%d_%H-%M-%S`
 BACKUP_TEMP_NAME=backup_${DATE_STAMP}.sql
 
-# Yes, raw password because a hacker would need to get past firewall and layers of auth to even get to this point.
+# Relying on the fact that the DB will be protected with strict firewall rules (which are set behind 2-step auth website) and SSH security.
 ssh ${SSH_OPTIONS} ubuntu@$1 "sudo docker exec database_db_1 bash -c \"mysqldump --default-character-set=utf8mb4 -u root --password=prisma --all-databases > ${BACKUP_TEMP_NAME}\""
 
 DB_CONTAINER_ID=`ssh ${SSH_OPTIONS} ubuntu@$1 "sudo docker ps -q -f \"name=database_db_1\""`
