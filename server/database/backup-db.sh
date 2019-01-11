@@ -4,26 +4,34 @@
 # db_example.com_2019-01-01_11-35-05_manual.sql
 
 # Example cron job (every 8 hours):
-# 00 */8 * * * cd ~/git/metric-teacher/server/database && sh backup-db.sh db.metric-teacher.com cron
+# 00 */8 * * * cd ~/git/metric-teacher/server/database && sh backup-db.sh db.metric-teacher.com cron /path/to/id_rsa
+# This is using an SSH key that has no password and is recognized by the host machine.
 
 if [[ $# -eq 0 ]]; then
   echo "Run with destination domain name as argument"
   exit 1
 fi
 
+if [[ $2 = "cron" ]] && [[ ! -z $3 ]]; then
+  SSH_OPTIONS="-i $3"
+  echo "Using -i $3"
+else
+  SSH_OPTIONS=""
+fi
+
 DATE_STAMP=`date -u +%Y-%m-%d_%H-%M-%S`
 BACKUP_TEMP_NAME=backup_${DATE_STAMP}.sql
 
 # Yes, raw password because a hacker would need to get past firewall and layers of auth to even get to this point.
-ssh ubuntu@$1 "sudo docker exec database_db_1 bash -c \"mysqldump --default-character-set=utf8mb4 -u root --password=prisma --all-databases > ${BACKUP_TEMP_NAME}\""
+ssh ${SSH_OPTIONS} ubuntu@$1 "sudo docker exec database_db_1 bash -c \"mysqldump --default-character-set=utf8mb4 -u root --password=prisma --all-databases > ${BACKUP_TEMP_NAME}\""
 
-DB_CONTAINER_ID=`ssh ubuntu@$1 "sudo docker ps -q -f \"name=database_db_1\""`
+DB_CONTAINER_ID=`ssh ${SSH_OPTIONS} ubuntu@$1 "sudo docker ps -q -f \"name=database_db_1\""`
 
 # Copy backup from container to host
-ssh ubuntu@$1 "sudo docker cp ${DB_CONTAINER_ID}:${BACKUP_TEMP_NAME} ${BACKUP_TEMP_NAME}"
+ssh ${SSH_OPTIONS} ubuntu@$1 "sudo docker cp ${DB_CONTAINER_ID}:${BACKUP_TEMP_NAME} ${BACKUP_TEMP_NAME}"
 
 # Delete backup from container
-ssh ubuntu@$1 "sudo docker exec database_db_1 bash -c \"rm ${BACKUP_TEMP_NAME}\""
+ssh ${SSH_OPTIONS} ubuntu@$1 "sudo docker exec database_db_1 bash -c \"rm ${BACKUP_TEMP_NAME}\""
 
 # Using UTC Timestamp
 # By the way, the directory backups/ is a symlink to a good backup location for me.
@@ -34,7 +42,7 @@ else
   BACKUP_LOCATION=backups/db_$1_${DATE_STAMP}_$2.sql
 fi
 
-scp ubuntu@$1:${BACKUP_TEMP_NAME} ${BACKUP_LOCATION} && ssh ubuntu@$1 "rm ${BACKUP_TEMP_NAME}"
+scp ${SSH_OPTIONS} ubuntu@$1:${BACKUP_TEMP_NAME} ${BACKUP_LOCATION} && ssh ${SSH_OPTIONS} ubuntu@$1 "rm ${BACKUP_TEMP_NAME}"
 
 echo "Backup complete: ${BACKUP_LOCATION} - top line:"
 head -n 1 ${BACKUP_LOCATION}
