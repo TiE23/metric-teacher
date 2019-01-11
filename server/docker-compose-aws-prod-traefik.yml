@@ -45,8 +45,8 @@ services:
     build:
       context: .
       dockerfile: docker/prod/Dockerfile
-    command: "yarn start-prod"  # For Test
-#    command: "yarn start-prod-traefik" # For Prod (when DB has HTTPS support)
+#    command: "yarn start-prod"  # For Test
+    command: "yarn start-prod-traefik" # For Prod (when DB has HTTPS support)
     networks:
       - proxy
     labels:
