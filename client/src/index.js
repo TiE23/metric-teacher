@@ -68,7 +68,7 @@ const customFetch = (uri, options) => {
 };
 
 const httpLinkWithAuthToken = createHttpLink({
-  uri: `http://${API_ROOT}`,
+  uri: `https://${API_ROOT}`,
   fetch: customFetch,
   headers: {
     authorization: token ? `Bearer ${token}` : null,
@@ -76,7 +76,7 @@ const httpLinkWithAuthToken = createHttpLink({
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://${API_ROOT}`,
+  uri: `wss://${API_ROOT}`,
   options: {
     reconnect: true,
     connectionParams: {
