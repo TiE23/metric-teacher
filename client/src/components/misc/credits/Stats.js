@@ -52,7 +52,7 @@ export const Technical = (
       <List.Item>160+ Closed GitHub Issues</List.Item>
       <List.Item>730+ Non-merge Commits</List.Item>
       <List.Item>150+ Unit Tests</List.Item>
-      <List.Item>26 Pages of Documentation</List.Item>
+      <List.Item>36 Pages of Documentation</List.Item>
       <List.Item>4 Admin Tools</List.Item>
       <List.Item>4 User Types</List.Item>
       <List.Item>1 Self-driven Developer</List.Item>
