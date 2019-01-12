@@ -70,6 +70,194 @@ This file is used by the module [`dotenv`](https://github.com/motdotla/dotenv).
 
 If you ever do remote hosting, you'll need to change the endpoint's url to the remote host's location, and change the `PRISMA_CLUSTER` value to whatever additional cluster you define in `~/.prisma/config.yml` (like the above example for `local`). You should do this by defining a second `.env` file with a name like `.env.remote` and then run, for example, `prisma deploy -e /.env.remote`.
 
+## Hosting on AWS
+At the time of writing I place the two parts of the back-end of Metric-Teacher onto two separate AWS EC2 instances. I name them "Server" and "PrismaDB".
+
+### Docker-Machine
+Configuring Docker-Machines on AWS requires a bit of a set-up but makes everything possible.
+
+From my personal notes:
+1) I had docker and docker-machine already installed. Try `docker --version` and `docker-machine --version` to see if they're working.
+2) I had to get AWS tokens: [Here](https://console.aws.amazon.com/iam/home#/security_credential)
+3) Then I installed the AWS CLI ([instructions here](https://docs.aws.amazon.com/cli/latest/userguide/installing.html))
+4) I let `aws configure` do the configuration for me as [followed here](https://docs.docker.com/machine/drivers/aws/#configuring-credentials), entering in my key and secret.
+5) I then ran the create command for docker-machine as [followed here](https://docs.docker.com/machine/drivers/aws/#aws-credential-file).
+6) From there I configured my docker-machine's [bash scripts](https://docs.docker.com/machine/install-machine/#install-bash-completion-scripts).
+  * To do this I downloaded the bash scripts it downloads (I put them in OneDrive for safe keeping and symlinked them from /usr/local/etc/bash_completion.d/ - a directory I choose because the one under /etc was empty)
+  * In my ~/.bash_profile (also symlinked to OneDrive for safe keeping) I modified my PS1 (the thing that determines the look of your prompt in bash), adding a new section: $(__docker_machine_ps1 "\[%s\]")
+  * And before that PS1 line I had source commands to each .bash script
+7) From there I could run a command: `docker-machine use aws01` (the name of my first aws docker-machine, example create I followed [here](https://docs.docker.com/machine/drivers/aws/#aws-credential-file)) and the notice in my PS1 would appear that I was using the remote docker-machine.
+8) To return to my local docker-machine I could run the command: `docker-machine use -u` and it would unset.
+9) I could see the difference by simply running `docker ps` and see which docker-machines had what on them.
+
+#### Launching Instances
+Creating new instances isn't too hard. Here are the command I used:
+`docker-machine create --driver amazonec2 --amazonec2-region us-west-2 --amazonec2-instance-type t2.micro --amazonec2-keypair-name myKey --amazonec2-ssh-keypath ~/.ssh/id_rsa metric-teacher-server01`
+
+I was from the start telling AWS to associate my personal SSH key with the instance so I could immediately SSH into it. In this example in `~/.ssh` there are two files, `id_rsa` and `id_rsa.pub`. The create command assumes you have the private key as whatever name you give (example: `./myKey`) and the public key as the same file but with `.pub` (example: `./myKey.pub`).
+
+The instance is a micro instance and named `metric-teacher-server01`
+
+I could then switch to that machine with `docker-machine use metric-teacher-server01`
+
+##### Elastic IP Addresses
+Amazon gives every user the option to reserve 5 IPv4 addresses to assign to their instances. So I grabbed a new IP address and associated it with each new instance I wanted to use.
+
+Then, on my DNS service I associated those IP addresses with different subdomains. In my case, metric-teacher.com & www․metric-teacher.com went to the client instance, api․metric-teacher.com went to the server instance, and db․metric-teacher.com went to the Prisma+MySQL instance.
+
+### UP'ing Prisma + MySQL
+If you read the section just before this I actually created another instance named `metric-teacher-prismadb01`. Same exact create command, just a different name.
+
+To install the Prisma application and MySQL server I used `docker-machine use metric-teacher-prismadb01` and then ran, from `./server` the command `docker-compose -f ./database/docker-compose-aws-prod.yml up -d`
+
+When it was done I could see that things were running with `docker ps`
+
+#### New dotenv file
+Because I was running a **local docker machine** already for local development I had to create a separate `.env` file for use on AWS named `.env.aws.prod` that looked like this:
+```
+PRISMA_STAGE="prod"
+PRISMA_ENDPOINT="http://db.metric-teacher.com/server/prod"
+PRISMA_CLUSTER="metric-teacher-prismadb01"
+PRISMA_SECRET="<<SECRET>>"
+APP_SECRET="<<SECRET>>"
+PRISMA_MANAGEMENT_API_SECRET="<<SECRET>>"
+```
+In my ~/.prisma/config.yml looked like this:
+```
+clusters:
+  metric-teacher-prismadb01:
+    host: "http://db.metric-teacher.com"
+    clusterSecret: "<<PRISMA_SECRET>>"
+```
+
+Then I could deploy the dataseed to the database with `prisma deploy -e .env.aws.prod`
+
+#### Testing
+I could visit db․metric-teacher.com/server/prod (assuming `PRISMA_STAGE` in the .env file was set to "prod" that is) and by running `prisma token -e .env.aws.prod` I could then test that Prisma and the DB were talking to each other and properly seeded.
+
+The header setting:
+```
+{
+  "Authorization": "Bearer <<TOKEN>>"
+}
+```
+An example query:
+```
+query prisma {
+  users {
+    id
+    email
+  }
+}
+```
+Don't forget to add good Security Group settings to limit access. You don't want strangers trying to hit your VM's port 22!
+
+### Up'ing Server
+This was pretty simple.
+
+Switch to the docker-machine with a command like `docker-machine use metric-teacher-server01` and from `./server` run `docker-compose -f ./docker-compose-aws-prod.yml up -d`
+
+It'll put the server into action, answering on port 80 (HTTP). So you can visit api․metric-teacher.com and run a public query like this:
+```
+query server {
+  allSubjects {
+    name
+    subSubjects {
+      id
+      name
+    }
+  }
+}
+```
+If it returns a bunch of data, hooray, everything is OK. db․metric-teacher.com is responding to api․metric-teacher.com. Everything should be fine.
+
+## Traefik
+HTTPS security is provided through [Traefik](https://traefik.io/) and Let's Encrypt. This complicates things but I tried my best to be sure that it went all as smoothly as possible.
+
+Mostly the thing to look for is the docker-compose files with -traefik appended at the end of them.
+
+Because each EC2 instance I have only has one docker-compose file to deal with, I had to add a traefik container to each docker-compose file of mine and configure them.
+
+This really assumes that you've already been able to build and host the site without HTTPS security in the above sections.
+
+### UP'ing Prisma + MySQL with Traefik
+We're going to assume you've been running the prod version of the site already. If that's the case, you'll obviously want to back up the database before you shut it down. Read the section below "MySQL Backup" to learn how to do that. You can learn the commands to restore it by reading the comments at the bottom of `./database/backup-db.sh`. I won't go over them here.
+
+#### New dotenv file
+In prep for switching the whole stack to HTTPS I created a new dotenv file `.env.aws.prod.traefik` that is identical to `.env.aws.prod` except that the `PRISMA_ENDPOINT` variable is set to an https:\/\/ address.
+```
+PRISMA_STAGE="prod"
+PRISMA_ENDPOINT="https://db.metric-teacher.com/server/prod"
+PRISMA_CLUSTER="metric-teacher-prismadb01"
+PRISMA_SECRET="<<SECRET>>"
+APP_SECRET="<<SECRET>>"
+PRISMA_MANAGEMENT_API_SECRET="<<SECRET>>"
+```
+
+#### Nuking db
+**☢️The following command will delete your database, so back it up first and check the results☢️**
+
+Bring down the existing Prisma + MySQL stack with, from `./server` directory the command `docker-compose -f ./docker-compose-aws-prod.yml down`
+
+That should properly kill your whole database system. Congrats, your site is down!
+
+#### Initializing acme
+Now, navigate to `./server/traefik` and run the following two commands:
+`sh init-acme.sh db.metric-teacher.com`
+`sh upload-traefik.sh db.metric-teacher.com`
+
+They'll create a new blank `acme.json` file on db.metric-teacher.com and upload the `traefik.toml` file I have there for configuration purposes.
+
+The `acme.json` file is where Traefik stores your SSL cert stuff. It should be protected and preferrably backed-up (you can only get a [certain amount of certs a week](https://letsencrypt.org/docs/rate-limits/)). The `traefik.toml` file contains configuration settings for the application.
+
+#### Bring up Prisma + MySQL with Traefik
+Navigate back to `./server` directory. Run the command `docker-compose -f ./database/docker-compose-aws-prod-traefik.yml up -d`
+
+#### Restore the database
+Now you'll need to restore the database. Like I said, look at the comments at the bottom of `./database/backup-db.sh` for instructions.
+
+#### Testing
+Generate the prisma token again with `prisma token -e .env.aws.prod.traefik`, then follow the steps above in "Up'ing Prisma + MySQL" to test the database's contents.
+
+### Up'ing Server with Traefik
+This is simple in comparison.
+
+#### Nuking server
+Take down the existing server (don't worry, this won't cause issues)
+
+From `./server` run `docker-compose -f ./docker-compose-aws.prod.yml down`
+
+#### Bring up server with traefik
+Run `docker-compose -f ./docker-compose-aws-prod-traefik.yml up -d --build`
+
+#### Testing
+Visit api․metric-teacher.com and run the same stuff as described above under "Up'ing Server".
+
+## MySQL Backup
+I've written a script `./database/backup-db.sh`. You need to have SSH access to the machine. Navigate to `./database` and create a directory named `backups`. I personally made this directory in a safe location and sym-linked it to this location (so that if I deleted my project directory I wouldn't lose my backups!)
+
+Run `sh backup-db.sh db.metric-teacher.com` and it should create a new file for you in backups. The file that was created will have its first line printed, so if it looks wrong then you can tell. This backed-up my entire database from top to bottom.
+
+### Cron
+I had to take extra steps to add support for cron jobs to back-up the database regularly. But because cron doesn't have an SSH agent that means to SSH into my server I needed a new SSH key that didn't have a passphrase.
+
+#### New SSH Key
+This was simple. Generate one with `ssh-keygen` and you'll follow steps to create it. Name it something unique-ish like `cron-id_rsa`. Copy down the full path to the key.
+
+Now to add the key's public key to the server's accepted keys run the following command:
+`cat cron-id_rsa.pub | ssh ubuntu@db.metric-teacher.com "cat >> .ssh/authorized_keys"`
+
+This will allow the SSH key to access the server. **Remember to keep the key safe and to use firewall rules to only allow port 22 access from your IP address.**
+
+#### Edit Crontab
+You can edit your crontab by running `EDITOR=nano crontab -e`. You'll get to edit the file in nano (hit ctrl+X to exit, typing "y" to save the file)
+
+Then, you can define a new cron job like this:
+
+`00 */8 * * * cd /path/to/this/directory && sh backup-db.sh db.metric-teacher.com cron /path/to/id_rsa`
+
+This will run every 8 hours.
+
 ## GraphQL API Documentation
 ### Types
 #### User
