@@ -26,7 +26,7 @@ I wrote it using the following tools:
 
 *First commit made on 2018-05-07 but an idea in my head since mid-2015.*
 
-## dotenv
+# dotenv
 There is a secret file that is not in this repo: `.env`
 (to be explicit, it's located at `./server/.env`)
 
@@ -70,10 +70,10 @@ This file is used by the module [`dotenv`](https://github.com/motdotla/dotenv).
 
 If you ever do remote hosting, you'll need to change the endpoint's url to the remote host's location, and change the `PRISMA_CLUSTER` value to whatever additional cluster you define in `~/.prisma/config.yml` (like the above example for `local`). You should do this by defining a second `.env` file with a name like `.env.remote` and then run, for example, `prisma deploy -e /.env.remote`.
 
-## Hosting on AWS
+# Hosting on AWS
 At the time of writing I place the two parts of the back-end of Metric-Teacher onto two separate AWS EC2 instances. I name them "Server" and "PrismaDB".
 
-### Docker-Machine
+## Docker-Machine
 Configuring Docker-Machines on AWS requires a bit of a set-up but makes everything possible.
 
 From my personal notes:
@@ -90,7 +90,7 @@ From my personal notes:
 8) To return to my local docker-machine I could run the command: `docker-machine use -u` and it would unset.
 9) I could see the difference by simply running `docker ps` and see which docker-machines had what on them.
 
-#### Launching Instances
+### Launching Instances
 Creating new instances isn't too hard. Here are the command I used:
 `docker-machine create --driver amazonec2 --amazonec2-region us-west-2 --amazonec2-instance-type t2.micro --amazonec2-keypair-name myKey --amazonec2-ssh-keypath ~/.ssh/id_rsa metric-teacher-server01`
 
@@ -100,19 +100,19 @@ The instance is a micro instance and named `metric-teacher-server01`
 
 I could then switch to that machine with `docker-machine use metric-teacher-server01`
 
-##### Elastic IP Addresses
+#### Elastic IP Addresses
 Amazon gives every user the option to reserve 5 IPv4 addresses to assign to their instances. So I grabbed a new IP address and associated it with each new instance I wanted to use.
 
 Then, on my DNS service I associated those IP addresses with different subdomains. In my case, metric-teacher.com & www․metric-teacher.com went to the client instance, api․metric-teacher.com went to the server instance, and db․metric-teacher.com went to the Prisma+MySQL instance.
 
-### UP'ing Prisma + MySQL
+## Up'ing Prisma + MySQL
 If you read the section just before this I actually created another instance named `metric-teacher-prismadb01`. Same exact create command, just a different name.
 
 To install the Prisma application and MySQL server I used `docker-machine use metric-teacher-prismadb01` and then ran, from `./server` the command `docker-compose -f ./database/docker-compose-aws-prod.yml up -d`
 
 When it was done I could see that things were running with `docker ps`
 
-#### New dotenv file
+### New dotenv file
 Because I was running a **local docker machine** already for local development I had to create a separate `.env` file for use on AWS named `.env.aws.prod` that looked like this:
 ```
 PRISMA_STAGE="prod"
@@ -132,7 +132,7 @@ clusters:
 
 Then I could deploy the dataseed to the database with `prisma deploy -e .env.aws.prod`
 
-#### Testing
+### Testing
 I could visit db․metric-teacher.com/server/prod (assuming `PRISMA_STAGE` in the .env file was set to "prod" that is) and by running `prisma token -e .env.aws.prod` I could then test that Prisma and the DB were talking to each other and properly seeded.
 
 The header setting:
@@ -152,7 +152,7 @@ query prisma {
 ```
 Don't forget to add good Security Group settings to limit access. You don't want strangers trying to hit your VM's port 22!
 
-### Up'ing Server
+## Up'ing Server
 This was pretty simple.
 
 Switch to the docker-machine with a command like `docker-machine use metric-teacher-server01` and from `./server` run `docker-compose -f ./docker-compose-aws-prod.yml up -d`
@@ -171,7 +171,7 @@ query server {
 ```
 If it returns a bunch of data, hooray, everything is OK. db․metric-teacher.com is responding to api․metric-teacher.com. Everything should be fine.
 
-## Traefik
+# Traefik
 HTTPS security is provided through [Traefik](https://traefik.io/) and Let's Encrypt. This complicates things but I tried my best to be sure that it went all as smoothly as possible.
 
 Mostly the thing to look for is the docker-compose files with -traefik appended at the end of them.
@@ -180,10 +180,10 @@ Because each EC2 instance I have only has one docker-compose file to deal with, 
 
 This really assumes that you've already been able to build and host the site without HTTPS security in the above sections.
 
-### UP'ing Prisma + MySQL with Traefik
+## Up'ing Prisma + MySQL with Traefik
 We're going to assume you've been running the prod version of the site already. If that's the case, you'll obviously want to back up the database before you shut it down. Read the section below "MySQL Backup" to learn how to do that. You can learn the commands to restore it by reading the comments at the bottom of `./database/backup-db.sh`. I won't go over them here.
 
-#### New dotenv file
+### New dotenv file
 In prep for switching the whole stack to HTTPS I created a new dotenv file `.env.aws.prod.traefik` that is identical to `.env.aws.prod` except that the `PRISMA_ENDPOINT` variable is set to an https:\/\/ address.
 ```
 PRISMA_STAGE="prod"
@@ -194,14 +194,14 @@ APP_SECRET="<<SECRET>>"
 PRISMA_MANAGEMENT_API_SECRET="<<SECRET>>"
 ```
 
-#### Nuking db
+### Nuking db
 **☢️The following command will delete your database, so back it up first and check the results☢️**
 
 Bring down the existing Prisma + MySQL stack with, from `./server` directory the command `docker-compose -f ./docker-compose-aws-prod.yml down`
 
 That should properly kill your whole database system. Congrats, your site is down!
 
-#### Initializing acme
+### Initializing acme
 Now, navigate to `./server/traefik` and run the following two commands:
 `sh init-acme.sh db.metric-teacher.com`
 `sh upload-traefik.sh db.metric-teacher.com`
@@ -210,38 +210,38 @@ They'll create a new blank `acme.json` file on db.metric-teacher.com and upload 
 
 The `acme.json` file is where Traefik stores your SSL cert stuff. It should be protected and preferrably backed-up (you can only get a [certain amount of certs a week](https://letsencrypt.org/docs/rate-limits/)). The `traefik.toml` file contains configuration settings for the application.
 
-#### Bring up Prisma + MySQL with Traefik
+### Bring up Prisma + MySQL with Traefik
 Navigate back to `./server` directory. Run the command `docker-compose -f ./database/docker-compose-aws-prod-traefik.yml up -d`
 
-#### Restore the database
+### Restore the database
 Now you'll need to restore the database. Like I said, look at the comments at the bottom of `./database/backup-db.sh` for instructions.
 
-#### Testing
+### Testing
 Generate the prisma token again with `prisma token -e .env.aws.prod.traefik`, then follow the steps above in "Up'ing Prisma + MySQL" to test the database's contents.
 
-### Up'ing Server with Traefik
+## Up'ing Server with Traefik
 This is simple in comparison.
 
-#### Nuking server
+### Nuking server
 Take down the existing server (don't worry, this won't cause issues)
 
 From `./server` run `docker-compose -f ./docker-compose-aws.prod.yml down`
 
-#### Bring up server with traefik
+### Bring up server with traefik
 Run `docker-compose -f ./docker-compose-aws-prod-traefik.yml up -d --build`
 
-#### Testing
+### Testing
 Visit api․metric-teacher.com and run the same stuff as described above under "Up'ing Server".
 
-## MySQL Backup
+# MySQL Backup
 I've written a script `./database/backup-db.sh`. You need to have SSH access to the machine. Navigate to `./database` and create a directory named `backups`. I personally made this directory in a safe location and sym-linked it to this location (so that if I deleted my project directory I wouldn't lose my backups!)
 
 Run `sh backup-db.sh db.metric-teacher.com` and it should create a new file for you in backups. The file that was created will have its first line printed, so if it looks wrong then you can tell. This backed-up my entire database from top to bottom.
 
-### Cron
+## Cron
 I had to take extra steps to add support for cron jobs to back-up the database regularly. But because cron doesn't have an SSH agent that means to SSH into my server I needed a new SSH key that didn't have a passphrase.
 
-#### New SSH Key
+### New SSH Key
 This was simple. Generate one with `ssh-keygen` and you'll follow steps to create it. Name it something unique-ish like `cron-id_rsa`. Copy down the full path to the key.
 
 Now to add the key's public key to the server's accepted keys run the following command:
@@ -249,7 +249,7 @@ Now to add the key's public key to the server's accepted keys run the following 
 
 This will allow the SSH key to access the server. **Remember to keep the key safe and to use firewall rules to only allow port 22 access from your IP address.**
 
-#### Edit Crontab
+### Edit Crontab
 You can edit your crontab by running `EDITOR=nano crontab -e`. You'll get to edit the file in nano (hit ctrl+X to exit, typing "y" to save the file)
 
 Then, you can define a new cron job like this:
@@ -258,9 +258,9 @@ Then, you can define a new cron job like this:
 
 This will run every 8 hours.
 
-## GraphQL API Documentation
-### Types
-#### User
+# GraphQL API Documentation
+## Types
+### User
 For public-ish use. It does not expose password, email, enrollment, or classroomsTeaching. It does, however, expose first and last names. So take note about ever making this truly public.
 ```
 type User {
@@ -276,7 +276,7 @@ type User {
  }
 ```
 
-#### PrivateUser
+### PrivateUser
 For private use. It does not expose password.
 ```
 type PrivateUser {
@@ -299,7 +299,7 @@ type PrivateUser {
 }
 ```
 
-#### QaObject
+### QaObject
 This is a complexly structured type with many nested types in order to recreate the deeply nested structure of a QA JSON object.
 The id of a QA Object is the Question ID prefixed with `QA_` followed by a three digit number, starting at 000, indicating in which order it was generated whether through the queries `getQa` or `generateChallenge`.
 ```
@@ -409,8 +409,8 @@ type QaObject {
 }
 ```
 
-### Inputs
-#### MasteryScoreInput
+## Inputs
+### MasteryScoreInput
 ```
 MasteryScoreInput {
   subsubjectid: ID!
@@ -418,7 +418,7 @@ MasteryScoreInput {
 }
 ```
 
-#### SurveyScoreInput
+### SurveyScoreInput
 ```
 SurveyScoreInput {
   surveyid: ID!
@@ -426,7 +426,7 @@ SurveyScoreInput {
 }
 ```
 
-#### SurveyAnswerInput
+### SurveyAnswerInput
 ```
 SurveyAnswerInput {
   questionid: ID!
@@ -438,7 +438,7 @@ SurveyAnswerInput {
 }
 ```
 
-#### QuestionQuestionInput
+### QuestionQuestionInput
 ```
 QuestionQuestionInput {
   text: String
@@ -451,7 +451,7 @@ QuestionQuestionInput {
 }!
 ```
 
-#### QuestionAnswerInput
+### QuestionAnswerInput
 ```
 QuestionAnswerInput: {
   detail: String
@@ -472,8 +472,8 @@ QuestionAnswerInput: {
 }!
 ```
 
-### Queries
-#### User Queries
+## Queries
+### User Queries
 * `me: PrivateUser`
     * Basic argument-free query that takes the calling user (identified by the provided Authorization JWT Bearer HTTP header) who is logged in and returns the content of their user account via the type PrivateUser.
 * `user(userid: ID!): PrivateUser`
@@ -483,7 +483,7 @@ QuestionAnswerInput: {
 * `userSearch(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PrivateUser]!`
     * Get the PrivateUser data of multiple user accounts. For moderators and better only. Exposes Prisma Query parameters.
 
-#### Classroom Queries
+### Classroom Queries
 * `classroom(classroomid: ID!): Classroom`
     * Get a classroom by a single Classroom Id. For moderators or better only. Students and Teachers can get it through me().
 * `classrooms(classroomids: [ID!]!): [Classroom]!`
@@ -491,7 +491,7 @@ QuestionAnswerInput: {
 * `classroomSearch(where: ClassroomWhereInput, orderBy: ClassroomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Classroom]!`
   * Get a list of Classrooms by Prisma query search parameters. For Moderators or better only because of potentially sensitive data. Students and Teachers can get them through me().
 
-#### Course Queries
+### Course Queries
 * `activeCourse(studentid: ID!): Course`
     * Gives access to the active Course of a student. Will return null if there is no active Course. For students checking themselves and mods or better only.
 * `course(courseid: ID!): Course`
@@ -501,7 +501,7 @@ QuestionAnswerInput: {
 * `courseSearch(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!`
     * Get a list of Courses by Prisma query search parameters. For Moderators or better only because of potentially sensitive data. Students can get them through me().
 
-#### Mastery Queries
+### Mastery Queries
 * `activeMasteries(studentid: ID!): [Mastery]!`
     * Gives access to the active Masteries of a student. Will return [] if there are no active Masteries. For students checking themselves and mods or better only.
 * `mastery(masteryid: ID!): Mastery`
@@ -511,7 +511,7 @@ QuestionAnswerInput: {
 * `masterySearch(where: MasteryWhereInput, orderBy: MasteryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Mastery]!`
     * Get a list of Masteries by Prisma query search parameters. For moderators or better only because of potentially sensitive data. Students can get through other options.
 
-#### Subject Queries
+### Subject Queries
 * `allSubjects: [Subject]!`
     * Get a list of all Subjects. Available to the public.
 * `subject(subjectid: ID!): Subject`
@@ -521,7 +521,7 @@ QuestionAnswerInput: {
 * `subjectSearch(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!`
     * Get a list of Subjects by Prisma query search parameters. For logged-in and normal users only.
 
-#### SubSubject Queries
+### SubSubject Queries
 * `allSubSubjects: [SubSubject]!`
     * Get all SubSubjects. For logged-in and normal users only.
 * `subSubject(subsubjectid: ID!): SubSubject`
@@ -531,7 +531,7 @@ QuestionAnswerInput: {
 * `subSubjectSearch(where: SubSubjectWhereInput, orderBy: SubSubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubSubject]!`
     * Get a list of SubSubjects by Prisma query search parameters. For logged-in and normal users only.
 
-#### Survey Queries
+### Survey Queries
 * `activeSurveys(studentid: ID!): [Survey]!`
     * Give access to the active Surveys of a student. Will return [] if there are no active Surveys. Only the owning student (or moderators or better) can do this.
 * `survey(surveyid: ID!): Survey`
@@ -541,7 +541,7 @@ QuestionAnswerInput: {
 * `surveySearch(where: SurveyWhereInput, orderBy: SurveyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Survey]!`
     * Get a list of Surveys by Prisma query search parameters. For moderators or better only because of potentially sensitive data. Students can get through other options.
 
-#### Question Queries
+### Question Queries
 * `question(questionid: ID!): Question`
     * Get a Question by ID. For normal users only.
 * `questions(questionids: [ID!]!): [Question]!`
@@ -552,34 +552,34 @@ QuestionAnswerInput: {
     * Provide a quick dry-run of submitQuestion. It'll throw up a bunch of errors if something is wrong, otherwise it'll return true. If this returns true, the question will be accepted.
     * See `QuestionQuestionInput` and `QuestionAnswerInput` Input types described above.
 
-#### Feedback Queries
+### Feedback Queries
 * `feedbackSearch(where: FeedbackWhereInput, orderBy: FeedbackOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Feedback]!`
     * Get a list of Feedbacks by Prisma query search parameters. For Moderators or better only because Feedback is typically only a Moderator thing. A Student, for example, can look at their own Feedback through their me() query.
 
-#### QA Queries
+### QA Queries
 * `generateChallenge(studentid: ID!, subjectids: [ID], subsubjectids: [ID], listSize: Int!, ignorerarity: Boolean, ignoredifficulty: Boolean, ignorepreference: Boolean): [QaObject]!`
     * Generate an entire list of QAObjects (called a "Challenge") based off a student ID and a list of Subject or SubSubject IDs. Additional boolean arguments help customize the results.
 * `getQa(questionid: [ID!]!, studentid: ID): [QaObject]!`
     * Generates a list of QA objects from a list of Question IDs. If studentid is set it'll retrieve that student's active Course's Surveys pertaining to any inputted survey-type question IDs.
 
-### Mutations
-#### Auth Mutations
+## Mutations
+### Auth Mutations
 * `signup(email: String!, password: String!, fname: String, lname: String): AuthPayload!`
     * Sign up for an account. All arguments are required and emails need to be unique.
 * `login(email: String!, password: String!): AuthPayload!`
     * Log in to the account of a user by providing the email and password. Bcrypt is used to check the password input for correctness.
 
-#### User Mutations
+### User Mutations
 * `updateUserProfile(userid: ID!, email: String, password: String, honorific: String, fname: String, lname: String): PrivateUser!`
     * Mutation providing a method to self-update user profile information. There are some additional checks on Moderators disallowing them from updating other Moderators or Admins. Admins, on the other hand, have full power.
 * `updateUserStates(userid: ID!, type: Int, status: Int, flags: Int): PrivateUser!`
     * Mutation providing administrative-style updates to a User row. This includes changing the type, status, and flags of a User. There are some additional checks on Moderators disallowing them from updating other Moderators or Admins. Admins, on the other hand, have full power.
 
-#### Enrollment Mutations
+### Enrollment Mutations
 * `enrollStudent(studentid: ID!): Enrollment!`
     * Gives a student a new Enrollment and immediately gives them a new Course and sets it as active.
 
-#### Course Mutations
+### Course Mutations
 * `assignStudentNewCourse(studentid: ID!, prefermetric: Boolean): Course!`
     * Give a student a new Course. They must be enrolled first, though.
 * `setActiveCourse(studentid: ID!, courseid: ID!): Course!`
@@ -604,7 +604,7 @@ QuestionAnswerInput: {
     * All the inputs are required, but you are allowed to not insert anything.
     * See `MasteryScoreInput`, `SurveyScoreInput`, and `SurveyAnswerInput` Input types described above.
 
-#### Mastery Mutations
+### Mastery Mutations
 * `assignStudentNewMastery(studentid: ID!, subsubjectid: ID!): Mastery!`
     * Create a single new Mastery for a student by their user ID. Only the owning student (or moderators or better) can do this.
 * `activateMastery(masteryid: ID!): Mastery!`
@@ -616,7 +616,7 @@ QuestionAnswerInput: {
 * `addMasteryScore(masteryid: ID!, score: Int!): Mastery!`
     * Give a Mastery ID and a score you want to increase/decrease the Mastery score by. Only the owning student (or moderators or better) can do this.
 
-#### Classroom Mutations
+### Classroom Mutations
 * `createClassroom(name: String!, description: String, teacherid: ID!): Classroom!`
     * Create a new Classroom for a teacher. A teacher's User ID must be given as a Classroom should have at least one teacher (though this is not a technical necessity).
 * `addUsersToClassroom(classroomid: ID!, userids: [ID!]!): Classroom!`
@@ -624,7 +624,7 @@ QuestionAnswerInput: {
 * `removeUsersFromClassroom(classroomid: ID!, userids: [ID!]!): Classroom!`
     * Remove users (students or teachers) from a classroom. Only teachers (or better) can add students to classrooms they are teachers of. Teachers cannot remove students from classrooms where the student's active Course is not in that classroom.
 
-#### Survey Mutations
+### Survey Mutations
 * `addSurveyAnswer(studentid: ID!, answerinput: SurveyAnswerInput!): Survey!`
     * Answer or re-answer a Survey question. Only the owning student (or moderators or better) can do this.
 * `updateSurveyStatus(surveyid: ID!, status: Int!): Survey!`
@@ -632,7 +632,7 @@ QuestionAnswerInput: {
 * `addSurveyScore(surveyid: ID!, score: Int!): Survey!`
     * Add a score value to a Survey's score field. Only the owning student (or moderators or better) can do this. The value can be negative to remove points. It will not be possible to make the score below the minimum (0) nor above the max (1000). If you want to set a score to 0, send -1000. If you want to set the score to 1000, send 1000.
 
-#### Question Mutations
+### Question Mutations
 * `submitQuestion(subsubjectid: ID!, type: Int!, flags: Int!, difficulty: Int!, media: String, questioninput: QuestionQuestionInput!, answerinput: QuestionAnswerInput!): Question!`
     * Mutation that creates a new Question row from multiple inputs and with heavy checking will submit the question with a status putting it up for review. For normal users only.
     * See `QuestionQuestionInput` and `QuestionAnswerInput` Input types described above.
@@ -642,14 +642,14 @@ QuestionAnswerInput: {
         * `answerinput.multiplechoiceinput.choices` must be defined anew all together. You need to re-define all your answers at once, you cannot, say, only update the first item.
     * For moderator and admin users only.
 
-#### Feedback Mutations
+### Feedback Mutations
 * `submitFeedback(questionid: ID!, type: Int!, text: String): Feedback!`
     * Simple mutation allows one to submit Feedback for a Question. All normal users can use this.
 * `updateFeedbackStatus(feedbackid: ID!, status: Int!): Feedback!`
     * Simple mutation updates the status of a Feedback row. Useful if they've completed a review of a piece of user-submitted Feedback. For moderators or better only.
 
-## Database Documentation
-### User
+# Database Documentation
+## User
 * `id`
 * `email`
 * `honorific`
@@ -675,7 +675,7 @@ QuestionAnswerInput: {
 * `feedback`
     * Relation to Feedack row.
 
-### Classroom
+## Classroom
 * `id`
 * `name`
 * `description`
@@ -689,14 +689,14 @@ QuestionAnswerInput: {
 * `users`
     * Relations to User rows who are members of the Classroom.
 
-### Enrollment
+## Enrollment
 * `id`
 * `student`
     * For Students only. Relation to User row.
 * `courses`
     * Relations to Course rows.
 
-### Course
+## Course
 * `id`
 * `status`
     * `0` - Active
@@ -710,7 +710,7 @@ QuestionAnswerInput: {
 * `surveys`
     * Relations to Survey rows.
 
-### Mastery
+## Mastery
 * `id`
 * `status`
     * `0` - Active
@@ -722,7 +722,7 @@ QuestionAnswerInput: {
 * `subSubject`
     * Relation to SubSubject row.
 
-### Survey
+## Survey
 * `id`
 * `status`
     * Used to mark when a Survey question was skipped or not.
@@ -737,7 +737,7 @@ QuestionAnswerInput: {
 * `question`
     * Relation to Question row.
 
-### Subject
+## Subject
 * `id`
 * `name`
     * Unique string name of the Subject.
@@ -745,7 +745,7 @@ QuestionAnswerInput: {
 * `subSubjects`
     * Relations to SubSubject rows.
 
-### SubSubject
+## SubSubject
 * `id`
 * `name`
     * Unique string name of the subSubject.
@@ -771,7 +771,7 @@ QuestionAnswerInput: {
 * `masteries`
     * Relations to Mastery rows. **This is worth paying attention to as it is a public access vector to user rows.**
 
-### Question
+## Question
 * `id`
 * `type`
     * `0` - Written question. The question is a specific question with a specific answer.
@@ -802,7 +802,7 @@ QuestionAnswerInput: {
 * `feedback`
     * Relation to Feedack row.
 
-### Feedback
+## Feedback
 * `id`
 * `type`
     * Values
@@ -822,8 +822,8 @@ QuestionAnswerInput: {
 * `author`
     * Relation to User row.
 
-## Logic Documentation
-### Question/Answer format
+# Logic Documentation
+## Question/Answer format
 Because questions and answers can be a little more nuanced than something simple like "What is freezing temperature in Celsius?" with the answer "0", I had to define a special string formatting language so I could express complex questions and answers into single strings.
 
 *Units*
@@ -921,8 +921,8 @@ Examples:
         3) When the user has confirmed their estimate enough times (after hitting a certain threshold tracked through the survey's score field) the survey question will instead ask the person to answer the question in metric with their US unit answer displayed. Multiple choices will be generated in the same manner as the second phase, simply converted to the Metric value
         4) Finally the same exact case as phase 3 but without showing the user's US Unit answer. (May consider randomly showing or not showing the US Unit answer. Perhaps let the user click on a "your answer is hidden" span that'll show it with perhaps only a small score/mastery penalty).
 
-### Internal QA Object data Structure Examples
-#### Written QA with answer detail (answer.detail)
+## Internal QA Object data Structure Examples
+### Written QA with answer detail (answer.detail)
 **Question Row**
 ```
 {
@@ -979,7 +979,7 @@ Examples:
 ```
 
 
-#### Conversion QA, with context detail (question.detail)
+### Conversion QA, with context detail (question.detail)
 **Question Row**
 ```
 {
@@ -1066,7 +1066,7 @@ Examples:
 }
 ```
 
-#### Survey QA with survey response (answer.data.survey) and with detail (question.data.survey.response.detail)
+### Survey QA with survey response (answer.data.survey) and with detail (question.data.survey.response.detail)
 **Question Row**
 ```
 {
