@@ -20,16 +20,18 @@ import isPlainObject from "lodash/isPlainObject";
  * @param address
  * @returns {{nodes: Array, keys: Array}}
  */
-const docExploder = (docs, target = [], address = [], targetFound = false) => {
+const docExploder = (docs, target = [], address = []) => {
   const nodes = [];
   const keys = [];
-  const found = targetFound || target.length === 0;
 
   forEach(docs, (doc, key) => {
     const id = address.join("-");
     const currentTarget = target.slice(0, 1)[0];
 
-    if (found || (currentTarget && currentTarget.toLocaleLowerCase() === key.toLocaleLowerCase())) {
+    if (
+      target.length === 0 ||
+      (currentTarget && currentTarget.toLocaleLowerCase() === key.toLocaleLowerCase())
+    ) {
       if (key === "header") {
         nodes.push((
           <React.Fragment key={`${id}-header`}>
@@ -55,7 +57,7 @@ const docExploder = (docs, target = [], address = [], targetFound = false) => {
       } else if (isPlainObject(doc) && !React.isValidElement(doc)) {
         // Recursive call
         const explodeFurther =
-          docExploder(doc, target.slice(1), address.concat(key.toLocaleLowerCase()), found);
+          docExploder(doc, target.slice(1), address.concat(key.toLocaleLowerCase()));
 
         nodes.push(explodeFurther.nodes);
         keys.push(explodeFurther.keys);

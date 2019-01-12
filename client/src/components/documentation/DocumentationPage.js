@@ -47,7 +47,7 @@ const DocumentationPage = props => (
       }
 
       <br />
-      <DocumentationDisplay documents={Docs} sectionTarget="missionstatement/whymetric" />
+      <DocumentationDisplay documents={Docs} sectionTarget="all" />
       <br />
 
       <Link to="/docs" replace>Back to top.</Link>
