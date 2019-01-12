@@ -5,3 +5,10 @@ node_modules
 .vscode
 *.log
 .env*
+
+# private
+acme.json
+acme.json.bak
+traefik/backups
+database/backups
+database/traefik/backups

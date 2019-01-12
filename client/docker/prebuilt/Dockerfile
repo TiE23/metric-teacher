@@ -11,5 +11,3 @@ RUN yarn global add serve
 
 # copy build directory
 COPY build build
-
-EXPOSE 80

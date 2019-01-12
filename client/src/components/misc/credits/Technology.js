@@ -156,6 +156,17 @@ export default (
       </List.Content>
       <List.List>
         <List.Item>
+          <List.Icon name="docker" />
+          <List.Content>
+            <List.Header>
+              <XLink to="https://www.docker.com/">Docker</XLink>
+            </List.Header>
+            <List.Description>
+              "Industry-leading container engine technology"
+            </List.Description>
+          </List.Content>
+        </List.Item>
+        <List.Item>
           <List.Icon name="aws" />
           <List.Content>
             <List.Header>
@@ -167,13 +178,24 @@ export default (
           </List.Content>
         </List.Item>
         <List.Item>
-          <List.Icon name="docker" />
+          <List.Icon name="sitemap" />
           <List.Content>
             <List.Header>
-              <XLink to="https://www.docker.com/">Docker</XLink>
+              <XLink to="https://traefik.io/">Traefik</XLink>
             </List.Header>
             <List.Description>
-              "Industry-leading container engine technology"
+              "The cloud native edge router"
+            </List.Description>
+          </List.Content>
+        </List.Item>
+        <List.Item>
+          <List.Icon name="lock" />
+          <List.Content>
+            <List.Header>
+              <XLink to="https://letsencrypt.org/">Let's Encrypt</XLink>
+            </List.Header>
+            <List.Description>
+              "A free, automated, and open Certificate Authority"
             </List.Description>
           </List.Content>
         </List.Item>

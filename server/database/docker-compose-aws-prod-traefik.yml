@@ -1,0 +1,83 @@
+# This compose file requires that you have two files located at ~/ of the host machine:
+# traefik.toml and acme.json
+# traefik.toml should be the same file as found in this project.
+# acme.json should be a blank file with the permission code 600.
+# And by host machine, that means that if this is being use on a docker-machine such as an EC2
+# instance, yes, those files must be on THAT instance.
+#
+# cd to ./server/database/traefik
+# Use the script init.sh to upload the traefik.toml and a blank acme.json to the server.
+#   sh init.sh db.metric-teacher.com
+# Use download.sh to back it up (it'll save to acme.json.bak):
+#   sh download.sh db.metric-teacher.com
+# DON'T COMMIT acme.json or acme.json.bak and keep it safe!
+# If you want to re-upload traefik.toml or have an acme.json file you wanna upload, run:
+#   sh upload.sh db.metric-teacher.com
+
+version: "3.6"
+
+services:
+  traefik:
+    hostname: traefik
+    image: traefik:latest
+    container_name: traefik
+    restart: always
+    domainname: "metric-teacher.com"
+    networks:
+      - proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    labels:
+      - "traefik.frontend.entryPoints=https"
+      - "traefik.enable=true"
+      # Load the monitor by visiting ...metric-teacher.com/traefik - it may require a new browser window to work.
+      - "traefik.frontend.rule=HostRegexp:{subdomain:.+}.metric-teacher.com;PathPrefixStrip:/traefik"
+      - "traefik.port=8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/ubuntu/traefik.toml:/traefik.toml
+      - /home/ubuntu/acme.json:/acme.json
+
+  prisma:
+    image: prismagraphql/prisma:1.24.0
+    restart: always
+    networks:
+      - internal
+      - proxy
+    environment:
+      PRISMA_CONFIG: |
+        managementApiSecret: ${PRISMA_MANAGEMENT_API_SECRET}
+        port: 4466
+        databases:
+          default:
+            connector: mysql
+            active: true
+            host: db
+            port: 3306
+            user: root
+            password: prisma
+    labels:
+      - "traefik.backend=metric-teacher-prisma"
+      - "traefik.docker.network=proxy"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=HostRegexp:{subdomain:.+}.metric-teacher.com"
+      - "traefik.port=4466"
+
+  db:
+    image: mysql:5.7
+    restart: always
+    networks:
+      - internal
+    environment:
+      MYSQL_ROOT_PASSWORD: prisma
+    labels:
+      - "traefik.enable=false"
+
+networks:
+  proxy:
+    name: "proxy"
+    external: false
+  internal:
+    name: "internal"
+    external: false
