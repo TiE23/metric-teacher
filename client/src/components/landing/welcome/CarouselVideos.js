@@ -19,7 +19,7 @@ export default xyRatio => [
         playing: true,
         loop: true,
         playsinline: true,
-        url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/welcome/01-challenge-mode-short.mp4",
+        url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/welcome/01-challenge-mode-v2.mp4",
       }}
       playerStyle={{}}
     />
