@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { compose } from "react-apollo";
 import { withRouter } from "react-router";
 
+import utils from "../../utils";
+
 import SignupLoginButtons from "../misc/SignupLoginButtons";
 import DocumentationDisplay from "./DocumentationDisplay";
 
@@ -25,13 +27,14 @@ const DocumentationPage = (props) => {
 
   if (params[0] === "all") {
     // Target all because it was asked for explicitly.
-    paramSlug.push(...params.slice(1));  // Skip the first item
-  } else if (params[0] === "1") {
-    sectionTarget.push(...params.slice(1, 2)); // Target the first layer (h1).
-    paramSlug.push(...params.slice(1));  // Skip the first item
-  } else if (params[0] === "2") {
-    sectionTarget.push(...params.slice(1, 3)); // Target the second layer (h2).
-    paramSlug.push(...params.slice(1));  // Skip the first item
+    paramSlug.push(...params.slice(1));  // Skip the first param.
+  } else if (utils.t0(parseInt(params[0], 10))) { // Need to use t0() because 0 handled as truthy.
+    // Make sure the number is not negative (0 is treated like "all").
+    if (parseInt(params[0], 10) >= 0) {
+      // Target the nth layer (ex: 1 = h1, 2 = h2, etc).
+      sectionTarget.push(...params.slice(1, parseInt(params[0], 10) + 1));
+    }
+    paramSlug.push(...params.slice(1));  // Skip the first param.
   } else {
     // Target all because we weren't sure.
     paramSlug.push(...params);
@@ -69,7 +72,7 @@ const DocumentationPage = (props) => {
         <DocumentationDisplay documents={Docs} sectionTarget={sectionTarget} />
         <br />
 
-        <Link to="/docs" replace>Back to top.</Link>
+        <Link to="/docs/all/top" replace>Back to top.</Link>
       </Container>
     </React.Fragment>
   );
