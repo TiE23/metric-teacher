@@ -5,6 +5,7 @@ import { Link, Redirect } from "react-router-dom";
 import { Container, Divider, Grid, Header, Icon, Image, Responsive } from "semantic-ui-react";
 
 import XLink from "../../misc/ExternalLink";
+import ScrollToTopOnMount from "../../misc/ScrollToTopOnMount";
 
 import SignupLoginButtons from "../../misc/SignupLoginButtons";
 import Carousel from "../../misc/carousel/Carousel";
@@ -24,6 +25,7 @@ import {
 
 const Welcome = props => (
   <Grid padded stackable>
+    <ScrollToTopOnMount />
     {props.userTokenData && props.userTokenData.id && // Redirect immediately if logged in.
       <Redirect to="/home" />
     }

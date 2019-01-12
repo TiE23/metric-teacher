@@ -49,7 +49,7 @@ class UserDetailCourseAssign extends PureComponent {
           <Form>
             <Form.Field>
               <Radio
-                label="I am more familiar with the Metric system."
+                label="I am more familiar with the Metric System."
                 name="preferMetric"
                 value="metric"
                 checked={this.state.preference === "metric"}
