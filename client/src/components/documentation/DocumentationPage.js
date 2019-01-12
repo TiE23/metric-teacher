@@ -18,23 +18,42 @@ import {
   PAGE_ICON_COLOR_DOCUMENTATION,
 } from "../../constants";
 
-const DocumentationPage = props => (
-  <React.Fragment>
-    <ScrollTo paramSlug={props.match.params[0].slice(1)} />
-    <Container id="all">
-      <Container text>
-        <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-          <Header.Content>
-            <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
-            Documentation
-            <Header.Subheader>
-              Everything you need to know.
-            </Header.Subheader>
-          </Header.Content>
-        </Header>
-      </Container>
+const DocumentationPage = (props) => {
+  const params = props.match.params[0].slice(1).split("/");
+  const sectionTarget = [];
+  const paramSlug = [];
 
-      {(!props.userTokenData || !props.userTokenData.id) &&
+  if (params[0] === "all") {
+    // Target all because it was asked for explicitly.
+    paramSlug.push(...params.slice(1));  // Skip the first item
+  } else if (params[0] === "1") {
+    sectionTarget.push(...params.slice(1, 2)); // Target the first layer (h1).
+    paramSlug.push(...params.slice(1));  // Skip the first item
+  } else if (params[0] === "2") {
+    sectionTarget.push(...params.slice(1, 3)); // Target the second layer (h2).
+    paramSlug.push(...params.slice(1));  // Skip the first item
+  } else {
+    // Target all because we weren't sure.
+    paramSlug.push(...params);
+  }
+
+  return (
+    <React.Fragment>
+      <ScrollTo paramSlug={paramSlug.join("/")} />
+      <Container id="top">
+        <Container text>
+          <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+            <Header.Content>
+              <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
+              Documentation
+              <Header.Subheader>
+                Everything you need to know.
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+        </Container>
+
+        {(!props.userTokenData || !props.userTokenData.id) &&
         <Container text textAlign="center">
           <br />
           <Header size="small">
@@ -44,16 +63,17 @@ const DocumentationPage = props => (
           <br />
           <br />
         </Container>
-      }
+        }
 
-      <br />
-      <DocumentationDisplay documents={Docs} sectionTarget="all" />
-      <br />
+        <br />
+        <DocumentationDisplay documents={Docs} sectionTarget={sectionTarget} />
+        <br />
 
-      <Link to="/docs" replace>Back to top.</Link>
-    </Container>
-  </React.Fragment>
-);
+        <Link to="/docs" replace>Back to top.</Link>
+      </Container>
+    </React.Fragment>
+  );
+};
 
 DocumentationPage.propTypes = {
   match: PropTypes.shape({

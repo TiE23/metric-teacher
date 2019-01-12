@@ -94,9 +94,7 @@ const explodeDocs = (docs, target) => {
 const DocumentationDisplay = (props) => {
   const { documents, sectionTarget } = props;
 
-  const target = (sectionTarget === "all" || sectionTarget === "") ? [] : sectionTarget.split("/");
-
-  return explodeDocs(documents, target).map(
+  return explodeDocs(documents, sectionTarget).map(
     ({ node, id }) => <React.Fragment key={id}>{node}</React.Fragment>,
   );
 };
