@@ -16,45 +16,52 @@ import isPlainObject from "lodash/isPlainObject";
  * Ex: The object Docs.intro.findHelp.header is automatically ID'd as "intro-findhelp".
  *
  * @param docs
+ * @param target
  * @param address
  * @returns {{nodes: Array, keys: Array}}
  */
-const docExploder = (docs, address = []) => {
+const docExploder = (docs, target = [], address = [], targetFound = false) => {
   const nodes = [];
   const keys = [];
+  const found = targetFound || target.length === 0;
 
   forEach(docs, (doc, key) => {
     const id = address.join("-");
+    const currentTarget = target.slice(0, 1)[0];
 
-    if (key === "header") {
-      nodes.push((
-        <React.Fragment key={`${id}-header`}>
-          <Link
-            to={`/docs/${address.join("/")}`}
-            id={id}
-            replace
-          >
-            <Header {...doc} />
-          </Link>
-          <br />
-        </React.Fragment>
-      ));
-      keys.push(id);
-    } else if (React.isValidElement(doc) && key === "content") {
-      nodes.push((
-        <React.Fragment key={`${id}-content`}>
-          {doc}
-          <br />
-        </React.Fragment>
-      ));
-      keys.push(id);
-    } else if (isPlainObject(doc) && !React.isValidElement(doc)) {
-      // Recursive call
-      const explodeFurther = docExploder(doc, address.concat(key.toLocaleLowerCase()));
+    if (found || (currentTarget && currentTarget.toLocaleLowerCase() === key.toLocaleLowerCase())) {
+      if (key === "header") {
+        nodes.push((
+          <React.Fragment key={`${id}-header`}>
+            <Link
+              to={`/docs/${address.join("/")}`}
+              id={id}
+              replace
+            >
+              <Header {...doc} />
+            </Link>
+            <br />
+          </React.Fragment>
+        ));
+        keys.push(id);
+      } else if (React.isValidElement(doc) && key === "content") {
+        nodes.push((
+          <React.Fragment key={`${id}-content`}>
+            {doc}
+            <br />
+          </React.Fragment>
+        ));
+        keys.push(id);
+      } else if (isPlainObject(doc) && !React.isValidElement(doc)) {
+        // Recursive call
+        const explodeFurther =
+          docExploder(doc, target.slice(1), address.concat(key.toLocaleLowerCase()), found);
 
-      nodes.push(explodeFurther.nodes);
-      keys.push(explodeFurther.keys);
+        nodes.push(explodeFurther.nodes);
+        keys.push(explodeFurther.keys);
+      }
     }
+
   });
 
   return { nodes, keys };
@@ -65,10 +72,11 @@ const docExploder = (docs, address = []) => {
  * This takes the results from the recursive function docExploder() and creates an array of simple
  * { node, id } objects to later be used in a map in the render function below.
  * @param docs
+ * @param target
  * @returns {Array}
  */
-const explodeDocs = (docs) => {
-  const { nodes, keys } = docExploder(docs);
+const explodeDocs = (docs, target) => {
+  const { nodes, keys } = docExploder(docs, target);
   const docsArray = [];
 
   for (let index = 0; index < nodes.length && index < keys.length; ++index) {
@@ -82,19 +90,22 @@ const explodeDocs = (docs) => {
 };
 
 const DocumentationDisplay = (props) => {
-  const { documents } = props;
-  return explodeDocs(documents).map(
+  const { documents, sectionTarget } = props;
+
+  const target = (sectionTarget === "all" || sectionTarget === "") ? [] : sectionTarget.split("/");
+
+  return explodeDocs(documents, target).map(
     ({ node, id }) => <React.Fragment key={id}>{node}</React.Fragment>,
   );
 };
 
 DocumentationDisplay.propTypes = {
   documents: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  section: PropTypes.string,
+  sectionTarget: PropTypes.string,
 };
 
 DocumentationDisplay.defaultProps = {
-  section: "all",
+  sectionTarget: "all",
 };
 
 export default DocumentationDisplay;
