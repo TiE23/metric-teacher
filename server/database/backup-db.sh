@@ -4,7 +4,7 @@
 # db_example.com_2019-01-01_11-35-05_manual.sql
 
 # Example cron job (every 8 hours):
-# 00 */8 * * * cd ~/git/metric-teacher/server/database && sh backup-db.sh db.metric-teacher.com cron /path/to/id_rsa
+# 00 */8 * * * cd /path/to/this/directory && sh backup-db.sh db.metric-teacher.com cron /path/to/id_rsa
 # This is using an SSH key that has no password and is recognized by the host machine.
 
 if [[ $# -eq 0 ]]; then
