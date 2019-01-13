@@ -6,15 +6,11 @@ import {
   FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM,
 } from "../constants";
 
-/**
- * This is a presentational component that puts its children into a pleasant-ish looking
- * centered grid with some basic responsiveness.
- */
 const FloatingCenterGrid = (props) => {
   const { children } = props;
 
   return (
-    <Grid padded centered columns={2}>
+    <Grid padded centered>
       {React.Children.map(children, child => (
         <Grid.Row>
           <Grid.Column {...props.widths}>
@@ -32,7 +28,7 @@ FloatingCenterGrid.propTypes = {
 };
 
 FloatingCenterGrid.defaultProps = {
-  widths: FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM
+  widths: FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM,
 };
 
 export default FloatingCenterGrid;

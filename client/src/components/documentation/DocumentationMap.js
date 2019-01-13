@@ -3,15 +3,16 @@ import { Link } from "react-router-dom";
 import { Container, Grid, Header, Icon, Segment } from "semantic-ui-react";
 
 import {
-  SITE_NAME, SUBJECT_ICONS,
+  SITE_NAME,
+  DOCUMENTATION_TO_METRIC,
+  DOCUMENTATION_FROM_METRIC,
+  SUBJECT_ICONS,
 } from "../../constants";
 
 const segmentSize = "tiny";
 const iconColors = {
   missionStatement: "pink",
   howto: "violet",
-  metric: "green",
-  usUnit: "brown",
   guide: "purple",
   length: "red",
   mass: "yellow",
@@ -51,7 +52,7 @@ export default (
         <Segment size={segmentSize}>
           <Container as={Link} textAlign="center" to="/docs/1/metric">
             <Header>
-              <Icon name="redo" color={iconColors.metric} />
+              <Icon name={DOCUMENTATION_TO_METRIC.icon} color={DOCUMENTATION_TO_METRIC.color} />
               Metric Perspective
             </Header>
           </Container>
@@ -61,7 +62,7 @@ export default (
         <Segment size={segmentSize}>
           <Container as={Link} textAlign="center" to="/docs/1/uscustomary">
             <Header>
-              <Icon name="undo" color={iconColors.usUnit} />
+              <Icon name={DOCUMENTATION_FROM_METRIC.icon} color={DOCUMENTATION_FROM_METRIC.color} />
               US Unit Perspective
             </Header>
           </Container>
@@ -69,9 +70,9 @@ export default (
       </Grid.Column>
     </Grid.Row>
 
-    <Grid.Row>
-      <Grid.Column>
-        <Segment size={segmentSize}>
+    <Grid.Row centered>
+      <Grid.Column width={15}>
+        <Segment size={segmentSize} color={iconColors.guide}>
           <Container as={Link} textAlign="center" to="/docs/1/guide">
             <Header>
               <Icon name="graduation cap" color={iconColors.guide} />
@@ -79,10 +80,11 @@ export default (
             </Header>
             <br />
           </Container>
+
           <Grid columns="equal" stackable>
             <Grid.Row>
               <Grid.Column>
-                <Segment size={segmentSize}>
+                <Segment size={segmentSize} color={iconColors.length}>
                   <Container as={Link} textAlign="center" to="/docs/2/guide/length">
                     <Header>
                       <Icon name={SUBJECT_ICONS.Length} color={iconColors.length} />
@@ -92,7 +94,7 @@ export default (
                 </Segment>
               </Grid.Column>
               <Grid.Column>
-                <Segment size={segmentSize}>
+                <Segment size={segmentSize} color={iconColors.mass}>
                   <Container as={Link} textAlign="center" to="/docs/2/guide/mass">
                     <Header>
                       <Icon name={SUBJECT_ICONS.Mass} color={iconColors.mass} />
@@ -105,7 +107,7 @@ export default (
 
             <Grid.Row>
               <Grid.Column>
-                <Segment size={segmentSize}>
+                <Segment size={segmentSize} color={iconColors.volume}>
                   <Container as={Link} textAlign="center" to="/docs/2/guide/volume">
                     <Header>
                       <Icon name={SUBJECT_ICONS.Volume} color={iconColors.volume} />
@@ -115,7 +117,7 @@ export default (
                 </Segment>
               </Grid.Column>
               <Grid.Column>
-                <Segment size={segmentSize}>
+                <Segment size={segmentSize} color={iconColors.temperature}>
                   <Container as={Link} textAlign="center" to="/docs/2/guide/temperature">
                     <Header>
                       <Icon
@@ -131,7 +133,7 @@ export default (
 
             <Grid.Row>
               <Grid.Column>
-                <Segment size={segmentSize}>
+                <Segment size={segmentSize} color={iconColors.velocity}>
                   <Container as={Link} textAlign="center" to="/docs/2/guide/velocity">
                     <Header>
                       <Icon name={SUBJECT_ICONS.Velocity} color={iconColors.velocity} />
@@ -141,7 +143,7 @@ export default (
                 </Segment>
               </Grid.Column>
               <Grid.Column>
-                <Segment size={segmentSize}>
+                <Segment size={segmentSize} color={iconColors.area}>
                   <Container as={Link} textAlign="center" to="/docs/2/guide/area">
                     <Header>
                       <Icon name={SUBJECT_ICONS.Area} color={iconColors.area} />
@@ -153,7 +155,6 @@ export default (
             </Grid.Row>
           </Grid>
         </Segment>
-
       </Grid.Column>
     </Grid.Row>
   </Grid>

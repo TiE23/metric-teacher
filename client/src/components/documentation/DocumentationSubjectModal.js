@@ -30,7 +30,7 @@ const DocumentationSubjectModal = (props) => {
           {targetDoc.chart.content}
           <Divider />
           <XLink
-            to={`/docs/guide/${subjectAddress}/${directionAddress.toLocaleLowerCase()}`}
+            to={`/docs/2/guide/${subjectAddress}/${directionAddress.toLocaleLowerCase()}`}
           >
             See full documentation...
           </XLink>

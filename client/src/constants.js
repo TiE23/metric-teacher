@@ -52,6 +52,8 @@ export const MOBILE_BREAKPOINT = 768;
 
 // Documentation Settings
 export const DOCUMENTATION_HEADER_OFFSET = -90;
+export const DOCUMENTATION_TO_METRIC = { color: "blue", icon: "redo" };
+export const DOCUMENTATION_FROM_METRIC = { color: "red", icon: "undo" };
 
 // Challenge Settings
 export const CHALLENGE_KICKOFF_IGNORE_DIFFICULTY_DEFAULT = false;

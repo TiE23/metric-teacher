@@ -10,6 +10,8 @@ import {
   SITE_NAME,
   SITE_EMAIL_ADMIN,
   MASCOT_NAME_SHORT,
+  DOCUMENTATION_TO_METRIC,
+  DOCUMENTATION_FROM_METRIC,
   MOBILE_BREAKPOINT,
   SUBJECT_ICONS,
   QUESTION_TYPE_DROPDOWN,
@@ -812,6 +814,7 @@ export default {
           content: "To Metric",
           as: "h3",
           subheader: "Description of the units you'll be converting to...",
+          ...DOCUMENTATION_TO_METRIC,
         },
         content: (
           <React.Fragment>
@@ -888,6 +891,7 @@ export default {
           content: "From Metric",
           as: "h3",
           subheader: "Description of the units you'll be converting to...",
+          ...DOCUMENTATION_FROM_METRIC,
         },
         content: (
           <React.Fragment>
@@ -1031,6 +1035,7 @@ export default {
           content: "To Metric",
           as: "h3",
           subheader: "Description of the units you'll be converting to...",
+          ...DOCUMENTATION_TO_METRIC,
         },
         content: (
           <React.Fragment>
@@ -1095,6 +1100,7 @@ export default {
           content: "From Metric",
           as: "h3",
           subheader: "Description of the units you'll be converting to...",
+          ...DOCUMENTATION_FROM_METRIC,
         },
         content: (
           <React.Fragment>
@@ -1208,6 +1214,7 @@ export default {
           content: "To Metric",
           as: "h3",
           subheader: "Description of the units you'll be converting to...",
+          ...DOCUMENTATION_TO_METRIC,
         },
         content: (
           <React.Fragment>
@@ -1309,6 +1316,7 @@ export default {
           content: "From Metric",
           as: "h3",
           subheader: "Description of the units you'll be converting to...",
+          ...DOCUMENTATION_FROM_METRIC,
         },
         content: (
           <React.Fragment>
@@ -1474,6 +1482,7 @@ export default {
           content: "To Metric",
           as: "h3",
           subheader: "Description of the unit you'll be converting to...",
+          ...DOCUMENTATION_TO_METRIC,
         },
         content: (
           <React.Fragment>
@@ -1557,6 +1566,7 @@ export default {
           content: "From Metric",
           as: "h3",
           subheader: "Description of the unit you'll be converting to...",
+          ...DOCUMENTATION_FROM_METRIC,
         },
         content: (
           <React.Fragment>
@@ -1689,6 +1699,7 @@ export default {
           content: "To Metric",
           as: "h3",
           subheader: "Description of the unit you'll be converting to...",
+          ...DOCUMENTATION_TO_METRIC,
         },
         content: (
           <React.Fragment>
@@ -1748,6 +1759,7 @@ export default {
           content: "From Metric",
           as: "h3",
           subheader: "Description of the unit you'll be converting to...",
+          ...DOCUMENTATION_FROM_METRIC,
         },
         content: (
           <React.Fragment>
@@ -1854,6 +1866,7 @@ export default {
           content: "To Metric",
           as: "h3",
           subheader: "Description of the units you'll be converting to...",
+          ...DOCUMENTATION_TO_METRIC,
         },
         content: (
           <React.Fragment>
@@ -1925,6 +1938,7 @@ export default {
           content: "From Metric",
           as: "h3",
           subheader: "Description of the units you'll be converting to...",
+          ...DOCUMENTATION_FROM_METRIC,
         },
         content: (
           <React.Fragment>
