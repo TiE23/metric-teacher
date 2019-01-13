@@ -69,7 +69,11 @@ const DocumentationPage = (props) => {
         }
 
         <br />
-        <DocumentationDisplay documents={Docs} sectionTarget={sectionTarget} />
+        <DocumentationDisplay
+          documents={Docs}
+          routeRoot={params[0]}
+          sectionTarget={sectionTarget}
+        />
         <br />
 
         <Link to="/docs/all/top" replace>Back to top.</Link>

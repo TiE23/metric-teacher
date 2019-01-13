@@ -14,6 +14,9 @@ import {
   QUESTION_TYPE_DROPDOWN,
 } from "../../constants";
 
+// DEV NOTE: Do not name any root-level objects "all" or use a number, it'll cause problems in
+// DocumentationDisplay.js!
+
 export default {
   // Mission Statement
   missionStatement: {
