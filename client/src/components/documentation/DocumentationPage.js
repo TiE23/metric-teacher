@@ -85,10 +85,10 @@ const DocumentationPage = (props) => {
           routeRoot={params[0]}
           sectionTarget={sectionTarget}
         />
-        <br />
 
         <Container text textAlign="center">
-          <Link to="/docs/all/top">
+          {/* Using /up redirect to make this link work even when link still at /top address */}
+          <Link to={params[params.length - 1] === "all" ? "/docs/all/top" : "/docs/all/up"}>
             <Icon name="angle up" />Back to top <Icon name="angle up" />
           </Link>
         </Container>

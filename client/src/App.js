@@ -47,6 +47,7 @@ const App = () => (
           <Route exact path="/user/:id" component={withAuth(UserPage, { private: true })} />
           <Route exact path="/subjects" component={withAuth(SubjectsPage)} />
           <Redirect exact from="/docs" to="/docs/all" />
+          <Redirect exact from="/docs/all/up" to="/docs/all/top" />
           <Route exact path="/docs(.*)" component={DocumentationPage} />
           <Route
             exact
