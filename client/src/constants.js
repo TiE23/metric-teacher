@@ -52,6 +52,9 @@ export const MOBILE_BREAKPOINT = 768;
 
 // Documentation Settings
 export const DOCUMENTATION_HEADER_OFFSET = -90;
+export const DOCUMENTATION_MISSION_STATEMENT = { color: "teal", icon: "bullhorn" };
+export const DOCUMENTATION_HOW_TO = { color: "olive", icon: "file alternate outline" };
+export const DOCUMENTATION_GUIDE = { color: "purple", icon: "graduation cap" };
 export const DOCUMENTATION_TO_METRIC = { color: "blue", icon: "redo" };
 export const DOCUMENTATION_FROM_METRIC = { color: "red", icon: "undo" };
 

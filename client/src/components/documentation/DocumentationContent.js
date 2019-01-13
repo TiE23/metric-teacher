@@ -10,8 +10,11 @@ import {
   SITE_NAME,
   SITE_EMAIL_ADMIN,
   MASCOT_NAME_SHORT,
+  DOCUMENTATION_MISSION_STATEMENT,
+  DOCUMENTATION_HOW_TO,
   DOCUMENTATION_TO_METRIC,
   DOCUMENTATION_FROM_METRIC,
+  DOCUMENTATION_GUIDE,
   MOBILE_BREAKPOINT,
   SUBJECT_ICONS,
   QUESTION_TYPE_DROPDOWN,
@@ -27,23 +30,20 @@ export default {
       content: "Mission Statement",
       as: "h1",
       dividing: true,
+      ...DOCUMENTATION_MISSION_STATEMENT,
     },
     content: (
       <React.Fragment>
         <p>
-          {SITE_NAME} is a teaching tool that will help any interested person learn to imagine, understand, and describe objects, people, and the world using a new system of measurements.
+          {SITE_NAME} is a teaching tool that will help you learn to imagine, understand, and describe objects, people, and the world using a new system of measurements.
         </p>
 
         <p>
-          The goal is to allow a student to eventually think in a new unit system. Like a fluent speaker of a new language isn't remembering vocabulary lists as they speak, our students won't need to remember conversion formula for the rest of their life.
+          The goal of {SITE_NAME} is to allow you to eventually think in a new unit system. Like a fluent speaker of a new language isn't remembering vocabulary lists as they speak, our students won't need to remember conversion formula for the rest of their life.
         </p>
 
         <p>
-          Whether a student wishes to learn the Metric System or the US Customary Unit System they will find what they need here all on one convenient, mobile-friendly website.
-        </p>
-
-        <p>
-          So, if you want to know how long a 10k run really is or what a "Quarter Pounder with Cheese" means you need only enthusiasm, dedication, and {SITE_NAME}.
+          Whether you wish to learn the Metric System or the US Customary Unit System you will find what you need here all on one convenient, mobile-friendly website.
         </p>
       </React.Fragment>
     ),
@@ -57,20 +57,17 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            The Metric System is the international standard. While an American can live their life quite happily without being very familiar with the Metric System it's hard to argue that there is anything advantageous in remaining ignorant to a system used by 95.6% of the world's population.
+            The Metric System is the international standard used by 95.6% of the world's population. It is far easier to do math with because everything is easily divisible by 10s, 100s, and 1000s. To change units you can simply move the decimal point.
           </p>
 
           <p>
-            The Metric System is far easier to do math with. Instead of remembering that there are 16 ounces in a pound, that there are 5280 feet in a mile, that water boils at 212 degrees Fahrenheit, or that there are 128 fluid ounces in a gallon, everything is easily divisible by 10s, 100s, and 1000s. By simply moving the decimal point in a number one can convert between various scales.
-          </p>
-
-          <p>
-            As a US Customary Unit System user you likely <XLink to="https://en.wikipedia.org/wiki/Metrication_in_the_United_States#Current_use">do have a grasp on some parts of the Metric System</XLink>. You know how large a 2-liter bottle is and you've seen centimeters on rulers since you were in kindergarten. This is enough of a base to start.
+            As a US Customary Unit System user you likely <XLink to="https://en.wikipedia.org/wiki/Metrication_in_the_United_States#Current_use">do have a grasp on some parts of the Metric System</XLink>. You know about how large a 2-liter bottle is, you've read nutritional fact labels using grams, and you've seen centimeters on rulers since you were in first grade. This is enough of a base to start.
           </p>
 
           <p>
             The goal of {SITE_NAME} is to make the Metric System feel natural:
           </p>
+
           <List bulleted>
             <List.Item>
               The mind that tells you that a 95 degree Fahrenheit summer day is hot, a 25 mile per hour car is slow, and a 6 foot, 7 inch tall man is very tall...
@@ -92,15 +89,15 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            If you're moving to America (or to the UK or Ireland) you're going to encounter US Customary (or Imperial) Units. Knowing what your new coworker means when say they live 15 miles away, or what to wear when the TV weather forecast for tomorrow is going to be 50 degrees Fahrenheit, or how to react when your classmate bemoans the 5 pounds they gained over the holiday break is an invaluable ability.
+            If you're going to America you will encounter US Customary Units. It is an invaluable ability to know what your new coworker means when say they live about 15 miles away or what to wear when the forecast is 50 degrees Fahrenheit.
           </p>
 
           <p>
-            While your new American neighbors may scratch their head if you tell them how that one time you were on a summer holiday in Greece and it reached 40 degrees Celsius, <XLink to="https://en.wikipedia.org/wiki/Metrication_in_the_United_States#Current_use">they will be relatively familiar</XLink> with a liter water bottle, the light layer of snow that's "only a centimeter deep", and the street corner that's "about 100 meters" away.
+            While your new American neighbors may scratch their head if you use Celsius or kilograms <XLink to="https://en.wikipedia.org/wiki/Metrication_in_the_United_States#Current_use">they will be relatively familiar</XLink> with a liter water bottle, the light layer of snow that's "only a centimeter deep", and the street corner that's "about 100 meters" away.
           </p>
 
           <p>
-            The US Customary Unit System involves a large library of units and sub units that you'll have to contend with and grow familiar with. In addition, you'll need to grasp when to switch from one unit to another depending on the amount or context. And while this website was conceived and built to help students learn the Metric System it can be used just as effectively in reverse.
+            The US Customary Unit System involves a large library of units and sub units that you'll have to deal with. You'll also need to know what units to use depending on the numbers involved. As the name implies {SITE_NAME} was designed initially to teach the Metric System. But it can just as effectively work the other way around.
           </p>
 
           <p>
@@ -126,6 +123,7 @@ export default {
       content: `How To Use ${SITE_NAME}`,
       as: "h1",
       dividing: true,
+      ...DOCUMENTATION_HOW_TO,
     },
     content: (
       <React.Fragment>
@@ -179,11 +177,11 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              Now it's time to assign <b>SubSubjects</b> to your course. Go to the <Link to="/subjects">Subjects page</Link> to view the various Subjects and SubSubjects. Assign a SubSubject to start seeing it available in Challenges.
+              Now it's time to assign <b>Sub-Subjects</b> to your course. Go to the <Link to="/subjects">Subjects page</Link> to view the various Subjects and Sub-Subjects. Assign a Sub-Subject to start seeing it available in Challenges.
             </p>
 
             <p>
-              With each assigned SubSubject your Course will track your <b>Mastery</b> with each SubSubject. As you progress in your learning your Mastery score will increase. As your Mastery improves the questions you get will get progressively more and more difficult.
+              With each assigned Sub-Subject your Course will track your <b>Mastery</b> with each Sub-Subject. As you progress in your learning your Mastery score will increase. As your Mastery improves the questions you get will get progressively more and more difficult.
             </p>
           </React.Fragment>
         ),
@@ -199,15 +197,11 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            When reviewing your <b>Masteries</b> on the <Link to="/user/me">User Profile page</Link> you can group by Subject or see each SubSubject individually. You can also disable any SubSubject you desire to remove them from Challenges, useful if you have completed or lost interest in a particular SubSubject. Enabling them again will restore their availability in Challenges.
+            When reviewing your <b>Masteries</b> on the <Link to="/user/me">User Profile page</Link> you can group by Subject or see each Sub-Subject individually. You can also disable any Sub-Subject you desire to remove them from Challenges, useful if you have completed or lost interest in a particular Sub-Subject. Enabling them again will restore their availability in Challenges.
           </p>
 
           <p>
             When reviewing your <b>Surveys</b> on the <Link to="/user/me">User Profile page</Link> you can re-answer them, adjust your note (if there is any), or disable it from appearing in Challenges.
-          </p>
-
-          <p>
-            Finally you can, of course, adjust your <b>User Details</b> updating your password and email address as you need.
           </p>
         </React.Fragment>
       ),
@@ -222,7 +216,7 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            Challenges are the centerpiece of {SITE_NAME}. After <Link to="/signup">signing up for an account</Link> and choosing the Subjects and SubSubjects you're interested in on the <Link to="/subjects">Subjects page</Link> you can start a Challenge by visiting the <Link to="/challenge">Challenge page</Link>.
+            Challenges are the centerpiece of {SITE_NAME}. After <Link to="/signup">signing up for an account</Link> and choosing the Subjects and Sub-Subjects you're interested in on the <Link to="/subjects">Subjects page</Link> you can start a Challenge by visiting the <Link to="/challenge">Challenge page</Link>.
           </p>
         </React.Fragment>
       ),
@@ -239,11 +233,7 @@ export default {
             </p>
 
             <p>
-              The <b>length</b> of a Challenge is always up to you. Progress in SubSubject mastery only depends on the number of questions faced, not the length of the Challenge itself.
-            </p>
-
-            <p>
-              If you're looking to jump-start progress on a new SubSubject within a Subject you're familiar with already you can select "<b>ignore difficulty</b>". This will show all questions of all difficulties regardless of your Mastery in any particular SubSubject.
+              The <b>length</b> of a Challenge is always up to you. Your progress is tracked by how many correct answers you make. Additionally, you can select "<b>ignore difficulty</b>" which will show all questions regardless of your Mastery in any particular Sub-Subject.
             </p>
           </React.Fragment>
         ),
@@ -281,19 +271,19 @@ export default {
               <List.Item>
                 <List.Icon name={QUESTION_TYPE_DROPDOWN[0].icon} />
                 <List.Content>
-                  <b>Written</b> questions are multiple-choice. They range from simple facts about units to the measurements of real-world objects, people, locations, records, and more!
+                  <b>Written</b> questions are multiple choice and never change.
                 </List.Content>
               </List.Item>
               <List.Item>
                 <List.Icon name={QUESTION_TYPE_DROPDOWN[1].icon} />
                 <List.Content>
-                  <b>Conversion</b> questions are dynamically generated. They ask you to convert one measurement to another. There are multiple methods of answering including multiple choice, slider bar, and direct input!
+                  <b>Conversion</b> questions are dynamically generated and have three methods to answer: multiple choice, slider, or direct input.
                 </List.Content>
               </List.Item>
               <List.Item>
                 <List.Icon name={QUESTION_TYPE_DROPDOWN[2].icon} />
                 <List.Content>
-                  <b>Survey</b> questions are special to {SITE_NAME}. Surveys ask you to give factual and opinion-based answers to questions ranging from your own height to your preferred room temperature. {SITE_NAME} will then teach you these values in Metric by asking you to convert these personalized questions!
+                  <b>Survey</b> questions are like Conversion questions but the answers are defined by you! This way you'll learn things like how tall you are in a new unit.
                 </List.Content>
               </List.Item>
             </List>
@@ -309,7 +299,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              Each question you face is internally labelled with a <b>difficulty grade</b> ranging from 1 to 5. As you gain Mastery in a SubSubject the difficulty of the questions you face will increase. The easiest questions are not meant to challenge, only to introduce you to the basics. Before long you'll be given more demanding questions and by the end you'll be asked to perform some very accurate conversions.
+              As you gain Mastery in a Sub-Subject the <b>difficulty</b> of the questions you face will increase. The easiest questions are not meant to challenge, only to introduce you to the basics.
             </p>
 
             <p>
@@ -317,38 +307,35 @@ export default {
             </p>
 
             <p>
-              <b>Skipping</b> questions is always an option. While you will take a hit on your mastery level if you skip a question, the punishment is greatly reduced if you skip the question after a wrong answer. Do not feel bad skipping a question. The Mastery level isn't a high score to chase, it's a measure of your abilities, and having it rise and fall is intended.
+              <b>Skipping</b> questions is always an option. It works best if you only skip the question after trying to answer the first time.
             </p>
 
             <p>
               <b>Input</b> methods vary. Depending on the type of question you'll have different methods of answering.
             </p>
+
             <List bulleted>
               <List.Item>
                 <b>Multiple choice</b> presents you with multiple choices where only one choice is the correct one.
               </List.Item>
               <List.Item>
-                <b>Direct input</b> presents you with a calculator-like interface that allows you to input a value directly. In the case the input shows multiple units (such as feet and inches) you can select the unit by clicking. Delete values with the red
+                <b>Direct input</b> presents you with a calculator-like interface that allows you to input a value directly.
               </List.Item>
               <List.Item>
-                <b>Slider input</b> presents you with a easy-to-use slider that will provide you with a suggested range of input. Your job is to select the answer within a certain window. Don't always assume it'll be somewhere in the middle, though!
+                <b>Slider input</b> presents you with a easy-to-use slider that will provide you with a suggested range of input.
               </List.Item>
             </List>
 
             <p>
-              <b>Correct answers</b> are required to improve your Mastery. Each question needs to be answered correctly a set number of times before you've successfully answered the question.
+              <b>Correct answers</b> are required to improve your Mastery.
             </p>
 
             <p>
-              <b>Incorrect answers</b> are inevitable. Luckily {MASCOT_NAME_SHORT} is here to lend a hand. The next time you face your question after an incorrect answer your previous choice or input will be shown to you either by greying out an option or giving you a hint to answer higher or lower. But answer incorrectly too many times and you'll fail the question and you will not be asked it again for the remainder of the Challenge.
+              <b>Incorrect answers</b> are inevitable and you'll sometimes get help with a reminder of your last answer or a greyed-out wrong multiple choice answer. But answer incorrectly too many times and you'll fail the question.
             </p>
 
             <p>
-              <b>Streaks</b> are tracked by {MASCOT_NAME_SHORT}. Answer too many questions incorrectly and he'll get increasingly worried. But answer enough questions correctly in a row and you might see him celebrate and change his outfit to match the occasion.
-            </p>
-
-            <p>
-              <b>Pausing</b> a Challenge is supported on single devices only. With each Challenge you are given a special code in the URL in your browser's address bar. If you decide to stop taking a challenge and resume later, so long as you are using the same browser, whether on a phone or computer, you can <b>resume</b> the Challenge exactly where you left off by navigating to that same address. So even if you click on the wrong link on the page or accidentally close the tab you won't lose progress. <i>Starting a new Challenge, though, will delete unsaved progress.</i>
+              <b>Pausing</b> a Challenge is possible. If you're interrupted you can return to the same URL and you'll resume from where you left.
             </p>
           </React.Fragment>
         ),
@@ -362,11 +349,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              <b>Documentation</b> is always available in Challenges.
-            </p>
-
-            <p>
-              Below the question there is a small teal colored link with a <Icon name="book" color="teal" fitted /> that you can click on to see a description, conversion chart, and tips on how to convert to the units you're working on.
+              <b>Documentation</b> is always available in Challenges. Below the question there is a small teal colored link with a <Icon name="book" color="teal" fitted /> that you can click on to see a description, conversion chart, and tips on how to convert to the units you're working on.
             </p>
           </React.Fragment>
         ),
@@ -382,10 +365,6 @@ export default {
             <p>
               <b>Feedback</b> is encouraged and helps {SITE_NAME}. Click <Icon name="paper plane" color="teal" fitted /> to give feedback on the current question. Send in suggestions, corrections, or complaints - they all help.
             </p>
-
-            <p>
-              Please note that if you are found to be abusing the feedback system your privileges can be revoked or your account terminated.
-            </p>
           </React.Fragment>
         ),
       },
@@ -398,19 +377,15 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              <b>Surveys</b> are special questions that first ask you to answer a question by offering a fact or an opinion on something measurable. It is recommended that you answer every survey you can as skipping it will not show it to you again (you can answer it later in the the Surveys section of your <Link to="/user/me">User Profile page</Link>).
+              <b>Surveys</b> are special questions that first ask you to input your own value. It then becomes a specially personalized question for you to answer in your next Challenge.
             </p>
 
             <p>
-              Of course, if a Survey question doesn't apply to you, or you view it as too personal you can skip filling out the survey with <u>no penalty</u> towards your Mastery. Alternatively, if you want to answer a question later you can click "Ask Me Later".
+              You can <b>Skip</b> answering a survey with <u>no penalty</u> towards your Mastery. Alternatively, if you want to answer a question later you can click "Ask Me Later".
             </p>
 
             <p>
-              Surveys are always directed into the unit system you are learning. That is, if you have a preference for the Metric System, Survey questions will always ask you to convert a value into the US Customary Unit system. And vice-versa.
-            </p>
-
-            <p>
-              Some Surveys have the option or require filling in a <b>Note</b>. If it asks you, for example, how tall the last person you spoke to is, it would make sense to write that person's name down. That way, you'll learn that particular person's height in another system of units, a natural way to better grasp short measurements of length.
+              Some Surveys have the option or require filling in a <b>Note</b>. If it asks you, for example, how tall the last person you spoke to is, it would make sense to write that person's name down.
             </p>
           </React.Fragment>
         ),
@@ -428,11 +403,11 @@ export default {
             </p>
 
             <p>
-              This is a website, so using {SITE_NAME} <b>offline</b> is only partially supported. You must have an Internet connection to use most parts of the site and to <u>start</u> or <u>complete</u> a Challenge. But you <u>do not need a connection</u> to progress through a Challenge. So, if you complete a Challenge and find yourself without an Internet connection on your phone you can safely refresh the Challenge Complete page and try submitting again when you have a connection.
+              If for any reason you lose connection to the Internet you can safely refresh this page and try to submit your results again when you've regained connection.
             </p>
 
             <p>
-              The <b>score page</b> will show you your Mastery progress for each SubSubject you've practiced against (there is no guarantee that you'll see every SubSubject you selected in a Challenge). It will also show progress on Survey questions and your responses to any new Survey questions you've faced.
+              The <b>score page</b> will show you your Mastery progress for each Sub-Subject you've practiced against. It will also show progress on Survey questions and your responses to any new Survey questions you've faced.
             </p>
           </React.Fragment>
         ),
@@ -454,10 +429,6 @@ export default {
           <React.Fragment>
             <p>
               <b>Feedback</b> is encouraged and helps {SITE_NAME}. Click <Icon name="paper plane" color="teal" fitted /> to give feedback on the current question when in Challenge Mode. Send in suggestions, corrections, or complaints - they all help.
-            </p>
-
-            <p>
-              Please note that if you are found to be abusing the feedback system your privileges can be revoked or your account terminated.
             </p>
           </React.Fragment>
         ),
@@ -507,23 +478,28 @@ export default {
       content: "The Metric Perspective",
       as: "h1",
       dividing: true,
+      ...DOCUMENTATION_TO_METRIC,
     },
     content: (
       <React.Fragment>
         <p>
-          The <XLink to="https://en.wikipedia.org/wiki/History_of_the_metric_system">history</XLink> of <XLink to="https://en.wikipedia.org/wiki/Metric_system">the Metric System</XLink> is easier to trace as it was developed in the light of the French Revolution in the 1790s as a new standard to solve the problems of the world's confusing blend of measurements.
+          The <XLink to="https://en.wikipedia.org/wiki/History_of_the_metric_system">history</XLink> of <XLink to="https://en.wikipedia.org/wiki/Metric_system">the Metric System</XLink> traces its development to the time of the French Revolution in the 1790s. It was proposed as a new standard to solve the problem of a world full of confusing measurement systems.
         </p>
 
         <p>
-          The Metric System started with <XLink to="https://en.wikipedia.org/wiki/History_of_the_metre">the definition of the meter</XLink>. Through surveying, the meter was defined to be one ten millionth of the distance between the North Pole and the Equator through Paris. While their measurements were quite accurate considering the technological limitations of the era, future surveys discovered slight inaccuracies. Despite this, the meter would stay the same length. From the meter, area and volume were derived. The gram was defined as the weight of a cubic centimeter of water.
+          The Metric System started with <XLink to="https://en.wikipedia.org/wiki/History_of_the_metre">the definition of the meter</XLink>. Through surveying, the meter was defined to be one ten-millionth of the distance between the North Pole and the Equator intersecting through Paris. Future surveys discovered slight inaccuracies to their measurements but the meter's physical dimension was kept.
         </p>
 
         <p>
-          The key to the Metric System's success was the use of the decimal unit system. Dropping fractions for decimal numbers and adopting Greek and Latin-rooted prefixes for naming the Metric System simplified conversions between similar units and standardized naming across languages and cultures.
+           Length was squared for area, cubed for volume, and divided by time for velocity. Mass was defined as the weight of water, a universally available physical medium, at a certain temperature and pressure.
         </p>
 
         <p>
-          Over time the units were redefined with new physical prototypes and the system was further developed into the <b>International System of Units</b> which is abbreviated as <b>SI</b> from the French <i>Système international (d'unités)</i>. SI is the modern form of the Metric System, but referring to it as the "Metric System" is still perfectly reasonable in almost all circumstances. Even with these updates the units defined in the late 18th century have remained effectively the same for over 200 years.
+          The key to the Metric System's success was the use of the decimal unit system; dropping fractions for decimal numbers simplified conversions between similar units. In addition adopting Greek and Latin-roots helped give the names a universal quality.
+        </p>
+
+        <p>
+          Over time the units were redefined with new physical prototypes and the system was further developed into the <b>International System of Units</b> which is abbreviated as <b>SI</b> from the French <i>Système international (d'unités)</i>. SI is the modern form of the Metric System, but referring to it as the "Metric System" is still perfectly reasonable in almost all circumstances outside a metrologist's workshop. Even with these updates the units defined in the late 18th century have remained effectively the same for over 200 years.
         </p>
       </React.Fragment>
     ),
@@ -537,7 +513,11 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            As this website was developed by Americans primarily for Americans, American spellings (meter, gram, liter, etc...) for Metric unit names are used throughout this website as opposed to British or French spellings (metre, gramme, litre, etc...) .
+            As this website was developed by Americans primarily for Americans. So American spellings (meter, gram, liter, etc...) for Metric unit names are used throughout this website as opposed to British or French spellings (metre, gramme, litre, etc...).
+          </p>
+
+          <p>
+            If is also worth sharing, for our American audience, the fact that <b>decimal points</b> may actually be <b>commas</b> <XLink to="https://en.wikipedia.org/wiki/Decimal_separator#Arabic_numerals">in many countries</XLink>. The number 10.25 in America would be written as 10,25 in France, Germany, and many other countries. There is also further <XLink to="https://en.wikipedia.org/wiki/Decimal_separator#Examples_of_use">variation with thousands seperators</XLink>. {SITE_NAME} uses the American style of decimal points and commas for thousands seperators.
           </p>
         </React.Fragment>
       ),
@@ -568,6 +548,7 @@ export default {
       content: "The US Customary Unit Perspective",
       as: "h1",
       dividing: true,
+      ...DOCUMENTATION_FROM_METRIC,
     },
     content: (
       <React.Fragment>
@@ -625,13 +606,13 @@ export default {
                 Similarities
                 <List.List>
                   <List.Item>
-                    Two pints make one quart.
+                    <b>2 pints</b> make <b>1 quart</b>.
                   </List.Item>
                   <List.Item>
-                    Four quarts make one gallon.
+                    <b>4 quarts</b> make <b>1 gallon</b>.
                   </List.Item>
                   <List.Item>
-                    A cup is half a pint. While very common in the US Customary Unit System, it is generally ignored in the Imperial Unit system.
+                    <b>1 cup</b> is <b>0.5 pints</b>. While very common in the US Customary Unit System, it is generally ignored in the Imperial Unit system.
                   </List.Item>
                 </List.List>
               </List.Item>
@@ -688,6 +669,7 @@ export default {
       content: "Conversion Guides",
       as: "h1",
       dividing: true,
+      ...DOCUMENTATION_GUIDE,
     },
     content: (
       <React.Fragment>
@@ -706,15 +688,15 @@ export default {
       content: (
         <React.Fragment>
           <p>
-            {SITE_NAME}'s goal is to teach you to think, imagine, and communicate in a new system of units. If we wanted to only teach you conversion tables we could've gone at it with far simpler method that didn't involve challenges, subjects, mastery scores, surveys, and a colorful interface with a friendly parrot cheering you on.
+            {SITE_NAME}'s goal is to teach you to think, imagine, and communicate in a new system of units. If we wanted to only teach you conversion tables we could've just written this Documentation page and been done with it.
           </p>
 
           <p>
-            No, the goal is that you will feel confident in your answer in Fahrenheit and Celsius both when you walk outside on a chilly winter day and make an informal estimate to the temperature you feel on your exposed face.
+            No, the goal is to make you feel confident giving answers in both Metric and US Units. If you can get to the point where you step outside feel confident in estimating the temperature in both Fahrenheit <i>and</i> Celsius that is when {SITE_NAME} has succeeded.
           </p>
 
           <p>
-            But before that you'll need the ability to quickly calculate conversions. In the guides below, you will find tips to help calculate quick and rough conversions with simple math. If you need help with calculations read the next section closely.
+            But before that you'll need the ability to quickly calculate conversions. In the guides below, you will find tips to help calculate quick and rough conversions with simple math.
           </p>
         </React.Fragment>
       ),
@@ -733,26 +715,26 @@ export default {
           </p>
 
           <p>
-            So, let's quickly teach you how to calculate a 15% tip!
+            Adding 15% to any number is difficult. It is far easier to split up the calculation into two parts...
           </p>
 
           <List bulleted>
             <List.Item>
-              Multiplying a bill "by 1.15" is obtuse. It is far easier to split up the calculation into easy chunks.
+              If your bill is $12.00, first calculate <b>10%</b> of that number. Easy, just move the decimal: <b>$1.20</b>!
             </List.Item>
             <List.Item>
-              If your bill is $12.00, first calculate 10% of that bill. Easy, just move the decimal: $1.20!
+              Now for <b>5% more</b>. This is easy! It's <b>half of 10%</b>. Remember that $1.20? Cut that in half (<b>$0.60</b>) and add it! That's a $1.80 tip.
             </List.Item>
             <List.Item>
-              Now for 5% more. This is easy! It's half of 10%. Remember that $1.20? Cut that in half ($0.60) and add it! That's a $1.80 tip.
+              <b>Add $1.80</b> to the original $12.00.
             </List.Item>
             <List.Item>
-              Add $1.80 to the original $12.00. $13.80 is your final value.
+              $13.80 is your final bill.
             </List.Item>
           </List>
 
           <p>
-            By remembering how easy it is to calculate 10% of any value you can also calculate 5% of any value with hardly any effort and we try to keep these "conversion tips" as easy as possible.
+            By remembering how easy it is to calculate 10% or 5% of any value you can use any of the tips below.
           </p>
 
           <p>
@@ -1025,7 +1007,7 @@ export default {
           <br />
 
           <p>
-            Mass, or more commonly, weight, is an important measure in daily life. Scales vary from small portions you might encounter in the kitchen to the weight of large vehicles and beyond.
+            Mass, or more commonly referred to as weight, is an important measure in daily life. Scales vary from small portions you might encounter in the kitchen to the weight of large vehicles and beyond.
           </p>
         </React.Fragment>
       ),
@@ -1040,7 +1022,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              The base unit is the kilogram (the gram alone was considered too small to be practical). Common prefixes are the kilogram (1000 grams), and milligram (1/1000 of a gram). Additionally, there is the tonne / metric ton (1000 kilograms).
+              The base unit is, oddly, the kilogram. The single gram was considered too small to be a practical base. Common prefixes are the kilogram (1000 grams) and milligram (1/1000 of a gram). Additionally, there is the tonne / "metric ton" (1000 kilograms).
             </p>
           </React.Fragment>
         ),
@@ -1220,12 +1202,7 @@ export default {
           <React.Fragment>
             <p>
               The base unit is the liter. The most common prefix is the milliliter (1/1000 of a liter). Additionally,
-              the cubic meter (exactly equivalent to 1000 liters) can also be used for much larger volumes.
-            </p>
-
-            <p>
-              Note that cubic centimeters (cm³) are identical to milliliters. A liter could also be expressed as a
-              cubic decimeter (dm³) — a cube that is 10cm×10cm×10cm — but almost never is.
+              the cubic meter (equivalent to 1000 liters) can also be used for much larger volumes.
             </p>
           </React.Fragment>
         ),
@@ -1321,7 +1298,7 @@ export default {
         content: (
           <React.Fragment>
             <p>
-              It is difficult to choose the most common unit for volume among US Customary Units as it depends on context. The smallest common unit is the fluid ounce, then the cup (8 fluid ounces), the pint (2 cups), the quart (2 pints), and finally the gallon (4 quarts).
+              Arguably the most ubiquitous unit of liquid volume measurement is the gallon. Cubic feet can also be used for much larger (typically non-liquid) volumes.
             </p>
           </React.Fragment>
         ),

@@ -119,7 +119,7 @@ const Welcome = props => (
         <Container text>
           <Header>Want to learn a little more?</Header>
           <p>
-            Take a look at the <Link to="/intro">introduction page</Link> for a little more information — or {SITE_NAME}'s <Link to="/docs/all/missionstatement">mission statement</Link> for a lot more!
+            Take a look at the <Link to="/intro">introduction page</Link> for a little more information — or {SITE_NAME}'s <Link to="/docs/1/missionstatement">mission statement</Link> for a lot more!
           </p>
 
           <Header>Already know the Metric System?</Header>

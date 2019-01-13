@@ -5,8 +5,11 @@ import { Button, Container, Grid, Header, Icon, Segment } from "semantic-ui-reac
 
 import {
   SITE_NAME,
+  DOCUMENTATION_MISSION_STATEMENT,
+  DOCUMENTATION_HOW_TO,
   DOCUMENTATION_TO_METRIC,
   DOCUMENTATION_FROM_METRIC,
+  DOCUMENTATION_GUIDE,
   SUBJECT_ICONS,
 } from "../../constants";
 
@@ -20,8 +23,8 @@ const DocumentationMap = props => (
           <Container as={Link} textAlign="center" to="/docs/1/missionstatement">
             <Header>
               <Icon
-                name="bullhorn"
-                color="pink"
+                name={DOCUMENTATION_MISSION_STATEMENT.icon}
+                color={DOCUMENTATION_MISSION_STATEMENT.color}
               />
               Mission Statement
             </Header>
@@ -33,8 +36,8 @@ const DocumentationMap = props => (
           <Container as={Link} textAlign="center" to="/docs/1/howto">
             <Header>
               <Icon
-                name="file alternate outline"
-                color="violet"
+                name={DOCUMENTATION_HOW_TO.icon}
+                color={DOCUMENTATION_HOW_TO.color}
               />
               How To Use {SITE_NAME}
             </Header>
@@ -65,7 +68,7 @@ const DocumentationMap = props => (
                 name={DOCUMENTATION_FROM_METRIC.icon}
                 color={DOCUMENTATION_FROM_METRIC.color}
               />
-              US Unit Perspective
+              US Units Perspective
             </Header>
           </Container>
         </Segment>
@@ -78,8 +81,8 @@ const DocumentationMap = props => (
           <Container as={Link} textAlign="center" to="/docs/1/guide">
             <Header>
               <Icon
-                name="graduation cap"
-                color="purple"
+                name={DOCUMENTATION_GUIDE.icon}
+                color={DOCUMENTATION_GUIDE.color}
               />
               Tips and Guides
             </Header>
