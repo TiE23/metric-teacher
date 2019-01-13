@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid } from "semantic-ui-react";
 
-import { FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM } from "../constants";
+import {
+  FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM,
+} from "../constants";
 
 /**
  * This is a presentational component that puts its children into a pleasant-ish looking
@@ -15,7 +17,7 @@ const FloatingCenterGrid = (props) => {
     <Grid padded centered columns={2}>
       {React.Children.map(children, child => (
         <Grid.Row>
-          <Grid.Column {...FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM}>
+          <Grid.Column {...props.widths}>
             {React.cloneElement(child)}
           </Grid.Column>
         </Grid.Row>
@@ -26,6 +28,11 @@ const FloatingCenterGrid = (props) => {
 
 FloatingCenterGrid.propTypes = {
   children: PropTypes.node.isRequired,
+  widths: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+};
+
+FloatingCenterGrid.defaultProps = {
+  widths: FLOATING_CENTER_GRID_COLUMN_WIDTH_MEDIUM
 };
 
 export default FloatingCenterGrid;

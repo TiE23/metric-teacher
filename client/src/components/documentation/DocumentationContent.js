@@ -11,6 +11,7 @@ import {
   SITE_EMAIL_ADMIN,
   MASCOT_NAME_SHORT,
   MOBILE_BREAKPOINT,
+  SUBJECT_ICONS,
   QUESTION_TYPE_DROPDOWN,
 } from "../../constants";
 
@@ -765,7 +766,7 @@ export default {
         content: "Length",
         as: "h2",
         dividing: true,
-        icon: "arrows alternate horizontal",
+        icon: SUBJECT_ICONS.Length,
       },
       content: (
         <React.Fragment>
@@ -984,7 +985,7 @@ export default {
         content: "Mass",
         as: "h2",
         dividing: true,
-        icon: "balance scale",
+        icon: SUBJECT_ICONS.Mass,
       },
       content: (
         <React.Fragment>
@@ -1161,7 +1162,7 @@ export default {
         content: "Volume",
         as: "h2",
         dividing: true,
-        icon: "cube",
+        icon: SUBJECT_ICONS.Volume,
       },
       content: (
         <React.Fragment>
@@ -1427,7 +1428,7 @@ export default {
         content: "Temperature",
         as: "h2",
         dividing: true,
-        icon: "thermometer three quarters",
+        icon: SUBJECT_ICONS.Temperature,
       },
       content: (
         <React.Fragment>
@@ -1642,7 +1643,7 @@ export default {
         content: "Velocity",
         as: "h2",
         dividing: true,
-        icon: "location arrow",
+        icon: SUBJECT_ICONS.Velocity,
       },
       content: (
         <React.Fragment>
@@ -1809,7 +1810,7 @@ export default {
         content: "Area",
         as: "h2",
         dividing: true,
-        icon: "clone outline",
+        icon: SUBJECT_ICONS.Area,
       },
       content: (
         <React.Fragment>

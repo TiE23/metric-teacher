@@ -313,12 +313,12 @@ export const SUBJECT_ICONS = {
 };
 
 export const SUBJECT_DROPDOWN = [
-  { value: "Length", text: "Length", icon: "arrows alternate horizontal" },
-  { value: "Mass", text: "Mass", icon: "balance scale" },
-  { value: "Volume", text: "Volume", icon: "cube" },
-  { value: "Temperature", text: "Temperature", icon: "thermometer three quarters" },
-  { value: "Velocity", text: "Velocity", icon: "location arrow" },
-  { value: "Area", text: "Area", icon: "clone outline" },
+  { value: "Length", text: "Length", icon: SUBJECT_ICONS.Length },
+  { value: "Mass", text: "Mass", icon: SUBJECT_ICONS.Mass },
+  { value: "Volume", text: "Volume", icon: SUBJECT_ICONS.Volume },
+  { value: "Temperature", text: "Temperature", icon: SUBJECT_ICONS.Temperature },
+  { value: "Velocity", text: "Velocity", icon: SUBJECT_ICONS.Velocity },
+  { value: "Area", text: "Area", icon: SUBJECT_ICONS.Area },
 ];
 
 // These are based off DB data so they are subject to change.

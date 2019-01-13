@@ -9,15 +9,19 @@ import utils from "../../utils";
 
 import SignupLoginButtons from "../misc/SignupLoginButtons";
 import DocumentationDisplay from "./DocumentationDisplay";
+import FloatingCenterGrid from "../FloatingCenterGrid";
 
 import Docs from "./DocumentationContent";
 import ScrollTo from "../misc/ScrollTo";
 import withAuth from "../AuthHOC";
 
+import DocumentationMap from "./DocumentationMap";
+
 import {
   SITE_NAME,
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_DOCUMENTATION,
+  FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE,
 } from "../../constants";
 
 const DocumentationPage = (props) => {
@@ -56,9 +60,16 @@ const DocumentationPage = (props) => {
           </Header>
         </Container>
 
+        <br />
+
+        <FloatingCenterGrid widths={FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
+          {DocumentationMap}
+        </FloatingCenterGrid>
+
+        <br />
+
         {(!props.userTokenData || !props.userTokenData.id) &&
         <Container text textAlign="center">
-          <br />
           <Header size="small">
             Start learning on {SITE_NAME} today!
           </Header>
@@ -76,7 +87,11 @@ const DocumentationPage = (props) => {
         />
         <br />
 
-        <Link to="/docs/all/top" replace>Back to top.</Link>
+        <Container text textAlign="center">
+          <Link to="/docs/all/top">
+            <Icon name="angle up" />Back to top <Icon name="angle up" />
+          </Link>
+        </Container>
       </Container>
     </React.Fragment>
   );
