@@ -768,7 +768,7 @@ export default {
         content: "Length",
         as: "h2",
         dividing: true,
-        icon: SUBJECT_ICONS.Length,
+        ...SUBJECT_ICONS.Length,
       },
       content: (
         <React.Fragment>
@@ -989,7 +989,7 @@ export default {
         content: "Mass",
         as: "h2",
         dividing: true,
-        icon: SUBJECT_ICONS.Mass,
+        ...SUBJECT_ICONS.Mass,
       },
       content: (
         <React.Fragment>
@@ -1168,7 +1168,7 @@ export default {
         content: "Volume",
         as: "h2",
         dividing: true,
-        icon: SUBJECT_ICONS.Volume,
+        ...SUBJECT_ICONS.Volume,
       },
       content: (
         <React.Fragment>
@@ -1436,7 +1436,7 @@ export default {
         content: "Temperature",
         as: "h2",
         dividing: true,
-        icon: SUBJECT_ICONS.Temperature,
+        ...SUBJECT_ICONS.Temperature,
       },
       content: (
         <React.Fragment>
@@ -1653,7 +1653,7 @@ export default {
         content: "Velocity",
         as: "h2",
         dividing: true,
-        icon: SUBJECT_ICONS.Velocity,
+        ...SUBJECT_ICONS.Velocity,
       },
       content: (
         <React.Fragment>
@@ -1822,7 +1822,7 @@ export default {
         content: "Area",
         as: "h2",
         dividing: true,
-        icon: SUBJECT_ICONS.Area,
+        ...SUBJECT_ICONS.Area,
       },
       content: (
         <React.Fragment>

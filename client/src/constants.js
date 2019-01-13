@@ -304,23 +304,23 @@ export const MAX_CHOICES = 6;
 // Max multiple choice options that can be defined (including correct answer).
 export const MAX_CHOICES_DEFINED = 10;
 
-// These are based off DB data so they are subject to change.
+// Keys are based off DB data - so they are subject to change.
 export const SUBJECT_ICONS = {
-  Length: "arrows alternate horizontal",
-  Mass: "balance scale",
-  Volume: "cube",
-  Temperature: "thermometer three quarters",
-  Velocity: "location arrow",
-  Area: "clone outline",
+  Length: { icon: "arrows alternate horizontal", color: "red" },
+  Mass: { icon: "balance scale", color: "yellow" },
+  Volume: { icon: "cube", color: "blue" },
+  Temperature: { icon: "thermometer three quarters", color: "orange" },
+  Velocity: { icon: "location arrow", color: "olive" },
+  Area: { icon: "clone outline", color: "teal" },
 };
 
 export const SUBJECT_DROPDOWN = [
-  { value: "Length", text: "Length", icon: SUBJECT_ICONS.Length },
-  { value: "Mass", text: "Mass", icon: SUBJECT_ICONS.Mass },
-  { value: "Volume", text: "Volume", icon: SUBJECT_ICONS.Volume },
-  { value: "Temperature", text: "Temperature", icon: SUBJECT_ICONS.Temperature },
-  { value: "Velocity", text: "Velocity", icon: SUBJECT_ICONS.Velocity },
-  { value: "Area", text: "Area", icon: SUBJECT_ICONS.Area },
+  { value: "Length", text: "Length", icon: SUBJECT_ICONS.Length.icon },
+  { value: "Mass", text: "Mass", icon: SUBJECT_ICONS.Mass.icon },
+  { value: "Volume", text: "Volume", icon: SUBJECT_ICONS.Volume.icon },
+  { value: "Temperature", text: "Temperature", icon: SUBJECT_ICONS.Temperature.icon },
+  { value: "Velocity", text: "Velocity", icon: SUBJECT_ICONS.Velocity.icon },
+  { value: "Area", text: "Area", icon: SUBJECT_ICONS.Area.icon },
 ];
 
 // These are based off DB data so they are subject to change.
