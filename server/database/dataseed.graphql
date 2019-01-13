@@ -212,7 +212,7 @@ mutation {
     name: "Volume"
     media: "volume.gif"
     description: "Practice measurements of volume."
-    measurementDescription: "The cubic meter is the base unit of volume in the Metric System."
+    measurementDescription: "The cubic meter is the base unit of volume in the Metric System while the liter is far more common."
     subSubjects: {
       create: [
         {

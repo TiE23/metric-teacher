@@ -168,7 +168,7 @@ class QuestionDetailsSubSubjectsSelector extends PureComponent {
     this.buildSubjectsDropdownSelection = subjects => (
       subjects.map(subject => ({
         text: subject.name,
-        icon: SUBJECT_ICONS[subject.name] || "question circle outline",
+        icon: SUBJECT_ICONS[subject.name].icon || "question circle outline",
         value: subject.id,
         key: subject.id,
       }))

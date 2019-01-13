@@ -29,11 +29,12 @@ const IntroPage = () => (
       </Header.Content>
     </Header>
 
-    <Header as="h2" content="Demos" dividing />
-
-    <p>
-      See all of {SITE_NAME} without having to use it!
-    </p>
+    <Header
+      as="h2"
+      content="Demos"
+      subheader={`See all of ${SITE_NAME} without having to use it!`}
+      dividing
+    />
 
     <VideoDemos mode="educator" />
 

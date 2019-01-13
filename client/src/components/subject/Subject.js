@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Icon, Item } from "semantic-ui-react";
+import { Header, Icon, Item } from "semantic-ui-react";
 
 import DocumentationSubjectModal from "../documentation/DocumentationSubjectModal";
+
+import {
+  SUBJECT_ICONS,
+} from "../../constants";
 
 const Subject = props => (
   <Item.Group>
@@ -12,7 +16,13 @@ const Subject = props => (
         src={`/img/subjects/${props.subjectData.media}` || "/img/placeholder.png"}
       />
       <Item.Content>
-        <Item.Header>{props.subjectData.name}</Item.Header>
+        <Item.Header as={Header}>
+          <Icon
+            name={SUBJECT_ICONS[props.subjectData.name].icon}
+            color={SUBJECT_ICONS[props.subjectData.name].color}
+          />
+          {props.subjectData.name}
+        </Item.Header>
         <Item.Description>
           <p>{props.subjectData.description}</p>
           <p style={{ color: "teal" }}>

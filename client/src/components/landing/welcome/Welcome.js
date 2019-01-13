@@ -5,6 +5,7 @@ import { Link, Redirect } from "react-router-dom";
 import { Container, Divider, Grid, Header, Icon, Image, Responsive } from "semantic-ui-react";
 
 import XLink from "../../misc/ExternalLink";
+import ScrollToTopOnMount from "../../misc/ScrollToTopOnMount";
 
 import SignupLoginButtons from "../../misc/SignupLoginButtons";
 import Carousel from "../../misc/carousel/Carousel";
@@ -24,6 +25,7 @@ import {
 
 const Welcome = props => (
   <Grid padded stackable>
+    <ScrollToTopOnMount />
     {props.userTokenData && props.userTokenData.id && // Redirect immediately if logged in.
       <Redirect to="/home" />
     }
@@ -117,7 +119,7 @@ const Welcome = props => (
         <Container text>
           <Header>Want to learn a little more?</Header>
           <p>
-            Take a look at the <Link to="/intro">introduction page</Link> for a little more information — or {SITE_NAME}'s <Link to="/docs/missionstatement">mission statement</Link> for a lot more!
+            Take a look at the <Link to="/intro">introduction page</Link> for a little more information — or {SITE_NAME}'s <Link to="/docs/1/missionstatement">mission statement</Link> for a lot more!
           </p>
 
           <Header>Already know the Metric System?</Header>

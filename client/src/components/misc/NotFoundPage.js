@@ -1,3 +1,4 @@
+/* eslint-disable max-len,react/no-unescaped-entities */
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Grid, Header, Icon, Image, Segment } from "semantic-ui-react";
@@ -5,11 +6,12 @@ import { Button, Grid, Header, Icon, Image, Segment } from "semantic-ui-react";
 import FloatingCenterGrid from "../FloatingCenterGrid";
 
 import {
+  FLOATING_CENTER_GRID_COLUMN_WIDTH_LARGE,
   PAGE_TITLE_HEADER_SIZE,
 } from "../../constants";
 
 const NotFoundPage = () => (
-  <FloatingCenterGrid>
+  <FloatingCenterGrid widths={FLOATING_CENTER_GRID_COLUMN_WIDTH_LARGE}>
     <Segment raised>
       <Grid stackable columns={2}>
         <Grid.Row>
@@ -31,7 +33,7 @@ const NotFoundPage = () => (
           </Grid.Column>
           <Grid.Column textAlign="center">
             <p>
-              Hopefully you weren&apos;t sent here by mistake!
+              Hopefully you weren't sent here by mistake!
             </p>
             <Button as={Link} to="/" primary fluid>Go to front page</Button>
           </Grid.Column>

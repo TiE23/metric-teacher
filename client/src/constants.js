@@ -52,6 +52,11 @@ export const MOBILE_BREAKPOINT = 768;
 
 // Documentation Settings
 export const DOCUMENTATION_HEADER_OFFSET = -90;
+export const DOCUMENTATION_MISSION_STATEMENT = { color: "teal", icon: "bullhorn" };
+export const DOCUMENTATION_HOW_TO = { color: "olive", icon: "file alternate outline" };
+export const DOCUMENTATION_GUIDE = { color: "purple", icon: "graduation cap" };
+export const DOCUMENTATION_TO_METRIC = { color: "blue", icon: "redo" };
+export const DOCUMENTATION_FROM_METRIC = { color: "red", icon: "undo" };
 
 // Challenge Settings
 export const CHALLENGE_KICKOFF_IGNORE_DIFFICULTY_DEFAULT = false;
@@ -302,23 +307,23 @@ export const MAX_CHOICES = 6;
 // Max multiple choice options that can be defined (including correct answer).
 export const MAX_CHOICES_DEFINED = 10;
 
-// These are based off DB data so they are subject to change.
+// Keys are based off DB data - so they are subject to change.
 export const SUBJECT_ICONS = {
-  Length: "arrows alternate horizontal",
-  Mass: "balance scale",
-  Volume: "cube",
-  Temperature: "thermometer three quarters",
-  Velocity: "location arrow",
-  Area: "clone outline",
+  Length: { icon: "arrows alternate horizontal", color: "red" },
+  Mass: { icon: "balance scale", color: "yellow" },
+  Volume: { icon: "cube", color: "blue" },
+  Temperature: { icon: "thermometer three quarters", color: "orange" },
+  Velocity: { icon: "location arrow", color: "olive" },
+  Area: { icon: "clone outline", color: "teal" },
 };
 
 export const SUBJECT_DROPDOWN = [
-  { value: "Length", text: "Length", icon: "arrows alternate horizontal" },
-  { value: "Mass", text: "Mass", icon: "balance scale" },
-  { value: "Volume", text: "Volume", icon: "cube" },
-  { value: "Temperature", text: "Temperature", icon: "thermometer three quarters" },
-  { value: "Velocity", text: "Velocity", icon: "location arrow" },
-  { value: "Area", text: "Area", icon: "clone outline" },
+  { value: "Length", text: "Length", icon: SUBJECT_ICONS.Length.icon },
+  { value: "Mass", text: "Mass", icon: SUBJECT_ICONS.Mass.icon },
+  { value: "Volume", text: "Volume", icon: SUBJECT_ICONS.Volume.icon },
+  { value: "Temperature", text: "Temperature", icon: SUBJECT_ICONS.Temperature.icon },
+  { value: "Velocity", text: "Velocity", icon: SUBJECT_ICONS.Velocity.icon },
+  { value: "Area", text: "Area", icon: SUBJECT_ICONS.Area.icon },
 ];
 
 // These are based off DB data so they are subject to change.

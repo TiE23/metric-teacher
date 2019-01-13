@@ -25,7 +25,7 @@ export default (
     <Header as="h3" content="Needing Change" />
 
     <p>
-      Every day was something new but I wanted to become a <b>Full-stack JavaScript developer</b>. ATG was moving to <b>ReactJS</b> for their front-end and <b>NodeJS</b> back-end services running on <b>Docker</b> containers. While feature teams switched to new technology I was stuck working in a decade-old PHP codebase. If I wanted to join a tight-knit feature team I needed to bring skills that would make me an asset; not a liability.
+      Every day was something new but I wanted to become a <b>Full-stack JavaScript developer</b>. ATG was moving to <b>ReactJS</b> for their front-end and <b>NodeJS</b> services running on <b>Docker</b> containers. While feature teams switched to new technology I was left behind in a decade-old PHP codebase. If I wanted to join a tight-knit feature team I needed to be an asset; not a liability.
     </p>
 
     <Header as="h3" content="Something New" />
@@ -37,7 +37,7 @@ export default (
     <Header as="h3" content={`Building ${SITE_NAME}`} />
 
     <p>
-      After following countless tutorials and a throw-away project I was ready to chase after the Metric system teaching idea I had in me for years. By May I had pushed my first {SITE_NAME} commit <XLink to="https://github.com/TiE23/metric-teacher">to GitHub</XLink>. After nearly <b>eight months</b> of full-time work I finally brought {SITE_NAME}, my first website, live on December 20th, 2018.
+      After tutorials and practice projects I was ready to chase after the Metric System teaching idea I had in me for years. By May I had pushed my first {SITE_NAME} commit <XLink to="https://github.com/TiE23/metric-teacher">to GitHub</XLink>. After nearly <b>eight months</b> of full-time work I finally brought {SITE_NAME}, my first website, live on December 20th, 2018.
     </p>
   </React.Fragment>
 );

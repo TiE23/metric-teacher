@@ -4,116 +4,72 @@ import { Container, Header, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { compose } from "react-apollo";
 import { withRouter } from "react-router";
-import forEach from "lodash/forEach";
-import isPlainObject from "lodash/isPlainObject";
+
+import utils from "../../utils";
+
+import SignupLoginButtons from "../misc/SignupLoginButtons";
+import DocumentationDisplay from "./DocumentationDisplay";
+import FloatingCenterGrid from "../FloatingCenterGrid";
 
 import Docs from "./DocumentationContent";
 import ScrollTo from "../misc/ScrollTo";
 import withAuth from "../AuthHOC";
 
-import SignupLoginButtons from "../misc/SignupLoginButtons";
+import DocumentationMap from "./DocumentationMap";
 
 import {
   SITE_NAME,
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_DOCUMENTATION,
+  FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE,
 } from "../../constants";
 
-/**
- * This function recursively constructs the individual elements of the document page.
- * It returns two arrays: nodes and keys. Nodes are the actual React node objects while the
- * keys are unique IDs that differentiate every element so that we can satisfy the React requirement
- * of having unique keys for the final list in the output Container component.
- *
- * It essentially loops through the Docs object tracking the "address" of every leaf value with a
- * recursively filled array. That address array is used to intelligently name the elements.
- * Ex: The object Docs.intro.findHelp.header is automatically ID'd as "intro-findhelp".
- *
- * @param docs
- * @param address
- * @returns {{nodes: Array, keys: Array}}
- */
-const docExploder = (docs, address = []) => {
-  const nodes = [];
-  const keys = [];
+const DocumentationPage = (props) => {
+  const params = props.match.params[0].slice(1).split("/");
+  const sectionTarget = [];
+  const paramSlug = [];
 
-  forEach(docs, (doc, key) => {
-    const id = address.join("-");
-
-    if (key === "header") {
-      nodes.push((
-        <React.Fragment key={`${id}-header`}>
-          <Link
-            to={`/docs/${address.join("/")}`}
-            id={id}
-            replace
-          >
-            <Header {...doc} />
-          </Link>
-          <br />
-        </React.Fragment>
-      ));
-      keys.push(id);
-    } else if (React.isValidElement(doc) && key === "content") {
-      nodes.push((
-        <React.Fragment key={`${id}-content`}>
-          {doc}
-          <br />
-        </React.Fragment>
-      ));
-      keys.push(id);
-    } else if (isPlainObject(doc) && !React.isValidElement(doc)) {
-      // Recursive call
-      const explodeFurther = docExploder(doc, address.concat(key.toLocaleLowerCase()));
-
-      nodes.push(explodeFurther.nodes);
-      keys.push(explodeFurther.keys);
+  if (params[0] === "all") {
+    // Target all because it was asked for explicitly.
+    paramSlug.push(...params.slice(1));  // Skip the first param.
+  } else if (utils.t0(parseInt(params[0], 10))) { // Need to use t0() because 0 handled as truthy.
+    // Make sure the number is not negative (0 is treated like "all").
+    if (parseInt(params[0], 10) >= 0) {
+      // Target the nth layer (ex: 1 = h1, 2 = h2, etc).
+      sectionTarget.push(...params.slice(1, parseInt(params[0], 10) + 1));
     }
-  });
-
-  return { nodes, keys };
-};
-
-
-/**
- * This takes the results from the recursive function docExploder() and creates an array of simple
- * { node, id } objects to later be used in a map in the render function below.
- * @param docs
- * @returns {Array}
- */
-const explodeDocs = (docs) => {
-  const { nodes, keys } = docExploder(docs);
-  const docsArray = [];
-
-  for (let index = 0; index < nodes.length && index < keys.length; ++index) {
-    docsArray.push({
-      node: nodes[index],
-      id: keys[index],
-    });
+    paramSlug.push(...params.slice(1));  // Skip the first param.
+  } else {
+    // Target all because we weren't sure.
+    paramSlug.push(...params);
   }
 
-  return docsArray;
-};
+  return (
+    <React.Fragment>
+      <ScrollTo paramSlug={paramSlug.join("/")} />
+      <Container id="top">
+        <Container text>
+          <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
+            <Header.Content>
+              <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
+              Documentation
+              <Header.Subheader>
+                Everything you need to know.
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+        </Container>
 
-const DocumentationPage = props => (
-  <React.Fragment>
-    <ScrollTo paramSlug={props.match.params[0].slice(1)} />
-    <Container id="all">
-      <Container text>
-        <Header size={PAGE_TITLE_HEADER_SIZE} textAlign="center">
-          <Header.Content>
-            <Icon name="book" color={PAGE_ICON_COLOR_DOCUMENTATION} />
-            Documentation
-            <Header.Subheader>
-              Everything you need to know.
-            </Header.Subheader>
-          </Header.Content>
-        </Header>
-      </Container>
+        <br />
 
-      {(!props.userTokenData || !props.userTokenData.id) &&
+        <FloatingCenterGrid widths={FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
+          <DocumentationMap displayShowAll={params[0] !== "all"} />
+        </FloatingCenterGrid>
+
+        <br />
+
+        {(!props.userTokenData || !props.userTokenData.id) &&
         <Container text textAlign="center">
-          <br />
           <Header size="small">
             Start learning on {SITE_NAME} today!
           </Header>
@@ -121,18 +77,25 @@ const DocumentationPage = props => (
           <br />
           <br />
         </Container>
-      }
+        }
 
-      <br />
+        <br />
+        <DocumentationDisplay
+          documents={Docs}
+          routeRoot={params[0]}
+          sectionTarget={sectionTarget}
+        />
 
-      {explodeDocs(Docs).map(({ node, id }) => <React.Fragment key={id}>{node}</React.Fragment>)}
-
-      <br />
-
-      <Link to="/docs" replace>Back to top.</Link>
-    </Container>
-  </React.Fragment>
-);
+        <Container text textAlign="center">
+          {/* Using /up redirect to make this link work even when link still at /top address */}
+          <Link to={params[params.length - 1] === "all" ? "/docs/all/top" : "/docs/all/up"}>
+            <Icon name="angle up" />Back to top <Icon name="angle up" />
+          </Link>
+        </Container>
+      </Container>
+    </React.Fragment>
+  );
+};
 
 DocumentationPage.propTypes = {
   match: PropTypes.shape({
