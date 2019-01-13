@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Container, Grid, Header, Icon, Segment } from "semantic-ui-react";
+import { Button, Container, Grid, Header, Icon, Segment } from "semantic-ui-react";
 
 import {
   SITE_NAME,
@@ -11,7 +12,7 @@ import {
 
 const segmentSize = "tiny";
 
-export default (
+const DocumentationMap = props => (
   <Grid columns="equal" stackable>
     <Grid.Row>
       <Grid.Column>
@@ -176,5 +177,21 @@ export default (
         </Segment>
       </Grid.Column>
     </Grid.Row>
+
+    {props.displayShowAll &&
+      <Grid.Row centered textAlign="center">
+        <Grid.Column width={6}>
+          <Button fluid as={Link} to="/docs/all/top" color="olive">
+            <Icon name="eye" /> Show All
+          </Button>
+        </Grid.Column>
+      </Grid.Row>
+    }
   </Grid>
 );
+
+DocumentationMap.propTypes = {
+  displayShowAll: PropTypes.bool.isRequired,
+};
+
+export default DocumentationMap;

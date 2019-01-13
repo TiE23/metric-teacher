@@ -63,7 +63,7 @@ const DocumentationPage = (props) => {
         <br />
 
         <FloatingCenterGrid widths={FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
-          {DocumentationMap}
+          <DocumentationMap displayShowAll={params[0] !== "all"} />
         </FloatingCenterGrid>
 
         <br />
