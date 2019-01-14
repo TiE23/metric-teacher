@@ -10,6 +10,8 @@ services:
     command: "yarn start-prod"
     ports:
       - "80:4000" # For prod use on api.metric-teacher.com
+    environment:
+      - PRISMA_DEBUG=false
 
 volumes:
   metric-teacher-server:

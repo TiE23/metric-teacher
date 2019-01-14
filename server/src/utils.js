@@ -185,12 +185,12 @@ async function checkAuth(
   if (Array.isArray(permissions.type)) {
     if (!permissions.type.includes(callingUserData.type)) {
       approval = false;
-      rejectionReasons.push(`User type '${callingUserData.type}' disallowed.`);
+      rejectionReasons.push(`User type '${callingUserData.type}' not allowed.`);
     }
   } else if (Number.isInteger(permissions.type)) {
     if (callingUserData.type < permissions.type) {
       approval = false;
-      rejectionReasons.push(`User type '${callingUserData.type}' insufficient.`);
+      rejectionReasons.push(`User type '${callingUserData.type}' not allowed.`);
     }
   }
 
@@ -198,12 +198,12 @@ async function checkAuth(
   if (Array.isArray(permissions.status)) {
     if (permissions.status.indexOf(callingUserData.status) === -1) {
       approval = false;
-      rejectionReasons.push(`User status '${callingUserData.status}' disallowed.`);
+      rejectionReasons.push(`User status '${callingUserData.status}' not allowed.`);
     }
   } else if (Number.isInteger(permissions.status)) {
-    if (callingUserData.status < permissions.status) {
+    if (callingUserData.status > permissions.status) {
       approval = false;
-      rejectionReasons.push(`User status '${callingUserData.status}' insufficient.`);
+      rejectionReasons.push(`User status '${callingUserData.status}' not allowed.`);
     }
   }
 
