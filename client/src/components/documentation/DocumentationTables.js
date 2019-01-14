@@ -275,7 +275,7 @@ export default {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Metric</Table.HeaderCell>
-            <Table.HeaderCell>Imperial Base Unit</Table.HeaderCell>
+            <Table.HeaderCell>US Customary Base Unit</Table.HeaderCell>
             <Table.HeaderCell>Friendly Unit</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -395,7 +395,7 @@ export default {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Metric</Table.HeaderCell>
-            <Table.HeaderCell>Imperial Base Unit</Table.HeaderCell>
+            <Table.HeaderCell>US Customary Base Unit</Table.HeaderCell>
             <Table.HeaderCell>Friendly Unit</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -665,7 +665,7 @@ export default {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Metric</Table.HeaderCell>
-            <Table.HeaderCell>Imperial Base Unit</Table.HeaderCell>
+            <Table.HeaderCell>US Customary Base Unit</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -715,7 +715,7 @@ export default {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Metric</Table.HeaderCell>
-            <Table.HeaderCell>Imperial Base Unit</Table.HeaderCell>
+            <Table.HeaderCell>US Customary Base Unit</Table.HeaderCell>
             <Table.HeaderCell>Friendly Unit</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
