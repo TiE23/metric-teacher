@@ -55,6 +55,8 @@ services:
       - "traefik.enable=true"
       - "traefik.frontend.rule=HostRegexp:{subdomain:.+}.metric-teacher.com"
       - "traefik.port=4000"
+    environment:
+      - PRISMA_DEBUG=false
 
 networks:
   proxy:
