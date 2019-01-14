@@ -151,7 +151,7 @@ class QuestionDetailsQuestion extends PureComponent {
                     {this.props.editMode ?
                       <Input
                         onChange={this.handleRangeLowerChange}
-                        value={this.props.range && this.props.range.lower}
+                        value={(this.props.range && this.props.range.lower) || ""}
                         placeholder="Null"
                         transparent
                         fluid
@@ -174,7 +174,7 @@ class QuestionDetailsQuestion extends PureComponent {
                     {this.props.editMode ?
                       <Input
                         onChange={this.handleRangeUpperChange}
-                        value={this.props.range && this.props.range.upper}
+                        value={(this.props.range && this.props.range.upper) || ""}
                         placeholder="Null"
                         transparent
                         fluid
@@ -206,7 +206,7 @@ class QuestionDetailsQuestion extends PureComponent {
                     {this.props.editMode ?
                       <Input
                         onChange={this.handleRangeStepChange}
-                        value={this.props.range && this.props.range.step}
+                        value={(this.props.range && this.props.range.step) || ""}
                         placeholder="Null"
                         transparent
                         fluid
@@ -268,10 +268,10 @@ QuestionDetailsQuestion.propTypes = {
   detail: PropTypes.string,
   type: PropTypes.number.isRequired,
   range: PropTypes.shape({
-    upper: PropTypes.number.isRequired,
-    lower: PropTypes.number.isRequired,
-    unit: PropTypes.string.isRequired,
-    step: PropTypes.number.isRequired,
+    upper: PropTypes.number,
+    lower: PropTypes.number,
+    unit: PropTypes.string,
+    step: PropTypes.number,
   }),
   editMode: PropTypes.bool,
   handleQuestionDataChange: PropTypes.func,
