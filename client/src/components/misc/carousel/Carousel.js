@@ -1,6 +1,9 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Button, Grid, Transition } from "semantic-ui-react";
+
+import utils from "../../../utils";
+
 import CarouselPips from "./CarouselPips";
 
 import {
@@ -13,7 +16,7 @@ class Carousel extends PureComponent {
     super(props);
 
     this.state = {
-      index: 0,
+      index: utils.minMax(0, this.props.startingIndex, this.props.panels.length - 1),
       nextIndex: null,
       visible: true,
       animation: this.props.incrementInAnimation,
@@ -33,11 +36,19 @@ class Carousel extends PureComponent {
     };
 
     this.increment = () => {
-      this.changeIndex(this.state.index + 1);
+      if (this.props.wrapping && this.state.index === this.props.panels.length - 1) {
+        this.changeIndex(0);  // Go to 0.
+      } else {
+        this.changeIndex(this.state.index + 1);
+      }
     };
 
     this.decrement = () => {
-      this.changeIndex(this.state.index - 1);
+      if (this.props.wrapping && this.state.index === 0) {
+        this.changeIndex(this.props.panels.length - 1); // Go to end.
+      } else {
+        this.changeIndex(this.state.index - 1);
+      }
     };
 
     this.showNext = () => {
@@ -97,7 +108,7 @@ class Carousel extends PureComponent {
             <Button
               icon="angle left"
               floated="right"
-              disabled={this.state.blocking || this.state.index === 0}
+              disabled={this.state.blocking || (!this.props.wrapping && this.state.index === 0)}
               onClick={this.decrement}
               color={this.props.controlColor}
             />
@@ -117,7 +128,10 @@ class Carousel extends PureComponent {
             <Button
               icon="angle right"
               floated="left"
-              disabled={this.state.blocking || this.state.index === this.props.panels.length - 1}
+              disabled={
+                this.state.blocking ||
+                (!this.props.wrapping && this.state.index === this.props.panels.length - 1)
+              }
               onClick={this.increment}
               color={this.props.controlColor}
             />
@@ -138,6 +152,8 @@ Carousel.propTypes = {
   hideAnimationDuration: PropTypes.number,
   controlColor: PropTypes.string,
   incrementOnClick: PropTypes.bool,
+  wrapping: PropTypes.bool,
+  startingIndex: PropTypes.number,
 };
 
 Carousel.defaultProps = {
@@ -149,6 +165,8 @@ Carousel.defaultProps = {
   hideAnimationDuration: 500,
   controlColor: "grey",
   incrementOnClick: false,
+  wrapping: false,
+  startingIndex: 0,
 };
 
 export default Carousel;
