@@ -14,7 +14,7 @@ const SubSubjectReview = props => (
   <List divided>
     <List.Item>
       <List.Icon
-        name={SUBJECT_ICONS[props.subjectName].icon || "remove"}
+        name={(props.subjectName && SUBJECT_ICONS[props.subjectName].icon) || "remove"}
         size="large"
         verticalAlign="top"
       />
