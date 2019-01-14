@@ -6,7 +6,7 @@ import XLink from "../misc/ExternalLink";
 
 export default {
   imperialVsUSVolumes: (
-    <Table celled>
+    <Table celled className="compactTable">
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Unit</Table.HeaderCell>
@@ -129,7 +129,7 @@ export default {
   ),
 
   metricPrefixes: (
-    <Table celled compact>
+    <Table celled compact className="compactTable">
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Prefix</Table.HeaderCell>
@@ -231,7 +231,7 @@ export default {
 
   length: {
     toMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Imperial</Table.HeaderCell>
@@ -271,7 +271,7 @@ export default {
     ),
 
     fromMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Metric</Table.HeaderCell>
@@ -306,7 +306,7 @@ export default {
     ),
 
     usCustomaryUnitRelations: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>One unit...</Table.HeaderCell>
@@ -361,7 +361,7 @@ export default {
 
   mass: {
     toMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Imperial</Table.HeaderCell>
@@ -391,7 +391,7 @@ export default {
     ),
 
     fromMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Metric</Table.HeaderCell>
@@ -423,7 +423,7 @@ export default {
 
   volume: {
     toMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>US Customary</Table.HeaderCell>
@@ -464,7 +464,7 @@ export default {
     ),
 
     fromMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Metric</Table.HeaderCell>
@@ -489,7 +489,7 @@ export default {
     ),
 
     usCustomaryUnitRelations: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>One unit...</Table.HeaderCell>
@@ -567,7 +567,7 @@ export default {
 
   temperature: {
     toMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Need</Table.HeaderCell>
@@ -604,7 +604,7 @@ export default {
     ),
 
     fromMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Need</Table.HeaderCell>
@@ -643,7 +643,7 @@ export default {
 
   velocity: {
     toMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Imperial</Table.HeaderCell>
@@ -661,7 +661,7 @@ export default {
     ),
 
     fromMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Metric</Table.HeaderCell>
@@ -681,7 +681,7 @@ export default {
 
   area: {
     toMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Imperial</Table.HeaderCell>
@@ -711,7 +711,7 @@ export default {
     ),
 
     fromMetric: (
-      <Table celled compact>
+      <Table celled compact className="compactTable">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Metric</Table.HeaderCell>

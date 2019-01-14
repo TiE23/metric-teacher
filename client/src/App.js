@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 
 import "./semantic/dist/semantic.min.css";
+import "./App.css";
 
 import withAuth from "./components/AuthHOC";
 

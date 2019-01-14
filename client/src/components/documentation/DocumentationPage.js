@@ -80,11 +80,13 @@ const DocumentationPage = (props) => {
         }
 
         <br />
-        <DocumentationDisplay
-          documents={Docs}
-          routeRoot={params[0]}
-          sectionTarget={sectionTarget}
-        />
+        <Container className="documentationReadability">
+          <DocumentationDisplay
+            documents={Docs}
+            routeRoot={params[0]}
+            sectionTarget={sectionTarget}
+          />
+        </Container>
 
         <Container text textAlign="center">
           {/* Using /up redirect to make this link work even when link still at /top address */}
