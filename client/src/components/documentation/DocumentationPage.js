@@ -21,7 +21,7 @@ import {
   SITE_NAME,
   PAGE_TITLE_HEADER_SIZE,
   PAGE_ICON_COLOR_DOCUMENTATION,
-  FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE,
+  FLOATING_CENTER_GRID_COLUMN_WIDTH_LARGE,
 } from "../../constants";
 
 const DocumentationPage = (props) => {
@@ -62,7 +62,7 @@ const DocumentationPage = (props) => {
 
         <br />
 
-        <FloatingCenterGrid widths={FLOATING_CENTER_GRID_COLUMN_WIDTH_WIDE}>
+        <FloatingCenterGrid widths={FLOATING_CENTER_GRID_COLUMN_WIDTH_LARGE}>
           <DocumentationMap displayShowAll={params[0] !== "all"} />
         </FloatingCenterGrid>
 
