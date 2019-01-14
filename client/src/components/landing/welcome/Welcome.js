@@ -90,6 +90,7 @@ const Welcome = props => (
           panels={CarouselVideos(1.2)}
           controlColor={PAGE_ICON_COLOR_WELCOME}
           incrementOnClick
+          wrapping
         />
       </Responsive>
 
@@ -99,6 +100,7 @@ const Welcome = props => (
           panels={CarouselVideos(0.8)}
           controlColor={PAGE_ICON_COLOR_WELCOME}
           incrementOnClick
+          wrapping
         />
       </Responsive>
     </Grid.Row>
