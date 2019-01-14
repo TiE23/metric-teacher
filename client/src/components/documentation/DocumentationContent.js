@@ -1448,7 +1448,7 @@ export default {
           <br />
 
           <p>
-            Temperature is the black sheep of the six measurement subjects. The Fahrenheit and Celsius scales can have negative values, can represent differences as well as specific temperatures, and most confusingly have different zeroes. These all combine to make conversion and pattern recognition a cumbersome affair.
+            Temperature is the black sheep of the six measurement subjects. The Fahrenheit and Celsius scales can have negative values, can represent differences as well as specific temperatures, and most confusingly have different zeroes. These all combine to make conversion a cumbersome affair and makes pattern recognition far more ideal.
           </p>
         </React.Fragment>
       ),
