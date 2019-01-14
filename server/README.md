@@ -753,13 +753,15 @@ QuestionAnswerInput: {
 * `toMetric`
     * Boolean (read: Integer 0 or 1) value the indicates of the Questions in this SubSubject are concerned with converting to (true) or from (false) metric.
 * `rarity` Scale from 0 to 100
-    * A method of reducing the appearance of subsubjects' questions. It is a site-wide rarity setting that will *NOT* be adustable for different users.
+    * A method of reducing the appearance of subsubjects' questions. It is a site-wide rarity setting that will *NOT* be adjustable for different users.
     Rarity is determined by this algorithm:
         * _Every subSubject gets 100 chances to be picked in for the next question. The rarity number reduces those chances. All the chances of all possible subSubjects for a challenge are added together and a random number between 1 and that cumulative value is picked. If the number picked falls on one of those "chances" the subSubject is picked._
+        * _Rarity below 0 will be treated as 0 (you cannot make it more common)._
+        * _Rarity above 99 will be treated as 99 (there is at least a 1-in-100 chance)._
     * Scale
-        * `0` - Common (default value, no chance of it being removed)
-        * `50` - Appears half-as-often (1 out of 2 chance of it appearing as often as common questions)
-        * `100` - Most rare (1 out of 100 chance of it appearing as often as common questions)
+        * `0` - Common (default value, there is no decrease in commonness)
+        * `50` - Appears half-as-often (50 out of 100 chance of it appearing as often as common questions)
+        * `99` - Most rare (1 out of 100 chance of it appearing as often as common questions)
 * `unit`
     * Relation to Unit row.
 * `scale`
