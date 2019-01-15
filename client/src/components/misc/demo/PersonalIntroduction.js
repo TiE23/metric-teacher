@@ -19,7 +19,7 @@ export default (
     <Header as="h3" content="My Time at ATG" />
 
     <p>
-      I started at ATG as an intern in 2013 and became one of their first <b>SDET</b>s. In 2015 I became a <b>Support Engineer</b>, essentially a programming jack-of-all-trades. I did everything from fixing bugs in backend PHP, manually testing site code, designing automation scripts, building custom CLI tools in Python, writing crazy MySQL queries, playing with Node micro-services, and constructing basic admin tools using jQuery.
+      I started at ATG as an intern in 2013 and became one of their first <b>SDET</b>s. In 2015 I became a <b>Support Engineer</b>, essentially a programming jack-of-all-trades. I did everything from fixing bugs in backend PHP, writing automated tests, designing automation scripts, building custom CLI tools in Python, writing crazy MySQL queries, playing with Node micro-services, and constructing basic admin tools using jQuery.
     </p>
 
     <Header as="h3" content="Needing Change" />

@@ -9,9 +9,8 @@ import {
 export default (
   <React.Fragment>
     <p>
-      This website is only the beginning. If you're reading this wondering if I might make a great addition to your team I really appreciate you taking the time to look at my work. I am excessively excited to see what I can do in a professional environment and am looking forward to working with you.
+      This website is only the beginning. If you're reading this wondering if I might make a great addition to your team I really appreciate you taking the time to look at my work. I am excessively excited to see what I can do in a professional environment. I look forward to hearing back from you!
     </p>
-
 
     <p>
       <i>P.S. You can visit the <Link to="/credits">credits page</Link> to learn about Paul, the freelance artist who helped me bring a splash of color and personality to {SITE_NAME}.</i>

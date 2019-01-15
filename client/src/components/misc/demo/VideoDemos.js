@@ -801,7 +801,7 @@ class VideoDemos extends PureComponent {
                       playing: true,
                       loop: true,
                       playsinline: true,
-                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/09-documentation-A-01.mp4",
+                      url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/09-documentation-A-02.mp4",
                     }}
                   />
                 </Grid.Column>
@@ -826,7 +826,7 @@ class VideoDemos extends PureComponent {
                         playing: true,
                         loop: true,
                         playsinline: true,
-                        url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/09-documentation-B-01.mp4",
+                        url: "https://s3-us-west-2.amazonaws.com/metric-teacher/media/demo/09-documentation-B-02.mp4",
                       }}
                     />
                   </Grid.Column>

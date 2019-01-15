@@ -36,18 +36,6 @@ const DemoPage = () => (
 
     <Header
       as="h2"
-      content="Demos"
-      subheader={`See all of ${SITE_NAME} without having to use it!`}
-      dividing
-    />
-
-    <VideoDemos mode="recruiter" />
-
-    <Header as="h2" content="A Personal Introduction" dividing />
-    {PersonalIntroduction}
-
-    <Header
-      as="h2"
       content="Sizzle Reel"
       subheader="Attractive carousel of videos shown to first-time visitors."
       dividing
@@ -60,6 +48,7 @@ const DemoPage = () => (
       panels={CarouselVideos(1.2)}
       controlColor={PAGE_ICON_COLOR_WELCOME}
       incrementOnClick
+      wrapping
     />
 
     {/* Mobile */}
@@ -69,13 +58,26 @@ const DemoPage = () => (
       panels={CarouselVideos(0.8)}
       controlColor={PAGE_ICON_COLOR_WELCOME}
       incrementOnClick
+      wrapping
     />
+
+    <Header
+      as="h2"
+      content="Demos"
+      subheader={`See all of ${SITE_NAME} without having to use it!`}
+      dividing
+    />
+
+    <VideoDemos mode="recruiter" />
+
+    <Header as="h2" content="Stats" dividing />
+    {Technical}
 
     <Header as="h2" content={`The Technology Behind ${SITE_NAME}`} dividing />
     {Technology}
 
-    <Header as="h2" content="Stats" dividing />
-    {Technical}
+    <Header as="h2" content="A Personal Introduction" dividing />
+    {PersonalIntroduction}
 
     <Header as="h2" content="Thank You" dividing />
     {ThankYou}
