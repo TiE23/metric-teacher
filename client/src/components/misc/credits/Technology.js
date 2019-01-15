@@ -16,7 +16,7 @@ export default (
           <List.Icon name="react" />
           <List.Content>
             <List.Header>
-              <XLink to="https://reactjs.org/">ReactJS</XLink>
+              <XLink to="https://reactjs.org/">React</XLink>
             </List.Header>
             <List.Description>
               "A JavaScript library for building user interfaces"
@@ -82,7 +82,7 @@ export default (
           <List.Icon name="node" />
           <List.Content>
             <List.Header>
-              <XLink to="https://nodejs.org/">NodeJS</XLink>
+              <XLink to="https://nodejs.org/">Node.js</XLink>
             </List.Header>
             <List.Description>
               "A JavaScript runtime built on Chrome's V8 JavaScript engine"

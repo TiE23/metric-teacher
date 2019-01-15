@@ -14,14 +14,18 @@ export default (
       <Item.Image src="/img/credits/kyle.gif" size="medium" />
       <Item.Content>
         <Item.Header>Kyle Geib</Item.Header>
-        <Item.Meta>Creator and Developer</Item.Meta>
+        <Item.Meta>Designer & Developer</Item.Meta>
         <Item.Description>
           <p>
-            Seattle-based web developer who wanted to learn both modern JS web development <i>and</i> the Metric System... so... I guess <i>this</i> happened.
+            Seattle-based web developer who wanted to learn both modern JavaScript web development <i>and</i> the Metric System... so... guess <i>this</i> happened.
           </p>
 
           <p>
-            Kyle is currently looking for his next career opportunity as a Fullstack JavaScript developer using ReactJS, NodeJS, and GraphQL with Apollo Client. {SITE_NAME} is his first website.
+            Kyle is currently looking for his next career opportunity as a full-stack JavaScript developer using React, Node.js, and GraphQL with Apollo Client.
+          </p>
+
+          <p>
+            {SITE_NAME} is his first website.
           </p>
 
           <p>
