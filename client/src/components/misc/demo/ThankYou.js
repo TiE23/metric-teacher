@@ -2,6 +2,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import XLink from "../ExternalLink";
+
 import {
   SITE_NAME,
 } from "../../../constants";
@@ -10,6 +12,10 @@ export default (
   <React.Fragment>
     <p>
       This website is only the beginning. If you're reading this wondering if I might make a great addition to your team I really appreciate you taking the time to look at my work. I am excessively excited to see what I can do in a professional environment. I look forward to hearing back from you!
+    </p>
+
+    <p>
+      Find me on <XLink to="https://github.com/TiE23">GitHub</XLink>, <XLink to="https://www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>.
     </p>
 
     <p>

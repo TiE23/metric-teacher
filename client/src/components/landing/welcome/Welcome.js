@@ -119,9 +119,9 @@ const Welcome = props => (
     <Grid.Row>
       <Grid.Column>
         <Container text>
-          <Header>Want to learn a little more?</Header>
+          <Header>Need more convincing?</Header>
           <p>
-            Take a look at the <Link to="/intro">introduction page</Link> for a little more information — or {SITE_NAME}'s <Link to="/docs/1/missionstatement">mission statement</Link> for a lot more!
+            Take a look at the <Link to="/intro">introduction page</Link> for an explanation of why {SITE_NAME} can work for you!
           </p>
 
           <Header>Already know the Metric System?</Header>
@@ -131,11 +131,11 @@ const Welcome = props => (
 
           <Header>Who's behind {SITE_NAME}?</Header>
           <p>
-            {SITE_NAME} is a personal project of Seattle-based web developer <b>Kyle Geib</b> and proudly features art drawn by Californian digital artist <b>Paul Emery</b>.
+            {SITE_NAME} is a personal project of Seattle-based web developer <b>Kyle Geib</b> and proudly features art by Californian digital artist <b>Paul Emery</b>.
           </p>
 
           <p>
-            Learn more about us and the technology behind {SITE_NAME} in our <Link to="/credits">credits page</Link>.
+            Learn more about us and the technology behind {SITE_NAME} on the <Link to="/credits">credits page</Link>.
           </p>
 
           <p>

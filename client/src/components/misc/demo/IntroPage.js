@@ -24,7 +24,7 @@ const IntroPage = () => (
         <Icon name="bullhorn" color={PAGE_ICON_COLOR_DEMO} />
         Introducing {SITE_NAME}
         <Header.Subheader>
-          Getting up to speed.
+          "Learn the Metric System in a new, fun, and easy way!"
         </Header.Subheader>
       </Header.Content>
     </Header>
@@ -46,11 +46,17 @@ const IntroPage = () => (
 
     <Header as="h2" content="More Information" dividing />
     <p>
-      You can discover a little more about the site and the people behind it, including contact information, <Link to="/credits">here</Link>.
+      For more information (and a heavier read) you can look at {SITE_NAME}'s <Link to="/docs/1/missionstatement">mission statement</Link>.
+    </p>
+
+    <p>
+      Finally, you can discover a little more about the site and the people behind it, including contact information, on the <Link to="/credits">credits page</Link>.
     </p>
 
     <Header as="h2" content={`Start using ${SITE_NAME} today!`} dividing />
-    <SignupLoginButtons from="/home" />
+    <Container textAlign="center">
+      <SignupLoginButtons from="/home" />
+    </Container>
   </Container>
 );
 

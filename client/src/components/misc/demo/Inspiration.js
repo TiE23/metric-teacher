@@ -49,5 +49,9 @@ export default (
     <p>
       There will always be a place for exact conversions. 30 mph, for example, is not 50 km/h; it is actually 48.28 km/h. But we can leave that job to calculators and Siri. The important part is that if you can <b>confidently convert</b> between the two, you can <b>confidently understand</b> in either. With practice, {SITE_NAME} will give you that confidence.
     </p>
+
+    <p>
+      <i>Oh, but don't worry, {SITE_NAME} will also teach you tips to get fairly accurate conversions without having to break out the pen and paper.</i>
+    </p>
   </React.Fragment>
 );
