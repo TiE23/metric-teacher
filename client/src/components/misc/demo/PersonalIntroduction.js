@@ -25,13 +25,13 @@ export default (
     <Header as="h3" content="Needing Change" />
 
     <p>
-      Every day was something new but I wanted to become a <b>full-stack JavaScript developer</b>. ATG was moving to <b>React</b> for their front-end and <b>Node.js</b> services running on <b>Docker</b> containers. While feature teams switched to new technology I was left behind in a decade-old PHP codebase. If I wanted to join a tight-knit feature team I needed to be an asset; not a liability.
+      Every day was something new but I wanted to become a <b>full-stack JavaScript developer</b>. ATG was moving to <b>React</b> for their front-end and <b>Node.js</b> services running on <b>Docker</b> containers. While feature teams switched to new technology I was still working in a decade-old PHP codebase. If I wanted to join a tight-knit feature team I needed to be an asset; not a liability.
     </p>
 
-    <Header as="h3" content="Something New" />
+    <Header as="h3" content="New Direction" />
 
     <p>
-      I knew I had to take drastic steps if I wanted to see changes in my career. So, after five years with ATG I amicably parted ways with them in January 2018. From there I launched myself into full-time self-teaching. I learned <b>JavaScript</b>, <b>Node.js</b>, <b>GraphQL</b>, <b>React</b>, <b>Apollo Client</b>, <b>Docker</b>, <b>AWS EC2</b>, and more. All of it was new to me.
+      ATG offered so much to try and make it work but I knew I needed to dedicate myself full-time to make change happen. So after five years with ATG I amicably parted ways with them in January 2018. From there I launched myself into full-time self-teaching. I learned <b>JavaScript</b>, <b>Node.js</b>, <b>GraphQL</b>, <b>React</b>, <b>Apollo Client</b>, <b>Docker</b>, <b>AWS EC2</b>, and more. All of it was new to me.
     </p>
 
     <Header as="h3" content={`Building ${SITE_NAME}`} />

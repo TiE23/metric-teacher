@@ -29,15 +29,15 @@ const DemoPage = () => (
         <Icon name="bullhorn" color={PAGE_ICON_COLOR_DEMO} />
         {SITE_NAME} Demonstration
         <Header.Subheader>
-          For your consideration.
+          "Learn the Metric System in a new, fun, and easy way!"
         </Header.Subheader>
       </Header.Content>
     </Header>
 
     <Header
       as="h2"
-      content="Sizzle Reel"
-      subheader="Attractive carousel of videos shown to first-time visitors."
+      content="Demo Carousel"
+      subheader="This is the set of animated demos shown to first-time visitors."
       dividing
     />
 
@@ -64,7 +64,7 @@ const DemoPage = () => (
     <Header
       as="h2"
       content="Demos"
-      subheader={`See all of ${SITE_NAME} without having to use it!`}
+      subheader={`See how ${SITE_NAME} works without having to actually use it!`}
       dividing
     />
 
