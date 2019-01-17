@@ -334,35 +334,7 @@ export default {
             </p>
 
             <p>
-              <b>Pausing</b> a Challenge is possible. If you're interrupted you can return to the same URL and you'll resume from where you left.
-            </p>
-          </React.Fragment>
-        ),
-      },
-
-      help: {
-        header: {
-          content: "Getting Help",
-          as: "h3",
-        },
-        content: (
-          <React.Fragment>
-            <p>
-              <b>Documentation</b> is always available in Challenges. Below the question there is a small teal colored link with a <Icon name="book" color="teal" fitted /> that you can click on to see a description, conversion chart, and tips on how to convert to the units you're working on.
-            </p>
-          </React.Fragment>
-        ),
-      },
-
-      feedback: {
-        header: {
-          content: "Giving Feedback",
-          as: "h3",
-        },
-        content: (
-          <React.Fragment>
-            <p>
-              <b>Feedback</b> is encouraged and helps {SITE_NAME}. Click <Icon name="paper plane" color="teal" fitted /> to give feedback on the current question. Send in suggestions, corrections, or complaints - they all help.
+              <b>Pausing</b> a Challenge is possible. If you're interrupted you can return to the same URL and you'll resume from where you left. So if you're using {SITE_NAME} on your phone and your bus stop arrives before you're finished you have nothing to worry about!
             </p>
           </React.Fragment>
         ),
@@ -380,11 +352,43 @@ export default {
             </p>
 
             <p>
-              You can <b>Skip</b> answering a survey with <u>no penalty</u> towards your Mastery. Alternatively, if you want to answer a question later you can click "Ask Me Later".
+              You can <b>Skip</b> filling a survey with <u>no penalty</u> towards your Mastery. Alternatively, if you want to answer a question later you can click "Ask Me Later".
             </p>
 
             <p>
               Some Surveys have the option or require filling in a <b>Note</b>. If it asks you, for example, how tall the last person you spoke to is, it would make sense to write that person's name down.
+            </p>
+
+            <p>
+              <i>Note from the creator: I recognize that some survey questions can be unwelcome. Hey, some people don't want to tell some guy's website how much they weigh, and I get that! Also, I dread the thought of, for example, asking someone how tall their father is when they might not know or don't appreciate having to think about them. That's why I made sure that to skip filling a survey will not affect your progress in any way.</i>
+            </p>
+          </React.Fragment>
+        ),
+      },
+
+      help: {
+        header: {
+          content: "Getting Help",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              <b>Documentation</b> is always available in Challenges. Click <Icon name="book" color="teal" fitted /> to see a description, tips, and a conversion chart for the units you're working on.
+            </p>
+          </React.Fragment>
+        ),
+      },
+
+      feedback: {
+        header: {
+          content: "Giving Feedback",
+          as: "h3",
+        },
+        content: (
+          <React.Fragment>
+            <p>
+              <b>Feedback</b> is encouraged and helps {SITE_NAME}. Click <Icon name="paper plane" color="teal" fitted /> to give feedback on the current question. Send in suggestions, corrections, or complaints - they all help.
             </p>
           </React.Fragment>
         ),
