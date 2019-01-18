@@ -1499,13 +1499,13 @@ export default {
                   <i>(For <u>weather temperature range</u>)</i>: With <b>Fahrenheit</b> subtract 30 and then divide by 2.
                   <List.List>
                     <List.Item>
-                      Example: 50 Fahrenheit is about 50 - 30 = 20; 20 / 2 = 10 Celsius (actual answer: 10°C).
+                      Example: 50° Fahrenheit is about 50 - 30 = 20; 20 / 2 = 10° Celsius (actual answer: 10°C).
                     </List.Item>
                     <List.Item>
-                      Example: 10 Fahrenheit is about 10 - 30 = -20; -20 / 2 = -10 Celsius (actual answer: -12°C).
+                      Example: 10° Fahrenheit is about 10 - 30 = -20; -20 / 2 = -10° Celsius (actual answer: -12°C).
                     </List.Item>
                     <List.Item>
-                      Example: 92 Fahrenheit is about 92 - 30 = 62; 62 / 2 = 31 (actual answer: 33.3°C).
+                      Example: 92° Fahrenheit is about 92 - 30 = 62; 62 / 2 = 31° Celsius (actual answer: 33.3°C).
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -1513,10 +1513,10 @@ export default {
                   <i>(For temperatures <u>300-800°F</u>)</i>: With <b>Fahrenheit</b> divide by 2.
                   <List.List>
                     <List.Item>
-                      Example: 300 Fahrenheit is about 300 / 2 = 150 Celsius (actual answer: 149°C).
+                      Example: 300° Fahrenheit is about 300 / 2 = 150° Celsius (actual answer: 149°C).
                     </List.Item>
                     <List.Item>
-                      Example: 550 Fahrenheit is about 550 / 2 = 275 Celsius (actual answer: 288°C).
+                      Example: 550° Fahrenheit is about 550 / 2 = 275° Celsius (actual answer: 288°C).
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -1524,10 +1524,10 @@ export default {
                   <i>(For temperatures <u>800°F or more</u>)</i>: With <b>Fahrenheit</b> divide by 2 and then add 10%.
                   <List.List>
                     <List.Item>
-                      Example: 800 Fahrenheit is about 800 / 2 = 400; 400 + 40 = 440 Celsius (actual answer: 426°C).
+                      Example: 800° Fahrenheit is about 800 / 2 = 400; 400 + 40 = 440° Celsius (actual answer: 426°C).
                     </List.Item>
                     <List.Item>
-                      Example: 4400 Fahrenheit is about 4400 / 2 = 2200; 2200 + 220 = 2420 Celsius (actual answer: 2427°C).
+                      Example: 4400° Fahrenheit is about 4400 / 2 = 2200; 2200 + 220 = 2420° Celsius (actual answer: 2427°C).
                     </List.Item>
                   </List.List>
                 </List.Item>
@@ -1583,38 +1583,38 @@ export default {
                   <i>(For <u>weather temperature range</u>)</i>: With <b>Celsius</b> multiply by 2 and then add 30.
                   <List.List>
                     <List.Item>
-                      Example: 10 Celsius is about 10 × 2 = 20; 20 + 30 = 50 Fahrenheit (actual answer: 50°F).
+                      Example: 10° Celsius is about 10 × 2 = 20; 20 + 30 = 50° Fahrenheit (actual answer: 50°F).
                     </List.Item>
                     <List.Item>
-                      Example: -10 Celsius is about -10 × 2 = -20; -20 + 30 = 10 Fahrenheit (actual answer: 14°F).
+                      Example: -10° Celsius is about -10 × 2 = -20; -20 + 30 = 10° Fahrenheit (actual answer: 14°F).
                     </List.Item>
                     <List.Item>
-                      Example: 30 Celsius is about 30 × 2 = 60; 60 + 30 = 90 Fahrenheit (actual answer: 86°F).
+                      Example: 30° Celsius is about 30 × 2 = 60; 60 + 30 = 90° Fahrenheit (actual answer: 86°F).
                     </List.Item>
                   </List.List>
                 </List.Item>
                 <List.Item>
                   <i>(For temperatures <u>150-400°C</u>)</i>: With <b>Celsius</b> multiply by 2.
                   <List.List>
-                    Example: 150 Celsius is about 150 × 2 = 300 Fahrenheit (actual answer: 302°F).
+                    Example: 150° Celsius is about 150 × 2 = 300° Fahrenheit (actual answer: 302°F).
                   </List.List>
                   <List.List>
-                    Example: 300 Celsius is about 300 × 2 = 600 Fahrenheit (actual answer: 572°F).
+                    Example: 300° Celsius is about 300 × 2 = 600° Fahrenheit (actual answer: 572°F).
                   </List.List>
                 </List.Item>
                 <List.Item>
                   <i>(For temperatures <u>400°C or more</u>)</i>: With <b>Celsius</b> multiply by 2 and then subtract 10%.
                   <List.List>
-                    Example: 400 Celsius is about 400 × 2 = 800; 800 - 80 = 720 Fahrenheit (actual answer: 752°F).
+                    Example: 400° Celsius is about 400 × 2 = 800; 800 - 80 = 720° Fahrenheit (actual answer: 752°F).
                   </List.List>
                   <List.List>
-                    Example: 2500 Celsius is about 2500 × 2 = 5000; 5000 - 500 = 4500 Fahrenheit (actual answer: 4532°F).
+                    Example: 2500° Celsius is about 2500 × 2 = 5000; 5000 - 500 = 4500° Fahrenheit (actual answer: 4532°F).
                   </List.List>
                 </List.Item>
               </List>
 
               <p>
-                For more accurate conversions we do have one suggestion: It might be easier to do fractional multiplication in your head with the fraction 18/10 (or the decimal 1.8) instead of the awkward 9/5. So for every 10 degrees Celsius that is 18 degrees Fahrenheit.
+                Another trick for <b>negative</b> temperatures in Celsius: It might be easier to take your knowledge of positive temperatures and perform a little addition and subtraction. For example, if you can quickly recall that 16°C is about 61°F, you can quickly figure out that -16°C is about 3°F. How? By recognizing that 61°F is 29° above freezing (32°F). Therefore, if you subtract 29°F from 32°F, you get 3°F.
               </p>
 
               <p>
