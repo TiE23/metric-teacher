@@ -1,7 +1,7 @@
 <h1 align="center">📐🗄🗂🗳📏 metric-teacher Client 📏🗳🗂🗄📐</h1>
 This is the documentation for the client side of the metric-teacher project, a React + Apollo Client + Semantic-UI software project.
 
-This is a project conceived and implemented completely by myself, Kyle Geib. University of Washington educated, Seattle located SDET turned Support Engineer turned full-stack JavaScript developer. I've been a professional programmer since January 2013.
+This is a project conceived and implemented completely by myself, Kyle Geib. University of Washington Bothell educated, Seattle located SDET turned Support Engineer turned full-stack JavaScript developer. I've been a professional programmer since January 2013.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) and [Apollo Boost](https://www.npmjs.com/package/apollo-boost).
 

@@ -15,7 +15,7 @@ export default (
     </p>
 
     <p>
-      Find me on <XLink to="https://github.com/TiE23">GitHub</XLink>, <XLink to="https://www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>.
+      Find me on <XLink to="https://github.com/TiE23">GitHub</XLink>, <XLink to="https://www.linkedin.com/in/kyle-m-geib/">LinkedIn</XLink>, and <XLink to="https://flickr.com/kg-23">Flickr</XLink>. You can also view my <XLink to="https://s3-us-west-2.amazonaws.com/metric-teacher/other/Kyle_Geib_Resume.pdf">current résumé</XLink>.
     </p>
 
     <p>

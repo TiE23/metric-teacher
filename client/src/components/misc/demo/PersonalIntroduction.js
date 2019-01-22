@@ -13,7 +13,7 @@ export default (
     <Image src="/img/credits/kyle.gif" size="small" floated="right" rounded />
 
     <p>
-      Hello! I'm <b>Kyle Geib</b>, a <i>University of Washington</i> graduate and professional web developer local to Seattle. I worked for five years at <i>Accretive Technology Group</i> (ATG), an independent web company that specializes in video streaming.
+      Hello! I'm <b>Kyle Geib</b>, a <i>University of Washington Bothell</i> graduate and professional web developer local to Seattle. I worked for five years at <i>Accretive Technology Group</i> (ATG), an independent web company that specializes in video streaming.
     </p>
 
     <Header as="h3" content="My Time at ATG" />

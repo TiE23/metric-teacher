@@ -1,7 +1,7 @@
 <h1 align="center">📐🗄🗂🗳📏 metric-teacher Server 📏🗳🗂🗄📐</h1>
 This is the documentation for the server side of the metric-teacher project, a Node.js + GraphQL API software project running off a MySQL database.
 
-This is a project conceived and implemented completely by myself, Kyle Geib. University of Washington educated, Seattle located SDET turned Support Engineer turned full-stack JavaScript developer. I've been a professional programmer since January 2013.
+This is a project conceived and implemented completely by myself, Kyle Geib. University of Washington Bothell educated, Seattle located SDET turned Support Engineer turned full-stack JavaScript developer. I've been a professional programmer since January 2013.
 
 It is written with...
 * Prisma - [github.com/prismagraphql/prisma](https://github.com/prismagraphql/prisma)
