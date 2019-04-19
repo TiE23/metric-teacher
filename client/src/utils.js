@@ -322,29 +322,43 @@ const userDetailFormValidator = (inputForm, inputChecked) => {
   }
 
   // New email requirements
-  if (checked.email.new && !form.email.new.trim()) errors.push("Email required");
-  else if (checked.email.new && !isEmail(form.email.new)) errors.push("Email invalid");
-  else if (checked.email.new) {
-    const normalizedEmail = customNormalizeEmail(form.email.new);
-    if (isEmail(form.email.new) && normalizedEmail !== form.email.new.toLowerCase()) {
-      errors.push(`Please normalize your email to "${normalizedEmail}"`);
+  if (checked.email.new) {
+    if (!form.email.new.trim()) {
+      errors.push("Email required");
+    } else if (!isEmail(form.email.new)) {
+      errors.push("Email invalid");
+    } else {
+      const normalizedEmail = customNormalizeEmail(form.email.new);
+      if (isEmail(form.email.new) && normalizedEmail !== form.email.new.toLowerCase()) {
+        errors.push(`Please normalize your email to "${normalizedEmail}"`);
+      }
     }
   }
 
   // Old email requirements
-  if (checked.email.old && !form.email.old.trim()) errors.push("Email required");
+  if (checked.email.old && !form.email.old.trim()) {
+    errors.push("Email required");
+  }
 
   // New password requirements
-  if (checked.password.new && form.password.new.trim().length < PASSWORD_MINIMUM_LENGTH) {
-    errors.push(`Password must be at least ${PASSWORD_MINIMUM_LENGTH} characters long`);
-  }
-  if (checked.password.new && form.password.new.trim().length > PASSWORD_MAXIMUM_LENGTH) {
-    errors.push(`Password cannot be longer than ${PASSWORD_MAXIMUM_LENGTH} characters`);
-  }
-  if (checked.password.new && BAD_PASSWORDS.includes(form.password.new.toLowerCase())) {
-    errors.push("Password is far too common. Please try a better password!");
+  if (checked.password.new) {
+    if (form.password.new.trim().length < PASSWORD_MINIMUM_LENGTH) {
+      errors.push(`Password must be at least ${PASSWORD_MINIMUM_LENGTH} characters long`);
+    }
+    if (form.password.new.trim().length > PASSWORD_MAXIMUM_LENGTH) {
+      errors.push(`Password cannot be longer than ${PASSWORD_MAXIMUM_LENGTH} characters`);
+    }
+    if (BAD_PASSWORDS.includes(form.password.new.trim().toLowerCase())) {
+      errors.push("Password is far too common. Please try a better password.");
+    }
+    if (form.password.new.trim() === form.email.new.trim() ||
+        form.password.new.trim() === form.email.old.trim()
+    ) {
+      errors.push("Password cannot be your email address.");
+    }
   }
 
+  // When old password is required
   if (checked.password.old && !form.password.old.trim()) {
     errors.push("Password required");
   }

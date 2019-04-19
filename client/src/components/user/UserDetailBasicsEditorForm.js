@@ -41,7 +41,13 @@ class UserDetailBasicsEditorForm extends Component {
 
       // Construct the form checked values.
       return utils.userDetailFormValidator(
-        { ...variables, email: { new: lowercaseVariableEmail } }, // Switch .email to .email.new
+        {
+          ...variables,
+          email: {  // For validation purposes we must provide new and old emails
+            new: lowercaseVariableEmail, // Switch .email to .email.new (only set when changing)
+            old: lowercaseInitEmail,     // Give the init email as .email.new (always set)
+          },
+        },
         {
           fname: this.state.fname !== initUserData.fname,
           lname: this.state.lname !== initUserData.lname,
