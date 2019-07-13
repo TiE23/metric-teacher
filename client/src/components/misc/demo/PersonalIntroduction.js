@@ -13,7 +13,7 @@ export default (
     <Image src="/img/credits/kyle.gif" size="small" floated="right" rounded />
 
     <p>
-      Hello! I'm <b>Kyle Geib</b>, a <i>University of Washington Bothell</i> graduate and professional web developer local to Seattle. I worked for five years at <i>Accretive Technology Group</i> (ATG), an independent web company that specializes in video streaming.
+      Hello! I'm <b>Kyle Geib</b>, a <i>University of Washington Bothell</i> graduate and professional web developer local to Seattle currently working at Facebook in a contract position. Before that I worked for five years at <i>Accretive Technology Group</i> (ATG), an independent web company that specializes in video streaming.
     </p>
 
     <Header as="h3" content="My Time at ATG" />
@@ -38,6 +38,12 @@ export default (
 
     <p>
       After tutorials and practice projects I was ready to chase after the Metric System teaching idea I had in me for years. By May I had pushed my first {SITE_NAME} commit <XLink to="https://github.com/TiE23/metric-teacher">to GitHub</XLink>. After nearly <b>eight months</b> of full-time work I finally brought {SITE_NAME}, my first website, live on December 20th, 2018.
+    </p>
+
+    <Header as="h3" content="Working at Facebook" />
+
+    <p>
+      Starting in June 2019 I started working at Facebook as a full-stack Software Development Engineer II in a contract position.
     </p>
   </React.Fragment>
 );

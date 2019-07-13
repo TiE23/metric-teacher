@@ -21,7 +21,7 @@ export default (
           </p>
 
           <p>
-            Kyle is currently looking for his next career opportunity as a full-stack JavaScript developer using React, Node.js, and GraphQL with Apollo Client.
+            Kyle is currently working at Facebook as a full-stack developer. He feels most at home in JavaScript development using React, Node.js, and GraphQL with Apollo Client.
           </p>
 
           <p>
