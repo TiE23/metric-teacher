@@ -18,7 +18,7 @@
     "linear-converter": "^7.3.0",
     "linear-preset-factory": "^1.0.2",
     "linear-presets": "^3.0.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "prisma-binding": "2.2.8"
   },
   "devDependencies": {
