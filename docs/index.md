@@ -20,15 +20,15 @@ Metric-Teacher.com is on temporary hiatus starting January 7th, 2020 and should 
   </video>
 </p>
 
-Metric-Teacher.com is a WebApp designed to teach Americans the Metric System (and, similarly, Metric users the US Customary System) in a Duolingo-like way.
+Metric-Teacher.com is a website designed to teach Americans the Metric System (and, similarly, Metric users the US Customary System) in a Duolingo-like way.
 
 ### Technology
-Metric-Teacher.com is a full-stack JavaScript website utilizing React, Semantic UI, GraphQL, MySQL, and hosted (normally) with AWS EC2 instances using Docker and Traefik.
+Metric-Teacher.com is a full-stack JavaScript progressive webapp built with React, Semantic UI, NodeJS, GraphQL, MySQL, and (normally) hosted with AWS EC2 instances using Docker and Traefik.
 
-While Meti is resting his wings, take a look around the GitHub project where the source code is hosted publicly on [GitHub.com](https://github.com/TiE23/metric-teacher) for anyone to view and learn from.
+While Meti is resting his wings take a look around Metric-Teacher's GitHub project where the source code is hosted publicly on [GitHub.com](https://github.com/TiE23/metric-teacher) for anyone to view and learn from.
 
 ### Credits
-Metric-Teacher.com is the passion project of Seattle-based software development engineer Kyle Geib. It got him a contract job at Facebook in 2019, pretty sweet, huh? He can be found on [LinkedIn](https://www.linkedin.com/in/kyle-m-geib/), [GitHub](https://github.com/TiE23), and [Flickr](https://flickr.com/kg-23). You can also view his [current resume](https://metric-teacher.s3-us-west-2.amazonaws.com/other/Kyle_Geib_Resume.pdf) if you're into that kinda thing.
+Metric-Teacher.com is the passion project of Seattle-based software development engineer Kyle Geib. 150 React components, 25,000+ lines of code, a secure account system, user contribution features, and robust internal admin tools are all his doing. In the end it got him a contract job at Facebook in 2019. Pretty sweet, huh? He can be found on [LinkedIn](https://www.linkedin.com/in/kyle-m-geib/), [GitHub](https://github.com/TiE23), and [Flickr](https://flickr.com/kg-23). You can also view his [current resume](https://metric-teacher.s3-us-west-2.amazonaws.com/other/Kyle_Geib_Resume.pdf) if you're into that kinda thing.
 
 <p align="center">
   <img src="https://metric-teacher.s3-us-west-2.amazonaws.com/media/portaits/kyle.gif" width="256" />
@@ -43,3 +43,5 @@ Art is by digital artist extraordinaire Paul Emery who can be found on [ArtStati
   <br />
   <em>Paul Emery - Artist</em>
 </p>
+
+Thank you for visiting! Hope to catch you again, soon!
