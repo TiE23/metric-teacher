@@ -46,43 +46,41 @@ Art is by digital artist extraordinaire Paul Emery who can be found on [ArtStati
 
 See how well he did on the art representing the Six subjects covered in Metric-Teacher!
 
-<div align="center">
-  <table>
-    <tr>
-      <th colspan="3">
-        Subject Art
-      </th>
-    </tr>
-    <tr>
-      <td align="center">
-        <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/velocity.gif" width="250" />
-        <p>Velocity</p>
-      </td>
-      <td align="center">
-        <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/temperature.gif" width="250" />
-        <p>Temperature</p>
-      </td>
-      <td align="center">
-        <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/mass.gif" width="250" />
-        <p>Mass</p>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/volume.gif" width="250" />
-        <p>Volume</p>
-      </td>
-      <td align="center">
-        <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/area.gif" width="250" />
-        <p>Area</p>
-      </td>
-      <td align="center">
-        <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/length.gif" width="250" />
-        <p>Length</p>
-      </td>
-    </tr>
-  </table>
-</div>
+<table align="center">
+  <tr>
+    <th colspan="3">
+      Subject Art
+    </th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/velocity.gif" width="250" />
+      <p>Velocity</p>
+    </td>
+    <td align="center">
+      <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/temperature.gif" width="250" />
+      <p>Temperature</p>
+    </td>
+    <td align="center">
+      <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/mass.gif" width="250" />
+      <p>Mass</p>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/volume.gif" width="250" />
+      <p>Volume</p>
+    </td>
+    <td align="center">
+      <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/area.gif" width="250" />
+      <p>Area</p>
+    </td>
+    <td align="center">
+      <img src="https://metric-teacher.s3.us-west-2.amazonaws.com/media/subjects/length.gif" width="250" />
+      <p>Length</p>
+    </td>
+  </tr>
+</table>
 
 
 Thank you for visiting! Hope to catch you again, soon!
