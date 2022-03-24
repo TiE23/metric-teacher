@@ -1,4 +1,4 @@
-<h1 align="center">Meti is on winter hiatus!</h1>
+<h1 align="center">Meti is on hiatus!</h1>
 
 <p align="center">
   <img src="https://s3-us-west-2.amazonaws.com/metric-teacher/media/mascot/thumbs-up.png" width="400" />
@@ -9,13 +9,13 @@
 Metric-Teacher.com is on hiatus starting January 2020 and may return some day!
 
 <p align="center">
-  <video loop autoplay width="240px">
+  <video loop controls width="240px">
     <source src="https://metric-teacher.s3-us-west-2.amazonaws.com/media/welcome/03-challenge-kickoff-short.mp4" type="video/mp4">
   </video>
-  <video loop autoplay width="240px">
+  <video loop controls width="240px">
     <source src="https://metric-teacher.s3-us-west-2.amazonaws.com/media/welcome/04-tips.mp4" type="video/mp4">
   </video>
-  <video loop autoplay width="240px">
+  <video loop controls width="240px" >
     <source src="https://metric-teacher.s3-us-west-2.amazonaws.com/media/welcome/06-subjects.mp4" type="video/mp4">
   </video>
 </p>
