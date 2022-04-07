@@ -4,7 +4,7 @@ This is the documentation for the server side of the metric-teacher project, a N
 This is a project conceived and implemented completely by myself, Kyle Geib. University of Washington Bothell educated, Seattle located SDET turned Support Engineer turned full-stack JavaScript developer. I've been a professional programmer since January 2013.
 
 It is written with...
-* Prisma - [github.com/prismagraphql/prisma](https://github.com/prismagraphql/prisma)
+* Prisma (v1) - [github.com/prismagraphql/prisma](https://github.com/prismagraphql/prisma)
     * GraphQL-Yoga️ - [github.com/prismagraphql/graphql-yoga](https://github.com/prismagraphql/graphql-yoga)
     * Prisma-Binding - [github.com/prismagraphql/prisma-binding](https://github.com/prismagraphql/prisma-binding)
 * dcodeIO's bcrypt.js - [github.com/dcodeIO/bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
@@ -16,7 +16,7 @@ It is written with...
 
 It uses [**MySQL**](https://www.mysql.com/) for its Database, [**Prisma**](https://www.prisma.io/) for its GraphQL Database, and [**Docker**](https://www.docker.com/) + [**Docker-Compose**](https://docs.docker.com/compose/overview/) to build and run the virtual machines for these programs.
 
-It is written against **Node.js v10.5.0**, though it does not use any bleeding-edge JavaScript.
+It is written using **Node.js v10.5.0**, though it does not use any bleeding-edge JavaScript.
 
 I wrote it using the following tools:
 * JetBrain's WebStorm IDE - [jetbrains.com/webstorm](https://www.jetbrains.com/webstorm/)
@@ -33,19 +33,16 @@ There is a secret file that is not in this repo: `.env`
 This file has a few things that need to be kept secret (hint, they're the ones with "secret" in the name):
 ```
 PRISMA_STAGE="dev"
-PRISMA_ENDPOINT="http://self:4466/server/dev"
+PRISMA_ENDPOINT="http://localhost:4466/server/dev"
 PRISMA_CLUSTER="local"
 PRISMA_SECRET="SOME_PRISMA_SECRET"
 APP_SECRET="SOME_APP_SECRET"
 PRISMA_MANAGEMENT_API_SECRET="SOME_PRISMA_MANAGEMENT_API_SECRET"
 ```
 
-You start the Prisma + MySQL DB docker containers by using `docker-compose` (install Docker locally on your machine) and running `docker-compose -f ./database/docker-compose.yml up -d`. It's intentional that you run the program from this directory, `./server`, so that the `.env` file can be read by `docker-compose` automatically.
-You kick-off the Prisma server by using the command `prisma deploy` if you've installed the prisma module globally (with `npm i -g prisma`), otherwise `yarn prisma deploy`/`npm run prisma deploy` should work.
-
 The three secret keys should be random strings of characters and digits and symbols. I used random [`UUID4`](https://www.uuidgenerator.net/)s for mine.
 
-`PRISMA_SECRET` is the secret key for the Prisma server (a local Docker container). If you change this secret you'll need to re-deploy the Prisma server. From there you can use `prisma token` to grab a new token if needed. This token is used when using the Playground when you add to the HTTP header like this:
+`PRISMA_SECRET` is the secret key for the Prisma server (a local Docker container). If you change this secret you'll need to re-deploy the Prisma server. From there you can use `prisma1 token` to grab a new token if needed. This token is used when using the Playground when you add to the HTTP header like this:
 ```
 {
   "Authorization" : "Bearer <token>"
@@ -62,13 +59,26 @@ clusters:
     clusterSecret: "SOME_PRISMA_MANAGEMENT_API_SECRET"
 ```
 
-Both `docker-compose` and `prisma deploy` read this secret. `docker-compose` feeds it in while launching the container, and `prisma deploy` uses it to gain access.
+Both `docker-compose` and `prisma1 deploy` read this secret. `docker-compose` feeds it in while launching the container, and `prisma1 deploy` uses it to gain access.
 
 You *need to create this file* before things can run. You can even copy the example I have above if you want.
 
 This file is used by the module [`dotenv`](https://github.com/motdotla/dotenv).
 
 If you ever do remote hosting, you'll need to change the endpoint's url to the remote host's location, and change the `PRISMA_CLUSTER` value to whatever additional cluster you define in `~/.prisma/config.yml` (like the above example for `local`). You should do this by defining a second `.env` file with a name like `.env.remote` and then run, for example, `prisma deploy -e /.env.remote`.
+
+# Launching locally
+Note that this is all from ./server directory.
+
+You start the Prisma + MySQL DB docker containers by using `docker-compose` (install Docker locally on your machine) and running `docker-compose --env-file ./.env -f ./database/docker-compose.yml up -d`. It's intentional that you run the program from this directory, `./server` for the sake of consistency.
+
+You kick-off the Prisma server by using the command `prisma1 deploy` if you've installed the prisma module globally (with `npm i -g prisma1`).
+
+When launched you'll see a link to an admin interface. When it complains about a missing token run `prisma1 token` to gain one. Add the token in the config menu of the interface. You'll be able to see the database contents here.
+
+Then, we'll be able to seed the database with the starting data, including a few users to log in with. Run `prisma1 seed` and it should find the dataseed.graphql file on its own.
+
+With all the data in place visible on the admin interface, you can then run the server itself with `yarn dev`. You'll need Node v10. If running on Apple Silicon you may need to emulate amd64 in the terminal with Rosetta 2, which you can do with `arch -x86_64 zsh`.
 
 # Hosting on AWS
 At the time of writing I place the two parts of the back-end of Metric-Teacher onto two separate AWS EC2 instances. I name them "Server" and "PrismaDB".

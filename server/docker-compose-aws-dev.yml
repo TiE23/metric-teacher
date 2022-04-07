@@ -11,7 +11,7 @@ services:
     ports:
       - "4000:4000"
     extra_hosts:
-      - "self:172.18.0.20"
+      - "localhost:172.18.0.20"
 
 # Connect to Prisma bridge (created at the "up" of ./database/docker-compose.yml)
 networks:

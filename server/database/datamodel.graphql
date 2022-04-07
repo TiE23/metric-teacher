@@ -1,8 +1,8 @@
 # Users can be students (normal account), teachers, moderators, or admins
 type User {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   email: String! @unique
   password: String!
   honorific: String
@@ -11,7 +11,7 @@ type User {
   type: Int!
   status: Int!
   flags: Int!
-  enrollment: Enrollment @relation(name: "UserToEnrollment")
+  enrollment: Enrollment @relation(name: "UserToEnrollment", link: INLINE)
   classroomsTeaching: [Classroom!]! @relation(name: "UserToClassroom")
   feedbackWritten: [Feedback!]! @relation(name: "UserToFeedback")
   feedbackReviewed: [Feedback!]! @relation(name: "ReviewerToFeedback")
@@ -22,9 +22,9 @@ type User {
 # This is a structure that will allow teacher(s) to connect to their students and students to
 # connect to each other.
 type Classroom {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   name: String!
   description: String!
   status: Int!
@@ -36,9 +36,9 @@ type Classroom {
 
 # A student has a single enrollment row. An enrollment is their place in the school.
 type Enrollment {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   student: User! @relation(name: "UserToEnrollment")
   courses: [Course!]! @relation(name: "EnrollmentToCourse")
 }
@@ -49,9 +49,9 @@ type Enrollment {
 # The typical student will have only one course to their enrollment, but it's future-proofing to
 # prepare for a future where a student may have multiple courses.
 type Course {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   status: Int!
   flags: Int!
   parent: Enrollment! @relation(name: "EnrollmentToCourse")
@@ -63,9 +63,9 @@ type Course {
 # This is the table that tracks the success of a student to a subsubject by relating to a course
 # and a subsubject. This is also where a student could
 type Mastery {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   status: Int!
   score: Int!
   parent: Course! @relation(name: "CourseToMastery")
@@ -80,9 +80,9 @@ type Mastery {
 # US unit value again and then later ask to convert it to metric (in this example it would be 1.91m).
 # And finally ask the user to identify the metric value.
 type Survey {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   status: Int!
   score: Int!
   answer: String
@@ -93,9 +93,9 @@ type Survey {
 
 # This is a shared subject of questions, such as length, temperature, or speed.
 type Subject {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   index: Int!
   name: String! @unique
   description: String!
@@ -112,9 +112,9 @@ type Subject {
 # [length, hand-sized, to metric], [length, hand-sized, from metric],
 # [length, room-sized, to metric], [length, room-sized, from metric], etc
 type SubSubject {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   index: Int!
   name: String! @unique
   description: String!
@@ -129,9 +129,9 @@ type SubSubject {
 
 # These are pre-defined questions.
 type Question {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   type: Int!
   status: Int!
   flags: Int!
@@ -147,9 +147,9 @@ type Question {
 
 # So that users can provide feedback on questions they have problems with.
 type Feedback {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   type: Int!
   status: Int!
   text: String

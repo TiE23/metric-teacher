@@ -1,4 +1,4 @@
-# source: http://self:4466/server/dev
+# source: http://localhost:4466/server/dev
 # timestamp: Wed Dec 05 2018 20:05:13 GMT-0800 (Pacific Standard Time)
 
 type AggregateClassroom {
