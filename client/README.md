@@ -1,4 +1,6 @@
 <h1 align="center">📐🗄🗂🗳📏 metric-teacher Client 📏🗳🗂🗄📐</h1>
+<b>🤔 Please note that this project is not anywhere near to my current standards. This was my first project in fullstack JavaScript, for that I am very proud of what I did. But it's also from 2018, so, please take that into consideration if you start looking through the code. 😮‍💨</b>
+<hr/>
 This is the documentation for the client side of the metric-teacher project, a React + Apollo Client + Semantic-UI software project.
 
 This is a project conceived and implemented completely by myself, Kyle Geib. University of Washington Bothell educated, Seattle located SDET turned Support Engineer turned full-stack JavaScript developer. I've been a professional programmer since January 2013.
