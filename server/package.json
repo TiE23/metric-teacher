@@ -14,7 +14,7 @@
     "bcryptjs": "2.4.3",
     "floating-adapter": "^1.4.1",
     "graphql-yoga": "1.16.7",
-    "jsonwebtoken": "8.4.0",
+    "jsonwebtoken": "9.0.0",
     "linear-converter": "^7.3.0",
     "linear-preset-factory": "^1.0.2",
     "linear-presets": "^3.0.0",
